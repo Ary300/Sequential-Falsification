@@ -159,6 +159,51 @@ def _decode_livecodebench_tests(value: Any) -> list[dict[str, Any]]:
     return tests
 
 
+def _decode_codecontests_tests(value: Any) -> list[dict[str, Any]]:
+    """Normalize CodeContests-style test dictionaries to stdin tests."""
+
+    if not value:
+        return []
+    if isinstance(value, str):
+        try:
+            value = json.loads(value)
+        except json.JSONDecodeError:
+            return []
+
+    if isinstance(value, dict):
+        inputs = value.get("input", value.get("inputs", []))
+        outputs = value.get("output", value.get("outputs", []))
+        if isinstance(inputs, str):
+            inputs = [inputs]
+        if isinstance(outputs, str):
+            outputs = [outputs]
+        tests = []
+        for test_input, expected_output in zip(inputs or [], outputs or []):
+            tests.append(
+                {
+                    "input": str(test_input),
+                    "output": str(expected_output),
+                    "testtype": "stdin",
+                }
+            )
+        return tests
+
+    if isinstance(value, list):
+        tests = []
+        for item in value:
+            if isinstance(item, dict):
+                tests.append(
+                    {
+                        "input": str(item.get("input", item.get("stdin", ""))),
+                        "output": str(item.get("output", item.get("stdout", item.get("expected_output", "")))),
+                        "testtype": "stdin",
+                    }
+                )
+        return tests
+
+    return []
+
+
 def _extract_boxed_answer(solution: str) -> str:
     text = (solution or "").strip()
     marker = "\\boxed{"
@@ -535,6 +580,25 @@ def _hf_rows(name: str) -> list[dict[str, Any]]:
             for idx, row in enumerate(dataset)
         ]
 
+    if name == "aime2025":
+        try:
+            dataset = load_dataset("test-time-compute/aime_2025", split="train")
+        except Exception:
+            dataset = load_dataset("math-ai/aime25", split="train")
+        return [
+            {
+                "id": row.get("id", row.get("problem_id", f"aime2025_{idx}")),
+                "type": "math",
+                "prompt": row.get("question", row.get("problem", "")),
+                "reference_answer": str(row.get("answer", row.get("final_answer", ""))).strip(),
+                "difficulty": "competition",
+                "subject": row.get("metadata", {}).get("problem_type", "unknown")
+                if isinstance(row.get("metadata"), dict)
+                else "unknown",
+            }
+            for idx, row in enumerate(dataset)
+        ]
+
     if name == "livecodebench_v6":
         try:
             dataset = load_dataset("livecodebench/code_generation_lite", split="test")
@@ -559,6 +623,41 @@ def _hf_rows(name: str) -> list[dict[str, Any]]:
                     "public_tests": public_tests,
                     "hidden_tests": hidden_tests,
                     "difficulty": str(row.get("difficulty", "unknown")).lower(),
+                }
+            )
+        return rows
+
+    if name in {"codecontests", "code_contests"}:
+        last_error: Exception | None = None
+        for dataset_name in ["deepmind/code_contests", "Imandra/code_contests", "prima02/deepmind_code_contests"]:
+            try:
+                dataset = load_dataset(dataset_name, split="test")
+                iterable_rows = list(dataset)
+                break
+            except Exception as exc:
+                last_error = exc
+        else:
+            raise FileNotFoundError(
+                "Could not load CodeContests from Hugging Face. Prepare data/codecontests/problems.json "
+                "or install the DeepMind Riegeli release locally."
+            ) from last_error
+
+        rows = []
+        for idx, row in enumerate(iterable_rows):
+            public_tests = _decode_codecontests_tests(row.get("public_tests", row.get("sample_tests", [])))
+            hidden_tests = []
+            hidden_tests.extend(_decode_codecontests_tests(row.get("private_tests", [])))
+            hidden_tests.extend(_decode_codecontests_tests(row.get("generated_tests", [])))
+            rows.append(
+                {
+                    "id": row.get("name", row.get("id", f"codecontests_{idx}")),
+                    "type": "code",
+                    "prompt": row.get("description", row.get("question", row.get("prompt", ""))),
+                    "entry_point": None,
+                    "public_tests": public_tests,
+                    "hidden_tests": hidden_tests,
+                    "difficulty": str(row.get("difficulty", "competition")).lower(),
+                    "source": row.get("source", "codecontests"),
                 }
             )
         return rows

@@ -146,6 +146,9 @@ for experiment in experiments:
         "n_candidates": experiment.get("n_candidates", 4),
         "n_falsification_rounds": experiment.get("n_falsification_rounds", 2),
         "max_tiebreak_rounds": experiment.get("max_tiebreak_rounds", 4),
+        "delta": experiment.get("delta", 0.05),
+        "alpha": experiment.get("alpha", 0.05),
+        "timeout": experiment.get("timeout", 10),
         "temperature": experiment.get("temperature", 0.7),
         "max_tokens": experiment.get("max_tokens", 512),
         "probe_strategy": experiment.get("probe_strategy", "adaptive_population"),
@@ -228,6 +231,9 @@ fields = [
     str(row["n_candidates"]),
     str(row["n_falsification_rounds"]),
     str(row["max_tiebreak_rounds"]),
+    str(row["delta"]),
+    str(row["alpha"]),
+    str(row["timeout"]),
     str(row["temperature"]),
     str(row["max_tokens"]),
     row["probe_strategy"],
@@ -240,7 +246,7 @@ fields = [
 print("\t".join(fields))
 PY
 )"
-  IFS=$'\t' read -r exp_name benchmarks methods model backend n_candidates n_rounds max_tiebreak_rounds temperature max_tokens probe_strategy adaptive_probe_selection eliminate_on_detection confidence_mode max_problems data_root <<< "${parsed_fields}"
+  IFS=$'\t' read -r exp_name benchmarks methods model backend n_candidates n_rounds max_tiebreak_rounds delta_param alpha timeout temperature max_tokens probe_strategy adaptive_probe_selection eliminate_on_detection confidence_mode max_problems data_root <<< "${parsed_fields}"
   benchmarks_export="${benchmarks//,/:}"
 
   read -r gpus cpus wall tp_size <<<"$(resource_profile "$model" "${max_problems:-0}")"
@@ -264,7 +270,7 @@ unset SBATCH_ACCOUNT SBATCH_PARTITION SBATCH_QOS && \
 sbatch --parsable --account="${GPU_ACCOUNT}" --partition="${GPU_PARTITION}" --qos="${GPU_QOS}" \
   ${BASE_DEP_ARGS:+${BASE_DEP_ARGS[*]}} \
   --gpus-per-node="${gpus}" --cpus-per-task="${cpus}" --time="${wall}" --job-name="${job_name}" \
-  --export=ALL,DELTA_VENV=${DELTA_VENV},BACKEND=${BACKEND_OVERRIDE},MODEL=${model},BENCHMARKS=${benchmarks_export},METHODS=${methods},OUTPUT_DIR=${run_dir},SEEDS=${seed},MAX_PROBLEMS=${max_problems},N_CANDIDATES=${n_candidates},N_ROUNDS=${n_rounds},MAX_TIEBREAK_ROUNDS=${max_tiebreak_rounds},TEMPERATURE=${temperature},MAX_TOKENS=${max_tokens},TP_SIZE=${tp_size},PROBE_STRATEGY=${probe_strategy},ADAPTIVE_PROBE_SELECTION=${adaptive_probe_selection},ELIMINATE_ON_DETECTION=${eliminate_on_detection},CONFIDENCE_MODE=${confidence_mode},DATA_ROOT=${data_root} \
+  --export=ALL,DELTA_VENV=${DELTA_VENV},BACKEND=${BACKEND_OVERRIDE},MODEL=${model},BENCHMARKS=${benchmarks_export},METHODS=${methods},OUTPUT_DIR=${run_dir},SEEDS=${seed},MAX_PROBLEMS=${max_problems},N_CANDIDATES=${n_candidates},N_ROUNDS=${n_rounds},MAX_TIEBREAK_ROUNDS=${max_tiebreak_rounds},DELTA_PARAM=${delta_param},ALPHA=${alpha},TIMEOUT=${timeout},TEMPERATURE=${temperature},MAX_TOKENS=${max_tokens},TP_SIZE=${tp_size},PROBE_STRATEGY=${probe_strategy},ADAPTIVE_PROBE_SELECTION=${adaptive_probe_selection},ELIMINATE_ON_DETECTION=${eliminate_on_detection},CONFIDENCE_MODE=${confidence_mode},DATA_ROOT=${data_root} \
   slurm/delta/full_experiment_delta.sbatch
 EOF
     )

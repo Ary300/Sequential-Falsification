@@ -104,7 +104,7 @@ def _public_score(
     evaluator: Any,
 ) -> float:
     if problem.get("type") == "math":
-        return 1.0 if candidate["text"].strip() == str(problem.get("reference_answer", "")).strip() else 0.0
+        return 0.0
     result = evaluator(problem, candidate["text"], False)
     num_passed = float(result.get("num_passed", 0))
     num_tests = float(result.get("num_tests", 0))
@@ -251,6 +251,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--n-candidates", type=int, default=4)
     parser.add_argument("--n-falsification-rounds", type=int, default=2)
     parser.add_argument("--max-tiebreak-rounds", type=int, default=4)
+    parser.add_argument("--delta", type=float, default=0.05)
+    parser.add_argument("--alpha", type=float, default=0.05)
+    parser.add_argument("--timeout", type=int, default=10)
     parser.add_argument("--probe-strategy", default="adaptive_population")
     parser.add_argument("--adaptive-probe-selection", action="store_true", default=True)
     parser.add_argument("--no-adaptive-probe-selection", dest="adaptive_probe_selection", action="store_false")
@@ -296,6 +299,9 @@ def main() -> None:
     falsification_config = FalsificationConfig(
         n_rounds=args.n_falsification_rounds,
         max_tiebreak_rounds=args.max_tiebreak_rounds,
+        delta=args.delta,
+        alpha=args.alpha,
+        timeout=args.timeout,
         probe_strategy=args.probe_strategy,
         adaptive_probe_selection=args.adaptive_probe_selection,
         enforce_round_family_diversity=args.enforce_round_family_diversity,

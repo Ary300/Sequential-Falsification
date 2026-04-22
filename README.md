@@ -101,7 +101,8 @@ checkpoints/
   - `publication_method_coverage*.md`
   - `publication_highlights*.md`
   - `neurips_readiness*.md/json`
-- Real benchmark loaders currently support EvalPlus HumanEval+/MBPP+, LiveCodeBench v6, MATH-500-style Hendrycks MATH subsets, GSM8K, and AIME 2024 when the optional dependencies/data sources are available.
+- Real benchmark loaders currently support EvalPlus HumanEval+/MBPP+, LiveCodeBench v6, MATH-500-style Hendrycks MATH subsets, GSM8K, AIME 2024, AIME 2025, and CodeContests-style stdin/stdout tasks when the optional dependencies/data sources are available.
+- Math benchmark rows are now guarded against oracle leakage: reference answers are used for final scoring and oracle pass@N only, while deployable methods cannot call the answer checker during selection. Until a real symbolic verifier or PRM is integrated, math selection is an oracle-free consensus fallback rather than adversarial falsification evidence.
 - DeltaAI was the original large-run path for this project, but the current clean rerun campaign has been moved to Anvil.
 - The Anvil templates default to the `gpu` partition because the current Anvil account is authorized there. On Anvil, the clean rerun path now uses a project-local conda environment and the repo's `transformers` backend because recent `vllm` wheels were incompatible with the cluster's system glibc.
 - LiveCodeBench stdin/stdout tests are executed as standalone scripts; HumanEval+/MBPP+ tests are executed through their function entry points.

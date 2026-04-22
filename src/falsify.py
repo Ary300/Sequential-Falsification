@@ -49,7 +49,25 @@ class FalsificationConfig:
 
 def _is_labeled_probe(probe: dict[str, Any]) -> bool:
     test = probe.get("test")
-    return probe.get("kind") == "answer_check" or (isinstance(test, dict) and "output" in test)
+    return isinstance(test, dict) and "output" in test
+
+
+def _normalize_answer_text(text: Any) -> str:
+    return str(text).strip().lower()
+
+
+def _math_agreement_scores(records: list[dict[str, Any]]) -> dict[int, float]:
+    if not records:
+        return {}
+    counts: dict[str, int] = {}
+    for record in records:
+        token = _normalize_answer_text(record.get("text", ""))
+        counts[token] = counts.get(token, 0) + 1
+    denominator = max(1, len(records))
+    return {
+        int(record.get("candidate_order", idx)): counts.get(_normalize_answer_text(record.get("text", "")), 0) / denominator
+        for idx, record in enumerate(records)
+    }
 
 
 def _probe_signature(probe: dict[str, Any]) -> str:
@@ -312,7 +330,10 @@ def _family_balanced_probe_subset(
 
 def _build_probe_bank(problem: dict[str, Any], config: FalsificationConfig) -> list[dict[str, Any]]:
     if problem.get("type") == "math":
-        return [{"kind": "answer_check", "round": 0}]
+        # We do not use reference answers as falsification probes. Math tasks
+        # need a real verifier/PRM before they can support adversarial probing;
+        # until then selection falls back to non-oracle answer agreement.
+        return []
 
     strategy_flags = _strategy_flags(config)
     public_tests = list(problem.get("public_tests", []))[: config.max_public_tests_for_probes]
@@ -483,8 +504,14 @@ def generate_probe_with_strategy(problem: dict[str, Any], round_index: int, stra
 
 def _execute_probe(problem: dict[str, Any], candidate_text: str, probe: dict[str, Any], timeout: int) -> dict[str, Any]:
     if probe.get("kind") == "answer_check":
-        result = evaluate_candidate(problem, candidate_text, use_hidden=True, timeout=timeout)
-        return {"detected": not result["passed"], "execution": result}
+        return {
+            "detected": False,
+            "execution": {
+                "status": "skipped_oracle_probe",
+                "passed": False,
+                "note": "answer_check probes are disabled because they use hidden math answers.",
+            },
+        }
 
     test = probe.get("test")
     if not isinstance(test, dict):
@@ -739,9 +766,10 @@ def sequential_falsify_candidates(
 
     survivor_count = sum(1 for record in records if record.get("survived"))
     total_round_budget = max(1, config.n_rounds + config.max_tiebreak_rounds)
+    math_agreement = _math_agreement_scores(records) if problem.get("type") == "math" else {}
     for record in records:
         if problem.get("type") == "math":
-            public_score = 1.0 if record["text"].strip() == str(problem.get("reference_answer", "")).strip() else 0.0
+            public_score = math_agreement.get(int(record.get("candidate_order", 0)), 0.0)
         else:
             public_eval = evaluate_candidate(problem, record["text"], use_hidden=False, timeout=config.timeout)
             num_passed = float(public_eval.get("num_passed", 0))
@@ -754,7 +782,11 @@ def sequential_falsify_candidates(
             record["confidence"] = 0.0
             record["selection_score"] = 0.0
             continue
-        base_confidence = calibrated_confidence_from_wealth(record["wealth"], alpha=config.alpha)
+        base_confidence = (
+            calibrated_confidence_from_wealth(record["wealth"], alpha=config.alpha)
+            if record.get("trace")
+            else 0.0
+        )
         exclusivity_bonus = 0.0
         if survivor_count > 0:
             exclusivity_bonus = 0.1 * (1.0 - (survivor_count - 1) / max(len(records) - 1, 1))

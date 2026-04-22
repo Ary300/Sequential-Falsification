@@ -24,6 +24,9 @@ MAX_PROBLEMS=${MAX_PROBLEMS:-16}
 N_CANDIDATES=${N_CANDIDATES:-8}
 N_ROUNDS=${N_ROUNDS:-2}
 MAX_TIEBREAK_ROUNDS=${MAX_TIEBREAK_ROUNDS:-4}
+DELTA_PARAM=${DELTA_PARAM:-0.05}
+ALPHA=${ALPHA:-0.05}
+TIMEOUT=${TIMEOUT:-10}
 TEMPERATURE=${TEMPERATURE:-0.7}
 MAX_TOKENS=${MAX_TOKENS:-512}
 MAX_MODEL_LEN=${MAX_MODEL_LEN:-16384}
@@ -56,6 +59,9 @@ EVAL_ARGS=(
   --n-candidates "${N_CANDIDATES}" \
   --n-falsification-rounds "${N_ROUNDS}" \
   --max-tiebreak-rounds "${MAX_TIEBREAK_ROUNDS}" \
+  --delta "${DELTA_PARAM}" \
+  --alpha "${ALPHA}" \
+  --timeout "${TIMEOUT}" \
   --temperature "${TEMPERATURE}" \
   --max-tokens "${MAX_TOKENS}" \
   --probe-strategy "${PROBE_STRATEGY}" \

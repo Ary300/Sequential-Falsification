@@ -24,6 +24,26 @@
       "name": "math500",
       "type": "math",
       "primary_metric": "accuracy"
+    },
+    {
+      "name": "gsm8k",
+      "type": "math",
+      "primary_metric": "accuracy"
+    },
+    {
+      "name": "aime2024",
+      "type": "math",
+      "primary_metric": "accuracy"
+    },
+    {
+      "name": "aime2025",
+      "type": "math",
+      "primary_metric": "accuracy"
+    },
+    {
+      "name": "codecontests",
+      "type": "code",
+      "primary_metric": "pass@1"
     }
   ]
 }

@@ -391,6 +391,20 @@ def evaluate_candidate(problem: dict[str, Any], code: str, use_hidden: bool = Fa
         tests.extend(problem.get("hidden_tests", []))
     if problem.get("type") != "code":
         prediction = code.strip()
+        if not use_hidden:
+            return {
+                "passed": False,
+                "status": "no_public_oracle",
+                "num_tests": 0,
+                "num_passed": 0,
+                "details": [
+                    {
+                        "passed": False,
+                        "prediction": prediction,
+                        "note": "Math public evaluation is intentionally oracle-free; final answers are used only for hidden/final scoring.",
+                    }
+                ],
+            }
         answer = str(problem.get("reference_answer", "")).strip()
         return {
             "passed": prediction == answer,

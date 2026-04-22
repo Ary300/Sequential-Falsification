@@ -20,6 +20,10 @@ from selection import select_best_candidate
 from utils.sandbox import evaluate_candidate
 
 
+def _normalize_answer_text(text: Any) -> str:
+    return str(text).strip().lower()
+
+
 def _estimate_candidate_confidence(candidate: dict[str, Any], numerator: float, denominator: float) -> dict[str, Any]:
     out = dict(candidate)
     out["confidence"] = 0.0 if denominator <= 0 else max(0.0, min(1.0, numerator / denominator))
@@ -42,7 +46,7 @@ def _public_score(
     evaluator: Callable[[dict[str, Any], str, bool], dict[str, Any]],
 ) -> float:
     if problem.get("type") == "math":
-        return 1.0 if candidate["text"].strip() == str(problem.get("reference_answer", "")).strip() else 0.0
+        return 0.0
     result = evaluator(problem, candidate["text"], False)
     num_passed = float(result.get("num_passed", 0))
     num_tests = float(result.get("num_tests", 0))
@@ -85,7 +89,8 @@ def majority_vote_baseline(
 ) -> dict[str, Any]:
     counts: dict[str, list[dict[str, Any]]] = {}
     for candidate in candidates:
-        counts.setdefault(candidate["text"].strip(), []).append(candidate)
+        key = _normalize_answer_text(candidate["text"]) if problem.get("type") == "math" else candidate["text"].strip()
+        counts.setdefault(key, []).append(candidate)
     selected_group = max(counts.values(), key=len)
     chosen = _estimate_candidate_confidence(selected_group[0], numerator=len(selected_group), denominator=len(candidates))
     evaluation = evaluator(problem, chosen["text"], True)
