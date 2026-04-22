@@ -1,0 +1,15 @@
+\section{Related Work}
+
+This work connects four strands of literature: code and math benchmarking, inference-time scaling, execution-guided correction, and sequential statistical inference.
+
+\paragraph{Benchmarks for code and math reasoning.}
+HumanEval introduced functional-correctness evaluation for natural-language-to-code generation \citep{chen2021codex}, while MBPP expanded coverage toward more beginner-oriented Python tasks \citep{austin2021program}. EvalPlus later showed that both benchmarks can substantially overestimate correctness when test suites are too weak, motivating stronger evaluation and hidden-test augmentation \citep{liu2023evalplus}. For competitive-programming-style code generation, LiveCodeBench provides a time-stamped, contamination-aware benchmark with stdin/stdout execution and hidden tests \citep{jain2024livecodebench}. For math, the MATH dataset remains a standard benchmark for difficult symbolic reasoning \citep{hendrycks2021math}.
+
+\paragraph{Inference-time scaling and selection.}
+Self-consistency showed that repeated sampling plus answer aggregation can substantially improve reasoning performance \citep{wang2022selfconsistency}. In code generation, self-debugging uses execution feedback to repair an initial program \citep{chen2023selfdebug}, while more recent frameworks such as S* combine larger candidate pools with pairwise distinguishing tests and adaptive selection \citep{li2025sstar}. Our method is closest in spirit to these execution-guided approaches, but its objective is different: rather than primarily reranking candidates, it uses extra compute to invalidate them sequentially.
+
+\paragraph{Limits of imperfect verifiers.}
+The importance of false positives has recently been made explicit by \citet{stroebl2024flaws}, who argue that inference scaling with imperfect verifiers has a structural ceiling. Their framing is particularly relevant for HumanEval/MBPP-style settings, where public or limited tests can reward brittle programs. Our narrative begins from the same observation but explores a different response: instead of accepting verifier weakness as a fixed ceiling for resampling, we add extra verification rounds aimed at reducing the pool of surviving false positives.
+
+\paragraph{Sequential inference and e-values.}
+E-values, test supermartingales, and confidence sequences provide tools for inference under optional stopping and adaptive data collection \citep{vovk2021evalues, howard2021confidence, ramdas2023savi}. These ideas are appealing for test-time scaling because repeated probe generation is inherently sequential and adaptive. In the current project, they serve as design inspiration and a target formalism. The implemented prototype does \emph{not} yet instantiate a fully justified anytime-valid e-process for candidate correctness, because the benchmark-dependent false-alarm rates of our probes have not been externally calibrated. We therefore separate the clean survival-bound argument, which is already valid, from the stronger statistical guarantees that remain future work.

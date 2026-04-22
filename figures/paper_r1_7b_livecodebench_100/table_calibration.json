@@ -1,0 +1,13 @@
+{
+  "rows": [
+    {
+      "benchmark": "livecodebench_v6",
+      "brier_mean": 0.029,
+      "brier_stderr": 0.0,
+      "ece_mean": 0.027,
+      "ece_stderr": 0.0,
+      "mce_mean": 0.247,
+      "mce_stderr": 0.0
+    }
+  ]
+}

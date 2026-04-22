@@ -1,0 +1,28 @@
+{
+  "title": "Difficulty Stratification",
+  "panels": [
+    {
+      "benchmark": "livecodebench_v6",
+      "difficulty": {
+        "easy": {
+          "falsification": 0.14285714285714285,
+          "greedy": 0.05714285714285714,
+          "majority_vote": 0.05714285714285714,
+          "oracle": 0.14285714285714285
+        },
+        "hard": {
+          "falsification": 0.0,
+          "greedy": 0.0,
+          "majority_vote": 0.0,
+          "oracle": 0.0
+        },
+        "medium": {
+          "falsification": 0.06382978723404255,
+          "greedy": 0.02127659574468085,
+          "majority_vote": 0.02127659574468085,
+          "oracle": 0.06382978723404255
+        }
+      }
+    }
+  ]
+}

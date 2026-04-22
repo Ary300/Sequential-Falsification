@@ -1,0 +1,2315 @@
+{
+  "benchmark": "synthetic_demo",
+  "num_problems_completed": 3,
+  "num_problems_total": 3,
+  "results": [
+    {
+      "difficulty": "easy",
+      "methods": {
+        "falsification": {
+          "passed": true,
+          "records": [
+            {
+              "backend": "mock",
+              "candidate_id": "sum_two_cand_0",
+              "candidate_order": 0,
+              "confidence": 1.0,
+              "model": "mock-model",
+              "problem_id": "sum_two",
+              "public_score": 1.0,
+              "raw_text": "def solve(a, b):\n    return a + b\n",
+              "rejected": false,
+              "rounds_survived": 1,
+              "selection_score": 0.9166666666666667,
+              "survived": true,
+              "temperature": 0.7,
+              "text": "def solve(a, b):\n    return a + b\n",
+              "trace": [
+                {
+                  "e_value": 0.6842105263157895,
+                  "execution": {
+                    "details": [
+                      {
+                        "expected_output": 2,
+                        "observed_output": 2,
+                        "passed": true,
+                        "status": "passed",
+                        "stderr": "",
+                        "stdout": "gARLAi4=\n"
+                      }
+                    ],
+                    "num_passed": 1,
+                    "num_tests": 1,
+                    "passed": true,
+                    "status": "passed"
+                  },
+                  "p_k": 0.35,
+                  "probe": {
+                    "base_test": {
+                      "input": [
+                        1,
+                        2
+                      ],
+                      "output": 3
+                    },
+                    "family": "edge_case",
+                    "kind": "edge_case_test",
+                    "round": 0,
+                    "scheduled_family": "edge_case",
+                    "test": {
+                      "input": [
+                        0,
+                        2
+                      ],
+                      "output": 2
+                    }
+                  },
+                  "probe_detected_error": false,
+                  "round": 0,
+                  "round_type": "main",
+                  "wealth": 0.6842105263157895
+                }
+              ],
+              "trace_strength": 0.16666666666666666,
+              "wealth": 0.6842105263157895
+            },
+            {
+              "backend": "mock",
+              "candidate_id": "sum_two_cand_1",
+              "candidate_order": 1,
+              "confidence": 0.0,
+              "model": "mock-model",
+              "problem_id": "sum_two",
+              "public_score": 0.0,
+              "raw_text": "def solve(*args):\n    raise ValueError('not implemented')\n",
+              "rejected": true,
+              "rounds_survived": 0,
+              "selection_score": 0.0,
+              "survived": false,
+              "temperature": 0.7,
+              "text": "def solve(*args):\n    raise ValueError('not implemented')\n",
+              "trace": [
+                {
+                  "e_value": 20.0,
+                  "execution": {
+                    "details": [
+                      {
+                        "passed": false,
+                        "status": "error",
+                        "stderr": "Traceback (most recent call last):\n  File \"/var/folders/x8/ns62wvd53h3gkr72yw0twtwc0000gn/T/seqfals_k15730fp/runner.py\", line 46, in <module>\n    result = fn(*args)\n  File \"<string>\", line 2, in solve\nValueError: not implemented\n",
+                        "stdout": ""
+                      }
+                    ],
+                    "num_passed": 0,
+                    "num_tests": 1,
+                    "passed": false,
+                    "status": "failed"
+                  },
+                  "p_k": 0.35,
+                  "probe": {
+                    "base_test": {
+                      "input": [
+                        1,
+                        2
+                      ],
+                      "output": 3
+                    },
+                    "family": "edge_case",
+                    "kind": "edge_case_test",
+                    "round": 0,
+                    "scheduled_family": "edge_case",
+                    "test": {
+                      "input": [
+                        0,
+                        2
+                      ],
+                      "output": 2
+                    }
+                  },
+                  "probe_detected_error": true,
+                  "round": 0,
+                  "round_type": "main",
+                  "wealth": 20.0
+                }
+              ],
+              "trace_strength": 0.0,
+              "wealth": 20.0
+            },
+            {
+              "backend": "mock",
+              "candidate_id": "sum_two_cand_2",
+              "candidate_order": 2,
+              "confidence": 0.0,
+              "model": "mock-model",
+              "problem_id": "sum_two",
+              "public_score": 0.5,
+              "raw_text": "def solve(*args):\n    return 0\n",
+              "rejected": true,
+              "rounds_survived": 0,
+              "selection_score": 0.0,
+              "survived": false,
+              "temperature": 0.7,
+              "text": "def solve(*args):\n    return 0\n",
+              "trace": [
+                {
+                  "e_value": 20.0,
+                  "execution": {
+                    "details": [
+                      {
+                        "expected_output": 2,
+                        "observed_output": 0,
+                        "passed": false,
+                        "status": "failed",
+                        "stderr": "",
+                        "stdout": "gARLAC4=\n"
+                      }
+                    ],
+                    "num_passed": 0,
+                    "num_tests": 1,
+                    "passed": false,
+                    "status": "failed"
+                  },
+                  "p_k": 0.35,
+                  "probe": {
+                    "base_test": {
+                      "input": [
+                        1,
+                        2
+                      ],
+                      "output": 3
+                    },
+                    "family": "edge_case",
+                    "kind": "edge_case_test",
+                    "round": 0,
+                    "scheduled_family": "edge_case",
+                    "test": {
+                      "input": [
+                        0,
+                        2
+                      ],
+                      "output": 2
+                    }
+                  },
+                  "probe_detected_error": true,
+                  "round": 0,
+                  "round_type": "main",
+                  "wealth": 20.0
+                }
+              ],
+              "trace_strength": 0.0,
+              "wealth": 20.0
+            },
+            {
+              "backend": "mock",
+              "candidate_id": "sum_two_cand_3",
+              "candidate_order": 3,
+              "confidence": 0.0,
+              "model": "mock-model",
+              "problem_id": "sum_two",
+              "public_score": 0.5,
+              "raw_text": "def solve(*args):\n    return 0\n",
+              "rejected": true,
+              "rounds_survived": 0,
+              "selection_score": 0.0,
+              "survived": false,
+              "temperature": 0.7,
+              "text": "def solve(*args):\n    return 0\n",
+              "trace": [
+                {
+                  "e_value": 20.0,
+                  "execution": {
+                    "details": [
+                      {
+                        "expected_output": 2,
+                        "observed_output": 0,
+                        "passed": false,
+                        "status": "failed",
+                        "stderr": "",
+                        "stdout": "gARLAC4=\n"
+                      }
+                    ],
+                    "num_passed": 0,
+                    "num_tests": 1,
+                    "passed": false,
+                    "status": "failed"
+                  },
+                  "p_k": 0.35,
+                  "probe": {
+                    "base_test": {
+                      "input": [
+                        1,
+                        2
+                      ],
+                      "output": 3
+                    },
+                    "family": "edge_case",
+                    "kind": "edge_case_test",
+                    "round": 0,
+                    "scheduled_family": "edge_case",
+                    "test": {
+                      "input": [
+                        0,
+                        2
+                      ],
+                      "output": 2
+                    }
+                  },
+                  "probe_detected_error": true,
+                  "round": 0,
+                  "round_type": "main",
+                  "wealth": 20.0
+                }
+              ],
+              "trace_strength": 0.0,
+              "wealth": 20.0
+            },
+            {
+              "backend": "mock",
+              "candidate_id": "sum_two_cand_4",
+              "candidate_order": 4,
+              "confidence": 0.0,
+              "model": "mock-model",
+              "problem_id": "sum_two",
+              "public_score": 0.5,
+              "raw_text": "def solve(*args):\n    return args[0] if args else None\n",
+              "rejected": true,
+              "rounds_survived": 0,
+              "selection_score": 0.0,
+              "survived": false,
+              "temperature": 0.7,
+              "text": "def solve(*args):\n    return args[0] if args else None\n",
+              "trace": [
+                {
+                  "e_value": 20.0,
+                  "execution": {
+                    "details": [
+                      {
+                        "expected_output": 2,
+                        "observed_output": 0,
+                        "passed": false,
+                        "status": "failed",
+                        "stderr": "",
+                        "stdout": "gARLAC4=\n"
+                      }
+                    ],
+                    "num_passed": 0,
+                    "num_tests": 1,
+                    "passed": false,
+                    "status": "failed"
+                  },
+                  "p_k": 0.35,
+                  "probe": {
+                    "base_test": {
+                      "input": [
+                        1,
+                        2
+                      ],
+                      "output": 3
+                    },
+                    "family": "edge_case",
+                    "kind": "edge_case_test",
+                    "round": 0,
+                    "scheduled_family": "edge_case",
+                    "test": {
+                      "input": [
+                        0,
+                        2
+                      ],
+                      "output": 2
+                    }
+                  },
+                  "probe_detected_error": true,
+                  "round": 0,
+                  "round_type": "main",
+                  "wealth": 20.0
+                }
+              ],
+              "trace_strength": 0.0,
+              "wealth": 20.0
+            },
+            {
+              "backend": "mock",
+              "candidate_id": "sum_two_cand_5",
+              "candidate_order": 5,
+              "confidence": 0.0,
+              "model": "mock-model",
+              "problem_id": "sum_two",
+              "public_score": 0.5,
+              "raw_text": "def solve(*args):\n    return args[0] if args else None\n",
+              "rejected": true,
+              "rounds_survived": 0,
+              "selection_score": 0.0,
+              "survived": false,
+              "temperature": 0.7,
+              "text": "def solve(*args):\n    return args[0] if args else None\n",
+              "trace": [
+                {
+                  "e_value": 20.0,
+                  "execution": {
+                    "details": [
+                      {
+                        "expected_output": 2,
+                        "observed_output": 0,
+                        "passed": false,
+                        "status": "failed",
+                        "stderr": "",
+                        "stdout": "gARLAC4=\n"
+                      }
+                    ],
+                    "num_passed": 0,
+                    "num_tests": 1,
+                    "passed": false,
+                    "status": "failed"
+                  },
+                  "p_k": 0.35,
+                  "probe": {
+                    "base_test": {
+                      "input": [
+                        1,
+                        2
+                      ],
+                      "output": 3
+                    },
+                    "family": "edge_case",
+                    "kind": "edge_case_test",
+                    "round": 0,
+                    "scheduled_family": "edge_case",
+                    "test": {
+                      "input": [
+                        0,
+                        2
+                      ],
+                      "output": 2
+                    }
+                  },
+                  "probe_detected_error": true,
+                  "round": 0,
+                  "round_type": "main",
+                  "wealth": 20.0
+                }
+              ],
+              "trace_strength": 0.0,
+              "wealth": 20.0
+            },
+            {
+              "backend": "mock",
+              "candidate_id": "sum_two_cand_6",
+              "candidate_order": 6,
+              "confidence": 0.0,
+              "model": "mock-model",
+              "problem_id": "sum_two",
+              "public_score": 0.5,
+              "raw_text": "def solve(*args):\n    return args[0] if args else None\n",
+              "rejected": true,
+              "rounds_survived": 0,
+              "selection_score": 0.0,
+              "survived": false,
+              "temperature": 0.7,
+              "text": "def solve(*args):\n    return args[0] if args else None\n",
+              "trace": [
+                {
+                  "e_value": 20.0,
+                  "execution": {
+                    "details": [
+                      {
+                        "expected_output": 2,
+                        "observed_output": 0,
+                        "passed": false,
+                        "status": "failed",
+                        "stderr": "",
+                        "stdout": "gARLAC4=\n"
+                      }
+                    ],
+                    "num_passed": 0,
+                    "num_tests": 1,
+                    "passed": false,
+                    "status": "failed"
+                  },
+                  "p_k": 0.35,
+                  "probe": {
+                    "base_test": {
+                      "input": [
+                        1,
+                        2
+                      ],
+                      "output": 3
+                    },
+                    "family": "edge_case",
+                    "kind": "edge_case_test",
+                    "round": 0,
+                    "scheduled_family": "edge_case",
+                    "test": {
+                      "input": [
+                        0,
+                        2
+                      ],
+                      "output": 2
+                    }
+                  },
+                  "probe_detected_error": true,
+                  "round": 0,
+                  "round_type": "main",
+                  "wealth": 20.0
+                }
+              ],
+              "trace_strength": 0.0,
+              "wealth": 20.0
+            },
+            {
+              "backend": "mock",
+              "candidate_id": "sum_two_cand_7",
+              "candidate_order": 7,
+              "confidence": 0.0,
+              "model": "mock-model",
+              "problem_id": "sum_two",
+              "public_score": 0.5,
+              "raw_text": "def solve(*args):\n    return args[0] if args else None\n",
+              "rejected": true,
+              "rounds_survived": 0,
+              "selection_score": 0.0,
+              "survived": false,
+              "temperature": 0.7,
+              "text": "def solve(*args):\n    return args[0] if args else None\n",
+              "trace": [
+                {
+                  "e_value": 20.0,
+                  "execution": {
+                    "details": [
+                      {
+                        "expected_output": 2,
+                        "observed_output": 0,
+                        "passed": false,
+                        "status": "failed",
+                        "stderr": "",
+                        "stdout": "gARLAC4=\n"
+                      }
+                    ],
+                    "num_passed": 0,
+                    "num_tests": 1,
+                    "passed": false,
+                    "status": "failed"
+                  },
+                  "p_k": 0.35,
+                  "probe": {
+                    "base_test": {
+                      "input": [
+                        1,
+                        2
+                      ],
+                      "output": 3
+                    },
+                    "family": "edge_case",
+                    "kind": "edge_case_test",
+                    "round": 0,
+                    "scheduled_family": "edge_case",
+                    "test": {
+                      "input": [
+                        0,
+                        2
+                      ],
+                      "output": 2
+                    }
+                  },
+                  "probe_detected_error": true,
+                  "round": 0,
+                  "round_type": "main",
+                  "wealth": 20.0
+                }
+              ],
+              "trace_strength": 0.0,
+              "wealth": 20.0
+            }
+          ],
+          "selected": {
+            "backend": "mock",
+            "candidate_id": "sum_two_cand_0",
+            "candidate_order": 0,
+            "confidence": 1.0,
+            "model": "mock-model",
+            "problem_id": "sum_two",
+            "public_score": 1.0,
+            "raw_text": "def solve(a, b):\n    return a + b\n",
+            "rejected": false,
+            "rounds_survived": 1,
+            "selection_score": 0.9166666666666667,
+            "survived": true,
+            "temperature": 0.7,
+            "text": "def solve(a, b):\n    return a + b\n",
+            "trace": [
+              {
+                "e_value": 0.6842105263157895,
+                "execution": {
+                  "details": [
+                    {
+                      "expected_output": 2,
+                      "observed_output": 2,
+                      "passed": true,
+                      "status": "passed",
+                      "stderr": "",
+                      "stdout": "gARLAi4=\n"
+                    }
+                  ],
+                  "num_passed": 1,
+                  "num_tests": 1,
+                  "passed": true,
+                  "status": "passed"
+                },
+                "p_k": 0.35,
+                "probe": {
+                  "base_test": {
+                    "input": [
+                      1,
+                      2
+                    ],
+                    "output": 3
+                  },
+                  "family": "edge_case",
+                  "kind": "edge_case_test",
+                  "round": 0,
+                  "scheduled_family": "edge_case",
+                  "test": {
+                    "input": [
+                      0,
+                      2
+                    ],
+                    "output": 2
+                  }
+                },
+                "probe_detected_error": false,
+                "round": 0,
+                "round_type": "main",
+                "wealth": 0.6842105263157895
+              }
+            ],
+            "trace_strength": 0.16666666666666666,
+            "wealth": 0.6842105263157895
+          }
+        },
+        "generated_test_filter": {
+          "meta": {
+            "compute_matched": true,
+            "eliminated": 7,
+            "family_schedule": [
+              "edge_case",
+              "mutation",
+              "random_stress",
+              "edge_case"
+            ],
+            "method": "generated_test_filter",
+            "probes_used": 1,
+            "survivors": 1
+          },
+          "passed": true,
+          "selected": {
+            "backend": "mock",
+            "candidate_id": "sum_two_cand_0",
+            "confidence": 1.0,
+            "model": "mock-model",
+            "problem_id": "sum_two",
+            "raw_text": "def solve(a, b):\n    return a + b\n",
+            "temperature": 0.7,
+            "text": "def solve(a, b):\n    return a + b\n"
+          }
+        },
+        "oracle": {
+          "meta": {
+            "method": "oracle"
+          },
+          "passed": true,
+          "selected": {
+            "backend": "mock",
+            "candidate_id": "sum_two_cand_0",
+            "confidence": 1.0,
+            "model": "mock-model",
+            "problem_id": "sum_two",
+            "raw_text": "def solve(a, b):\n    return a + b\n",
+            "temperature": 0.7,
+            "text": "def solve(a, b):\n    return a + b\n"
+          }
+        }
+      },
+      "num_candidates": 8,
+      "num_correct_candidates": 1,
+      "pass_at_k": {
+        "1": 0.125,
+        "8": 1.0
+      },
+      "problem_id": "sum_two",
+      "type": "code"
+    },
+    {
+      "difficulty": "medium",
+      "methods": {
+        "falsification": {
+          "passed": true,
+          "records": [
+            {
+              "backend": "mock",
+              "candidate_id": "factorial_small_cand_0",
+              "candidate_order": 0,
+              "confidence": 1.0,
+              "model": "mock-model",
+              "problem_id": "factorial_small",
+              "public_score": 1.0,
+              "raw_text": "def solve(n):\n    out = 1\n    for i in range(2, n + 1):\n        out *= i\n    return out\n",
+              "rejected": false,
+              "rounds_survived": 1,
+              "selection_score": 0.9166666666666667,
+              "survived": true,
+              "temperature": 0.7,
+              "text": "def solve(n):\n    out = 1\n    for i in range(2, n + 1):\n        out *= i\n    return out\n",
+              "trace": [
+                {
+                  "e_value": 0.6842105263157895,
+                  "execution": {
+                    "details": [
+                      {
+                        "expected_output": 1,
+                        "observed_output": 1,
+                        "passed": true,
+                        "status": "passed",
+                        "stderr": "",
+                        "stdout": "gARLAS4=\n"
+                      }
+                    ],
+                    "num_passed": 1,
+                    "num_tests": 1,
+                    "passed": true,
+                    "status": "passed"
+                  },
+                  "p_k": 0.35,
+                  "probe": {
+                    "base_test": {
+                      "input": [
+                        0
+                      ],
+                      "output": 1
+                    },
+                    "family": "edge_case",
+                    "kind": "edge_case_test",
+                    "round": 0,
+                    "scheduled_family": "edge_case",
+                    "test": {
+                      "input": [
+                        -1
+                      ],
+                      "output": 1
+                    }
+                  },
+                  "probe_detected_error": false,
+                  "round": 0,
+                  "round_type": "main",
+                  "wealth": 0.6842105263157895
+                }
+              ],
+              "trace_strength": 0.16666666666666666,
+              "wealth": 0.6842105263157895
+            },
+            {
+              "backend": "mock",
+              "candidate_id": "factorial_small_cand_1",
+              "candidate_order": 1,
+              "confidence": 0.0,
+              "model": "mock-model",
+              "problem_id": "factorial_small",
+              "public_score": 0.0,
+              "raw_text": "def solve(*args):\n    return args[0] if args else None\n",
+              "rejected": true,
+              "rounds_survived": 0,
+              "selection_score": 0.0,
+              "survived": false,
+              "temperature": 0.7,
+              "text": "def solve(*args):\n    return args[0] if args else None\n",
+              "trace": [
+                {
+                  "e_value": 20.0,
+                  "execution": {
+                    "details": [
+                      {
+                        "expected_output": 1,
+                        "observed_output": -1,
+                        "passed": false,
+                        "status": "failed",
+                        "stderr": "",
+                        "stdout": "gASVBgAAAAAAAABK/////y4=\n"
+                      }
+                    ],
+                    "num_passed": 0,
+                    "num_tests": 1,
+                    "passed": false,
+                    "status": "failed"
+                  },
+                  "p_k": 0.35,
+                  "probe": {
+                    "base_test": {
+                      "input": [
+                        0
+                      ],
+                      "output": 1
+                    },
+                    "family": "edge_case",
+                    "kind": "edge_case_test",
+                    "round": 0,
+                    "scheduled_family": "edge_case",
+                    "test": {
+                      "input": [
+                        -1
+                      ],
+                      "output": 1
+                    }
+                  },
+                  "probe_detected_error": true,
+                  "round": 0,
+                  "round_type": "main",
+                  "wealth": 20.0
+                }
+              ],
+              "trace_strength": 0.0,
+              "wealth": 20.0
+            },
+            {
+              "backend": "mock",
+              "candidate_id": "factorial_small_cand_2",
+              "candidate_order": 2,
+              "confidence": 0.0,
+              "model": "mock-model",
+              "problem_id": "factorial_small",
+              "public_score": 0.0,
+              "raw_text": "def solve(*args):\n    return args[0] if args else None\n",
+              "rejected": true,
+              "rounds_survived": 0,
+              "selection_score": 0.0,
+              "survived": false,
+              "temperature": 0.7,
+              "text": "def solve(*args):\n    return args[0] if args else None\n",
+              "trace": [
+                {
+                  "e_value": 20.0,
+                  "execution": {
+                    "details": [
+                      {
+                        "expected_output": 1,
+                        "observed_output": -1,
+                        "passed": false,
+                        "status": "failed",
+                        "stderr": "",
+                        "stdout": "gASVBgAAAAAAAABK/////y4=\n"
+                      }
+                    ],
+                    "num_passed": 0,
+                    "num_tests": 1,
+                    "passed": false,
+                    "status": "failed"
+                  },
+                  "p_k": 0.35,
+                  "probe": {
+                    "base_test": {
+                      "input": [
+                        0
+                      ],
+                      "output": 1
+                    },
+                    "family": "edge_case",
+                    "kind": "edge_case_test",
+                    "round": 0,
+                    "scheduled_family": "edge_case",
+                    "test": {
+                      "input": [
+                        -1
+                      ],
+                      "output": 1
+                    }
+                  },
+                  "probe_detected_error": true,
+                  "round": 0,
+                  "round_type": "main",
+                  "wealth": 20.0
+                }
+              ],
+              "trace_strength": 0.0,
+              "wealth": 20.0
+            },
+            {
+              "backend": "mock",
+              "candidate_id": "factorial_small_cand_3",
+              "candidate_order": 3,
+              "confidence": 0.0,
+              "model": "mock-model",
+              "problem_id": "factorial_small",
+              "public_score": 0.0,
+              "raw_text": "def solve(*args):\n    return args[0] if args else None\n",
+              "rejected": true,
+              "rounds_survived": 0,
+              "selection_score": 0.0,
+              "survived": false,
+              "temperature": 0.7,
+              "text": "def solve(*args):\n    return args[0] if args else None\n",
+              "trace": [
+                {
+                  "e_value": 20.0,
+                  "execution": {
+                    "details": [
+                      {
+                        "expected_output": 1,
+                        "observed_output": -1,
+                        "passed": false,
+                        "status": "failed",
+                        "stderr": "",
+                        "stdout": "gASVBgAAAAAAAABK/////y4=\n"
+                      }
+                    ],
+                    "num_passed": 0,
+                    "num_tests": 1,
+                    "passed": false,
+                    "status": "failed"
+                  },
+                  "p_k": 0.35,
+                  "probe": {
+                    "base_test": {
+                      "input": [
+                        0
+                      ],
+                      "output": 1
+                    },
+                    "family": "edge_case",
+                    "kind": "edge_case_test",
+                    "round": 0,
+                    "scheduled_family": "edge_case",
+                    "test": {
+                      "input": [
+                        -1
+                      ],
+                      "output": 1
+                    }
+                  },
+                  "probe_detected_error": true,
+                  "round": 0,
+                  "round_type": "main",
+                  "wealth": 20.0
+                }
+              ],
+              "trace_strength": 0.0,
+              "wealth": 20.0
+            },
+            {
+              "backend": "mock",
+              "candidate_id": "factorial_small_cand_4",
+              "candidate_order": 4,
+              "confidence": 0.0,
+              "model": "mock-model",
+              "problem_id": "factorial_small",
+              "public_score": 0.0,
+              "raw_text": "def solve(*args):\n    raise ValueError('not implemented')\n",
+              "rejected": true,
+              "rounds_survived": 0,
+              "selection_score": 0.0,
+              "survived": false,
+              "temperature": 0.7,
+              "text": "def solve(*args):\n    raise ValueError('not implemented')\n",
+              "trace": [
+                {
+                  "e_value": 20.0,
+                  "execution": {
+                    "details": [
+                      {
+                        "passed": false,
+                        "status": "error",
+                        "stderr": "Traceback (most recent call last):\n  File \"/var/folders/x8/ns62wvd53h3gkr72yw0twtwc0000gn/T/seqfals_44y9dxvb/runner.py\", line 46, in <module>\n    result = fn(*args)\n  File \"<string>\", line 2, in solve\nValueError: not implemented\n",
+                        "stdout": ""
+                      }
+                    ],
+                    "num_passed": 0,
+                    "num_tests": 1,
+                    "passed": false,
+                    "status": "failed"
+                  },
+                  "p_k": 0.35,
+                  "probe": {
+                    "base_test": {
+                      "input": [
+                        0
+                      ],
+                      "output": 1
+                    },
+                    "family": "edge_case",
+                    "kind": "edge_case_test",
+                    "round": 0,
+                    "scheduled_family": "edge_case",
+                    "test": {
+                      "input": [
+                        -1
+                      ],
+                      "output": 1
+                    }
+                  },
+                  "probe_detected_error": true,
+                  "round": 0,
+                  "round_type": "main",
+                  "wealth": 20.0
+                }
+              ],
+              "trace_strength": 0.0,
+              "wealth": 20.0
+            },
+            {
+              "backend": "mock",
+              "candidate_id": "factorial_small_cand_5",
+              "candidate_order": 5,
+              "confidence": 0.0,
+              "model": "mock-model",
+              "problem_id": "factorial_small",
+              "public_score": 0.0,
+              "raw_text": "def solve(*args):\n    return 0\n",
+              "rejected": true,
+              "rounds_survived": 0,
+              "selection_score": 0.0,
+              "survived": false,
+              "temperature": 0.7,
+              "text": "def solve(*args):\n    return 0\n",
+              "trace": [
+                {
+                  "e_value": 20.0,
+                  "execution": {
+                    "details": [
+                      {
+                        "expected_output": 1,
+                        "observed_output": 0,
+                        "passed": false,
+                        "status": "failed",
+                        "stderr": "",
+                        "stdout": "gARLAC4=\n"
+                      }
+                    ],
+                    "num_passed": 0,
+                    "num_tests": 1,
+                    "passed": false,
+                    "status": "failed"
+                  },
+                  "p_k": 0.35,
+                  "probe": {
+                    "base_test": {
+                      "input": [
+                        0
+                      ],
+                      "output": 1
+                    },
+                    "family": "edge_case",
+                    "kind": "edge_case_test",
+                    "round": 0,
+                    "scheduled_family": "edge_case",
+                    "test": {
+                      "input": [
+                        -1
+                      ],
+                      "output": 1
+                    }
+                  },
+                  "probe_detected_error": true,
+                  "round": 0,
+                  "round_type": "main",
+                  "wealth": 20.0
+                }
+              ],
+              "trace_strength": 0.0,
+              "wealth": 20.0
+            },
+            {
+              "backend": "mock",
+              "candidate_id": "factorial_small_cand_6",
+              "candidate_order": 6,
+              "confidence": 0.0,
+              "model": "mock-model",
+              "problem_id": "factorial_small",
+              "public_score": 0.0,
+              "raw_text": "def solve(*args):\n    return 0\n",
+              "rejected": true,
+              "rounds_survived": 0,
+              "selection_score": 0.0,
+              "survived": false,
+              "temperature": 0.7,
+              "text": "def solve(*args):\n    return 0\n",
+              "trace": [
+                {
+                  "e_value": 20.0,
+                  "execution": {
+                    "details": [
+                      {
+                        "expected_output": 1,
+                        "observed_output": 0,
+                        "passed": false,
+                        "status": "failed",
+                        "stderr": "",
+                        "stdout": "gARLAC4=\n"
+                      }
+                    ],
+                    "num_passed": 0,
+                    "num_tests": 1,
+                    "passed": false,
+                    "status": "failed"
+                  },
+                  "p_k": 0.35,
+                  "probe": {
+                    "base_test": {
+                      "input": [
+                        0
+                      ],
+                      "output": 1
+                    },
+                    "family": "edge_case",
+                    "kind": "edge_case_test",
+                    "round": 0,
+                    "scheduled_family": "edge_case",
+                    "test": {
+                      "input": [
+                        -1
+                      ],
+                      "output": 1
+                    }
+                  },
+                  "probe_detected_error": true,
+                  "round": 0,
+                  "round_type": "main",
+                  "wealth": 20.0
+                }
+              ],
+              "trace_strength": 0.0,
+              "wealth": 20.0
+            },
+            {
+              "backend": "mock",
+              "candidate_id": "factorial_small_cand_7",
+              "candidate_order": 7,
+              "confidence": 0.0,
+              "model": "mock-model",
+              "problem_id": "factorial_small",
+              "public_score": 0.0,
+              "raw_text": "def solve(*args):\n    return args[0] if args else None\n",
+              "rejected": true,
+              "rounds_survived": 0,
+              "selection_score": 0.0,
+              "survived": false,
+              "temperature": 0.7,
+              "text": "def solve(*args):\n    return args[0] if args else None\n",
+              "trace": [
+                {
+                  "e_value": 20.0,
+                  "execution": {
+                    "details": [
+                      {
+                        "expected_output": 1,
+                        "observed_output": -1,
+                        "passed": false,
+                        "status": "failed",
+                        "stderr": "",
+                        "stdout": "gASVBgAAAAAAAABK/////y4=\n"
+                      }
+                    ],
+                    "num_passed": 0,
+                    "num_tests": 1,
+                    "passed": false,
+                    "status": "failed"
+                  },
+                  "p_k": 0.35,
+                  "probe": {
+                    "base_test": {
+                      "input": [
+                        0
+                      ],
+                      "output": 1
+                    },
+                    "family": "edge_case",
+                    "kind": "edge_case_test",
+                    "round": 0,
+                    "scheduled_family": "edge_case",
+                    "test": {
+                      "input": [
+                        -1
+                      ],
+                      "output": 1
+                    }
+                  },
+                  "probe_detected_error": true,
+                  "round": 0,
+                  "round_type": "main",
+                  "wealth": 20.0
+                }
+              ],
+              "trace_strength": 0.0,
+              "wealth": 20.0
+            }
+          ],
+          "selected": {
+            "backend": "mock",
+            "candidate_id": "factorial_small_cand_0",
+            "candidate_order": 0,
+            "confidence": 1.0,
+            "model": "mock-model",
+            "problem_id": "factorial_small",
+            "public_score": 1.0,
+            "raw_text": "def solve(n):\n    out = 1\n    for i in range(2, n + 1):\n        out *= i\n    return out\n",
+            "rejected": false,
+            "rounds_survived": 1,
+            "selection_score": 0.9166666666666667,
+            "survived": true,
+            "temperature": 0.7,
+            "text": "def solve(n):\n    out = 1\n    for i in range(2, n + 1):\n        out *= i\n    return out\n",
+            "trace": [
+              {
+                "e_value": 0.6842105263157895,
+                "execution": {
+                  "details": [
+                    {
+                      "expected_output": 1,
+                      "observed_output": 1,
+                      "passed": true,
+                      "status": "passed",
+                      "stderr": "",
+                      "stdout": "gARLAS4=\n"
+                    }
+                  ],
+                  "num_passed": 1,
+                  "num_tests": 1,
+                  "passed": true,
+                  "status": "passed"
+                },
+                "p_k": 0.35,
+                "probe": {
+                  "base_test": {
+                    "input": [
+                      0
+                    ],
+                    "output": 1
+                  },
+                  "family": "edge_case",
+                  "kind": "edge_case_test",
+                  "round": 0,
+                  "scheduled_family": "edge_case",
+                  "test": {
+                    "input": [
+                      -1
+                    ],
+                    "output": 1
+                  }
+                },
+                "probe_detected_error": false,
+                "round": 0,
+                "round_type": "main",
+                "wealth": 0.6842105263157895
+              }
+            ],
+            "trace_strength": 0.16666666666666666,
+            "wealth": 0.6842105263157895
+          }
+        },
+        "generated_test_filter": {
+          "meta": {
+            "compute_matched": true,
+            "eliminated": 7,
+            "family_schedule": [
+              "edge_case",
+              "mutation",
+              "random_stress",
+              "edge_case"
+            ],
+            "method": "generated_test_filter",
+            "probes_used": 2,
+            "survivors": 1
+          },
+          "passed": true,
+          "selected": {
+            "backend": "mock",
+            "candidate_id": "factorial_small_cand_0",
+            "confidence": 1.0,
+            "model": "mock-model",
+            "problem_id": "factorial_small",
+            "raw_text": "def solve(n):\n    out = 1\n    for i in range(2, n + 1):\n        out *= i\n    return out\n",
+            "temperature": 0.7,
+            "text": "def solve(n):\n    out = 1\n    for i in range(2, n + 1):\n        out *= i\n    return out\n"
+          }
+        },
+        "oracle": {
+          "meta": {
+            "method": "oracle"
+          },
+          "passed": true,
+          "selected": {
+            "backend": "mock",
+            "candidate_id": "factorial_small_cand_0",
+            "confidence": 1.0,
+            "model": "mock-model",
+            "problem_id": "factorial_small",
+            "raw_text": "def solve(n):\n    out = 1\n    for i in range(2, n + 1):\n        out *= i\n    return out\n",
+            "temperature": 0.7,
+            "text": "def solve(n):\n    out = 1\n    for i in range(2, n + 1):\n        out *= i\n    return out\n"
+          }
+        }
+      },
+      "num_candidates": 8,
+      "num_correct_candidates": 1,
+      "pass_at_k": {
+        "1": 0.125,
+        "8": 1.0
+      },
+      "problem_id": "factorial_small",
+      "type": "code"
+    },
+    {
+      "difficulty": "easy",
+      "methods": {
+        "falsification": {
+          "passed": true,
+          "records": [
+            {
+              "backend": "mock",
+              "candidate_id": "math_boxed_cand_0",
+              "candidate_order": 0,
+              "confidence": 1.0,
+              "model": "mock-model",
+              "problem_id": "math_boxed",
+              "public_score": 1.0,
+              "raw_text": "56",
+              "rejected": false,
+              "rounds_survived": 1,
+              "selection_score": 0.9166666666666667,
+              "survived": true,
+              "temperature": 0.7,
+              "text": "56",
+              "trace": [
+                {
+                  "e_value": 0.6842105263157895,
+                  "execution": {
+                    "details": [
+                      {
+                        "answer": "56",
+                        "passed": true,
+                        "prediction": "56"
+                      }
+                    ],
+                    "num_passed": 1,
+                    "num_tests": 1,
+                    "passed": true,
+                    "status": "passed"
+                  },
+                  "p_k": 0.35,
+                  "probe": {
+                    "kind": "answer_check",
+                    "round": 0,
+                    "scheduled_family": "edge_case"
+                  },
+                  "probe_detected_error": false,
+                  "round": 0,
+                  "round_type": "main",
+                  "wealth": 0.6842105263157895
+                }
+              ],
+              "trace_strength": 0.16666666666666666,
+              "wealth": 0.6842105263157895
+            },
+            {
+              "backend": "mock",
+              "candidate_id": "math_boxed_cand_1",
+              "candidate_order": 1,
+              "confidence": 0.0,
+              "model": "mock-model",
+              "problem_id": "math_boxed",
+              "public_score": 0.0,
+              "raw_text": "54",
+              "rejected": true,
+              "rounds_survived": 0,
+              "selection_score": 0.0,
+              "survived": false,
+              "temperature": 0.7,
+              "text": "54",
+              "trace": [
+                {
+                  "e_value": 20.0,
+                  "execution": {
+                    "details": [
+                      {
+                        "answer": "56",
+                        "passed": false,
+                        "prediction": "54"
+                      }
+                    ],
+                    "num_passed": 0,
+                    "num_tests": 1,
+                    "passed": false,
+                    "status": "failed"
+                  },
+                  "p_k": 0.35,
+                  "probe": {
+                    "kind": "answer_check",
+                    "round": 0,
+                    "scheduled_family": "edge_case"
+                  },
+                  "probe_detected_error": true,
+                  "round": 0,
+                  "round_type": "main",
+                  "wealth": 20.0
+                }
+              ],
+              "trace_strength": 0.0,
+              "wealth": 20.0
+            },
+            {
+              "backend": "mock",
+              "candidate_id": "math_boxed_cand_2",
+              "candidate_order": 2,
+              "confidence": 0.0,
+              "model": "mock-model",
+              "problem_id": "math_boxed",
+              "public_score": 0.0,
+              "raw_text": "57",
+              "rejected": true,
+              "rounds_survived": 0,
+              "selection_score": 0.0,
+              "survived": false,
+              "temperature": 0.7,
+              "text": "57",
+              "trace": [
+                {
+                  "e_value": 20.0,
+                  "execution": {
+                    "details": [
+                      {
+                        "answer": "56",
+                        "passed": false,
+                        "prediction": "57"
+                      }
+                    ],
+                    "num_passed": 0,
+                    "num_tests": 1,
+                    "passed": false,
+                    "status": "failed"
+                  },
+                  "p_k": 0.35,
+                  "probe": {
+                    "kind": "answer_check",
+                    "round": 0,
+                    "scheduled_family": "edge_case"
+                  },
+                  "probe_detected_error": true,
+                  "round": 0,
+                  "round_type": "main",
+                  "wealth": 20.0
+                }
+              ],
+              "trace_strength": 0.0,
+              "wealth": 20.0
+            },
+            {
+              "backend": "mock",
+              "candidate_id": "math_boxed_cand_3",
+              "candidate_order": 3,
+              "confidence": 0.0,
+              "model": "mock-model",
+              "problem_id": "math_boxed",
+              "public_score": 0.0,
+              "raw_text": "59",
+              "rejected": true,
+              "rounds_survived": 0,
+              "selection_score": 0.0,
+              "survived": false,
+              "temperature": 0.7,
+              "text": "59",
+              "trace": [
+                {
+                  "e_value": 20.0,
+                  "execution": {
+                    "details": [
+                      {
+                        "answer": "56",
+                        "passed": false,
+                        "prediction": "59"
+                      }
+                    ],
+                    "num_passed": 0,
+                    "num_tests": 1,
+                    "passed": false,
+                    "status": "failed"
+                  },
+                  "p_k": 0.35,
+                  "probe": {
+                    "kind": "answer_check",
+                    "round": 0,
+                    "scheduled_family": "edge_case"
+                  },
+                  "probe_detected_error": true,
+                  "round": 0,
+                  "round_type": "main",
+                  "wealth": 20.0
+                }
+              ],
+              "trace_strength": 0.0,
+              "wealth": 20.0
+            },
+            {
+              "backend": "mock",
+              "candidate_id": "math_boxed_cand_4",
+              "candidate_order": 4,
+              "confidence": 0.0,
+              "model": "mock-model",
+              "problem_id": "math_boxed",
+              "public_score": 0.0,
+              "raw_text": "58",
+              "rejected": true,
+              "rounds_survived": 0,
+              "selection_score": 0.0,
+              "survived": false,
+              "temperature": 0.7,
+              "text": "58",
+              "trace": [
+                {
+                  "e_value": 20.0,
+                  "execution": {
+                    "details": [
+                      {
+                        "answer": "56",
+                        "passed": false,
+                        "prediction": "58"
+                      }
+                    ],
+                    "num_passed": 0,
+                    "num_tests": 1,
+                    "passed": false,
+                    "status": "failed"
+                  },
+                  "p_k": 0.35,
+                  "probe": {
+                    "kind": "answer_check",
+                    "round": 0,
+                    "scheduled_family": "edge_case"
+                  },
+                  "probe_detected_error": true,
+                  "round": 0,
+                  "round_type": "main",
+                  "wealth": 20.0
+                }
+              ],
+              "trace_strength": 0.0,
+              "wealth": 20.0
+            },
+            {
+              "backend": "mock",
+              "candidate_id": "math_boxed_cand_5",
+              "candidate_order": 5,
+              "confidence": 0.0,
+              "model": "mock-model",
+              "problem_id": "math_boxed",
+              "public_score": 0.0,
+              "raw_text": "57",
+              "rejected": true,
+              "rounds_survived": 0,
+              "selection_score": 0.0,
+              "survived": false,
+              "temperature": 0.7,
+              "text": "57",
+              "trace": [
+                {
+                  "e_value": 20.0,
+                  "execution": {
+                    "details": [
+                      {
+                        "answer": "56",
+                        "passed": false,
+                        "prediction": "57"
+                      }
+                    ],
+                    "num_passed": 0,
+                    "num_tests": 1,
+                    "passed": false,
+                    "status": "failed"
+                  },
+                  "p_k": 0.35,
+                  "probe": {
+                    "kind": "answer_check",
+                    "round": 0,
+                    "scheduled_family": "edge_case"
+                  },
+                  "probe_detected_error": true,
+                  "round": 0,
+                  "round_type": "main",
+                  "wealth": 20.0
+                }
+              ],
+              "trace_strength": 0.0,
+              "wealth": 20.0
+            },
+            {
+              "backend": "mock",
+              "candidate_id": "math_boxed_cand_6",
+              "candidate_order": 6,
+              "confidence": 0.0,
+              "model": "mock-model",
+              "problem_id": "math_boxed",
+              "public_score": 0.0,
+              "raw_text": "57",
+              "rejected": true,
+              "rounds_survived": 0,
+              "selection_score": 0.0,
+              "survived": false,
+              "temperature": 0.7,
+              "text": "57",
+              "trace": [
+                {
+                  "e_value": 20.0,
+                  "execution": {
+                    "details": [
+                      {
+                        "answer": "56",
+                        "passed": false,
+                        "prediction": "57"
+                      }
+                    ],
+                    "num_passed": 0,
+                    "num_tests": 1,
+                    "passed": false,
+                    "status": "failed"
+                  },
+                  "p_k": 0.35,
+                  "probe": {
+                    "kind": "answer_check",
+                    "round": 0,
+                    "scheduled_family": "edge_case"
+                  },
+                  "probe_detected_error": true,
+                  "round": 0,
+                  "round_type": "main",
+                  "wealth": 20.0
+                }
+              ],
+              "trace_strength": 0.0,
+              "wealth": 20.0
+            },
+            {
+              "backend": "mock",
+              "candidate_id": "math_boxed_cand_7",
+              "candidate_order": 7,
+              "confidence": 0.0,
+              "model": "mock-model",
+              "problem_id": "math_boxed",
+              "public_score": 0.0,
+              "raw_text": "59",
+              "rejected": true,
+              "rounds_survived": 0,
+              "selection_score": 0.0,
+              "survived": false,
+              "temperature": 0.7,
+              "text": "59",
+              "trace": [
+                {
+                  "e_value": 20.0,
+                  "execution": {
+                    "details": [
+                      {
+                        "answer": "56",
+                        "passed": false,
+                        "prediction": "59"
+                      }
+                    ],
+                    "num_passed": 0,
+                    "num_tests": 1,
+                    "passed": false,
+                    "status": "failed"
+                  },
+                  "p_k": 0.35,
+                  "probe": {
+                    "kind": "answer_check",
+                    "round": 0,
+                    "scheduled_family": "edge_case"
+                  },
+                  "probe_detected_error": true,
+                  "round": 0,
+                  "round_type": "main",
+                  "wealth": 20.0
+                }
+              ],
+              "trace_strength": 0.0,
+              "wealth": 20.0
+            }
+          ],
+          "selected": {
+            "backend": "mock",
+            "candidate_id": "math_boxed_cand_0",
+            "candidate_order": 0,
+            "confidence": 1.0,
+            "model": "mock-model",
+            "problem_id": "math_boxed",
+            "public_score": 1.0,
+            "raw_text": "56",
+            "rejected": false,
+            "rounds_survived": 1,
+            "selection_score": 0.9166666666666667,
+            "survived": true,
+            "temperature": 0.7,
+            "text": "56",
+            "trace": [
+              {
+                "e_value": 0.6842105263157895,
+                "execution": {
+                  "details": [
+                    {
+                      "answer": "56",
+                      "passed": true,
+                      "prediction": "56"
+                    }
+                  ],
+                  "num_passed": 1,
+                  "num_tests": 1,
+                  "passed": true,
+                  "status": "passed"
+                },
+                "p_k": 0.35,
+                "probe": {
+                  "kind": "answer_check",
+                  "round": 0,
+                  "scheduled_family": "edge_case"
+                },
+                "probe_detected_error": false,
+                "round": 0,
+                "round_type": "main",
+                "wealth": 0.6842105263157895
+              }
+            ],
+            "trace_strength": 0.16666666666666666,
+            "wealth": 0.6842105263157895
+          }
+        },
+        "generated_test_filter": {
+          "meta": {
+            "compute_matched": true,
+            "eliminated": 7,
+            "family_schedule": [
+              "edge_case",
+              "mutation",
+              "random_stress",
+              "edge_case"
+            ],
+            "method": "generated_test_filter",
+            "probes_used": 1,
+            "survivors": 1
+          },
+          "passed": true,
+          "selected": {
+            "backend": "mock",
+            "candidate_id": "math_boxed_cand_0",
+            "confidence": 1.0,
+            "model": "mock-model",
+            "problem_id": "math_boxed",
+            "raw_text": "56",
+            "temperature": 0.7,
+            "text": "56"
+          }
+        },
+        "oracle": {
+          "meta": {
+            "method": "oracle"
+          },
+          "passed": true,
+          "selected": {
+            "backend": "mock",
+            "candidate_id": "math_boxed_cand_0",
+            "confidence": 1.0,
+            "model": "mock-model",
+            "problem_id": "math_boxed",
+            "raw_text": "56",
+            "temperature": 0.7,
+            "text": "56"
+          }
+        }
+      },
+      "num_candidates": 8,
+      "num_correct_candidates": 1,
+      "pass_at_k": {
+        "1": 0.125,
+        "8": 1.0
+      },
+      "problem_id": "math_boxed",
+      "type": "math"
+    }
+  ],
+  "resumed_from": 0,
+  "summary": {
+    "calibration": {
+      "auroc": 0.0,
+      "bins": [
+        {
+          "avg_accuracy": 0.0,
+          "avg_confidence": 0.05,
+          "bin": 0,
+          "count": 0
+        },
+        {
+          "avg_accuracy": 0.0,
+          "avg_confidence": 0.15,
+          "bin": 1,
+          "count": 0
+        },
+        {
+          "avg_accuracy": 0.0,
+          "avg_confidence": 0.25,
+          "bin": 2,
+          "count": 0
+        },
+        {
+          "avg_accuracy": 0.0,
+          "avg_confidence": 0.35,
+          "bin": 3,
+          "count": 0
+        },
+        {
+          "avg_accuracy": 0.0,
+          "avg_confidence": 0.45,
+          "bin": 4,
+          "count": 0
+        },
+        {
+          "avg_accuracy": 0.0,
+          "avg_confidence": 0.55,
+          "bin": 5,
+          "count": 0
+        },
+        {
+          "avg_accuracy": 0.0,
+          "avg_confidence": 0.65,
+          "bin": 6,
+          "count": 0
+        },
+        {
+          "avg_accuracy": 0.0,
+          "avg_confidence": 0.75,
+          "bin": 7,
+          "count": 0
+        },
+        {
+          "avg_accuracy": 0.0,
+          "avg_confidence": 0.85,
+          "bin": 8,
+          "count": 0
+        },
+        {
+          "avg_accuracy": 1.0,
+          "avg_confidence": 1.0,
+          "bin": 9,
+          "count": 3
+        }
+      ],
+      "brier": 0.0,
+      "ece": 0.0,
+      "majority_vote_bins": [],
+      "majority_vote_ece": 0.0,
+      "majority_vote_selective_curve": [],
+      "mce": 0.0,
+      "per_method": {
+        "falsification": {
+          "auroc": 0.0,
+          "bins": [
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.05,
+              "bin": 0,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.15,
+              "bin": 1,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.25,
+              "bin": 2,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.35,
+              "bin": 3,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.45,
+              "bin": 4,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.55,
+              "bin": 5,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.65,
+              "bin": 6,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.75,
+              "bin": 7,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.85,
+              "bin": 8,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 1.0,
+              "avg_confidence": 1.0,
+              "bin": 9,
+              "count": 3
+            }
+          ],
+          "brier": 0.0,
+          "ece": 0.0,
+          "mce": 0.0,
+          "selective_curve": [
+            {
+              "accuracy": 1.0,
+              "count": 3,
+              "coverage": 1.0,
+              "threshold": 0.0
+            },
+            {
+              "accuracy": 1.0,
+              "count": 3,
+              "coverage": 1.0,
+              "threshold": 0.1
+            },
+            {
+              "accuracy": 1.0,
+              "count": 3,
+              "coverage": 1.0,
+              "threshold": 0.2
+            },
+            {
+              "accuracy": 1.0,
+              "count": 3,
+              "coverage": 1.0,
+              "threshold": 0.3
+            },
+            {
+              "accuracy": 1.0,
+              "count": 3,
+              "coverage": 1.0,
+              "threshold": 0.4
+            },
+            {
+              "accuracy": 1.0,
+              "count": 3,
+              "coverage": 1.0,
+              "threshold": 0.5
+            },
+            {
+              "accuracy": 1.0,
+              "count": 3,
+              "coverage": 1.0,
+              "threshold": 0.6
+            },
+            {
+              "accuracy": 1.0,
+              "count": 3,
+              "coverage": 1.0,
+              "threshold": 0.7
+            },
+            {
+              "accuracy": 1.0,
+              "count": 3,
+              "coverage": 1.0,
+              "threshold": 0.8
+            },
+            {
+              "accuracy": 1.0,
+              "count": 3,
+              "coverage": 1.0,
+              "threshold": 0.9
+            },
+            {
+              "accuracy": 1.0,
+              "count": 3,
+              "coverage": 1.0,
+              "threshold": 1.0
+            }
+          ]
+        },
+        "generated_test_filter": {
+          "auroc": 0.0,
+          "bins": [
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.05,
+              "bin": 0,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.15,
+              "bin": 1,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.25,
+              "bin": 2,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.35,
+              "bin": 3,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.45,
+              "bin": 4,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.55,
+              "bin": 5,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.65,
+              "bin": 6,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.75,
+              "bin": 7,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.85,
+              "bin": 8,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 1.0,
+              "avg_confidence": 1.0,
+              "bin": 9,
+              "count": 3
+            }
+          ],
+          "brier": 0.0,
+          "ece": 0.0,
+          "mce": 0.0,
+          "selective_curve": [
+            {
+              "accuracy": 1.0,
+              "count": 3,
+              "coverage": 1.0,
+              "threshold": 0.0
+            },
+            {
+              "accuracy": 1.0,
+              "count": 3,
+              "coverage": 1.0,
+              "threshold": 0.1
+            },
+            {
+              "accuracy": 1.0,
+              "count": 3,
+              "coverage": 1.0,
+              "threshold": 0.2
+            },
+            {
+              "accuracy": 1.0,
+              "count": 3,
+              "coverage": 1.0,
+              "threshold": 0.3
+            },
+            {
+              "accuracy": 1.0,
+              "count": 3,
+              "coverage": 1.0,
+              "threshold": 0.4
+            },
+            {
+              "accuracy": 1.0,
+              "count": 3,
+              "coverage": 1.0,
+              "threshold": 0.5
+            },
+            {
+              "accuracy": 1.0,
+              "count": 3,
+              "coverage": 1.0,
+              "threshold": 0.6
+            },
+            {
+              "accuracy": 1.0,
+              "count": 3,
+              "coverage": 1.0,
+              "threshold": 0.7
+            },
+            {
+              "accuracy": 1.0,
+              "count": 3,
+              "coverage": 1.0,
+              "threshold": 0.8
+            },
+            {
+              "accuracy": 1.0,
+              "count": 3,
+              "coverage": 1.0,
+              "threshold": 0.9
+            },
+            {
+              "accuracy": 1.0,
+              "count": 3,
+              "coverage": 1.0,
+              "threshold": 1.0
+            }
+          ]
+        },
+        "oracle": {
+          "auroc": 0.0,
+          "bins": [
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.05,
+              "bin": 0,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.15,
+              "bin": 1,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.25,
+              "bin": 2,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.35,
+              "bin": 3,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.45,
+              "bin": 4,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.55,
+              "bin": 5,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.65,
+              "bin": 6,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.75,
+              "bin": 7,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.85,
+              "bin": 8,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 1.0,
+              "avg_confidence": 1.0,
+              "bin": 9,
+              "count": 3
+            }
+          ],
+          "brier": 0.0,
+          "ece": 0.0,
+          "mce": 0.0,
+          "selective_curve": [
+            {
+              "accuracy": 1.0,
+              "count": 3,
+              "coverage": 1.0,
+              "threshold": 0.0
+            },
+            {
+              "accuracy": 1.0,
+              "count": 3,
+              "coverage": 1.0,
+              "threshold": 0.1
+            },
+            {
+              "accuracy": 1.0,
+              "count": 3,
+              "coverage": 1.0,
+              "threshold": 0.2
+            },
+            {
+              "accuracy": 1.0,
+              "count": 3,
+              "coverage": 1.0,
+              "threshold": 0.3
+            },
+            {
+              "accuracy": 1.0,
+              "count": 3,
+              "coverage": 1.0,
+              "threshold": 0.4
+            },
+            {
+              "accuracy": 1.0,
+              "count": 3,
+              "coverage": 1.0,
+              "threshold": 0.5
+            },
+            {
+              "accuracy": 1.0,
+              "count": 3,
+              "coverage": 1.0,
+              "threshold": 0.6
+            },
+            {
+              "accuracy": 1.0,
+              "count": 3,
+              "coverage": 1.0,
+              "threshold": 0.7
+            },
+            {
+              "accuracy": 1.0,
+              "count": 3,
+              "coverage": 1.0,
+              "threshold": 0.8
+            },
+            {
+              "accuracy": 1.0,
+              "count": 3,
+              "coverage": 1.0,
+              "threshold": 0.9
+            },
+            {
+              "accuracy": 1.0,
+              "count": 3,
+              "coverage": 1.0,
+              "threshold": 1.0
+            }
+          ]
+        }
+      },
+      "selective_curve": [
+        {
+          "accuracy": 1.0,
+          "count": 3,
+          "coverage": 1.0,
+          "threshold": 0.0
+        },
+        {
+          "accuracy": 1.0,
+          "count": 3,
+          "coverage": 1.0,
+          "threshold": 0.1
+        },
+        {
+          "accuracy": 1.0,
+          "count": 3,
+          "coverage": 1.0,
+          "threshold": 0.2
+        },
+        {
+          "accuracy": 1.0,
+          "count": 3,
+          "coverage": 1.0,
+          "threshold": 0.3
+        },
+        {
+          "accuracy": 1.0,
+          "count": 3,
+          "coverage": 1.0,
+          "threshold": 0.4
+        },
+        {
+          "accuracy": 1.0,
+          "count": 3,
+          "coverage": 1.0,
+          "threshold": 0.5
+        },
+        {
+          "accuracy": 1.0,
+          "count": 3,
+          "coverage": 1.0,
+          "threshold": 0.6
+        },
+        {
+          "accuracy": 1.0,
+          "count": 3,
+          "coverage": 1.0,
+          "threshold": 0.7
+        },
+        {
+          "accuracy": 1.0,
+          "count": 3,
+          "coverage": 1.0,
+          "threshold": 0.8
+        },
+        {
+          "accuracy": 1.0,
+          "count": 3,
+          "coverage": 1.0,
+          "threshold": 0.9
+        },
+        {
+          "accuracy": 1.0,
+          "count": 3,
+          "coverage": 1.0,
+          "threshold": 1.0
+        }
+      ],
+      "self_debug_bins": [],
+      "self_debug_ece": 0.0,
+      "self_debug_selective_curve": []
+    },
+    "difficulty": {
+      "easy": {
+        "falsification": 1.0,
+        "generated_test_filter": 1.0,
+        "oracle": 1.0
+      },
+      "medium": {
+        "falsification": 1.0,
+        "generated_test_filter": 1.0,
+        "oracle": 1.0
+      }
+    },
+    "methods": {
+      "falsification": {
+        "accuracy": 1.0,
+        "auroc": 0.0,
+        "mean_confidence": 1.0
+      },
+      "generated_test_filter": {
+        "accuracy": 1.0,
+        "auroc": 0.0,
+        "mean_confidence": 1.0
+      },
+      "oracle": {
+        "accuracy": 1.0,
+        "auroc": 0.0,
+        "mean_confidence": 1.0
+      }
+    }
+  }
+}

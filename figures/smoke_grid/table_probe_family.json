@@ -1,0 +1,12 @@
+{
+  "rows": [
+    {
+      "benchmark": "synthetic_demo",
+      "experiment": "pilot_synthetic",
+      "falsification_accuracy": 100.0,
+      "n_candidates": 4,
+      "n_rounds": 2,
+      "probe_strategy": "public_only"
+    }
+  ]
+}

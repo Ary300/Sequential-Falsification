@@ -1,0 +1,62 @@
+{
+  "experiments": [
+    {
+      "name": "component_ablation_full_synth",
+      "benchmarks": [
+        "synthetic_demo"
+      ],
+      "methods": [
+        "greedy",
+        "majority_vote",
+        "generated_test_filter",
+        "self_debug",
+        "falsification",
+        "oracle"
+      ],
+      "backend": "mock",
+      "model": "mock-model",
+      "n_candidates": 4,
+      "n_falsification_rounds": 2,
+      "temperature": 0.7,
+      "seed": 42,
+      "delta": 0.05,
+      "alpha": 0.05,
+      "timeout": 5,
+      "probe_strategy": "adaptive_population",
+      "adaptive_probe_selection": true,
+      "eliminate_on_detection": true,
+      "confidence_mode": "wealth",
+      "data_root": "data",
+      "max_problems": 2
+    },
+    {
+      "name": "component_ablation_no_elimination_synth",
+      "benchmarks": [
+        "synthetic_demo"
+      ],
+      "methods": [
+        "greedy",
+        "majority_vote",
+        "generated_test_filter",
+        "self_debug",
+        "falsification",
+        "oracle"
+      ],
+      "backend": "mock",
+      "model": "mock-model",
+      "n_candidates": 4,
+      "n_falsification_rounds": 2,
+      "temperature": 0.7,
+      "seed": 42,
+      "delta": 0.05,
+      "alpha": 0.05,
+      "timeout": 5,
+      "probe_strategy": "adaptive_population",
+      "adaptive_probe_selection": true,
+      "eliminate_on_detection": false,
+      "confidence_mode": "survival_only",
+      "data_root": "data",
+      "max_problems": 2
+    }
+  ]
+}

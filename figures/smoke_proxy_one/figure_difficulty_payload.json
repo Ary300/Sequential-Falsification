@@ -1,0 +1,14 @@
+{
+  "title": "Difficulty Stratification",
+  "panels": [
+    {
+      "benchmark": "synthetic_demo",
+      "difficulty": {
+        "easy": {
+          "code_t": 1.0,
+          "s_star": 1.0
+        }
+      }
+    }
+  ]
+}

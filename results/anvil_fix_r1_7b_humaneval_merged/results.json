@@ -1,0 +1,33 @@
+{
+  "benchmarks": [],
+  "metadata": {
+    "source": "merged_seed_results",
+    "model": "unknown-model",
+    "results_files": [
+      "results/anvil_fix_r1_7b_humaneval_s42/results_from_progress.json",
+      "results/anvil_fix_r1_7b_humaneval_s43/results_from_progress.json",
+      "results/anvil_fix_r1_7b_humaneval_s44/results_from_progress.json"
+    ],
+    "num_source_files": 3,
+    "samples": [
+      {
+        "model": "unknown-model",
+        "partial": false,
+        "progress_dir": "results/anvil_fix_r1_7b_humaneval_s42",
+        "source": "progress_files"
+      },
+      {
+        "model": "unknown-model",
+        "partial": false,
+        "progress_dir": "results/anvil_fix_r1_7b_humaneval_s43",
+        "source": "progress_files"
+      },
+      {
+        "model": "unknown-model",
+        "partial": false,
+        "progress_dir": "results/anvil_fix_r1_7b_humaneval_s44",
+        "source": "progress_files"
+      }
+    ]
+  }
+}

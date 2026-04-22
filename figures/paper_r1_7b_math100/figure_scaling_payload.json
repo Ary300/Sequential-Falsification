@@ -1,0 +1,43 @@
+{
+  "title": "Scaling Summary",
+  "x_label": "N",
+  "y_label": "Accuracy (%)",
+  "series": [
+    {
+      "label": "math500::falsification",
+      "x": [
+        1
+      ],
+      "y": [
+        33.67
+      ]
+    },
+    {
+      "label": "math500::greedy",
+      "x": [
+        1
+      ],
+      "y": [
+        11.67
+      ]
+    },
+    {
+      "label": "math500::majority_vote",
+      "x": [
+        1
+      ],
+      "y": [
+        23.0
+      ]
+    },
+    {
+      "label": "math500::oracle",
+      "x": [
+        1
+      ],
+      "y": [
+        33.67
+      ]
+    }
+  ]
+}

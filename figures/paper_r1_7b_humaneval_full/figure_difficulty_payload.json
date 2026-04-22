@@ -1,0 +1,17 @@
+{
+  "title": "Difficulty Stratification",
+  "panels": [
+    {
+      "benchmark": "humaneval_plus",
+      "difficulty": {
+        "unknown": {
+          "falsification": 0.6524390243902439,
+          "greedy": 0.35365853658536583,
+          "majority_vote": 0.3231707317073171,
+          "oracle": 0.725609756097561,
+          "self_debug": 0.7012195121951219
+        }
+      }
+    }
+  ]
+}

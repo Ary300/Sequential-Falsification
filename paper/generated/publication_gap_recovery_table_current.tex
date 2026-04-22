@@ -1,0 +1,16 @@
+\begin{tabular}{llccccccc}
+\toprule
+Model & Benchmark & Problems & MV$\rightarrow$Oracle & F-SD & F-GTF & F recovery & SD recovery & GTF recovery \\
+\midrule
+Qwen/Qwen2.5-Coder-14B-Instruct & humaneval_plus & 164 & +19.8 & +0.0 & +2.7 & 93.9\% & 93.9\% & 80.3\% \\
+Qwen/Qwen2.5-Coder-14B-Instruct & livecodebench_v6 & 400 & +37.5 & +0.0 & +37.5 & 100.0\% & 100.0\% & 0.0\% \\
+Qwen/Qwen2.5-Coder-14B-Instruct & math500 & 500 & +10.2 & +0.0 & +0.0 & 100.0\% & 100.0\% & 100.0\% \\
+Qwen/Qwen2.5-Coder-14B-Instruct & mbpp_plus & 378 & +8.7 & -0.1 & -3.9 & 40.2\% & 41.4\% & 85.1\% \\
+deepseek-ai/DeepSeek-R1-Distill-Qwen-32B & humaneval_plus & 164 & +49.0 & -1.2 & +12.6 & 92.0\% & 94.5\% & 66.3\% \\
+deepseek-ai/DeepSeek-R1-Distill-Qwen-32B & mbpp_plus & 378 & +36.0 & -0.2 & -- & 93.3\% & 93.9\% & -- \\
+deepseek-ai/DeepSeek-R1-Distill-Qwen-7B & humaneval_plus & 164 & +40.3 & -4.9 & -4.0 & 81.6\% & 93.8\% & 91.6\% \\
+deepseek-ai/DeepSeek-R1-Distill-Qwen-7B & livecodebench_v6 & 100 & +5.0 & -- & -- & 100.0\% & -- & -- \\
+deepseek-ai/DeepSeek-R1-Distill-Qwen-7B & math500 & 100 & +10.7 & -- & -- & 100.0\% & -- & -- \\
+deepseek-ai/DeepSeek-R1-Distill-Qwen-7B & mbpp_plus & 378 & +24.0 & +0.0 & -5.6 & 95.8\% & 95.8\% & 119.2\% \\
+\bottomrule
+\end{tabular}

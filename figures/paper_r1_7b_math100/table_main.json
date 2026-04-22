@@ -1,0 +1,28 @@
+{
+  "rows": [
+    {
+      "accuracy_mean": 33.7,
+      "accuracy_stderr": 1.67,
+      "benchmark": "math500",
+      "method": "falsification"
+    },
+    {
+      "accuracy_mean": 11.7,
+      "accuracy_stderr": 2.33,
+      "benchmark": "math500",
+      "method": "greedy"
+    },
+    {
+      "accuracy_mean": 23.0,
+      "accuracy_stderr": 2.08,
+      "benchmark": "math500",
+      "method": "majority_vote"
+    },
+    {
+      "accuracy_mean": 33.7,
+      "accuracy_stderr": 1.67,
+      "benchmark": "math500",
+      "method": "oracle"
+    }
+  ]
+}

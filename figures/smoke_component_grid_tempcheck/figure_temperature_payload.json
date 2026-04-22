@@ -1,0 +1,7 @@
+{
+  "title": "Temperature Sensitivity",
+  "x_label": "Temperature",
+  "y_label": "Accuracy (%)",
+  "x_scale": "linear",
+  "series": []
+}

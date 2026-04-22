@@ -1,0 +1,30 @@
+{
+  "rows": [
+    {
+      "adaptive_probe_selection": true,
+      "benchmark": "synthetic_demo",
+      "confidence_mode": "wealth",
+      "eliminate_on_detection": true,
+      "experiment": "component_ablation_full_synth",
+      "falsification": 100.0,
+      "generated_test_filter": 100.0,
+      "majority_vote": 50.0,
+      "probe_strategy": "adaptive_population",
+      "s_star": 0.0,
+      "self_debug": 100.0
+    },
+    {
+      "adaptive_probe_selection": true,
+      "benchmark": "synthetic_demo",
+      "confidence_mode": "survival_only",
+      "eliminate_on_detection": false,
+      "experiment": "component_ablation_no_elimination_synth",
+      "falsification": 100.0,
+      "generated_test_filter": 100.0,
+      "majority_vote": 50.0,
+      "probe_strategy": "adaptive_population",
+      "s_star": 0.0,
+      "self_debug": 100.0
+    }
+  ]
+}

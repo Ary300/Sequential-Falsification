@@ -1,0 +1,169 @@
+{
+  "experiments": [
+    {
+      "benchmark": "mbpp_plus",
+      "error": "FileNotFoundError: Benchmark 'mbpp_plus' requires the optional evalplus package.",
+      "experiment_config": {
+        "adaptive_probe_selection": true,
+        "backend": "mock",
+        "confidence_mode": "wealth",
+        "eliminate_on_detection": true,
+        "expanded_from": "n_scaling_mbpp_7b",
+        "max_problems": 2,
+        "methods": [
+          "greedy",
+          "majority_vote",
+          "generated_test_filter",
+          "self_debug",
+          "falsification",
+          "oracle"
+        ],
+        "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+        "n_candidates": 4,
+        "n_falsification_rounds": 2,
+        "name": "n_scaling_mbpp_7b__n_candidates=4",
+        "probe_strategy": "adaptive_population",
+        "seed": 42,
+        "sweep_values": {
+          "n_candidates": 4
+        },
+        "temperature": 0.7
+      },
+      "experiment_name": "n_scaling_mbpp_7b__n_candidates=4",
+      "num_problems": 0,
+      "results": []
+    },
+    {
+      "benchmark": "mbpp_plus",
+      "error": "FileNotFoundError: Benchmark 'mbpp_plus' requires the optional evalplus package.",
+      "experiment_config": {
+        "adaptive_probe_selection": true,
+        "backend": "mock",
+        "confidence_mode": "wealth",
+        "eliminate_on_detection": true,
+        "expanded_from": "n_scaling_mbpp_7b",
+        "max_problems": 2,
+        "methods": [
+          "greedy",
+          "majority_vote",
+          "generated_test_filter",
+          "self_debug",
+          "falsification",
+          "oracle"
+        ],
+        "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+        "n_candidates": 8,
+        "n_falsification_rounds": 2,
+        "name": "n_scaling_mbpp_7b__n_candidates=8",
+        "probe_strategy": "adaptive_population",
+        "seed": 42,
+        "sweep_values": {
+          "n_candidates": 8
+        },
+        "temperature": 0.7
+      },
+      "experiment_name": "n_scaling_mbpp_7b__n_candidates=8",
+      "num_problems": 0,
+      "results": []
+    },
+    {
+      "benchmark": "mbpp_plus",
+      "error": "FileNotFoundError: Benchmark 'mbpp_plus' requires the optional evalplus package.",
+      "experiment_config": {
+        "adaptive_probe_selection": true,
+        "backend": "mock",
+        "confidence_mode": "wealth",
+        "eliminate_on_detection": true,
+        "expanded_from": "n_scaling_mbpp_7b",
+        "max_problems": 2,
+        "methods": [
+          "greedy",
+          "majority_vote",
+          "generated_test_filter",
+          "self_debug",
+          "falsification",
+          "oracle"
+        ],
+        "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+        "n_candidates": 16,
+        "n_falsification_rounds": 2,
+        "name": "n_scaling_mbpp_7b__n_candidates=16",
+        "probe_strategy": "adaptive_population",
+        "seed": 42,
+        "sweep_values": {
+          "n_candidates": 16
+        },
+        "temperature": 0.7
+      },
+      "experiment_name": "n_scaling_mbpp_7b__n_candidates=16",
+      "num_problems": 0,
+      "results": []
+    },
+    {
+      "benchmark": "mbpp_plus",
+      "error": "FileNotFoundError: Benchmark 'mbpp_plus' requires the optional evalplus package.",
+      "experiment_config": {
+        "adaptive_probe_selection": true,
+        "backend": "mock",
+        "confidence_mode": "wealth",
+        "eliminate_on_detection": true,
+        "expanded_from": "n_scaling_mbpp_7b",
+        "max_problems": 2,
+        "methods": [
+          "greedy",
+          "majority_vote",
+          "generated_test_filter",
+          "self_debug",
+          "falsification",
+          "oracle"
+        ],
+        "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+        "n_candidates": 32,
+        "n_falsification_rounds": 2,
+        "name": "n_scaling_mbpp_7b__n_candidates=32",
+        "probe_strategy": "adaptive_population",
+        "seed": 42,
+        "sweep_values": {
+          "n_candidates": 32
+        },
+        "temperature": 0.7
+      },
+      "experiment_name": "n_scaling_mbpp_7b__n_candidates=32",
+      "num_problems": 0,
+      "results": []
+    },
+    {
+      "benchmark": "mbpp_plus",
+      "error": "FileNotFoundError: Benchmark 'mbpp_plus' requires the optional evalplus package.",
+      "experiment_config": {
+        "adaptive_probe_selection": true,
+        "backend": "mock",
+        "confidence_mode": "wealth",
+        "eliminate_on_detection": true,
+        "expanded_from": "n_scaling_mbpp_7b",
+        "max_problems": 2,
+        "methods": [
+          "greedy",
+          "majority_vote",
+          "generated_test_filter",
+          "self_debug",
+          "falsification",
+          "oracle"
+        ],
+        "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+        "n_candidates": 64,
+        "n_falsification_rounds": 2,
+        "name": "n_scaling_mbpp_7b__n_candidates=64",
+        "probe_strategy": "adaptive_population",
+        "seed": 42,
+        "sweep_values": {
+          "n_candidates": 64
+        },
+        "temperature": 0.7
+      },
+      "experiment_name": "n_scaling_mbpp_7b__n_candidates=64",
+      "num_problems": 0,
+      "results": []
+    }
+  ]
+}

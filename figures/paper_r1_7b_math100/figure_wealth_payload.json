@@ -1,0 +1,96 @@
+{
+  "title": "E-value Wealth Process",
+  "threshold": 20.0,
+  "traces": [
+    {
+      "benchmark": "math500",
+      "problem_id": "math500_1",
+      "candidate_id": "math500_1_cand_0",
+      "survived": false,
+      "wealth": [
+        20.0
+      ]
+    },
+    {
+      "benchmark": "math500",
+      "problem_id": "math500_1",
+      "candidate_id": "math500_1_cand_1",
+      "survived": false,
+      "wealth": [
+        20.0
+      ]
+    },
+    {
+      "benchmark": "math500",
+      "problem_id": "math500_4",
+      "candidate_id": "math500_4_cand_0",
+      "survived": false,
+      "wealth": [
+        20.0
+      ]
+    },
+    {
+      "benchmark": "math500",
+      "problem_id": "math500_4",
+      "candidate_id": "math500_4_cand_1",
+      "survived": false,
+      "wealth": [
+        20.0
+      ]
+    },
+    {
+      "benchmark": "math500",
+      "problem_id": "math500_13",
+      "candidate_id": "math500_13_cand_0",
+      "survived": false,
+      "wealth": [
+        20.0
+      ]
+    },
+    {
+      "benchmark": "math500",
+      "problem_id": "math500_13",
+      "candidate_id": "math500_13_cand_1",
+      "survived": false,
+      "wealth": [
+        20.0
+      ]
+    },
+    {
+      "benchmark": "math500",
+      "problem_id": "math500_19",
+      "candidate_id": "math500_19_cand_0",
+      "survived": false,
+      "wealth": [
+        20.0
+      ]
+    },
+    {
+      "benchmark": "math500",
+      "problem_id": "math500_19",
+      "candidate_id": "math500_19_cand_1",
+      "survived": false,
+      "wealth": [
+        20.0
+      ]
+    },
+    {
+      "benchmark": "math500",
+      "problem_id": "math500_24",
+      "candidate_id": "math500_24_cand_0",
+      "survived": false,
+      "wealth": [
+        20.0
+      ]
+    },
+    {
+      "benchmark": "math500",
+      "problem_id": "math500_24",
+      "candidate_id": "math500_24_cand_1",
+      "survived": false,
+      "wealth": [
+        20.0
+      ]
+    }
+  ]
+}

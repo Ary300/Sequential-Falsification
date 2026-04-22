@@ -1,0 +1,2508 @@
+{
+  "benchmarks": [
+    {
+      "benchmark": "synthetic_demo",
+      "num_problems": 2,
+      "problem_offset": 0,
+      "results": [
+        {
+          "difficulty": "easy",
+          "methods": {
+            "falsification": {
+              "passed": true,
+              "records": [
+                {
+                  "backend": "mock",
+                  "candidate_id": "sum_two_cand_0",
+                  "candidate_order": 0,
+                  "confidence": 0.0,
+                  "model": "mock-model",
+                  "problem_id": "sum_two",
+                  "raw_text": "def solve(a, b):\n    return a + b\n",
+                  "rejected": false,
+                  "rounds_survived": 2,
+                  "selection_score": 1.0,
+                  "survived": true,
+                  "temperature": 0.7,
+                  "text": "def solve(a, b):\n    return a + b\n",
+                  "trace": [
+                    {
+                      "e_value": 0.6842105263157895,
+                      "execution": {
+                        "details": [
+                          {
+                            "expected_output": 2,
+                            "observed_output": 2,
+                            "passed": true,
+                            "status": "passed",
+                            "stderr": "",
+                            "stdout": "gARLAi4=\n"
+                          }
+                        ],
+                        "num_passed": 1,
+                        "num_tests": 1,
+                        "passed": true,
+                        "status": "passed"
+                      },
+                      "p_k": 0.35,
+                      "probe": {
+                        "base_test": {
+                          "input": [
+                            1,
+                            2
+                          ],
+                          "output": 3
+                        },
+                        "family": "mutation",
+                        "kind": "mutation_test",
+                        "round": 0,
+                        "test": {
+                          "input": [
+                            0,
+                            2
+                          ],
+                          "output": 2
+                        }
+                      },
+                      "probe_detected_error": false,
+                      "round": 0,
+                      "wealth": 0.6842105263157895
+                    },
+                    {
+                      "e_value": 0.7473684210526316,
+                      "execution": {
+                        "details": [
+                          {
+                            "expected_output": 4,
+                            "observed_output": 4,
+                            "passed": true,
+                            "status": "passed",
+                            "stderr": "",
+                            "stdout": "gARLBC4=\n"
+                          }
+                        ],
+                        "num_passed": 1,
+                        "num_tests": 1,
+                        "passed": true,
+                        "status": "passed"
+                      },
+                      "p_k": 0.29,
+                      "probe": {
+                        "base_test": {
+                          "input": [
+                            1,
+                            2
+                          ],
+                          "output": 3
+                        },
+                        "family": "mutation",
+                        "kind": "mutation_test",
+                        "round": 0,
+                        "test": {
+                          "input": [
+                            2,
+                            2
+                          ],
+                          "output": 4
+                        }
+                      },
+                      "probe_detected_error": false,
+                      "round": 1,
+                      "wealth": 0.5113573407202217
+                    }
+                  ],
+                  "wealth": 0.5113573407202217
+                },
+                {
+                  "backend": "mock",
+                  "candidate_id": "sum_two_cand_1",
+                  "candidate_order": 1,
+                  "confidence": 0.0,
+                  "model": "mock-model",
+                  "problem_id": "sum_two",
+                  "raw_text": "def solve(*args):\n    return 0\n",
+                  "rejected": false,
+                  "rounds_survived": 2,
+                  "selection_score": 1.0,
+                  "survived": true,
+                  "temperature": 0.7,
+                  "text": "def solve(*args):\n    return 0\n",
+                  "trace": [
+                    {
+                      "e_value": 20.0,
+                      "execution": {
+                        "details": [
+                          {
+                            "expected_output": 2,
+                            "observed_output": 0,
+                            "passed": false,
+                            "status": "failed",
+                            "stderr": "",
+                            "stdout": "gARLAC4=\n"
+                          }
+                        ],
+                        "num_passed": 0,
+                        "num_tests": 1,
+                        "passed": false,
+                        "status": "failed"
+                      },
+                      "p_k": 0.35,
+                      "probe": {
+                        "base_test": {
+                          "input": [
+                            1,
+                            2
+                          ],
+                          "output": 3
+                        },
+                        "family": "mutation",
+                        "kind": "mutation_test",
+                        "round": 0,
+                        "test": {
+                          "input": [
+                            0,
+                            2
+                          ],
+                          "output": 2
+                        }
+                      },
+                      "probe_detected_error": true,
+                      "round": 0,
+                      "wealth": 20.0
+                    },
+                    {
+                      "e_value": 20.0,
+                      "execution": {
+                        "details": [
+                          {
+                            "expected_output": 4,
+                            "observed_output": 0,
+                            "passed": false,
+                            "status": "failed",
+                            "stderr": "",
+                            "stdout": "gARLAC4=\n"
+                          }
+                        ],
+                        "num_passed": 0,
+                        "num_tests": 1,
+                        "passed": false,
+                        "status": "failed"
+                      },
+                      "p_k": 0.29,
+                      "probe": {
+                        "base_test": {
+                          "input": [
+                            1,
+                            2
+                          ],
+                          "output": 3
+                        },
+                        "family": "mutation",
+                        "kind": "mutation_test",
+                        "round": 0,
+                        "test": {
+                          "input": [
+                            2,
+                            2
+                          ],
+                          "output": 4
+                        }
+                      },
+                      "probe_detected_error": true,
+                      "round": 1,
+                      "wealth": 400.0
+                    }
+                  ],
+                  "wealth": 400.0
+                },
+                {
+                  "backend": "mock",
+                  "candidate_id": "sum_two_cand_2",
+                  "candidate_order": 2,
+                  "confidence": 0.0,
+                  "model": "mock-model",
+                  "problem_id": "sum_two",
+                  "raw_text": "def solve(*args):\n    return 0\n",
+                  "rejected": false,
+                  "rounds_survived": 2,
+                  "selection_score": 1.0,
+                  "survived": true,
+                  "temperature": 0.7,
+                  "text": "def solve(*args):\n    return 0\n",
+                  "trace": [
+                    {
+                      "e_value": 20.0,
+                      "execution": {
+                        "details": [
+                          {
+                            "expected_output": 2,
+                            "observed_output": 0,
+                            "passed": false,
+                            "status": "failed",
+                            "stderr": "",
+                            "stdout": "gARLAC4=\n"
+                          }
+                        ],
+                        "num_passed": 0,
+                        "num_tests": 1,
+                        "passed": false,
+                        "status": "failed"
+                      },
+                      "p_k": 0.35,
+                      "probe": {
+                        "base_test": {
+                          "input": [
+                            1,
+                            2
+                          ],
+                          "output": 3
+                        },
+                        "family": "mutation",
+                        "kind": "mutation_test",
+                        "round": 0,
+                        "test": {
+                          "input": [
+                            0,
+                            2
+                          ],
+                          "output": 2
+                        }
+                      },
+                      "probe_detected_error": true,
+                      "round": 0,
+                      "wealth": 20.0
+                    },
+                    {
+                      "e_value": 20.0,
+                      "execution": {
+                        "details": [
+                          {
+                            "expected_output": 4,
+                            "observed_output": 0,
+                            "passed": false,
+                            "status": "failed",
+                            "stderr": "",
+                            "stdout": "gARLAC4=\n"
+                          }
+                        ],
+                        "num_passed": 0,
+                        "num_tests": 1,
+                        "passed": false,
+                        "status": "failed"
+                      },
+                      "p_k": 0.29,
+                      "probe": {
+                        "base_test": {
+                          "input": [
+                            1,
+                            2
+                          ],
+                          "output": 3
+                        },
+                        "family": "mutation",
+                        "kind": "mutation_test",
+                        "round": 0,
+                        "test": {
+                          "input": [
+                            2,
+                            2
+                          ],
+                          "output": 4
+                        }
+                      },
+                      "probe_detected_error": true,
+                      "round": 1,
+                      "wealth": 400.0
+                    }
+                  ],
+                  "wealth": 400.0
+                },
+                {
+                  "backend": "mock",
+                  "candidate_id": "sum_two_cand_3",
+                  "candidate_order": 3,
+                  "confidence": 0.0,
+                  "model": "mock-model",
+                  "problem_id": "sum_two",
+                  "raw_text": "def solve(*args):\n    return args[0] if args else None\n",
+                  "rejected": false,
+                  "rounds_survived": 2,
+                  "selection_score": 1.0,
+                  "survived": true,
+                  "temperature": 0.7,
+                  "text": "def solve(*args):\n    return args[0] if args else None\n",
+                  "trace": [
+                    {
+                      "e_value": 20.0,
+                      "execution": {
+                        "details": [
+                          {
+                            "expected_output": 2,
+                            "observed_output": 0,
+                            "passed": false,
+                            "status": "failed",
+                            "stderr": "",
+                            "stdout": "gARLAC4=\n"
+                          }
+                        ],
+                        "num_passed": 0,
+                        "num_tests": 1,
+                        "passed": false,
+                        "status": "failed"
+                      },
+                      "p_k": 0.35,
+                      "probe": {
+                        "base_test": {
+                          "input": [
+                            1,
+                            2
+                          ],
+                          "output": 3
+                        },
+                        "family": "mutation",
+                        "kind": "mutation_test",
+                        "round": 0,
+                        "test": {
+                          "input": [
+                            0,
+                            2
+                          ],
+                          "output": 2
+                        }
+                      },
+                      "probe_detected_error": true,
+                      "round": 0,
+                      "wealth": 20.0
+                    },
+                    {
+                      "e_value": 20.0,
+                      "execution": {
+                        "details": [
+                          {
+                            "expected_output": 4,
+                            "observed_output": 2,
+                            "passed": false,
+                            "status": "failed",
+                            "stderr": "",
+                            "stdout": "gARLAi4=\n"
+                          }
+                        ],
+                        "num_passed": 0,
+                        "num_tests": 1,
+                        "passed": false,
+                        "status": "failed"
+                      },
+                      "p_k": 0.29,
+                      "probe": {
+                        "base_test": {
+                          "input": [
+                            1,
+                            2
+                          ],
+                          "output": 3
+                        },
+                        "family": "mutation",
+                        "kind": "mutation_test",
+                        "round": 0,
+                        "test": {
+                          "input": [
+                            2,
+                            2
+                          ],
+                          "output": 4
+                        }
+                      },
+                      "probe_detected_error": true,
+                      "round": 1,
+                      "wealth": 400.0
+                    }
+                  ],
+                  "wealth": 400.0
+                }
+              ],
+              "selected": {
+                "backend": "mock",
+                "candidate_id": "sum_two_cand_0",
+                "candidate_order": 0,
+                "confidence": 0.0,
+                "model": "mock-model",
+                "problem_id": "sum_two",
+                "raw_text": "def solve(a, b):\n    return a + b\n",
+                "rejected": false,
+                "rounds_survived": 2,
+                "selection_score": 1.0,
+                "survived": true,
+                "temperature": 0.7,
+                "text": "def solve(a, b):\n    return a + b\n",
+                "trace": [
+                  {
+                    "e_value": 0.6842105263157895,
+                    "execution": {
+                      "details": [
+                        {
+                          "expected_output": 2,
+                          "observed_output": 2,
+                          "passed": true,
+                          "status": "passed",
+                          "stderr": "",
+                          "stdout": "gARLAi4=\n"
+                        }
+                      ],
+                      "num_passed": 1,
+                      "num_tests": 1,
+                      "passed": true,
+                      "status": "passed"
+                    },
+                    "p_k": 0.35,
+                    "probe": {
+                      "base_test": {
+                        "input": [
+                          1,
+                          2
+                        ],
+                        "output": 3
+                      },
+                      "family": "mutation",
+                      "kind": "mutation_test",
+                      "round": 0,
+                      "test": {
+                        "input": [
+                          0,
+                          2
+                        ],
+                        "output": 2
+                      }
+                    },
+                    "probe_detected_error": false,
+                    "round": 0,
+                    "wealth": 0.6842105263157895
+                  },
+                  {
+                    "e_value": 0.7473684210526316,
+                    "execution": {
+                      "details": [
+                        {
+                          "expected_output": 4,
+                          "observed_output": 4,
+                          "passed": true,
+                          "status": "passed",
+                          "stderr": "",
+                          "stdout": "gARLBC4=\n"
+                        }
+                      ],
+                      "num_passed": 1,
+                      "num_tests": 1,
+                      "passed": true,
+                      "status": "passed"
+                    },
+                    "p_k": 0.29,
+                    "probe": {
+                      "base_test": {
+                        "input": [
+                          1,
+                          2
+                        ],
+                        "output": 3
+                      },
+                      "family": "mutation",
+                      "kind": "mutation_test",
+                      "round": 0,
+                      "test": {
+                        "input": [
+                          2,
+                          2
+                        ],
+                        "output": 4
+                      }
+                    },
+                    "probe_detected_error": false,
+                    "round": 1,
+                    "wealth": 0.5113573407202217
+                  }
+                ],
+                "wealth": 0.5113573407202217
+              }
+            },
+            "generated_test_filter": {
+              "meta": {
+                "eliminated": 3,
+                "method": "generated_test_filter",
+                "probes_used": 1,
+                "survivors": 1
+              },
+              "passed": true,
+              "selected": {
+                "backend": "mock",
+                "candidate_id": "sum_two_cand_0",
+                "confidence": 1.0,
+                "model": "mock-model",
+                "problem_id": "sum_two",
+                "raw_text": "def solve(a, b):\n    return a + b\n",
+                "temperature": 0.7,
+                "text": "def solve(a, b):\n    return a + b\n"
+              }
+            },
+            "greedy": {
+              "meta": {
+                "method": "greedy"
+              },
+              "passed": true,
+              "selected": {
+                "backend": "mock",
+                "candidate_id": "sum_two_cand_0",
+                "confidence": 1.0,
+                "model": "mock-model",
+                "problem_id": "sum_two",
+                "raw_text": "def solve(a, b):\n    return a + b\n",
+                "temperature": 0.7,
+                "text": "def solve(a, b):\n    return a + b\n"
+              }
+            },
+            "majority_vote": {
+              "meta": {
+                "method": "majority_vote",
+                "vote_count": 2
+              },
+              "passed": false,
+              "selected": {
+                "backend": "mock",
+                "candidate_id": "sum_two_cand_1",
+                "confidence": 0.5,
+                "model": "mock-model",
+                "problem_id": "sum_two",
+                "raw_text": "def solve(*args):\n    return 0\n",
+                "temperature": 0.7,
+                "text": "def solve(*args):\n    return 0\n"
+              }
+            },
+            "oracle": {
+              "meta": {
+                "method": "oracle"
+              },
+              "passed": true,
+              "selected": {
+                "backend": "mock",
+                "candidate_id": "sum_two_cand_0",
+                "confidence": 1.0,
+                "model": "mock-model",
+                "problem_id": "sum_two",
+                "raw_text": "def solve(a, b):\n    return a + b\n",
+                "temperature": 0.7,
+                "text": "def solve(a, b):\n    return a + b\n"
+              }
+            },
+            "self_debug": {
+              "meta": {
+                "method": "self_debug",
+                "rounds": 0
+              },
+              "passed": true,
+              "selected": {
+                "backend": "mock",
+                "candidate_id": "sum_two_cand_0",
+                "confidence": 0.75,
+                "model": "mock-model",
+                "problem_id": "sum_two",
+                "raw_text": "def solve(a, b):\n    return a + b\n",
+                "temperature": 0.7,
+                "text": "def solve(a, b):\n    return a + b\n"
+              }
+            }
+          },
+          "num_candidates": 4,
+          "num_correct_candidates": 1,
+          "pass_at_k": {
+            "1": 0.25,
+            "4": 1.0
+          },
+          "problem_id": "sum_two",
+          "type": "code"
+        },
+        {
+          "difficulty": "medium",
+          "methods": {
+            "falsification": {
+              "passed": true,
+              "records": [
+                {
+                  "backend": "mock",
+                  "candidate_id": "factorial_small_cand_0",
+                  "candidate_order": 0,
+                  "confidence": 0.0,
+                  "model": "mock-model",
+                  "problem_id": "factorial_small",
+                  "raw_text": "def solve(n):\n    out = 1\n    for i in range(2, n + 1):\n        out *= i\n    return out\n",
+                  "rejected": false,
+                  "rounds_survived": 2,
+                  "selection_score": 1.0,
+                  "survived": true,
+                  "temperature": 0.7,
+                  "text": "def solve(n):\n    out = 1\n    for i in range(2, n + 1):\n        out *= i\n    return out\n",
+                  "trace": [
+                    {
+                      "e_value": 0.6842105263157895,
+                      "execution": {
+                        "details": [
+                          {
+                            "expected_output": 1,
+                            "observed_output": 1,
+                            "passed": true,
+                            "status": "passed",
+                            "stderr": "",
+                            "stdout": "gARLAS4=\n"
+                          }
+                        ],
+                        "num_passed": 1,
+                        "num_tests": 1,
+                        "passed": true,
+                        "status": "passed"
+                      },
+                      "p_k": 0.35,
+                      "probe": {
+                        "base_test": {
+                          "input": [
+                            0
+                          ],
+                          "output": 1
+                        },
+                        "family": "mutation",
+                        "kind": "mutation_test",
+                        "round": 0,
+                        "test": {
+                          "input": [
+                            -1
+                          ],
+                          "output": 1
+                        }
+                      },
+                      "probe_detected_error": false,
+                      "round": 0,
+                      "wealth": 0.6842105263157895
+                    },
+                    {
+                      "e_value": 0.7473684210526316,
+                      "execution": {
+                        "details": [
+                          {
+                            "expected_output": 1,
+                            "observed_output": 1,
+                            "passed": true,
+                            "status": "passed",
+                            "stderr": "",
+                            "stdout": "gARLAS4=\n"
+                          }
+                        ],
+                        "num_passed": 1,
+                        "num_tests": 1,
+                        "passed": true,
+                        "status": "passed"
+                      },
+                      "p_k": 0.29,
+                      "probe": {
+                        "base_test": {
+                          "input": [
+                            4
+                          ],
+                          "output": 24
+                        },
+                        "family": "mutation",
+                        "kind": "mutation_test",
+                        "round": 1,
+                        "test": {
+                          "input": [
+                            0
+                          ],
+                          "output": 1
+                        }
+                      },
+                      "probe_detected_error": false,
+                      "round": 1,
+                      "wealth": 0.5113573407202217
+                    }
+                  ],
+                  "wealth": 0.5113573407202217
+                },
+                {
+                  "backend": "mock",
+                  "candidate_id": "factorial_small_cand_1",
+                  "candidate_order": 1,
+                  "confidence": 0.0,
+                  "model": "mock-model",
+                  "problem_id": "factorial_small",
+                  "raw_text": "def solve(*args):\n    return args[0] if args else None\n",
+                  "rejected": false,
+                  "rounds_survived": 2,
+                  "selection_score": 1.0,
+                  "survived": true,
+                  "temperature": 0.7,
+                  "text": "def solve(*args):\n    return args[0] if args else None\n",
+                  "trace": [
+                    {
+                      "e_value": 20.0,
+                      "execution": {
+                        "details": [
+                          {
+                            "expected_output": 1,
+                            "observed_output": -1,
+                            "passed": false,
+                            "status": "failed",
+                            "stderr": "",
+                            "stdout": "gASVBgAAAAAAAABK/////y4=\n"
+                          }
+                        ],
+                        "num_passed": 0,
+                        "num_tests": 1,
+                        "passed": false,
+                        "status": "failed"
+                      },
+                      "p_k": 0.35,
+                      "probe": {
+                        "base_test": {
+                          "input": [
+                            0
+                          ],
+                          "output": 1
+                        },
+                        "family": "mutation",
+                        "kind": "mutation_test",
+                        "round": 0,
+                        "test": {
+                          "input": [
+                            -1
+                          ],
+                          "output": 1
+                        }
+                      },
+                      "probe_detected_error": true,
+                      "round": 0,
+                      "wealth": 20.0
+                    },
+                    {
+                      "e_value": 20.0,
+                      "execution": {
+                        "details": [
+                          {
+                            "expected_output": 1,
+                            "observed_output": 0,
+                            "passed": false,
+                            "status": "failed",
+                            "stderr": "",
+                            "stdout": "gARLAC4=\n"
+                          }
+                        ],
+                        "num_passed": 0,
+                        "num_tests": 1,
+                        "passed": false,
+                        "status": "failed"
+                      },
+                      "p_k": 0.29,
+                      "probe": {
+                        "base_test": {
+                          "input": [
+                            4
+                          ],
+                          "output": 24
+                        },
+                        "family": "mutation",
+                        "kind": "mutation_test",
+                        "round": 1,
+                        "test": {
+                          "input": [
+                            0
+                          ],
+                          "output": 1
+                        }
+                      },
+                      "probe_detected_error": true,
+                      "round": 1,
+                      "wealth": 400.0
+                    }
+                  ],
+                  "wealth": 400.0
+                },
+                {
+                  "backend": "mock",
+                  "candidate_id": "factorial_small_cand_2",
+                  "candidate_order": 2,
+                  "confidence": 0.0,
+                  "model": "mock-model",
+                  "problem_id": "factorial_small",
+                  "raw_text": "def solve(*args):\n    return args[0] if args else None\n",
+                  "rejected": false,
+                  "rounds_survived": 2,
+                  "selection_score": 1.0,
+                  "survived": true,
+                  "temperature": 0.7,
+                  "text": "def solve(*args):\n    return args[0] if args else None\n",
+                  "trace": [
+                    {
+                      "e_value": 20.0,
+                      "execution": {
+                        "details": [
+                          {
+                            "expected_output": 1,
+                            "observed_output": -1,
+                            "passed": false,
+                            "status": "failed",
+                            "stderr": "",
+                            "stdout": "gASVBgAAAAAAAABK/////y4=\n"
+                          }
+                        ],
+                        "num_passed": 0,
+                        "num_tests": 1,
+                        "passed": false,
+                        "status": "failed"
+                      },
+                      "p_k": 0.35,
+                      "probe": {
+                        "base_test": {
+                          "input": [
+                            0
+                          ],
+                          "output": 1
+                        },
+                        "family": "mutation",
+                        "kind": "mutation_test",
+                        "round": 0,
+                        "test": {
+                          "input": [
+                            -1
+                          ],
+                          "output": 1
+                        }
+                      },
+                      "probe_detected_error": true,
+                      "round": 0,
+                      "wealth": 20.0
+                    },
+                    {
+                      "e_value": 20.0,
+                      "execution": {
+                        "details": [
+                          {
+                            "expected_output": 1,
+                            "observed_output": 0,
+                            "passed": false,
+                            "status": "failed",
+                            "stderr": "",
+                            "stdout": "gARLAC4=\n"
+                          }
+                        ],
+                        "num_passed": 0,
+                        "num_tests": 1,
+                        "passed": false,
+                        "status": "failed"
+                      },
+                      "p_k": 0.29,
+                      "probe": {
+                        "base_test": {
+                          "input": [
+                            4
+                          ],
+                          "output": 24
+                        },
+                        "family": "mutation",
+                        "kind": "mutation_test",
+                        "round": 1,
+                        "test": {
+                          "input": [
+                            0
+                          ],
+                          "output": 1
+                        }
+                      },
+                      "probe_detected_error": true,
+                      "round": 1,
+                      "wealth": 400.0
+                    }
+                  ],
+                  "wealth": 400.0
+                },
+                {
+                  "backend": "mock",
+                  "candidate_id": "factorial_small_cand_3",
+                  "candidate_order": 3,
+                  "confidence": 0.0,
+                  "model": "mock-model",
+                  "problem_id": "factorial_small",
+                  "raw_text": "def solve(*args):\n    return args[0] if args else None\n",
+                  "rejected": false,
+                  "rounds_survived": 2,
+                  "selection_score": 1.0,
+                  "survived": true,
+                  "temperature": 0.7,
+                  "text": "def solve(*args):\n    return args[0] if args else None\n",
+                  "trace": [
+                    {
+                      "e_value": 20.0,
+                      "execution": {
+                        "details": [
+                          {
+                            "expected_output": 1,
+                            "observed_output": -1,
+                            "passed": false,
+                            "status": "failed",
+                            "stderr": "",
+                            "stdout": "gASVBgAAAAAAAABK/////y4=\n"
+                          }
+                        ],
+                        "num_passed": 0,
+                        "num_tests": 1,
+                        "passed": false,
+                        "status": "failed"
+                      },
+                      "p_k": 0.35,
+                      "probe": {
+                        "base_test": {
+                          "input": [
+                            0
+                          ],
+                          "output": 1
+                        },
+                        "family": "mutation",
+                        "kind": "mutation_test",
+                        "round": 0,
+                        "test": {
+                          "input": [
+                            -1
+                          ],
+                          "output": 1
+                        }
+                      },
+                      "probe_detected_error": true,
+                      "round": 0,
+                      "wealth": 20.0
+                    },
+                    {
+                      "e_value": 20.0,
+                      "execution": {
+                        "details": [
+                          {
+                            "expected_output": 1,
+                            "observed_output": 0,
+                            "passed": false,
+                            "status": "failed",
+                            "stderr": "",
+                            "stdout": "gARLAC4=\n"
+                          }
+                        ],
+                        "num_passed": 0,
+                        "num_tests": 1,
+                        "passed": false,
+                        "status": "failed"
+                      },
+                      "p_k": 0.29,
+                      "probe": {
+                        "base_test": {
+                          "input": [
+                            4
+                          ],
+                          "output": 24
+                        },
+                        "family": "mutation",
+                        "kind": "mutation_test",
+                        "round": 1,
+                        "test": {
+                          "input": [
+                            0
+                          ],
+                          "output": 1
+                        }
+                      },
+                      "probe_detected_error": true,
+                      "round": 1,
+                      "wealth": 400.0
+                    }
+                  ],
+                  "wealth": 400.0
+                }
+              ],
+              "selected": {
+                "backend": "mock",
+                "candidate_id": "factorial_small_cand_0",
+                "candidate_order": 0,
+                "confidence": 0.0,
+                "model": "mock-model",
+                "problem_id": "factorial_small",
+                "raw_text": "def solve(n):\n    out = 1\n    for i in range(2, n + 1):\n        out *= i\n    return out\n",
+                "rejected": false,
+                "rounds_survived": 2,
+                "selection_score": 1.0,
+                "survived": true,
+                "temperature": 0.7,
+                "text": "def solve(n):\n    out = 1\n    for i in range(2, n + 1):\n        out *= i\n    return out\n",
+                "trace": [
+                  {
+                    "e_value": 0.6842105263157895,
+                    "execution": {
+                      "details": [
+                        {
+                          "expected_output": 1,
+                          "observed_output": 1,
+                          "passed": true,
+                          "status": "passed",
+                          "stderr": "",
+                          "stdout": "gARLAS4=\n"
+                        }
+                      ],
+                      "num_passed": 1,
+                      "num_tests": 1,
+                      "passed": true,
+                      "status": "passed"
+                    },
+                    "p_k": 0.35,
+                    "probe": {
+                      "base_test": {
+                        "input": [
+                          0
+                        ],
+                        "output": 1
+                      },
+                      "family": "mutation",
+                      "kind": "mutation_test",
+                      "round": 0,
+                      "test": {
+                        "input": [
+                          -1
+                        ],
+                        "output": 1
+                      }
+                    },
+                    "probe_detected_error": false,
+                    "round": 0,
+                    "wealth": 0.6842105263157895
+                  },
+                  {
+                    "e_value": 0.7473684210526316,
+                    "execution": {
+                      "details": [
+                        {
+                          "expected_output": 1,
+                          "observed_output": 1,
+                          "passed": true,
+                          "status": "passed",
+                          "stderr": "",
+                          "stdout": "gARLAS4=\n"
+                        }
+                      ],
+                      "num_passed": 1,
+                      "num_tests": 1,
+                      "passed": true,
+                      "status": "passed"
+                    },
+                    "p_k": 0.29,
+                    "probe": {
+                      "base_test": {
+                        "input": [
+                          4
+                        ],
+                        "output": 24
+                      },
+                      "family": "mutation",
+                      "kind": "mutation_test",
+                      "round": 1,
+                      "test": {
+                        "input": [
+                          0
+                        ],
+                        "output": 1
+                      }
+                    },
+                    "probe_detected_error": false,
+                    "round": 1,
+                    "wealth": 0.5113573407202217
+                  }
+                ],
+                "wealth": 0.5113573407202217
+              }
+            },
+            "generated_test_filter": {
+              "meta": {
+                "eliminated": 3,
+                "method": "generated_test_filter",
+                "probes_used": 1,
+                "survivors": 1
+              },
+              "passed": true,
+              "selected": {
+                "backend": "mock",
+                "candidate_id": "factorial_small_cand_0",
+                "confidence": 1.0,
+                "model": "mock-model",
+                "problem_id": "factorial_small",
+                "raw_text": "def solve(n):\n    out = 1\n    for i in range(2, n + 1):\n        out *= i\n    return out\n",
+                "temperature": 0.7,
+                "text": "def solve(n):\n    out = 1\n    for i in range(2, n + 1):\n        out *= i\n    return out\n"
+              }
+            },
+            "greedy": {
+              "meta": {
+                "method": "greedy"
+              },
+              "passed": true,
+              "selected": {
+                "backend": "mock",
+                "candidate_id": "factorial_small_cand_0",
+                "confidence": 1.0,
+                "model": "mock-model",
+                "problem_id": "factorial_small",
+                "raw_text": "def solve(n):\n    out = 1\n    for i in range(2, n + 1):\n        out *= i\n    return out\n",
+                "temperature": 0.7,
+                "text": "def solve(n):\n    out = 1\n    for i in range(2, n + 1):\n        out *= i\n    return out\n"
+              }
+            },
+            "majority_vote": {
+              "meta": {
+                "method": "majority_vote",
+                "vote_count": 3
+              },
+              "passed": false,
+              "selected": {
+                "backend": "mock",
+                "candidate_id": "factorial_small_cand_1",
+                "confidence": 0.75,
+                "model": "mock-model",
+                "problem_id": "factorial_small",
+                "raw_text": "def solve(*args):\n    return args[0] if args else None\n",
+                "temperature": 0.7,
+                "text": "def solve(*args):\n    return args[0] if args else None\n"
+              }
+            },
+            "oracle": {
+              "meta": {
+                "method": "oracle"
+              },
+              "passed": true,
+              "selected": {
+                "backend": "mock",
+                "candidate_id": "factorial_small_cand_0",
+                "confidence": 1.0,
+                "model": "mock-model",
+                "problem_id": "factorial_small",
+                "raw_text": "def solve(n):\n    out = 1\n    for i in range(2, n + 1):\n        out *= i\n    return out\n",
+                "temperature": 0.7,
+                "text": "def solve(n):\n    out = 1\n    for i in range(2, n + 1):\n        out *= i\n    return out\n"
+              }
+            },
+            "self_debug": {
+              "meta": {
+                "method": "self_debug",
+                "rounds": 0
+              },
+              "passed": true,
+              "selected": {
+                "backend": "mock",
+                "candidate_id": "factorial_small_cand_0",
+                "confidence": 0.75,
+                "model": "mock-model",
+                "problem_id": "factorial_small",
+                "raw_text": "def solve(n):\n    out = 1\n    for i in range(2, n + 1):\n        out *= i\n    return out\n",
+                "temperature": 0.7,
+                "text": "def solve(n):\n    out = 1\n    for i in range(2, n + 1):\n        out *= i\n    return out\n"
+              }
+            }
+          },
+          "num_candidates": 4,
+          "num_correct_candidates": 1,
+          "pass_at_k": {
+            "1": 0.25,
+            "4": 1.0
+          },
+          "problem_id": "factorial_small",
+          "type": "code"
+        }
+      ],
+      "seed": 42,
+      "summary": {
+        "calibration": {
+          "auroc": 0.0,
+          "bins": [
+            {
+              "avg_accuracy": 1.0,
+              "avg_confidence": 0.0,
+              "bin": 0,
+              "count": 2
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.15,
+              "bin": 1,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.25,
+              "bin": 2,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.35,
+              "bin": 3,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.45,
+              "bin": 4,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.55,
+              "bin": 5,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.65,
+              "bin": 6,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.75,
+              "bin": 7,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.85,
+              "bin": 8,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.95,
+              "bin": 9,
+              "count": 0
+            }
+          ],
+          "brier": 1.0,
+          "ece": 1.0,
+          "majority_vote_bins": [
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.05,
+              "bin": 0,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.15,
+              "bin": 1,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.25,
+              "bin": 2,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.35,
+              "bin": 3,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.45,
+              "bin": 4,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.5,
+              "bin": 5,
+              "count": 1
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.65,
+              "bin": 6,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.75,
+              "bin": 7,
+              "count": 1
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.85,
+              "bin": 8,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.95,
+              "bin": 9,
+              "count": 0
+            }
+          ],
+          "majority_vote_ece": 0.625,
+          "majority_vote_selective_curve": [
+            {
+              "accuracy": 0.0,
+              "count": 2,
+              "coverage": 1.0,
+              "threshold": 0.0
+            },
+            {
+              "accuracy": 0.0,
+              "count": 2,
+              "coverage": 1.0,
+              "threshold": 0.1
+            },
+            {
+              "accuracy": 0.0,
+              "count": 2,
+              "coverage": 1.0,
+              "threshold": 0.2
+            },
+            {
+              "accuracy": 0.0,
+              "count": 2,
+              "coverage": 1.0,
+              "threshold": 0.3
+            },
+            {
+              "accuracy": 0.0,
+              "count": 2,
+              "coverage": 1.0,
+              "threshold": 0.4
+            },
+            {
+              "accuracy": 0.0,
+              "count": 2,
+              "coverage": 1.0,
+              "threshold": 0.5
+            },
+            {
+              "accuracy": 0.0,
+              "count": 1,
+              "coverage": 0.5,
+              "threshold": 0.6
+            },
+            {
+              "accuracy": 0.0,
+              "count": 1,
+              "coverage": 0.5,
+              "threshold": 0.7
+            },
+            {
+              "accuracy": 0.0,
+              "count": 0,
+              "coverage": 0.0,
+              "threshold": 0.8
+            },
+            {
+              "accuracy": 0.0,
+              "count": 0,
+              "coverage": 0.0,
+              "threshold": 0.9
+            },
+            {
+              "accuracy": 0.0,
+              "count": 0,
+              "coverage": 0.0,
+              "threshold": 1.0
+            }
+          ],
+          "mce": 1.0,
+          "per_method": {
+            "falsification": {
+              "auroc": 0.0,
+              "bins": [
+                {
+                  "avg_accuracy": 1.0,
+                  "avg_confidence": 0.0,
+                  "bin": 0,
+                  "count": 2
+                },
+                {
+                  "avg_accuracy": 0.0,
+                  "avg_confidence": 0.15,
+                  "bin": 1,
+                  "count": 0
+                },
+                {
+                  "avg_accuracy": 0.0,
+                  "avg_confidence": 0.25,
+                  "bin": 2,
+                  "count": 0
+                },
+                {
+                  "avg_accuracy": 0.0,
+                  "avg_confidence": 0.35,
+                  "bin": 3,
+                  "count": 0
+                },
+                {
+                  "avg_accuracy": 0.0,
+                  "avg_confidence": 0.45,
+                  "bin": 4,
+                  "count": 0
+                },
+                {
+                  "avg_accuracy": 0.0,
+                  "avg_confidence": 0.55,
+                  "bin": 5,
+                  "count": 0
+                },
+                {
+                  "avg_accuracy": 0.0,
+                  "avg_confidence": 0.65,
+                  "bin": 6,
+                  "count": 0
+                },
+                {
+                  "avg_accuracy": 0.0,
+                  "avg_confidence": 0.75,
+                  "bin": 7,
+                  "count": 0
+                },
+                {
+                  "avg_accuracy": 0.0,
+                  "avg_confidence": 0.85,
+                  "bin": 8,
+                  "count": 0
+                },
+                {
+                  "avg_accuracy": 0.0,
+                  "avg_confidence": 0.95,
+                  "bin": 9,
+                  "count": 0
+                }
+              ],
+              "brier": 1.0,
+              "ece": 1.0,
+              "mce": 1.0,
+              "selective_curve": [
+                {
+                  "accuracy": 1.0,
+                  "count": 2,
+                  "coverage": 1.0,
+                  "threshold": 0.0
+                },
+                {
+                  "accuracy": 0.0,
+                  "count": 0,
+                  "coverage": 0.0,
+                  "threshold": 0.1
+                },
+                {
+                  "accuracy": 0.0,
+                  "count": 0,
+                  "coverage": 0.0,
+                  "threshold": 0.2
+                },
+                {
+                  "accuracy": 0.0,
+                  "count": 0,
+                  "coverage": 0.0,
+                  "threshold": 0.3
+                },
+                {
+                  "accuracy": 0.0,
+                  "count": 0,
+                  "coverage": 0.0,
+                  "threshold": 0.4
+                },
+                {
+                  "accuracy": 0.0,
+                  "count": 0,
+                  "coverage": 0.0,
+                  "threshold": 0.5
+                },
+                {
+                  "accuracy": 0.0,
+                  "count": 0,
+                  "coverage": 0.0,
+                  "threshold": 0.6
+                },
+                {
+                  "accuracy": 0.0,
+                  "count": 0,
+                  "coverage": 0.0,
+                  "threshold": 0.7
+                },
+                {
+                  "accuracy": 0.0,
+                  "count": 0,
+                  "coverage": 0.0,
+                  "threshold": 0.8
+                },
+                {
+                  "accuracy": 0.0,
+                  "count": 0,
+                  "coverage": 0.0,
+                  "threshold": 0.9
+                },
+                {
+                  "accuracy": 0.0,
+                  "count": 0,
+                  "coverage": 0.0,
+                  "threshold": 1.0
+                }
+              ]
+            },
+            "generated_test_filter": {
+              "auroc": 0.0,
+              "bins": [
+                {
+                  "avg_accuracy": 0.0,
+                  "avg_confidence": 0.05,
+                  "bin": 0,
+                  "count": 0
+                },
+                {
+                  "avg_accuracy": 0.0,
+                  "avg_confidence": 0.15,
+                  "bin": 1,
+                  "count": 0
+                },
+                {
+                  "avg_accuracy": 0.0,
+                  "avg_confidence": 0.25,
+                  "bin": 2,
+                  "count": 0
+                },
+                {
+                  "avg_accuracy": 0.0,
+                  "avg_confidence": 0.35,
+                  "bin": 3,
+                  "count": 0
+                },
+                {
+                  "avg_accuracy": 0.0,
+                  "avg_confidence": 0.45,
+                  "bin": 4,
+                  "count": 0
+                },
+                {
+                  "avg_accuracy": 0.0,
+                  "avg_confidence": 0.55,
+                  "bin": 5,
+                  "count": 0
+                },
+                {
+                  "avg_accuracy": 0.0,
+                  "avg_confidence": 0.65,
+                  "bin": 6,
+                  "count": 0
+                },
+                {
+                  "avg_accuracy": 0.0,
+                  "avg_confidence": 0.75,
+                  "bin": 7,
+                  "count": 0
+                },
+                {
+                  "avg_accuracy": 0.0,
+                  "avg_confidence": 0.85,
+                  "bin": 8,
+                  "count": 0
+                },
+                {
+                  "avg_accuracy": 1.0,
+                  "avg_confidence": 1.0,
+                  "bin": 9,
+                  "count": 2
+                }
+              ],
+              "brier": 0.0,
+              "ece": 0.0,
+              "mce": 0.0,
+              "selective_curve": [
+                {
+                  "accuracy": 1.0,
+                  "count": 2,
+                  "coverage": 1.0,
+                  "threshold": 0.0
+                },
+                {
+                  "accuracy": 1.0,
+                  "count": 2,
+                  "coverage": 1.0,
+                  "threshold": 0.1
+                },
+                {
+                  "accuracy": 1.0,
+                  "count": 2,
+                  "coverage": 1.0,
+                  "threshold": 0.2
+                },
+                {
+                  "accuracy": 1.0,
+                  "count": 2,
+                  "coverage": 1.0,
+                  "threshold": 0.3
+                },
+                {
+                  "accuracy": 1.0,
+                  "count": 2,
+                  "coverage": 1.0,
+                  "threshold": 0.4
+                },
+                {
+                  "accuracy": 1.0,
+                  "count": 2,
+                  "coverage": 1.0,
+                  "threshold": 0.5
+                },
+                {
+                  "accuracy": 1.0,
+                  "count": 2,
+                  "coverage": 1.0,
+                  "threshold": 0.6
+                },
+                {
+                  "accuracy": 1.0,
+                  "count": 2,
+                  "coverage": 1.0,
+                  "threshold": 0.7
+                },
+                {
+                  "accuracy": 1.0,
+                  "count": 2,
+                  "coverage": 1.0,
+                  "threshold": 0.8
+                },
+                {
+                  "accuracy": 1.0,
+                  "count": 2,
+                  "coverage": 1.0,
+                  "threshold": 0.9
+                },
+                {
+                  "accuracy": 1.0,
+                  "count": 2,
+                  "coverage": 1.0,
+                  "threshold": 1.0
+                }
+              ]
+            },
+            "greedy": {
+              "auroc": 0.0,
+              "bins": [
+                {
+                  "avg_accuracy": 0.0,
+                  "avg_confidence": 0.05,
+                  "bin": 0,
+                  "count": 0
+                },
+                {
+                  "avg_accuracy": 0.0,
+                  "avg_confidence": 0.15,
+                  "bin": 1,
+                  "count": 0
+                },
+                {
+                  "avg_accuracy": 0.0,
+                  "avg_confidence": 0.25,
+                  "bin": 2,
+                  "count": 0
+                },
+                {
+                  "avg_accuracy": 0.0,
+                  "avg_confidence": 0.35,
+                  "bin": 3,
+                  "count": 0
+                },
+                {
+                  "avg_accuracy": 0.0,
+                  "avg_confidence": 0.45,
+                  "bin": 4,
+                  "count": 0
+                },
+                {
+                  "avg_accuracy": 0.0,
+                  "avg_confidence": 0.55,
+                  "bin": 5,
+                  "count": 0
+                },
+                {
+                  "avg_accuracy": 0.0,
+                  "avg_confidence": 0.65,
+                  "bin": 6,
+                  "count": 0
+                },
+                {
+                  "avg_accuracy": 0.0,
+                  "avg_confidence": 0.75,
+                  "bin": 7,
+                  "count": 0
+                },
+                {
+                  "avg_accuracy": 0.0,
+                  "avg_confidence": 0.85,
+                  "bin": 8,
+                  "count": 0
+                },
+                {
+                  "avg_accuracy": 1.0,
+                  "avg_confidence": 1.0,
+                  "bin": 9,
+                  "count": 2
+                }
+              ],
+              "brier": 0.0,
+              "ece": 0.0,
+              "mce": 0.0,
+              "selective_curve": [
+                {
+                  "accuracy": 1.0,
+                  "count": 2,
+                  "coverage": 1.0,
+                  "threshold": 0.0
+                },
+                {
+                  "accuracy": 1.0,
+                  "count": 2,
+                  "coverage": 1.0,
+                  "threshold": 0.1
+                },
+                {
+                  "accuracy": 1.0,
+                  "count": 2,
+                  "coverage": 1.0,
+                  "threshold": 0.2
+                },
+                {
+                  "accuracy": 1.0,
+                  "count": 2,
+                  "coverage": 1.0,
+                  "threshold": 0.3
+                },
+                {
+                  "accuracy": 1.0,
+                  "count": 2,
+                  "coverage": 1.0,
+                  "threshold": 0.4
+                },
+                {
+                  "accuracy": 1.0,
+                  "count": 2,
+                  "coverage": 1.0,
+                  "threshold": 0.5
+                },
+                {
+                  "accuracy": 1.0,
+                  "count": 2,
+                  "coverage": 1.0,
+                  "threshold": 0.6
+                },
+                {
+                  "accuracy": 1.0,
+                  "count": 2,
+                  "coverage": 1.0,
+                  "threshold": 0.7
+                },
+                {
+                  "accuracy": 1.0,
+                  "count": 2,
+                  "coverage": 1.0,
+                  "threshold": 0.8
+                },
+                {
+                  "accuracy": 1.0,
+                  "count": 2,
+                  "coverage": 1.0,
+                  "threshold": 0.9
+                },
+                {
+                  "accuracy": 1.0,
+                  "count": 2,
+                  "coverage": 1.0,
+                  "threshold": 1.0
+                }
+              ]
+            },
+            "majority_vote": {
+              "auroc": 0.0,
+              "bins": [
+                {
+                  "avg_accuracy": 0.0,
+                  "avg_confidence": 0.05,
+                  "bin": 0,
+                  "count": 0
+                },
+                {
+                  "avg_accuracy": 0.0,
+                  "avg_confidence": 0.15,
+                  "bin": 1,
+                  "count": 0
+                },
+                {
+                  "avg_accuracy": 0.0,
+                  "avg_confidence": 0.25,
+                  "bin": 2,
+                  "count": 0
+                },
+                {
+                  "avg_accuracy": 0.0,
+                  "avg_confidence": 0.35,
+                  "bin": 3,
+                  "count": 0
+                },
+                {
+                  "avg_accuracy": 0.0,
+                  "avg_confidence": 0.45,
+                  "bin": 4,
+                  "count": 0
+                },
+                {
+                  "avg_accuracy": 0.0,
+                  "avg_confidence": 0.5,
+                  "bin": 5,
+                  "count": 1
+                },
+                {
+                  "avg_accuracy": 0.0,
+                  "avg_confidence": 0.65,
+                  "bin": 6,
+                  "count": 0
+                },
+                {
+                  "avg_accuracy": 0.0,
+                  "avg_confidence": 0.75,
+                  "bin": 7,
+                  "count": 1
+                },
+                {
+                  "avg_accuracy": 0.0,
+                  "avg_confidence": 0.85,
+                  "bin": 8,
+                  "count": 0
+                },
+                {
+                  "avg_accuracy": 0.0,
+                  "avg_confidence": 0.95,
+                  "bin": 9,
+                  "count": 0
+                }
+              ],
+              "brier": 0.40625,
+              "ece": 0.625,
+              "mce": 0.75,
+              "selective_curve": [
+                {
+                  "accuracy": 0.0,
+                  "count": 2,
+                  "coverage": 1.0,
+                  "threshold": 0.0
+                },
+                {
+                  "accuracy": 0.0,
+                  "count": 2,
+                  "coverage": 1.0,
+                  "threshold": 0.1
+                },
+                {
+                  "accuracy": 0.0,
+                  "count": 2,
+                  "coverage": 1.0,
+                  "threshold": 0.2
+                },
+                {
+                  "accuracy": 0.0,
+                  "count": 2,
+                  "coverage": 1.0,
+                  "threshold": 0.3
+                },
+                {
+                  "accuracy": 0.0,
+                  "count": 2,
+                  "coverage": 1.0,
+                  "threshold": 0.4
+                },
+                {
+                  "accuracy": 0.0,
+                  "count": 2,
+                  "coverage": 1.0,
+                  "threshold": 0.5
+                },
+                {
+                  "accuracy": 0.0,
+                  "count": 1,
+                  "coverage": 0.5,
+                  "threshold": 0.6
+                },
+                {
+                  "accuracy": 0.0,
+                  "count": 1,
+                  "coverage": 0.5,
+                  "threshold": 0.7
+                },
+                {
+                  "accuracy": 0.0,
+                  "count": 0,
+                  "coverage": 0.0,
+                  "threshold": 0.8
+                },
+                {
+                  "accuracy": 0.0,
+                  "count": 0,
+                  "coverage": 0.0,
+                  "threshold": 0.9
+                },
+                {
+                  "accuracy": 0.0,
+                  "count": 0,
+                  "coverage": 0.0,
+                  "threshold": 1.0
+                }
+              ]
+            },
+            "oracle": {
+              "auroc": 0.0,
+              "bins": [
+                {
+                  "avg_accuracy": 0.0,
+                  "avg_confidence": 0.05,
+                  "bin": 0,
+                  "count": 0
+                },
+                {
+                  "avg_accuracy": 0.0,
+                  "avg_confidence": 0.15,
+                  "bin": 1,
+                  "count": 0
+                },
+                {
+                  "avg_accuracy": 0.0,
+                  "avg_confidence": 0.25,
+                  "bin": 2,
+                  "count": 0
+                },
+                {
+                  "avg_accuracy": 0.0,
+                  "avg_confidence": 0.35,
+                  "bin": 3,
+                  "count": 0
+                },
+                {
+                  "avg_accuracy": 0.0,
+                  "avg_confidence": 0.45,
+                  "bin": 4,
+                  "count": 0
+                },
+                {
+                  "avg_accuracy": 0.0,
+                  "avg_confidence": 0.55,
+                  "bin": 5,
+                  "count": 0
+                },
+                {
+                  "avg_accuracy": 0.0,
+                  "avg_confidence": 0.65,
+                  "bin": 6,
+                  "count": 0
+                },
+                {
+                  "avg_accuracy": 0.0,
+                  "avg_confidence": 0.75,
+                  "bin": 7,
+                  "count": 0
+                },
+                {
+                  "avg_accuracy": 0.0,
+                  "avg_confidence": 0.85,
+                  "bin": 8,
+                  "count": 0
+                },
+                {
+                  "avg_accuracy": 1.0,
+                  "avg_confidence": 1.0,
+                  "bin": 9,
+                  "count": 2
+                }
+              ],
+              "brier": 0.0,
+              "ece": 0.0,
+              "mce": 0.0,
+              "selective_curve": [
+                {
+                  "accuracy": 1.0,
+                  "count": 2,
+                  "coverage": 1.0,
+                  "threshold": 0.0
+                },
+                {
+                  "accuracy": 1.0,
+                  "count": 2,
+                  "coverage": 1.0,
+                  "threshold": 0.1
+                },
+                {
+                  "accuracy": 1.0,
+                  "count": 2,
+                  "coverage": 1.0,
+                  "threshold": 0.2
+                },
+                {
+                  "accuracy": 1.0,
+                  "count": 2,
+                  "coverage": 1.0,
+                  "threshold": 0.3
+                },
+                {
+                  "accuracy": 1.0,
+                  "count": 2,
+                  "coverage": 1.0,
+                  "threshold": 0.4
+                },
+                {
+                  "accuracy": 1.0,
+                  "count": 2,
+                  "coverage": 1.0,
+                  "threshold": 0.5
+                },
+                {
+                  "accuracy": 1.0,
+                  "count": 2,
+                  "coverage": 1.0,
+                  "threshold": 0.6
+                },
+                {
+                  "accuracy": 1.0,
+                  "count": 2,
+                  "coverage": 1.0,
+                  "threshold": 0.7
+                },
+                {
+                  "accuracy": 1.0,
+                  "count": 2,
+                  "coverage": 1.0,
+                  "threshold": 0.8
+                },
+                {
+                  "accuracy": 1.0,
+                  "count": 2,
+                  "coverage": 1.0,
+                  "threshold": 0.9
+                },
+                {
+                  "accuracy": 1.0,
+                  "count": 2,
+                  "coverage": 1.0,
+                  "threshold": 1.0
+                }
+              ]
+            },
+            "self_debug": {
+              "auroc": 0.0,
+              "bins": [
+                {
+                  "avg_accuracy": 0.0,
+                  "avg_confidence": 0.05,
+                  "bin": 0,
+                  "count": 0
+                },
+                {
+                  "avg_accuracy": 0.0,
+                  "avg_confidence": 0.15,
+                  "bin": 1,
+                  "count": 0
+                },
+                {
+                  "avg_accuracy": 0.0,
+                  "avg_confidence": 0.25,
+                  "bin": 2,
+                  "count": 0
+                },
+                {
+                  "avg_accuracy": 0.0,
+                  "avg_confidence": 0.35,
+                  "bin": 3,
+                  "count": 0
+                },
+                {
+                  "avg_accuracy": 0.0,
+                  "avg_confidence": 0.45,
+                  "bin": 4,
+                  "count": 0
+                },
+                {
+                  "avg_accuracy": 0.0,
+                  "avg_confidence": 0.55,
+                  "bin": 5,
+                  "count": 0
+                },
+                {
+                  "avg_accuracy": 0.0,
+                  "avg_confidence": 0.65,
+                  "bin": 6,
+                  "count": 0
+                },
+                {
+                  "avg_accuracy": 1.0,
+                  "avg_confidence": 0.75,
+                  "bin": 7,
+                  "count": 2
+                },
+                {
+                  "avg_accuracy": 0.0,
+                  "avg_confidence": 0.85,
+                  "bin": 8,
+                  "count": 0
+                },
+                {
+                  "avg_accuracy": 0.0,
+                  "avg_confidence": 0.95,
+                  "bin": 9,
+                  "count": 0
+                }
+              ],
+              "brier": 0.0625,
+              "ece": 0.25,
+              "mce": 0.25,
+              "selective_curve": [
+                {
+                  "accuracy": 1.0,
+                  "count": 2,
+                  "coverage": 1.0,
+                  "threshold": 0.0
+                },
+                {
+                  "accuracy": 1.0,
+                  "count": 2,
+                  "coverage": 1.0,
+                  "threshold": 0.1
+                },
+                {
+                  "accuracy": 1.0,
+                  "count": 2,
+                  "coverage": 1.0,
+                  "threshold": 0.2
+                },
+                {
+                  "accuracy": 1.0,
+                  "count": 2,
+                  "coverage": 1.0,
+                  "threshold": 0.3
+                },
+                {
+                  "accuracy": 1.0,
+                  "count": 2,
+                  "coverage": 1.0,
+                  "threshold": 0.4
+                },
+                {
+                  "accuracy": 1.0,
+                  "count": 2,
+                  "coverage": 1.0,
+                  "threshold": 0.5
+                },
+                {
+                  "accuracy": 1.0,
+                  "count": 2,
+                  "coverage": 1.0,
+                  "threshold": 0.6
+                },
+                {
+                  "accuracy": 1.0,
+                  "count": 2,
+                  "coverage": 1.0,
+                  "threshold": 0.7
+                },
+                {
+                  "accuracy": 0.0,
+                  "count": 0,
+                  "coverage": 0.0,
+                  "threshold": 0.8
+                },
+                {
+                  "accuracy": 0.0,
+                  "count": 0,
+                  "coverage": 0.0,
+                  "threshold": 0.9
+                },
+                {
+                  "accuracy": 0.0,
+                  "count": 0,
+                  "coverage": 0.0,
+                  "threshold": 1.0
+                }
+              ]
+            }
+          },
+          "selective_curve": [
+            {
+              "accuracy": 1.0,
+              "count": 2,
+              "coverage": 1.0,
+              "threshold": 0.0
+            },
+            {
+              "accuracy": 0.0,
+              "count": 0,
+              "coverage": 0.0,
+              "threshold": 0.1
+            },
+            {
+              "accuracy": 0.0,
+              "count": 0,
+              "coverage": 0.0,
+              "threshold": 0.2
+            },
+            {
+              "accuracy": 0.0,
+              "count": 0,
+              "coverage": 0.0,
+              "threshold": 0.3
+            },
+            {
+              "accuracy": 0.0,
+              "count": 0,
+              "coverage": 0.0,
+              "threshold": 0.4
+            },
+            {
+              "accuracy": 0.0,
+              "count": 0,
+              "coverage": 0.0,
+              "threshold": 0.5
+            },
+            {
+              "accuracy": 0.0,
+              "count": 0,
+              "coverage": 0.0,
+              "threshold": 0.6
+            },
+            {
+              "accuracy": 0.0,
+              "count": 0,
+              "coverage": 0.0,
+              "threshold": 0.7
+            },
+            {
+              "accuracy": 0.0,
+              "count": 0,
+              "coverage": 0.0,
+              "threshold": 0.8
+            },
+            {
+              "accuracy": 0.0,
+              "count": 0,
+              "coverage": 0.0,
+              "threshold": 0.9
+            },
+            {
+              "accuracy": 0.0,
+              "count": 0,
+              "coverage": 0.0,
+              "threshold": 1.0
+            }
+          ],
+          "self_debug_bins": [
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.05,
+              "bin": 0,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.15,
+              "bin": 1,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.25,
+              "bin": 2,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.35,
+              "bin": 3,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.45,
+              "bin": 4,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.55,
+              "bin": 5,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.65,
+              "bin": 6,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 1.0,
+              "avg_confidence": 0.75,
+              "bin": 7,
+              "count": 2
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.85,
+              "bin": 8,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.95,
+              "bin": 9,
+              "count": 0
+            }
+          ],
+          "self_debug_ece": 0.25,
+          "self_debug_selective_curve": [
+            {
+              "accuracy": 1.0,
+              "count": 2,
+              "coverage": 1.0,
+              "threshold": 0.0
+            },
+            {
+              "accuracy": 1.0,
+              "count": 2,
+              "coverage": 1.0,
+              "threshold": 0.1
+            },
+            {
+              "accuracy": 1.0,
+              "count": 2,
+              "coverage": 1.0,
+              "threshold": 0.2
+            },
+            {
+              "accuracy": 1.0,
+              "count": 2,
+              "coverage": 1.0,
+              "threshold": 0.3
+            },
+            {
+              "accuracy": 1.0,
+              "count": 2,
+              "coverage": 1.0,
+              "threshold": 0.4
+            },
+            {
+              "accuracy": 1.0,
+              "count": 2,
+              "coverage": 1.0,
+              "threshold": 0.5
+            },
+            {
+              "accuracy": 1.0,
+              "count": 2,
+              "coverage": 1.0,
+              "threshold": 0.6
+            },
+            {
+              "accuracy": 1.0,
+              "count": 2,
+              "coverage": 1.0,
+              "threshold": 0.7
+            },
+            {
+              "accuracy": 0.0,
+              "count": 0,
+              "coverage": 0.0,
+              "threshold": 0.8
+            },
+            {
+              "accuracy": 0.0,
+              "count": 0,
+              "coverage": 0.0,
+              "threshold": 0.9
+            },
+            {
+              "accuracy": 0.0,
+              "count": 0,
+              "coverage": 0.0,
+              "threshold": 1.0
+            }
+          ]
+        },
+        "difficulty": {
+          "easy": {
+            "falsification": 1.0,
+            "generated_test_filter": 1.0,
+            "greedy": 1.0,
+            "majority_vote": 0.0,
+            "oracle": 1.0,
+            "self_debug": 1.0
+          },
+          "medium": {
+            "falsification": 1.0,
+            "generated_test_filter": 1.0,
+            "greedy": 1.0,
+            "majority_vote": 0.0,
+            "oracle": 1.0,
+            "self_debug": 1.0
+          }
+        },
+        "methods": {
+          "falsification": {
+            "accuracy": 1.0,
+            "auroc": 0.0,
+            "mean_confidence": 0.0
+          },
+          "generated_test_filter": {
+            "accuracy": 1.0,
+            "auroc": 0.0,
+            "mean_confidence": 1.0
+          },
+          "greedy": {
+            "accuracy": 1.0,
+            "auroc": 0.0,
+            "mean_confidence": 1.0
+          },
+          "majority_vote": {
+            "accuracy": 0.0,
+            "auroc": 0.0,
+            "mean_confidence": 0.625
+          },
+          "oracle": {
+            "accuracy": 1.0,
+            "auroc": 0.0,
+            "mean_confidence": 1.0
+          },
+          "self_debug": {
+            "accuracy": 1.0,
+            "auroc": 0.0,
+            "mean_confidence": 0.75
+          }
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "adaptive_probe_selection": true,
+    "api_base": "http://localhost:8000/v1",
+    "backend": "mock",
+    "checkpoint_dir": null,
+    "confidence_mode": "survival_only",
+    "eliminate_on_detection": false,
+    "max_problems": 2,
+    "max_tokens": 512,
+    "model": "mock-model",
+    "n_candidates": 4,
+    "n_falsification_rounds": 2,
+    "probe_strategy": "adaptive_population",
+    "problem_offset": 0,
+    "request_timeout": 15.0,
+    "resume": false,
+    "seeds": [
+      42
+    ],
+    "temperature": 0.7,
+    "tp_size": 1
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "benchmarks": [],
+  "metadata": {
+    "model": "unknown-model",
+    "partial": false,
+    "progress_dir": "results/anvil_fix_r1_7b_mbpp_s42",
+    "source": "progress_files"
+  }
+}

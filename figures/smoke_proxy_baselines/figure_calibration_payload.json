@@ -1,0 +1,511 @@
+{
+  "title": "Calibration Reliability",
+  "panels": [
+    {
+      "benchmark": "synthetic_demo",
+      "series": [
+        {
+          "method": "falsification",
+          "bins": [
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.05,
+              "bin": 0,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.15,
+              "bin": 1,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.25,
+              "bin": 2,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.35,
+              "bin": 3,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.45,
+              "bin": 4,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.55,
+              "bin": 5,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.65,
+              "bin": 6,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.75,
+              "bin": 7,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.85,
+              "bin": 8,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 1.0,
+              "avg_confidence": 1.0,
+              "bin": 9,
+              "count": 3
+            }
+          ]
+        },
+        {
+          "method": "s_star",
+          "bins": [
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.05,
+              "bin": 0,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.15,
+              "bin": 1,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 1.0,
+              "avg_confidence": 0.25,
+              "bin": 2,
+              "count": 1
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.35,
+              "bin": 3,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.45,
+              "bin": 4,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.55,
+              "bin": 5,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.65,
+              "bin": 6,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.75,
+              "bin": 7,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.85,
+              "bin": 8,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 1.0,
+              "avg_confidence": 1.0,
+              "bin": 9,
+              "count": 2
+            }
+          ]
+        },
+        {
+          "method": "code_t",
+          "bins": [
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.05,
+              "bin": 0,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.15,
+              "bin": 1,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 1.0,
+              "avg_confidence": 0.25,
+              "bin": 2,
+              "count": 1
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.35,
+              "bin": 3,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.45,
+              "bin": 4,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.55,
+              "bin": 5,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.65,
+              "bin": 6,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.75,
+              "bin": 7,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.85,
+              "bin": 8,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 1.0,
+              "avg_confidence": 1.0,
+              "bin": 9,
+              "count": 2
+            }
+          ]
+        },
+        {
+          "method": "generated_test_filter",
+          "bins": [
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.05,
+              "bin": 0,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.15,
+              "bin": 1,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.25,
+              "bin": 2,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.35,
+              "bin": 3,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.45,
+              "bin": 4,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.55,
+              "bin": 5,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.65,
+              "bin": 6,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.75,
+              "bin": 7,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.85,
+              "bin": 8,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 1.0,
+              "avg_confidence": 1.0,
+              "bin": 9,
+              "count": 3
+            }
+          ]
+        },
+        {
+          "method": "majority_vote",
+          "bins": [
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.05,
+              "bin": 0,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.15,
+              "bin": 1,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 1.0,
+              "avg_confidence": 0.25,
+              "bin": 2,
+              "count": 3
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.35,
+              "bin": 3,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.45,
+              "bin": 4,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.55,
+              "bin": 5,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.65,
+              "bin": 6,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.75,
+              "bin": 7,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.85,
+              "bin": 8,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.95,
+              "bin": 9,
+              "count": 0
+            }
+          ]
+        },
+        {
+          "method": "self_debug",
+          "bins": [
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.05,
+              "bin": 0,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.15,
+              "bin": 1,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.25,
+              "bin": 2,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.35,
+              "bin": 3,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.45,
+              "bin": 4,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.55,
+              "bin": 5,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.65,
+              "bin": 6,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 1.0,
+              "avg_confidence": 0.75,
+              "bin": 7,
+              "count": 3
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.85,
+              "bin": 8,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.95,
+              "bin": 9,
+              "count": 0
+            }
+          ]
+        },
+        {
+          "method": "greedy",
+          "bins": [
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.05,
+              "bin": 0,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.15,
+              "bin": 1,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.25,
+              "bin": 2,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.35,
+              "bin": 3,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.45,
+              "bin": 4,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.55,
+              "bin": 5,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.65,
+              "bin": 6,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.75,
+              "bin": 7,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 0.0,
+              "avg_confidence": 0.85,
+              "bin": 8,
+              "count": 0
+            },
+            {
+              "avg_accuracy": 1.0,
+              "avg_confidence": 1.0,
+              "bin": 9,
+              "count": 3
+            }
+          ]
+        }
+      ],
+      "perfect_calibration": [
+        {
+          "x": 0.0,
+          "y": 0.0
+        },
+        {
+          "x": 0.1,
+          "y": 0.1
+        },
+        {
+          "x": 0.2,
+          "y": 0.2
+        },
+        {
+          "x": 0.3,
+          "y": 0.3
+        },
+        {
+          "x": 0.4,
+          "y": 0.4
+        },
+        {
+          "x": 0.5,
+          "y": 0.5
+        },
+        {
+          "x": 0.6,
+          "y": 0.6
+        },
+        {
+          "x": 0.7,
+          "y": 0.7
+        },
+        {
+          "x": 0.8,
+          "y": 0.8
+        },
+        {
+          "x": 0.9,
+          "y": 0.9
+        },
+        {
+          "x": 1.0,
+          "y": 1.0
+        }
+      ]
+    }
+  ]
+}

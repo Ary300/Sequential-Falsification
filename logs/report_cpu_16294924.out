@@ -1,0 +1,6 @@
+Wrote 0 benchmark payloads to results/anvil_fix_qwen14b_mbpp_s44/results_from_progress.json
+/anvil/projects/x-bio260046/tts-falsification/src/utils/plotting.py:44: UserWarning: No artists with labels found to put in legend.  Note that artists whose label start with an underscore are ignored when legend() is called with no argument.
+  plt.legend(frameon=False)
+/anvil/projects/x-bio260046/tts-falsification/src/utils/plotting.py:44: UserWarning: No artists with labels found to put in legend.  Note that artists whose label start with an underscore are ignored when legend() is called with no argument.
+  plt.legend(frameon=False)
+Wrote report artifacts to figures/sf_qwen14b_mbpp_s44

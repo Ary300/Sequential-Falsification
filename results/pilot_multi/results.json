@@ -1,0 +1,2318 @@
+{
+  "benchmarks": [
+    {
+      "benchmark": "synthetic_demo",
+      "num_problems": 3,
+      "seed_runs": [
+        {
+          "benchmark": "synthetic_demo",
+          "num_problems": 3,
+          "results": [
+            {
+              "methods": {
+                "falsification": {
+                  "passed": true,
+                  "records": [
+                    {
+                      "backend": "mock",
+                      "candidate_id": "sum_two_cand_0",
+                      "confidence": 0.9744321329639889,
+                      "model": "mock-model",
+                      "problem_id": "sum_two",
+                      "rejected": false,
+                      "rounds_survived": 2,
+                      "survived": true,
+                      "temperature": 0.7,
+                      "text": "def solve(a, b):\n    return a + b\n",
+                      "trace": [
+                        {
+                          "e_value": 0.6842105263157895,
+                          "execution": {
+                            "details": [
+                              {
+                                "expected_output": 3,
+                                "observed_output": 3,
+                                "passed": true,
+                                "status": "passed",
+                                "stderr": "",
+                                "stdout": "{\"result\": 3}\n"
+                              }
+                            ],
+                            "num_passed": 1,
+                            "num_tests": 1,
+                            "passed": true,
+                            "status": "passed"
+                          },
+                          "p_k": 0.35,
+                          "probe": {
+                            "kind": "public_test",
+                            "round": 0,
+                            "test": {
+                              "input": [
+                                1,
+                                2
+                              ],
+                              "output": 3
+                            }
+                          },
+                          "probe_detected_error": false,
+                          "round": 0,
+                          "wealth": 0.6842105263157895
+                        },
+                        {
+                          "e_value": 0.7473684210526316,
+                          "execution": {
+                            "details": [
+                              {
+                                "expected_output": 0,
+                                "observed_output": 0,
+                                "passed": true,
+                                "status": "passed",
+                                "stderr": "",
+                                "stdout": "{\"result\": 0}\n"
+                              }
+                            ],
+                            "num_passed": 1,
+                            "num_tests": 1,
+                            "passed": true,
+                            "status": "passed"
+                          },
+                          "p_k": 0.29,
+                          "probe": {
+                            "kind": "public_test",
+                            "round": 1,
+                            "test": {
+                              "input": [
+                                0,
+                                0
+                              ],
+                              "output": 0
+                            }
+                          },
+                          "probe_detected_error": false,
+                          "round": 1,
+                          "wealth": 0.5113573407202217
+                        }
+                      ],
+                      "wealth": 0.5113573407202217
+                    },
+                    {
+                      "backend": "mock",
+                      "candidate_id": "sum_two_cand_1",
+                      "confidence": 0.0,
+                      "model": "mock-model",
+                      "problem_id": "sum_two",
+                      "rejected": true,
+                      "rounds_survived": 0,
+                      "survived": false,
+                      "temperature": 0.7,
+                      "text": "def solve(*args):\n    raise ValueError('not implemented')\n",
+                      "trace": [
+                        {
+                          "e_value": 20.0,
+                          "execution": {
+                            "details": [
+                              {
+                                "passed": false,
+                                "status": "error",
+                                "stderr": "Traceback (most recent call last):\n  File \"/var/folders/x8/ns62wvd53h3gkr72yw0twtwc0000gn/T/seqfals_doblkj7y/runner.py\", line 8, in <module>\n    result = fn(*json.loads(\"[1, 2]\"))\n  File \"<string>\", line 2, in solve\nValueError: not implemented\n",
+                                "stdout": ""
+                              }
+                            ],
+                            "num_passed": 0,
+                            "num_tests": 1,
+                            "passed": false,
+                            "status": "failed"
+                          },
+                          "p_k": 0.35,
+                          "probe": {
+                            "kind": "public_test",
+                            "round": 0,
+                            "test": {
+                              "input": [
+                                1,
+                                2
+                              ],
+                              "output": 3
+                            }
+                          },
+                          "probe_detected_error": true,
+                          "round": 0,
+                          "wealth": 20.0
+                        }
+                      ],
+                      "wealth": 20.0
+                    },
+                    {
+                      "backend": "mock",
+                      "candidate_id": "sum_two_cand_2",
+                      "confidence": 0.0,
+                      "model": "mock-model",
+                      "problem_id": "sum_two",
+                      "rejected": true,
+                      "rounds_survived": 0,
+                      "survived": false,
+                      "temperature": 0.7,
+                      "text": "def solve(*args):\n    raise ValueError('not implemented')\n",
+                      "trace": [
+                        {
+                          "e_value": 20.0,
+                          "execution": {
+                            "details": [
+                              {
+                                "passed": false,
+                                "status": "error",
+                                "stderr": "Traceback (most recent call last):\n  File \"/var/folders/x8/ns62wvd53h3gkr72yw0twtwc0000gn/T/seqfals_qwtk00f_/runner.py\", line 8, in <module>\n    result = fn(*json.loads(\"[1, 2]\"))\n  File \"<string>\", line 2, in solve\nValueError: not implemented\n",
+                                "stdout": ""
+                              }
+                            ],
+                            "num_passed": 0,
+                            "num_tests": 1,
+                            "passed": false,
+                            "status": "failed"
+                          },
+                          "p_k": 0.35,
+                          "probe": {
+                            "kind": "public_test",
+                            "round": 0,
+                            "test": {
+                              "input": [
+                                1,
+                                2
+                              ],
+                              "output": 3
+                            }
+                          },
+                          "probe_detected_error": true,
+                          "round": 0,
+                          "wealth": 20.0
+                        }
+                      ],
+                      "wealth": 20.0
+                    },
+                    {
+                      "backend": "mock",
+                      "candidate_id": "sum_two_cand_3",
+                      "confidence": 0.0,
+                      "model": "mock-model",
+                      "problem_id": "sum_two",
+                      "rejected": true,
+                      "rounds_survived": 0,
+                      "survived": false,
+                      "temperature": 0.7,
+                      "text": "def solve(*args):\n    raise ValueError('not implemented')\n",
+                      "trace": [
+                        {
+                          "e_value": 20.0,
+                          "execution": {
+                            "details": [
+                              {
+                                "passed": false,
+                                "status": "error",
+                                "stderr": "Traceback (most recent call last):\n  File \"/var/folders/x8/ns62wvd53h3gkr72yw0twtwc0000gn/T/seqfals_t7evaf2m/runner.py\", line 8, in <module>\n    result = fn(*json.loads(\"[1, 2]\"))\n  File \"<string>\", line 2, in solve\nValueError: not implemented\n",
+                                "stdout": ""
+                              }
+                            ],
+                            "num_passed": 0,
+                            "num_tests": 1,
+                            "passed": false,
+                            "status": "failed"
+                          },
+                          "p_k": 0.35,
+                          "probe": {
+                            "kind": "public_test",
+                            "round": 0,
+                            "test": {
+                              "input": [
+                                1,
+                                2
+                              ],
+                              "output": 3
+                            }
+                          },
+                          "probe_detected_error": true,
+                          "round": 0,
+                          "wealth": 20.0
+                        }
+                      ],
+                      "wealth": 20.0
+                    }
+                  ],
+                  "selected": {
+                    "backend": "mock",
+                    "candidate_id": "sum_two_cand_0",
+                    "confidence": 0.9744321329639889,
+                    "model": "mock-model",
+                    "problem_id": "sum_two",
+                    "rejected": false,
+                    "rounds_survived": 2,
+                    "survived": true,
+                    "temperature": 0.7,
+                    "text": "def solve(a, b):\n    return a + b\n",
+                    "trace": [
+                      {
+                        "e_value": 0.6842105263157895,
+                        "execution": {
+                          "details": [
+                            {
+                              "expected_output": 3,
+                              "observed_output": 3,
+                              "passed": true,
+                              "status": "passed",
+                              "stderr": "",
+                              "stdout": "{\"result\": 3}\n"
+                            }
+                          ],
+                          "num_passed": 1,
+                          "num_tests": 1,
+                          "passed": true,
+                          "status": "passed"
+                        },
+                        "p_k": 0.35,
+                        "probe": {
+                          "kind": "public_test",
+                          "round": 0,
+                          "test": {
+                            "input": [
+                              1,
+                              2
+                            ],
+                            "output": 3
+                          }
+                        },
+                        "probe_detected_error": false,
+                        "round": 0,
+                        "wealth": 0.6842105263157895
+                      },
+                      {
+                        "e_value": 0.7473684210526316,
+                        "execution": {
+                          "details": [
+                            {
+                              "expected_output": 0,
+                              "observed_output": 0,
+                              "passed": true,
+                              "status": "passed",
+                              "stderr": "",
+                              "stdout": "{\"result\": 0}\n"
+                            }
+                          ],
+                          "num_passed": 1,
+                          "num_tests": 1,
+                          "passed": true,
+                          "status": "passed"
+                        },
+                        "p_k": 0.29,
+                        "probe": {
+                          "kind": "public_test",
+                          "round": 1,
+                          "test": {
+                            "input": [
+                              0,
+                              0
+                            ],
+                            "output": 0
+                          }
+                        },
+                        "probe_detected_error": false,
+                        "round": 1,
+                        "wealth": 0.5113573407202217
+                      }
+                    ],
+                    "wealth": 0.5113573407202217
+                  }
+                },
+                "greedy": {
+                  "meta": {
+                    "method": "greedy"
+                  },
+                  "passed": true,
+                  "selected": {
+                    "backend": "mock",
+                    "candidate_id": "sum_two_cand_0",
+                    "model": "mock-model",
+                    "problem_id": "sum_two",
+                    "temperature": 0.7,
+                    "text": "def solve(a, b):\n    return a + b\n"
+                  }
+                },
+                "majority_vote": {
+                  "meta": {
+                    "method": "majority_vote",
+                    "vote_count": 3
+                  },
+                  "passed": false,
+                  "selected": {
+                    "backend": "mock",
+                    "candidate_id": "sum_two_cand_1",
+                    "model": "mock-model",
+                    "problem_id": "sum_two",
+                    "temperature": 0.7,
+                    "text": "def solve(*args):\n    raise ValueError('not implemented')\n"
+                  }
+                },
+                "oracle": {
+                  "meta": {
+                    "method": "oracle"
+                  },
+                  "passed": true,
+                  "selected": {
+                    "backend": "mock",
+                    "candidate_id": "sum_two_cand_0",
+                    "model": "mock-model",
+                    "problem_id": "sum_two",
+                    "temperature": 0.7,
+                    "text": "def solve(a, b):\n    return a + b\n"
+                  }
+                },
+                "self_debug": {
+                  "meta": {
+                    "method": "self_debug",
+                    "rounds": 0
+                  },
+                  "passed": true,
+                  "selected": {
+                    "backend": "mock",
+                    "candidate_id": "sum_two_cand_0",
+                    "model": "mock-model",
+                    "problem_id": "sum_two",
+                    "temperature": 0.7,
+                    "text": "def solve(a, b):\n    return a + b\n"
+                  }
+                }
+              },
+              "num_candidates": 4,
+              "num_correct_candidates": 1,
+              "pass_at_k": {
+                "1": 0.25,
+                "4": 1.0
+              },
+              "problem_id": "sum_two",
+              "type": "code"
+            },
+            {
+              "methods": {
+                "falsification": {
+                  "passed": true,
+                  "records": [
+                    {
+                      "backend": "mock",
+                      "candidate_id": "factorial_small_cand_0",
+                      "confidence": 0.9744321329639889,
+                      "model": "mock-model",
+                      "problem_id": "factorial_small",
+                      "rejected": false,
+                      "rounds_survived": 2,
+                      "survived": true,
+                      "temperature": 0.7,
+                      "text": "def solve(n):\n    out = 1\n    for i in range(2, n + 1):\n        out *= i\n    return out\n",
+                      "trace": [
+                        {
+                          "e_value": 0.6842105263157895,
+                          "execution": {
+                            "details": [
+                              {
+                                "expected_output": 1,
+                                "observed_output": 1,
+                                "passed": true,
+                                "status": "passed",
+                                "stderr": "",
+                                "stdout": "{\"result\": 1}\n"
+                              }
+                            ],
+                            "num_passed": 1,
+                            "num_tests": 1,
+                            "passed": true,
+                            "status": "passed"
+                          },
+                          "p_k": 0.35,
+                          "probe": {
+                            "kind": "public_test",
+                            "round": 0,
+                            "test": {
+                              "input": [
+                                0
+                              ],
+                              "output": 1
+                            }
+                          },
+                          "probe_detected_error": false,
+                          "round": 0,
+                          "wealth": 0.6842105263157895
+                        },
+                        {
+                          "e_value": 0.7473684210526316,
+                          "execution": {
+                            "details": [
+                              {
+                                "expected_output": 24,
+                                "observed_output": 24,
+                                "passed": true,
+                                "status": "passed",
+                                "stderr": "",
+                                "stdout": "{\"result\": 24}\n"
+                              }
+                            ],
+                            "num_passed": 1,
+                            "num_tests": 1,
+                            "passed": true,
+                            "status": "passed"
+                          },
+                          "p_k": 0.29,
+                          "probe": {
+                            "kind": "public_test",
+                            "round": 1,
+                            "test": {
+                              "input": [
+                                4
+                              ],
+                              "output": 24
+                            }
+                          },
+                          "probe_detected_error": false,
+                          "round": 1,
+                          "wealth": 0.5113573407202217
+                        }
+                      ],
+                      "wealth": 0.5113573407202217
+                    },
+                    {
+                      "backend": "mock",
+                      "candidate_id": "factorial_small_cand_1",
+                      "confidence": 0.0,
+                      "model": "mock-model",
+                      "problem_id": "factorial_small",
+                      "rejected": true,
+                      "rounds_survived": 0,
+                      "survived": false,
+                      "temperature": 0.7,
+                      "text": "def solve(*args):\n    return 0\n",
+                      "trace": [
+                        {
+                          "e_value": 20.0,
+                          "execution": {
+                            "details": [
+                              {
+                                "expected_output": 1,
+                                "observed_output": 0,
+                                "passed": false,
+                                "status": "failed",
+                                "stderr": "",
+                                "stdout": "{\"result\": 0}\n"
+                              }
+                            ],
+                            "num_passed": 0,
+                            "num_tests": 1,
+                            "passed": false,
+                            "status": "failed"
+                          },
+                          "p_k": 0.35,
+                          "probe": {
+                            "kind": "public_test",
+                            "round": 0,
+                            "test": {
+                              "input": [
+                                0
+                              ],
+                              "output": 1
+                            }
+                          },
+                          "probe_detected_error": true,
+                          "round": 0,
+                          "wealth": 20.0
+                        }
+                      ],
+                      "wealth": 20.0
+                    },
+                    {
+                      "backend": "mock",
+                      "candidate_id": "factorial_small_cand_2",
+                      "confidence": 0.0,
+                      "model": "mock-model",
+                      "problem_id": "factorial_small",
+                      "rejected": true,
+                      "rounds_survived": 0,
+                      "survived": false,
+                      "temperature": 0.7,
+                      "text": "def solve(*args):\n    return 0\n",
+                      "trace": [
+                        {
+                          "e_value": 20.0,
+                          "execution": {
+                            "details": [
+                              {
+                                "expected_output": 1,
+                                "observed_output": 0,
+                                "passed": false,
+                                "status": "failed",
+                                "stderr": "",
+                                "stdout": "{\"result\": 0}\n"
+                              }
+                            ],
+                            "num_passed": 0,
+                            "num_tests": 1,
+                            "passed": false,
+                            "status": "failed"
+                          },
+                          "p_k": 0.35,
+                          "probe": {
+                            "kind": "public_test",
+                            "round": 0,
+                            "test": {
+                              "input": [
+                                0
+                              ],
+                              "output": 1
+                            }
+                          },
+                          "probe_detected_error": true,
+                          "round": 0,
+                          "wealth": 20.0
+                        }
+                      ],
+                      "wealth": 20.0
+                    },
+                    {
+                      "backend": "mock",
+                      "candidate_id": "factorial_small_cand_3",
+                      "confidence": 0.0,
+                      "model": "mock-model",
+                      "problem_id": "factorial_small",
+                      "rejected": true,
+                      "rounds_survived": 0,
+                      "survived": false,
+                      "temperature": 0.7,
+                      "text": "def solve(*args):\n    return 0\n",
+                      "trace": [
+                        {
+                          "e_value": 20.0,
+                          "execution": {
+                            "details": [
+                              {
+                                "expected_output": 1,
+                                "observed_output": 0,
+                                "passed": false,
+                                "status": "failed",
+                                "stderr": "",
+                                "stdout": "{\"result\": 0}\n"
+                              }
+                            ],
+                            "num_passed": 0,
+                            "num_tests": 1,
+                            "passed": false,
+                            "status": "failed"
+                          },
+                          "p_k": 0.35,
+                          "probe": {
+                            "kind": "public_test",
+                            "round": 0,
+                            "test": {
+                              "input": [
+                                0
+                              ],
+                              "output": 1
+                            }
+                          },
+                          "probe_detected_error": true,
+                          "round": 0,
+                          "wealth": 20.0
+                        }
+                      ],
+                      "wealth": 20.0
+                    }
+                  ],
+                  "selected": {
+                    "backend": "mock",
+                    "candidate_id": "factorial_small_cand_0",
+                    "confidence": 0.9744321329639889,
+                    "model": "mock-model",
+                    "problem_id": "factorial_small",
+                    "rejected": false,
+                    "rounds_survived": 2,
+                    "survived": true,
+                    "temperature": 0.7,
+                    "text": "def solve(n):\n    out = 1\n    for i in range(2, n + 1):\n        out *= i\n    return out\n",
+                    "trace": [
+                      {
+                        "e_value": 0.6842105263157895,
+                        "execution": {
+                          "details": [
+                            {
+                              "expected_output": 1,
+                              "observed_output": 1,
+                              "passed": true,
+                              "status": "passed",
+                              "stderr": "",
+                              "stdout": "{\"result\": 1}\n"
+                            }
+                          ],
+                          "num_passed": 1,
+                          "num_tests": 1,
+                          "passed": true,
+                          "status": "passed"
+                        },
+                        "p_k": 0.35,
+                        "probe": {
+                          "kind": "public_test",
+                          "round": 0,
+                          "test": {
+                            "input": [
+                              0
+                            ],
+                            "output": 1
+                          }
+                        },
+                        "probe_detected_error": false,
+                        "round": 0,
+                        "wealth": 0.6842105263157895
+                      },
+                      {
+                        "e_value": 0.7473684210526316,
+                        "execution": {
+                          "details": [
+                            {
+                              "expected_output": 24,
+                              "observed_output": 24,
+                              "passed": true,
+                              "status": "passed",
+                              "stderr": "",
+                              "stdout": "{\"result\": 24}\n"
+                            }
+                          ],
+                          "num_passed": 1,
+                          "num_tests": 1,
+                          "passed": true,
+                          "status": "passed"
+                        },
+                        "p_k": 0.29,
+                        "probe": {
+                          "kind": "public_test",
+                          "round": 1,
+                          "test": {
+                            "input": [
+                              4
+                            ],
+                            "output": 24
+                          }
+                        },
+                        "probe_detected_error": false,
+                        "round": 1,
+                        "wealth": 0.5113573407202217
+                      }
+                    ],
+                    "wealth": 0.5113573407202217
+                  }
+                },
+                "greedy": {
+                  "meta": {
+                    "method": "greedy"
+                  },
+                  "passed": true,
+                  "selected": {
+                    "backend": "mock",
+                    "candidate_id": "factorial_small_cand_0",
+                    "model": "mock-model",
+                    "problem_id": "factorial_small",
+                    "temperature": 0.7,
+                    "text": "def solve(n):\n    out = 1\n    for i in range(2, n + 1):\n        out *= i\n    return out\n"
+                  }
+                },
+                "majority_vote": {
+                  "meta": {
+                    "method": "majority_vote",
+                    "vote_count": 3
+                  },
+                  "passed": false,
+                  "selected": {
+                    "backend": "mock",
+                    "candidate_id": "factorial_small_cand_1",
+                    "model": "mock-model",
+                    "problem_id": "factorial_small",
+                    "temperature": 0.7,
+                    "text": "def solve(*args):\n    return 0\n"
+                  }
+                },
+                "oracle": {
+                  "meta": {
+                    "method": "oracle"
+                  },
+                  "passed": true,
+                  "selected": {
+                    "backend": "mock",
+                    "candidate_id": "factorial_small_cand_0",
+                    "model": "mock-model",
+                    "problem_id": "factorial_small",
+                    "temperature": 0.7,
+                    "text": "def solve(n):\n    out = 1\n    for i in range(2, n + 1):\n        out *= i\n    return out\n"
+                  }
+                },
+                "self_debug": {
+                  "meta": {
+                    "method": "self_debug",
+                    "rounds": 0
+                  },
+                  "passed": true,
+                  "selected": {
+                    "backend": "mock",
+                    "candidate_id": "factorial_small_cand_0",
+                    "model": "mock-model",
+                    "problem_id": "factorial_small",
+                    "temperature": 0.7,
+                    "text": "def solve(n):\n    out = 1\n    for i in range(2, n + 1):\n        out *= i\n    return out\n"
+                  }
+                }
+              },
+              "num_candidates": 4,
+              "num_correct_candidates": 1,
+              "pass_at_k": {
+                "1": 0.25,
+                "4": 1.0
+              },
+              "problem_id": "factorial_small",
+              "type": "code"
+            },
+            {
+              "methods": {
+                "falsification": {
+                  "passed": true,
+                  "records": [
+                    {
+                      "backend": "mock",
+                      "candidate_id": "math_boxed_cand_0",
+                      "confidence": 0.9744321329639889,
+                      "model": "mock-model",
+                      "problem_id": "math_boxed",
+                      "rejected": false,
+                      "rounds_survived": 2,
+                      "survived": true,
+                      "temperature": 0.7,
+                      "text": "56",
+                      "trace": [
+                        {
+                          "e_value": 0.6842105263157895,
+                          "execution": {
+                            "details": [
+                              {
+                                "answer": "56",
+                                "passed": true,
+                                "prediction": "56"
+                              }
+                            ],
+                            "num_passed": 1,
+                            "num_tests": 1,
+                            "passed": true,
+                            "status": "passed"
+                          },
+                          "p_k": 0.35,
+                          "probe": {
+                            "kind": "answer_check",
+                            "round": 0
+                          },
+                          "probe_detected_error": false,
+                          "round": 0,
+                          "wealth": 0.6842105263157895
+                        },
+                        {
+                          "e_value": 0.7473684210526316,
+                          "execution": {
+                            "details": [
+                              {
+                                "answer": "56",
+                                "passed": true,
+                                "prediction": "56"
+                              }
+                            ],
+                            "num_passed": 1,
+                            "num_tests": 1,
+                            "passed": true,
+                            "status": "passed"
+                          },
+                          "p_k": 0.29,
+                          "probe": {
+                            "kind": "answer_check",
+                            "round": 1
+                          },
+                          "probe_detected_error": false,
+                          "round": 1,
+                          "wealth": 0.5113573407202217
+                        }
+                      ],
+                      "wealth": 0.5113573407202217
+                    },
+                    {
+                      "backend": "mock",
+                      "candidate_id": "math_boxed_cand_1",
+                      "confidence": 0.0,
+                      "model": "mock-model",
+                      "problem_id": "math_boxed",
+                      "rejected": true,
+                      "rounds_survived": 0,
+                      "survived": false,
+                      "temperature": 0.7,
+                      "text": "58",
+                      "trace": [
+                        {
+                          "e_value": 20.0,
+                          "execution": {
+                            "details": [
+                              {
+                                "answer": "56",
+                                "passed": false,
+                                "prediction": "58"
+                              }
+                            ],
+                            "num_passed": 0,
+                            "num_tests": 1,
+                            "passed": false,
+                            "status": "failed"
+                          },
+                          "p_k": 0.35,
+                          "probe": {
+                            "kind": "answer_check",
+                            "round": 0
+                          },
+                          "probe_detected_error": true,
+                          "round": 0,
+                          "wealth": 20.0
+                        }
+                      ],
+                      "wealth": 20.0
+                    },
+                    {
+                      "backend": "mock",
+                      "candidate_id": "math_boxed_cand_2",
+                      "confidence": 0.0,
+                      "model": "mock-model",
+                      "problem_id": "math_boxed",
+                      "rejected": true,
+                      "rounds_survived": 0,
+                      "survived": false,
+                      "temperature": 0.7,
+                      "text": "54",
+                      "trace": [
+                        {
+                          "e_value": 20.0,
+                          "execution": {
+                            "details": [
+                              {
+                                "answer": "56",
+                                "passed": false,
+                                "prediction": "54"
+                              }
+                            ],
+                            "num_passed": 0,
+                            "num_tests": 1,
+                            "passed": false,
+                            "status": "failed"
+                          },
+                          "p_k": 0.35,
+                          "probe": {
+                            "kind": "answer_check",
+                            "round": 0
+                          },
+                          "probe_detected_error": true,
+                          "round": 0,
+                          "wealth": 20.0
+                        }
+                      ],
+                      "wealth": 20.0
+                    },
+                    {
+                      "backend": "mock",
+                      "candidate_id": "math_boxed_cand_3",
+                      "confidence": 0.0,
+                      "model": "mock-model",
+                      "problem_id": "math_boxed",
+                      "rejected": true,
+                      "rounds_survived": 0,
+                      "survived": false,
+                      "temperature": 0.7,
+                      "text": "57",
+                      "trace": [
+                        {
+                          "e_value": 20.0,
+                          "execution": {
+                            "details": [
+                              {
+                                "answer": "56",
+                                "passed": false,
+                                "prediction": "57"
+                              }
+                            ],
+                            "num_passed": 0,
+                            "num_tests": 1,
+                            "passed": false,
+                            "status": "failed"
+                          },
+                          "p_k": 0.35,
+                          "probe": {
+                            "kind": "answer_check",
+                            "round": 0
+                          },
+                          "probe_detected_error": true,
+                          "round": 0,
+                          "wealth": 20.0
+                        }
+                      ],
+                      "wealth": 20.0
+                    }
+                  ],
+                  "selected": {
+                    "backend": "mock",
+                    "candidate_id": "math_boxed_cand_0",
+                    "confidence": 0.9744321329639889,
+                    "model": "mock-model",
+                    "problem_id": "math_boxed",
+                    "rejected": false,
+                    "rounds_survived": 2,
+                    "survived": true,
+                    "temperature": 0.7,
+                    "text": "56",
+                    "trace": [
+                      {
+                        "e_value": 0.6842105263157895,
+                        "execution": {
+                          "details": [
+                            {
+                              "answer": "56",
+                              "passed": true,
+                              "prediction": "56"
+                            }
+                          ],
+                          "num_passed": 1,
+                          "num_tests": 1,
+                          "passed": true,
+                          "status": "passed"
+                        },
+                        "p_k": 0.35,
+                        "probe": {
+                          "kind": "answer_check",
+                          "round": 0
+                        },
+                        "probe_detected_error": false,
+                        "round": 0,
+                        "wealth": 0.6842105263157895
+                      },
+                      {
+                        "e_value": 0.7473684210526316,
+                        "execution": {
+                          "details": [
+                            {
+                              "answer": "56",
+                              "passed": true,
+                              "prediction": "56"
+                            }
+                          ],
+                          "num_passed": 1,
+                          "num_tests": 1,
+                          "passed": true,
+                          "status": "passed"
+                        },
+                        "p_k": 0.29,
+                        "probe": {
+                          "kind": "answer_check",
+                          "round": 1
+                        },
+                        "probe_detected_error": false,
+                        "round": 1,
+                        "wealth": 0.5113573407202217
+                      }
+                    ],
+                    "wealth": 0.5113573407202217
+                  }
+                },
+                "greedy": {
+                  "meta": {
+                    "method": "greedy"
+                  },
+                  "passed": true,
+                  "selected": {
+                    "backend": "mock",
+                    "candidate_id": "math_boxed_cand_0",
+                    "model": "mock-model",
+                    "problem_id": "math_boxed",
+                    "temperature": 0.7,
+                    "text": "56"
+                  }
+                },
+                "majority_vote": {
+                  "meta": {
+                    "method": "majority_vote",
+                    "vote_count": 1
+                  },
+                  "passed": true,
+                  "selected": {
+                    "backend": "mock",
+                    "candidate_id": "math_boxed_cand_0",
+                    "model": "mock-model",
+                    "problem_id": "math_boxed",
+                    "temperature": 0.7,
+                    "text": "56"
+                  }
+                },
+                "oracle": {
+                  "meta": {
+                    "method": "oracle"
+                  },
+                  "passed": true,
+                  "selected": {
+                    "backend": "mock",
+                    "candidate_id": "math_boxed_cand_0",
+                    "model": "mock-model",
+                    "problem_id": "math_boxed",
+                    "temperature": 0.7,
+                    "text": "56"
+                  }
+                },
+                "self_debug": {
+                  "meta": {
+                    "method": "self_debug",
+                    "rounds": 0
+                  },
+                  "passed": true,
+                  "selected": {
+                    "backend": "mock",
+                    "candidate_id": "math_boxed_cand_0",
+                    "model": "mock-model",
+                    "problem_id": "math_boxed",
+                    "temperature": 0.7,
+                    "text": "56"
+                  }
+                }
+              },
+              "num_candidates": 4,
+              "num_correct_candidates": 1,
+              "pass_at_k": {
+                "1": 0.25,
+                "4": 1.0
+              },
+              "problem_id": "math_boxed",
+              "type": "math"
+            }
+          ],
+          "seed": 42,
+          "summary": {
+            "calibration": {
+              "brier": 0.0006537158247711433,
+              "ece": 0.025567867036011105,
+              "mce": 0.025567867036011105
+            },
+            "methods": {
+              "falsification": {
+                "accuracy": 1.0
+              },
+              "greedy": {
+                "accuracy": 1.0
+              },
+              "majority_vote": {
+                "accuracy": 0.3333333333333333
+              },
+              "oracle": {
+                "accuracy": 1.0
+              },
+              "self_debug": {
+                "accuracy": 1.0
+              }
+            }
+          }
+        },
+        {
+          "benchmark": "synthetic_demo",
+          "num_problems": 3,
+          "results": [
+            {
+              "methods": {
+                "falsification": {
+                  "passed": true,
+                  "records": [
+                    {
+                      "backend": "mock",
+                      "candidate_id": "sum_two_cand_0",
+                      "confidence": 0.9744321329639889,
+                      "model": "mock-model",
+                      "problem_id": "sum_two",
+                      "rejected": false,
+                      "rounds_survived": 2,
+                      "survived": true,
+                      "temperature": 0.7,
+                      "text": "def solve(a, b):\n    return a + b\n",
+                      "trace": [
+                        {
+                          "e_value": 0.6842105263157895,
+                          "execution": {
+                            "details": [
+                              {
+                                "expected_output": 3,
+                                "observed_output": 3,
+                                "passed": true,
+                                "status": "passed",
+                                "stderr": "",
+                                "stdout": "{\"result\": 3}\n"
+                              }
+                            ],
+                            "num_passed": 1,
+                            "num_tests": 1,
+                            "passed": true,
+                            "status": "passed"
+                          },
+                          "p_k": 0.35,
+                          "probe": {
+                            "kind": "public_test",
+                            "round": 0,
+                            "test": {
+                              "input": [
+                                1,
+                                2
+                              ],
+                              "output": 3
+                            }
+                          },
+                          "probe_detected_error": false,
+                          "round": 0,
+                          "wealth": 0.6842105263157895
+                        },
+                        {
+                          "e_value": 0.7473684210526316,
+                          "execution": {
+                            "details": [
+                              {
+                                "expected_output": 0,
+                                "observed_output": 0,
+                                "passed": true,
+                                "status": "passed",
+                                "stderr": "",
+                                "stdout": "{\"result\": 0}\n"
+                              }
+                            ],
+                            "num_passed": 1,
+                            "num_tests": 1,
+                            "passed": true,
+                            "status": "passed"
+                          },
+                          "p_k": 0.29,
+                          "probe": {
+                            "kind": "public_test",
+                            "round": 1,
+                            "test": {
+                              "input": [
+                                0,
+                                0
+                              ],
+                              "output": 0
+                            }
+                          },
+                          "probe_detected_error": false,
+                          "round": 1,
+                          "wealth": 0.5113573407202217
+                        }
+                      ],
+                      "wealth": 0.5113573407202217
+                    },
+                    {
+                      "backend": "mock",
+                      "candidate_id": "sum_two_cand_1",
+                      "confidence": 0.0,
+                      "model": "mock-model",
+                      "problem_id": "sum_two",
+                      "rejected": true,
+                      "rounds_survived": 0,
+                      "survived": false,
+                      "temperature": 0.7,
+                      "text": "def solve(*args):\n    return 0\n",
+                      "trace": [
+                        {
+                          "e_value": 20.0,
+                          "execution": {
+                            "details": [
+                              {
+                                "expected_output": 3,
+                                "observed_output": 0,
+                                "passed": false,
+                                "status": "failed",
+                                "stderr": "",
+                                "stdout": "{\"result\": 0}\n"
+                              }
+                            ],
+                            "num_passed": 0,
+                            "num_tests": 1,
+                            "passed": false,
+                            "status": "failed"
+                          },
+                          "p_k": 0.35,
+                          "probe": {
+                            "kind": "public_test",
+                            "round": 0,
+                            "test": {
+                              "input": [
+                                1,
+                                2
+                              ],
+                              "output": 3
+                            }
+                          },
+                          "probe_detected_error": true,
+                          "round": 0,
+                          "wealth": 20.0
+                        }
+                      ],
+                      "wealth": 20.0
+                    },
+                    {
+                      "backend": "mock",
+                      "candidate_id": "sum_two_cand_2",
+                      "confidence": 0.0,
+                      "model": "mock-model",
+                      "problem_id": "sum_two",
+                      "rejected": true,
+                      "rounds_survived": 0,
+                      "survived": false,
+                      "temperature": 0.7,
+                      "text": "def solve(*args):\n    raise ValueError('not implemented')\n",
+                      "trace": [
+                        {
+                          "e_value": 20.0,
+                          "execution": {
+                            "details": [
+                              {
+                                "passed": false,
+                                "status": "error",
+                                "stderr": "Traceback (most recent call last):\n  File \"/var/folders/x8/ns62wvd53h3gkr72yw0twtwc0000gn/T/seqfals_4e8v6yzc/runner.py\", line 8, in <module>\n    result = fn(*json.loads(\"[1, 2]\"))\n  File \"<string>\", line 2, in solve\nValueError: not implemented\n",
+                                "stdout": ""
+                              }
+                            ],
+                            "num_passed": 0,
+                            "num_tests": 1,
+                            "passed": false,
+                            "status": "failed"
+                          },
+                          "p_k": 0.35,
+                          "probe": {
+                            "kind": "public_test",
+                            "round": 0,
+                            "test": {
+                              "input": [
+                                1,
+                                2
+                              ],
+                              "output": 3
+                            }
+                          },
+                          "probe_detected_error": true,
+                          "round": 0,
+                          "wealth": 20.0
+                        }
+                      ],
+                      "wealth": 20.0
+                    },
+                    {
+                      "backend": "mock",
+                      "candidate_id": "sum_two_cand_3",
+                      "confidence": 0.0,
+                      "model": "mock-model",
+                      "problem_id": "sum_two",
+                      "rejected": true,
+                      "rounds_survived": 0,
+                      "survived": false,
+                      "temperature": 0.7,
+                      "text": "def solve(*args):\n    raise ValueError('not implemented')\n",
+                      "trace": [
+                        {
+                          "e_value": 20.0,
+                          "execution": {
+                            "details": [
+                              {
+                                "passed": false,
+                                "status": "error",
+                                "stderr": "Traceback (most recent call last):\n  File \"/var/folders/x8/ns62wvd53h3gkr72yw0twtwc0000gn/T/seqfals_kc5upu2z/runner.py\", line 8, in <module>\n    result = fn(*json.loads(\"[1, 2]\"))\n  File \"<string>\", line 2, in solve\nValueError: not implemented\n",
+                                "stdout": ""
+                              }
+                            ],
+                            "num_passed": 0,
+                            "num_tests": 1,
+                            "passed": false,
+                            "status": "failed"
+                          },
+                          "p_k": 0.35,
+                          "probe": {
+                            "kind": "public_test",
+                            "round": 0,
+                            "test": {
+                              "input": [
+                                1,
+                                2
+                              ],
+                              "output": 3
+                            }
+                          },
+                          "probe_detected_error": true,
+                          "round": 0,
+                          "wealth": 20.0
+                        }
+                      ],
+                      "wealth": 20.0
+                    }
+                  ],
+                  "selected": {
+                    "backend": "mock",
+                    "candidate_id": "sum_two_cand_0",
+                    "confidence": 0.9744321329639889,
+                    "model": "mock-model",
+                    "problem_id": "sum_two",
+                    "rejected": false,
+                    "rounds_survived": 2,
+                    "survived": true,
+                    "temperature": 0.7,
+                    "text": "def solve(a, b):\n    return a + b\n",
+                    "trace": [
+                      {
+                        "e_value": 0.6842105263157895,
+                        "execution": {
+                          "details": [
+                            {
+                              "expected_output": 3,
+                              "observed_output": 3,
+                              "passed": true,
+                              "status": "passed",
+                              "stderr": "",
+                              "stdout": "{\"result\": 3}\n"
+                            }
+                          ],
+                          "num_passed": 1,
+                          "num_tests": 1,
+                          "passed": true,
+                          "status": "passed"
+                        },
+                        "p_k": 0.35,
+                        "probe": {
+                          "kind": "public_test",
+                          "round": 0,
+                          "test": {
+                            "input": [
+                              1,
+                              2
+                            ],
+                            "output": 3
+                          }
+                        },
+                        "probe_detected_error": false,
+                        "round": 0,
+                        "wealth": 0.6842105263157895
+                      },
+                      {
+                        "e_value": 0.7473684210526316,
+                        "execution": {
+                          "details": [
+                            {
+                              "expected_output": 0,
+                              "observed_output": 0,
+                              "passed": true,
+                              "status": "passed",
+                              "stderr": "",
+                              "stdout": "{\"result\": 0}\n"
+                            }
+                          ],
+                          "num_passed": 1,
+                          "num_tests": 1,
+                          "passed": true,
+                          "status": "passed"
+                        },
+                        "p_k": 0.29,
+                        "probe": {
+                          "kind": "public_test",
+                          "round": 1,
+                          "test": {
+                            "input": [
+                              0,
+                              0
+                            ],
+                            "output": 0
+                          }
+                        },
+                        "probe_detected_error": false,
+                        "round": 1,
+                        "wealth": 0.5113573407202217
+                      }
+                    ],
+                    "wealth": 0.5113573407202217
+                  }
+                },
+                "greedy": {
+                  "meta": {
+                    "method": "greedy"
+                  },
+                  "passed": true,
+                  "selected": {
+                    "backend": "mock",
+                    "candidate_id": "sum_two_cand_0",
+                    "model": "mock-model",
+                    "problem_id": "sum_two",
+                    "temperature": 0.7,
+                    "text": "def solve(a, b):\n    return a + b\n"
+                  }
+                },
+                "majority_vote": {
+                  "meta": {
+                    "method": "majority_vote",
+                    "vote_count": 2
+                  },
+                  "passed": false,
+                  "selected": {
+                    "backend": "mock",
+                    "candidate_id": "sum_two_cand_2",
+                    "model": "mock-model",
+                    "problem_id": "sum_two",
+                    "temperature": 0.7,
+                    "text": "def solve(*args):\n    raise ValueError('not implemented')\n"
+                  }
+                },
+                "oracle": {
+                  "meta": {
+                    "method": "oracle"
+                  },
+                  "passed": true,
+                  "selected": {
+                    "backend": "mock",
+                    "candidate_id": "sum_two_cand_0",
+                    "model": "mock-model",
+                    "problem_id": "sum_two",
+                    "temperature": 0.7,
+                    "text": "def solve(a, b):\n    return a + b\n"
+                  }
+                },
+                "self_debug": {
+                  "meta": {
+                    "method": "self_debug",
+                    "rounds": 0
+                  },
+                  "passed": true,
+                  "selected": {
+                    "backend": "mock",
+                    "candidate_id": "sum_two_cand_0",
+                    "model": "mock-model",
+                    "problem_id": "sum_two",
+                    "temperature": 0.7,
+                    "text": "def solve(a, b):\n    return a + b\n"
+                  }
+                }
+              },
+              "num_candidates": 4,
+              "num_correct_candidates": 1,
+              "pass_at_k": {
+                "1": 0.25,
+                "4": 1.0
+              },
+              "problem_id": "sum_two",
+              "type": "code"
+            },
+            {
+              "methods": {
+                "falsification": {
+                  "passed": true,
+                  "records": [
+                    {
+                      "backend": "mock",
+                      "candidate_id": "factorial_small_cand_0",
+                      "confidence": 0.9744321329639889,
+                      "model": "mock-model",
+                      "problem_id": "factorial_small",
+                      "rejected": false,
+                      "rounds_survived": 2,
+                      "survived": true,
+                      "temperature": 0.7,
+                      "text": "def solve(n):\n    out = 1\n    for i in range(2, n + 1):\n        out *= i\n    return out\n",
+                      "trace": [
+                        {
+                          "e_value": 0.6842105263157895,
+                          "execution": {
+                            "details": [
+                              {
+                                "expected_output": 1,
+                                "observed_output": 1,
+                                "passed": true,
+                                "status": "passed",
+                                "stderr": "",
+                                "stdout": "{\"result\": 1}\n"
+                              }
+                            ],
+                            "num_passed": 1,
+                            "num_tests": 1,
+                            "passed": true,
+                            "status": "passed"
+                          },
+                          "p_k": 0.35,
+                          "probe": {
+                            "kind": "public_test",
+                            "round": 0,
+                            "test": {
+                              "input": [
+                                0
+                              ],
+                              "output": 1
+                            }
+                          },
+                          "probe_detected_error": false,
+                          "round": 0,
+                          "wealth": 0.6842105263157895
+                        },
+                        {
+                          "e_value": 0.7473684210526316,
+                          "execution": {
+                            "details": [
+                              {
+                                "expected_output": 24,
+                                "observed_output": 24,
+                                "passed": true,
+                                "status": "passed",
+                                "stderr": "",
+                                "stdout": "{\"result\": 24}\n"
+                              }
+                            ],
+                            "num_passed": 1,
+                            "num_tests": 1,
+                            "passed": true,
+                            "status": "passed"
+                          },
+                          "p_k": 0.29,
+                          "probe": {
+                            "kind": "public_test",
+                            "round": 1,
+                            "test": {
+                              "input": [
+                                4
+                              ],
+                              "output": 24
+                            }
+                          },
+                          "probe_detected_error": false,
+                          "round": 1,
+                          "wealth": 0.5113573407202217
+                        }
+                      ],
+                      "wealth": 0.5113573407202217
+                    },
+                    {
+                      "backend": "mock",
+                      "candidate_id": "factorial_small_cand_1",
+                      "confidence": 0.0,
+                      "model": "mock-model",
+                      "problem_id": "factorial_small",
+                      "rejected": true,
+                      "rounds_survived": 0,
+                      "survived": false,
+                      "temperature": 0.7,
+                      "text": "def solve(*args):\n    raise ValueError('not implemented')\n",
+                      "trace": [
+                        {
+                          "e_value": 20.0,
+                          "execution": {
+                            "details": [
+                              {
+                                "passed": false,
+                                "status": "error",
+                                "stderr": "Traceback (most recent call last):\n  File \"/var/folders/x8/ns62wvd53h3gkr72yw0twtwc0000gn/T/seqfals_g0giczj9/runner.py\", line 8, in <module>\n    result = fn(*json.loads(\"[0]\"))\n  File \"<string>\", line 2, in solve\nValueError: not implemented\n",
+                                "stdout": ""
+                              }
+                            ],
+                            "num_passed": 0,
+                            "num_tests": 1,
+                            "passed": false,
+                            "status": "failed"
+                          },
+                          "p_k": 0.35,
+                          "probe": {
+                            "kind": "public_test",
+                            "round": 0,
+                            "test": {
+                              "input": [
+                                0
+                              ],
+                              "output": 1
+                            }
+                          },
+                          "probe_detected_error": true,
+                          "round": 0,
+                          "wealth": 20.0
+                        }
+                      ],
+                      "wealth": 20.0
+                    },
+                    {
+                      "backend": "mock",
+                      "candidate_id": "factorial_small_cand_2",
+                      "confidence": 0.0,
+                      "model": "mock-model",
+                      "problem_id": "factorial_small",
+                      "rejected": true,
+                      "rounds_survived": 0,
+                      "survived": false,
+                      "temperature": 0.7,
+                      "text": "def solve(*args):\n    return args[0] if args else None\n",
+                      "trace": [
+                        {
+                          "e_value": 20.0,
+                          "execution": {
+                            "details": [
+                              {
+                                "expected_output": 1,
+                                "observed_output": 0,
+                                "passed": false,
+                                "status": "failed",
+                                "stderr": "",
+                                "stdout": "{\"result\": 0}\n"
+                              }
+                            ],
+                            "num_passed": 0,
+                            "num_tests": 1,
+                            "passed": false,
+                            "status": "failed"
+                          },
+                          "p_k": 0.35,
+                          "probe": {
+                            "kind": "public_test",
+                            "round": 0,
+                            "test": {
+                              "input": [
+                                0
+                              ],
+                              "output": 1
+                            }
+                          },
+                          "probe_detected_error": true,
+                          "round": 0,
+                          "wealth": 20.0
+                        }
+                      ],
+                      "wealth": 20.0
+                    },
+                    {
+                      "backend": "mock",
+                      "candidate_id": "factorial_small_cand_3",
+                      "confidence": 0.0,
+                      "model": "mock-model",
+                      "problem_id": "factorial_small",
+                      "rejected": true,
+                      "rounds_survived": 0,
+                      "survived": false,
+                      "temperature": 0.7,
+                      "text": "def solve(*args):\n    return args[0] if args else None\n",
+                      "trace": [
+                        {
+                          "e_value": 20.0,
+                          "execution": {
+                            "details": [
+                              {
+                                "expected_output": 1,
+                                "observed_output": 0,
+                                "passed": false,
+                                "status": "failed",
+                                "stderr": "",
+                                "stdout": "{\"result\": 0}\n"
+                              }
+                            ],
+                            "num_passed": 0,
+                            "num_tests": 1,
+                            "passed": false,
+                            "status": "failed"
+                          },
+                          "p_k": 0.35,
+                          "probe": {
+                            "kind": "public_test",
+                            "round": 0,
+                            "test": {
+                              "input": [
+                                0
+                              ],
+                              "output": 1
+                            }
+                          },
+                          "probe_detected_error": true,
+                          "round": 0,
+                          "wealth": 20.0
+                        }
+                      ],
+                      "wealth": 20.0
+                    }
+                  ],
+                  "selected": {
+                    "backend": "mock",
+                    "candidate_id": "factorial_small_cand_0",
+                    "confidence": 0.9744321329639889,
+                    "model": "mock-model",
+                    "problem_id": "factorial_small",
+                    "rejected": false,
+                    "rounds_survived": 2,
+                    "survived": true,
+                    "temperature": 0.7,
+                    "text": "def solve(n):\n    out = 1\n    for i in range(2, n + 1):\n        out *= i\n    return out\n",
+                    "trace": [
+                      {
+                        "e_value": 0.6842105263157895,
+                        "execution": {
+                          "details": [
+                            {
+                              "expected_output": 1,
+                              "observed_output": 1,
+                              "passed": true,
+                              "status": "passed",
+                              "stderr": "",
+                              "stdout": "{\"result\": 1}\n"
+                            }
+                          ],
+                          "num_passed": 1,
+                          "num_tests": 1,
+                          "passed": true,
+                          "status": "passed"
+                        },
+                        "p_k": 0.35,
+                        "probe": {
+                          "kind": "public_test",
+                          "round": 0,
+                          "test": {
+                            "input": [
+                              0
+                            ],
+                            "output": 1
+                          }
+                        },
+                        "probe_detected_error": false,
+                        "round": 0,
+                        "wealth": 0.6842105263157895
+                      },
+                      {
+                        "e_value": 0.7473684210526316,
+                        "execution": {
+                          "details": [
+                            {
+                              "expected_output": 24,
+                              "observed_output": 24,
+                              "passed": true,
+                              "status": "passed",
+                              "stderr": "",
+                              "stdout": "{\"result\": 24}\n"
+                            }
+                          ],
+                          "num_passed": 1,
+                          "num_tests": 1,
+                          "passed": true,
+                          "status": "passed"
+                        },
+                        "p_k": 0.29,
+                        "probe": {
+                          "kind": "public_test",
+                          "round": 1,
+                          "test": {
+                            "input": [
+                              4
+                            ],
+                            "output": 24
+                          }
+                        },
+                        "probe_detected_error": false,
+                        "round": 1,
+                        "wealth": 0.5113573407202217
+                      }
+                    ],
+                    "wealth": 0.5113573407202217
+                  }
+                },
+                "greedy": {
+                  "meta": {
+                    "method": "greedy"
+                  },
+                  "passed": true,
+                  "selected": {
+                    "backend": "mock",
+                    "candidate_id": "factorial_small_cand_0",
+                    "model": "mock-model",
+                    "problem_id": "factorial_small",
+                    "temperature": 0.7,
+                    "text": "def solve(n):\n    out = 1\n    for i in range(2, n + 1):\n        out *= i\n    return out\n"
+                  }
+                },
+                "majority_vote": {
+                  "meta": {
+                    "method": "majority_vote",
+                    "vote_count": 2
+                  },
+                  "passed": false,
+                  "selected": {
+                    "backend": "mock",
+                    "candidate_id": "factorial_small_cand_2",
+                    "model": "mock-model",
+                    "problem_id": "factorial_small",
+                    "temperature": 0.7,
+                    "text": "def solve(*args):\n    return args[0] if args else None\n"
+                  }
+                },
+                "oracle": {
+                  "meta": {
+                    "method": "oracle"
+                  },
+                  "passed": true,
+                  "selected": {
+                    "backend": "mock",
+                    "candidate_id": "factorial_small_cand_0",
+                    "model": "mock-model",
+                    "problem_id": "factorial_small",
+                    "temperature": 0.7,
+                    "text": "def solve(n):\n    out = 1\n    for i in range(2, n + 1):\n        out *= i\n    return out\n"
+                  }
+                },
+                "self_debug": {
+                  "meta": {
+                    "method": "self_debug",
+                    "rounds": 0
+                  },
+                  "passed": true,
+                  "selected": {
+                    "backend": "mock",
+                    "candidate_id": "factorial_small_cand_0",
+                    "model": "mock-model",
+                    "problem_id": "factorial_small",
+                    "temperature": 0.7,
+                    "text": "def solve(n):\n    out = 1\n    for i in range(2, n + 1):\n        out *= i\n    return out\n"
+                  }
+                }
+              },
+              "num_candidates": 4,
+              "num_correct_candidates": 1,
+              "pass_at_k": {
+                "1": 0.25,
+                "4": 1.0
+              },
+              "problem_id": "factorial_small",
+              "type": "code"
+            },
+            {
+              "methods": {
+                "falsification": {
+                  "passed": true,
+                  "records": [
+                    {
+                      "backend": "mock",
+                      "candidate_id": "math_boxed_cand_0",
+                      "confidence": 0.9744321329639889,
+                      "model": "mock-model",
+                      "problem_id": "math_boxed",
+                      "rejected": false,
+                      "rounds_survived": 2,
+                      "survived": true,
+                      "temperature": 0.7,
+                      "text": "56",
+                      "trace": [
+                        {
+                          "e_value": 0.6842105263157895,
+                          "execution": {
+                            "details": [
+                              {
+                                "answer": "56",
+                                "passed": true,
+                                "prediction": "56"
+                              }
+                            ],
+                            "num_passed": 1,
+                            "num_tests": 1,
+                            "passed": true,
+                            "status": "passed"
+                          },
+                          "p_k": 0.35,
+                          "probe": {
+                            "kind": "answer_check",
+                            "round": 0
+                          },
+                          "probe_detected_error": false,
+                          "round": 0,
+                          "wealth": 0.6842105263157895
+                        },
+                        {
+                          "e_value": 0.7473684210526316,
+                          "execution": {
+                            "details": [
+                              {
+                                "answer": "56",
+                                "passed": true,
+                                "prediction": "56"
+                              }
+                            ],
+                            "num_passed": 1,
+                            "num_tests": 1,
+                            "passed": true,
+                            "status": "passed"
+                          },
+                          "p_k": 0.29,
+                          "probe": {
+                            "kind": "answer_check",
+                            "round": 1
+                          },
+                          "probe_detected_error": false,
+                          "round": 1,
+                          "wealth": 0.5113573407202217
+                        }
+                      ],
+                      "wealth": 0.5113573407202217
+                    },
+                    {
+                      "backend": "mock",
+                      "candidate_id": "math_boxed_cand_1",
+                      "confidence": 0.0,
+                      "model": "mock-model",
+                      "problem_id": "math_boxed",
+                      "rejected": true,
+                      "rounds_survived": 0,
+                      "survived": false,
+                      "temperature": 0.7,
+                      "text": "53",
+                      "trace": [
+                        {
+                          "e_value": 20.0,
+                          "execution": {
+                            "details": [
+                              {
+                                "answer": "56",
+                                "passed": false,
+                                "prediction": "53"
+                              }
+                            ],
+                            "num_passed": 0,
+                            "num_tests": 1,
+                            "passed": false,
+                            "status": "failed"
+                          },
+                          "p_k": 0.35,
+                          "probe": {
+                            "kind": "answer_check",
+                            "round": 0
+                          },
+                          "probe_detected_error": true,
+                          "round": 0,
+                          "wealth": 20.0
+                        }
+                      ],
+                      "wealth": 20.0
+                    },
+                    {
+                      "backend": "mock",
+                      "candidate_id": "math_boxed_cand_2",
+                      "confidence": 0.0,
+                      "model": "mock-model",
+                      "problem_id": "math_boxed",
+                      "rejected": true,
+                      "rounds_survived": 0,
+                      "survived": false,
+                      "temperature": 0.7,
+                      "text": "55",
+                      "trace": [
+                        {
+                          "e_value": 20.0,
+                          "execution": {
+                            "details": [
+                              {
+                                "answer": "56",
+                                "passed": false,
+                                "prediction": "55"
+                              }
+                            ],
+                            "num_passed": 0,
+                            "num_tests": 1,
+                            "passed": false,
+                            "status": "failed"
+                          },
+                          "p_k": 0.35,
+                          "probe": {
+                            "kind": "answer_check",
+                            "round": 0
+                          },
+                          "probe_detected_error": true,
+                          "round": 0,
+                          "wealth": 20.0
+                        }
+                      ],
+                      "wealth": 20.0
+                    },
+                    {
+                      "backend": "mock",
+                      "candidate_id": "math_boxed_cand_3",
+                      "confidence": 0.0,
+                      "model": "mock-model",
+                      "problem_id": "math_boxed",
+                      "rejected": true,
+                      "rounds_survived": 0,
+                      "survived": false,
+                      "temperature": 0.7,
+                      "text": "55",
+                      "trace": [
+                        {
+                          "e_value": 20.0,
+                          "execution": {
+                            "details": [
+                              {
+                                "answer": "56",
+                                "passed": false,
+                                "prediction": "55"
+                              }
+                            ],
+                            "num_passed": 0,
+                            "num_tests": 1,
+                            "passed": false,
+                            "status": "failed"
+                          },
+                          "p_k": 0.35,
+                          "probe": {
+                            "kind": "answer_check",
+                            "round": 0
+                          },
+                          "probe_detected_error": true,
+                          "round": 0,
+                          "wealth": 20.0
+                        }
+                      ],
+                      "wealth": 20.0
+                    }
+                  ],
+                  "selected": {
+                    "backend": "mock",
+                    "candidate_id": "math_boxed_cand_0",
+                    "confidence": 0.9744321329639889,
+                    "model": "mock-model",
+                    "problem_id": "math_boxed",
+                    "rejected": false,
+                    "rounds_survived": 2,
+                    "survived": true,
+                    "temperature": 0.7,
+                    "text": "56",
+                    "trace": [
+                      {
+                        "e_value": 0.6842105263157895,
+                        "execution": {
+                          "details": [
+                            {
+                              "answer": "56",
+                              "passed": true,
+                              "prediction": "56"
+                            }
+                          ],
+                          "num_passed": 1,
+                          "num_tests": 1,
+                          "passed": true,
+                          "status": "passed"
+                        },
+                        "p_k": 0.35,
+                        "probe": {
+                          "kind": "answer_check",
+                          "round": 0
+                        },
+                        "probe_detected_error": false,
+                        "round": 0,
+                        "wealth": 0.6842105263157895
+                      },
+                      {
+                        "e_value": 0.7473684210526316,
+                        "execution": {
+                          "details": [
+                            {
+                              "answer": "56",
+                              "passed": true,
+                              "prediction": "56"
+                            }
+                          ],
+                          "num_passed": 1,
+                          "num_tests": 1,
+                          "passed": true,
+                          "status": "passed"
+                        },
+                        "p_k": 0.29,
+                        "probe": {
+                          "kind": "answer_check",
+                          "round": 1
+                        },
+                        "probe_detected_error": false,
+                        "round": 1,
+                        "wealth": 0.5113573407202217
+                      }
+                    ],
+                    "wealth": 0.5113573407202217
+                  }
+                },
+                "greedy": {
+                  "meta": {
+                    "method": "greedy"
+                  },
+                  "passed": true,
+                  "selected": {
+                    "backend": "mock",
+                    "candidate_id": "math_boxed_cand_0",
+                    "model": "mock-model",
+                    "problem_id": "math_boxed",
+                    "temperature": 0.7,
+                    "text": "56"
+                  }
+                },
+                "majority_vote": {
+                  "meta": {
+                    "method": "majority_vote",
+                    "vote_count": 2
+                  },
+                  "passed": false,
+                  "selected": {
+                    "backend": "mock",
+                    "candidate_id": "math_boxed_cand_2",
+                    "model": "mock-model",
+                    "problem_id": "math_boxed",
+                    "temperature": 0.7,
+                    "text": "55"
+                  }
+                },
+                "oracle": {
+                  "meta": {
+                    "method": "oracle"
+                  },
+                  "passed": true,
+                  "selected": {
+                    "backend": "mock",
+                    "candidate_id": "math_boxed_cand_0",
+                    "model": "mock-model",
+                    "problem_id": "math_boxed",
+                    "temperature": 0.7,
+                    "text": "56"
+                  }
+                },
+                "self_debug": {
+                  "meta": {
+                    "method": "self_debug",
+                    "rounds": 0
+                  },
+                  "passed": true,
+                  "selected": {
+                    "backend": "mock",
+                    "candidate_id": "math_boxed_cand_0",
+                    "model": "mock-model",
+                    "problem_id": "math_boxed",
+                    "temperature": 0.7,
+                    "text": "56"
+                  }
+                }
+              },
+              "num_candidates": 4,
+              "num_correct_candidates": 1,
+              "pass_at_k": {
+                "1": 0.25,
+                "4": 1.0
+              },
+              "problem_id": "math_boxed",
+              "type": "math"
+            }
+          ],
+          "seed": 43,
+          "summary": {
+            "calibration": {
+              "brier": 0.0006537158247711433,
+              "ece": 0.025567867036011105,
+              "mce": 0.025567867036011105
+            },
+            "methods": {
+              "falsification": {
+                "accuracy": 1.0
+              },
+              "greedy": {
+                "accuracy": 1.0
+              },
+              "majority_vote": {
+                "accuracy": 0.0
+              },
+              "oracle": {
+                "accuracy": 1.0
+              },
+              "self_debug": {
+                "accuracy": 1.0
+              }
+            }
+          }
+        }
+      ],
+      "summary_across_seeds": {
+        "calibration": {
+          "brier": {
+            "by_seed": [
+              0.0006537158247711433,
+              0.0006537158247711433
+            ],
+            "mean": 0.0006537158247711433,
+            "stderr": 0.0
+          },
+          "ece": {
+            "by_seed": [
+              0.025567867036011105,
+              0.025567867036011105
+            ],
+            "mean": 0.025567867036011105,
+            "stderr": 0.0
+          },
+          "mce": {
+            "by_seed": [
+              0.025567867036011105,
+              0.025567867036011105
+            ],
+            "mean": 0.025567867036011105,
+            "stderr": 0.0
+          }
+        },
+        "methods": {
+          "falsification": {
+            "accuracy_by_seed": [
+              1.0,
+              1.0
+            ],
+            "accuracy_mean": 1.0,
+            "accuracy_stderr": 0.0
+          },
+          "greedy": {
+            "accuracy_by_seed": [
+              1.0,
+              1.0
+            ],
+            "accuracy_mean": 1.0,
+            "accuracy_stderr": 0.0
+          },
+          "majority_vote": {
+            "accuracy_by_seed": [
+              0.3333333333333333,
+              0.0
+            ],
+            "accuracy_mean": 0.16666666666666666,
+            "accuracy_stderr": 0.16666666666666666
+          },
+          "oracle": {
+            "accuracy_by_seed": [
+              1.0,
+              1.0
+            ],
+            "accuracy_mean": 1.0,
+            "accuracy_stderr": 0.0
+          },
+          "self_debug": {
+            "accuracy_by_seed": [
+              1.0,
+              1.0
+            ],
+            "accuracy_mean": 1.0,
+            "accuracy_stderr": 0.0
+          }
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "backend": "mock",
+    "checkpoint_dir": null,
+    "model": "mock-model",
+    "n_candidates": 4,
+    "n_falsification_rounds": 2,
+    "resume": false,
+    "seeds": [
+      42,
+      43
+    ],
+    "temperature": 0.7,
+    "tp_size": 1
+  }
+}

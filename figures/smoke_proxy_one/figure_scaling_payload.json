@@ -1,0 +1,25 @@
+{
+  "title": "Scaling Summary",
+  "x_label": "N",
+  "y_label": "Accuracy (%)",
+  "series": [
+    {
+      "label": "synthetic_demo::code_t",
+      "x": [
+        1
+      ],
+      "y": [
+        100.0
+      ]
+    },
+    {
+      "label": "synthetic_demo::s_star",
+      "x": [
+        1
+      ],
+      "y": [
+        100.0
+      ]
+    }
+  ]
+}

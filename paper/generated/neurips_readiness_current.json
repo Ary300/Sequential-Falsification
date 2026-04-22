@@ -1,0 +1,288 @@
+{
+  "headline_rows": [
+    {
+      "model": "Qwen/Qwen2.5-Coder-14B-Instruct",
+      "benchmark": "humaneval_plus",
+      "majority_vote": 23.2,
+      "falsification": 43.9,
+      "self_debug": 43.9,
+      "generated_test_filter": 39.7,
+      "oracle": 45.7,
+      "oracle_gap_recovery": 91.99999999999999,
+      "falsification_minus_self_debug": 0.0,
+      "falsification_minus_generated_test_filter": 4.199999999999996
+    },
+    {
+      "model": "Qwen/Qwen2.5-Coder-14B-Instruct",
+      "benchmark": "mbpp_plus",
+      "majority_vote": 71.6,
+      "falsification": 75.1,
+      "self_debug": 75.2,
+      "generated_test_filter": 79.0,
+      "oracle": 80.3,
+      "oracle_gap_recovery": 40.22988505747125,
+      "falsification_minus_self_debug": -0.10000000000000853,
+      "falsification_minus_generated_test_filter": -3.9000000000000057
+    },
+    {
+      "model": "Qwen/Qwen2.5-Coder-14B-Instruct",
+      "benchmark": "livecodebench_v6",
+      "majority_vote": 50.0,
+      "falsification": 87.5,
+      "self_debug": 87.5,
+      "generated_test_filter": 50.0,
+      "oracle": 87.5,
+      "oracle_gap_recovery": 100.0,
+      "falsification_minus_self_debug": 0.0,
+      "falsification_minus_generated_test_filter": 37.5
+    },
+    {
+      "model": "Qwen/Qwen2.5-Coder-14B-Instruct",
+      "benchmark": "math500",
+      "majority_vote": 24.1,
+      "falsification": 34.3,
+      "self_debug": 34.3,
+      "generated_test_filter": 34.3,
+      "oracle": 34.3,
+      "oracle_gap_recovery": 100.0,
+      "falsification_minus_self_debug": 0.0,
+      "falsification_minus_generated_test_filter": 0.0
+    },
+    {
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-32B",
+      "benchmark": "humaneval_plus",
+      "majority_vote": 29.9,
+      "falsification": 82.9,
+      "self_debug": 82.3,
+      "generated_test_filter": 67.0,
+      "oracle": 84.8,
+      "oracle_gap_recovery": 96.53916211293263,
+      "falsification_minus_self_debug": 0.6000000000000085,
+      "falsification_minus_generated_test_filter": 15.900000000000006
+    },
+    {
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-32B",
+      "benchmark": "mbpp_plus",
+      "majority_vote": 30.8,
+      "falsification": 64.4,
+      "self_debug": 64.6,
+      "generated_test_filter": null,
+      "oracle": 66.8,
+      "oracle_gap_recovery": 93.33333333333336,
+      "falsification_minus_self_debug": -0.19999999999998863,
+      "falsification_minus_generated_test_filter": null
+    },
+    {
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+      "benchmark": "humaneval_plus",
+      "majority_vote": 32.9,
+      "falsification": 70.7,
+      "self_debug": 72.6,
+      "generated_test_filter": 69.2,
+      "oracle": 74.4,
+      "oracle_gap_recovery": 91.08433734939759,
+      "falsification_minus_self_debug": -1.8999999999999915,
+      "falsification_minus_generated_test_filter": 1.5
+    },
+    {
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+      "benchmark": "mbpp_plus",
+      "majority_vote": 10.8,
+      "falsification": 33.8,
+      "self_debug": 33.8,
+      "generated_test_filter": 39.4,
+      "oracle": 34.8,
+      "oracle_gap_recovery": 95.83333333333333,
+      "falsification_minus_self_debug": 0.0,
+      "falsification_minus_generated_test_filter": -5.600000000000001
+    },
+    {
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+      "benchmark": "livecodebench_v6",
+      "majority_vote": 3.0,
+      "falsification": 8.0,
+      "self_debug": null,
+      "generated_test_filter": null,
+      "oracle": 8.0,
+      "oracle_gap_recovery": 100.0,
+      "falsification_minus_self_debug": null,
+      "falsification_minus_generated_test_filter": null
+    },
+    {
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+      "benchmark": "math500",
+      "majority_vote": 23.0,
+      "falsification": 33.7,
+      "self_debug": null,
+      "generated_test_filter": null,
+      "oracle": 33.7,
+      "oracle_gap_recovery": 100.0,
+      "falsification_minus_self_debug": null,
+      "falsification_minus_generated_test_filter": null
+    }
+  ],
+  "issues": [
+    {
+      "severity": "partial",
+      "model": "Qwen/Qwen2.5-Coder-14B-Instruct",
+      "benchmark": "humaneval_plus",
+      "message": "At least one best-available row is progress-derived/partial."
+    },
+    {
+      "severity": "seeds",
+      "model": "Qwen/Qwen2.5-Coder-14B-Instruct",
+      "benchmark": "humaneval_plus",
+      "message": "Only 2 complete seed runs; target is 3."
+    },
+    {
+      "severity": "partial",
+      "model": "Qwen/Qwen2.5-Coder-14B-Instruct",
+      "benchmark": "mbpp_plus",
+      "message": "At least one best-available row is progress-derived/partial."
+    },
+    {
+      "severity": "proxy",
+      "model": "Qwen/Qwen2.5-Coder-14B-Instruct",
+      "benchmark": "mbpp_plus",
+      "message": "Missing local proxy baselines: code_t_proxy, s_star_proxy"
+    },
+    {
+      "severity": "headline",
+      "model": "Qwen/Qwen2.5-Coder-14B-Instruct",
+      "benchmark": "mbpp_plus",
+      "message": "Falsification recovers only 40.2% of majority-to-oracle gap."
+    },
+    {
+      "severity": "gtf",
+      "model": "Qwen/Qwen2.5-Coder-14B-Instruct",
+      "benchmark": "mbpp_plus",
+      "message": "Falsification trails generated-test filtering by 3.9 points."
+    },
+    {
+      "severity": "partial",
+      "model": "Qwen/Qwen2.5-Coder-14B-Instruct",
+      "benchmark": "livecodebench_v6",
+      "message": "At least one best-available row is progress-derived/partial."
+    },
+    {
+      "severity": "seeds",
+      "model": "Qwen/Qwen2.5-Coder-14B-Instruct",
+      "benchmark": "livecodebench_v6",
+      "message": "Only 0 complete seed runs; target is 3."
+    },
+    {
+      "severity": "seeds",
+      "model": "Qwen/Qwen2.5-Coder-14B-Instruct",
+      "benchmark": "math500",
+      "message": "Only 0 complete seed runs; target is 3."
+    },
+    {
+      "severity": "partial",
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-32B",
+      "benchmark": "humaneval_plus",
+      "message": "At least one best-available row is progress-derived/partial."
+    },
+    {
+      "severity": "seeds",
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-32B",
+      "benchmark": "humaneval_plus",
+      "message": "Only 2 complete seed runs; target is 3."
+    },
+    {
+      "severity": "proxy",
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-32B",
+      "benchmark": "humaneval_plus",
+      "message": "Missing local proxy baselines: code_t_proxy, s_star_proxy"
+    },
+    {
+      "severity": "baseline",
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-32B",
+      "benchmark": "mbpp_plus",
+      "message": "Missing core methods: generated_test_filter"
+    },
+    {
+      "severity": "proxy",
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-32B",
+      "benchmark": "mbpp_plus",
+      "message": "Missing local proxy baselines: code_t_proxy, s_star_proxy"
+    },
+    {
+      "severity": "missing",
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-32B",
+      "benchmark": "livecodebench_v6",
+      "message": "No row for target benchmark/model pair."
+    },
+    {
+      "severity": "missing",
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-32B",
+      "benchmark": "math500",
+      "message": "No row for target benchmark/model pair."
+    },
+    {
+      "severity": "partial",
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+      "benchmark": "humaneval_plus",
+      "message": "At least one best-available row is progress-derived/partial."
+    },
+    {
+      "severity": "seeds",
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+      "benchmark": "humaneval_plus",
+      "message": "Only 1 complete seed runs; target is 3."
+    },
+    {
+      "severity": "self_debug",
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+      "benchmark": "humaneval_plus",
+      "message": "Falsification trails self-debug by 1.9 points."
+    },
+    {
+      "severity": "partial",
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+      "benchmark": "mbpp_plus",
+      "message": "At least one best-available row is progress-derived/partial."
+    },
+    {
+      "severity": "proxy",
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+      "benchmark": "mbpp_plus",
+      "message": "Missing local proxy baselines: code_t_proxy, s_star_proxy"
+    },
+    {
+      "severity": "gtf",
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+      "benchmark": "mbpp_plus",
+      "message": "Falsification trails generated-test filtering by 5.6 points."
+    },
+    {
+      "severity": "coverage",
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+      "benchmark": "livecodebench_v6",
+      "message": "Only 100 problems; target is 400."
+    },
+    {
+      "severity": "seeds",
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+      "benchmark": "livecodebench_v6",
+      "message": "Only 1 complete seed runs; target is 3."
+    },
+    {
+      "severity": "baseline",
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+      "benchmark": "livecodebench_v6",
+      "message": "Missing core methods: generated_test_filter, self_debug"
+    },
+    {
+      "severity": "coverage",
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+      "benchmark": "math500",
+      "message": "Only 100 problems; target is 500."
+    },
+    {
+      "severity": "baseline",
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+      "benchmark": "math500",
+      "message": "Missing core methods: generated_test_filter, self_debug"
+    }
+  ]
+}

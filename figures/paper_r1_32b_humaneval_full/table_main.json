@@ -1,0 +1,29 @@
+{
+  "rows": [
+    {
+      "accuracy": 82.9,
+      "benchmark": "humaneval_plus",
+      "method": "falsification"
+    },
+    {
+      "accuracy": 44.5,
+      "benchmark": "humaneval_plus",
+      "method": "greedy"
+    },
+    {
+      "accuracy": 29.9,
+      "benchmark": "humaneval_plus",
+      "method": "majority_vote"
+    },
+    {
+      "accuracy": 84.8,
+      "benchmark": "humaneval_plus",
+      "method": "oracle"
+    },
+    {
+      "accuracy": 82.3,
+      "benchmark": "humaneval_plus",
+      "method": "self_debug"
+    }
+  ]
+}

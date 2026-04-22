@@ -1,0 +1,5 @@
+You are comparing two candidate solutions to the same problem.
+
+Generate one test input that is especially likely to make the two candidates produce different outputs. Prefer inputs that stress edge conditions or ambiguous cases in the specification.
+
+Return only the input.

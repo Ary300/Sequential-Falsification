@@ -1,0 +1,446 @@
+{
+  "benchmarks": [
+    {
+      "benchmark": "synthetic_demo",
+      "num_problems": 1,
+      "problem_offset": 0,
+      "results": [
+        {
+          "difficulty": "easy",
+          "methods": {
+            "code_t": {
+              "meta": {
+                "consensus_probes": 0,
+                "labeled_probes": 10,
+                "method": "code_t_proxy",
+                "note": "Local agreement-scoring proxy inspired by CodeT; external CodeT integration is not enabled.",
+                "probes_used": 10,
+                "public_score": 1.0,
+                "score": 10.0
+              },
+              "passed": true,
+              "selected": {
+                "backend": "mock",
+                "candidate_id": "sum_two_cand_0",
+                "confidence": 1.0,
+                "model": "synthetic",
+                "problem_id": "sum_two",
+                "raw_text": "def solve(a, b):\n    return a + b\n",
+                "temperature": 0.7,
+                "text": "def solve(a, b):\n    return a + b\n"
+              }
+            },
+            "s_star": {
+              "meta": {
+                "method": "s_star_proxy",
+                "note": "Local adaptive elimination proxy inspired by S*; external SkyThought integration is not enabled.",
+                "rounds": 6,
+                "survivors": 1
+              },
+              "passed": true,
+              "selected": {
+                "backend": "mock",
+                "candidate_id": "sum_two_cand_0",
+                "candidate_order": 0,
+                "confidence": 1.0,
+                "model": "synthetic",
+                "problem_id": "sum_two",
+                "raw_text": "def solve(a, b):\n    return a + b\n",
+                "rejected": false,
+                "rounds_survived": 1,
+                "selection_score": 1.0,
+                "survived": true,
+                "temperature": 0.7,
+                "text": "def solve(a, b):\n    return a + b\n",
+                "trace": [
+                  {
+                    "e_value": 0.6842105263157895,
+                    "execution": {
+                      "details": [
+                        {
+                          "expected_output": 2,
+                          "observed_output": 2,
+                          "passed": true,
+                          "status": "passed",
+                          "stderr": "",
+                          "stdout": "gARLAi4=\n"
+                        }
+                      ],
+                      "num_passed": 1,
+                      "num_tests": 1,
+                      "passed": true,
+                      "status": "passed"
+                    },
+                    "p_k": 0.35,
+                    "probe": {
+                      "base_test": {
+                        "input": [
+                          1,
+                          2
+                        ],
+                        "output": 3
+                      },
+                      "family": "mutation",
+                      "kind": "mutation_test",
+                      "round": 0,
+                      "test": {
+                        "input": [
+                          0,
+                          2
+                        ],
+                        "output": 2
+                      }
+                    },
+                    "probe_detected_error": false,
+                    "round": 0,
+                    "wealth": 0.6842105263157895
+                  }
+                ],
+                "wealth": 0.6842105263157895
+              }
+            }
+          },
+          "num_candidates": 3,
+          "num_correct_candidates": 1,
+          "pass_at_k": {
+            "1": 0.33333333333333337,
+            "3": 1.0
+          },
+          "problem_id": "sum_two",
+          "type": "code"
+        }
+      ],
+      "seed": 42,
+      "summary": {
+        "calibration": {
+          "auroc": 0.0,
+          "bins": [],
+          "brier": 0.0,
+          "ece": 0.0,
+          "majority_vote_bins": [],
+          "majority_vote_ece": 0.0,
+          "majority_vote_selective_curve": [],
+          "mce": 0.0,
+          "per_method": {
+            "code_t": {
+              "auroc": 0.0,
+              "bins": [
+                {
+                  "avg_accuracy": 0.0,
+                  "avg_confidence": 0.05,
+                  "bin": 0,
+                  "count": 0
+                },
+                {
+                  "avg_accuracy": 0.0,
+                  "avg_confidence": 0.15,
+                  "bin": 1,
+                  "count": 0
+                },
+                {
+                  "avg_accuracy": 0.0,
+                  "avg_confidence": 0.25,
+                  "bin": 2,
+                  "count": 0
+                },
+                {
+                  "avg_accuracy": 0.0,
+                  "avg_confidence": 0.35,
+                  "bin": 3,
+                  "count": 0
+                },
+                {
+                  "avg_accuracy": 0.0,
+                  "avg_confidence": 0.45,
+                  "bin": 4,
+                  "count": 0
+                },
+                {
+                  "avg_accuracy": 0.0,
+                  "avg_confidence": 0.55,
+                  "bin": 5,
+                  "count": 0
+                },
+                {
+                  "avg_accuracy": 0.0,
+                  "avg_confidence": 0.65,
+                  "bin": 6,
+                  "count": 0
+                },
+                {
+                  "avg_accuracy": 0.0,
+                  "avg_confidence": 0.75,
+                  "bin": 7,
+                  "count": 0
+                },
+                {
+                  "avg_accuracy": 0.0,
+                  "avg_confidence": 0.85,
+                  "bin": 8,
+                  "count": 0
+                },
+                {
+                  "avg_accuracy": 1.0,
+                  "avg_confidence": 1.0,
+                  "bin": 9,
+                  "count": 1
+                }
+              ],
+              "brier": 0.0,
+              "ece": 0.0,
+              "mce": 0.0,
+              "selective_curve": [
+                {
+                  "accuracy": 1.0,
+                  "count": 1,
+                  "coverage": 1.0,
+                  "threshold": 0.0
+                },
+                {
+                  "accuracy": 1.0,
+                  "count": 1,
+                  "coverage": 1.0,
+                  "threshold": 0.1
+                },
+                {
+                  "accuracy": 1.0,
+                  "count": 1,
+                  "coverage": 1.0,
+                  "threshold": 0.2
+                },
+                {
+                  "accuracy": 1.0,
+                  "count": 1,
+                  "coverage": 1.0,
+                  "threshold": 0.3
+                },
+                {
+                  "accuracy": 1.0,
+                  "count": 1,
+                  "coverage": 1.0,
+                  "threshold": 0.4
+                },
+                {
+                  "accuracy": 1.0,
+                  "count": 1,
+                  "coverage": 1.0,
+                  "threshold": 0.5
+                },
+                {
+                  "accuracy": 1.0,
+                  "count": 1,
+                  "coverage": 1.0,
+                  "threshold": 0.6
+                },
+                {
+                  "accuracy": 1.0,
+                  "count": 1,
+                  "coverage": 1.0,
+                  "threshold": 0.7
+                },
+                {
+                  "accuracy": 1.0,
+                  "count": 1,
+                  "coverage": 1.0,
+                  "threshold": 0.8
+                },
+                {
+                  "accuracy": 1.0,
+                  "count": 1,
+                  "coverage": 1.0,
+                  "threshold": 0.9
+                },
+                {
+                  "accuracy": 1.0,
+                  "count": 1,
+                  "coverage": 1.0,
+                  "threshold": 1.0
+                }
+              ]
+            },
+            "s_star": {
+              "auroc": 0.0,
+              "bins": [
+                {
+                  "avg_accuracy": 0.0,
+                  "avg_confidence": 0.05,
+                  "bin": 0,
+                  "count": 0
+                },
+                {
+                  "avg_accuracy": 0.0,
+                  "avg_confidence": 0.15,
+                  "bin": 1,
+                  "count": 0
+                },
+                {
+                  "avg_accuracy": 0.0,
+                  "avg_confidence": 0.25,
+                  "bin": 2,
+                  "count": 0
+                },
+                {
+                  "avg_accuracy": 0.0,
+                  "avg_confidence": 0.35,
+                  "bin": 3,
+                  "count": 0
+                },
+                {
+                  "avg_accuracy": 0.0,
+                  "avg_confidence": 0.45,
+                  "bin": 4,
+                  "count": 0
+                },
+                {
+                  "avg_accuracy": 0.0,
+                  "avg_confidence": 0.55,
+                  "bin": 5,
+                  "count": 0
+                },
+                {
+                  "avg_accuracy": 0.0,
+                  "avg_confidence": 0.65,
+                  "bin": 6,
+                  "count": 0
+                },
+                {
+                  "avg_accuracy": 0.0,
+                  "avg_confidence": 0.75,
+                  "bin": 7,
+                  "count": 0
+                },
+                {
+                  "avg_accuracy": 0.0,
+                  "avg_confidence": 0.85,
+                  "bin": 8,
+                  "count": 0
+                },
+                {
+                  "avg_accuracy": 1.0,
+                  "avg_confidence": 1.0,
+                  "bin": 9,
+                  "count": 1
+                }
+              ],
+              "brier": 0.0,
+              "ece": 0.0,
+              "mce": 0.0,
+              "selective_curve": [
+                {
+                  "accuracy": 1.0,
+                  "count": 1,
+                  "coverage": 1.0,
+                  "threshold": 0.0
+                },
+                {
+                  "accuracy": 1.0,
+                  "count": 1,
+                  "coverage": 1.0,
+                  "threshold": 0.1
+                },
+                {
+                  "accuracy": 1.0,
+                  "count": 1,
+                  "coverage": 1.0,
+                  "threshold": 0.2
+                },
+                {
+                  "accuracy": 1.0,
+                  "count": 1,
+                  "coverage": 1.0,
+                  "threshold": 0.3
+                },
+                {
+                  "accuracy": 1.0,
+                  "count": 1,
+                  "coverage": 1.0,
+                  "threshold": 0.4
+                },
+                {
+                  "accuracy": 1.0,
+                  "count": 1,
+                  "coverage": 1.0,
+                  "threshold": 0.5
+                },
+                {
+                  "accuracy": 1.0,
+                  "count": 1,
+                  "coverage": 1.0,
+                  "threshold": 0.6
+                },
+                {
+                  "accuracy": 1.0,
+                  "count": 1,
+                  "coverage": 1.0,
+                  "threshold": 0.7
+                },
+                {
+                  "accuracy": 1.0,
+                  "count": 1,
+                  "coverage": 1.0,
+                  "threshold": 0.8
+                },
+                {
+                  "accuracy": 1.0,
+                  "count": 1,
+                  "coverage": 1.0,
+                  "threshold": 0.9
+                },
+                {
+                  "accuracy": 1.0,
+                  "count": 1,
+                  "coverage": 1.0,
+                  "threshold": 1.0
+                }
+              ]
+            }
+          },
+          "selective_curve": [],
+          "self_debug_bins": [],
+          "self_debug_ece": 0.0,
+          "self_debug_selective_curve": []
+        },
+        "difficulty": {
+          "easy": {
+            "code_t": 1.0,
+            "s_star": 1.0
+          }
+        },
+        "methods": {
+          "code_t": {
+            "accuracy": 1.0,
+            "auroc": 0.0,
+            "mean_confidence": 1.0
+          },
+          "s_star": {
+            "accuracy": 1.0,
+            "auroc": 0.0,
+            "mean_confidence": 1.0
+          }
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "adaptive_probe_selection": true,
+    "api_base": "http://localhost:8000/v1",
+    "backend": "mock",
+    "checkpoint_dir": null,
+    "confidence_mode": "wealth",
+    "eliminate_on_detection": true,
+    "max_problems": 1,
+    "max_tokens": 512,
+    "model": "synthetic",
+    "n_candidates": 3,
+    "n_falsification_rounds": 2,
+    "probe_strategy": "adaptive_population",
+    "problem_offset": 0,
+    "request_timeout": 15.0,
+    "resume": false,
+    "seeds": [
+      42
+    ],
+    "temperature": 0.7,
+    "tp_size": 1
+  }
+}

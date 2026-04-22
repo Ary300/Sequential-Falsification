@@ -1,0 +1,67 @@
+GPU 0: NVIDIA A100-SXM4-40GB (UUID: GPU-ea957998-39f9-63fa-85aa-4f83b6aa8372)
+Traceback (most recent call last):
+  File "/home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages/httpx/_transports/default.py", line 101, in map_httpcore_exceptions
+    yield
+  File "/home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages/httpx/_transports/default.py", line 250, in handle_request
+    resp = self._pool.handle_request(req)
+  File "/home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages/httpcore/_sync/connection_pool.py", line 256, in handle_request
+    raise exc from None
+  File "/home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages/httpcore/_sync/connection_pool.py", line 236, in handle_request
+    response = connection.handle_request(
+  File "/home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages/httpcore/_sync/connection.py", line 101, in handle_request
+    raise exc
+  File "/home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages/httpcore/_sync/connection.py", line 78, in handle_request
+    stream = self._connect(request)
+  File "/home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages/httpcore/_sync/connection.py", line 124, in _connect
+    stream = self._network_backend.connect_tcp(**kwargs)
+  File "/home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages/httpcore/_backends/sync.py", line 207, in connect_tcp
+    with map_exceptions(exc_map):
+  File "/home/x-adas17/.conda/envs/tts/lib/python3.10/contextlib.py", line 153, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "/home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages/httpcore/_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ConnectError: [Errno 111] Connection refused
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages/openai/_base_client.py", line 1005, in request
+    response = self._client.send(
+  File "/home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages/httpx/_client.py", line 914, in send
+    response = self._send_handling_auth(
+  File "/home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages/httpx/_client.py", line 942, in _send_handling_auth
+    response = self._send_handling_redirects(
+  File "/home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages/httpx/_client.py", line 979, in _send_handling_redirects
+    response = self._send_single_request(request)
+  File "/home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages/httpx/_client.py", line 1014, in _send_single_request
+    response = transport.handle_request(request)
+  File "/home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages/httpx/_transports/default.py", line 249, in handle_request
+    with map_httpcore_exceptions():
+  File "/home/x-adas17/.conda/envs/tts/lib/python3.10/contextlib.py", line 153, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "/home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages/httpx/_transports/default.py", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ConnectError: [Errno 111] Connection refused
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/anvil/projects/x-bio260046/tts-falsification/src/evaluate.py", line 356, in <module>
+    main()
+  File "/anvil/projects/x-bio260046/tts-falsification/src/evaluate.py", line 274, in main
+    benchmark_result = run_benchmark(
+  File "/anvil/projects/x-bio260046/tts-falsification/src/evaluate.py", line 188, in run_benchmark
+    run_problem(
+  File "/anvil/projects/x-bio260046/tts-falsification/src/evaluate.py", line 43, in run_problem
+    candidates = generate_candidates(problem, n=n_candidates, config=generation_config)
+  File "/anvil/projects/x-bio260046/tts-falsification/src/generate.py", line 310, in generate_candidates
+    response = client.completions.create(
+  File "/home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages/openai/_utils/_utils.py", line 286, in wrapper
+    return func(*args, **kwargs)
+  File "/home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages/openai/resources/completions.py", line 554, in create
+    return self._post(
+  File "/home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages/openai/_base_client.py", line 1297, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+  File "/home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages/openai/_base_client.py", line 1037, in request
+    raise APIConnectionError(request=request) from err
+openai.APIConnectionError: Connection error.

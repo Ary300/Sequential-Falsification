@@ -1,0 +1,5 @@
+You are given a valid example input for a programming problem.
+
+Mutate it into a nearby but more difficult test case by changing scale, sign, ordering, duplicates, emptiness, or extremal values while preserving validity under the input constraints.
+
+Return only the mutated input.

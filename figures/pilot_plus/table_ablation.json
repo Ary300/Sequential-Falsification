@@ -1,0 +1,11 @@
+{
+  "rows": [
+    {
+      "benchmark": "synthetic_demo",
+      "falsification": 100.0,
+      "majority_vote": 16.7,
+      "s_star": 16.7,
+      "self_debug": 100.0
+    }
+  ]
+}

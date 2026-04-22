@@ -1,0 +1,43 @@
+queued sf_r1_7b_he_s42 exp=16293795 rep=16293796
+queued sf_r1_7b_mbpp_s42 exp=16293797 rep=16293798
+queued sf_qwen14b_he_s42 exp=16293799 rep=16293800
+queued sf_qwen14b_mbpp_s42 exp=16293801 rep=16293802
+queued sf_r1_7b_he_s43 exp=16293803 rep=16293804
+queued sf_r1_7b_mbpp_s43 exp=16293805 rep=16293806
+queued sf_qwen14b_he_s43 exp=16293807 rep=16293808
+queued sf_qwen14b_mbpp_s43 exp=16293809 rep=16293810
+queued sf_r1_7b_he_s44 exp=16293811 rep=16293812
+queued sf_r1_7b_mbpp_s44 exp=16293813 rep=16293814
+queued sf_qwen14b_he_s44 exp=16293815 rep=16293816
+queued sf_qwen14b_mbpp_s44 exp=16293817 rep=16293818
+queued sf_r1_32b_he_s42_sh0 exp=16293819 rep=16293820
+queued sf_r1_32b_he_s42_sh1 exp=16293821 rep=16293822
+queued sf_r1_32b_he_s42_sh2 exp=16293823 rep=16293824
+queued sf_r1_32b_mbpp_s42_sh0 exp=16293825 rep=16293826
+queued sf_r1_32b_mbpp_s42_sh1 exp=16293827 rep=16293828
+queued sf_r1_32b_mbpp_s42_sh2 exp=16293829 rep=16293830
+queued sf_r1_32b_mbpp_s42_sh3 exp=16293831 rep=16293832
+queued sf_r1_32b_mbpp_s42_sh4 exp=16293833 rep=16293834
+queued sf_r1_32b_mbpp_s42_sh5 exp=16293835 rep=16293836
+queued sf_r1_32b_he_s43_sh0 exp=16293837 rep=16293838
+queued sf_r1_32b_he_s43_sh1 exp=16293839 rep=16293840
+queued sf_r1_32b_he_s43_sh2 exp=16293842 rep=16293843
+queued sf_r1_32b_mbpp_s43_sh0 exp=16293844 rep=16293845
+queued sf_r1_32b_mbpp_s43_sh1 exp=16293846 rep=16293847
+queued sf_r1_32b_mbpp_s43_sh2 exp=16293848 rep=16293849
+queued sf_r1_32b_mbpp_s43_sh3 exp=16293850 rep=16293851
+queued sf_r1_32b_mbpp_s43_sh4 exp=16293852 rep=16293853
+queued sf_r1_32b_mbpp_s43_sh5 exp=16293854 rep=16293855
+queued sf_r1_32b_he_s44_sh0 exp=16293856 rep=16293857
+queued sf_r1_32b_he_s44_sh1 exp=16293858 rep=16293859
+queued sf_r1_32b_he_s44_sh2 exp=16293860 rep=16293861
+queued sf_r1_32b_mbpp_s44_sh0 exp=16293862 rep=16293863
+queued sf_r1_32b_mbpp_s44_sh1 exp=16293864 rep=16293865
+queued sf_r1_32b_mbpp_s44_sh2 exp=16293866 rep=16293867
+queued sf_r1_32b_mbpp_s44_sh3 exp=16293868 rep=16293869
+queued sf_r1_32b_mbpp_s44_sh4 exp=16293870 rep=16293871
+queued sf_r1_32b_mbpp_s44_sh5 exp=16293872 rep=16293873
+queued merge_refresh_7b14b=16293874
+queued merge_r1_32b_he_full=16293875
+queued merge_r1_32b_mbpp_full=16293876
+queued grand_refresh_full=16293877

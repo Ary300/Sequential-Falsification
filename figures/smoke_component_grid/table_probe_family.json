@@ -1,0 +1,20 @@
+{
+  "rows": [
+    {
+      "benchmark": "synthetic_demo",
+      "experiment": "component_ablation_full_synth",
+      "falsification_accuracy": 100.0,
+      "n_candidates": 4,
+      "n_rounds": 2,
+      "probe_strategy": "adaptive_population"
+    },
+    {
+      "benchmark": "synthetic_demo",
+      "experiment": "component_ablation_no_elimination_synth",
+      "falsification_accuracy": 100.0,
+      "n_candidates": 4,
+      "n_rounds": 2,
+      "probe_strategy": "adaptive_population"
+    }
+  ]
+}

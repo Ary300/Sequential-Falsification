@@ -1,0 +1,687 @@
+The following modules were not unloaded:
+  (Use "module --force purge" to unload all):
+
+  1) xalt/2.10.45
+Retrieving notices: - \ done
+Channels:
+ - conda-forge
+Platform: linux-64
+Collecting package metadata (repodata.json): ...working... done
+Solving environment: ...working... done
+
+
+==> WARNING: A newer version of conda exists. <==
+    current version: 25.1.1
+    latest version: 26.3.1
+
+Please update conda by running
+
+    $ conda update -n base -c conda-forge conda
+
+
+
+## Package Plan ##
+
+  environment location: /home/x-adas17/.conda/envs/tts
+
+  added / updated specs:
+    - python=3.10
+
+
+The following packages will be downloaded:
+
+    package                    |            build
+    ---------------------------|-----------------
+    openssl-3.6.2              |       h35e630c_0         3.0 MB  conda-forge
+    packaging-26.0             |     pyhcf101f3_0          70 KB  conda-forge
+    python-3.10.20             |h3c07f61_0_cpython        24.3 MB  conda-forge
+    ------------------------------------------------------------
+                                           Total:        27.4 MB
+
+The following NEW packages will be INSTALLED:
+
+  _openmp_mutex      conda-forge/linux-64::_openmp_mutex-4.5-20_gnu 
+  bzip2              conda-forge/linux-64::bzip2-1.0.8-hda65f42_9 
+  ca-certificates    conda-forge/noarch::ca-certificates-2026.2.25-hbd8a1cb_0 
+  icu                conda-forge/linux-64::icu-78.3-h33c6efd_0 
+  ld_impl_linux-64   conda-forge/linux-64::ld_impl_linux-64-2.45.1-default_hbd61a6d_102 
+  libexpat           conda-forge/linux-64::libexpat-2.7.5-hecca717_0 
+  libffi             conda-forge/linux-64::libffi-3.5.2-h3435931_0 
+  libgcc             conda-forge/linux-64::libgcc-15.2.0-he0feb66_18 
+  libgcc-ng          conda-forge/linux-64::libgcc-ng-15.2.0-h69a702a_18 
+  libgomp            conda-forge/linux-64::libgomp-15.2.0-he0feb66_18 
+  liblzma            conda-forge/linux-64::liblzma-5.8.2-hb03c661_0 
+  libnsl             conda-forge/linux-64::libnsl-2.0.1-hb9d3cd8_1 
+  libsqlite          conda-forge/linux-64::libsqlite-3.52.0-hf4e2dac_0 
+  libstdcxx          conda-forge/linux-64::libstdcxx-15.2.0-h934c35e_18 
+  libuuid            conda-forge/linux-64::libuuid-2.42-h5347b49_0 
+  libxcrypt          conda-forge/linux-64::libxcrypt-4.4.36-hd590300_1 
+  libzlib            conda-forge/linux-64::libzlib-1.3.2-h25fd6f3_2 
+  ncurses            conda-forge/linux-64::ncurses-6.5-h2d0b736_3 
+  openssl            conda-forge/linux-64::openssl-3.6.2-h35e630c_0 
+  packaging          conda-forge/noarch::packaging-26.0-pyhcf101f3_0 
+  pip                conda-forge/noarch::pip-26.0.1-pyh8b19718_0 
+  python             conda-forge/linux-64::python-3.10.20-h3c07f61_0_cpython 
+  readline           conda-forge/linux-64::readline-8.3-h853b02a_0 
+  setuptools         conda-forge/noarch::setuptools-82.0.1-pyh332efcf_0 
+  tk                 conda-forge/linux-64::tk-8.6.13-noxft_h366c992_103 
+  tzdata             conda-forge/noarch::tzdata-2025c-hc9c84f9_1 
+  wheel              conda-forge/noarch::wheel-0.46.3-pyhd8ed1ab_0 
+  zstd               conda-forge/linux-64::zstd-1.5.7-hb78ec9c_6 
+
+
+
+Downloading and Extracting Packages: ...working...python-3.10.20       | 24.3 MB   |            |   0% 
+openssl-3.6.2        | 3.0 MB    |            |   0% [A
+
+packaging-26.0       | 70 KB     |            |   0% [A[A
+
+packaging-26.0       | 70 KB     | ########## | 100% [A[A
+
+packaging-26.0       | 70 KB     | ########## | 100% [A[Apython-3.10.20       | 24.3 MB   | 4          |   5% 
+openssl-3.6.2        | 3.0 MB    | ########## | 100% [A
+openssl-3.6.2        | 3.0 MB    | ########## | 100% [Apython-3.10.20       | 24.3 MB   | #######4   |  74% 
+openssl-3.6.2        | 3.0 MB    | ########## | 100% [Apython-3.10.20       | 24.3 MB   | ########## | 100% python-3.10.20       | 24.3 MB   | ########## | 100%                                                      
+                                                     [A
+
+                                                     [A[A done
+Preparing transaction: / - done
+Verifying transaction: | / - \ | / - \ | / - \ | / - \ | / - \ done
+Executing transaction: / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / done
+#
+# To activate this environment, use
+#
+#     $ conda activate tts
+#
+# To deactivate an active environment, use
+#
+#     $ conda deactivate
+
+Requirement already satisfied: pip in /home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages (26.0.1)
+Collecting transformers>=4.45.0
+  Using cached transformers-5.5.0-py3-none-any.whl.metadata (32 kB)
+Collecting evalplus>=0.3.1
+  Downloading evalplus-0.3.1-py3-none-any.whl.metadata (12 kB)
+Collecting lm-eval>=0.4.7
+  Downloading lm_eval-0.4.11-py3-none-any.whl.metadata (56 kB)
+Collecting huggingface-hub<2.0,>=1.5.0 (from transformers>=4.45.0)
+  Downloading huggingface_hub-1.9.2-py3-none-any.whl.metadata (14 kB)
+Collecting numpy>=1.17 (from transformers>=4.45.0)
+  Using cached numpy-2.2.6-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (62 kB)
+Requirement already satisfied: packaging>=20.0 in /home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages (from transformers>=4.45.0) (26.0)
+Collecting pyyaml>=5.1 (from transformers>=4.45.0)
+  Downloading pyyaml-6.0.3-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.4 kB)
+Collecting regex>=2025.10.22 (from transformers>=4.45.0)
+  Downloading regex-2026.4.4-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (40 kB)
+Collecting tokenizers<=0.23.0,>=0.22.0 (from transformers>=4.45.0)
+  Using cached tokenizers-0.22.2-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (7.3 kB)
+Collecting typer (from transformers>=4.45.0)
+  Using cached typer-0.24.1-py3-none-any.whl.metadata (16 kB)
+Collecting safetensors>=0.4.3 (from transformers>=4.45.0)
+  Using cached safetensors-0.7.0-cp38-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (4.1 kB)
+Collecting tqdm>=4.27 (from transformers>=4.45.0)
+  Using cached tqdm-4.67.3-py3-none-any.whl.metadata (57 kB)
+Collecting filelock>=3.10.0 (from huggingface-hub<2.0,>=1.5.0->transformers>=4.45.0)
+  Using cached filelock-3.25.2-py3-none-any.whl.metadata (2.0 kB)
+Collecting fsspec>=2023.5.0 (from huggingface-hub<2.0,>=1.5.0->transformers>=4.45.0)
+  Using cached fsspec-2026.3.0-py3-none-any.whl.metadata (10 kB)
+Collecting hf-xet<2.0.0,>=1.4.3 (from huggingface-hub<2.0,>=1.5.0->transformers>=4.45.0)
+  Using cached hf_xet-1.4.3-cp37-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (4.9 kB)
+Collecting httpx<1,>=0.23.0 (from huggingface-hub<2.0,>=1.5.0->transformers>=4.45.0)
+  Using cached httpx-0.28.1-py3-none-any.whl.metadata (7.1 kB)
+Collecting typing-extensions>=4.1.0 (from huggingface-hub<2.0,>=1.5.0->transformers>=4.45.0)
+  Using cached typing_extensions-4.15.0-py3-none-any.whl.metadata (3.3 kB)
+Collecting anyio (from httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.5.0->transformers>=4.45.0)
+  Using cached anyio-4.13.0-py3-none-any.whl.metadata (4.5 kB)
+Collecting certifi (from httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.5.0->transformers>=4.45.0)
+  Using cached certifi-2026.2.25-py3-none-any.whl.metadata (2.5 kB)
+Collecting httpcore==1.* (from httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.5.0->transformers>=4.45.0)
+  Using cached httpcore-1.0.9-py3-none-any.whl.metadata (21 kB)
+Collecting idna (from httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.5.0->transformers>=4.45.0)
+  Using cached idna-3.11-py3-none-any.whl.metadata (8.4 kB)
+Collecting h11>=0.16 (from httpcore==1.*->httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.5.0->transformers>=4.45.0)
+  Using cached h11-0.16.0-py3-none-any.whl.metadata (8.3 kB)
+Collecting wget>=3.2 (from evalplus>=0.3.1)
+  Downloading wget-3.2.zip (10 kB)
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Collecting tempdir>=0.7.1 (from evalplus>=0.3.1)
+  Downloading tempdir-0.7.1.tar.gz (5.9 kB)
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Collecting multipledispatch>=0.6.0 (from evalplus>=0.3.1)
+  Downloading multipledispatch-1.0.0-py3-none-any.whl.metadata (3.8 kB)
+Collecting appdirs>=1.4.4 (from evalplus>=0.3.1)
+  Downloading appdirs-1.4.4-py2.py3-none-any.whl.metadata (9.0 kB)
+Collecting termcolor>=2.0.0 (from evalplus>=0.3.1)
+  Downloading termcolor-3.3.0-py3-none-any.whl.metadata (6.5 kB)
+Collecting fire>=0.6.0 (from evalplus>=0.3.1)
+  Downloading fire-0.7.1-py3-none-any.whl.metadata (5.8 kB)
+Collecting openai>=1.11.1 (from evalplus>=0.3.1)
+  Downloading openai-2.30.0-py3-none-any.whl.metadata (29 kB)
+Collecting tree-sitter>=0.22.0 (from evalplus>=0.3.1)
+  Downloading tree_sitter-0.25.2-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (10.0 kB)
+Collecting tree-sitter-python>=0.21.0 (from evalplus>=0.3.1)
+  Downloading tree_sitter_python-0.25.0-cp310-abi3-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (1.9 kB)
+Collecting rich>=12.3.0 (from evalplus>=0.3.1)
+  Using cached rich-14.3.3-py3-none-any.whl.metadata (18 kB)
+Collecting stop-sequencer>=1.2.3 (from evalplus>=0.3.1)
+  Downloading stop-sequencer-1.2.3.tar.gz (3.7 kB)
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Collecting anthropic>=0.34.1 (from evalplus>=0.3.1)
+  Downloading anthropic-0.92.0-py3-none-any.whl.metadata (3.1 kB)
+Collecting google-generativeai>=0.7.2 (from evalplus>=0.3.1)
+  Downloading google_generativeai-0.8.6-py3-none-any.whl.metadata (3.9 kB)
+Collecting datasets>=2.21.0 (from evalplus>=0.3.1)
+  Downloading datasets-4.8.4-py3-none-any.whl.metadata (19 kB)
+Collecting psutil>=5.9.0 (from evalplus>=0.3.1)
+  Downloading psutil-7.2.2-cp36-abi3-manylinux2010_x86_64.manylinux_2_12_x86_64.manylinux_2_28_x86_64.whl.metadata (22 kB)
+Collecting evaluate>=0.4.0 (from lm-eval>=0.4.7)
+  Downloading evaluate-0.4.6-py3-none-any.whl.metadata (9.5 kB)
+Collecting jinja2 (from lm-eval>=0.4.7)
+  Using cached jinja2-3.1.6-py3-none-any.whl.metadata (2.9 kB)
+Collecting jsonlines (from lm-eval>=0.4.7)
+  Downloading jsonlines-4.0.0-py3-none-any.whl.metadata (1.6 kB)
+Collecting pytablewriter (from lm-eval>=0.4.7)
+  Downloading pytablewriter-1.2.1-py3-none-any.whl.metadata (38 kB)
+Collecting rouge-score>=0.0.4 (from lm-eval>=0.4.7)
+  Downloading rouge_score-0.1.2.tar.gz (17 kB)
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Collecting sacrebleu>=1.5.0 (from lm-eval>=0.4.7)
+  Downloading sacrebleu-2.6.0-py3-none-any.whl.metadata (39 kB)
+Collecting scikit-learn>=0.24.1 (from lm-eval>=0.4.7)
+  Downloading scikit_learn-1.7.2-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (11 kB)
+Collecting sqlitedict (from lm-eval>=0.4.7)
+  Downloading sqlitedict-2.1.0.tar.gz (21 kB)
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Collecting zstandard (from lm-eval>=0.4.7)
+  Downloading zstandard-0.25.0-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (3.3 kB)
+Collecting dill (from lm-eval>=0.4.7)
+  Downloading dill-0.4.1-py3-none-any.whl.metadata (10 kB)
+Collecting word2number (from lm-eval>=0.4.7)
+  Downloading word2number-1.1.zip (9.7 kB)
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Collecting more_itertools (from lm-eval>=0.4.7)
+  Downloading more_itertools-11.0.1-py3-none-any.whl.metadata (41 kB)
+Collecting distro<2,>=1.7.0 (from anthropic>=0.34.1->evalplus>=0.3.1)
+  Downloading distro-1.9.0-py3-none-any.whl.metadata (6.8 kB)
+Collecting docstring-parser<1,>=0.15 (from anthropic>=0.34.1->evalplus>=0.3.1)
+  Downloading docstring_parser-0.17.0-py3-none-any.whl.metadata (3.5 kB)
+Collecting jiter<1,>=0.4.0 (from anthropic>=0.34.1->evalplus>=0.3.1)
+  Downloading jiter-0.13.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (5.2 kB)
+Collecting pydantic<3,>=1.9.0 (from anthropic>=0.34.1->evalplus>=0.3.1)
+  Using cached pydantic-2.12.5-py3-none-any.whl.metadata (90 kB)
+Collecting sniffio (from anthropic>=0.34.1->evalplus>=0.3.1)
+  Downloading sniffio-1.3.1-py3-none-any.whl.metadata (3.9 kB)
+Collecting exceptiongroup>=1.0.2 (from anyio->httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.5.0->transformers>=4.45.0)
+  Downloading exceptiongroup-1.3.1-py3-none-any.whl.metadata (6.7 kB)
+Collecting annotated-types>=0.6.0 (from pydantic<3,>=1.9.0->anthropic>=0.34.1->evalplus>=0.3.1)
+  Using cached annotated_types-0.7.0-py3-none-any.whl.metadata (15 kB)
+Collecting pydantic-core==2.41.5 (from pydantic<3,>=1.9.0->anthropic>=0.34.1->evalplus>=0.3.1)
+  Downloading pydantic_core-2.41.5-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (7.3 kB)
+Collecting typing-inspection>=0.4.2 (from pydantic<3,>=1.9.0->anthropic>=0.34.1->evalplus>=0.3.1)
+  Using cached typing_inspection-0.4.2-py3-none-any.whl.metadata (2.6 kB)
+Collecting pyarrow>=21.0.0 (from datasets>=2.21.0->evalplus>=0.3.1)
+  Downloading pyarrow-23.0.1-cp310-cp310-manylinux_2_28_x86_64.whl.metadata (3.1 kB)
+Collecting pandas (from datasets>=2.21.0->evalplus>=0.3.1)
+  Using cached pandas-2.3.3-cp310-cp310-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (91 kB)
+Collecting requests>=2.32.2 (from datasets>=2.21.0->evalplus>=0.3.1)
+  Using cached requests-2.33.1-py3-none-any.whl.metadata (4.8 kB)
+Collecting xxhash (from datasets>=2.21.0->evalplus>=0.3.1)
+  Downloading xxhash-3.6.0-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (13 kB)
+Collecting multiprocess<0.70.20 (from datasets>=2.21.0->evalplus>=0.3.1)
+  Downloading multiprocess-0.70.19-py310-none-any.whl.metadata (7.5 kB)
+Collecting fsspec>=2023.5.0 (from huggingface-hub<2.0,>=1.5.0->transformers>=4.45.0)
+  Using cached fsspec-2026.2.0-py3-none-any.whl.metadata (10 kB)
+Collecting aiohttp!=4.0.0a0,!=4.0.0a1 (from fsspec[http]<=2026.2.0,>=2023.1.0->datasets>=2.21.0->evalplus>=0.3.1)
+  Downloading aiohttp-3.13.5-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (8.1 kB)
+Collecting aiohappyeyeballs>=2.5.0 (from aiohttp!=4.0.0a0,!=4.0.0a1->fsspec[http]<=2026.2.0,>=2023.1.0->datasets>=2.21.0->evalplus>=0.3.1)
+  Downloading aiohappyeyeballs-2.6.1-py3-none-any.whl.metadata (5.9 kB)
+Collecting aiosignal>=1.4.0 (from aiohttp!=4.0.0a0,!=4.0.0a1->fsspec[http]<=2026.2.0,>=2023.1.0->datasets>=2.21.0->evalplus>=0.3.1)
+  Downloading aiosignal-1.4.0-py3-none-any.whl.metadata (3.7 kB)
+Collecting async-timeout<6.0,>=4.0 (from aiohttp!=4.0.0a0,!=4.0.0a1->fsspec[http]<=2026.2.0,>=2023.1.0->datasets>=2.21.0->evalplus>=0.3.1)
+  Downloading async_timeout-5.0.1-py3-none-any.whl.metadata (5.1 kB)
+Collecting attrs>=17.3.0 (from aiohttp!=4.0.0a0,!=4.0.0a1->fsspec[http]<=2026.2.0,>=2023.1.0->datasets>=2.21.0->evalplus>=0.3.1)
+  Downloading attrs-26.1.0-py3-none-any.whl.metadata (8.8 kB)
+Collecting frozenlist>=1.1.1 (from aiohttp!=4.0.0a0,!=4.0.0a1->fsspec[http]<=2026.2.0,>=2023.1.0->datasets>=2.21.0->evalplus>=0.3.1)
+  Downloading frozenlist-1.8.0-cp310-cp310-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (20 kB)
+Collecting multidict<7.0,>=4.5 (from aiohttp!=4.0.0a0,!=4.0.0a1->fsspec[http]<=2026.2.0,>=2023.1.0->datasets>=2.21.0->evalplus>=0.3.1)
+  Downloading multidict-6.7.1-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (5.3 kB)
+Collecting propcache>=0.2.0 (from aiohttp!=4.0.0a0,!=4.0.0a1->fsspec[http]<=2026.2.0,>=2023.1.0->datasets>=2.21.0->evalplus>=0.3.1)
+  Downloading propcache-0.4.1-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (13 kB)
+Collecting yarl<2.0,>=1.17.0 (from aiohttp!=4.0.0a0,!=4.0.0a1->fsspec[http]<=2026.2.0,>=2023.1.0->datasets>=2.21.0->evalplus>=0.3.1)
+  Downloading yarl-1.23.0-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (79 kB)
+Collecting google-ai-generativelanguage==0.6.15 (from google-generativeai>=0.7.2->evalplus>=0.3.1)
+  Downloading google_ai_generativelanguage-0.6.15-py3-none-any.whl.metadata (5.7 kB)
+Collecting google-api-core (from google-generativeai>=0.7.2->evalplus>=0.3.1)
+  Downloading google_api_core-2.30.2-py3-none-any.whl.metadata (3.1 kB)
+Collecting google-api-python-client (from google-generativeai>=0.7.2->evalplus>=0.3.1)
+  Downloading google_api_python_client-2.193.0-py3-none-any.whl.metadata (7.0 kB)
+Collecting google-auth>=2.15.0 (from google-generativeai>=0.7.2->evalplus>=0.3.1)
+  Downloading google_auth-2.49.1-py3-none-any.whl.metadata (6.2 kB)
+Collecting protobuf (from google-generativeai>=0.7.2->evalplus>=0.3.1)
+  Downloading protobuf-7.34.1-cp310-abi3-manylinux2014_x86_64.whl.metadata (595 bytes)
+Collecting proto-plus<2.0.0dev,>=1.22.3 (from google-ai-generativelanguage==0.6.15->google-generativeai>=0.7.2->evalplus>=0.3.1)
+  Downloading proto_plus-1.27.2-py3-none-any.whl.metadata (2.2 kB)
+Collecting protobuf (from google-generativeai>=0.7.2->evalplus>=0.3.1)
+  Downloading protobuf-5.29.6-cp38-abi3-manylinux2014_x86_64.whl.metadata (592 bytes)
+Collecting googleapis-common-protos<2.0.0,>=1.63.2 (from google-api-core->google-generativeai>=0.7.2->evalplus>=0.3.1)
+  Downloading googleapis_common_protos-1.74.0-py3-none-any.whl.metadata (9.2 kB)
+Collecting grpcio<2.0.0,>=1.33.2 (from google-api-core[grpc]!=2.0.*,!=2.1.*,!=2.10.*,!=2.2.*,!=2.3.*,!=2.4.*,!=2.5.*,!=2.6.*,!=2.7.*,!=2.8.*,!=2.9.*,<3.0.0dev,>=1.34.1->google-ai-generativelanguage==0.6.15->google-generativeai>=0.7.2->evalplus>=0.3.1)
+  Downloading grpcio-1.80.0-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (3.8 kB)
+Collecting grpcio-status<2.0.0,>=1.33.2 (from google-api-core[grpc]!=2.0.*,!=2.1.*,!=2.10.*,!=2.2.*,!=2.3.*,!=2.4.*,!=2.5.*,!=2.6.*,!=2.7.*,!=2.8.*,!=2.9.*,<3.0.0dev,>=1.34.1->google-ai-generativelanguage==0.6.15->google-generativeai>=0.7.2->evalplus>=0.3.1)
+  Downloading grpcio_status-1.80.0-py3-none-any.whl.metadata (1.3 kB)
+Collecting pyasn1-modules>=0.2.1 (from google-auth>=2.15.0->google-generativeai>=0.7.2->evalplus>=0.3.1)
+  Downloading pyasn1_modules-0.4.2-py3-none-any.whl.metadata (3.5 kB)
+Collecting cryptography>=38.0.3 (from google-auth>=2.15.0->google-generativeai>=0.7.2->evalplus>=0.3.1)
+  Downloading cryptography-46.0.7-cp38-abi3-manylinux_2_28_x86_64.whl.metadata (5.7 kB)
+INFO: pip is looking at multiple versions of grpcio-status to determine which version is compatible with other requirements. This could take a while.
+Collecting grpcio-status<2.0.0,>=1.33.2 (from google-api-core[grpc]!=2.0.*,!=2.1.*,!=2.10.*,!=2.2.*,!=2.3.*,!=2.4.*,!=2.5.*,!=2.6.*,!=2.7.*,!=2.8.*,!=2.9.*,<3.0.0dev,>=1.34.1->google-ai-generativelanguage==0.6.15->google-generativeai>=0.7.2->evalplus>=0.3.1)
+  Downloading grpcio_status-1.78.0-py3-none-any.whl.metadata (1.3 kB)
+  Downloading grpcio_status-1.76.0-py3-none-any.whl.metadata (1.1 kB)
+  Downloading grpcio_status-1.75.1-py3-none-any.whl.metadata (1.1 kB)
+  Downloading grpcio_status-1.75.0-py3-none-any.whl.metadata (1.1 kB)
+  Downloading grpcio_status-1.74.0-py3-none-any.whl.metadata (1.1 kB)
+  Downloading grpcio_status-1.73.1-py3-none-any.whl.metadata (1.1 kB)
+  Downloading grpcio_status-1.73.0-py3-none-any.whl.metadata (1.1 kB)
+INFO: pip is still looking at multiple versions of grpcio-status to determine which version is compatible with other requirements. This could take a while.
+  Downloading grpcio_status-1.72.2-py3-none-any.whl.metadata (1.1 kB)
+  Downloading grpcio_status-1.72.1-py3-none-any.whl.metadata (1.1 kB)
+  Downloading grpcio_status-1.71.2-py3-none-any.whl.metadata (1.1 kB)
+Collecting charset_normalizer<4,>=2 (from requests>=2.32.2->datasets>=2.21.0->evalplus>=0.3.1)
+  Downloading charset_normalizer-3.4.7-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (40 kB)
+Collecting urllib3<3,>=1.26 (from requests>=2.32.2->datasets>=2.21.0->evalplus>=0.3.1)
+  Using cached urllib3-2.6.3-py3-none-any.whl.metadata (6.9 kB)
+Collecting cffi>=2.0.0 (from cryptography>=38.0.3->google-auth>=2.15.0->google-generativeai>=0.7.2->evalplus>=0.3.1)
+  Downloading cffi-2.0.0-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (2.6 kB)
+Collecting pycparser (from cffi>=2.0.0->cryptography>=38.0.3->google-auth>=2.15.0->google-generativeai>=0.7.2->evalplus>=0.3.1)
+  Using cached pycparser-3.0-py3-none-any.whl.metadata (8.2 kB)
+Collecting pyasn1<0.7.0,>=0.6.1 (from pyasn1-modules>=0.2.1->google-auth>=2.15.0->google-generativeai>=0.7.2->evalplus>=0.3.1)
+  Downloading pyasn1-0.6.3-py3-none-any.whl.metadata (8.4 kB)
+Collecting markdown-it-py>=2.2.0 (from rich>=12.3.0->evalplus>=0.3.1)
+  Using cached markdown_it_py-4.0.0-py3-none-any.whl.metadata (7.3 kB)
+Collecting pygments<3.0.0,>=2.13.0 (from rich>=12.3.0->evalplus>=0.3.1)
+  Using cached pygments-2.20.0-py3-none-any.whl.metadata (2.5 kB)
+Collecting mdurl~=0.1 (from markdown-it-py>=2.2.0->rich>=12.3.0->evalplus>=0.3.1)
+  Using cached mdurl-0.1.2-py3-none-any.whl.metadata (1.6 kB)
+Collecting absl-py (from rouge-score>=0.0.4->lm-eval>=0.4.7)
+  Downloading absl_py-2.4.0-py3-none-any.whl.metadata (3.3 kB)
+Collecting nltk (from rouge-score>=0.0.4->lm-eval>=0.4.7)
+  Downloading nltk-3.9.4-py3-none-any.whl.metadata (3.2 kB)
+Collecting six>=1.14.0 (from rouge-score>=0.0.4->lm-eval>=0.4.7)
+  Using cached six-1.17.0-py2.py3-none-any.whl.metadata (1.7 kB)
+Collecting portalocker (from sacrebleu>=1.5.0->lm-eval>=0.4.7)
+  Downloading portalocker-3.2.0-py3-none-any.whl.metadata (8.7 kB)
+Collecting tabulate>=0.8.9 (from sacrebleu>=1.5.0->lm-eval>=0.4.7)
+  Downloading tabulate-0.10.0-py3-none-any.whl.metadata (40 kB)
+Collecting colorama (from sacrebleu>=1.5.0->lm-eval>=0.4.7)
+  Downloading colorama-0.4.6-py2.py3-none-any.whl.metadata (17 kB)
+Collecting lxml (from sacrebleu>=1.5.0->lm-eval>=0.4.7)
+  Downloading lxml-6.0.2-cp310-cp310-manylinux_2_26_x86_64.manylinux_2_28_x86_64.whl.metadata (3.6 kB)
+Collecting scipy>=1.8.0 (from scikit-learn>=0.24.1->lm-eval>=0.4.7)
+  Downloading scipy-1.15.3-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (61 kB)
+Collecting joblib>=1.2.0 (from scikit-learn>=0.24.1->lm-eval>=0.4.7)
+  Using cached joblib-1.5.3-py3-none-any.whl.metadata (5.5 kB)
+Collecting threadpoolctl>=3.1.0 (from scikit-learn>=0.24.1->lm-eval>=0.4.7)
+  Using cached threadpoolctl-3.6.0-py3-none-any.whl.metadata (13 kB)
+Collecting httplib2<1.0.0,>=0.19.0 (from google-api-python-client->google-generativeai>=0.7.2->evalplus>=0.3.1)
+  Downloading httplib2-0.31.2-py3-none-any.whl.metadata (2.2 kB)
+Collecting google-auth-httplib2<1.0.0,>=0.2.0 (from google-api-python-client->google-generativeai>=0.7.2->evalplus>=0.3.1)
+  Downloading google_auth_httplib2-0.3.1-py3-none-any.whl.metadata (3.0 kB)
+Collecting uritemplate<5,>=3.0.1 (from google-api-python-client->google-generativeai>=0.7.2->evalplus>=0.3.1)
+  Downloading uritemplate-4.2.0-py3-none-any.whl.metadata (2.6 kB)
+Collecting pyparsing<4,>=3.1 (from httplib2<1.0.0,>=0.19.0->google-api-python-client->google-generativeai>=0.7.2->evalplus>=0.3.1)
+  Using cached pyparsing-3.3.2-py3-none-any.whl.metadata (5.8 kB)
+Collecting MarkupSafe>=2.0 (from jinja2->lm-eval>=0.4.7)
+  Downloading markupsafe-3.0.3-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.7 kB)
+Collecting click (from nltk->rouge-score>=0.0.4->lm-eval>=0.4.7)
+  Using cached click-8.3.2-py3-none-any.whl.metadata (2.6 kB)
+Collecting python-dateutil>=2.8.2 (from pandas->datasets>=2.21.0->evalplus>=0.3.1)
+  Using cached python_dateutil-2.9.0.post0-py2.py3-none-any.whl.metadata (8.4 kB)
+Collecting pytz>=2020.1 (from pandas->datasets>=2.21.0->evalplus>=0.3.1)
+  Using cached pytz-2026.1.post1-py2.py3-none-any.whl.metadata (22 kB)
+Collecting tzdata>=2022.7 (from pandas->datasets>=2.21.0->evalplus>=0.3.1)
+  Using cached tzdata-2026.1-py2.py3-none-any.whl.metadata (1.4 kB)
+Requirement already satisfied: setuptools>=38.3.0 in /home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages (from pytablewriter->lm-eval>=0.4.7) (82.0.1)
+Collecting DataProperty<2,>=1.1.0 (from pytablewriter->lm-eval>=0.4.7)
+  Downloading DataProperty-1.1.0-py3-none-any.whl.metadata (11 kB)
+Collecting mbstrdecoder<2,>=1.0.0 (from pytablewriter->lm-eval>=0.4.7)
+  Downloading mbstrdecoder-1.1.4-py3-none-any.whl.metadata (4.3 kB)
+Collecting pathvalidate<4,>=2.3.0 (from pytablewriter->lm-eval>=0.4.7)
+  Downloading pathvalidate-3.3.1-py3-none-any.whl.metadata (12 kB)
+Collecting tabledata<2,>=1.3.1 (from pytablewriter->lm-eval>=0.4.7)
+  Downloading tabledata-1.3.4-py3-none-any.whl.metadata (3.7 kB)
+Collecting tcolorpy<1,>=0.0.5 (from pytablewriter->lm-eval>=0.4.7)
+  Downloading tcolorpy-0.1.7-py3-none-any.whl.metadata (6.3 kB)
+Collecting typepy<2,>=1.3.2 (from typepy[datetime]<2,>=1.3.2->pytablewriter->lm-eval>=0.4.7)
+  Downloading typepy-1.3.4-py3-none-any.whl.metadata (9.2 kB)
+Collecting chardet<6,>=3.0.4 (from mbstrdecoder<2,>=1.0.0->pytablewriter->lm-eval>=0.4.7)
+  Downloading chardet-5.2.0-py3-none-any.whl.metadata (3.4 kB)
+Collecting shellingham>=1.3.0 (from typer->transformers>=4.45.0)
+  Using cached shellingham-1.5.4-py2.py3-none-any.whl.metadata (3.5 kB)
+Collecting annotated-doc>=0.0.2 (from typer->transformers>=4.45.0)
+  Using cached annotated_doc-0.0.4-py3-none-any.whl.metadata (6.6 kB)
+Using cached transformers-5.5.0-py3-none-any.whl (10.2 MB)
+Downloading huggingface_hub-1.9.2-py3-none-any.whl (637 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 637.3/637.3 kB 42.6 MB/s  0:00:00
+Using cached hf_xet-1.4.3-cp37-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (4.2 MB)
+Using cached httpx-0.28.1-py3-none-any.whl (73 kB)
+Using cached httpcore-1.0.9-py3-none-any.whl (78 kB)
+Using cached tokenizers-0.22.2-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (3.3 MB)
+Downloading evalplus-0.3.1-py3-none-any.whl (68 kB)
+Downloading lm_eval-0.4.11-py3-none-any.whl (8.7 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 8.7/8.7 MB 191.9 MB/s  0:00:00
+Downloading anthropic-0.92.0-py3-none-any.whl (621 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 621.2/621.2 kB 85.7 MB/s  0:00:00
+Using cached anyio-4.13.0-py3-none-any.whl (114 kB)
+Downloading distro-1.9.0-py3-none-any.whl (20 kB)
+Downloading docstring_parser-0.17.0-py3-none-any.whl (36 kB)
+Downloading jiter-0.13.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (362 kB)
+Using cached pydantic-2.12.5-py3-none-any.whl (463 kB)
+Downloading pydantic_core-2.41.5-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (2.1 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.1/2.1 MB 182.0 MB/s  0:00:00
+Using cached typing_extensions-4.15.0-py3-none-any.whl (44 kB)
+Using cached annotated_types-0.7.0-py3-none-any.whl (13 kB)
+Downloading appdirs-1.4.4-py2.py3-none-any.whl (9.6 kB)
+Downloading datasets-4.8.4-py3-none-any.whl (526 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 527.0/527.0 kB 55.7 MB/s  0:00:00
+Downloading dill-0.4.1-py3-none-any.whl (120 kB)
+Using cached fsspec-2026.2.0-py3-none-any.whl (202 kB)
+Downloading multiprocess-0.70.19-py310-none-any.whl (134 kB)
+Downloading aiohttp-3.13.5-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (1.7 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.7/1.7 MB 188.8 MB/s  0:00:00
+Downloading async_timeout-5.0.1-py3-none-any.whl (6.2 kB)
+Downloading multidict-6.7.1-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (243 kB)
+Downloading yarl-1.23.0-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (102 kB)
+Downloading aiohappyeyeballs-2.6.1-py3-none-any.whl (15 kB)
+Downloading aiosignal-1.4.0-py3-none-any.whl (7.5 kB)
+Downloading attrs-26.1.0-py3-none-any.whl (67 kB)
+Downloading evaluate-0.4.6-py3-none-any.whl (84 kB)
+Downloading exceptiongroup-1.3.1-py3-none-any.whl (16 kB)
+Using cached filelock-3.25.2-py3-none-any.whl (26 kB)
+Downloading fire-0.7.1-py3-none-any.whl (115 kB)
+Downloading frozenlist-1.8.0-cp310-cp310-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (219 kB)
+Downloading google_generativeai-0.8.6-py3-none-any.whl (155 kB)
+Downloading google_ai_generativelanguage-0.6.15-py3-none-any.whl (1.3 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.3/1.3 MB 149.0 MB/s  0:00:00
+Downloading google_api_core-2.30.2-py3-none-any.whl (173 kB)
+Downloading google_auth-2.49.1-py3-none-any.whl (240 kB)
+Downloading googleapis_common_protos-1.74.0-py3-none-any.whl (300 kB)
+Downloading grpcio-1.80.0-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (6.8 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.8/6.8 MB 270.9 MB/s  0:00:00
+Downloading grpcio_status-1.71.2-py3-none-any.whl (14 kB)
+Downloading proto_plus-1.27.2-py3-none-any.whl (50 kB)
+Downloading protobuf-5.29.6-cp38-abi3-manylinux2014_x86_64.whl (320 kB)
+Using cached requests-2.33.1-py3-none-any.whl (64 kB)
+Downloading charset_normalizer-3.4.7-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (216 kB)
+Using cached idna-3.11-py3-none-any.whl (71 kB)
+Using cached urllib3-2.6.3-py3-none-any.whl (131 kB)
+Using cached certifi-2026.2.25-py3-none-any.whl (153 kB)
+Downloading cryptography-46.0.7-cp38-abi3-manylinux_2_28_x86_64.whl (4.5 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.5/4.5 MB 179.3 MB/s  0:00:00
+Downloading cffi-2.0.0-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (216 kB)
+Using cached h11-0.16.0-py3-none-any.whl (37 kB)
+Downloading multipledispatch-1.0.0-py3-none-any.whl (12 kB)
+Using cached numpy-2.2.6-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (16.8 MB)
+Downloading openai-2.30.0-py3-none-any.whl (1.1 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.1/1.1 MB 119.4 MB/s  0:00:00
+Downloading propcache-0.4.1-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (196 kB)
+Downloading psutil-7.2.2-cp36-abi3-manylinux2010_x86_64.manylinux_2_12_x86_64.manylinux_2_28_x86_64.whl (155 kB)
+Downloading pyarrow-23.0.1-cp310-cp310-manylinux_2_28_x86_64.whl (47.6 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 47.6/47.6 MB 185.3 MB/s  0:00:00
+Downloading pyasn1_modules-0.4.2-py3-none-any.whl (181 kB)
+Downloading pyasn1-0.6.3-py3-none-any.whl (83 kB)
+Downloading pyyaml-6.0.3-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (770 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 770.3/770.3 kB 107.7 MB/s  0:00:00
+Downloading regex-2026.4.4-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (793 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 793.6/793.6 kB 94.3 MB/s  0:00:00
+Using cached rich-14.3.3-py3-none-any.whl (310 kB)
+Using cached pygments-2.20.0-py3-none-any.whl (1.2 MB)
+Using cached markdown_it_py-4.0.0-py3-none-any.whl (87 kB)
+Using cached mdurl-0.1.2-py3-none-any.whl (10.0 kB)
+Downloading sacrebleu-2.6.0-py3-none-any.whl (100 kB)
+Using cached safetensors-0.7.0-cp38-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (507 kB)
+Downloading scikit_learn-1.7.2-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (9.7 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 9.7/9.7 MB 209.3 MB/s  0:00:00
+Using cached joblib-1.5.3-py3-none-any.whl (309 kB)
+Downloading scipy-1.15.3-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (37.7 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 37.7/37.7 MB 192.4 MB/s  0:00:00
+Using cached six-1.17.0-py2.py3-none-any.whl (11 kB)
+Downloading tabulate-0.10.0-py3-none-any.whl (39 kB)
+Downloading termcolor-3.3.0-py3-none-any.whl (7.7 kB)
+Using cached threadpoolctl-3.6.0-py3-none-any.whl (18 kB)
+Using cached tqdm-4.67.3-py3-none-any.whl (78 kB)
+Downloading tree_sitter-0.25.2-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (627 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 627.7/627.7 kB 87.9 MB/s  0:00:00
+Downloading tree_sitter_python-0.25.0-cp310-abi3-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (108 kB)
+Using cached typing_inspection-0.4.2-py3-none-any.whl (14 kB)
+Downloading absl_py-2.4.0-py3-none-any.whl (135 kB)
+Downloading colorama-0.4.6-py2.py3-none-any.whl (25 kB)
+Downloading google_api_python_client-2.193.0-py3-none-any.whl (14.9 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 14.9/14.9 MB 212.4 MB/s  0:00:00
+Downloading google_auth_httplib2-0.3.1-py3-none-any.whl (9.5 kB)
+Downloading httplib2-0.31.2-py3-none-any.whl (91 kB)
+Using cached pyparsing-3.3.2-py3-none-any.whl (122 kB)
+Downloading uritemplate-4.2.0-py3-none-any.whl (11 kB)
+Using cached jinja2-3.1.6-py3-none-any.whl (134 kB)
+Downloading markupsafe-3.0.3-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (20 kB)
+Downloading jsonlines-4.0.0-py3-none-any.whl (8.7 kB)
+Downloading lxml-6.0.2-cp310-cp310-manylinux_2_26_x86_64.manylinux_2_28_x86_64.whl (5.3 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.3/5.3 MB 133.9 MB/s  0:00:00
+Downloading more_itertools-11.0.1-py3-none-any.whl (72 kB)
+Downloading nltk-3.9.4-py3-none-any.whl (1.6 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.6/1.6 MB 182.6 MB/s  0:00:00
+Using cached click-8.3.2-py3-none-any.whl (108 kB)
+Using cached pandas-2.3.3-cp310-cp310-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (12.8 MB)
+Using cached python_dateutil-2.9.0.post0-py2.py3-none-any.whl (229 kB)
+Using cached pytz-2026.1.post1-py2.py3-none-any.whl (510 kB)
+Using cached tzdata-2026.1-py2.py3-none-any.whl (348 kB)
+Downloading portalocker-3.2.0-py3-none-any.whl (22 kB)
+Using cached pycparser-3.0-py3-none-any.whl (48 kB)
+Downloading pytablewriter-1.2.1-py3-none-any.whl (91 kB)
+Downloading DataProperty-1.1.0-py3-none-any.whl (27 kB)
+Downloading mbstrdecoder-1.1.4-py3-none-any.whl (7.9 kB)
+Downloading chardet-5.2.0-py3-none-any.whl (199 kB)
+Downloading pathvalidate-3.3.1-py3-none-any.whl (24 kB)
+Downloading tabledata-1.3.4-py3-none-any.whl (11 kB)
+Downloading tcolorpy-0.1.7-py3-none-any.whl (8.1 kB)
+Downloading typepy-1.3.4-py3-none-any.whl (31 kB)
+Downloading sniffio-1.3.1-py3-none-any.whl (10 kB)
+Using cached typer-0.24.1-py3-none-any.whl (56 kB)
+Using cached annotated_doc-0.0.4-py3-none-any.whl (5.3 kB)
+Using cached shellingham-1.5.4-py2.py3-none-any.whl (9.8 kB)
+Downloading xxhash-3.6.0-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (193 kB)
+Downloading zstandard-0.25.0-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (5.6 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.6/5.6 MB 167.0 MB/s  0:00:00
+Building wheels for collected packages: rouge-score, stop-sequencer, tempdir, wget, sqlitedict, word2number
+  Building wheel for rouge-score (pyproject.toml): started
+  Building wheel for rouge-score (pyproject.toml): finished with status 'done'
+  Created wheel for rouge-score: filename=rouge_score-0.1.2-py3-none-any.whl size=24988 sha256=dde5c55b20381f53edd8d2bed04238783c3c80bdb2f3c822808f66ac65513aac
+  Stored in directory: /home/x-adas17/.cache/pip/wheels/5f/dd/89/461065a73be61a532ff8599a28e9beef17985c9e9c31e541b4
+  Building wheel for stop-sequencer (pyproject.toml): started
+  Building wheel for stop-sequencer (pyproject.toml): finished with status 'done'
+  Created wheel for stop-sequencer: filename=stop_sequencer-1.2.3-py3-none-any.whl size=4920 sha256=71ec1e564a6479424f1fab30404df8d1c3ecda11c6a4645f4fadcc244f3640b9
+  Stored in directory: /home/x-adas17/.cache/pip/wheels/cf/96/5e/d55dc2f539443c8db3c7b0e99cd04f895feecc2a02d6e4bca5
+  Building wheel for tempdir (pyproject.toml): started
+  Building wheel for tempdir (pyproject.toml): finished with status 'done'
+  Created wheel for tempdir: filename=tempdir-0.7.1-py3-none-any.whl size=2244 sha256=a5065596486cc95daacf3b403ec1b7aead9309574a49cc91630bbae509465a28
+  Stored in directory: /home/x-adas17/.cache/pip/wheels/c6/9a/9d/44903aa5aac6c6bc5f0c331ed86214bbedce17e8556d002f1a
+  Building wheel for wget (pyproject.toml): started
+  Building wheel for wget (pyproject.toml): finished with status 'done'
+  Created wheel for wget: filename=wget-3.2-py3-none-any.whl size=9685 sha256=f519fd104f533481741cac34eada6af9ca27e36e9264e273fdff08c2ff6be5bc
+  Stored in directory: /home/x-adas17/.cache/pip/wheels/8b/f1/7f/5c94f0a7a505ca1c81cd1d9208ae2064675d97582078e6c769
+  Building wheel for sqlitedict (pyproject.toml): started
+  Building wheel for sqlitedict (pyproject.toml): finished with status 'done'
+  Created wheel for sqlitedict: filename=sqlitedict-2.1.0-py3-none-any.whl size=16955 sha256=563ed720141572007f8007875865c47446a5296aac5a83f9ccd5cdd29d9e249d
+  Stored in directory: /home/x-adas17/.cache/pip/wheels/79/d6/e7/304e0e6cb2221022c26d8161f7c23cd4f259a9e41e8bbcfabd
+  Building wheel for word2number (pyproject.toml): started
+  Building wheel for word2number (pyproject.toml): finished with status 'done'
+  Created wheel for word2number: filename=word2number-1.1-py3-none-any.whl size=5659 sha256=34f7285979f6650693356c4ebc4dde8000a3963d4df29a3f772efaf540ac3b02
+  Stored in directory: /home/x-adas17/.cache/pip/wheels/84/ff/26/d3cfbd971e96c5aa3737ecfced81628830d7359b55fbb8ca3b
+Successfully built rouge-score stop-sequencer tempdir wget sqlitedict word2number
+Installing collected packages: word2number, wget, tempdir, sqlitedict, pytz, multipledispatch, appdirs, zstandard, xxhash, urllib3, uritemplate, tzdata, typing-extensions, tree-sitter-python, tree-sitter, tqdm, threadpoolctl, termcolor, tcolorpy, tabulate, sniffio, six, shellingham, safetensors, regex, pyyaml, pyparsing, pygments, pycparser, pyasn1, pyarrow, psutil, protobuf, propcache, portalocker, pathvalidate, numpy, more_itertools, mdurl, MarkupSafe, lxml, joblib, jiter, idna, hf-xet, h11, fsspec, frozenlist, filelock, docstring-parser, distro, dill, colorama, click, charset_normalizer, chardet, certifi, attrs, async-timeout, annotated-types, annotated-doc, aiohappyeyeballs, absl-py, typing-inspection, scipy, sacrebleu, requests, python-dateutil, pydantic-core, pyasn1-modules, proto-plus, nltk, multiprocess, multidict, mbstrdecoder, markdown-it-py, jsonlines, jinja2, httplib2, httpcore, grpcio, googleapis-common-protos, fire, exceptiongroup, cffi, aiosignal, yarl, typepy, scikit-learn, rouge-score, rich, pydantic, pandas, grpcio-status, cryptography, anyio, typer, httpx, google-auth, aiohttp, openai, huggingface-hub, google-auth-httplib2, google-api-core, DataProperty, anthropic, tokenizers, tabledata, google-api-python-client, datasets, transformers, pytablewriter, google-ai-generativelanguage, evaluate, stop-sequencer, lm-eval, google-generativeai, evalplus
+
+Successfully installed DataProperty-1.1.0 MarkupSafe-3.0.3 absl-py-2.4.0 aiohappyeyeballs-2.6.1 aiohttp-3.13.5 aiosignal-1.4.0 annotated-doc-0.0.4 annotated-types-0.7.0 anthropic-0.92.0 anyio-4.13.0 appdirs-1.4.4 async-timeout-5.0.1 attrs-26.1.0 certifi-2026.2.25 cffi-2.0.0 chardet-5.2.0 charset_normalizer-3.4.7 click-8.3.2 colorama-0.4.6 cryptography-46.0.7 datasets-4.8.4 dill-0.4.1 distro-1.9.0 docstring-parser-0.17.0 evalplus-0.3.1 evaluate-0.4.6 exceptiongroup-1.3.1 filelock-3.25.2 fire-0.7.1 frozenlist-1.8.0 fsspec-2026.2.0 google-ai-generativelanguage-0.6.15 google-api-core-2.30.2 google-api-python-client-2.193.0 google-auth-2.49.1 google-auth-httplib2-0.3.1 google-generativeai-0.8.6 googleapis-common-protos-1.74.0 grpcio-1.80.0 grpcio-status-1.71.2 h11-0.16.0 hf-xet-1.4.3 httpcore-1.0.9 httplib2-0.31.2 httpx-0.28.1 huggingface-hub-1.9.2 idna-3.11 jinja2-3.1.6 jiter-0.13.0 joblib-1.5.3 jsonlines-4.0.0 lm-eval-0.4.11 lxml-6.0.2 markdown-it-py-4.0.0 mbstrdecoder-1.1.4 mdurl-0.1.2 more_itertools-11.0.1 multidict-6.7.1 multipledispatch-1.0.0 multiprocess-0.70.19 nltk-3.9.4 numpy-2.2.6 openai-2.30.0 pandas-2.3.3 pathvalidate-3.3.1 portalocker-3.2.0 propcache-0.4.1 proto-plus-1.27.2 protobuf-5.29.6 psutil-7.2.2 pyarrow-23.0.1 pyasn1-0.6.3 pyasn1-modules-0.4.2 pycparser-3.0 pydantic-2.12.5 pydantic-core-2.41.5 pygments-2.20.0 pyparsing-3.3.2 pytablewriter-1.2.1 python-dateutil-2.9.0.post0 pytz-2026.1.post1 pyyaml-6.0.3 regex-2026.4.4 requests-2.33.1 rich-14.3.3 rouge-score-0.1.2 sacrebleu-2.6.0 safetensors-0.7.0 scikit-learn-1.7.2 scipy-1.15.3 shellingham-1.5.4 six-1.17.0 sniffio-1.3.1 sqlitedict-2.1.0 stop-sequencer-1.2.3 tabledata-1.3.4 tabulate-0.10.0 tcolorpy-0.1.7 tempdir-0.7.1 termcolor-3.3.0 threadpoolctl-3.6.0 tokenizers-0.22.2 tqdm-4.67.3 transformers-5.5.0 tree-sitter-0.25.2 tree-sitter-python-0.25.0 typepy-1.3.4 typer-0.24.1 typing-extensions-4.15.0 typing-inspection-0.4.2 tzdata-2026.1 uritemplate-4.2.0 urllib3-2.6.3 wget-3.2 word2number-1.1 xxhash-3.6.0 yarl-1.23.0 zstandard-0.25.0
+Collecting confseq>=0.0.11
+  Downloading confseq-0.0.11-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (8.6 kB)
+Requirement already satisfied: scipy>=1.11.0 in /home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages (1.15.3)
+Requirement already satisfied: numpy>=1.24.0 in /home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages (2.2.6)
+Collecting pybind11>=2.3 (from confseq>=0.0.11)
+  Downloading pybind11-3.0.3-py3-none-any.whl.metadata (10 kB)
+Collecting matplotlib (from confseq>=0.0.11)
+  Using cached matplotlib-3.10.8-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (52 kB)
+Requirement already satisfied: multiprocess in /home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages (from confseq>=0.0.11) (0.70.19)
+Collecting pytest (from confseq>=0.0.11)
+  Downloading pytest-9.0.3-py3-none-any.whl.metadata (7.6 kB)
+Requirement already satisfied: pandas in /home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages (from confseq>=0.0.11) (2.3.3)
+Collecting contourpy>=1.0.1 (from matplotlib->confseq>=0.0.11)
+  Using cached contourpy-1.3.2-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (5.5 kB)
+Collecting cycler>=0.10 (from matplotlib->confseq>=0.0.11)
+  Using cached cycler-0.12.1-py3-none-any.whl.metadata (3.8 kB)
+Collecting fonttools>=4.22.0 (from matplotlib->confseq>=0.0.11)
+  Using cached fonttools-4.62.1-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (117 kB)
+Collecting kiwisolver>=1.3.1 (from matplotlib->confseq>=0.0.11)
+  Using cached kiwisolver-1.5.0-cp310-cp310-manylinux_2_12_x86_64.manylinux2010_x86_64.whl.metadata (5.1 kB)
+Requirement already satisfied: packaging>=20.0 in /home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages (from matplotlib->confseq>=0.0.11) (26.0)
+Collecting pillow>=8 (from matplotlib->confseq>=0.0.11)
+  Using cached pillow-12.2.0-cp310-cp310-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (8.8 kB)
+Requirement already satisfied: pyparsing>=3 in /home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages (from matplotlib->confseq>=0.0.11) (3.3.2)
+Requirement already satisfied: python-dateutil>=2.7 in /home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages (from matplotlib->confseq>=0.0.11) (2.9.0.post0)
+Requirement already satisfied: six>=1.5 in /home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages (from python-dateutil>=2.7->matplotlib->confseq>=0.0.11) (1.17.0)
+Requirement already satisfied: dill>=0.4.1 in /home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages (from multiprocess->confseq>=0.0.11) (0.4.1)
+Requirement already satisfied: pytz>=2020.1 in /home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages (from pandas->confseq>=0.0.11) (2026.1.post1)
+Requirement already satisfied: tzdata>=2022.7 in /home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages (from pandas->confseq>=0.0.11) (2026.1)
+Requirement already satisfied: exceptiongroup>=1 in /home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages (from pytest->confseq>=0.0.11) (1.3.1)
+Collecting iniconfig>=1.0.1 (from pytest->confseq>=0.0.11)
+  Downloading iniconfig-2.3.0-py3-none-any.whl.metadata (2.5 kB)
+Collecting pluggy<2,>=1.5 (from pytest->confseq>=0.0.11)
+  Downloading pluggy-1.6.0-py3-none-any.whl.metadata (4.8 kB)
+Requirement already satisfied: pygments>=2.7.2 in /home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages (from pytest->confseq>=0.0.11) (2.20.0)
+Collecting tomli>=1 (from pytest->confseq>=0.0.11)
+  Downloading tomli-2.4.1-py3-none-any.whl.metadata (10 kB)
+Requirement already satisfied: typing-extensions>=4.6.0 in /home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages (from exceptiongroup>=1->pytest->confseq>=0.0.11) (4.15.0)
+Downloading confseq-0.0.11-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (306 kB)
+Downloading pybind11-3.0.3-py3-none-any.whl (313 kB)
+Using cached matplotlib-3.10.8-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (8.7 MB)
+Using cached contourpy-1.3.2-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (325 kB)
+Using cached cycler-0.12.1-py3-none-any.whl (8.3 kB)
+Using cached fonttools-4.62.1-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (4.9 MB)
+Using cached kiwisolver-1.5.0-cp310-cp310-manylinux_2_12_x86_64.manylinux2010_x86_64.whl (1.6 MB)
+Using cached pillow-12.2.0-cp310-cp310-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (7.1 MB)
+Downloading pytest-9.0.3-py3-none-any.whl (375 kB)
+Downloading pluggy-1.6.0-py3-none-any.whl (20 kB)
+Downloading iniconfig-2.3.0-py3-none-any.whl (7.5 kB)
+Downloading tomli-2.4.1-py3-none-any.whl (14 kB)
+Installing collected packages: tomli, pybind11, pluggy, pillow, kiwisolver, iniconfig, fonttools, cycler, contourpy, pytest, matplotlib, confseq
+
+Successfully installed confseq-0.0.11 contourpy-1.3.2 cycler-0.12.1 fonttools-4.62.1 iniconfig-2.3.0 kiwisolver-1.5.0 matplotlib-3.10.8 pillow-12.2.0 pluggy-1.6.0 pybind11-3.0.3 pytest-9.0.3 tomli-2.4.1
+Collecting RestrictedPython>=7.0
+  Downloading restrictedpython-8.1-py3-none-any.whl.metadata (14 kB)
+Downloading restrictedpython-8.1-py3-none-any.whl (27 kB)
+Installing collected packages: RestrictedPython
+Successfully installed RestrictedPython-8.1
+Requirement already satisfied: matplotlib>=3.8.0 in /home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages (3.10.8)
+Collecting SciencePlots>=2.1.0
+  Downloading scienceplots-2.2.1-py3-none-any.whl.metadata (14 kB)
+Collecting seaborn>=0.13.0
+  Using cached seaborn-0.13.2-py3-none-any.whl.metadata (5.4 kB)
+Requirement already satisfied: pandas>=2.1.0 in /home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages (2.3.3)
+Requirement already satisfied: contourpy>=1.0.1 in /home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages (from matplotlib>=3.8.0) (1.3.2)
+Requirement already satisfied: cycler>=0.10 in /home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages (from matplotlib>=3.8.0) (0.12.1)
+Requirement already satisfied: fonttools>=4.22.0 in /home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages (from matplotlib>=3.8.0) (4.62.1)
+Requirement already satisfied: kiwisolver>=1.3.1 in /home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages (from matplotlib>=3.8.0) (1.5.0)
+Requirement already satisfied: numpy>=1.23 in /home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages (from matplotlib>=3.8.0) (2.2.6)
+Requirement already satisfied: packaging>=20.0 in /home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages (from matplotlib>=3.8.0) (26.0)
+Requirement already satisfied: pillow>=8 in /home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages (from matplotlib>=3.8.0) (12.2.0)
+Requirement already satisfied: pyparsing>=3 in /home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages (from matplotlib>=3.8.0) (3.3.2)
+Requirement already satisfied: python-dateutil>=2.7 in /home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages (from matplotlib>=3.8.0) (2.9.0.post0)
+Requirement already satisfied: pytz>=2020.1 in /home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages (from pandas>=2.1.0) (2026.1.post1)
+Requirement already satisfied: tzdata>=2022.7 in /home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages (from pandas>=2.1.0) (2026.1)
+Requirement already satisfied: six>=1.5 in /home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages (from python-dateutil>=2.7->matplotlib>=3.8.0) (1.17.0)
+Downloading scienceplots-2.2.1-py3-none-any.whl (30 kB)
+Using cached seaborn-0.13.2-py3-none-any.whl (294 kB)
+Installing collected packages: seaborn, SciencePlots
+
+Successfully installed SciencePlots-2.2.1 seaborn-0.13.2
+Collecting arxiv-latex-cleaner
+  Downloading arxiv_latex_cleaner-1.0.11-py3-none-any.whl.metadata (12 kB)
+Requirement already satisfied: datasets in /home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages (4.8.4)
+Requirement already satisfied: huggingface_hub in /home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages (1.9.2)
+Requirement already satisfied: absl_py>=0.12 in /home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages (from arxiv-latex-cleaner) (2.4.0)
+Requirement already satisfied: pillow in /home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages (from arxiv-latex-cleaner) (12.2.0)
+Requirement already satisfied: pyyaml in /home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages (from arxiv-latex-cleaner) (6.0.3)
+Requirement already satisfied: regex in /home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages (from arxiv-latex-cleaner) (2026.4.4)
+Requirement already satisfied: filelock in /home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages (from datasets) (3.25.2)
+Requirement already satisfied: numpy>=1.17 in /home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages (from datasets) (2.2.6)
+Requirement already satisfied: pyarrow>=21.0.0 in /home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages (from datasets) (23.0.1)
+Requirement already satisfied: dill<0.4.2,>=0.3.0 in /home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages (from datasets) (0.4.1)
+Requirement already satisfied: pandas in /home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages (from datasets) (2.3.3)
+Requirement already satisfied: requests>=2.32.2 in /home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages (from datasets) (2.33.1)
+Requirement already satisfied: httpx<1.0.0 in /home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages (from datasets) (0.28.1)
+Requirement already satisfied: tqdm>=4.66.3 in /home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages (from datasets) (4.67.3)
+Requirement already satisfied: xxhash in /home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages (from datasets) (3.6.0)
+Requirement already satisfied: multiprocess<0.70.20 in /home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages (from datasets) (0.70.19)
+Requirement already satisfied: fsspec<=2026.2.0,>=2023.1.0 in /home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages (from fsspec[http]<=2026.2.0,>=2023.1.0->datasets) (2026.2.0)
+Requirement already satisfied: packaging in /home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages (from datasets) (26.0)
+Requirement already satisfied: hf-xet<2.0.0,>=1.4.3 in /home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages (from huggingface_hub) (1.4.3)
+Requirement already satisfied: typer in /home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages (from huggingface_hub) (0.24.1)
+Requirement already satisfied: typing-extensions>=4.1.0 in /home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages (from huggingface_hub) (4.15.0)
+Requirement already satisfied: aiohttp!=4.0.0a0,!=4.0.0a1 in /home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages (from fsspec[http]<=2026.2.0,>=2023.1.0->datasets) (3.13.5)
+Requirement already satisfied: anyio in /home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages (from httpx<1.0.0->datasets) (4.13.0)
+Requirement already satisfied: certifi in /home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages (from httpx<1.0.0->datasets) (2026.2.25)
+Requirement already satisfied: httpcore==1.* in /home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages (from httpx<1.0.0->datasets) (1.0.9)
+Requirement already satisfied: idna in /home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages (from httpx<1.0.0->datasets) (3.11)
+Requirement already satisfied: h11>=0.16 in /home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages (from httpcore==1.*->httpx<1.0.0->datasets) (0.16.0)
+Requirement already satisfied: aiohappyeyeballs>=2.5.0 in /home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages (from aiohttp!=4.0.0a0,!=4.0.0a1->fsspec[http]<=2026.2.0,>=2023.1.0->datasets) (2.6.1)
+Requirement already satisfied: aiosignal>=1.4.0 in /home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages (from aiohttp!=4.0.0a0,!=4.0.0a1->fsspec[http]<=2026.2.0,>=2023.1.0->datasets) (1.4.0)
+Requirement already satisfied: async-timeout<6.0,>=4.0 in /home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages (from aiohttp!=4.0.0a0,!=4.0.0a1->fsspec[http]<=2026.2.0,>=2023.1.0->datasets) (5.0.1)
+Requirement already satisfied: attrs>=17.3.0 in /home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages (from aiohttp!=4.0.0a0,!=4.0.0a1->fsspec[http]<=2026.2.0,>=2023.1.0->datasets) (26.1.0)
+Requirement already satisfied: frozenlist>=1.1.1 in /home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages (from aiohttp!=4.0.0a0,!=4.0.0a1->fsspec[http]<=2026.2.0,>=2023.1.0->datasets) (1.8.0)
+Requirement already satisfied: multidict<7.0,>=4.5 in /home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages (from aiohttp!=4.0.0a0,!=4.0.0a1->fsspec[http]<=2026.2.0,>=2023.1.0->datasets) (6.7.1)
+Requirement already satisfied: propcache>=0.2.0 in /home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages (from aiohttp!=4.0.0a0,!=4.0.0a1->fsspec[http]<=2026.2.0,>=2023.1.0->datasets) (0.4.1)
+Requirement already satisfied: yarl<2.0,>=1.17.0 in /home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages (from aiohttp!=4.0.0a0,!=4.0.0a1->fsspec[http]<=2026.2.0,>=2023.1.0->datasets) (1.23.0)
+Requirement already satisfied: charset_normalizer<4,>=2 in /home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages (from requests>=2.32.2->datasets) (3.4.7)
+Requirement already satisfied: urllib3<3,>=1.26 in /home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages (from requests>=2.32.2->datasets) (2.6.3)
+Requirement already satisfied: exceptiongroup>=1.0.2 in /home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages (from anyio->httpx<1.0.0->datasets) (1.3.1)
+Requirement already satisfied: python-dateutil>=2.8.2 in /home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages (from pandas->datasets) (2.9.0.post0)
+Requirement already satisfied: pytz>=2020.1 in /home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages (from pandas->datasets) (2026.1.post1)
+Requirement already satisfied: tzdata>=2022.7 in /home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages (from pandas->datasets) (2026.1)
+Requirement already satisfied: six>=1.5 in /home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages (from python-dateutil>=2.8.2->pandas->datasets) (1.17.0)
+Requirement already satisfied: click>=8.2.1 in /home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages (from typer->huggingface_hub) (8.3.2)
+Requirement already satisfied: shellingham>=1.3.0 in /home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages (from typer->huggingface_hub) (1.5.4)
+Requirement already satisfied: rich>=12.3.0 in /home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages (from typer->huggingface_hub) (14.3.3)
+Requirement already satisfied: annotated-doc>=0.0.2 in /home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages (from typer->huggingface_hub) (0.0.4)
+Requirement already satisfied: markdown-it-py>=2.2.0 in /home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages (from rich>=12.3.0->typer->huggingface_hub) (4.0.0)
+Requirement already satisfied: pygments<3.0.0,>=2.13.0 in /home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages (from rich>=12.3.0->typer->huggingface_hub) (2.20.0)
+Requirement already satisfied: mdurl~=0.1 in /home/x-adas17/.conda/envs/tts/lib/python3.10/site-packages (from markdown-it-py>=2.2.0->rich>=12.3.0->typer->huggingface_hub) (0.1.2)
+Downloading arxiv_latex_cleaner-1.0.11-py3-none-any.whl (24 kB)
+Installing collected packages: arxiv-latex-cleaner
+Successfully installed arxiv-latex-cleaner-1.0.11

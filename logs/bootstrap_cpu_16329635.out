@@ -1,0 +1,12 @@
+The following modules were not unloaded:
+  (Use "module --force purge" to unload all):
+
+  1) xalt/2.10.45
+/var/spool/slurm/job16329635/slurm_script: line 28: /anvil/projects/x-bio260046/conda-envs/tts/bin/python: No such file or directory
+/var/spool/slurm/job16329635/slurm_script: line 29: /anvil/projects/x-bio260046/conda-envs/tts/bin/python: No such file or directory
+/var/spool/slurm/job16329635/slurm_script: line 30: /anvil/projects/x-bio260046/conda-envs/tts/bin/python: No such file or directory
+/var/spool/slurm/job16329635/slurm_script: line 31: /anvil/projects/x-bio260046/conda-envs/tts/bin/python: No such file or directory
+/var/spool/slurm/job16329635/slurm_script: line 32: /anvil/projects/x-bio260046/conda-envs/tts/bin/python: No such file or directory
+/var/spool/slurm/job16329635/slurm_script: line 33: /anvil/projects/x-bio260046/conda-envs/tts/bin/python: No such file or directory
+/var/spool/slurm/job16329635/slurm_script: line 34: /anvil/projects/x-bio260046/conda-envs/tts/bin/python: No such file or directory
+/var/spool/slurm/job16329635/slurm_script: line 35: /anvil/projects/x-bio260046/conda-envs/tts/bin/python: No such file or directory

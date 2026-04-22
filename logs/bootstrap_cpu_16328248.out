@@ -1,0 +1,12 @@
+The following modules were not unloaded:
+  (Use "module --force purge" to unload all):
+
+  1) xalt/2.10.45
+/var/spool/slurm/job16328248/slurm_script: line 24: python: command not found
+/var/spool/slurm/job16328248/slurm_script: line 25: python: command not found
+/var/spool/slurm/job16328248/slurm_script: line 26: python: command not found
+/var/spool/slurm/job16328248/slurm_script: line 27: python: command not found
+/var/spool/slurm/job16328248/slurm_script: line 28: python: command not found
+/var/spool/slurm/job16328248/slurm_script: line 29: python: command not found
+/var/spool/slurm/job16328248/slurm_script: line 30: python: command not found
+/var/spool/slurm/job16328248/slurm_script: line 31: python: command not found

@@ -1,0 +1,9 @@
+{
+  "benchmarks": [],
+  "metadata": {
+    "model": "unknown-model",
+    "partial": false,
+    "progress_dir": "results/anvil_fix_qwen14b_humaneval_s42",
+    "source": "progress_files"
+  }
+}

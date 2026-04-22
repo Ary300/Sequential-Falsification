@@ -1,0 +1,28 @@
+{
+  "rows": [
+    {
+      "accuracy_mean": 8.0,
+      "accuracy_stderr": 0.0,
+      "benchmark": "livecodebench_v6",
+      "method": "falsification"
+    },
+    {
+      "accuracy_mean": 3.0,
+      "accuracy_stderr": 0.0,
+      "benchmark": "livecodebench_v6",
+      "method": "greedy"
+    },
+    {
+      "accuracy_mean": 3.0,
+      "accuracy_stderr": 0.0,
+      "benchmark": "livecodebench_v6",
+      "method": "majority_vote"
+    },
+    {
+      "accuracy_mean": 8.0,
+      "accuracy_stderr": 0.0,
+      "benchmark": "livecodebench_v6",
+      "method": "oracle"
+    }
+  ]
+}

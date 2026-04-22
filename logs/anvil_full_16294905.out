@@ -1,0 +1,23 @@
+GPU 0: NVIDIA A100-SXM4-40GB (UUID: GPU-f0fc47f9-b52f-a1dd-58e6-7b8652eabaf5)
+Missing required packages for backend=transformers: ['torch']
+Traceback (most recent call last):
+  File "/anvil/projects/x-bio260046/tts-falsification/src/generate.py", line 313, in _generate_with_transformers
+    import torch  # type: ignore
+ModuleNotFoundError: No module named 'torch'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/anvil/projects/x-bio260046/tts-falsification/src/evaluate.py", line 372, in <module>
+    main()
+  File "/anvil/projects/x-bio260046/tts-falsification/src/evaluate.py", line 290, in main
+    benchmark_result = run_benchmark(
+  File "/anvil/projects/x-bio260046/tts-falsification/src/evaluate.py", line 204, in run_benchmark
+    run_problem(
+  File "/anvil/projects/x-bio260046/tts-falsification/src/evaluate.py", line 45, in run_problem
+    candidates = generate_candidates(problem, n=n_candidates, config=generation_config)
+  File "/anvil/projects/x-bio260046/tts-falsification/src/generate.py", line 436, in generate_candidates
+    outputs = _generate_with_transformers(problem, n=n, config=config)
+  File "/anvil/projects/x-bio260046/tts-falsification/src/generate.py", line 315, in _generate_with_transformers
+    raise RuntimeError("transformers backend requires torch") from exc
+RuntimeError: transformers backend requires torch

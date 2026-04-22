@@ -1,0 +1,9 @@
+{
+  "title": "Selective Prediction",
+  "panels": [
+    {
+      "benchmark": "math500",
+      "series": []
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+The following modules were not unloaded:
+  (Use "module --force purge" to unload all):
+
+  1) xalt/2.10.45
+Traceback (most recent call last):
+  File "/anvil/projects/x-bio260046/tts-falsification/src/prepare_data.py", line 30, in <module>
+    main()
+  File "/anvil/projects/x-bio260046/tts-falsification/src/prepare_data.py", line 22, in main
+    rows = load_benchmark(benchmark, data_root=data_root)
+  File "/anvil/projects/x-bio260046/tts-falsification/src/utils/data_loading.py", line 220, in load_benchmark
+    rows = _hf_rows(name)
+  File "/anvil/projects/x-bio260046/tts-falsification/src/utils/data_loading.py", line 208, in _hf_rows
+    raise FileNotFoundError(f"No built-in Hugging Face loader configured for benchmark '{name}'.")
+FileNotFoundError: No built-in Hugging Face loader configured for benchmark 'humaneval_plus'.

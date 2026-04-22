@@ -1,0 +1,9 @@
+{
+  "title": "Difficulty Stratification",
+  "panels": [
+    {
+      "benchmark": "synthetic_demo",
+      "difficulty": {}
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "title": "Scaling Summary",
+  "x_label": "N",
+  "y_label": "Accuracy (%)",
+  "series": [
+    {
+      "label": "humaneval_plus::falsification",
+      "x": [
+        8
+      ],
+      "y": [
+        82.93
+      ]
+    },
+    {
+      "label": "humaneval_plus::greedy",
+      "x": [
+        8
+      ],
+      "y": [
+        44.51
+      ]
+    },
+    {
+      "label": "humaneval_plus::majority_vote",
+      "x": [
+        8
+      ],
+      "y": [
+        29.88
+      ]
+    },
+    {
+      "label": "humaneval_plus::oracle",
+      "x": [
+        8
+      ],
+      "y": [
+        84.76
+      ]
+    },
+    {
+      "label": "humaneval_plus::self_debug",
+      "x": [
+        8
+      ],
+      "y": [
+        82.32
+      ]
+    }
+  ]
+}
