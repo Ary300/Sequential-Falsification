@@ -24,34 +24,33 @@ adaptive verification protocol used to validate that theory on code generation.
 
 ## Longer project thesis
 
-Standard test-time scaling for code generation often relies on agreement:
-generate multiple candidates, cluster or vote over them, and hope correctness is
-correlated with frequency. That assumption can fail badly, especially on
-reasoning-oriented code models where surface diversity is high and majority vote
-can be worse than greedy decoding. This project studies a different selection
-primitive:
+The target paper is now a Track B paper about information, compute, and
+verification in test-time scaling. The central question is:
 
-1. Generate a diverse candidate pool.
-2. Construct benchmark-safe probes.
-3. Execute the candidate population against those probes.
-4. Eliminate inconsistent candidates.
-5. Select from the surviving pool.
+- how much useful information about correctness does a verifier extract from a
+  candidate pool, and how well does that information predict achievable
+  selection accuracy under a fixed compute budget?
 
-The intended scientific story is not merely "more tests help." The intended
-story is that active, sequential, execution-grounded elimination can outperform
-agreement-based selection and provide a useful confidence signal for
-within-pool ranking.
+Sequential falsification remains in the repository because it is the strongest
+adaptive execution-grounded verifier currently implemented here, but it is no
+longer the paper's main identity. It is one verifier surface inside a larger
+capacity program alongside:
 
-The strongest current technical direction inside the repository is now
-population-consensus differential falsification:
+- execution-output majority clustering;
+- public-test verification;
+- future PRM and judge-based verifier surfaces;
+- a matching protocol that should approximate the information-theoretic ceiling.
 
-- generate a large candidate pool;
-- find inputs on which surviving candidates disagree;
-- require a strong output consensus among the population;
-- eliminate the minority candidates that disagree with that consensus.
+The intended scientific story is therefore:
 
-That is the main mechanism the project is now leaning on to create genuine
-separation from single-candidate repair methods.
+1. define a benchmark- and model-dependent verifier capacity;
+2. estimate it from data;
+3. show that capacity predicts selector performance and oracle gap closure;
+4. use adaptive execution-grounded verification as one strong empirical
+   instantiation of a high-capacity verifier.
+
+That framing is much closer to a headline Track B result than a narrow method
+paper about one adaptive elimination loop.
 
 ## Main project goals
 
@@ -66,28 +65,30 @@ Instead, the target submission is:
 - with sequential falsification retained as the strongest empirical adaptive
   protocol currently implemented in the repo.
 
-### Goal 1: Establish falsification as a real alternative to agreement-based TTS
+### Goal 1: Measure verifier capacity cleanly
 
-The first goal is to show that sequential falsification is not just a cosmetic
-variant of majority vote or generated-test filtering. The code path therefore
-emphasizes:
+The first goal is to estimate how informative each verifier is about hidden
+correctness on a fixed benchmark/model pair. The current Track B stack focuses
+on three primary verifier surfaces:
 
-- population-level elimination, not single-candidate repair;
-- multiple probe families, not just repeated public tests;
-- adaptive probe choice, not one-shot fixed filtering;
-- survivor ranking after elimination, not before.
+- execution-output majority clustering;
+- public-test execution;
+- SCE-trace adaptive execution verification.
 
-### Goal 2: Diagnose where agreement-based methods fail
+The immediate objective is not just ranking these qualitatively, but measuring
+their capacity numerically and attaching uncertainty to that estimate.
 
-A strong secondary goal is scientific diagnosis. Even where falsification does
-not yet beat every strong sequential baseline, the repository already supports
-an important result:
+### Goal 2: Predict selector performance from verifier information
 
-- majority voting can fail catastrophically on reasoning-oriented code models;
-- active elimination can recover most of the oracle gap on those same rows.
+Track B only becomes compelling if the information quantity predicts something
+real. So the second goal is to line up:
 
-That diagnosis is likely publishable even if the final framing becomes more
-measured than the original "headline-breakthrough" ambition.
+- pool oracle accuracy;
+- verifier capacity;
+- observed selector accuracy;
+- the gap between predicted and observed performance.
+
+That is the bridge from theory object to headline empirical result.
 
 ### Goal 3: Build a benchmark-aware, reproducible experimental stack
 
@@ -98,17 +99,34 @@ The project is also a systems build:
 - cluster launchers for DeltaAI and Anvil;
 - reporting, readiness audits, and publication-bundle generation.
 
-### Goal 4: Explore confidence/calibration, carefully
+### Goal 4: Use adaptive verification as the strongest empirical instantiation
 
-The original vision included anytime-valid statistical confidence grounded in
-e-values. The current repository is more careful than that:
+Sequential falsification is still valuable here, but as a means rather than the
+paper destination. Its role in Track B is:
 
-- confidence is currently an empirical ranking signal;
-- calibration diagnostics are computed and reported;
-- a fully justified anytime-valid guarantee is not yet claimed.
+- serve as the adaptive verifier with the richest execution signal;
+- test whether adaptive verification actually yields larger measured capacity;
+- anchor the empirical "high-capacity verifier" part of the theory paper.
 
-This means confidence remains part of the project, but not yet the sole or
-primary novelty claim.
+### Goal 5: Expand breadth toward headline Track B evidence
+
+Headline Track B results need more than one model and one benchmark. The repo
+is therefore moving toward:
+
+- 7B / 14B / 32B code-model coverage for the code-primary capacity pilot;
+- LiveCodeBench and code-style breadth after HE+/MBPP+;
+- math-scope pilots only after the code capacity story is materially stronger.
+
+## Active Track B wave
+
+The current active DeltaAI capacity jobs are:
+
+- `2179462` `capacity_code_primary`
+- `2179463` `capacity_code_mid`
+- `2179464` `capacity_code_large`
+
+These are the current headline Track B pilot jobs and supersede the older
+stale-path capacity submissions that were cancelled.
 
 ## What the project currently claims
 
