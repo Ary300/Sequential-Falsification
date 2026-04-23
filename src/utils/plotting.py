@@ -27,6 +27,76 @@ def save_plot_payload(payload: dict[str, Any], output_path: str | Path) -> None:
     path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
 
 
+def maybe_plot_grouped_bars(payload: dict[str, Any], output_path: str | Path) -> str:
+    plt = _matplotlib()
+    if plt is None:
+        save_plot_payload(payload, Path(output_path).with_suffix(".json"))
+        return "json"
+
+    categories = payload.get("categories", [])
+    series = payload.get("series", [])
+    if not categories or not series:
+        save_plot_payload(payload, Path(output_path).with_suffix(".json"))
+        return "json"
+
+    fig, ax = plt.subplots(figsize=payload.get("figsize", (6.5, 3.8)))
+    width = 0.8 / max(1, len(series))
+    x = list(range(len(categories)))
+    for idx, item in enumerate(series):
+        offset = (idx - (len(series) - 1) / 2) * width
+        values = item.get("values", [])
+        ax.bar([value + offset for value in x], values, width=width, label=item.get("label", f"series_{idx}"))
+    ax.set_xticks(x, categories, rotation=payload.get("rotation", 0))
+    ax.set_xlabel(payload.get("x_label", "Category"))
+    ax.set_ylabel(payload.get("y_label", "Value"))
+    ax.set_title(payload.get("title", "Grouped Bars"))
+    handles, labels = ax.get_legend_handles_labels()
+    if handles:
+        ax.legend(frameon=False)
+    fig.tight_layout()
+    fig.savefig(_ensure_parent(output_path))
+    plt.close(fig)
+    return "plot"
+
+
+def maybe_plot_scatter(payload: dict[str, Any], output_path: str | Path) -> str:
+    plt = _matplotlib()
+    if plt is None:
+        save_plot_payload(payload, Path(output_path).with_suffix(".json"))
+        return "json"
+
+    series = payload.get("series", [])
+    if not series:
+        save_plot_payload(payload, Path(output_path).with_suffix(".json"))
+        return "json"
+
+    fig, ax = plt.subplots(figsize=payload.get("figsize", (5.5, 4.0)))
+    for item in series:
+        xs = item.get("x", [])
+        ys = item.get("y", [])
+        ax.scatter(xs, ys, label=item.get("label", "series"))
+        if payload.get("annotate_points"):
+            annotations = item.get("annotations", [])
+            for x, y, text in zip(xs, ys, annotations):
+                ax.annotate(str(text), (x, y), fontsize=8, xytext=(4, 4), textcoords="offset points")
+    if payload.get("diagonal"):
+        x_min, x_max = ax.get_xlim()
+        y_min, y_max = ax.get_ylim()
+        lo = min(x_min, y_min)
+        hi = max(x_max, y_max)
+        ax.plot([lo, hi], [lo, hi], linestyle="--", color="black", linewidth=1.0)
+    ax.set_xlabel(payload.get("x_label", "x"))
+    ax.set_ylabel(payload.get("y_label", "y"))
+    ax.set_title(payload.get("title", "Scatter"))
+    handles, labels = ax.get_legend_handles_labels()
+    if handles:
+        ax.legend(frameon=False)
+    fig.tight_layout()
+    fig.savefig(_ensure_parent(output_path))
+    plt.close(fig)
+    return "plot"
+
+
 def maybe_plot_scaling_curve(payload: dict[str, Any], output_path: str | Path) -> str:
     plt = _matplotlib()
     if plt is None:

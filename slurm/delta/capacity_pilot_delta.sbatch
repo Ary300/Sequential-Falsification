@@ -32,11 +32,12 @@ GPU_MEMORY_UTILIZATION=${GPU_MEMORY_UTILIZATION:-0.90}
 TP_SIZE=${TP_SIZE:-1}
 API_PORT=${API_PORT:-$((20000 + (${SLURM_JOB_ID:-0} % 20000)))}
 DATA_ROOT=${DATA_ROOT:-data}
+DELTA_PROJECT_ROOT=${DELTA_PROJECT_ROOT:-/u/adas17/tts-falsification}
 
 BENCHMARKS=${BENCHMARKS//:/,}
 VERIFIERS=${VERIFIERS//:/,}
 
-cd /u/adas17/tts-falsification
+cd "${DELTA_PROJECT_ROOT}"
 nvidia-smi -L || true
 
 ARGS=(

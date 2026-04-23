@@ -92,13 +92,30 @@ def main() -> None:
             capacity_config=capacity_config,
         )
         payload["ranking"] = rank_verifiers_by_capacity(payload)
+        oracle_accuracy = float(payload.get("pool_summary", {}).get("oracle_accuracy", 1.0))
+        headline_rows = []
         for verifier_name, verifier_payload in payload.get("verifiers", {}).items():
             capacity_value = float(verifier_payload.get("summary", {}).get("capacity", 0.0))
             verifier_payload["predicted_curves"] = capacity_gain_predictions(
-                oracle_accuracy=1.0,
+                oracle_accuracy=oracle_accuracy,
                 capacity_value=capacity_value,
                 budgets=[1, 4, 8, 16, 32, 64],
             )
+            selection_summary = verifier_payload.get("selection_summary", {})
+            headline_rows.append(
+                {
+                    "verifier": verifier_name,
+                    "capacity": capacity_value,
+                    "selector_accuracy": float(selection_summary.get("selector_accuracy", 0.0)),
+                    "selection_gap_to_oracle": float(selection_summary.get("selection_gap_to_oracle", 0.0)),
+                    "label_auroc": float(selection_summary.get("label_auroc", 0.0)),
+                }
+            )
+        payload["headline_summary"] = sorted(
+            headline_rows,
+            key=lambda row: (row["capacity"], row["selector_accuracy"]),
+            reverse=True,
+        )
         benchmark_payloads.append(payload)
 
     result = {
