@@ -1,0 +1,34 @@
+experiments:
+  - name: arbitration_pilot_core
+    benchmarks: ["popqa", "dynamicqa", "conflictbank"]
+    models:
+      - "meta-llama/Llama-3.1-8B-Instruct"
+      - "Qwen/Qwen2.5-7B-Instruct"
+    checkpoint_families:
+      - "pythia"
+    conditions: ["closed_book", "aligned_context", "conflict_context"]
+    cot_budgets: ["none", "short", "medium"]
+    metrics: ["brier", "nll", "ece", "regret", "kl_gap"]
+    priority: "P0"
+  - name: arbitration_pilot_scaling
+    benchmarks: ["popqa", "dynamicqa"]
+    models:
+      - "Qwen/Qwen2.5-32B-Instruct"
+      - "mistralai/Mistral-7B-Instruct-v0.3"
+      - "microsoft/Phi-3-medium-4k-instruct"
+    checkpoint_families:
+      - "olmo"
+    conditions: ["closed_book", "conflict_context"]
+    cot_budgets: ["none", "short", "medium", "long"]
+    metrics: ["brier", "smooth_ece", "regret", "kl_gap"]
+    priority: "P1"
+  - name: arbitration_pilot_reasoning_conflict
+    benchmarks: ["conflictbank", "wikicontradict", "mquake_remastered"]
+    models:
+      - "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B"
+      - "Qwen/Qwen3-8B-thinking"
+    checkpoint_families: []
+    conditions: ["conflict_context", "dual_conflict", "noise_context"]
+    cot_budgets: ["none", "short", "medium", "long", "very_long"]
+    metrics: ["brier", "ece", "smooth_ece", "regret", "kl_gap", "aurc"]
+    priority: "P1"

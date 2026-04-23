@@ -1,384 +1,448 @@
 # Project Requirements Document
 
-Project: Sequential Candidate Elimination + Information-Theoretic TTS Capacity
+**Project:** Bayes-Optimal Knowledge Arbitration Under Conflict  
+**Status:** Active research direction  
+**Target venue:** NeurIPS 2027 main conference  
+**Ambition:** Main-track acceptance with spotlight-tier upside  
+**Last updated:** 2026-04-23
 
-Status: Active research
+## 0. Purpose
 
-Target venue: NeurIPS 2026 main conference
+This document is the main execution plan for the active project.
 
-Ambition: Main-track acceptance with spotlight-tier upside
+It defines:
 
-Last updated: 2026-04-22
+- the paper's core claims,
+- the theorem roadmap,
+- the experiment matrix,
+- the initial code architecture,
+- the metrics and statistical standards,
+- the compute plan,
+- and the milestones that would turn this from an interesting idea into a real
+  paper.
 
-## Purpose
+This document supersedes the old Track B capacity PRD as the active planning
+document.
 
-This document is the long-horizon execution plan for the repository. It is the
-single planning document that ties together:
+## 1. Executive summary
 
-- the existing sequential falsification method;
-- the broader "spotlight-tier" framing for a top conference submission;
-- the theoretical extension toward information-theoretic TTS capacity;
-- the experimental matrix required to move from poster-tier scope to
-  spotlight-tier scope;
-- the concrete near-term decisions the project must get right.
+The project asks a simple but high-value question:
 
-This document is deliberately more ambitious than
-`docs/PROJECT_AIMS_SCOPE_OVERVIEW.md`. The overview doc describes what the
-repository can honestly claim today. This PRD describes what we are trying to
-build over the next phase of work.
+**When parametric memory and contextual evidence conflict, what is the optimal
+decision rule for an LLM, and what goes wrong when the model reasons longer
+under that conflict?**
 
-## Executive summary
+The paper is built around three main contributions.
 
-The project now has two compatible research tracks.
+### Contribution 1: Bayes-optimal arbitration
 
-Track A: Sequential Candidate Elimination (SCE).
+We cast knowledge-conflict resolution as a posterior-predictive decision
+problem. We derive an optimal arbitration rule between:
 
-- Population-level, execution-grounded falsification for code generation.
-- Generate a pool of candidates, synthesize separating probes, eliminate
-  inconsistent candidates, and rank survivors using a confidence trace.
-- This is the existing implemented method in the repository.
+- parametric memory,
+- contextual or retrieved evidence,
+- and a reliability variable controlling how much the context should be trusted.
 
-Track B: Information-theoretic TTS capacity.
+This produces a mathematically grounded alternative to fixed trust rules and
+heuristic adaptive retrieval policies.
 
-- Define a reasoning-capacity quantity for a generator-verifier-problem triple.
-- Prove that this quantity upper-bounds achievable test-time-scaling accuracy
-  at a given compute budget.
-- Show that adaptive verification procedures, with SCE as a concrete instance,
-  are near-optimal protocols under that lens.
+### Contribution 2: fixed-policy lower bound
 
-The intended high-level submission is not "an e-value paper." The intended
-submission is a Track B capability paper:
+We prove that fixed policies such as:
 
-> Anytime-valid, compute-aware test-time scaling for code generation.
+- always trust context,
+- always trust parametric memory,
+- or use a constant interpolation weight,
 
-In that framing:
+are minimax suboptimal whenever conflict regimes vary and reliability is not
+constant.
 
-- e-values are a mechanism;
-- execution-grounded adaptive verification is the capability;
-- SCE is the main empirical algorithmic instance;
-- capacity theory is the unifying explanation.
+### Contribution 3: calibration-coupling under conflict
 
-Project decision as of 2026-04-22:
+We prove and test a conflict-conditioned theorem: under explicit disagreement
+between parametric and contextual sources, longer chain-of-thought can worsen
+calibration even if accuracy does not improve or does not collapse.
 
-- Track B is the primary paper direction.
-- Track A remains in the repository only as the main empirical adaptive
-  protocol and validation engine.
-- Method-only wins are still valuable, but they are no longer the terminal
-  framing target.
+This is the paper's most important empirical-theoretical bet.
 
-## Core research questions
+## 2. Research questions
 
-Primary questions:
+### Primary questions
 
-- Is there a single information-theoretic quantity that upper-bounds TTS
-  performance as a function of compute?
-- Can that bound be matched, at least up to constants or log factors, by an
-  adaptive verification protocol?
-- Does SCE recover a large fraction of that optimal capacity in practice?
-- Can we estimate verifier capacity from data tightly enough to predict TTS
-  gains?
+- What is the Bayes-optimal arbitration rule when parametric and contextual
+  knowledge disagree?
+- How much regret do fixed trust policies incur relative to the Bayes rule?
+- Can a measurable reliability signal materially close that regret?
+- Under conflict, how does chain-of-thought length affect calibration?
+- Can this deterioration be predicted from a misspecified-Bayes view of
+  reasoning?
 
-Secondary questions:
+### Secondary questions
 
-- Does survivor-conditioned population-consensus differential probing create a
-  real empirical gap over non-adaptive generated-test filtering?
-- Does SCE provide a confidence signal that is empirically calibrated enough to
-  support selective prediction and risk control?
-- Under what conditions does population-level elimination beat repair-based
-  methods such as self-debug?
+- Which observable features best approximate contextual reliability?
+- Do larger models become more Bayes-optimal, or just more confident?
+- Does self-consistency or bagging reduce the calibration damage predicted by
+  the theorem?
+- Which benchmark families most cleanly separate arbitration quality from raw
+  factual knowledge?
 
-## Success criteria
+## 3. Paper-level claim hierarchy
 
-Minimum acceptable outcome:
+### Minimum viable main-track claim
 
-- SCE cleanly beats majority vote and compute-matched generated-test filtering
-  on the strongest code rows.
-- The confidence trace yields useful calibration artifacts.
-- A capacity pilot shows meaningful spread across verifiers and benchmarks.
+- Bayes-optimal arbitration is formally derived.
+- Fixed policies have a non-trivial worst-case regret lower bound.
+- Real LLMs are measurably misaligned with the Bayes rule on conflict
+  benchmarks.
 
-Target outcome:
+### Strong claim
 
-- SCE ties or beats self-debug on the strongest acceptance-critical rows.
-- Capacity estimates predict observed test-time-scaling gains reasonably well.
-- The paper can lead with "anytime-valid compute-optimal TTS for code
-  generation" rather than with "calibrated confidence via e-values."
+- A practical arbitration proxy using observable signals materially reduces
+  regret versus fixed policies on real benchmarks.
+- Conflict-conditioned CoT calibration degradation is visible and reproducible
+  across multiple model families.
 
-Stretch outcome:
+### Headline claim
 
-- A clean theorem+experiment story around puncturing a verification ceiling.
-- A compute-matched Pareto figure that materially dominates multiple baselines.
-- Enough breadth and clarity to be argued as a spotlight-tier submission.
+- Frontier reasoning models become **more overconfident** under conflict as they
+  reason longer, and a Bayes-grounded arbitration rule plus decoupled confidence
+  mitigates this reliably.
 
-## Current reality check
+## 4. Theorem roadmap
 
-The repository already contains a serious code path and real results, but it is
-not yet spotlight-ready.
+### Theorem 1: Bayes-optimal arbitration rule
 
-What is already strong:
+Define:
 
-- Code-generation falsification is implemented end-to-end.
-- Reviewer-facing baselines are present locally.
-- The 32B HumanEval+ story is strong enough to justify continued work.
-- The repo now has safer math validity boundaries and stronger majority-vote
-  implementation.
+- query `q`
+- answer `y`
+- context `c`
+- latent context reliability `r`
+- parametric model posterior `p_theta(y | q)`
+- context-conditioned answer model `p_ctx(y | q, c)`
 
-What still blocks a strong main-track claim:
+Then derive the Bayes-optimal posterior-predictive decision rule as a
+reliability-dependent mixture. The theorem must state:
 
-- SCE does not yet robustly beat self-debug across enough important rows.
-- Generated-test-filter remains dangerously competitive on some MBPP+ settings.
-- External baselines are staged but not fully integrated.
-- Spotlight-tier breadth across six or seven benchmarks is not complete.
-- The capacity theory track is not yet implemented.
+- optimality criterion,
+- assumptions on `p(c | y, r)` or equivalent identifiable formulation,
+- and the excess risk of fixed alternatives.
 
-## Immediate technical pivot
+### Theorem 2: minimax suboptimality of fixed trust policies
 
-The main near-term method change is now explicit:
+Show that for any fixed policy class without a usable reliability signal, there
+exists a conflict distribution on which its regret remains bounded away from
+zero relative to the Bayes-optimal rule.
 
-Population-consensus differential falsification.
+The intended proof style is Yao/minimax plus two or more hard regimes:
 
-Instead of treating differential probes as mostly reference-labeled generated
-tests, the method now:
+- high-quality context
+- low-quality context
+- and optionally dynamic or popularity-skewed priors
 
-1. builds disagreement-inducing candidate inputs;
-2. executes the survivor population on those inputs;
-3. requires a supermajority-style consensus threshold;
-4. ranks probes by pairwise disagreement plus consensus strength;
-5. eliminates only the minority that disagrees with the consensus output.
+### Theorem 3: calibration-coupling under conflict
 
-This is the current best shot at creating a real structural gap over
-single-candidate repair methods.
+Under a conflict condition such as:
 
-## Current active pilot jobs
+- answer-relevant disagreement between parametric and contextual predictive
+  distributions exceeding a threshold,
 
-As of 2026-04-22, the repository has two active Delta pilots directly targeting
-the new architectural change:
+show that sequential reasoning updates can worsen calibration monotonically or
+near-monotonically with reasoning depth under generic conditions.
 
-- `2179176`: `headline_differential_r1_7b_mbpp`
-- `2179179`: `headline_differential_r1_32b_humaneval`
+This theorem must be explicitly scoped:
 
-These are one-seed pilot runs with:
+- conflict-conditioned,
+- not universal across all QA settings,
+- and compatible with no-conflict regimes where CoT helps or is neutral.
 
-- `N = 64`
-- `temperature = 0.8`
-- `n_rounds = 4`
-- `max_tiebreak_rounds = 8`
-- stronger differential probe budgets
-- explicit consensus thresholds
+## 5. Empirical program
 
-These jobs are the immediate go/no-go test for whether the new population-based
-mechanism materially improves the acceptance-critical rows.
+## 5.1 Benchmarks
 
-## Research tracks
+The primary benchmark registry for the paper should include:
 
-### Track A: Sequential Candidate Elimination
+| Benchmark | Role | Priority |
+| --- | --- | --- |
+| ConflictBank | broad large-scale conflict benchmark | critical |
+| PopQA | prior-strength and popularity signal | critical |
+| DynamicQA | dynamicity and temporal mismatch | critical |
+| WikiContradict | high-quality real contradiction benchmark | high |
+| NQ-Swap | clean entity-substitution conflict | high |
+| TempLAMA | temporal staleness | medium |
+| FreshQA | freshness / post-cutoff knowledge | medium |
+| MQuAKE-Remastered | multi-hop conflict propagation | high |
 
-Scope:
+The first complete pilot should cover:
 
-- code generation;
-- pool-level execution-based elimination;
-- adaptive probe selection;
-- confidence diagnostics and selective prediction;
-- comparison to greedy, majority vote, generated-test filter, self-debug, and
-  external-faithful baselines where possible.
+- PopQA
+- DynamicQA
+- ConflictBank
 
-Current claim hierarchy:
+## 5.2 Models
 
-1. SCE beats majority vote on core code benchmarks.
-2. SCE recovers much of the majority-vote-to-oracle gap.
-3. SCE can outperform compute-matched non-adaptive filtering.
-4. SCE can tie or beat self-debug.
-5. SCE can match or beat stronger external baselines.
+Minimum serious model set:
 
-Only the lower levels of that hierarchy are safely supported today.
+| Model family | Role |
+| --- | --- |
+| Pythia checkpoints | controlled temporal / scale analysis |
+| OLMo checkpoints | open-data, traceable training provenance |
+| Llama 3.1 8B | modern strong base model |
+| Qwen 2.5 7B / 32B | strong open family |
+| Mistral 7B | cross-family robustness |
+| Phi-3 medium | medium-size robustness |
 
-### Track B: Capacity theory
+Reasoning-focused extensions for Theorem 3:
 
-Scope:
+- DeepSeek-R1-distill variants
+- Qwen thinking-mode variants
 
-- define a reasoning-capacity quantity for TTS;
-- prove an upper bound on achievable accuracy at compute budget `B`;
-- construct a matching or near-matching sequential protocol;
-- place existing methods on a common capacity-fraction taxonomy;
-- show SCE as a near-optimal adaptive verification protocol.
+## 5.3 Experimental conditions
 
-This track is not implemented yet, but it is the strongest route to a
-spotlight-tier framing if the theorems land cleanly.
+Every benchmark-model cell should ideally include:
 
-## Theoretical roadmap
+- closed-book
+- aligned context
+- conflicting context
+- dual contradictory contexts
+- irrelevant/noisy context
 
-The intended theorem stack is:
+For CoT-sensitive experiments:
 
-1. Adaptive survival bound for incorrect candidates.
-2. E-process or approximate e-process control for wealth traces.
-3. Family-wise false-rejection control across candidate pools.
-4. Separation of adaptive survivor-conditioned elimination from non-adaptive
-   filtering on a synthetic family.
-5. Information-theoretic capacity upper bound for TTS protocols.
-6. Matching or near-matching protocol via sequential likelihood-ratio style
-   verification.
-7. Capacity-fraction taxonomy for common methods.
-8. Finite-sample capacity estimation guarantees.
-9. SCE-as-optimal-instance corollary within an adaptive verification class.
+- no CoT
+- short CoT
+- medium CoT
+- long CoT
+- deterministic decoding and stochastic decoding
 
-The first few items are closest to the current codebase. The later items belong
-to the broader Track B program and are best treated as a second-phase effort
-after the feasibility pilot.
+## 5.4 Metrics
 
-## Experimental breadth needed for a spotlight-tier attempt
+Primary metrics:
 
-Minimum breadth for serious contention:
+- Brier score
+- negative log-likelihood
+- ECE
+- debiased ECE
+- SmoothECE
 
-- 6+ models preferred, 3 models minimum for Track A-only framing.
-- 6+ benchmarks preferred, including at least:
-  - HumanEval+
-  - MBPP+
-  - LiveCodeBench v6
-  - CodeContests
-  - GSM8K
-  - AIME 2024/2025
-- 6+ baselines with a clean story around which are local proxies and which are
-  external-faithful.
+Arbitration-specific metrics:
 
-Required baseline families:
+- regret vs. Bayes oracle
+- KL gap to Bayes oracle policy
+- source-selection accuracy
+- context-vs-memory arbitration accuracy
 
-- greedy
-- majority vote / self-consistency
-- generated-test filter
-- self-debug
-- CodeT-style agreement
-- S*-style adaptive distinguishing
-- PRM-based best-of-N
-- oracle
+Selective prediction metrics:
 
-Required ablations:
+- AUROC for correctness
+- coverage-risk curve
+- AURC
 
-- candidate-count scaling
-- falsification-round scaling
-- probe-family decomposition
-- sequential vs. one-shot compute-matched comparison
-- calibration / confidence-mode ablation
-- family-diversity scheduling ablation
+## 5.5 Headline figures
 
-## Immediate empirical priorities
+The paper needs at least these figures:
 
-In order:
+1. **Bayes oracle vs. model arbitration scatter**
+2. **Worst-case regret radar or grouped bar chart**
+3. **Conflict-conditioned reliability diagrams by CoT length**
+4. **Checkpoint or scale trend for arbitration optimality**
+5. **Mitigation plot showing bagging / decoupled confidence reduces calibration
+   damage**
 
-1. Evaluate the live `N=64` differential-consensus pilots.
-2. If they help, rerun the acceptance-critical matrix:
-   - 7B HumanEval+
-   - 7B MBPP+
-   - 14B MBPP+
-   - 32B HumanEval+
-3. Clean all targeted headline rows to 3 seeds.
-4. Backfill missing baseline columns on those rows.
-5. Extend to broader code coverage:
-   - 32B LiveCodeBench
-   - CodeContests
-6. Only after the code story is stronger, expand math breadth and capacity
-   measurement.
+## 6. Experiment matrix
 
-## Capacity-theory feasibility pilot
+The primary matrix should be tracked in repo configs and reports.
 
-Before committing to the full Track B proof-and-experiment program, run a
-two-week feasibility pilot:
+### Tier 1 matrix
 
-- estimate capacity-like verifier information on HumanEval+ and MBPP+;
-- use at least three models and several verifier types;
-- test whether the estimated quantity meaningfully varies across verifiers;
-- test whether it correlates with realized TTS gains.
+- Benchmarks: PopQA, DynamicQA, ConflictBank
+- Models: Pythia family subset, OLMo subset, Llama-3.1-8B, Qwen-2.5-7B,
+  Qwen-2.5-32B
+- Conditions: closed-book, aligned, conflict
 
-Go/no-go criterion:
+### Tier 2 matrix
 
-- if the quantity is flat or nearly redundant with existing metrics, do not
-  let Track B swallow the project;
-- if it separates verifiers and predicts gains, Track B becomes the main paper
-  direction.
+- Benchmarks: WikiContradict, NQ-Swap, MQuAKE-Remastered
+- Models: same plus one reasoning-family extension
+- Conditions: add long-CoT calibration sweeps
 
-## Writing and framing rules
+### Tier 3 matrix
 
-If the current method story strengthens:
+- TempLAMA, FreshQA
+- extended checkpoints
+- mitigation experiments
 
-- lead with capability, not tool;
-- say "anytime-valid compute-aware TTS for code generation";
-- treat e-values as the mechanism, not the headline.
+## 7. Initial code architecture
 
-If method gains remain mixed:
+The new project should live under a dedicated namespace rather than being
+intertwined with legacy sequential-falsification modules.
 
-- do not oversell raw pass@1 dominance;
-- frame the paper around adaptive verification, compute-aware selection, and
-  calibrated risk rather than universal wins;
-- be explicit about which baselines are local proxies.
+Required modules:
 
-If Track B matures:
+```text
+src/knowledge_arbitration/
+  __init__.py
+  benchmarks.py
+  posterior.py
+  metrics.py
+  synthetic.py
+  features.py
+scripts/
+  arbitration_pilot.py
+  report_arbitration_results.py
+src/configs/
+  knowledge_arbitration_experiments.yaml
+```
 
-- title and abstract should foreground the capacity result;
-- SCE becomes the constructive adaptive protocol that validates the theory.
+### Module responsibilities
 
-## Risks
+- `benchmarks.py`
+  - registry of supported conflict benchmarks
+  - benchmark roles, licenses, split metadata, and task type
+- `posterior.py`
+  - Bayes-optimal mixture functions
+  - reliability-aware interpolation
+  - regret helpers against oracle
+- `metrics.py`
+  - arbitration KL gap
+  - regret metrics
+  - calibration summaries specialized to conflict/no-conflict slices
+- `synthetic.py`
+  - exact toy problems with computable oracle
+- `features.py`
+  - extraction of observable arbitration signals:
+    - parametric confidence
+    - contextual confidence
+    - popularity
+    - dynamicity
+    - semantic entropy
+- `arbitration_pilot.py`
+  - manifest-driven pilot runner
 
-Main scientific risks:
+## 8. Statistical methodology
 
-- population-consensus differential probes still fail to separate from strong
-  simpler baselines;
-- capacity theory only yields a loose or non-adaptive upper bound;
-- calibration is useful but not strong enough to be "free" in the empirical
-  sense.
+### Primary reporting
 
-Main operational risks:
+- mean and bootstrap CI over problems
+- paired bootstrap when comparing policies
+- calibration curves stratified by conflict class
+- no hidden cherry-picking of only conflict-positive subsets without reporting
+  the base rates
 
-- Delta billing-minute and queue friction;
-- benchmark breadth outruns the available GPU budget;
-- external baselines take longer to integrate than expected.
+### Seed policy
 
-## Decision tree
+- at least 3 seeds for stochastic decoding experiments
+- deterministic temperature-0 sweeps do not need seed multiplicity but do need
+  exact reproducibility metadata
 
-If the active pilots improve the key rows:
+### Multiple testing
 
-- keep pushing Track A aggressively;
-- use the stronger method as the empirical core for Track B.
+- use FDR control for families of significance claims in the main benchmark
+  matrix
+- explicitly label exploratory ablations as exploratory
 
-If the active pilots do not improve the key rows:
+## 9. Compute plan
 
-- stop trying to force a method-dominance narrative;
-- either pivot to a narrower Track A phenomenon paper or move the repository
-  into Track B mode where SCE is mainly a validation vehicle.
+This project is expensive enough to need structure, but not so expensive that it
+is infeasible.
 
-If Track B feasibility is weak:
+The first milestone should not burn frontier-model budget.
 
-- do not over-invest in theory for theory's sake;
-- ship the best honest method paper or phenomenon paper the code supports.
+### Phase 1: low-risk pilot
 
-## Deliverables checklist
+- synthetic oracle experiments
+- PopQA / DynamicQA pilot
+- smaller open models and checkpoint subsets
 
-Method-track deliverables:
+### Phase 2: theorem-critical experiments
 
-- clean 3-seed main table on core code benchmarks;
-- compute-matched comparison against generated-test filtering;
-- external baseline status made explicit;
-- calibration and selective prediction figures;
-- publication bundle regenerated from final runs.
+- conflict-conditioned CoT length sweeps
+- deterministic temperature-0 sweeps
+- bagging / self-consistency mitigation
 
-Theory-track deliverables:
+### Phase 3: breadth and scaling
 
-- `src/capacity.py`
-- `src/matching.py`
-- verifier adapters
-- capacity pilot artifacts
-- theorem appendix draft
-- revised paper framing around capacity and compute-aware TTS
+- larger models
+- broader benchmark set
+- checkpoint family plots
 
-## Related docs
+## 10. Risks
 
-- `docs/PROJECT_AIMS_SCOPE_OVERVIEW.md`
-- `docs/METHODS_DETAILED.md`
-- `docs/RESULTS_DETAILED_UP_TO_NOW.md`
-- `docs/falsification_vs_self_debug.md`
-- `docs/priority1_generated_filter_audit.md`
-- `docs/external_baseline_status.md`
-- `docs/novelty_audit_2026.md`
+### Risk 1: trivial-Bayes reviewer objection
 
-## Changelog
+Mitigation:
 
-- v0.1: Initial PRD added to repository, consolidating Track A method execution,
-  Track B capacity-theory ambition, spotlight-tier breadth requirements, and
-  the active 2026-04-22 pilot status.
+- emphasize identifiability and regret gap
+- prove lower bounds, not just a derivation
+- tie theorem to measurable observables
+
+### Risk 2: CoT theorem fails on real frontier models
+
+Mitigation:
+
+- frame either outcome as informative:
+  - mismatch to theorem boundary
+  - or emergence toward Bayes-optimality
+
+### Risk 3: calibration degradation is explained away by variance
+
+Mitigation:
+
+- temperature-0 experiments are mandatory
+- deterministic decoding must be part of the main ablation
+
+### Risk 4: theory-empirics disconnect
+
+Mitigation:
+
+- insist every theorem yields at least one visible empirical prediction
+- do not write the paper around abstract theory only
+
+### Risk 5: benchmark / citation slippage
+
+Mitigation:
+
+- before submission, every citation and date in the literature map must be
+  independently verified against primary sources
+- this document is a working execution plan, not the final citation authority
+
+## 11. Milestones
+
+### Month 1
+
+- repo pivot complete
+- benchmark registry implemented
+- synthetic oracle code in place
+- theory note for Theorem 1 drafted
+
+### Month 2
+
+- PopQA / DynamicQA pilot running
+- first oracle-vs-model arbitration plots
+- first fixed-policy regret experiments
+
+### Month 3
+
+- ConflictBank integrated
+- checkpoint family subset running
+- first draft of theorem statements stabilized
+
+### Months 4–6
+
+- full theorem-to-experiment bridge for Theorems 1 and 2
+- first real Theorem 3 calibration sweeps
+- start outside feedback / mentorship cycle
+
+### Months 7–12
+
+- breadth, mitigation experiments, robustness
+- workshop-quality writeup if main-track story is not yet mature
+
+## 12. Immediate next tasks
+
+- Replace legacy Track B framing in top-level docs.
+- Add benchmark and config scaffolding for the arbitration project.
+- Build the synthetic Bayes-oracle pilot.
+- Implement feature extraction placeholders for context reliability.
+- Define the exact theorem notation in a separate methods/theory doc.
+- Prepare a concise project packet suitable for external mentor feedback.
