@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 from typing import Any
 from collections.abc import Callable
 
@@ -53,6 +54,45 @@ def _public_score(
     return num_passed / num_tests if num_tests > 0 else 0.0
 
 
+def _execution_vote_signature(
+    problem: dict[str, Any],
+    candidate: dict[str, Any],
+    evaluator: Callable[[dict[str, Any], str, bool], dict[str, Any]],
+) -> str:
+    """Cluster code candidates by public execution behavior, not source text.
+
+    This is a much fairer majority-vote baseline for code generation than
+    grouping by raw candidate text. Reasoning models can produce diverse source
+    forms that are semantically equivalent on the public test slice.
+    """
+
+    if problem.get("type") == "math":
+        return _normalize_answer_text(candidate["text"])
+
+    result = evaluator(problem, candidate["text"], False)
+    details = result.get("details", [])
+    if not details:
+        fallback = {
+            "status": result.get("status"),
+            "passed": bool(result.get("passed", False)),
+            "num_passed": int(result.get("num_passed", 0)),
+            "num_tests": int(result.get("num_tests", 0)),
+        }
+        return json.dumps(fallback, sort_keys=True, default=repr)
+
+    signature = []
+    for detail in details:
+        signature.append(
+            {
+                "status": detail.get("status"),
+                "passed": bool(detail.get("passed", False)),
+                "observed_output": detail.get("observed_output"),
+                "stdout": detail.get("stdout", "").strip() if isinstance(detail.get("stdout"), str) else detail.get("stdout"),
+            }
+        )
+    return json.dumps(signature, sort_keys=True, default=repr)
+
+
 def _break_ties_by_public_score(
     problem: dict[str, Any],
     candidates: list[dict[str, Any]],
@@ -89,15 +129,23 @@ def majority_vote_baseline(
 ) -> dict[str, Any]:
     counts: dict[str, list[dict[str, Any]]] = {}
     for candidate in candidates:
-        key = _normalize_answer_text(candidate["text"]) if problem.get("type") == "math" else candidate["text"].strip()
+        key = _execution_vote_signature(problem, candidate, evaluator)
         counts.setdefault(key, []).append(candidate)
     selected_group = max(counts.values(), key=len)
-    chosen = _estimate_candidate_confidence(selected_group[0], numerator=len(selected_group), denominator=len(candidates))
+    chosen = _estimate_candidate_confidence(
+        _break_ties_by_public_score(problem, selected_group, evaluator),
+        numerator=len(selected_group),
+        denominator=len(candidates),
+    )
     evaluation = evaluator(problem, chosen["text"], True)
     return {
         "selected": chosen,
         "passed": evaluation["passed"],
-        "meta": {"method": "majority_vote", "vote_count": len(selected_group)},
+        "meta": {
+            "method": "majority_vote",
+            "vote_count": len(selected_group),
+            "cluster_mode": "execution_output" if problem.get("type") == "code" else "answer_text",
+        },
     }
 
 
@@ -199,7 +247,8 @@ def generated_test_filter_baseline(
         if _is_labeled_probe(probe):
             detected_flags: list[bool] | None = [bool(item.get("detected", False)) for item in executions]
         else:
-            detected_flags = _consensus_detected_flags(executions)
+            consensus = _consensus_detected_flags(executions)
+            detected_flags = None if consensus is None else consensus["flags"]
         if detected_flags is None:
             continue
         num_detected = sum(detected_flags)
@@ -345,9 +394,10 @@ def code_t_baseline(
                     scores[idx] += 1.25 if probe.get("family") == "differential" else 1.0
             continue
 
-        consensus_flags = _consensus_detected_flags(executions)
-        if consensus_flags is None:
+        consensus = _consensus_detected_flags(executions)
+        if consensus is None:
             continue
+        consensus_flags = consensus["flags"]
         probes_used += 1
         consensus_probes += 1
         for idx, detected in enumerate(consensus_flags):

@@ -40,6 +40,10 @@ ADAPTIVE_PROBE_SELECTION=${ADAPTIVE_PROBE_SELECTION:-true}
 ENFORCE_ROUND_FAMILY_DIVERSITY=${ENFORCE_ROUND_FAMILY_DIVERSITY:-true}
 ELIMINATE_ON_DETECTION=${ELIMINATE_ON_DETECTION:-true}
 CONFIDENCE_MODE=${CONFIDENCE_MODE:-wealth}
+MAX_DIFFERENTIAL_PROBES=${MAX_DIFFERENTIAL_PROBES:-8}
+CONSENSUS_MIN_FRACTION=${CONSENSUS_MIN_FRACTION:-0.70}
+CONSENSUS_MIN_MARGIN=${CONSENSUS_MIN_MARGIN:-2}
+CONSENSUS_MIN_VOTES=${CONSENSUS_MIN_VOTES:-3}
 DATA_ROOT=${DATA_ROOT:-data}
 
 # Slurm's --export option uses commas as separators, so callers can pass
@@ -66,6 +70,10 @@ EVAL_ARGS=(
   --max-tokens "${MAX_TOKENS}" \
   --probe-strategy "${PROBE_STRATEGY}" \
   --confidence-mode "${CONFIDENCE_MODE}" \
+  --max-differential-probes "${MAX_DIFFERENTIAL_PROBES}" \
+  --consensus-min-fraction "${CONSENSUS_MIN_FRACTION}" \
+  --consensus-min-margin "${CONSENSUS_MIN_MARGIN}" \
+  --consensus-min-votes "${CONSENSUS_MIN_VOTES}" \
   --seeds "${SEEDS}" \
   --max-problems "${MAX_PROBLEMS}" \
   --problem-offset "${PROBLEM_OFFSET}" \

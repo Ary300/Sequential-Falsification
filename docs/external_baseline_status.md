@@ -5,7 +5,8 @@ This project now has two baseline layers.
 ## Runnable inside this repository
 
 - `greedy`: first sample.
-- `majority_vote`: self-consistency over exact generated outputs.
+- `majority_vote`: execution-output clustering on code tasks and normalized
+  answer clustering on math tasks.
 - `generated_test_filter`: compute-matched one-shot generated-test filtering.
 - `self_debug`: lightweight public-test repair/selection proxy.
 - `s_star`: local adaptive-elimination proxy, not the original SkyThought S*.

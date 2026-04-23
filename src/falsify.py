@@ -40,6 +40,9 @@ class FalsificationConfig:
     max_edge_case_probes: int = 8
     max_random_stress_probes: int = 8
     max_differential_probes: int = 8
+    consensus_min_fraction: float = 0.70
+    consensus_min_margin: int = 2
+    consensus_min_votes: int = 3
     allow_hidden_test_probes: bool = False
     enforce_round_family_diversity: bool = True
     selection_confidence_weight: float = 0.55
@@ -94,6 +97,13 @@ def _normalize_output_token(result: dict[str, Any]) -> str:
     if "stdout" in result:
         return f"stdout:{result.get('stdout', '').strip()}"
     return repr(result)
+
+
+def _pairwise_disagreement_count(counts: dict[str, int]) -> int:
+    total = sum(counts.values())
+    total_pairs = total * (total - 1) // 2
+    agreeing_pairs = sum(count * (count - 1) // 2 for count in counts.values())
+    return total_pairs - agreeing_pairs
 
 
 def _mutate_scalar(value: Any) -> list[Any]:
@@ -461,33 +471,57 @@ def _build_differential_probe_bank(
                 "base_test": test,
                 "test": {"input": candidate_input},
             }
-            execution_tokens: set[str] = set()
+            execution_tokens: list[str] = []
             for record in surviving_records:
                 cache_key = (record["text"], _probe_signature(unlabeled_probe))
                 if cache_key not in execution_cache:
                     execution_cache[cache_key] = _execute_probe(problem, record["text"], unlabeled_probe, timeout=config.timeout)
-                execution_tokens.add(_normalize_output_token(execution_cache[cache_key]["execution"]))
-            if len(execution_tokens) <= 1:
+                execution_tokens.append(_normalize_output_token(execution_cache[cache_key]["execution"]))
+            counts: dict[str, int] = {}
+            for token in execution_tokens:
+                counts[token] = counts.get(token, 0) + 1
+            if len(counts) <= 1:
+                continue
+            ranked_counts = sorted(counts.items(), key=lambda item: (-item[1], item[0]))
+            consensus_token, consensus_count = ranked_counts[0]
+            runner_up_count = ranked_counts[1][1] if len(ranked_counts) > 1 else 0
+            consensus_fraction = consensus_count / max(1, len(execution_tokens))
+            consensus_margin = consensus_count - runner_up_count
+            if consensus_fraction < config.consensus_min_fraction:
+                continue
+            if consensus_margin < config.consensus_min_margin:
+                continue
+            if consensus_count < min(config.consensus_min_votes, len(execution_tokens)):
                 continue
 
-            labeled = _build_reference_labeled_test(problem, test, candidate_input, timeout=config.timeout)
-            if not labeled:
-                continue
             probes.append(
                 {
-                    "kind": "differential_test",
+                    "kind": "population_consensus_differential",
                     "family": "differential",
                     "round": idx,
                     "base_test": test,
-                    "test": labeled,
+                    "test": {"input": candidate_input},
                     "candidate_input": candidate_input,
-                    "disagreement_count": len(execution_tokens),
+                    "disagreement_count": len(counts),
+                    "pairwise_disagreements": _pairwise_disagreement_count(counts),
+                    "consensus_token": consensus_token,
+                    "consensus_count": consensus_count,
+                    "consensus_fraction": consensus_fraction,
+                    "consensus_margin": consensus_margin,
                 }
             )
-            if len(probes) >= config.max_differential_probes:
-                return _dedupe_preserving_order(probes)
 
-    return _dedupe_preserving_order(probes)
+    ranked = sorted(
+        _dedupe_preserving_order(probes),
+        key=lambda probe: (
+            int(probe.get("pairwise_disagreements", 0)),
+            int(round(float(probe.get("consensus_fraction", 0.0)) * 1000)),
+            int(probe.get("consensus_margin", 0)),
+            int(probe.get("disagreement_count", 0)),
+        ),
+        reverse=True,
+    )
+    return ranked[: config.max_differential_probes]
 
 
 def generate_probe(problem: dict[str, Any], round_index: int) -> dict[str, Any]:
@@ -542,17 +576,45 @@ def check_probe_result(problem: dict[str, Any], candidate_text: str, probe: dict
     return _execute_probe(problem, candidate_text, probe, timeout=timeout)
 
 
-def _consensus_detected_flags(executions: list[dict[str, Any]]) -> list[bool] | None:
+def _consensus_detected_flags(
+    executions: list[dict[str, Any]],
+    min_fraction: float = 0.70,
+    min_margin: int = 2,
+    min_votes: int = 3,
+) -> dict[str, Any] | None:
     tokens = [_normalize_output_token(item["execution"]) for item in executions]
     counts: dict[str, int] = {}
     for token in tokens:
         counts[token] = counts.get(token, 0) + 1
-    consensus_token, consensus_count = max(counts.items(), key=lambda item: item[1])
-    if consensus_count <= len(tokens) // 2:
+    if len(counts) <= 1:
         return None
-    if len(counts) == 1:
+
+    ranked_counts = sorted(counts.items(), key=lambda item: (-item[1], item[0]))
+    consensus_token, consensus_count = ranked_counts[0]
+    runner_up_count = ranked_counts[1][1] if len(ranked_counts) > 1 else 0
+    consensus_fraction = consensus_count / max(1, len(tokens))
+    consensus_margin = consensus_count - runner_up_count
+
+    if consensus_fraction < min_fraction:
         return None
-    return [token != consensus_token for token in tokens]
+    if consensus_margin < min_margin:
+        return None
+    if consensus_count < min(min_votes, len(tokens)):
+        return None
+
+    flags = [token != consensus_token for token in tokens]
+    if sum(flags) == 0 or sum(flags) == len(tokens):
+        return None
+    return {
+        "flags": flags,
+        "consensus_token": consensus_token,
+        "consensus_count": consensus_count,
+        "runner_up_count": runner_up_count,
+        "consensus_fraction": consensus_fraction,
+        "consensus_margin": consensus_margin,
+        "pairwise_disagreements": _pairwise_disagreement_count(counts),
+        "diversity": len(counts),
+    }
 
 
 def _score_probe(
@@ -577,18 +639,39 @@ def _score_probe(
     if _is_labeled_probe(probe):
         num_detected = sum(detected_flags)
         if num_detected == 0 or num_detected == len(surviving_records):
-            return (-1, -1, -1), executions, detected_flags
+            return (-1, -1, -1, -1, -1, -1), executions, detected_flags
         diversity = len({_normalize_output_token(item["execution"]) for item in executions})
         novelty_bonus = 1 if probe.get("family") not in {"public", "hidden"} else 0
-        return (num_detected, diversity + novelty_bonus, len(surviving_records) - num_detected), executions, detected_flags
+        return (
+            int(num_detected),
+            int(num_detected),
+            int(diversity + novelty_bonus),
+            int(num_detected),
+            int(diversity + novelty_bonus),
+            len(surviving_records) - int(num_detected),
+        ), executions, detected_flags
 
-    consensus_flags = _consensus_detected_flags(executions)
-    if consensus_flags is None:
-        return (-1, -1, -1), executions, None
+    consensus = _consensus_detected_flags(
+        executions,
+        min_fraction=config.consensus_min_fraction,
+        min_margin=config.consensus_min_margin,
+        min_votes=config.consensus_min_votes,
+    )
+    if consensus is None:
+        return (-1, -1, -1, -1, -1, -1), executions, None
+    consensus_flags = consensus["flags"]
     num_detected = sum(consensus_flags)
-    diversity = len({_normalize_output_token(item["execution"]) for item in executions})
+    diversity = int(consensus["diversity"])
     novelty_bonus = 1 if probe.get("family") not in {"public", "hidden"} else 0
-    return (num_detected, diversity + novelty_bonus, len(surviving_records) - num_detected), executions, consensus_flags
+    score = (
+        int(consensus["pairwise_disagreements"]),
+        int(round(float(consensus["consensus_fraction"]) * 1000)),
+        int(consensus["consensus_margin"]),
+        int(num_detected),
+        int(diversity + novelty_bonus),
+        len(surviving_records) - int(num_detected),
+    )
+    return score, executions, consensus_flags
 
 
 def _choose_best_probe(
@@ -628,7 +711,7 @@ def _choose_best_probe(
     best_probe: dict[str, Any] | None = None
     best_executions: list[dict[str, Any]] = []
     best_flags: list[bool] | None = None
-    best_score = (-1, -1, -1)
+    best_score = (-1, -1, -1, -1, -1, -1)
 
     for probe_bank_candidate in candidate_banks:
         for probe in probe_bank_candidate:
@@ -745,6 +828,9 @@ def sequential_falsify_candidates(
             max_edge_case_probes=config.max_edge_case_probes,
             max_random_stress_probes=config.max_random_stress_probes,
             max_differential_probes=max(config.max_differential_probes, 12),
+            consensus_min_fraction=config.consensus_min_fraction,
+            consensus_min_margin=config.consensus_min_margin,
+            consensus_min_votes=config.consensus_min_votes,
             allow_hidden_test_probes=False,
             selection_confidence_weight=config.selection_confidence_weight,
             selection_public_weight=config.selection_public_weight,
@@ -832,6 +918,9 @@ def _cli() -> None:
     parser.add_argument("--candidate-file", required=True)
     parser.add_argument("--n-rounds", type=int, default=4)
     parser.add_argument("--probe-strategy", default="adaptive_population")
+    parser.add_argument("--consensus-min-fraction", type=float, default=0.70)
+    parser.add_argument("--consensus-min-margin", type=int, default=2)
+    parser.add_argument("--consensus-min-votes", type=int, default=3)
     parser.add_argument("--output-file", required=True)
     args = parser.parse_args()
 
@@ -840,7 +929,13 @@ def _cli() -> None:
     result = sequential_falsify(
         candidate_text,
         problem,
-        FalsificationConfig(n_rounds=args.n_rounds, probe_strategy=args.probe_strategy),
+        FalsificationConfig(
+            n_rounds=args.n_rounds,
+            probe_strategy=args.probe_strategy,
+            consensus_min_fraction=args.consensus_min_fraction,
+            consensus_min_margin=args.consensus_min_margin,
+            consensus_min_votes=args.consensus_min_votes,
+        ),
     )
     dump_json(result, args.output_file)
 

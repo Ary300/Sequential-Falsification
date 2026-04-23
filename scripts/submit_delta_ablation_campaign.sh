@@ -155,6 +155,10 @@ for experiment in experiments:
         "adaptive_probe_selection": experiment.get("adaptive_probe_selection", True),
         "eliminate_on_detection": experiment.get("eliminate_on_detection", True),
         "confidence_mode": experiment.get("confidence_mode", "wealth"),
+        "max_differential_probes": experiment.get("max_differential_probes", 8),
+        "consensus_min_fraction": experiment.get("consensus_min_fraction", 0.70),
+        "consensus_min_margin": experiment.get("consensus_min_margin", 2),
+        "consensus_min_votes": experiment.get("consensus_min_votes", 3),
         "max_problems": experiment.get("max_problems"),
         "data_root": experiment.get("data_root", "data"),
     }
@@ -240,13 +244,17 @@ fields = [
     "true" if row["adaptive_probe_selection"] else "false",
     "true" if row["eliminate_on_detection"] else "false",
     row["confidence_mode"],
+    str(row["max_differential_probes"]),
+    str(row["consensus_min_fraction"]),
+    str(row["consensus_min_margin"]),
+    str(row["consensus_min_votes"]),
     "" if row["max_problems"] is None else str(row["max_problems"]),
     row["data_root"],
 ]
 print("\t".join(fields))
 PY
 )"
-  IFS=$'\t' read -r exp_name benchmarks methods model backend n_candidates n_rounds max_tiebreak_rounds delta_param alpha timeout temperature max_tokens probe_strategy adaptive_probe_selection eliminate_on_detection confidence_mode max_problems data_root <<< "${parsed_fields}"
+  IFS=$'\t' read -r exp_name benchmarks methods model backend n_candidates n_rounds max_tiebreak_rounds delta_param alpha timeout temperature max_tokens probe_strategy adaptive_probe_selection eliminate_on_detection confidence_mode max_differential_probes consensus_min_fraction consensus_min_margin consensus_min_votes max_problems data_root <<< "${parsed_fields}"
   benchmarks_export="${benchmarks//,/:}"
 
   read -r gpus cpus wall tp_size <<<"$(resource_profile "$model" "${max_problems:-0}")"
@@ -270,7 +278,7 @@ unset SBATCH_ACCOUNT SBATCH_PARTITION SBATCH_QOS && \
 sbatch --parsable --account="${GPU_ACCOUNT}" --partition="${GPU_PARTITION}" --qos="${GPU_QOS}" \
   ${BASE_DEP_ARGS:+${BASE_DEP_ARGS[*]}} \
   --gpus-per-node="${gpus}" --cpus-per-task="${cpus}" --time="${wall}" --job-name="${job_name}" \
-  --export=ALL,DELTA_VENV=${DELTA_VENV},BACKEND=${BACKEND_OVERRIDE},MODEL=${model},BENCHMARKS=${benchmarks_export},METHODS=${methods},OUTPUT_DIR=${run_dir},SEEDS=${seed},MAX_PROBLEMS=${max_problems},N_CANDIDATES=${n_candidates},N_ROUNDS=${n_rounds},MAX_TIEBREAK_ROUNDS=${max_tiebreak_rounds},DELTA_PARAM=${delta_param},ALPHA=${alpha},TIMEOUT=${timeout},TEMPERATURE=${temperature},MAX_TOKENS=${max_tokens},TP_SIZE=${tp_size},PROBE_STRATEGY=${probe_strategy},ADAPTIVE_PROBE_SELECTION=${adaptive_probe_selection},ELIMINATE_ON_DETECTION=${eliminate_on_detection},CONFIDENCE_MODE=${confidence_mode},DATA_ROOT=${data_root} \
+  --export=ALL,DELTA_VENV=${DELTA_VENV},BACKEND=${BACKEND_OVERRIDE},MODEL=${model},BENCHMARKS=${benchmarks_export},METHODS=${methods},OUTPUT_DIR=${run_dir},SEEDS=${seed},MAX_PROBLEMS=${max_problems},N_CANDIDATES=${n_candidates},N_ROUNDS=${n_rounds},MAX_TIEBREAK_ROUNDS=${max_tiebreak_rounds},DELTA_PARAM=${delta_param},ALPHA=${alpha},TIMEOUT=${timeout},TEMPERATURE=${temperature},MAX_TOKENS=${max_tokens},TP_SIZE=${tp_size},PROBE_STRATEGY=${probe_strategy},ADAPTIVE_PROBE_SELECTION=${adaptive_probe_selection},ELIMINATE_ON_DETECTION=${eliminate_on_detection},CONFIDENCE_MODE=${confidence_mode},MAX_DIFFERENTIAL_PROBES=${max_differential_probes},CONSENSUS_MIN_FRACTION=${consensus_min_fraction},CONSENSUS_MIN_MARGIN=${consensus_min_margin},CONSENSUS_MIN_VOTES=${consensus_min_votes},DATA_ROOT=${data_root} \
   slurm/delta/full_experiment_delta.sbatch
 EOF
     )

@@ -262,6 +262,10 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--eliminate-on-detection", action="store_true", default=True)
     parser.add_argument("--no-eliminate-on-detection", dest="eliminate_on_detection", action="store_false")
     parser.add_argument("--confidence-mode", default="wealth", choices=["wealth", "survival_only", "none"])
+    parser.add_argument("--max-differential-probes", type=int, default=8)
+    parser.add_argument("--consensus-min-fraction", type=float, default=0.70)
+    parser.add_argument("--consensus-min-margin", type=int, default=2)
+    parser.add_argument("--consensus-min-votes", type=int, default=3)
     parser.add_argument("--backend", default="mock")
     parser.add_argument("--model", default="mock-model")
     parser.add_argument("--api-base", default="http://localhost:8000/v1")
@@ -307,6 +311,10 @@ def main() -> None:
         enforce_round_family_diversity=args.enforce_round_family_diversity,
         eliminate_on_detection=args.eliminate_on_detection,
         confidence_mode=args.confidence_mode,
+        max_differential_probes=args.max_differential_probes,
+        consensus_min_fraction=args.consensus_min_fraction,
+        consensus_min_margin=args.consensus_min_margin,
+        consensus_min_votes=args.consensus_min_votes,
     )
     all_results = []
     for benchmark in benchmarks:
@@ -395,6 +403,10 @@ def main() -> None:
                 "enforce_round_family_diversity": args.enforce_round_family_diversity,
                 "eliminate_on_detection": args.eliminate_on_detection,
                 "confidence_mode": args.confidence_mode,
+                "max_differential_probes": args.max_differential_probes,
+                "consensus_min_fraction": args.consensus_min_fraction,
+                "consensus_min_margin": args.consensus_min_margin,
+                "consensus_min_votes": args.consensus_min_votes,
                 "tp_size": args.tp_size,
                 "checkpoint_dir": args.checkpoint_dir,
                 "resume": args.resume,
