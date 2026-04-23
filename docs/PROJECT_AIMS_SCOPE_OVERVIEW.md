@@ -18,9 +18,9 @@ math-validity correction that changes how some older rows should be interpreted.
 
 ## One-sentence project thesis
 
-Sequential falsification uses execution-grounded, population-level elimination
-to recover much of the oracle gap left open by agreement-based test-time
-scaling in code generation.
+The project is now centered on Track B: a compute-aware, information-theoretic
+view of test-time scaling, with sequential falsification serving as the main
+adaptive verification protocol used to validate that theory on code generation.
 
 ## Longer project thesis
 
@@ -54,6 +54,17 @@ That is the main mechanism the project is now leaning on to create genuine
 separation from single-candidate repair methods.
 
 ## Main project goals
+
+### Goal 0: Make Track B the paper
+
+The repository is no longer being organized around a standalone falsification
+method paper.
+
+Instead, the target submission is:
+
+- a Track B paper about capacity, compute-aware TTS, and verifier information;
+- with sequential falsification retained as the strongest empirical adaptive
+  protocol currently implemented in the repo.
 
 ### Goal 1: Establish falsification as a real alternative to agreement-based TTS
 
@@ -329,12 +340,23 @@ show all of the following:
 
 In order:
 
-1. Finish acceptance-critical P1 code reruns.
-2. Complete missing 32B code coverage rows.
-3. Clean seed coverage to 3 seeds where targeted.
-4. Backfill missing code baselines.
-5. Only then broaden to more ablations, broader math, and full spotlight-style
-   packaging.
+1. Finish the live differential-consensus pilots and decide whether the new
+   architecture is strong enough to keep as the Track B empirical core.
+2. Build Track B infrastructure: verifiers, capacity estimation, and matching.
+3. Run the first capacity pilot on core code benchmarks.
+4. Expand benchmark and baseline breadth in service of the Track B story.
+5. Treat method-only reruns as support work, not as the main project.
+
+## Active status
+
+As of 2026-04-22, the repository has two live Delta pilots testing the new
+population-consensus differential path:
+
+- `2179176`: `headline_differential_r1_7b_mbpp`
+- `2179179`: `headline_differential_r1_32b_humaneval`
+
+These are the immediate decision point for whether the new architecture
+materially improves the acceptance-critical rows.
 
 ## Related repository docs
 
@@ -344,6 +366,7 @@ In order:
 - `docs/reviewer_baseline_audit.md`
 - `docs/novelty_audit_2026.md`
 - `docs/external_baseline_status.md`
+- `docs/PROJECT_REQUIREMENTS_DOCUMENT.md`
 
 ## Bottom line
 
