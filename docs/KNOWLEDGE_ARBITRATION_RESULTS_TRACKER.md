@@ -113,9 +113,30 @@ The sharpened fallback claim is:
 
 Current blocker:
 
-- the present theorem-3 pipeline is still a proxy pipeline and does not contain
-  raw generated reasoning traces, so it cannot answer the "longer reasoning vs
-  padding/filler" question on its own.
+- the proxy theorem-3 diagnosis is complete, and it told us to stop inferring
+  CoT length from synthetic buckets and run real generations instead.
 
-Until that broad theorem-3 result lands across more than one hard conflict
-benchmark, we still do **not** have the full paper headline.
+What is now in place:
+
+- real-generation theorem-3 backend:
+  [`src/knowledge_arbitration/real_generation.py`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/src/knowledge_arbitration/real_generation.py)
+- focused runner:
+  [`scripts/run_theorem3_real_generation.py`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/scripts/run_theorem3_real_generation.py)
+- theorem-3-specific report:
+  [`scripts/report_theorem3_real_generation.py`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/scripts/report_theorem3_real_generation.py)
+- local smoke artifact:
+  [`results/theorem3_real_generation_mock_smoke/theorem3_report/summary.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/results/theorem3_real_generation_mock_smoke/theorem3_report/summary.md)
+- focused Delta job submitted successfully:
+  `2185966` `theorem3_real`
+
+That focused real-generation run is the actual gate now:
+
+- if it lands positive on both `WikiContradict` and `ConflictBank`, theorem 3
+  becomes real and the proxy path can be retired;
+- if it lands only on `WikiContradict`, we sharpen the claim to naturalistic
+  contradiction rather than uniform conflict;
+- if it fails on both, theorem 3 is not a headline and the paper falls back to
+  the theorem-1/theorem-2 story.
+
+Until the real-generation run reports back, we still do **not** have the full
+paper headline.

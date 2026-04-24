@@ -1,4 +1,13 @@
 experiments:
+  - name: arbitration_theorem3_real_generation_r1_7b
+    benchmarks: ["wikicontradict", "conflictbank"]
+    models:
+      - "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B"
+    conditions: ["aligned_context", "conflict_context"]
+    cot_lengths: [0, 128, 1024]
+    self_consistency: [1]
+    max_examples: 500
+    priority: "highest"
   - name: arbitration_theorem3_reasoning_focus
     benchmarks: ["wikicontradict", "conflictbank", "dynamicqa"]
     models:

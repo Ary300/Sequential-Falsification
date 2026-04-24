@@ -258,6 +258,38 @@ The theorem-3 situation is more mixed:
 - broad real pilot mean conflict ECE delta is `-0.0054`, so the wide benchmark
   mix does **not** yet support the headline that longer CoT broadly worsens
   calibration under conflict;
+- ambiguity-filtered proxy diagnosis did **not** rescue `ConflictBank` or
+  `DynamicQA`, while `WikiContradict` stayed positive;
+- that diagnosis pointed to the real blocker: the old theorem-3 path was still
+  proxy-based and did not contain actual generated reasoning traces.
+
+What is now newly real:
+
+- a resumable real-generation theorem-3 runner:
+  [`scripts/run_theorem3_real_generation.py`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/scripts/run_theorem3_real_generation.py);
+- a theorem-3-specific real-generation backend:
+  [`src/knowledge_arbitration/real_generation.py`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/src/knowledge_arbitration/real_generation.py);
+- a focused theorem-3 summary renderer:
+  [`scripts/report_theorem3_real_generation.py`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/scripts/report_theorem3_real_generation.py);
+- a local smoke report proving the real-generation path and reporting stack are
+  executable end-to-end:
+  [`results/theorem3_real_generation_mock_smoke/theorem3_report/summary.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/results/theorem3_real_generation_mock_smoke/theorem3_report/summary.md);
+- a dedicated Delta launch path:
+  [`scripts/submit_delta_theorem3_real_generation.sh`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/scripts/submit_delta_theorem3_real_generation.sh)
+  and
+  [`slurm/delta/theorem3_real_generation_delta.sbatch`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/slurm/delta/theorem3_real_generation_delta.sbatch).
+
+The live focused Delta job is:
+
+- `2185966` `theorem3_real`
+- model: `deepseek-ai/DeepSeek-R1-Distill-Qwen-7B`
+- benchmarks: `WikiContradict` and ambiguity-screened `ConflictBank`
+- conditions: real `no_cot`, `short_cot`, `long_cot`
+- target size: `200` `WikiContradict` examples and `500` `ConflictBank`
+  examples after screening
+
+So the project is no longer blocked on infrastructure. It is now blocked on
+the outcome of the real-generation theorem-3 run itself.
 - the strongest positive slice is `WikiContradict`, where conflict ECE delta is
   `+0.1542` while no-conflict delta is `-0.0190`;
 - the newer compact conflict-heavy wave keeps the arbitration signal strong but
