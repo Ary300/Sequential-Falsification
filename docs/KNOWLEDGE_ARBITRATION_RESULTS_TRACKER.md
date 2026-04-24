@@ -11,13 +11,13 @@ the headline results are still missing.
 
 | Item | Needed for paper | Current status |
 | --- | --- | --- |
-| Theorem 1 written cleanly | yes | not started |
-| Theorem 2 written cleanly | yes | not started |
-| Theorem 3 written cleanly | yes | not started |
+| Theorem 1 written cleanly | yes | drafted in `KNOWLEDGE_ARBITRATION_THEOREM_SKETCHES.md` |
+| Theorem 2 written cleanly | yes | drafted in `KNOWLEDGE_ARBITRATION_THEOREM_SKETCHES.md` |
+| Theorem 3 written cleanly | yes | drafted in `KNOWLEDGE_ARBITRATION_THEOREM_SKETCHES.md` |
 | Synthetic Bayes oracle experiment | yes | done |
 | Real benchmark pilot on `PopQA` | yes | done via `arbitration_real_headline_wave_v2` |
 | Real benchmark pilot on `DynamicQA` | yes | done via `arbitration_real_headline_wave_v2` |
-| Real benchmark pilot on `ConflictBank` subset | yes | not started |
+| Real benchmark pilot on `ConflictBank` subset | yes | done in compact conflict wave |
 | Conflict vs no-conflict calibration curves | yes | done for broad pilot and `WikiContradict` focus |
 | Checkpoint-family experiment | strongly preferred | not started |
 | Mitigation experiment | strongly preferred | not started |
@@ -28,7 +28,7 @@ the headline results are still missing.
 | --- | --- | --- | --- | --- | --- | --- |
 | `PopQA` | done | done | not yet supported in built-in loader | n/a | done in broad pilot | broad pilot completed |
 | `DynamicQA` | done | done | done | optional | done in broad pilot | broad pilot completed |
-| `ConflictBank` | missing | missing | missing | missing | missing | priority |
+| `ConflictBank` | not used | done | done | family-expanded conflicts | done in compact conflict wave | now streamed, not full-download |
 | `WikiContradict` | not used | done | done | optional | done in focused report | strongest current theorem-3 signal |
 | `NQ-Swap` | done | done | done | n/a | done in broad pilot | clean entity swap |
 | `TempLAMA` | missing | optional | optional | n/a | missing | checkpoint analysis |
@@ -60,6 +60,9 @@ We now have two early wins and one open gap:
 - Focused contradiction report is done:
   [`results/arbitration_wikicontradict_focus/report/summary.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/results/arbitration_wikicontradict_focus/report/summary.md)
   and gives the cleanest current theorem-3-style signal.
+- Compact conflict-only wave is done:
+  [`results/arbitration_conflict_focus_compact_v2/report/summary.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/results/arbitration_conflict_focus_compact_v2/report/summary.md)
+  and adds `ConflictBank` into the live benchmark path.
 
 Current best honest headline:
 
@@ -67,6 +70,10 @@ Current best honest headline:
   regret, ahead of `heuristic_adaptive` at `0.0593`, `simulated_model` at
   `0.3277`, `fixed_50` at `0.3912`, `always_context` at `6.3179`, and
   `always_parametric` at `6.8936`.
+- In the compact conflict-only wave, `Bayes Proxy` is again best at `0.0000`,
+  ahead of `heuristic_adaptive` at `0.0608`, `fixed_50` at `0.3363`,
+  `simulated_model` at `0.8893`, `always_context` at `5.0159`, and
+  `always_parametric` at `8.0860`.
 - In the broad real pilot, oracle-vs-model arbitration gap is already visible:
   mean absolute gap `0.0254`, mean KL `0.1310`.
 - The broad theorem-3 signal is **not** landed yet:
@@ -75,6 +82,10 @@ Current best honest headline:
 - The strongest current theorem-3 slice is `WikiContradict`:
   conflict ECE delta `+0.1542` while no-conflict delta is `-0.0190`, matching
   the desired directional story on that benchmark.
+- In the newer compact conflict-only wave, the broad theorem-3 story is still
+  mixed:
+  `ConflictBank` conflict ECE delta `-0.1943`, `DynamicQA` conflict delta
+  `-0.0341`, `WikiContradict` conflict delta `+0.1826`.
 
 So the current status is:
 

@@ -230,12 +230,16 @@ The repo is now past the “planning only” stage.
 What is already real:
 
 - a synthetic arbitration pilot and report;
+- theorem sketches in
+  [`docs/KNOWLEDGE_ARBITRATION_THEOREM_SKETCHES.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/KNOWLEDGE_ARBITRATION_THEOREM_SKETCHES.md);
 - built-in benchmark loaders for `PopQA`, `DynamicQA`, `NQ-Swap`, and
-  `WikiContradict`;
+  `WikiContradict`, plus a streamed `ConflictBank` subset loader;
 - a benchmark-backed headline-wave pilot:
   [`results/arbitration_real_headline_wave_v2/report/summary.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/results/arbitration_real_headline_wave_v2/report/summary.md);
 - a focused `WikiContradict` contradiction report:
-  [`results/arbitration_wikicontradict_focus/report/summary.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/results/arbitration_wikicontradict_focus/report/summary.md).
+  [`results/arbitration_wikicontradict_focus/report/summary.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/results/arbitration_wikicontradict_focus/report/summary.md);
+- a compact conflict-heavy benchmark wave:
+  [`results/arbitration_conflict_focus_compact_v2/report/summary.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/results/arbitration_conflict_focus_compact_v2/report/summary.md).
 
 The strongest current empirical signal is theorem-1/theorem-2 shaped:
 
@@ -253,7 +257,11 @@ The theorem-3 situation is more mixed:
   mix does **not** yet support the headline that longer CoT broadly worsens
   calibration under conflict;
 - the strongest positive slice is `WikiContradict`, where conflict ECE delta is
-  `+0.1542` while no-conflict delta is `-0.0190`.
+  `+0.1542` while no-conflict delta is `-0.0190`;
+- the newer compact conflict-heavy wave keeps the arbitration signal strong but
+  still leaves theorem 3 mixed:
+  `ConflictBank = -0.1943`, `DynamicQA = -0.0341`,
+  `WikiContradict = +0.1826` on conflict ECE delta from short to long CoT.
 
 That means the project now has a real benchmark-backed arbitration signal, but
 not yet the broad conflict-conditioned CoT headline needed for the full paper.

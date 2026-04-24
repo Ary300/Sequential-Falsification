@@ -7,8 +7,9 @@ import json
 from pathlib import Path
 from typing import Any, Callable
 
-from huggingface_hub import hf_hub_download
+from huggingface_hub import hf_hub_download, hf_hub_url
 import pandas as pd
+import requests
 
 
 def _ensure_list(value: Any) -> list[Any]:
@@ -297,48 +298,83 @@ def _load_wikicontradict(max_examples: int | None = None) -> list[dict[str, Any]
     return _limit_rows(rows, max_examples)
 
 
-def _load_conflictbank(max_examples: int | None = None) -> list[dict[str, Any]]:
-    path = hf_hub_download(repo_id="Warrieryes/CB_qa", filename="QA_dataset.json", repo_type="dataset")
-    with open(path, "r", encoding="utf-8") as handle:
-        raw = json.load(handle)
-    if not isinstance(raw, list):
-        raise ValueError("ConflictBank QA dataset did not load as a list")
+def _stream_conflictbank_rows(max_examples: int | None = None) -> list[dict[str, Any]]:
+    url = hf_hub_url(repo_id="Warrieryes/CB_qa", filename="QA_dataset.json", repo_type="dataset")
+    response = requests.get(url, stream=True, timeout=60)
+    response.raise_for_status()
 
+    raw_rows = []
+    for line in response.iter_lines(decode_unicode=True):
+        if not line:
+            continue
+        raw_rows.append(json.loads(line))
+        if max_examples is not None and len(raw_rows) >= max_examples:
+            break
+    return raw_rows
+
+
+def _load_conflictbank(max_examples: int | None = None) -> list[dict[str, Any]]:
+    raw = _stream_conflictbank_rows(max_examples=max_examples)
     rows = []
-    for row in raw[: max_examples or len(raw)]:
+    for index, row in enumerate(raw):
         correct_option = str(row.get("correct_option", "")).strip()
         replace_option = str(row.get("replace_option", "")).strip()
+        uncertain_option = str(row.get("uncertain_option", "")).strip()
         options = _parse_string_list(row.get("options"))
         option_map = {}
-        for index, option_value in enumerate(options):
-            option_map[chr(ord("A") + index)] = option_value
+        for option_index, option_value in enumerate(options):
+            option_map[chr(ord("A") + option_index)] = option_value
         gold_answer = option_map.get(correct_option, correct_option)
         conflict_answer = option_map.get(replace_option, replace_option)
-        rows.append(
-            {
-                "id": str(len(rows)),
-                "question": str(row.get("question", "")),
-                "answers": [gold_answer] if gold_answer else [],
-                "contexts": [
-                    str(row.get("default_evidence", "")),
-                    str(row.get("misinformation_conflict_evidence_evidence", "")),
-                    str(row.get("temporal_conflict_evidence", "")),
-                    str(row.get("semantic_conflict_evidence", "")),
-                ],
-                "condition": "conflictbank",
-                "metadata": {
-                    "benchmark": "conflictbank",
-                    "parametric_answers": [gold_answer] if gold_answer else [],
-                    "aligned_context_answers": [gold_answer] if gold_answer else [],
-                    "conflict_context_answers": [conflict_answer] if conflict_answer else [],
-                    "supports_conditions": ["aligned_context", "conflict_context"],
-                    "popularity_score": 0.5,
-                    "dynamicity_score": 0.5,
-                    "conflict_strength": 0.84,
-                    "relation": str(row.get("relation", "")),
-                },
-            }
-        )
+        conflict_specs = [
+            (
+                "misinformation",
+                str(row.get("misinformation_conflict_evidence_evidence", "")),
+                str(row.get("misinformation_conflict_claim", "")),
+                0.92,
+            ),
+            (
+                "temporal",
+                str(row.get("temporal_conflict_evidence", "")),
+                str(row.get("temporal_conflict_claim", "")),
+                0.76,
+            ),
+            (
+                "semantic",
+                str(row.get("semantic_conflict_evidence", "")),
+                str(row.get("semantic_conflict_claim", "")),
+                0.68,
+            ),
+        ]
+        for conflict_family, conflict_context, conflict_claim, conflict_strength in conflict_specs:
+            if not conflict_context.strip():
+                continue
+            rows.append(
+                {
+                    "id": f"{index}_{conflict_family}",
+                    "question": str(row.get("question", "")),
+                    "answers": [gold_answer] if gold_answer else [],
+                    "contexts": [str(row.get("default_evidence", "")), conflict_context],
+                    "condition": f"conflictbank_{conflict_family}",
+                    "metadata": {
+                        "benchmark": "conflictbank",
+                        "conflict_family": conflict_family,
+                        "parametric_answers": [gold_answer] if gold_answer else [],
+                        "aligned_context_answers": [gold_answer] if gold_answer else [],
+                        "conflict_context_answers": [conflict_answer] if conflict_answer else [],
+                        "aligned_context_text": str(row.get("default_evidence", "")),
+                        "conflict_context_text": conflict_context,
+                        "supports_conditions": ["aligned_context", "conflict_context"],
+                        "popularity_score": 0.5,
+                        "dynamicity_score": 0.5 if conflict_family != "temporal" else 0.9,
+                        "conflict_strength": conflict_strength,
+                        "relation": str(row.get("relation", "")),
+                        "default_claim": str(row.get("default_claim", "")),
+                        "conflict_claim": conflict_claim,
+                        "uncertain_answer": option_map.get(uncertain_option, uncertain_option),
+                    },
+                }
+            )
     return rows
 
 

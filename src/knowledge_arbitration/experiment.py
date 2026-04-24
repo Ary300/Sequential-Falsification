@@ -115,6 +115,16 @@ def _simulated_model_probability(features: ArbitrationFeatures, model_name: str,
     return _clip(sharpened)
 
 
+def _split_label(condition: str, conflict_magnitude: float) -> str:
+    if condition in {"conflict_context", "two_context_conflict", "dual_conflict"}:
+        return "conflict"
+    if condition in {"aligned_context", "closed_book"}:
+        return "no_conflict"
+    if condition in {"irrelevant_noise", "noise_context"}:
+        return "other"
+    return "conflict" if conflict_magnitude >= 0.5 else "no_conflict"
+
+
 def _summarize_policy_rows(rows: list[dict[str, Any]]) -> dict[str, Any]:
     probabilities = [float(row["probability"]) for row in rows]
     labels = [int(row["label"]) for row in rows]
@@ -279,13 +289,14 @@ def run_synthetic_experiment(experiment: dict[str, Any]) -> dict[str, Any]:
                         }
                         oracle_loss = _log_loss(oracle_probability, label)
 
+                        split = _split_label(condition, features.conflict_magnitude)
                         row = {
                             "benchmark": benchmark,
                             "model": model_name,
                             "condition": condition,
                             "cot_length": cot_length,
                             "example_idx": example_idx,
-                            "split": "conflict" if features.conflict_magnitude >= 0.5 else "no_conflict",
+                            "split": split,
                             "label": label,
                             "outcome": label,
                             "confidence": policy_probabilities["simulated_model"],
@@ -482,7 +493,7 @@ def run_benchmark_experiment(
                             "simulated_model": _simulated_model_probability(features, model_name, cot_length),
                         }
                         oracle_loss = _log_loss(oracle_probability, label)
-                        split = "conflict" if features.conflict_magnitude >= 0.5 else "no_conflict"
+                        split = _split_label(condition, features.conflict_magnitude)
                         row = {
                             "benchmark": benchmark,
                             "model": model_name,
