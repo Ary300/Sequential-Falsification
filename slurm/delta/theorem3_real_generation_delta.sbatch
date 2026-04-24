@@ -18,6 +18,7 @@ export HF_HOME=${HF_HOME:-/work/nvme/bgvi/adas17/hf_cache}
 
 MODEL=${MODEL:-deepseek-ai/DeepSeek-R1-Distill-Qwen-7B}
 BACKEND=${BACKEND:-openai}
+REQUEST_TIMEOUT=${REQUEST_TIMEOUT:-600}
 API_PORT=${API_PORT:-$((20000 + (${SLURM_JOB_ID:-0} % 20000)))}
 MAX_MODEL_LEN=${MAX_MODEL_LEN:-16384}
 GPU_MEMORY_UTILIZATION=${GPU_MEMORY_UTILIZATION:-0.90}
@@ -37,6 +38,7 @@ ARGS=(
   --output-dir "${OUTPUT_DIR}" \
   --backend "${BACKEND}" \
   --model "${MODEL}" \
+  --request-timeout "${REQUEST_TIMEOUT}" \
   --wikicontradict-max "${WIKICONTRADICT_MAX}" \
   --conflictbank-max "${CONFLICTBANK_MAX}" \
   --conflictbank-screening-pool "${CONFLICTBANK_SCREENING_POOL}" \

@@ -4,10 +4,10 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 import json
-from math import log
 from pathlib import Path
 import random
 import re
+import traceback
 from typing import Any
 
 from utils.io import dump_json
@@ -242,6 +242,30 @@ def _load_jsonl_map(path: Path, key_fields: tuple[str, ...]) -> dict[tuple[str, 
     return out
 
 
+def _error_record(
+    *,
+    benchmark: str,
+    example: dict[str, Any] | None,
+    condition: str,
+    cot_length: int,
+    model: str,
+    stage: str,
+    exc: Exception,
+) -> dict[str, Any]:
+    return {
+        "benchmark": benchmark,
+        "id": None if example is None else str(example.get("id")),
+        "question": None if example is None else example.get("question"),
+        "condition": condition,
+        "cot_length": cot_length,
+        "model": model,
+        "stage": stage,
+        "error_type": type(exc).__name__,
+        "error": str(exc),
+        "traceback": traceback.format_exc(),
+    }
+
+
 def _openai_chat(messages: list[dict[str, str]], *, style: PromptStyle, config: GenerationConfig) -> tuple[str, dict[str, Any]]:
     from openai import OpenAI  # type: ignore
 
@@ -353,6 +377,7 @@ def screen_conflict_examples(
     examples = load_arbitration_dataset(benchmark, max_examples=screening_pool)
     output_path = Path(output_dir)
     screening_file = output_path / f"{benchmark}_screening.jsonl"
+    screening_errors_file = output_path / f"{benchmark}_screening_errors.jsonl"
     existing = _load_jsonl_map(screening_file, ("benchmark", "id"))
 
     records: list[dict[str, Any]] = []
@@ -360,24 +385,48 @@ def screen_conflict_examples(
         key = (benchmark, str(example.get("id")))
         cached = existing.get(key)
         if cached is None:
-            raw_response, usage = _generate_response(example, style=PROMPT_STYLES["no_cot"], condition="closed_book", config=config)
-            answer = _extract_answer(raw_response)
-            confidence = _extract_confidence(raw_response)
-            if confidence is None:
-                confidence = 0.5
-            gold_answers = _answer_set(example.get("answers"))
-            correct = _answers_match(answer, gold_answers)
-            cached = {
-                "benchmark": benchmark,
-                "id": str(example.get("id")),
-                "question": example.get("question"),
-                "answer": answer,
-                "confidence": confidence,
-                "correct": int(correct),
-                "raw_response": raw_response,
-                "usage": usage,
-            }
-            _append_jsonl(screening_file, cached)
+            try:
+                raw_response, usage = _generate_response(example, style=PROMPT_STYLES["no_cot"], condition="closed_book", config=config)
+                answer = _extract_answer(raw_response)
+                confidence = _extract_confidence(raw_response)
+                if confidence is None:
+                    confidence = 0.5
+                gold_answers = _answer_set(example.get("answers"))
+                correct = _answers_match(answer, gold_answers)
+                cached = {
+                    "benchmark": benchmark,
+                    "id": str(example.get("id")),
+                    "question": example.get("question"),
+                    "answer": answer,
+                    "confidence": confidence,
+                    "correct": int(correct),
+                    "raw_response": raw_response,
+                    "usage": usage,
+                }
+                _append_jsonl(screening_file, cached)
+            except Exception as exc:  # pragma: no cover - remote/runtime path
+                _append_jsonl(
+                    screening_errors_file,
+                    _error_record(
+                        benchmark=benchmark,
+                        example=example,
+                        condition="closed_book",
+                        cot_length=0,
+                        model=config.model,
+                        stage="screening",
+                        exc=exc,
+                    ),
+                )
+                cached = {
+                    "benchmark": benchmark,
+                    "id": str(example.get("id")),
+                    "question": example.get("question"),
+                    "answer": "",
+                    "confidence": 0.5,
+                    "correct": 0,
+                    "raw_response": "",
+                    "usage": {},
+                }
         records.append(cached)
 
     ambiguous = [record for record in records if low <= float(record.get("confidence", 0.0)) <= high]
@@ -467,13 +516,18 @@ def run_real_generation_experiment(
         )
 
     raw_generations_path = output_path / "theorem3_generation_rows.jsonl"
+    raw_errors_path = output_path / "theorem3_generation_errors.jsonl"
     existing = _load_jsonl_map(raw_generations_path, ("benchmark", "id", "condition", "cot_length", "model")) if resume else {}
 
     generated_rows: list[dict[str, Any]] = list(existing.values())
+    completed = len(existing)
+    skipped = 0
+    errored = 0
     for benchmark in benchmarks:
         selected = selection.get(benchmark, {})
         examples = list(selected.get("examples", []))
         screening_records = selected.get("records_by_id", {})
+        print(f"[theorem3] benchmark={benchmark} selected_examples={len(examples)} resume_rows={len(existing)}", flush=True)
         for example in examples:
             metadata = dict(example.get("metadata", {}))
             gold_answers = _answer_set(example.get("answers"))
@@ -495,69 +549,99 @@ def run_real_generation_experiment(
                     )
                     cached = existing.get(key)
                     if cached is None:
-                        raw_response, usage = _generate_response(example, style=style, condition=condition, config=config)
-                        answer = _extract_answer(raw_response)
-                        confidence = _extract_confidence(raw_response)
-                        if confidence is None:
-                            confidence = 0.5
-                        reasoning = _extract_reasoning(raw_response)
-                        correct = _answers_match(answer, gold_answers)
-                        oracle_prob, model_prob = _arbitration_probability(
-                            answer,
-                            parametric_answers=parametric_answers,
-                            context_answers=context_answers,
-                            split=split,
-                        )
-                        cached = {
-                            "benchmark": benchmark,
-                            "model": config.model,
-                            "condition": condition,
-                            "cot_length": style.cot_length,
-                            "cot_label": style.label,
-                            "id": str(example.get("id")),
-                            "question": example.get("question"),
-                            "split": split,
-                            "label": int(correct),
-                            "outcome": int(correct),
-                            "confidence": float(confidence),
-                            "answer": answer,
-                            "gold_answers": sorted(gold_answers),
-                            "raw_response": raw_response,
-                            "reasoning_text": reasoning,
-                            "reasoning_word_count": _count_words(reasoning),
-                            "reasoning_char_count": len(reasoning),
-                            "response_word_count": _count_words(raw_response),
-                            "response_char_count": len(raw_response),
-                            "oracle_context_probability": oracle_prob,
-                            "model_context_probability": model_prob,
-                            "metadata": {
-                                **metadata,
-                                "screening_confidence": screening_record.get("confidence"),
-                                "screening_correct": screening_record.get("correct"),
-                                "screening_answer": screening_record.get("answer"),
-                            },
-                            "features": {
-                                "parametric_score": float(screening_record.get("confidence", 0.5)),
-                                "context_reliability": context_reliability,
-                                "conflict_strength": float(metadata.get("conflict_strength", 0.5)),
-                                "screening_correct": bool(screening_record.get("correct", 0)),
-                                "matched_parametric_answer": _answers_match(answer, parametric_answers),
-                                "matched_context_answer": _answers_match(answer, context_answers),
-                            },
-                            "policies": {
-                                "simulated_model": {
-                                    "probability": float(confidence),
-                                    "regret": None,
-                                    "kl_gap": None,
-                                }
-                            },
-                            "regret_by_policy": {},
-                            "usage": usage,
-                        }
-                        _append_jsonl(raw_generations_path, cached)
+                        try:
+                            raw_response, usage = _generate_response(example, style=style, condition=condition, config=config)
+                            answer = _extract_answer(raw_response)
+                            confidence = _extract_confidence(raw_response)
+                            if confidence is None:
+                                confidence = 0.5
+                            reasoning = _extract_reasoning(raw_response)
+                            correct = _answers_match(answer, gold_answers)
+                            oracle_prob, model_prob = _arbitration_probability(
+                                answer,
+                                parametric_answers=parametric_answers,
+                                context_answers=context_answers,
+                                split=split,
+                            )
+                            cached = {
+                                "benchmark": benchmark,
+                                "model": config.model,
+                                "condition": condition,
+                                "cot_length": style.cot_length,
+                                "cot_label": style.label,
+                                "id": str(example.get("id")),
+                                "question": example.get("question"),
+                                "split": split,
+                                "label": int(correct),
+                                "outcome": int(correct),
+                                "confidence": float(confidence),
+                                "answer": answer,
+                                "gold_answers": sorted(gold_answers),
+                                "raw_response": raw_response,
+                                "reasoning_text": reasoning,
+                                "reasoning_word_count": _count_words(reasoning),
+                                "reasoning_char_count": len(reasoning),
+                                "response_word_count": _count_words(raw_response),
+                                "response_char_count": len(raw_response),
+                                "oracle_context_probability": oracle_prob,
+                                "model_context_probability": model_prob,
+                                "metadata": {
+                                    **metadata,
+                                    "screening_confidence": screening_record.get("confidence"),
+                                    "screening_correct": screening_record.get("correct"),
+                                    "screening_answer": screening_record.get("answer"),
+                                },
+                                "features": {
+                                    "parametric_score": float(screening_record.get("confidence", 0.5)),
+                                    "context_reliability": context_reliability,
+                                    "conflict_strength": float(metadata.get("conflict_strength", 0.5)),
+                                    "screening_correct": bool(screening_record.get("correct", 0)),
+                                    "matched_parametric_answer": _answers_match(answer, parametric_answers),
+                                    "matched_context_answer": _answers_match(answer, context_answers),
+                                },
+                                "policies": {
+                                    "simulated_model": {
+                                        "probability": float(confidence),
+                                        "regret": None,
+                                        "kl_gap": None,
+                                    }
+                                },
+                                "regret_by_policy": {},
+                                "usage": usage,
+                            }
+                            _append_jsonl(raw_generations_path, cached)
+                            completed += 1
+                            if completed % 50 == 0:
+                                print(
+                                    f"[theorem3] completed={completed} benchmark={benchmark} "
+                                    f"id={example.get('id')} condition={condition} cot={style.cot_length}",
+                                    flush=True,
+                                )
+                        except Exception as exc:  # pragma: no cover - remote/runtime path
+                            errored += 1
+                            _append_jsonl(
+                                raw_errors_path,
+                                _error_record(
+                                    benchmark=benchmark,
+                                    example=example,
+                                    condition=condition,
+                                    cot_length=style.cot_length,
+                                    model=config.model,
+                                    stage="generation",
+                                    exc=exc,
+                                ),
+                            )
+                            print(
+                                f"[theorem3] error benchmark={benchmark} id={example.get('id')} "
+                                f"condition={condition} cot={style.cot_length}: {type(exc).__name__}: {exc}",
+                                flush=True,
+                            )
+                            continue
+                    else:
+                        skipped += 1
                     generated_rows.append(cached)
 
-    deduped = { _generation_key(record): record for record in generated_rows }
+    deduped = {_generation_key(record): record for record in generated_rows}
     rows = list(deduped.values())
     payload = {
         "experiment_name": "theorem3_real_generation_r1_7b",
@@ -575,6 +659,9 @@ def run_real_generation_experiment(
             "conflictbank_max": conflictbank_max,
             "conflictbank_screening_pool": conflictbank_screening_pool,
             "screening": {benchmark: selection[benchmark]["summary"] for benchmark in selection},
+            "completed_rows": completed,
+            "skipped_rows": skipped,
+            "errored_rows": errored,
         },
         "experiments": _group_rows(rows),
     }
