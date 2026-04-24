@@ -340,6 +340,43 @@ The recovery job now queued on Delta is:
 That recovery run is intended to resume from the existing JSONL files and spend
 its budget on the unfinished `ConflictBank` generations rather than replaying
 the completed `WikiContradict` slice.
+
+## Emerging theorem-3 landing from real traces
+
+The resumed `srun` recovery wave moved theorem 3 into a clearer shape. The
+original monotone claim,
+
+`longer CoT under conflict -> higher calibration error`,
+
+is still too strong. The real pattern emerging from actual `DeepSeek-R1-Distill-Qwen-7B`
+traces is:
+
+`intermediate CoT -> peak overconfidence`, followed by partial recovery at
+very long CoT.
+
+This is now visible on both the completed `WikiContradict` slice and the live
+`ConflictBank` slice.
+
+On `WikiContradict`:
+
+- conflict overconfidence gap: `0.2923 -> 0.4825 -> 0.4429`
+- no-conflict overconfidence gap: `0.2643 -> 0.5038 -> 0.4331`
+
+On the mid-run `ConflictBank` slice:
+
+- conflict overconfidence gap: `0.5407 -> 0.7295 -> 0.5212`
+- no-conflict overconfidence gap: `0.0561 -> 0.1945 -> -0.3515`
+
+So the strongest defensible theorem-3 reading is now:
+
+- `cot=128` is the peak-overconfidence bucket across all observed slices;
+- `cot=1024` does not continue the monotone rise and instead partially
+  self-corrects;
+- the peak effect is especially sharp on `ConflictBank` conflict rows, where
+  the gap rises by about `+0.1888` from `cot=0` to `cot=128`.
+
+This means theorem 3 can land as a **non-monotone calibration-coupling
+theorem** rather than the original monotone long-CoT version.
 - the strongest positive slice is `WikiContradict`, where conflict ECE delta is
   `+0.1542` while no-conflict delta is `-0.0190`;
 - the newer compact conflict-heavy wave keeps the arbitration signal strong but

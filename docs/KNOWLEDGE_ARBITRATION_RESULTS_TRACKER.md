@@ -189,3 +189,35 @@ The active recovery job is now:
 
 That job is intended to resume from the existing JSONL outputs rather than
 restarting the finished `WikiContradict` rows.
+
+## Theorem 3 landing update
+
+The resumed real-generation run shifted theorem 3 away from the original
+monotone-long-CoT framing and toward a stronger empirical variant:
+
+- overconfidence peaks at an **intermediate** CoT budget;
+- very long CoT partially self-corrects relative to that peak;
+- the effect is real on actual `DeepSeek-R1-Distill-Qwen-7B` traces.
+
+Current real-trace picture:
+
+| Benchmark | Split | `cot=0` gap | `cot=128` gap | `cot=1024` gap |
+| --- | --- | ---: | ---: | ---: |
+| WikiContradict | conflict | `0.2923` | `0.4825` | `0.4429` |
+| WikiContradict | no-conflict | `0.2643` | `0.5038` | `0.4331` |
+| ConflictBank (mid-run) | conflict | `0.5407` | `0.7295` | `0.5212` |
+| ConflictBank (mid-run) | no-conflict | `0.0561` | `0.1945` | `-0.3515` |
+
+Most important deltas from the live `ConflictBank` slice:
+
+- conflict, `0 -> 128`: overconfidence-gap delta `+0.1888`
+- no-conflict, `0 -> 128`: overconfidence-gap delta `+0.1384`
+- conflict, `0 -> 1024`: overconfidence-gap delta `-0.0194`
+
+This is enough to say:
+
+1. The original monotone theorem-3 headline is not the right one.
+2. A revised theorem-3 headline is landing:
+   `intermediate CoT causes the largest calibration failure, with partial
+   long-CoT recovery`.
+3. `ConflictBank` is the cleanest support for this new statement so far.
