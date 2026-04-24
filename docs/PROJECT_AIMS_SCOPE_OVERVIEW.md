@@ -239,7 +239,9 @@ What is already real:
 - a focused `WikiContradict` contradiction report:
   [`results/arbitration_wikicontradict_focus/report/summary.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/results/arbitration_wikicontradict_focus/report/summary.md);
 - a compact conflict-heavy benchmark wave:
-  [`results/arbitration_conflict_focus_compact_v2/report/summary.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/results/arbitration_conflict_focus_compact_v2/report/summary.md).
+  [`results/arbitration_conflict_focus_compact_v2/report/summary.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/results/arbitration_conflict_focus_compact_v2/report/summary.md);
+- a theorem-3 diagnosis with ambiguity filtering and sample rows:
+  [`results/arbitration_conflict_focus_compact_v2/theorem3_diagnosis/summary.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/results/arbitration_conflict_focus_compact_v2/theorem3_diagnosis/summary.md).
 
 The strongest current empirical signal is theorem-1/theorem-2 shaped:
 
@@ -263,6 +265,20 @@ The theorem-3 situation is more mixed:
   `ConflictBank = -0.1943`, `DynamicQA = -0.0341`,
   `WikiContradict = +0.1826` on conflict ECE delta from short to long CoT.
 
+The ambiguity-filter diagnosis sharpens the interpretation:
+
+- filtering to `parametric_score in [0.2, 0.8]` does **not** flip
+  `ConflictBank` or `DynamicQA`;
+- `WikiContradict` stays clearly positive after filtering;
+- the best current reading is that theorem 3 may hold for naturalistic source
+  ambiguity but not for every synthetic or easily-detectable conflict setup.
+
+There is also one important remaining limitation:
+
+- the theorem-3 pipeline is still proxy-based, so it does not contain raw
+  generated reasoning traces and cannot yet tell us whether longer CoT buckets
+  correspond to genuine extended reasoning versus filler text.
+
 That means the project now has a real benchmark-backed arbitration signal, but
 not yet the broad conflict-conditioned CoT headline needed for the full paper.
 
@@ -275,13 +291,15 @@ What is honest today:
 - the repo has been pivoted at the planning layer;
 - arbitration loaders and benchmark-backed proxy experiments now run end to end;
 - there is already a real early theorem-1/theorem-2-style signal;
+- theorem statements now exist in a clean draft form;
 - the theorem-3 headline is still incomplete.
 
 What must happen before we can talk about a serious main-track paper:
 
 - theorem statements need to be written cleanly;
-- `ConflictBank` needs to be integrated into the real benchmark path;
+- theorem sketches need to be upgraded into actual proofs;
 - the broad theorem-3 effect needs to land outside a single contradiction slice;
+- the theorem-3 pipeline needs raw reasoning traces instead of proxy-only CoT;
 - the empirical prediction around conflict-conditioned calibration must survive
   first contact with real models.
 

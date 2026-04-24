@@ -63,6 +63,9 @@ We now have two early wins and one open gap:
 - Compact conflict-only wave is done:
   [`results/arbitration_conflict_focus_compact_v2/report/summary.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/results/arbitration_conflict_focus_compact_v2/report/summary.md)
   and adds `ConflictBank` into the live benchmark path.
+- Theorem-3 diagnosis is done:
+  [`results/arbitration_conflict_focus_compact_v2/theorem3_diagnosis/summary.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/results/arbitration_conflict_focus_compact_v2/theorem3_diagnosis/summary.md)
+  with ambiguity filtering and benchmark-family breakdowns.
 
 Current best honest headline:
 
@@ -86,11 +89,33 @@ Current best honest headline:
   mixed:
   `ConflictBank` conflict ECE delta `-0.1943`, `DynamicQA` conflict delta
   `-0.0341`, `WikiContradict` conflict delta `+0.1826`.
+- Ambiguity filtering did **not** rescue the negative benchmarks in the current
+  proxy stack:
+  - `ConflictBank` genuine-conflict delta `-0.1943`
+  - `DynamicQA` genuine-conflict delta `-0.0679`
+  - `WikiContradict` genuine-conflict delta `+0.1826`
+- The current best interpretation is not "the theorem is false"; it is:
+  naturalistic contradiction (`WikiContradict`) behaves like genuine source
+  ambiguity, while `ConflictBank` and much of `DynamicQA` in the current proxy
+  behave more like detectable corruption or easy conflict.
 
 So the current status is:
 
 - theorem-1/theorem-2-style arbitration evidence: **promising**
 - theorem-3 broad conflict-conditioned CoT claim: **not yet achieved**
+- theorem-3 sharpened fallback claim: **promising**
+
+The sharpened fallback claim is:
+
+- long-CoT calibration degradation appears on naturalistic contradiction, not
+  uniformly across all conflict benchmarks, suggesting the mechanism requires
+  genuine source ambiguity rather than trivially detectable corruption.
+
+Current blocker:
+
+- the present theorem-3 pipeline is still a proxy pipeline and does not contain
+  raw generated reasoning traces, so it cannot answer the "longer reasoning vs
+  padding/filler" question on its own.
 
 Until that broad theorem-3 result lands across more than one hard conflict
 benchmark, we still do **not** have the full paper headline.
