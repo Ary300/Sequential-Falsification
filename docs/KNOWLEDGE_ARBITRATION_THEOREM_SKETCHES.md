@@ -233,6 +233,31 @@ This is weaker and less novel than the conflict-conditioned version, so it
 should only be used if the completed real-generation matrix rules out the
 sharper theorem.
 
+### Alternate theorem if the effect is non-monotone rather than monotone
+
+The current real-generation wave suggests a more interesting variant may be
+available:
+
+`Theorem 3c (Intermediate-CoT Overconfidence Peak).`
+
+Under misspecified sequential reasoning updates with competing knowledge
+sources, the confidence-accuracy gap need not grow monotonically with reasoning
+depth. Instead, there can exist an interior reasoning budget `k* > 0` at which
+overconfidence is maximized, followed by partial self-correction at longer
+reasoning depths.
+
+This version is supported if the final real-generation report keeps showing:
+
+- `cot=128` or another interior bucket has the largest overconfidence gap;
+- `cot=1024` remains above `cot=0` on the hardest slices but below the peak;
+- the pattern appears on at least two benchmark slices with real reasoning
+  traces.
+
+If this pattern survives the full `ConflictBank` run, it may be a stronger and
+more novel landing point than the universal-overconfidence fallback, because it
+explains why short-to-medium reasoning can be harmful even when very long
+reasoning sometimes partially recovers.
+
 ## Experimental pairing
 
 | Theorem | Primary benchmark evidence | Current status |
