@@ -202,6 +202,10 @@ error is strictly increasing over a non-trivial range of `k`.
   rises with long CoT while the no-conflict bucket improves.
 - `ConflictBank` and `DynamicQA` currently do not match the desired direction in
   the proxy pipeline, so theorem 3 remains an open empirical target.
+- The first partial real-generation run with `DeepSeek-R1-Distill-Qwen-7B`
+  suggests a nearby but weaker phenomenon may be real: CoT can sharply increase
+  overconfidence on hard knowledge QA even when the effect is not
+  conflict-specific.
 
 ### Proof plan
 
@@ -212,6 +216,22 @@ error is strictly increasing over a non-trivial range of `k`.
 4. Convert sharpening-with-misspecification into a lower bound on calibration
    degradation.
 5. Add a boundary-case corollary showing why no-conflict subsets can improve.
+
+### Fallback theorem if conflict-specificity fails
+
+If the full real-generation runs continue to show confidence inflation without a
+clear conflict/no-conflict separation, the paper should not force the original
+theorem. The fallback version is:
+
+`Theorem 3b (CoT-Induced Overconfidence on Hard Knowledge QA).`
+
+Under misspecified sequential reasoning updates, there exists a hard-task
+subset on which longer chain-of-thought increases the confidence-accuracy gap,
+even when average accuracy does not improve.
+
+This is weaker and less novel than the conflict-conditioned version, so it
+should only be used if the completed real-generation matrix rules out the
+sharper theorem.
 
 ## Experimental pairing
 

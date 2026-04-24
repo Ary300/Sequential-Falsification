@@ -40,12 +40,15 @@ def _metrics(rows: list[dict[str, Any]]) -> dict[str, Any]:
     outcomes = [int(row.get("outcome", 0)) for row in rows]
     reasoning_words = [int(row.get("reasoning_word_count", 0)) for row in rows]
     response_words = [int(row.get("response_word_count", 0)) for row in rows]
+    mean_confidence = (sum(confidences) / len(confidences)) if confidences else 0.0
+    mean_accuracy = accuracy(bool(item) for item in outcomes)
     return {
         "count": len(rows),
-        "accuracy": accuracy(bool(item) for item in outcomes),
+        "accuracy": mean_accuracy,
         "ece": expected_calibration_error(confidences, outcomes),
         "brier": brier_score(confidences, outcomes),
-        "mean_confidence": (sum(confidences) / len(confidences)) if confidences else 0.0,
+        "mean_confidence": mean_confidence,
+        "overconfidence_gap": mean_confidence - mean_accuracy,
         "mean_reasoning_words": (sum(reasoning_words) / len(reasoning_words)) if reasoning_words else 0.0,
         "mean_response_words": (sum(response_words) / len(response_words)) if response_words else 0.0,
     }
@@ -99,9 +102,27 @@ def build_report(payload: dict[str, Any], *, short_cot: int, long_cot: int, max_
         )
 
     trend_rows = []
+    peak_rows = []
     benchmarks = sorted({str(row.get("benchmark")) for row in rows})
     for benchmark in benchmarks:
         for split in ("conflict", "no_conflict"):
+            series_rows = sorted(
+                [row for row in slice_rows if row["benchmark"] == benchmark and row["split"] == split],
+                key=lambda row: int(row["cot_length"]),
+            )
+            if series_rows:
+                peak_confidence = max(series_rows, key=lambda row: float(row["mean_confidence"]))
+                peak_gap = max(series_rows, key=lambda row: float(row["overconfidence_gap"]))
+                peak_rows.append(
+                    {
+                        "benchmark": benchmark,
+                        "split": split,
+                        "peak_confidence_cot": int(peak_confidence["cot_length"]),
+                        "peak_confidence": round(float(peak_confidence["mean_confidence"]), 4),
+                        "peak_overconfidence_cot": int(peak_gap["cot_length"]),
+                        "peak_overconfidence_gap": round(float(peak_gap["overconfidence_gap"]), 4),
+                    }
+                )
             short_rows = [row for row in rows if row.get("benchmark") == benchmark and row.get("split") == split and int(row.get("cot_length", 0)) == short_cot]
             long_rows = [row for row in rows if row.get("benchmark") == benchmark and row.get("split") == split and int(row.get("cot_length", 0)) == long_cot]
             if not short_rows or not long_rows:
@@ -118,12 +139,15 @@ def build_report(payload: dict[str, Any], *, short_cot: int, long_cot: int, max_
                     "brier_delta": round(long_metrics["brier"] - short_metrics["brier"], 4),
                     "accuracy_delta": round(long_metrics["accuracy"] - short_metrics["accuracy"], 4),
                     "confidence_delta": round(long_metrics["mean_confidence"] - short_metrics["mean_confidence"], 4),
+                    "overconfidence_gap_delta": round(long_metrics["overconfidence_gap"] - short_metrics["overconfidence_gap"], 4),
                     "reasoning_word_delta": round(long_metrics["mean_reasoning_words"] - short_metrics["mean_reasoning_words"], 4),
                 }
             )
 
     conflict_deltas = [row["ece_delta"] for row in trend_rows if row["split"] == "conflict"]
     no_conflict_deltas = [row["ece_delta"] for row in trend_rows if row["split"] == "no_conflict"]
+    conflict_gap_deltas = [row["overconfidence_gap_delta"] for row in trend_rows if row["split"] == "conflict"]
+    no_conflict_gap_deltas = [row["overconfidence_gap_delta"] for row in trend_rows if row["split"] == "no_conflict"]
 
     samples = {
         benchmark: _sample_rows(
@@ -147,6 +171,18 @@ def build_report(payload: dict[str, Any], *, short_cot: int, long_cot: int, max_
         "headline": {
             "mean_conflict_ece_delta": round(sum(conflict_deltas) / len(conflict_deltas), 4) if conflict_deltas else None,
             "mean_no_conflict_ece_delta": round(sum(no_conflict_deltas) / len(no_conflict_deltas), 4) if no_conflict_deltas else None,
+            "conflict_minus_no_conflict_ece_delta": round(
+                (sum(conflict_deltas) / len(conflict_deltas)) - (sum(no_conflict_deltas) / len(no_conflict_deltas)),
+                4,
+            )
+            if conflict_deltas and no_conflict_deltas
+            else None,
+            "mean_conflict_overconfidence_gap_delta": round(sum(conflict_gap_deltas) / len(conflict_gap_deltas), 4)
+            if conflict_gap_deltas
+            else None,
+            "mean_no_conflict_overconfidence_gap_delta": round(sum(no_conflict_gap_deltas) / len(no_conflict_gap_deltas), 4)
+            if no_conflict_gap_deltas
+            else None,
             "mean_conflict_reasoning_word_delta": round(
                 sum(row["reasoning_word_delta"] for row in trend_rows if row["split"] == "conflict")
                 / len([row for row in trend_rows if row["split"] == "conflict"]),
@@ -157,6 +193,7 @@ def build_report(payload: dict[str, Any], *, short_cot: int, long_cot: int, max_
         },
         "slice_rows": slice_rows,
         "trend_rows": trend_rows,
+        "peak_rows": peak_rows,
         "samples": samples,
     }
 
@@ -174,18 +211,21 @@ def build_markdown(report: dict[str, Any]) -> str:
         "",
         f"- Mean conflict ECE delta: `{headline.get('mean_conflict_ece_delta')}`",
         f"- Mean no-conflict ECE delta: `{headline.get('mean_no_conflict_ece_delta')}`",
+        f"- Conflict minus no-conflict ECE delta: `{headline.get('conflict_minus_no_conflict_ece_delta')}`",
+        f"- Mean conflict overconfidence-gap delta: `{headline.get('mean_conflict_overconfidence_gap_delta')}`",
+        f"- Mean no-conflict overconfidence-gap delta: `{headline.get('mean_no_conflict_overconfidence_gap_delta')}`",
         f"- Mean conflict reasoning-word delta: `{headline.get('mean_conflict_reasoning_word_delta')}`",
         "",
         "## Slice Metrics",
         "",
-        "| Benchmark | Split | CoT | Count | Accuracy | ECE | Brier | Mean conf | Mean reasoning words |",
-        "|---|---|---:|---:|---:|---:|---:|---:|---:|",
+        "| Benchmark | Split | CoT | Count | Accuracy | ECE | Brier | Mean conf | Overconf gap | Mean reasoning words |",
+        "|---|---|---:|---:|---:|---:|---:|---:|---:|---:|",
     ]
     for row in report.get("slice_rows", []):
         lines.append(
             f"| {row['benchmark']} | {row['split']} | {row['cot_length']} | {row['count']} | "
             f"{row['accuracy']:.4f} | {row['ece']:.4f} | {row['brier']:.4f} | "
-            f"{row['mean_confidence']:.4f} | {row['mean_reasoning_words']:.2f} |"
+            f"{row['mean_confidence']:.4f} | {row['overconfidence_gap']:.4f} | {row['mean_reasoning_words']:.2f} |"
         )
 
     lines.extend(
@@ -193,14 +233,29 @@ def build_markdown(report: dict[str, Any]) -> str:
             "",
             "## Short-to-Long Deltas",
             "",
-            "| Benchmark | Split | ECE delta | Brier delta | Accuracy delta | Confidence delta | Reasoning-word delta |",
-            "|---|---|---:|---:|---:|---:|---:|",
+            "| Benchmark | Split | ECE delta | Brier delta | Accuracy delta | Confidence delta | Overconf-gap delta | Reasoning-word delta |",
+            "|---|---|---:|---:|---:|---:|---:|---:|",
         ]
     )
     for row in report.get("trend_rows", []):
         lines.append(
             f"| {row['benchmark']} | {row['split']} | {row['ece_delta']:.4f} | {row['brier_delta']:.4f} | "
-            f"{row['accuracy_delta']:.4f} | {row['confidence_delta']:.4f} | {row['reasoning_word_delta']:.2f} |"
+            f"{row['accuracy_delta']:.4f} | {row['confidence_delta']:.4f} | {row['overconfidence_gap_delta']:.4f} | {row['reasoning_word_delta']:.2f} |"
+        )
+
+    lines.extend(
+        [
+            "",
+            "## Peak CoT Effects",
+            "",
+            "| Benchmark | Split | Peak confidence CoT | Peak confidence | Peak overconfidence CoT | Peak overconfidence gap |",
+            "|---|---|---:|---:|---:|---:|",
+        ]
+    )
+    for row in report.get("peak_rows", []):
+        lines.append(
+            f"| {row['benchmark']} | {row['split']} | {row['peak_confidence_cot']} | {row['peak_confidence']:.4f} | "
+            f"{row['peak_overconfidence_cot']} | {row['peak_overconfidence_gap']:.4f} |"
         )
 
     lines.extend(["", "## Sample Conflict Long-CoT Traces", ""])
