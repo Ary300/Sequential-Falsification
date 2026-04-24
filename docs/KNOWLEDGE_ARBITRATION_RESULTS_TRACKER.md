@@ -140,3 +140,52 @@ That focused real-generation run is the actual gate now:
 
 Until the real-generation run reports back, we still do **not** have the full
 paper headline.
+
+## Real-generation update
+
+The first real DeepSeek theorem-3 run (`2185966`) failed after `01:39:34`, but
+it did enough work to give us partial real evidence.
+
+Completed artifacts on Delta:
+
+- `results/theorem3_real_generation_r1_7b/conflictbank_screening.jsonl`
+- `results/theorem3_real_generation_r1_7b/conflictbank_screening_summary.json`
+- `results/theorem3_real_generation_r1_7b/theorem3_generation_rows.jsonl`
+
+What those partial rows already show:
+
+- `WikiContradict` completed across `cot=0`, `128`, and `1024`
+- `ConflictBank` screening completed
+- `ConflictBank` generations are still incomplete
+
+Current `WikiContradict` real-generation picture:
+
+| Split | CoT | Accuracy | Mean confidence |
+| --- | ---: | ---: | ---: |
+| conflict | `0` | `0.2299` | `0.5492` |
+| conflict | `128` | `0.2299` | `0.7264` |
+| conflict | `1024` | `0.2011` | `0.6522` |
+| no_conflict | `0` | `0.3143` | `0.5783` |
+| no_conflict | `128` | `0.2171` | `0.7223` |
+| no_conflict | `1024` | `0.2126` | `0.6677` |
+
+That means:
+
+- there is a real CoT-induced overconfidence effect;
+- but on the completed partial slice it is **not** conflict-specific;
+- so theorem 3 remains unproven in its original form.
+
+The current honest strategy is:
+
+1. finish `ConflictBank` real generations;
+2. decide whether theorem 3 survives only as a sharper qualified claim or
+   should be dropped entirely;
+3. if `ConflictBank` also lacks a conflict-specific effect, freeze the paper
+   around theorem 1 + theorem 2.
+
+The active recovery job is now:
+
+- `2190333` `theorem3_resume`
+
+That job is intended to resume from the existing JSONL outputs rather than
+restarting the finished `WikiContradict` rows.

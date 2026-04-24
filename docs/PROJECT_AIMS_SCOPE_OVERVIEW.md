@@ -290,6 +290,56 @@ The live focused Delta job is:
 
 So the project is no longer blocked on infrastructure. It is now blocked on
 the outcome of the real-generation theorem-3 run itself.
+
+## Current real-generation status
+
+The first focused DeepSeek real-generation run did real work but did not finish
+cleanly.
+
+What completed on Delta before failure:
+
+- `ConflictBank` ambiguity screening:
+  `results/theorem3_real_generation_r1_7b/conflictbank_screening.jsonl`
+- `ConflictBank` screening summary:
+  `results/theorem3_real_generation_r1_7b/conflictbank_screening_summary.json`
+- partial real-generation rows:
+  `results/theorem3_real_generation_r1_7b/theorem3_generation_rows.jsonl`
+
+What the partial rows show right now:
+
+- `WikiContradict` real generations completed through all three CoT settings;
+- `ConflictBank` generation rows did not complete yet;
+- the partial real signal is **not** conflict-specific in the way theorem 3
+  originally wanted.
+
+On the completed `WikiContradict` slice:
+
+- conflict, `cot=0`: accuracy `0.2299`, mean confidence `0.5492`
+- conflict, `cot=128`: accuracy `0.2299`, mean confidence `0.7264`
+- conflict, `cot=1024`: accuracy `0.2011`, mean confidence `0.6522`
+- no-conflict, `cot=0`: accuracy `0.3143`, mean confidence `0.5783`
+- no-conflict, `cot=128`: accuracy `0.2171`, mean confidence `0.7223`
+- no-conflict, `cot=1024`: accuracy `0.2126`, mean confidence `0.6677`
+
+The honest reading of that partial real run is:
+
+- CoT is increasing confidence while accuracy stays very poor;
+- that is a real overconfidence effect;
+- but it currently appears in both conflict and no-conflict conditions, so it
+  does **not** yet support the original conflict-conditioned theorem-3
+  headline.
+
+Because the first Delta run failed after the `WikiContradict` portion, the
+current priority is still to finish the real `ConflictBank` generation before
+making the final theorem-3 decision.
+
+The recovery job now queued on Delta is:
+
+- `2190333` `theorem3_resume`
+
+That recovery run is intended to resume from the existing JSONL files and spend
+its budget on the unfinished `ConflictBank` generations rather than replaying
+the completed `WikiContradict` slice.
 - the strongest positive slice is `WikiContradict`, where conflict ECE delta is
   `+0.1542` while no-conflict delta is `-0.0190`;
 - the newer compact conflict-heavy wave keeps the arbitration signal strong but
