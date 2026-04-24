@@ -2,153 +2,41 @@
 
 ## Purpose
 
-This file tracks the concrete experiment matrix for the active knowledge
-arbitration project. It is intentionally operational rather than narrative.
+This file is the compact experiment table for the active arbitration project.
 
-## Matrix legend
+It complements the PRD by making the first wave concrete enough to schedule and
+track.
 
-- `P0`: first pilot, needed immediately
-- `P1`: headline result tier
-- `P2`: robustness / extension tier
-- `open`: not yet run
-- `scaffolded`: config/code path exists, results not yet run
-- `complete`: results exist and are reportable
+## Primary pilot wave
 
-## Benchmark priority table
+| Experiment | Benchmarks | Models | Conditions | CoT lengths | Self-consistency | Max examples |
+| --- | --- | --- | --- | --- | --- | --- |
+| `arbitration_pilot_prior_strength` | `PopQA`, `DynamicQA` | `Llama-3.1-8B`, `Qwen-2.5-7B`, `DeepSeek-R1-Distill-7B` | `closed_book`, `aligned_context`, `conflict_context` | `0`, `128`, `512` | `1`, `8` | `512` |
+| `arbitration_pilot_gold_conflict` | `WikiContradict`, `NQ-Swap` | `Llama-3.1-8B`, `Qwen-2.5-7B`, `DeepSeek-R1-Distill-7B` | `closed_book`, `conflict_context`, `two_context_conflict` | `0`, `128`, `512`, `2048` | `1`, `8` | `512` |
+| `arbitration_pilot_cot_calibration` | `DynamicQA`, `ConflictBank` | `DeepSeek-R1-Distill-7B`, `Qwen-3-8B` | `aligned_context`, `conflict_context`, `irrelevant_noise` | `0`, `64`, `256`, `1024`, `4096` | `1`, `8`, `32` | `1024` |
+| `arbitration_checkpoint_family` | `TempLAMA`, `DynamicQA` | `Pythia`, `OLMo-2-7B` | `closed_book`, `aligned_context`, `conflict_context` | `0`, `128` | `1` | `1024` |
 
-| Benchmark | Main role | Priority | Status |
-| --- | --- | --- | --- |
-| PopQA | prior strength / popularity | P0 | scaffolded |
-| DynamicQA | dynamicity / temporal conflict | P0 | scaffolded |
-| ConflictBank | broad conflict coverage | P0 | scaffolded |
-| WikiContradict | gold contradiction set | P1 | scaffolded |
-| NQ-Swap | clean entity substitution | P1 | scaffolded |
-| MQuAKE-Remastered | multi-hop conflict | P1 | scaffolded |
-| TempLAMA | temporal staleness | P2 | scaffolded |
-| FreshQA | freshness and post-cutoff facts | P2 | scaffolded |
+## Theorem alignment
 
-## Model priority table
+| Theorem | Best early experiment |
+| --- | --- |
+| Theorem 1: Bayes-optimal arbitration rule | `arbitration_pilot_prior_strength` |
+| Theorem 2: fixed-policy suboptimality | `arbitration_pilot_gold_conflict` + synthetic oracle |
+| Theorem 3: CoT calibration coupling | `arbitration_pilot_cot_calibration` |
 
-| Model | Purpose | Priority | Status |
-| --- | --- | --- | --- |
-| Pythia checkpoint slice | checkpoint-resolved scaling | P0 | scaffolded |
-| OLMo checkpoint slice | open-data checkpoint-resolved scaling | P0 | scaffolded |
-| Llama-3.1-8B | modern strong base model | P0 | scaffolded |
-| Qwen-2.5-7B | strong open model | P0 | scaffolded |
-| Qwen-2.5-32B | larger open model | P1 | scaffolded |
-| Mistral-7B | family robustness | P1 | scaffolded |
-| Phi-3-medium | medium-size robustness | P1 | scaffolded |
-| DeepSeek-R1-distill | long-CoT calibration stress test | P1 | scaffolded |
+## Priority order
 
-## Condition table
+1. `arbitration_pilot_prior_strength`
+2. `arbitration_pilot_cot_calibration`
+3. `arbitration_pilot_gold_conflict`
+4. `arbitration_checkpoint_family`
 
-| Condition | Description | Needed for |
-| --- | --- | --- |
-| `closed_book` | no external context | parametric prior estimate |
-| `aligned_context` | correct supportive context | positive control |
-| `conflict_context` | contextual evidence conflicts with memory | Theorems 1–3 |
-| `dual_conflict` | two contradictory contexts | regret and robustness |
-| `noise_context` | irrelevant or low-quality context | reliability sensitivity |
+## Headline-result gate
 
-## CoT budget table
+We do not have a headline result until at least one of these happens:
 
-| Budget bucket | Tokens / mode | Role |
-| --- | --- | --- |
-| `none` | no chain-of-thought | baseline |
-| `short` | 64–128 tokens | low-depth |
-| `medium` | 256–512 tokens | default |
-| `long` | 1024–2048 tokens | stress regime |
-| `very_long` | 4096+ or thinking mode | theorem stress test |
-
-## Headline figure dependencies
-
-### Figure 1: Bayes oracle vs. model arbitration
-
-Needs:
-
-- PopQA
-- DynamicQA
-- ConflictBank
-- at least 5 models
-- closed-book and conflict-context conditions
-
-### Figure 2: fixed-policy regret
-
-Needs:
-
-- synthetic oracle
-- PopQA and ConflictBank
-- policies:
-  - always-context
-  - always-parametric
-  - fixed interpolation
-  - adaptive heuristic
-  - Bayes proxy
-
-### Figure 3: conflict-conditioned calibration vs. CoT length
-
-Needs:
-
-- ConflictBank or DynamicQA
-- at least one reasoning model and one base model
-- deterministic and stochastic decoding
-- conflict and no-conflict splits
-
-### Figure 4: checkpoint scaling
-
-Needs:
-
-- Pythia or OLMo checkpoints
-- one benchmark from PopQA / DynamicQA / TempLAMA
-
-## Required report tables
-
-### Table A: benchmark/model coverage
-
-Must include:
-
-- benchmark
-- model
-- condition
-- seed count
-- completion status
-
-### Table B: arbitration gap
-
-Must include:
-
-- Bayes-oracle arbitration accuracy
-- model arbitration accuracy
-- regret vs. oracle
-- KL gap to oracle
-
-### Table C: calibration by CoT length
-
-Must include:
-
-- conflict split
-- no-conflict split
-- Brier
-- NLL
-- ECE
-- SmoothECE
-
-## First executable pilot
-
-The first serious pilot should be:
-
-- benchmarks:
-  - PopQA
-  - DynamicQA
-- models:
-  - Llama-3.1-8B
-  - Qwen-2.5-7B
-  - Pythia checkpoint slice
-- conditions:
-  - closed_book
-  - aligned_context
-  - conflict_context
-- outputs:
-  - oracle-vs-model arbitration scatter
-  - fixed-policy regret table
-  - calibration summary
+- a Bayes-inspired rule clearly beats all fixed policies on regret;
+- conflict-conditioned calibration worsens with CoT length on real models while
+  no-conflict calibration does not;
+- checkpoint-family evidence shows a clear prior-strength or staleness effect
+  that the theory predicts.

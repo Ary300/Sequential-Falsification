@@ -1,448 +1,401 @@
 # Project Requirements Document
 
-**Project:** Bayes-Optimal Knowledge Arbitration Under Conflict  
-**Status:** Active research direction  
-**Target venue:** NeurIPS 2027 main conference  
-**Ambition:** Main-track acceptance with spotlight-tier upside  
-**Last updated:** 2026-04-23
+Project: Bayes-Optimal Knowledge Arbitration Under Context-Memory Conflict
+
+Status: Active research pivot
+
+Target venue: NeurIPS 2027 main conference
+
+Ambition: Main-track acceptance with spotlight-tier upside
+
+Last updated: 2026-04-23
 
 ## 0. Purpose
 
-This document is the main execution plan for the active project.
+This document is the new single source of truth for the repository's active
+research direction.
 
-It defines:
+The older Sequential Falsification / Track B capacity program is now legacy.
+Nothing in this PRD should rely on those older claims being central to the new
+paper.
 
-- the paper's core claims,
-- the theorem roadmap,
-- the experiment matrix,
-- the initial code architecture,
-- the metrics and statistical standards,
-- the compute plan,
-- and the milestones that would turn this from an interesting idea into a real
-  paper.
+This PRD covers:
 
-This document supersedes the old Track B capacity PRD as the active planning
-document.
+- the active research questions;
+- the theorem roadmap;
+- the benchmark and model matrix;
+- the experimental conditions;
+- the code structure we need next;
+- the milestone and risk plan.
+
+Important note: the literature map that motivated this pivot is strong, but the
+exact citation metadata still needs source-by-source re-verification before any
+paper text is frozen. This PRD is a research execution plan, not a final
+bibliographic artifact.
 
 ## 1. Executive summary
 
-The project asks a simple but high-value question:
+### 1.1 What we are building
 
-**When parametric memory and contextual evidence conflict, what is the optimal
-decision rule for an LLM, and what goes wrong when the model reasons longer
-under that conflict?**
+We are building a theory-plus-empirics paper around one core idea:
 
-The paper is built around three main contributions.
+> Knowledge conflict should be treated as a posterior-predictive decision
+> problem, not a heuristic "trust context or trust memory" choice.
 
-### Contribution 1: Bayes-optimal arbitration
+The project has three theorem targets and one empirical spine:
 
-We cast knowledge-conflict resolution as a posterior-predictive decision
-problem. We derive an optimal arbitration rule between:
+- Theorem 1: derive the Bayes-optimal arbitration rule.
+- Theorem 2: prove minimax suboptimality of fixed trust policies.
+- Theorem 3: prove and test a conflict-conditioned calibration-coupling claim
+  for chain-of-thought length.
+- Experimental spine: validate the predictions across conflict benchmarks, open
+  model families, and at least one checkpoint-resolved family.
 
-- parametric memory,
-- contextual or retrieved evidence,
-- and a reliability variable controlling how much the context should be trusted.
+### 1.2 Primary research questions
 
-This produces a mathematically grounded alternative to fixed trust rules and
-heuristic adaptive retrieval policies.
+- Can we derive an optimal arbitration policy between parametric memory and
+  retrieved context from a clean Bayesian decision problem?
+- Can we prove that fixed trust policies are structurally dominated?
+- Under explicit knowledge conflict, does longer chain-of-thought worsen
+  calibration in a predictable way?
+- Can we estimate the relevant reliability terms from observable model signals
+  tightly enough to make the theory operational?
 
-### Contribution 2: fixed-policy lower bound
+### 1.3 Success criteria
 
-We prove that fixed policies such as:
+Minimum:
 
-- always trust context,
-- always trust parametric memory,
-- or use a constant interpolation weight,
+- a clean theorem for the Bayes-optimal arbitration rule;
+- a real-world benchmark matrix spanning at least 3 benchmarks × 5 models;
+- one compelling empirical result tying conflict to calibration behavior.
 
-are minimax suboptimal whenever conflict regimes vary and reliability is not
-constant.
+Target:
 
-### Contribution 3: calibration-coupling under conflict
+- all three theorem targets are clean enough for a main-track paper;
+- the real-data results confirm a nontrivial prediction from the theory;
+- at least one mitigation method derived from the theory improves calibration or
+  regret.
 
-We prove and test a conflict-conditioned theorem: under explicit disagreement
-between parametric and contextual sources, longer chain-of-thought can worsen
-calibration even if accuracy does not improve or does not collapse.
+Stretch:
 
-This is the paper's most important empirical-theoretical bet.
+- the conflict-conditioned CoT result is visibly surprising on frontier
+  reasoning models;
+- the paper develops a practical arbitration recipe reviewers can immediately
+  use in RAG systems.
 
-## 2. Research questions
+## 2. Project scope
 
-### Primary questions
+### 2.1 In scope
 
-- What is the Bayes-optimal arbitration rule when parametric and contextual
-  knowledge disagree?
-- How much regret do fixed trust policies incur relative to the Bayes rule?
-- Can a measurable reliability signal materially close that regret?
-- Under conflict, how does chain-of-thought length affect calibration?
-- Can this deterioration be predicted from a misspecified-Bayes view of
-  reasoning?
+- knowledge conflict between parametric memory and retrieved context;
+- inter-context conflict when multiple retrieved sources disagree;
+- context reliability modeling;
+- calibration under conflict;
+- Bayesian decision rules for retrieval arbitration;
+- open-weight LLM experiments;
+- checkpoint-family experiments for temporal or training-cutoff analysis.
 
-### Secondary questions
+### 2.2 Out of scope
 
-- Which observable features best approximate contextual reliability?
-- Do larger models become more Bayes-optimal, or just more confident?
-- Does self-consistency or bagging reduce the calibration damage predicted by
-  the theorem?
-- Which benchmark families most cleanly separate arbitration quality from raw
-  factual knowledge?
+- training a new frontier model from scratch;
+- claiming human-level or production-grade arbitration;
+- pretending the old code-generation TTS results establish this paper;
+- relying only on heuristic benchmark wins without theorem support.
 
-## 3. Paper-level claim hierarchy
+### 2.3 Legacy assets
 
-### Minimum viable main-track claim
+The repo still contains useful legacy infrastructure:
 
-- Bayes-optimal arbitration is formally derived.
-- Fixed policies have a non-trivial worst-case regret lower bound.
-- Real LLMs are measurably misaligned with the Bayes rule on conflict
-  benchmarks.
+- metric helpers;
+- report-generation helpers;
+- cluster launcher patterns;
+- JSON result plumbing;
+- some benchmark loader patterns.
 
-### Strong claim
+But the old paper framing is archived and should not govern new naming or new
+research claims.
 
-- A practical arbitration proxy using observable signals materially reduces
-  regret versus fixed policies on real benchmarks.
-- Conflict-conditioned CoT calibration degradation is visible and reproducible
-  across multiple model families.
+## 3. Theoretical program
 
-### Headline claim
+### 3.1 Core setup
 
-- Frontier reasoning models become **more overconfident** under conflict as they
-  reason longer, and a Bayes-grounded arbitration rule plus decoupled confidence
-  mitigates this reliably.
+We assume a question `q`, latent correct answer `y*`, model parametric belief
+`p_param(y | q)`, retrieved/contextual belief `p_ctx(y | q, c)`, and latent
+context reliability `r in [0, 1]`.
 
-## 4. Theorem roadmap
+We define an arbitration policy `a(q, c)` that chooses a predictive
+distribution or answer using:
 
-### Theorem 1: Bayes-optimal arbitration rule
+- parametric evidence,
+- contextual evidence,
+- reliability signals,
+- a loss function over wrong or miscalibrated answers.
 
-Define:
+### 3.2 Theorem 1: Bayes-optimal arbitration rule
 
-- query `q`
-- answer `y`
-- context `c`
-- latent context reliability `r`
-- parametric model posterior `p_theta(y | q)`
-- context-conditioned answer model `p_ctx(y | q, c)`
+Goal:
 
-Then derive the Bayes-optimal posterior-predictive decision rule as a
-reliability-dependent mixture. The theorem must state:
+- derive the Bayes-optimal arbitration policy from a posterior-predictive
+  decision problem;
+- show how its operational form reduces to a reliability-weighted combination
+  of parametric and contextual beliefs.
 
-- optimality criterion,
-- assumptions on `p(c | y, r)` or equivalent identifiable formulation,
-- and the excess risk of fixed alternatives.
+Required outputs:
 
-### Theorem 2: minimax suboptimality of fixed trust policies
+- formal assumptions;
+- clean optimality statement;
+- excess-risk comparison to fixed trust and fixed-mix baselines.
 
-Show that for any fixed policy class without a usable reliability signal, there
-exists a conflict distribution on which its regret remains bounded away from
-zero relative to the Bayes-optimal rule.
+### 3.3 Theorem 2: Minimax suboptimality of fixed policies
 
-The intended proof style is Yao/minimax plus two or more hard regimes:
+Goal:
 
-- high-quality context
-- low-quality context
-- and optionally dynamic or popularity-skewed priors
+- show that `always_context`, `always_parametric`, and constant-weight mixing
+  each incur `Omega(1)` excess Bayes risk on some realizable conflict
+  distribution;
+- show that a reliability-aware rule avoids that worst-case failure.
 
-### Theorem 3: calibration-coupling under conflict
+Required outputs:
 
-Under a conflict condition such as:
+- constructive adversarial family;
+- minimax or regret-style bound;
+- clean discussion of what auxiliary signal is necessary.
 
-- answer-relevant disagreement between parametric and contextual predictive
-  distributions exceeding a threshold,
+### 3.4 Theorem 3: Calibration coupling under conflict
 
-show that sequential reasoning updates can worsen calibration monotonically or
-near-monotonically with reasoning depth under generic conditions.
+Goal:
 
-This theorem must be explicitly scoped:
+- formalize the effect of sequential reasoning under explicit conflict;
+- show that calibration error is non-decreasing in CoT depth under conflict
+  assumptions;
+- prove a measurable rate or at least a monotonicity statement.
 
-- conflict-conditioned,
-- not universal across all QA settings,
-- and compatible with no-conflict regimes where CoT helps or is neutral.
+Critical boundary condition:
 
-## 5. Empirical program
+- on no-conflict subsets, the theorem should not predict universal degradation.
 
-## 5.1 Benchmarks
+### 3.5 Practical theory outputs
 
-The primary benchmark registry for the paper should include:
+The theory should produce:
 
-| Benchmark | Role | Priority |
-| --- | --- | --- |
-| ConflictBank | broad large-scale conflict benchmark | critical |
-| PopQA | prior-strength and popularity signal | critical |
-| DynamicQA | dynamicity and temporal mismatch | critical |
-| WikiContradict | high-quality real contradiction benchmark | high |
-| NQ-Swap | clean entity-substitution conflict | high |
-| TempLAMA | temporal staleness | medium |
-| FreshQA | freshness / post-cutoff knowledge | medium |
-| MQuAKE-Remastered | multi-hop conflict propagation | high |
+- a plug-in arbitration rule;
+- measurable feature proxies for reliability;
+- at least one mitigation idea such as bagging, confidence decoupling, or
+  arbitration-aware calibration.
 
-The first complete pilot should cover:
+## 4. Experimental program
 
-- PopQA
-- DynamicQA
-- ConflictBank
+### 4.1 Benchmark matrix
 
-## 5.2 Models
+Primary benchmarks:
 
-Minimum serious model set:
-
-| Model family | Role |
+| Benchmark | Role |
 | --- | --- |
-| Pythia checkpoints | controlled temporal / scale analysis |
-| OLMo checkpoints | open-data, traceable training provenance |
-| Llama 3.1 8B | modern strong base model |
-| Qwen 2.5 7B / 32B | strong open family |
-| Mistral 7B | cross-family robustness |
-| Phi-3 medium | medium-size robustness |
+| `ConflictBank` | large-scale controlled conflict benchmark |
+| `PopQA` | prior-strength / popularity-conditioned QA |
+| `WikiContradict` | gold contradiction benchmark |
+| `NQ-Swap` | clean entity-swap context-memory conflict |
+| `DynamicQA` | dynamicity-aware conflict benchmark |
+| `TempLAMA` | temporal staleness benchmark |
+| `FreshQA` | freshness stress test |
+| `MQuAKE-Remastered` | multi-hop conflict propagation |
 
-Reasoning-focused extensions for Theorem 3:
+Priority order:
 
-- DeepSeek-R1-distill variants
-- Qwen thinking-mode variants
+1. `PopQA`
+2. `DynamicQA`
+3. `ConflictBank`
+4. `WikiContradict`
+5. `NQ-Swap`
+6. the rest
 
-## 5.3 Experimental conditions
+### 4.2 Model matrix
 
-Every benchmark-model cell should ideally include:
+Primary model families:
 
-- closed-book
-- aligned context
-- conflicting context
-- dual contradictory contexts
-- irrelevant/noisy context
+| Family | Role |
+| --- | --- |
+| `Pythia` | checkpoint-resolved analysis |
+| `OLMo-2` | open-data/open-checkpoint analysis |
+| `Llama-3.1` | strong open-weight baseline |
+| `Qwen-2.5` / `Qwen-3` | strong arbitration + thinking-mode analysis |
+| `Mistral` | cross-family robustness |
+| `Phi-3` | medium-scale robustness |
+| `DeepSeek-R1-Distill` | reasoning and long-CoT stress test |
 
-For CoT-sensitive experiments:
+Minimum main-track breadth:
 
-- no CoT
-- short CoT
-- medium CoT
-- long CoT
-- deterministic decoding and stochastic decoding
+- at least 5 models;
+- at least one checkpoint-resolved family;
+- at least one reasoning-mode family for the CoT theorem.
 
-## 5.4 Metrics
+### 4.3 Conditions per benchmark
 
-Primary metrics:
+For each benchmark-model pair, target these conditions:
 
+- closed-book / no retrieval;
+- aligned context;
+- conflicting context;
+- multi-context contradiction;
+- irrelevant retrieval/noise;
+- CoT length sweep;
+- self-consistency sweep where feasible.
+
+### 4.4 Metrics
+
+Primary:
+
+- accuracy
 - Brier score
-- negative log-likelihood
+- NLL
 - ECE
-- debiased ECE
-- SmoothECE
-
-Arbitration-specific metrics:
-
-- regret vs. Bayes oracle
-- KL gap to Bayes oracle policy
-- source-selection accuracy
-- context-vs-memory arbitration accuracy
-
-Selective prediction metrics:
-
-- AUROC for correctness
-- coverage-risk curve
+- debiased or smooth ECE
+- AUROC for confidence vs correctness
 - AURC
 
-## 5.5 Headline figures
+Theory-facing:
 
-The paper needs at least these figures:
+- Bayes regret
+- KL divergence to oracle arbitration distribution
+- calibration gap split by conflict vs no-conflict
+- sensitivity to CoT length on conflict subsets
 
-1. **Bayes oracle vs. model arbitration scatter**
-2. **Worst-case regret radar or grouped bar chart**
-3. **Conflict-conditioned reliability diagrams by CoT length**
-4. **Checkpoint or scale trend for arbitration optimality**
-5. **Mitigation plot showing bagging / decoupled confidence reduces calibration
-   damage**
+### 4.5 Headline figures
 
-## 6. Experiment matrix
+The paper should aim for these figure types:
 
-The primary matrix should be tracked in repo configs and reports.
+1. Bayes-optimal arbitration vs model policy scatter.
+2. Worst-case regret comparison for fixed vs adaptive arbitration policies.
+3. Conflict-conditioned reliability diagrams across CoT lengths.
+4. ECE/Brier vs CoT-length curves split by conflict and no-conflict.
+5. Checkpoint-family plots for temporal or staleness effects.
 
-### Tier 1 matrix
+## 5. Code architecture needed next
 
-- Benchmarks: PopQA, DynamicQA, ConflictBank
-- Models: Pythia family subset, OLMo subset, Llama-3.1-8B, Qwen-2.5-7B,
-  Qwen-2.5-32B
-- Conditions: closed-book, aligned, conflict
+### 5.1 New active module namespace
 
-### Tier 2 matrix
-
-- Benchmarks: WikiContradict, NQ-Swap, MQuAKE-Remastered
-- Models: same plus one reasoning-family extension
-- Conditions: add long-CoT calibration sweeps
-
-### Tier 3 matrix
-
-- TempLAMA, FreshQA
-- extended checkpoints
-- mitigation experiments
-
-## 7. Initial code architecture
-
-The new project should live under a dedicated namespace rather than being
-intertwined with legacy sequential-falsification modules.
-
-Required modules:
+Create and grow:
 
 ```text
 src/knowledge_arbitration/
-  __init__.py
-  benchmarks.py
-  posterior.py
-  metrics.py
-  synthetic.py
-  features.py
-scripts/
-  arbitration_pilot.py
-  report_arbitration_results.py
-src/configs/
-  knowledge_arbitration_experiments.yaml
 ```
 
-### Module responsibilities
+This namespace should absorb all new active work.
 
-- `benchmarks.py`
-  - registry of supported conflict benchmarks
-  - benchmark roles, licenses, split metadata, and task type
-- `posterior.py`
-  - Bayes-optimal mixture functions
-  - reliability-aware interpolation
-  - regret helpers against oracle
-- `metrics.py`
-  - arbitration KL gap
-  - regret metrics
-  - calibration summaries specialized to conflict/no-conflict slices
-- `synthetic.py`
-  - exact toy problems with computable oracle
-- `features.py`
-  - extraction of observable arbitration signals:
-    - parametric confidence
-    - contextual confidence
-    - popularity
-    - dynamicity
-    - semantic entropy
-- `arbitration_pilot.py`
-  - manifest-driven pilot runner
+### 5.2 Minimum required modules
 
-## 8. Statistical methodology
+- `benchmarks.py`: benchmark registry and metadata
+- `posterior.py`: arbitration rule utilities
+- `metrics.py`: Bayes regret, arbitration KL, calibration helpers
+- `features.py`: reliability feature extraction
+- `evaluate.py`: benchmark evaluation runner
+- `cot.py`: CoT-length sweep helpers
 
-### Primary reporting
+Only the first three are required immediately. The rest can follow.
 
-- mean and bootstrap CI over problems
-- paired bootstrap when comparing policies
-- calibration curves stratified by conflict class
-- no hidden cherry-picking of only conflict-positive subsets without reporting
-  the base rates
+### 5.3 Configs
 
-### Seed policy
+Add:
 
-- at least 3 seeds for stochastic decoding experiments
-- deterministic temperature-0 sweeps do not need seed multiplicity but do need
-  exact reproducibility metadata
+```text
+src/configs/knowledge_arbitration_experiments.yaml
+```
 
-### Multiple testing
+This should become the main experiment manifest for the project.
 
-- use FDR control for families of significance claims in the main benchmark
-  matrix
-- explicitly label exploratory ablations as exploratory
+### 5.4 Scripts
 
-## 9. Compute plan
+Immediate scripts:
 
-This project is expensive enough to need structure, but not so expensive that it
-is infeasible.
+- `scripts/arbitration_pilot.py`
+- `scripts/report_arbitration_status.py`
 
-The first milestone should not burn frontier-model budget.
+The first is required now; the second can follow.
 
-### Phase 1: low-risk pilot
+## 6. Milestones
 
-- synthetic oracle experiments
-- PopQA / DynamicQA pilot
-- smaller open models and checkpoint subsets
+### Phase 0: repo pivot
 
-### Phase 2: theorem-critical experiments
+- rewrite top-level docs
+- add arbitration module scaffold
+- add experiment config
+- mark old direction as legacy
 
-- conflict-conditioned CoT length sweeps
-- deterministic temperature-0 sweeps
-- bagging / self-consistency mitigation
+### Phase 1: theorem skeleton + synthetic pilot
 
-### Phase 3: breadth and scaling
+- formal statement drafts for Theorems 1–3
+- synthetic Bernoulli toy or small oracle simulation
+- first theorem-to-experiment alignment doc
 
-- larger models
-- broader benchmark set
-- checkpoint family plots
+### Phase 2: first real-data pilots
 
-## 10. Risks
+- PopQA
+- DynamicQA
+- ConflictBank subset
 
-### Risk 1: trivial-Bayes reviewer objection
+### Phase 3: calibration-coupling test
+
+- reasoning-mode models
+- CoT-length sweeps
+- conflict vs no-conflict split
+- deterministic-decoding control
+
+### Phase 4: checkpoint-family validation
+
+- Pythia or OLMo family
+- temporal/staleness analysis
+
+## 7. Risks
+
+### R1: theorem is elegant but vacuous
 
 Mitigation:
 
-- emphasize identifiability and regret gap
-- prove lower bounds, not just a derivation
-- tie theorem to measurable observables
+- tie every theorem to a measurable quantity;
+- design at least one direct empirical confirmation test per theorem.
 
-### Risk 2: CoT theorem fails on real frontier models
-
-Mitigation:
-
-- frame either outcome as informative:
-  - mismatch to theorem boundary
-  - or emergence toward Bayes-optimality
-
-### Risk 3: calibration degradation is explained away by variance
+### R2: conflict-conditioned CoT claim does not hold
 
 Mitigation:
 
-- temperature-0 experiments are mandatory
-- deterministic decoding must be part of the main ablation
+- make the theorem conditional and explicit;
+- ensure the no-conflict case is a positive control, not an embarrassment.
 
-### Risk 4: theory-empirics disconnect
-
-Mitigation:
-
-- insist every theorem yields at least one visible empirical prediction
-- do not write the paper around abstract theory only
-
-### Risk 5: benchmark / citation slippage
+### R3: arbitration rule is dismissed as trivial Bayes
 
 Mitigation:
 
-- before submission, every citation and date in the literature map must be
-  independently verified against primary sources
-- this document is a working execution plan, not the final citation authority
+- emphasize identifiability and excess-risk comparisons;
+- include a real lower bound / minimax theorem;
+- make the operational rule depend on observable reliability signals.
 
-## 11. Milestones
+### R4: benchmark breadth stays too thin
 
-### Month 1
+Mitigation:
 
-- repo pivot complete
-- benchmark registry implemented
-- synthetic oracle code in place
-- theory note for Theorem 1 drafted
+- prioritize breadth early;
+- do not let a single benchmark dominate the paper narrative.
 
-### Month 2
+## 8. Writing plan
 
-- PopQA / DynamicQA pilot running
-- first oracle-vs-model arbitration plots
-- first fixed-policy regret experiments
+The intended paper structure is:
 
-### Month 3
+1. Introduction
+2. Knowledge conflict as a decision problem
+3. Bayes-optimal arbitration theorem
+4. Fixed-policy suboptimality theorem
+5. Calibration-coupling theorem
+6. Experiments
+7. Mitigations and discussion
 
-- ConflictBank integrated
-- checkpoint family subset running
-- first draft of theorem statements stabilized
+The old `paper/` directory is not the live manuscript for this project.
 
-### Months 4–6
+## 9. Immediate tasks
 
-- full theorem-to-experiment bridge for Theorems 1 and 2
-- first real Theorem 3 calibration sweeps
-- start outside feedback / mentorship cycle
+- finalize the repo pivot docs
+- build benchmark registry
+- build arbitration-rule utilities
+- build pilot manifest script
+- define the first three benchmark/model pilot cells
 
-### Months 7–12
-
-- breadth, mitigation experiments, robustness
-- workshop-quality writeup if main-track story is not yet mature
-
-## 12. Immediate next tasks
-
-- Replace legacy Track B framing in top-level docs.
-- Add benchmark and config scaffolding for the arbitration project.
-- Build the synthetic Bayes-oracle pilot.
-- Implement feature extraction placeholders for context reliability.
-- Define the exact theorem notation in a separate methods/theory doc.
-- Prepare a concise project packet suitable for external mentor feedback.
+That is the current active project baseline.

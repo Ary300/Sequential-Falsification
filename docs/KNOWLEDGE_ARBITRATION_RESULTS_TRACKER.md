@@ -2,146 +2,84 @@
 
 ## Purpose
 
-This file tracks the specific results required for the knowledge-arbitration
-paper to be competitive at a strong main-track level.
+This file tracks whether we actually have the kind of results the paper needs.
 
-This is not a generic todo list. Every row below corresponds to a figure, table,
- or theorem-validation claim that should exist before the paper is considered
- "headline-ready."
+The goal is to prevent a repeat of vague "we're making progress" updates when
+the headline results are still missing.
 
-## Headline result checklist
+## Headline-result checklist
 
-| Result | Why it matters | Status |
+| Item | Needed for paper | Current status |
 | --- | --- | --- |
-| Bayes-oracle vs model arbitration scatter on real benchmarks | proves the theorem is empirically non-vacuous | open |
-| Fixed-policy regret lower-bound plot | gives the impossibility / dominance result | open |
-| Conflict-conditioned CoT calibration degradation plot | validates Theorem 3 | open |
-| No-conflict positive control where CoT does not hurt calibration | defines theorem boundary condition | open |
-| Temperature-0 replication of calibration degradation | rules out pure variance explanation | open |
-| Checkpoint-family scaling plot | gives a stronger science story than one-off frontier snapshots | open |
-| Mitigation plot showing bagging or confidence decoupling reduces harm | turns the paper from diagnosis into actionable guidance | open |
+| Theorem 1 written cleanly | yes | not started |
+| Theorem 2 written cleanly | yes | not started |
+| Theorem 3 written cleanly | yes | not started |
+| Synthetic Bayes oracle experiment | yes | done |
+| Real benchmark pilot on `PopQA` | yes | done via `arbitration_real_headline_wave_v2` |
+| Real benchmark pilot on `DynamicQA` | yes | done via `arbitration_real_headline_wave_v2` |
+| Real benchmark pilot on `ConflictBank` subset | yes | not started |
+| Conflict vs no-conflict calibration curves | yes | done for broad pilot and `WikiContradict` focus |
+| Checkpoint-family experiment | strongly preferred | not started |
+| Mitigation experiment | strongly preferred | not started |
 
-## Main theorem validation table
+## Benchmark coverage
 
-| Theorem | Required empirical validation | Status |
-| --- | --- | --- |
-| Bayes-optimal arbitration rule | synthetic oracle + 3 real benchmark families | open |
-| Minimax suboptimality of fixed policies | worst-case regret on adversarial benchmark-realizable distributions | open |
-| Calibration-coupling under conflict | CoT-length sweep on conflict vs no-conflict subsets | open |
+| Benchmark | Closed-book | Aligned context | Conflict context | Multi-context conflict | CoT sweep | Notes |
+| --- | --- | --- | --- | --- | --- | --- |
+| `PopQA` | done | done | not yet supported in built-in loader | n/a | done in broad pilot | broad pilot completed |
+| `DynamicQA` | done | done | done | optional | done in broad pilot | broad pilot completed |
+| `ConflictBank` | missing | missing | missing | missing | missing | priority |
+| `WikiContradict` | not used | done | done | optional | done in focused report | strongest current theorem-3 signal |
+| `NQ-Swap` | done | done | done | n/a | done in broad pilot | clean entity swap |
+| `TempLAMA` | missing | optional | optional | n/a | missing | checkpoint analysis |
+| `FreshQA` | missing | optional | optional | n/a | missing | freshness analysis |
+| `MQuAKE-Remastered` | missing | optional | missing | optional | missing | multi-hop stress test |
 
-## Benchmark coverage tracker
+## Model coverage
 
-| Benchmark | Bayes arbitration | Fixed-policy regret | CoT calibration | Notes |
-| --- | --- | --- | --- | --- |
-| PopQA | open | open | optional | prior/popularity anchor |
-| DynamicQA | open | open | open | temporal and dynamicity anchor |
-| ConflictBank | open | open | open | broad conflict anchor |
-| WikiContradict | open | optional | open | small but high-quality |
-| NQ-Swap | optional | open | optional | clean swap regime |
-| MQuAKE-Remastered | optional | optional | open | multi-hop conflict |
-| TempLAMA | optional | optional | optional | checkpoint-friendly |
-| FreshQA | optional | optional | optional | freshness extension |
+| Family | Pilot coverage | Main coverage target | Status |
+| --- | --- | --- | --- |
+| `Llama-3.1` | 8B | 8B + optional larger | pilot done |
+| `Qwen-2.5` / `Qwen-3` | 7B/8B | 7B/8B + optional 32B | pilot partially done (`Qwen-2.5-7B`, `Qwen-2.5-14B`) |
+| `DeepSeek-R1-Distill` | 7B | 7B + optional 14B | pilot done |
+| `Pythia` | 6.9B or nearby | checkpoint sweep | not started |
+| `OLMo-2` | 7B | checkpoint sweep | not started |
+| `Mistral` | 7B | robustness | not started |
+| `Phi-3` | medium | robustness | not started |
 
-## Model coverage tracker
+## What would count as a real early win
 
-| Model family | Arbitration gap | Calibration sweep | Checkpoint analysis | Notes |
-| --- | --- | --- | --- | --- |
-| Pythia | open | optional | open | checkpoint-resolved |
-| OLMo | open | optional | open | checkpoint-resolved |
-| Llama-3.1-8B | open | open | n/a | strong base model |
-| Qwen-2.5-7B | open | open | n/a | strong open model |
-| Qwen-2.5-32B | open | open | n/a | larger scale point |
-| Mistral-7B | open | optional | n/a | robustness |
-| Phi-3-medium | open | optional | n/a | robustness |
-| DeepSeek-R1-distill | optional | open | n/a | reasoning stress test |
+We now have two early wins and one open gap:
 
-## Figure tracker
+- Synthetic oracle pilot is done and already showed Bayes proxy at `0.0000`
+  regret with large gaps to fixed policies.
+- Broad real benchmark-backed pilot is done:
+  [`results/arbitration_real_headline_wave_v2/report/summary.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/results/arbitration_real_headline_wave_v2/report/summary.md)
+  on `44,960` parsed examples across `PopQA`, `DynamicQA`, `NQ-Swap`, and
+  `WikiContradict`.
+- Focused contradiction report is done:
+  [`results/arbitration_wikicontradict_focus/report/summary.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/results/arbitration_wikicontradict_focus/report/summary.md)
+  and gives the cleanest current theorem-3-style signal.
 
-### Figure 1: Bayes oracle vs model arbitration
+Current best honest headline:
 
-Needed:
+- In the broad real pilot, `Bayes Proxy` is the best policy at `0.0000` mean
+  regret, ahead of `heuristic_adaptive` at `0.0593`, `simulated_model` at
+  `0.3277`, `fixed_50` at `0.3912`, `always_context` at `6.3179`, and
+  `always_parametric` at `6.8936`.
+- In the broad real pilot, oracle-vs-model arbitration gap is already visible:
+  mean absolute gap `0.0254`, mean KL `0.1310`.
+- The broad theorem-3 signal is **not** landed yet:
+  mean conflict ECE delta is `-0.0054`, so the wide benchmark mix does not yet
+  support the headline that long CoT worsens calibration under conflict.
+- The strongest current theorem-3 slice is `WikiContradict`:
+  conflict ECE delta `+0.1542` while no-conflict delta is `-0.0190`, matching
+  the desired directional story on that benchmark.
 
-- at least 3 benchmarks
-- at least 5 models
-- one diagonal reference line
-- one fitted trend line or grouped family trend
+So the current status is:
 
-Status: `open`
+- theorem-1/theorem-2-style arbitration evidence: **promising**
+- theorem-3 broad conflict-conditioned CoT claim: **not yet achieved**
 
-### Figure 2: Fixed-policy regret
-
-Needed:
-
-- always-context
-- always-parametric
-- fixed interpolation
-- heuristic adaptive baseline
-- Bayes-style rule
-
-Status: `open`
-
-### Figure 3: CoT calibration under conflict
-
-Needed:
-
-- conflict split
-- no-conflict split
-- deterministic decoding
-- at least one reasoning family and one base family
-
-Status: `open`
-
-### Figure 4: Scaling or checkpoint dynamics
-
-Needed:
-
-- Pythia or OLMo checkpoints
-- one benchmark where conflict dynamics are measurable
-
-Status: `open`
-
-### Figure 5: Mitigation
-
-Needed:
-
-- bagging / self-consistency or confidence-decoupled reasoning
-- measured reduction in Brier / ECE on conflict subset
-
-Status: `open`
-
-## Immediate go/no-go milestones
-
-### Milestone A
-
-We have a synthetic oracle plot where the Bayes-optimal rule is clearly better
-than fixed policies.
-
-Status: `open`
-
-### Milestone B
-
-We have one real benchmark where model arbitration is visibly misaligned with
-the Bayes proxy.
-
-Status: `open`
-
-### Milestone C
-
-We have one real model family where conflict-conditioned ECE worsens with longer
-CoT and the effect survives temperature-0 decoding.
-
-Status: `open`
-
-### Milestone D
-
-We have one mitigation that measurably closes the calibration gap.
-
-Status: `open`
-
-## Notes
-
-- If Milestones A and B land but C does not, the paper can still be strong on
-  arbitration theory and regret.
-- If C lands strongly, the paper becomes much more likely to be headline-worthy.
-- If C only lands on a narrow conflict subset, that is still acceptable as long
-  as the theorem is written with that boundary condition explicitly.
+Until that broad theorem-3 result lands across more than one hard conflict
+benchmark, we still do **not** have the full paper headline.

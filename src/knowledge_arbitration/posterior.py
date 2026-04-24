@@ -1,4 +1,4 @@
-"""Bayes-style arbitration helpers for knowledge-conflict experiments."""
+"""Posterior-style utilities for knowledge arbitration experiments."""
 
 from __future__ import annotations
 
@@ -6,71 +6,86 @@ from dataclasses import dataclass
 from math import exp, log
 
 
-def _clip_probability(value: float, eps: float = 1e-8) -> float:
+def _clip_probability(value: float, eps: float = 1e-6) -> float:
     return min(max(value, eps), 1.0 - eps)
-
-
-def _logit(value: float) -> float:
-    value = _clip_probability(value)
-    return log(value / (1.0 - value))
-
-
-def _sigmoid(value: float) -> float:
-    return 1.0 / (1.0 + exp(-value))
 
 
 @dataclass(frozen=True)
 class ArbitrationFeatures:
-    parametric_confidence: float
-    contextual_confidence: float
+    """Observable features for one arbitration decision.
+
+    This is intentionally lightweight. It is not the full theorem object; it is
+    the first practical scaffold for experiments that need a principled
+    reliability-aware mixing rule.
+    """
+
+    parametric_score: float
+    contextual_score: float
     context_reliability: float
-    conflict_score: float = 0.0
-    popularity_prior: float = 0.5
-    dynamicity_score: float = 0.0
+    parametric_reliability: float = 0.5
+    conflict_magnitude: float = 0.0
 
 
 @dataclass(frozen=True)
-class ArbitrationDecision:
-    weight_context: float
-    weight_parametric: float
-    mixed_probability: float
-    metadata: dict[str, float]
+class ArbitrationResult:
+    """Result of a Bayes-inspired arbitration step."""
+
+    context_weight: float
+    parametric_weight: float
+    arbitration_probability: float
+    mixed_log_score: float
 
 
-def bayes_optimal_weight(features: ArbitrationFeatures) -> float:
-    """Approximate Bayes-style context weight from observable features.
+def logit(probability: float) -> float:
+    p = _clip_probability(probability)
+    return log(p / (1.0 - p))
 
-    This is deliberately lightweight scaffolding rather than a final theorem
-    implementation. It exposes the core shape the paper wants:
 
-    - context weight rises with reliability,
-    - falls as popularity-supported parametric prior gets stronger,
-    - and is amplified when direct conflict is high.
+def sigmoid(value: float) -> float:
+    if value >= 0:
+        z = exp(-value)
+        return 1.0 / (1.0 + z)
+    z = exp(value)
+    return z / (1.0 + z)
+
+
+def bayes_arbitration_probability(features: ArbitrationFeatures) -> float:
+    """Return a simple Bayes-inspired probability of trusting context.
+
+    This is a research scaffold rather than the finished theorem-derived rule.
+    It combines:
+
+    - relative contextual vs parametric evidence,
+    - source reliability difference,
+    - a conflict-magnitude correction term.
     """
 
-    reliability_term = 1.75 * (features.context_reliability - 0.5)
-    prior_term = -1.25 * (features.popularity_prior - 0.5)
-    conflict_term = 0.75 * features.conflict_score
-    dynamicity_term = 0.50 * features.dynamicity_score
-    return _sigmoid(reliability_term + prior_term + conflict_term + dynamicity_term)
-
-
-def geometric_mixture(features: ArbitrationFeatures) -> ArbitrationDecision:
-    weight_context = bayes_optimal_weight(features)
-    weight_parametric = 1.0 - weight_context
-    mixed_logit = (
-        weight_parametric * _logit(features.parametric_confidence)
-        + weight_context * _logit(features.contextual_confidence)
+    contextual_logit = logit(_clip_probability(features.contextual_score))
+    parametric_logit = logit(_clip_probability(features.parametric_score))
+    reliability_gap = logit(_clip_probability(features.context_reliability)) - logit(
+        _clip_probability(features.parametric_reliability)
     )
-    mixed_probability = _sigmoid(mixed_logit)
-    return ArbitrationDecision(
-        weight_context=weight_context,
-        weight_parametric=weight_parametric,
-        mixed_probability=mixed_probability,
-        metadata={
-            "conflict_score": features.conflict_score,
-            "context_reliability": features.context_reliability,
-            "popularity_prior": features.popularity_prior,
-            "dynamicity_score": features.dynamicity_score,
-        },
+    combined = (
+        contextual_logit
+        - parametric_logit
+        + reliability_gap
+        + float(features.conflict_magnitude)
+    )
+    return sigmoid(combined)
+
+
+def bayes_arbitration_result(features: ArbitrationFeatures) -> ArbitrationResult:
+    """Return a reliability-aware arbitration result."""
+
+    context_weight = bayes_arbitration_probability(features)
+    parametric_weight = 1.0 - context_weight
+    mixed_log_score = (
+        context_weight * log(_clip_probability(features.contextual_score))
+        + parametric_weight * log(_clip_probability(features.parametric_score))
+    )
+    return ArbitrationResult(
+        context_weight=context_weight,
+        parametric_weight=parametric_weight,
+        arbitration_probability=context_weight,
+        mixed_log_score=mixed_log_score,
     )

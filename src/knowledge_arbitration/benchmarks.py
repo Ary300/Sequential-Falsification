@@ -1,99 +1,85 @@
-"""Benchmark registry for the Bayes-optimal knowledge arbitration project."""
+"""Benchmark registry for the knowledge arbitration project."""
 
 from __future__ import annotations
 
-from dataclasses import dataclass, asdict
+from dataclasses import dataclass
 
 
 @dataclass(frozen=True)
 class BenchmarkSpec:
     name: str
     role: str
-    priority: str
-    task_type: str
-    license: str
-    primary_signal: str
-    notes: str
-
-    def to_dict(self) -> dict[str, str]:
-        return asdict(self)
+    family: str
+    status: str
+    approximate_size: str
+    primary_use: str
+    notes: str = ""
 
 
 ARBITRATION_BENCHMARKS: dict[str, BenchmarkSpec] = {
     "conflictbank": BenchmarkSpec(
-        name="conflictbank",
-        role="broad conflict coverage",
-        priority="P0",
-        task_type="qa",
-        license="to_verify",
-        primary_signal="conflict cause diversity",
-        notes="Large-scale umbrella benchmark for misinformation, semantic, and temporal conflict.",
+        name="ConflictBank",
+        role="primary conflict benchmark",
+        family="knowledge_conflict",
+        status="planned",
+        approximate_size="large",
+        primary_use="controlled context-memory, inter-context, and misinformation conflict",
+        notes="Good candidate for the large-scale main experiment once data plumbing is in place.",
     ),
     "popqa": BenchmarkSpec(
-        name="popqa",
-        role="prior strength and popularity",
-        priority="P0",
-        task_type="qa",
-        license="MIT",
-        primary_signal="entity popularity",
-        notes="Useful for connecting prior strength to arbitration behavior.",
-    ),
-    "dynamicqa": BenchmarkSpec(
-        name="dynamicqa",
-        role="dynamicity and temporal conflict",
-        priority="P0",
-        task_type="qa",
-        license="MIT",
-        primary_signal="fact dynamicity",
-        notes="Important for temporal and dispute-conditioned arbitration.",
+        name="PopQA",
+        role="prior-strength benchmark",
+        family="open_qa",
+        status="priority",
+        approximate_size="medium",
+        primary_use="tests popularity-conditioned arbitration and prior-strength effects",
     ),
     "wikicontradict": BenchmarkSpec(
-        name="wikicontradict",
-        role="real-world contradiction gold set",
-        priority="P1",
-        task_type="qa",
-        license="CC-BY-4.0",
-        primary_signal="human-validated contradiction",
-        notes="Small but high-quality contradiction benchmark.",
+        name="WikiContradict",
+        role="gold contradiction benchmark",
+        family="knowledge_conflict",
+        status="priority",
+        approximate_size="small",
+        primary_use="high-precision contradiction evaluation and qualitative examples",
     ),
     "nq_swap": BenchmarkSpec(
-        name="nq_swap",
-        role="clean context-memory conflict",
-        priority="P1",
-        task_type="qa",
-        license="to_verify",
-        primary_signal="entity substitution",
-        notes="Classic clean swap setting.",
+        name="NQ-Swap",
+        role="entity substitution benchmark",
+        family="knowledge_conflict",
+        status="priority",
+        approximate_size="medium",
+        primary_use="clean context-memory conflict from entity substitution",
     ),
-    "mquake_remastered": BenchmarkSpec(
-        name="mquake_remastered",
-        role="multi-hop conflict propagation",
-        priority="P1",
-        task_type="qa",
-        license="to_verify",
-        primary_signal="compositional conflict",
-        notes="Useful for testing how conflict compounds across reasoning steps.",
+    "dynamicqa": BenchmarkSpec(
+        name="DynamicQA",
+        role="dynamicity benchmark",
+        family="temporal_qa",
+        status="priority",
+        approximate_size="medium",
+        primary_use="tests temporal and disputable facts under differing dynamicity levels",
     ),
     "templama": BenchmarkSpec(
-        name="templama",
-        role="temporal staleness",
-        priority="P2",
-        task_type="cloze",
-        license="to_verify",
-        primary_signal="time-sensitive factual drift",
-        notes="Useful for staleness-aware arbitration studies.",
+        name="TempLAMA",
+        role="temporal benchmark",
+        family="temporal_qa",
+        status="planned",
+        approximate_size="large",
+        primary_use="staleness and temporal drift analysis",
     ),
     "freshqa": BenchmarkSpec(
-        name="freshqa",
-        role="freshness and post-cutoff knowledge",
-        priority="P2",
-        task_type="qa",
-        license="Apache-2.0",
-        primary_signal="freshness gap",
-        notes="Useful for post-cutoff conflict and freshness analysis.",
+        name="FreshQA",
+        role="freshness stress test",
+        family="temporal_qa",
+        status="planned",
+        approximate_size="medium",
+        primary_use="freshness and recency-aware arbitration",
+    ),
+    "mquake_remastered": BenchmarkSpec(
+        name="MQuAKE-Remastered",
+        role="multi-hop conflict benchmark",
+        family="multi_hop_qa",
+        status="planned",
+        approximate_size="small",
+        primary_use="tests multi-hop propagation of conflict during reasoning",
     ),
 }
-
-
-def benchmark_table() -> list[dict[str, str]]:
-    return [spec.to_dict() for spec in ARBITRATION_BENCHMARKS.values()]
