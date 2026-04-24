@@ -20,7 +20,10 @@ from utils.metrics import accuracy, brier_score, expected_calibration_error  # n
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Build theorem-3 real-generation summary artifacts.")
-    parser.add_argument("--results-file", required=True)
+    source_group = parser.add_mutually_exclusive_group(required=True)
+    source_group.add_argument("--results-file")
+    source_group.add_argument("--rows-jsonl")
+    parser.add_argument("--metadata-file")
     parser.add_argument("--output-dir", required=True)
     parser.add_argument("--short-cot", type=int, default=0)
     parser.add_argument("--long-cot", type=int, default=1024)
@@ -33,6 +36,38 @@ def _rows(payload: dict[str, Any]) -> list[dict[str, Any]]:
     for group in payload.get("experiments", []):
         rows.extend(group.get("rows", []))
     return rows
+
+
+def _load_rows_jsonl(path: Path) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    if not path.exists():
+        return rows
+    with path.open("r", encoding="utf-8") as handle:
+        for line in handle:
+            line = line.strip()
+            if not line:
+                continue
+            rows.append(json.loads(line))
+    return rows
+
+
+def _load_payload(args: argparse.Namespace) -> dict[str, Any]:
+    if args.results_file:
+        return json.loads(Path(args.results_file).read_text(encoding="utf-8"))
+
+    metadata: dict[str, Any] = {}
+    if args.metadata_file:
+        metadata = json.loads(Path(args.metadata_file).read_text(encoding="utf-8"))
+    rows = _load_rows_jsonl(Path(args.rows_jsonl))
+    return {
+        "metadata": metadata,
+        "experiments": [
+            {
+                "benchmark": "partial_rows",
+                "rows": rows,
+            }
+        ],
+    }
 
 
 def _metrics(rows: list[dict[str, Any]]) -> dict[str, Any]:
@@ -279,7 +314,7 @@ def build_markdown(report: dict[str, Any]) -> str:
 
 def main() -> None:
     args = parse_args()
-    payload = json.loads(Path(args.results_file).read_text(encoding="utf-8"))
+    payload = _load_payload(args)
     report = build_report(payload, short_cot=args.short_cot, long_cot=args.long_cot, max_samples=args.max_samples)
     output_dir = Path(args.output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
