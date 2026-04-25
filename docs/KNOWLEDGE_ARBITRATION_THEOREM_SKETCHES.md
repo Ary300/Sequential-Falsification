@@ -246,6 +246,24 @@ depth. Instead, there can exist an interior reasoning budget `k* > 0` at which
 overconfidence is maximized, followed by partial self-correction at longer
 reasoning depths.
 
+Stronger version to target in the paper:
+
+`Theorem 3c' (Conflict-Strength-Dependent Overconfidence Peak).`
+
+Let `delta` denote a measure of source conflict, for example
+`delta = KL(p_param || p_ctx)` on the answer-relevant statistic. Under
+misspecified sequential reasoning updates, there exists an interior reasoning
+budget `k*(delta)` such that:
+
+1. for `k < k*(delta)`, posterior sharpening increases the confidence-accuracy
+   gap;
+2. at `k = k*(delta)`, the gap is maximized;
+3. for `k > k*(delta)`, partial self-correction reduces the gap, though it may
+   remain above the `k = 0` baseline on the hardest slices.
+
+The empirical prediction is not just an inverted-U, but that the peak location
+and peak height should vary with conflict intensity.
+
 This version is now supported by the completed `DeepSeek-R1-Distill-Qwen-7B`
 real-generation run:
 
@@ -255,6 +273,16 @@ real-generation run:
   `0.2923 -> 0.4825 -> 0.4429`
 - in both cases, `cot=128` is the peak-overconfidence bucket and `cot=1024`
   partially recovers relative to the peak.
+
+Mechanistic reading from the completed 7B run:
+
+- medium CoT maximizes **verbal overconfidence**;
+- long CoT does not keep increasing the confidence gap;
+- on `ConflictBank`, long CoT sharply changes source adoption, but the
+  self-reported confidence peak still happens earlier.
+
+That makes theorem 3c a statement about the dynamics of calibration failure,
+not merely about raw context-following.
 
 If this pattern also survives the in-flight `DeepSeek-R1-Distill-Qwen-14B`
 replication, it becomes the default theorem-3 landing point for the paper.

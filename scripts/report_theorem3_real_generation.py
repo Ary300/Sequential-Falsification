@@ -75,6 +75,8 @@ def _metrics(rows: list[dict[str, Any]]) -> dict[str, Any]:
     outcomes = [int(row.get("outcome", 0)) for row in rows]
     reasoning_words = [int(row.get("reasoning_word_count", 0)) for row in rows]
     response_words = [int(row.get("response_word_count", 0)) for row in rows]
+    context_matches = [1 if row.get("features", {}).get("matched_context_answer") else 0 for row in rows]
+    parametric_matches = [1 if row.get("features", {}).get("matched_parametric_answer") else 0 for row in rows]
     mean_confidence = (sum(confidences) / len(confidences)) if confidences else 0.0
     mean_accuracy = accuracy(bool(item) for item in outcomes)
     return {
@@ -86,6 +88,8 @@ def _metrics(rows: list[dict[str, Any]]) -> dict[str, Any]:
         "overconfidence_gap": mean_confidence - mean_accuracy,
         "mean_reasoning_words": (sum(reasoning_words) / len(reasoning_words)) if reasoning_words else 0.0,
         "mean_response_words": (sum(response_words) / len(response_words)) if response_words else 0.0,
+        "context_match_rate": (sum(context_matches) / len(context_matches)) if context_matches else 0.0,
+        "parametric_match_rate": (sum(parametric_matches) / len(parametric_matches)) if parametric_matches else 0.0,
     }
 
 
@@ -176,6 +180,8 @@ def build_report(payload: dict[str, Any], *, short_cot: int, long_cot: int, max_
                     "confidence_delta": round(long_metrics["mean_confidence"] - short_metrics["mean_confidence"], 4),
                     "overconfidence_gap_delta": round(long_metrics["overconfidence_gap"] - short_metrics["overconfidence_gap"], 4),
                     "reasoning_word_delta": round(long_metrics["mean_reasoning_words"] - short_metrics["mean_reasoning_words"], 4),
+                    "context_match_delta": round(long_metrics["context_match_rate"] - short_metrics["context_match_rate"], 4),
+                    "parametric_match_delta": round(long_metrics["parametric_match_rate"] - short_metrics["parametric_match_rate"], 4),
                 }
             )
 
@@ -253,14 +259,15 @@ def build_markdown(report: dict[str, Any]) -> str:
         "",
         "## Slice Metrics",
         "",
-        "| Benchmark | Split | CoT | Count | Accuracy | ECE | Brier | Mean conf | Overconf gap | Mean reasoning words |",
-        "|---|---|---:|---:|---:|---:|---:|---:|---:|---:|",
+        "| Benchmark | Split | CoT | Count | Accuracy | ECE | Brier | Mean conf | Overconf gap | Ctx match | Param match | Mean reasoning words |",
+        "|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|",
     ]
     for row in report.get("slice_rows", []):
         lines.append(
             f"| {row['benchmark']} | {row['split']} | {row['cot_length']} | {row['count']} | "
             f"{row['accuracy']:.4f} | {row['ece']:.4f} | {row['brier']:.4f} | "
-            f"{row['mean_confidence']:.4f} | {row['overconfidence_gap']:.4f} | {row['mean_reasoning_words']:.2f} |"
+            f"{row['mean_confidence']:.4f} | {row['overconfidence_gap']:.4f} | {row['context_match_rate']:.4f} | "
+            f"{row['parametric_match_rate']:.4f} | {row['mean_reasoning_words']:.2f} |"
         )
 
     lines.extend(
@@ -268,14 +275,15 @@ def build_markdown(report: dict[str, Any]) -> str:
             "",
             "## Short-to-Long Deltas",
             "",
-            "| Benchmark | Split | ECE delta | Brier delta | Accuracy delta | Confidence delta | Overconf-gap delta | Reasoning-word delta |",
-            "|---|---|---:|---:|---:|---:|---:|---:|",
+            "| Benchmark | Split | ECE delta | Brier delta | Accuracy delta | Confidence delta | Overconf-gap delta | Ctx-match delta | Param-match delta | Reasoning-word delta |",
+            "|---|---|---:|---:|---:|---:|---:|---:|---:|---:|",
         ]
     )
     for row in report.get("trend_rows", []):
         lines.append(
             f"| {row['benchmark']} | {row['split']} | {row['ece_delta']:.4f} | {row['brier_delta']:.4f} | "
-            f"{row['accuracy_delta']:.4f} | {row['confidence_delta']:.4f} | {row['overconfidence_gap_delta']:.4f} | {row['reasoning_word_delta']:.2f} |"
+            f"{row['accuracy_delta']:.4f} | {row['confidence_delta']:.4f} | {row['overconfidence_gap_delta']:.4f} | "
+            f"{row['context_match_delta']:.4f} | {row['parametric_match_delta']:.4f} | {row['reasoning_word_delta']:.2f} |"
         )
 
     lines.extend(

@@ -223,6 +223,18 @@ This is enough to say:
    long-CoT recovery`.
 3. `ConflictBank` is the clearest support for this new statement so far.
 
+Mechanism note from the finished 7B run:
+
+- on `ConflictBank` conflict rows, context-match rate goes
+  `0.4780 -> 0.5200 -> 0.8660`
+- on `ConflictBank` no-conflict rows, context-match rate goes
+  `0.4740 -> 0.4960 -> 0.9060`
+
+So medium CoT is where **verbal overconfidence** peaks, while very long CoT is
+where **source adoption** becomes most extreme. This separation is important:
+theorem 3 is about the dynamics of calibration failure, not just monotone
+context-following.
+
 ## Active replication
 
 The next theorem-3 wave is already in flight on Delta:
