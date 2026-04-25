@@ -15,8 +15,8 @@ the headline results are still missing.
 | Theorem 2 written cleanly | yes | drafted in `KNOWLEDGE_ARBITRATION_THEOREM_SKETCHES.md` |
 | Theorem 3 written cleanly | yes | drafted in `KNOWLEDGE_ARBITRATION_THEOREM_SKETCHES.md` |
 | Synthetic Bayes oracle experiment | yes | done |
-| Real benchmark pilot on `PopQA` | yes | done via `arbitration_real_headline_wave_v2` |
-| Real benchmark pilot on `DynamicQA` | yes | done via `arbitration_real_headline_wave_v2` |
+| Real benchmark pilot on `PopQA` | yes | done via `arbitration_real_headline_wave_reestimated_v3` |
+| Real benchmark pilot on `DynamicQA` | yes | done via `arbitration_real_headline_wave_reestimated_v3` |
 | Real benchmark pilot on `ConflictBank` subset | yes | done in compact conflict wave |
 | Conflict vs no-conflict calibration curves | yes | done for broad pilot and `WikiContradict` focus |
 | Checkpoint-family experiment | strongly preferred | not started |
@@ -51,17 +51,17 @@ the headline results are still missing.
 
 We now have two early wins and one open gap:
 
-- Synthetic oracle pilot is done and already showed Bayes proxy at `0.0000`
-  regret with large gaps to fixed policies.
-- Broad real benchmark-backed pilot is done:
-  [`results/arbitration_real_headline_wave_v2/report/summary.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/results/arbitration_real_headline_wave_v2/report/summary.md)
+- Synthetic oracle pilot is done and still useful for theorem-shape sanity
+  checks.
+- Broad real benchmark-backed pilot is now corrected and de-oracled:
+  [`results/arbitration_real_headline_wave_reestimated_v3/report/summary.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/results/arbitration_real_headline_wave_reestimated_v3/report/summary.md)
   on `44,960` parsed examples across `PopQA`, `DynamicQA`, `NQ-Swap`, and
   `WikiContradict`.
 - Focused contradiction report is done:
   [`results/arbitration_wikicontradict_focus/report/summary.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/results/arbitration_wikicontradict_focus/report/summary.md)
   and gives the cleanest current theorem-3-style signal.
-- Compact conflict-only wave is done:
-  [`results/arbitration_conflict_focus_compact_v2/report/summary.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/results/arbitration_conflict_focus_compact_v2/report/summary.md)
+- Corrected conflict-only wave is done:
+  [`results/arbitration_conflict_headline_wave_reestimated_v3/report/summary.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/results/arbitration_conflict_headline_wave_reestimated_v3/report/summary.md)
   and adds `ConflictBank` into the live benchmark path.
 - Theorem-3 diagnosis is done:
   [`results/arbitration_conflict_focus_compact_v2/theorem3_diagnosis/summary.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/results/arbitration_conflict_focus_compact_v2/theorem3_diagnosis/summary.md)
@@ -69,16 +69,16 @@ We now have two early wins and one open gap:
 
 Current best honest headline:
 
-- In the broad real pilot, `Bayes Proxy` is the best policy at `0.0000` mean
-  regret, ahead of `heuristic_adaptive` at `0.0593`, `simulated_model` at
-  `0.3277`, `fixed_50` at `0.3912`, `always_context` at `6.3179`, and
-  `always_parametric` at `6.8936`.
-- In the compact conflict-only wave, `Bayes Proxy` is again best at `0.0000`,
-  ahead of `heuristic_adaptive` at `0.0608`, `fixed_50` at `0.3363`,
-  `simulated_model` at `0.8893`, `always_context` at `5.0159`, and
-  `always_parametric` at `8.0860`.
-- In the broad real pilot, oracle-vs-model arbitration gap is already visible:
-  mean absolute gap `0.0254`, mean KL `0.1310`.
+- In the corrected broad real wave, `bayes_proxy` now beats the generic
+  heuristic on regret:
+  `-0.0461` versus `-0.0233`, while still crushing `fixed_50` at `0.3650`,
+  `always_context` at `7.2237`, and `always_parametric` at `5.9356`.
+- In the corrected conflict-heavy wave, the ordering is even cleaner:
+  `bayes_proxy = -0.1256`, `heuristic_adaptive = -0.0752`,
+  `simulated_model = 0.1104`, `fixed_50 = 0.3037`,
+  `always_context = 5.9037`, `always_parametric = 7.1329`.
+- The corrected broad-wave oracle-vs-model arbitration gap remains visibly
+  nontrivial: mean absolute gap `0.1969`, mean KL `1.2288`.
 - The broad theorem-3 signal is **not** landed yet:
   mean conflict ECE delta is `-0.0054`, so the wide benchmark mix does not yet
   support the headline that long CoT worsens calibration under conflict.
@@ -237,14 +237,25 @@ context-following.
 
 ## Active replication
 
-The next theorem-3 wave is already in flight on Delta:
+The first 14B theorem-3 replication attempt did not fail scientifically. It
+failed because the run wrote screening output into quota-limited home storage.
 
 - job `2193155`
 - model `deepseek-ai/DeepSeek-R1-Distill-Qwen-14B`
-- output root `results/theorem3_real_generation_r1_14b`
+- failure reason: `OSError: [Errno 122] Disk quota exceeded`
+- partial artifact preserved:
+  `results/theorem3_real_generation_r1_14b/conflictbank_screening.jsonl`
 
-Purpose:
+Immediate next step:
 
-- test whether the non-monotone overconfidence peak survives scaling;
-- decide whether theorem 3 should be written as a single-model phenomenon or a
-  broader reasoning-model law.
+- reroute theorem-3 output to `/work/nvme/bgvi/adas17/...`
+- relaunch the 14B replication from the same code path
+- harvest the final JSON back into the repo once the run completes
+
+Current live rerun:
+
+- job `2193269`
+- working tree:
+  `/work/nvme/bgvi/adas17/tts-falsification`
+- output root:
+  `/work/nvme/bgvi/adas17/tts_results/theorem3_real_generation_r1_14b_v3`

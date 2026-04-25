@@ -18,7 +18,7 @@ from utils.metrics import (
 
 from .loaders import load_arbitration_dataset
 from .metrics import arbitration_kl_divergence, bayes_regret
-from .posterior import ArbitrationFeatures, bayes_arbitration_probability
+from .posterior import ArbitrationFeatures, bayes_arbitration_probability, oracle_arbitration_probability
 
 
 def _clip(value: float, lower: float = 1e-6, upper: float = 1.0 - 1e-6) -> float:
@@ -104,7 +104,7 @@ def _heuristic_adaptive_probability(features: ArbitrationFeatures) -> float:
 
 
 def _simulated_model_probability(features: ArbitrationFeatures, model_name: str, cot_length: int | str) -> float:
-    oracle = bayes_arbitration_probability(features)
+    oracle = oracle_arbitration_probability(features)
     profile = _model_profile(model_name)
     intensity = _cot_intensity(cot_length)
     initial_source_bias = 1.0 if features.contextual_score >= features.parametric_score else -1.0
@@ -275,12 +275,12 @@ def run_synthetic_experiment(experiment: dict[str, Any]) -> dict[str, Any]:
                 for cot_length in cot_lengths:
                     for example_idx in range(max_examples):
                         features = _build_features(benchmark, model_name, condition, cot_length, example_idx, seed)
-                        oracle_probability = bayes_arbitration_probability(features)
+                        oracle_probability = oracle_arbitration_probability(features)
                         rng = random.Random(_stable_seed("label", benchmark, model_name, condition, cot_length, example_idx, seed))
                         label = 1 if rng.random() < oracle_probability else 0
                         policy_probabilities = {
                             "oracle": oracle_probability,
-                            "bayes_proxy": oracle_probability,
+                            "bayes_proxy": bayes_arbitration_probability(features),
                             "heuristic_adaptive": _heuristic_adaptive_probability(features),
                             "fixed_50": 0.5,
                             "always_context": 1.0,
@@ -481,11 +481,10 @@ def run_benchmark_experiment(
                         derived = _derive_real_features(example, model_name, condition)
                         if derived is None:
                             continue
-                        features, _, label, derived_info = derived
-                        oracle_probability = bayes_arbitration_probability(features)
+                        features, oracle_probability, label, derived_info = derived
                         policy_probabilities = {
                             "oracle": oracle_probability,
-                            "bayes_proxy": oracle_probability,
+                            "bayes_proxy": bayes_arbitration_probability(features),
                             "heuristic_adaptive": _heuristic_adaptive_probability(features),
                             "fixed_50": 0.5,
                             "always_context": 1.0,

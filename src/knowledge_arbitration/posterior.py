@@ -49,16 +49,8 @@ def sigmoid(value: float) -> float:
     return z / (1.0 + z)
 
 
-def bayes_arbitration_probability(features: ArbitrationFeatures) -> float:
-    """Return a simple Bayes-inspired probability of trusting context.
-
-    This is a research scaffold rather than the finished theorem-derived rule.
-    It combines:
-
-    - relative contextual vs parametric evidence,
-    - source reliability difference,
-    - a conflict-magnitude correction term.
-    """
+def oracle_arbitration_probability(features: ArbitrationFeatures) -> float:
+    """Return an oracle-style arbitration probability for synthetic scaffolds."""
 
     contextual_logit = logit(_clip_probability(features.contextual_score))
     parametric_logit = logit(_clip_probability(features.parametric_score))
@@ -71,6 +63,24 @@ def bayes_arbitration_probability(features: ArbitrationFeatures) -> float:
         + reliability_gap
         + float(features.conflict_magnitude)
     )
+    return sigmoid(combined)
+
+
+def bayes_arbitration_probability(features: ArbitrationFeatures) -> float:
+    """Return an estimated arbitration policy using observable features only.
+
+    This is intentionally conservative relative to the synthetic oracle. It is
+    the practical policy that should be evaluated against the oracle, not tied
+    to it by construction.
+    """
+
+    contextual_logit = logit(_clip_probability(features.contextual_score))
+    parametric_logit = logit(_clip_probability(features.parametric_score))
+    reliability_gap = logit(_clip_probability(features.context_reliability)) - logit(
+        _clip_probability(features.parametric_reliability)
+    )
+    evidence_gap = contextual_logit - parametric_logit
+    combined = 1.4 * evidence_gap + 0.3 * reliability_gap
     return sigmoid(combined)
 
 

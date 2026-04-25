@@ -234,24 +234,33 @@ What is already real:
   [`docs/KNOWLEDGE_ARBITRATION_THEOREM_SKETCHES.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/KNOWLEDGE_ARBITRATION_THEOREM_SKETCHES.md);
 - built-in benchmark loaders for `PopQA`, `DynamicQA`, `NQ-Swap`, and
   `WikiContradict`, plus a streamed `ConflictBank` subset loader;
-- a benchmark-backed headline-wave pilot:
-  [`results/arbitration_real_headline_wave_v2/report/summary.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/results/arbitration_real_headline_wave_v2/report/summary.md);
+- a corrected benchmark-backed headline wave with a de-oracled Bayes proxy:
+  [`results/arbitration_real_headline_wave_reestimated_v3/report/summary.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/results/arbitration_real_headline_wave_reestimated_v3/report/summary.md);
 - a focused `WikiContradict` contradiction report:
   [`results/arbitration_wikicontradict_focus/report/summary.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/results/arbitration_wikicontradict_focus/report/summary.md);
-- a compact conflict-heavy benchmark wave:
-  [`results/arbitration_conflict_focus_compact_v2/report/summary.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/results/arbitration_conflict_focus_compact_v2/report/summary.md);
+- a corrected conflict-heavy benchmark wave:
+  [`results/arbitration_conflict_headline_wave_reestimated_v3/report/summary.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/results/arbitration_conflict_headline_wave_reestimated_v3/report/summary.md);
 - a theorem-3 diagnosis with ambiguity filtering and sample rows:
   [`results/arbitration_conflict_focus_compact_v2/theorem3_diagnosis/summary.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/results/arbitration_conflict_focus_compact_v2/theorem3_diagnosis/summary.md).
 
 The strongest current empirical signal is theorem-1/theorem-2 shaped:
 
-- in the broad real pilot, `Bayes Proxy` is the best overall policy at
-  `0.0000` mean regret;
-- the next-best heuristic policy is `heuristic_adaptive` at `0.0593`;
-- `simulated_model` is materially worse at `0.3277`;
-- `fixed_50` is worse again at `0.3912`;
+- in the corrected broad real wave, `bayes_proxy` now beats the generic
+  heuristic honestly rather than by construction:
+  `-0.0461` mean regret versus `-0.0233` for `heuristic_adaptive`;
+- `simulated_model` is materially worse at `0.1408`;
+- `fixed_50` is worse again at `0.3650`;
 - naive fixed trust policies are dramatically worse:
-  `always_context = 6.3179`, `always_parametric = 6.8936`.
+  `always_context = 7.2237`, `always_parametric = 5.9356`.
+
+The conflict-focused theorem-2 wave is even cleaner:
+
+- `bayes_proxy = -0.1256`;
+- `heuristic_adaptive = -0.0752`;
+- `simulated_model = 0.1104`;
+- `fixed_50 = 0.3037`;
+- `always_context = 5.9037`;
+- `always_parametric = 7.1329`.
 
 The theorem-3 situation is more mixed:
 
@@ -396,12 +405,22 @@ The exact completed 7B theorem-3 picture is:
   `ece 0.3543 -> 0.5238 -> 0.4331`,
   `gap 0.2643 -> 0.5038 -> 0.4331`
 
-The current active replication wave is:
+The next replication target is already defined but the first 14B launch failed
+for an operational reason, not a scientific one:
 
 - Delta job `2193155`
 - model: `deepseek-ai/DeepSeek-R1-Distill-Qwen-14B`
-- goal: test whether the intermediate-CoT overconfidence peak scales to a
-  stronger reasoning model
+- failure reason: `OSError: [Errno 122] Disk quota exceeded`
+- immediate fix: reroute theorem-3 outputs to `/work/nvme/bgvi/adas17/...`
+  instead of quota-limited home storage before relaunching
+
+That relaunch is now in progress:
+
+- Delta job `2193269`
+- working tree moved to:
+  `/work/nvme/bgvi/adas17/tts-falsification`
+- output root:
+  `/work/nvme/bgvi/adas17/tts_results/theorem3_real_generation_r1_14b_v3`
 
 The ambiguity-filter diagnosis sharpens the interpretation:
 

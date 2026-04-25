@@ -27,6 +27,7 @@ MAX_MODEL_LEN=${MAX_MODEL_LEN:-16384}
 GPU_MEMORY_UTILIZATION=${GPU_MEMORY_UTILIZATION:-0.90}
 TP_SIZE=${TP_SIZE:-1}
 OUTPUT_DIR=${OUTPUT_DIR:-results/theorem3_real_generation_r1_7b}
+DELTA_RESULTS_ROOT=${DELTA_RESULTS_ROOT:-/work/nvme/bgvi/adas17/tts_results}
 WIKICONTRADICT_MAX=${WIKICONTRADICT_MAX:-200}
 CONFLICTBANK_MAX=${CONFLICTBANK_MAX:-500}
 CONFLICTBANK_SCREENING_POOL=${CONFLICTBANK_SCREENING_POOL:-1200}
@@ -37,8 +38,15 @@ DELTA_PROJECT_ROOT=${DELTA_PROJECT_ROOT:-/u/adas17/tts-falsification}
 cd "${DELTA_PROJECT_ROOT}"
 nvidia-smi -L || true
 
+if [[ "${OUTPUT_DIR}" = /* ]]; then
+  RUN_OUTPUT_DIR="${OUTPUT_DIR}"
+else
+  RUN_OUTPUT_DIR="${DELTA_RESULTS_ROOT%/}/${OUTPUT_DIR}"
+fi
+mkdir -p "${RUN_OUTPUT_DIR}"
+
 ARGS=(
-  --output-dir "${OUTPUT_DIR}" \
+  --output-dir "${RUN_OUTPUT_DIR}" \
   --backend "${BACKEND}" \
   --model "${MODEL}" \
   --request-timeout "${REQUEST_TIMEOUT}" \
@@ -78,5 +86,5 @@ fi
 
 python scripts/run_theorem3_real_generation.py "${ARGS[@]}"
 python scripts/report_theorem3_real_generation.py \
-  --results-file "${OUTPUT_DIR}/theorem3_real_generation_results.json" \
-  --output-dir "${OUTPUT_DIR}/theorem3_report"
+  --results-file "${RUN_OUTPUT_DIR}/theorem3_real_generation_results.json" \
+  --output-dir "${RUN_OUTPUT_DIR}/theorem3_report"
