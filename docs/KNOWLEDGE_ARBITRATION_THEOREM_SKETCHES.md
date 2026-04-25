@@ -246,17 +246,18 @@ depth. Instead, there can exist an interior reasoning budget `k* > 0` at which
 overconfidence is maximized, followed by partial self-correction at longer
 reasoning depths.
 
-This version is supported if the final real-generation report keeps showing:
+This version is now supported by the completed `DeepSeek-R1-Distill-Qwen-7B`
+real-generation run:
 
-- `cot=128` or another interior bucket has the largest overconfidence gap;
-- `cot=1024` remains above `cot=0` on the hardest slices but below the peak;
-- the pattern appears on at least two benchmark slices with real reasoning
-  traces.
+- `ConflictBank` conflict gap:
+  `0.5505 -> 0.7531 -> 0.5308`
+- `WikiContradict` conflict gap:
+  `0.2923 -> 0.4825 -> 0.4429`
+- in both cases, `cot=128` is the peak-overconfidence bucket and `cot=1024`
+  partially recovers relative to the peak.
 
-If this pattern survives the full `ConflictBank` run, it may be a stronger and
-more novel landing point than the universal-overconfidence fallback, because it
-explains why short-to-medium reasoning can be harmful even when very long
-reasoning sometimes partially recovers.
+If this pattern also survives the in-flight `DeepSeek-R1-Distill-Qwen-14B`
+replication, it becomes the default theorem-3 landing point for the paper.
 
 ## Experimental pairing
 
@@ -264,15 +265,16 @@ reasoning sometimes partially recovers.
 | --- | --- | --- |
 | Theorem 1 | `PopQA`, `DynamicQA`, synthetic oracle | early positive |
 | Theorem 2 | broad real regret comparisons, `WikiContradict`, `ConflictBank` | early positive |
-| Theorem 3 | `WikiContradict`, `ConflictBank`, `DynamicQA` conflict-vs-no-conflict CoT sweeps | mixed / incomplete |
+| Theorem 3 | `WikiContradict`, `ConflictBank`, real-trace CoT sweeps | landed in revised non-monotone form; scaling replication in flight |
 
 ## Immediate next steps
 
 1. Turn Theorem 1 into a proof sketch with the exact decision class and loss.
 2. Turn Theorem 2 into a two-distribution minimax lower bound.
-3. Rebuild Theorem 3 experiments with:
+3. Replicate Theorem 3c on `DeepSeek-R1-Distill-Qwen-14B`.
+4. Add mitigation conditions:
+   - parallel-chain bagging
+   - confidence decoupling
    - deterministic decoding control
-   - reasoning-vs-base model comparison
-   - mitigation conditions such as bagging / confidence decoupling
-4. Promote the clean theorem statements into the paper outline once the
-   empirical theorem-3 story is less fragile.
+5. Promote the cleaned theorem statements into the paper outline now that the
+   empirical theorem-3 story has a stable landing point.

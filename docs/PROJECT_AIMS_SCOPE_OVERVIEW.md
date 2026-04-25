@@ -354,18 +354,18 @@ traces is:
 `intermediate CoT -> peak overconfidence`, followed by partial recovery at
 very long CoT.
 
-This is now visible on both the completed `WikiContradict` slice and the live
-`ConflictBank` slice.
+This is now visible in the completed `4200`-row real-generation run across both
+`WikiContradict` and `ConflictBank`.
 
 On `WikiContradict`:
 
 - conflict overconfidence gap: `0.2923 -> 0.4825 -> 0.4429`
 - no-conflict overconfidence gap: `0.2643 -> 0.5038 -> 0.4331`
 
-On the mid-run `ConflictBank` slice:
+On `ConflictBank`:
 
-- conflict overconfidence gap: `0.5407 -> 0.7295 -> 0.5212`
-- no-conflict overconfidence gap: `0.0561 -> 0.1945 -> -0.3515`
+- conflict overconfidence gap: `0.5505 -> 0.7531 -> 0.5308`
+- no-conflict overconfidence gap: `0.0996 -> 0.2754 -> -0.3724`
 
 So the strongest defensible theorem-3 reading is now:
 
@@ -373,16 +373,35 @@ So the strongest defensible theorem-3 reading is now:
 - `cot=1024` does not continue the monotone rise and instead partially
   self-corrects;
 - the peak effect is especially sharp on `ConflictBank` conflict rows, where
-  the gap rises by about `+0.1888` from `cot=0` to `cot=128`.
+  the gap rises by `+0.2026` from `cot=0` to `cot=128`;
+- the same non-monotone pattern also appears on `WikiContradict`, where the
+  conflict gap rises by `+0.1902` from `cot=0` to `cot=128` and then drops by
+  `-0.0396` from `cot=128` to `cot=1024`.
 
 This means theorem 3 can land as a **non-monotone calibration-coupling
 theorem** rather than the original monotone long-CoT version.
-- the strongest positive slice is `WikiContradict`, where conflict ECE delta is
-  `+0.1542` while no-conflict delta is `-0.0190`;
-- the newer compact conflict-heavy wave keeps the arbitration signal strong but
-  still leaves theorem 3 mixed:
-  `ConflictBank = -0.1943`, `DynamicQA = -0.0341`,
-  `WikiContradict = +0.1826` on conflict ECE delta from short to long CoT.
+
+The exact completed 7B theorem-3 picture is:
+
+- `ConflictBank` conflict:
+  `ece 0.5505 -> 0.7531 -> 0.5308`,
+  `gap 0.5505 -> 0.7531 -> 0.5308`
+- `ConflictBank` no-conflict:
+  `ece 0.1312 -> 0.5774 -> 0.4044`,
+  `gap 0.0996 -> 0.2754 -> -0.3724`
+- `WikiContradict` conflict:
+  `ece 0.3823 -> 0.5075 -> 0.4429`,
+  `gap 0.2923 -> 0.4825 -> 0.4429`
+- `WikiContradict` no-conflict:
+  `ece 0.3543 -> 0.5238 -> 0.4331`,
+  `gap 0.2643 -> 0.5038 -> 0.4331`
+
+The current active replication wave is:
+
+- Delta job `2193155`
+- model: `deepseek-ai/DeepSeek-R1-Distill-Qwen-14B`
+- goal: test whether the intermediate-CoT overconfidence peak scales to a
+  stronger reasoning model
 
 The ambiguity-filter diagnosis sharpens the interpretation:
 

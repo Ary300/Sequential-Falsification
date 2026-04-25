@@ -199,20 +199,21 @@ monotone-long-CoT framing and toward a stronger empirical variant:
 - very long CoT partially self-corrects relative to that peak;
 - the effect is real on actual `DeepSeek-R1-Distill-Qwen-7B` traces.
 
-Current real-trace picture:
+Completed `DeepSeek-R1-Distill-Qwen-7B` real-trace picture (`4200` rows):
 
 | Benchmark | Split | `cot=0` gap | `cot=128` gap | `cot=1024` gap |
 | --- | --- | ---: | ---: | ---: |
 | WikiContradict | conflict | `0.2923` | `0.4825` | `0.4429` |
 | WikiContradict | no-conflict | `0.2643` | `0.5038` | `0.4331` |
-| ConflictBank (mid-run) | conflict | `0.5407` | `0.7295` | `0.5212` |
-| ConflictBank (mid-run) | no-conflict | `0.0561` | `0.1945` | `-0.3515` |
+| ConflictBank | conflict | `0.5505` | `0.7531` | `0.5308` |
+| ConflictBank | no-conflict | `0.0996` | `0.2754` | `-0.3724` |
 
-Most important deltas from the live `ConflictBank` slice:
+Most important final deltas:
 
-- conflict, `0 -> 128`: overconfidence-gap delta `+0.1888`
-- no-conflict, `0 -> 128`: overconfidence-gap delta `+0.1384`
-- conflict, `0 -> 1024`: overconfidence-gap delta `-0.0194`
+- `ConflictBank` conflict, `0 -> 128`: overconfidence-gap delta `+0.2026`
+- `ConflictBank` conflict, `128 -> 1024`: overconfidence-gap delta `-0.2223`
+- `WikiContradict` conflict, `0 -> 128`: overconfidence-gap delta `+0.1902`
+- `WikiContradict` conflict, `128 -> 1024`: overconfidence-gap delta `-0.0396`
 
 This is enough to say:
 
@@ -220,4 +221,18 @@ This is enough to say:
 2. A revised theorem-3 headline is landing:
    `intermediate CoT causes the largest calibration failure, with partial
    long-CoT recovery`.
-3. `ConflictBank` is the cleanest support for this new statement so far.
+3. `ConflictBank` is the clearest support for this new statement so far.
+
+## Active replication
+
+The next theorem-3 wave is already in flight on Delta:
+
+- job `2193155`
+- model `deepseek-ai/DeepSeek-R1-Distill-Qwen-14B`
+- output root `results/theorem3_real_generation_r1_14b`
+
+Purpose:
+
+- test whether the non-monotone overconfidence peak survives scaling;
+- decide whether theorem 3 should be written as a single-model phenomenon or a
+  broader reasoning-model law.
