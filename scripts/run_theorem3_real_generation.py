@@ -28,6 +28,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--top-p", type=float, default=1.0)
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--benchmarks", default="wikicontradict,conflictbank")
+    parser.add_argument("--conditions", default="aligned_context,conflict_context")
     parser.add_argument("--wikicontradict-max", type=int, default=200)
     parser.add_argument("--conflictbank-max", type=int, default=500)
     parser.add_argument("--conflictbank-screening-pool", type=int, default=1200)
@@ -52,6 +53,7 @@ def main() -> None:
     payload = run_real_generation_experiment(
         config=config,
         benchmarks=[item.strip() for item in args.benchmarks.split(",") if item.strip()],
+        conditions=[item.strip() for item in args.conditions.split(",") if item.strip()],
         output_dir=ROOT / args.output_dir,
         wikicontradict_max=args.wikicontradict_max,
         conflictbank_max=args.conflictbank_max,

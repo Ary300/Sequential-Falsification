@@ -137,6 +137,41 @@ def _question_block(example: dict[str, Any], condition: str) -> str:
     )
 
 
+def _condition_split(condition: str) -> str:
+    if condition == "conflict_context":
+        return "conflict"
+    if condition == "aligned_context":
+        return "no_conflict"
+    if condition == "closed_book":
+        return "closed_book"
+    raise ValueError(f"Unsupported theorem-3 condition: {condition}")
+
+
+def _condition_context_answers(
+    condition: str,
+    *,
+    aligned_answers: set[str],
+    conflict_answers: set[str],
+) -> set[str]:
+    if condition == "aligned_context":
+        return aligned_answers
+    if condition == "conflict_context":
+        return conflict_answers
+    if condition == "closed_book":
+        return set()
+    raise ValueError(f"Unsupported theorem-3 condition: {condition}")
+
+
+def _condition_context_reliability(condition: str) -> float:
+    if condition == "aligned_context":
+        return 0.84
+    if condition == "conflict_context":
+        return 0.24
+    if condition == "closed_book":
+        return 0.5
+    raise ValueError(f"Unsupported theorem-3 condition: {condition}")
+
+
 def _extract_confidence(text: str) -> float | None:
     tagged = _CONFIDENCE_RE.search(text)
     if tagged:
@@ -204,7 +239,7 @@ def _arbitration_probability(answer: str, *, parametric_answers: set[str], conte
 
     if split == "conflict":
         oracle_context_probability = 0.0
-    elif split == "no_conflict":
+    elif split in {"no_conflict", "aligned_context", "closed_book"}:
         oracle_context_probability = 0.5
     else:
         oracle_context_probability = None
@@ -216,7 +251,7 @@ def _arbitration_probability(answer: str, *, parametric_answers: set[str], conte
     elif prediction_matches_context and prediction_matches_parametric:
         model_context_probability = 0.5
     else:
-        model_context_probability = 0.5 if split == "no_conflict" else None
+        model_context_probability = 0.5 if split in {"no_conflict", "aligned_context", "closed_book"} else None
 
     return oracle_context_probability, model_context_probability
 
@@ -482,6 +517,7 @@ def run_real_generation_experiment(
     *,
     config: GenerationConfig,
     benchmarks: list[str],
+    conditions: list[str] | None = None,
     output_dir: str | Path,
     wikicontradict_max: int = 200,
     conflictbank_max: int = 500,
@@ -492,6 +528,7 @@ def run_real_generation_experiment(
 ) -> dict[str, Any]:
     output_path = Path(output_dir)
     output_path.mkdir(parents=True, exist_ok=True)
+    requested_conditions = conditions or ["aligned_context", "conflict_context"]
 
     selection: dict[str, dict[str, Any]] = {}
     if "wikicontradict" in benchmarks:
@@ -538,10 +575,16 @@ def run_real_generation_experiment(
             aligned_answers = _answer_set(metadata.get("aligned_context_answers") or example.get("answers"))
             conflict_answers = _answer_set(metadata.get("conflict_context_answers"))
             screening_record = screening_records.get(str(example.get("id")), {})
-            for condition in ("aligned_context", "conflict_context"):
-                split = "no_conflict" if condition == "aligned_context" else "conflict"
-                context_answers = aligned_answers if condition == "aligned_context" else conflict_answers
-                context_reliability = 0.84 if condition == "aligned_context" else 0.24
+            for condition in requested_conditions:
+                if condition not in {"closed_book", "aligned_context", "conflict_context"}:
+                    raise ValueError(f"Unsupported theorem-3 condition: {condition}")
+                split = _condition_split(condition)
+                context_answers = _condition_context_answers(
+                    condition,
+                    aligned_answers=aligned_answers,
+                    conflict_answers=conflict_answers,
+                )
+                context_reliability = _condition_context_reliability(condition)
                 for style in (PROMPT_STYLES["no_cot"], PROMPT_STYLES["short_cot"], PROMPT_STYLES["long_cot"]):
                     key = (
                         benchmark,

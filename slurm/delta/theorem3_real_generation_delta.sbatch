@@ -18,6 +18,7 @@ export HF_HOME=${HF_HOME:-/work/nvme/bgvi/adas17/hf_cache}
 
 MODEL=${MODEL:-deepseek-ai/DeepSeek-R1-Distill-Qwen-7B}
 BACKEND=${BACKEND:-openai}
+CONDITIONS=${CONDITIONS:-aligned_context,conflict_context}
 REQUEST_TIMEOUT=${REQUEST_TIMEOUT:-600}
 TEMPERATURE=${TEMPERATURE:-0.0}
 TOP_P=${TOP_P:-1.0}
@@ -48,6 +49,7 @@ mkdir -p "${RUN_OUTPUT_DIR}"
 ARGS=(
   --output-dir "${RUN_OUTPUT_DIR}" \
   --backend "${BACKEND}" \
+  --conditions "${CONDITIONS}" \
   --model "${MODEL}" \
   --request-timeout "${REQUEST_TIMEOUT}" \
   --temperature "${TEMPERATURE}" \
@@ -88,3 +90,10 @@ python scripts/run_theorem3_real_generation.py "${ARGS[@]}"
 python scripts/report_theorem3_real_generation.py \
   --results-file "${RUN_OUTPUT_DIR}/theorem3_real_generation_results.json" \
   --output-dir "${RUN_OUTPUT_DIR}/theorem3_report"
+
+if [[ "${CONDITIONS}" == *"closed_book"* ]]; then
+  python scripts/analyze_theorem3_controls.py \
+    --rows-jsonl "${RUN_OUTPUT_DIR}/theorem3_generation_rows.jsonl" \
+    --model "${MODEL}" \
+    --output "${RUN_OUTPUT_DIR}/theorem3_control_analysis.json"
+fi
