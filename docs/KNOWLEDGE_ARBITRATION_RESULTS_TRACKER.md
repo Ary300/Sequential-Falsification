@@ -259,3 +259,23 @@ Current live rerun:
   `/work/nvme/bgvi/adas17/tts-falsification`
 - output root:
   `/work/nvme/bgvi/adas17/tts_results/theorem3_real_generation_r1_14b_v3`
+
+Even before final aggregation, the partial 14B raw rows already give a usable
+scaling read:
+
+- `4031` parsed rows currently written
+- `ConflictBank` conflict gap:
+  `0.5821 -> 0.9434 -> 0.9500`
+- `ConflictBank` no-conflict gap:
+  `0.0732 -> 0.3064 -> 0.1030`
+- `WikiContradict` conflict gap:
+  `0.2717 -> 0.4516 -> 0.3750`
+- `WikiContradict` no-conflict gap:
+  `0.2963 -> 0.4229 -> 0.4164`
+
+This means the theorem-3 scaling picture is no longer speculative:
+
+- the non-monotone intermediate-CoT peak still holds on `WikiContradict`;
+- the 14B `ConflictBank` conflict slice is even harsher than the 7B run,
+  showing a near-total confidence blow-up by `cot=128` that does not meaningfully
+  recover by `cot=1024`.

@@ -422,6 +422,26 @@ That relaunch is now in progress:
 - output root:
   `/work/nvme/bgvi/adas17/tts_results/theorem3_real_generation_r1_14b_v3`
 
+The partial 14B raw rows are already strong enough to matter. From `4031`
+parsed rows written before final aggregation:
+
+- `ConflictBank` conflict gap:
+  `0.5821 -> 0.9434 -> 0.9500`
+- `ConflictBank` no-conflict gap:
+  `0.0732 -> 0.3064 -> 0.1030`
+- `WikiContradict` conflict gap:
+  `0.2717 -> 0.4516 -> 0.3750`
+- `WikiContradict` no-conflict gap:
+  `0.2963 -> 0.4229 -> 0.4164`
+
+So the scaling picture is now sharper:
+
+- `WikiContradict` continues to support the non-monotone intermediate-CoT peak;
+- `ConflictBank` at 14B shows an even more extreme confidence blow-up on the
+  conflict slice, with no meaningful recovery by `cot=1024`;
+- the 14B theorem-3 story therefore looks stronger, not weaker, than the 7B
+  run.
+
 The ambiguity-filter diagnosis sharpens the interpretation:
 
 - filtering to `parametric_score in [0.2, 0.8]` does **not** flip

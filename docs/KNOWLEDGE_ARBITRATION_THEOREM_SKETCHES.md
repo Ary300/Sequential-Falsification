@@ -287,6 +287,20 @@ not merely about raw context-following.
 If this pattern also survives the in-flight `DeepSeek-R1-Distill-Qwen-14B`
 replication, it becomes the default theorem-3 landing point for the paper.
 
+Partial 14B raw-row update:
+
+- `ConflictBank` conflict gap:
+  `0.5821 -> 0.9434 -> 0.9500`
+- `WikiContradict` conflict gap:
+  `0.2717 -> 0.4516 -> 0.3750`
+
+So the scaling result is more nuanced than a pure 7B replication:
+
+- on `WikiContradict`, the intermediate-CoT peak still survives cleanly;
+- on `ConflictBank`, the 14B run shows an even stronger confidence blow-up and
+  little recovery by `cot=1024`, suggesting the recovery term in theorem `3c'`
+  may itself depend on benchmark family or source-detectability.
+
 ## Experimental pairing
 
 | Theorem | Primary benchmark evidence | Current status |

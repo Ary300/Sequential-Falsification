@@ -104,6 +104,7 @@ def build_bundle() -> dict[str, Any]:
     compact_report = _load_json(ROOT / "results/arbitration_conflict_headline_wave_reestimated_v3/report/arbitration_summary.json")
     compact_results = _load_json(ROOT / "results/arbitration_conflict_headline_wave_reestimated_v3/arbitration_conflict_headline_wave_benchmark_results.json")
     theorem3 = _load_json(ROOT / "docs/generated/theorem3_real_7b_final.json")
+    theorem3_replication = _load_json(ROOT / "docs/generated/theorem3_real_14b_partial.json")
 
     theorem1 = _theorem12_section("broad_real_headline_wave_reestimated_v3", broad_report, broad_results)
     theorem2 = _theorem12_section("conflict_headline_wave_reestimated_v3", compact_report, compact_results)
@@ -127,6 +128,7 @@ def build_bundle() -> dict[str, Any]:
         "theorem_1": theorem1,
         "theorem_2": theorem2,
         "theorem_3": theorem3,
+        "theorem_3_replication": theorem3_replication,
     }
 
 
@@ -134,6 +136,7 @@ def build_markdown(bundle: dict[str, Any]) -> str:
     t1 = bundle["theorem_1"]
     t2 = bundle["theorem_2"]
     t3 = bundle["theorem_3"]
+    t3_rep = bundle["theorem_3_replication"]
     lines = [
         "# Knowledge Arbitration Headline Bundle",
         "",
@@ -206,6 +209,7 @@ def build_markdown(bundle: dict[str, Any]) -> str:
             "",
             f"- Source run: `{t3['source_job']}` on `{t3['model']}`",
             f"- Total parsed rows: `{t3['num_rows']}`",
+            f"- Partial 14B follow-on: `{t3_rep['source_job']}` on `{t3_rep['model']}` with `{t3_rep['num_rows']}` rows",
             "",
             "| Benchmark | Split | `cot=0` gap | `cot=128` gap | `cot=1024` gap | `0->128` gap delta | `128->1024` gap delta |",
             "|---|---|---:|---:|---:|---:|---:|",
@@ -221,6 +225,22 @@ def build_markdown(bundle: dict[str, Any]) -> str:
     lines.extend(
         [
             "",
+            "Partial 14B replication:",
+            "",
+            "| Benchmark | Split | `cot=0` gap | `cot=128` gap | `cot=1024` gap | `0->128` gap delta | `128->1024` gap delta |",
+            "|---|---|---:|---:|---:|---:|---:|",
+        ]
+    )
+
+    for row in t3_rep["rows"]:
+        lines.append(
+            f"| {row['benchmark']} | {row['split']} | {row['gap_cot_0']:.4f} | {row['gap_cot_128']:.4f} | "
+            f"{row['gap_cot_1024']:.4f} | {row['gap_delta_0_128']:.4f} | {row['gap_delta_128_1024']:.4f} |"
+        )
+
+    lines.extend(
+        [
+            "",
             "## Current Read",
             "",
             "- Theorem 1/2 are already paper-strong at the proxy-regret layer.",
@@ -228,6 +248,7 @@ def build_markdown(bundle: dict[str, Any]) -> str:
             "- The strongest current theorem-3 claim is the non-monotone intermediate-CoT overconfidence peak.",
             "- Broad-wave exception worth writing honestly: `Qwen2.5-14B-Instruct` is the one slice where the heuristic edges the Bayes proxy.",
             "- Conflict-wave near-tie worth noting: `pythia-6.9b` is essentially tied between Bayes proxy and simulated model.",
+            "- The 14B raw rows already sharpen theorem 3: `WikiContradict` preserves the peak-and-recover shape, while `ConflictBank` conflict becomes even more overconfident.",
         ]
     )
     return "\n".join(lines) + "\n"

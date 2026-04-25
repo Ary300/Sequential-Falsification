@@ -63,6 +63,9 @@ decoding rules.
 - Theorem-3 real-trace signal:
   `ConflictBank` conflict gap `0.5505 -> 0.7531 -> 0.5308`,
   `WikiContradict` conflict gap `0.2923 -> 0.4825 -> 0.4429`.
+- Partial 14B scaling signal:
+  `ConflictBank` conflict gap `0.5821 -> 0.9434 -> 0.9500`,
+  `WikiContradict` conflict gap `0.2717 -> 0.4516 -> 0.3750`.
 
 ## Honest caveats we should write explicitly
 
@@ -72,8 +75,8 @@ decoding rules.
   `Qwen2.5-14B-Instruct` slightly favors the generic heuristic.
 - Theorem 3 is landed in revised non-monotone form, not the original monotone
   conflict-conditioned form.
-- The 14B replication is still running and should be used to decide whether the
-  theorem-3 story is single-model or scaling-stable.
+- The 14B replication already has strong partial raw rows, but the final
+  aggregated artifact is still pending.
 
 ## Best current figure order
 

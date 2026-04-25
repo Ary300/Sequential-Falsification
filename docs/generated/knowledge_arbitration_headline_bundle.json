@@ -184,5 +184,49 @@
     ],
     "source_job": "delta_job_2190906",
     "source_results_dir": "/u/adas17/tts-falsification/results/theorem3_real_generation_r1_7b"
+  },
+  "theorem_3_replication": {
+    "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-14B",
+    "num_rows": 4031,
+    "rows": [
+      {
+        "benchmark": "conflictbank",
+        "gap_cot_0": 0.5821,
+        "gap_cot_1024": 0.95,
+        "gap_cot_128": 0.9434,
+        "gap_delta_0_128": 0.3613,
+        "gap_delta_128_1024": 0.0066,
+        "split": "conflict"
+      },
+      {
+        "benchmark": "conflictbank",
+        "gap_cot_0": 0.0732,
+        "gap_cot_1024": 0.103,
+        "gap_cot_128": 0.3064,
+        "gap_delta_0_128": 0.2332,
+        "gap_delta_128_1024": -0.2034,
+        "split": "no_conflict"
+      },
+      {
+        "benchmark": "wikicontradict",
+        "gap_cot_0": 0.2717,
+        "gap_cot_1024": 0.375,
+        "gap_cot_128": 0.4516,
+        "gap_delta_0_128": 0.1799,
+        "gap_delta_128_1024": -0.0766,
+        "split": "conflict"
+      },
+      {
+        "benchmark": "wikicontradict",
+        "gap_cot_0": 0.2963,
+        "gap_cot_1024": 0.4164,
+        "gap_cot_128": 0.4229,
+        "gap_delta_0_128": 0.1266,
+        "gap_delta_128_1024": -0.0065,
+        "split": "no_conflict"
+      }
+    ],
+    "source_job": "delta_job_2193269_partial",
+    "source_results_dir": "/work/nvme/bgvi/adas17/tts_results/theorem3_real_generation_r1_14b_v3"
   }
 }

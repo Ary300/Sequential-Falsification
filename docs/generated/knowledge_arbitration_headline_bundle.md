@@ -55,6 +55,7 @@ Per-model read:
 
 - Source run: `delta_job_2190906` on `deepseek-ai/DeepSeek-R1-Distill-Qwen-7B`
 - Total parsed rows: `4200`
+- Partial 14B follow-on: `delta_job_2193269_partial` on `deepseek-ai/DeepSeek-R1-Distill-Qwen-14B` with `4031` rows
 
 | Benchmark | Split | `cot=0` gap | `cot=128` gap | `cot=1024` gap | `0->128` gap delta | `128->1024` gap delta |
 |---|---|---:|---:|---:|---:|---:|
@@ -63,6 +64,15 @@ Per-model read:
 | wikicontradict | conflict | 0.2923 | 0.4825 | 0.4429 | 0.1902 | -0.0396 |
 | wikicontradict | no_conflict | 0.2643 | 0.5038 | 0.4331 | 0.2395 | -0.0707 |
 
+Partial 14B replication:
+
+| Benchmark | Split | `cot=0` gap | `cot=128` gap | `cot=1024` gap | `0->128` gap delta | `128->1024` gap delta |
+|---|---|---:|---:|---:|---:|---:|
+| conflictbank | conflict | 0.5821 | 0.9434 | 0.9500 | 0.3613 | 0.0066 |
+| conflictbank | no_conflict | 0.0732 | 0.3064 | 0.1030 | 0.2332 | -0.2034 |
+| wikicontradict | conflict | 0.2717 | 0.4516 | 0.3750 | 0.1799 | -0.0766 |
+| wikicontradict | no_conflict | 0.2963 | 0.4229 | 0.4164 | 0.1266 | -0.0065 |
+
 ## Current Read
 
 - Theorem 1/2 are already paper-strong at the proxy-regret layer.
@@ -70,3 +80,4 @@ Per-model read:
 - The strongest current theorem-3 claim is the non-monotone intermediate-CoT overconfidence peak.
 - Broad-wave exception worth writing honestly: `Qwen2.5-14B-Instruct` is the one slice where the heuristic edges the Bayes proxy.
 - Conflict-wave near-tie worth noting: `pythia-6.9b` is essentially tied between Bayes proxy and simulated model.
+- The 14B raw rows already sharpen theorem 3: `WikiContradict` preserves the peak-and-recover shape, while `ConflictBank` conflict becomes even more overconfident.
