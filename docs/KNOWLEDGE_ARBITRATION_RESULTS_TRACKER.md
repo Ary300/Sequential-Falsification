@@ -22,6 +22,14 @@ The strongest current theorem-3 headline is:
 - `ConflictBank` conflict at 14B remains catastrophically overconfident
   through long CoT.
 
+The conflict-control analysis is now explicit in
+[`docs/generated/theorem3_conflict_control_analysis.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/theorem3_conflict_control_analysis.md).
+Its decision is `B`, not `A`:
+
+- no-conflict rows also become more overconfident with CoT;
+- but overall they rise less and/or recover faster than the conflict rows;
+- so theorem 3 is an interaction claim, not a pure sign-flip claim.
+
 ## Headline-result checklist
 
 | Item | Needed for paper | Current status |

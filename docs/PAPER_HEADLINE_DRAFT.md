@@ -11,9 +11,9 @@
 
 We cast knowledge conflict as a posterior-predictive decision problem, derive a
 Bayes-style arbitration rule that beats generic heuristics and fixed trust
-policies on real conflict benchmarks, and show that reasoning amplifies
-overconfidence under conflict, with the exact CoT shape depending on conflict
-family.
+policies on real conflict benchmarks, and show that chain-of-thought amplifies
+overconfidence generally but does so more severely and more persistently on hard
+conflict families.
 
 ## Current abstract draft
 
@@ -68,6 +68,9 @@ rules.
 - Finished 14B scaling signal:
   `ConflictBank` conflict gap `0.5876 -> 0.9449 -> 0.9513`,
   `WikiContradict` conflict gap `0.2717 -> 0.4516 -> 0.3750`.
+- Conflict-control decision:
+  no-conflict also gets more overconfident, but overall less than conflict,
+  so theorem 3 is an interaction claim rather than a pure sign-flip claim.
 
 ## Honest caveats we should write explicitly
 
