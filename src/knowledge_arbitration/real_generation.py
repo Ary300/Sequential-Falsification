@@ -76,6 +76,7 @@ class GenerationConfig:
     api_key: str = "none"
     request_timeout: float = 180.0
     temperature: float = 0.0
+    top_p: float = 1.0
     seed: int = 42
 
 
@@ -280,6 +281,8 @@ def _openai_chat(messages: list[dict[str, str]], *, style: PromptStyle, config: 
         messages=messages,
         max_tokens=style.max_tokens,
         temperature=config.temperature,
+        top_p=config.top_p,
+        seed=config.seed,
     )
     choice = response.choices[0]
     text = ""

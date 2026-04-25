@@ -19,6 +19,9 @@ export HF_HOME=${HF_HOME:-/work/nvme/bgvi/adas17/hf_cache}
 MODEL=${MODEL:-deepseek-ai/DeepSeek-R1-Distill-Qwen-7B}
 BACKEND=${BACKEND:-openai}
 REQUEST_TIMEOUT=${REQUEST_TIMEOUT:-600}
+TEMPERATURE=${TEMPERATURE:-0.0}
+TOP_P=${TOP_P:-1.0}
+SEED=${SEED:-42}
 API_PORT=${API_PORT:-$((20000 + (${SLURM_JOB_ID:-0} % 20000)))}
 MAX_MODEL_LEN=${MAX_MODEL_LEN:-16384}
 GPU_MEMORY_UTILIZATION=${GPU_MEMORY_UTILIZATION:-0.90}
@@ -39,6 +42,9 @@ ARGS=(
   --backend "${BACKEND}" \
   --model "${MODEL}" \
   --request-timeout "${REQUEST_TIMEOUT}" \
+  --temperature "${TEMPERATURE}" \
+  --top-p "${TOP_P}" \
+  --seed "${SEED}" \
   --wikicontradict-max "${WIKICONTRADICT_MAX}" \
   --conflictbank-max "${CONFLICTBANK_MAX}" \
   --conflictbank-screening-pool "${CONFLICTBANK_SCREENING_POOL}" \
@@ -49,6 +55,7 @@ ARGS=(
 if [[ "${BACKEND}" == "openai" ]]; then
   python -m vllm.entrypoints.openai.api_server \
     --model "${MODEL}" \
+    --generation-config vllm \
     --tensor-parallel-size "${TP_SIZE}" \
     --port "${API_PORT}" \
     --max-model-len "${MAX_MODEL_LEN}" \

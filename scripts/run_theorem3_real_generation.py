@@ -25,6 +25,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--api-key", default="none")
     parser.add_argument("--request-timeout", type=float, default=180.0)
     parser.add_argument("--temperature", type=float, default=0.0)
+    parser.add_argument("--top-p", type=float, default=1.0)
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--benchmarks", default="wikicontradict,conflictbank")
     parser.add_argument("--wikicontradict-max", type=int, default=200)
@@ -45,6 +46,7 @@ def main() -> None:
         api_key=args.api_key,
         request_timeout=args.request_timeout,
         temperature=args.temperature,
+        top_p=args.top_p,
         seed=args.seed,
     )
     payload = run_real_generation_experiment(
