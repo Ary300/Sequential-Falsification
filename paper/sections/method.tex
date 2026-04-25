@@ -1,41 +1,74 @@
 \section{Method}
 
-Our pipeline has three stages: candidate generation, sequential falsification, and final selection.
+\paragraph{Setup.}
+For a question $q$, let $p_\theta(y \mid q)$ denote the model's parametric
+belief and let $p_{\mathrm{ctx}}(y \mid q, c)$ denote the answer distribution
+induced by retrieved or supplied context $c$. We introduce a latent
+context-reliability variable $r \in [0,1]$ and define arbitration as choosing a
+predictive distribution that minimizes posterior-predictive risk under a
+strictly proper scoring rule.
 
-\paragraph{Candidate generation.}
-Given a problem instance $x$, we sample $N$ candidates $c_1,\dots,c_N$ from a base model. The generation path is benchmark-aware. HumanEval-style tasks are treated as function completions, MBPP-style tasks can be rewritten into explicit function-definition prompts when needed, and LiveCodeBench problems are treated as standalone stdin/stdout programs rather than function bodies. This distinction matters: one of the major engineering findings of this project is that mis-specifying the execution interface can invalidate an entire benchmark slice.
-
-\paragraph{Sequential falsification.}
-The corrected implementation is \emph{population-based} rather than candidate-local. After generating a pool $c_1,\dots,c_N$, the system constructs a bank of candidate probes from benchmark-safe sources: public tests, reference-labeled mutations of those public tests, edge-case probes, random stress probes, and disagreement-driven differential probes. Hidden tests and math reference answers are reserved for final evaluation and oracle upper bounds; they are not used for probe selection in the corrected pipeline. At round $k$, the system selects a probe $q_k$ that best separates the currently surviving candidates, executes the entire surviving pool on that probe, and eliminates candidates whose behavior is inconsistent with the probe label or with the consensus-compatible selection rule. For answer-only math benchmarks, the current repository uses non-oracle answer agreement as a conservative fallback rather than claiming adversarial mathematical verification.
-
-Let $Z_k(c)\in\{0,1\}$ indicate whether round $k$ detects an error for candidate $c$. We assume that if $c$ is incorrect, then probe family $F_k$ detects that error with probability at least $p_k$, and if $c$ is correct, then the probe triggers a false rejection with probability at most $\delta_k$.
-
-\paragraph{A clean survival bound.}
-The core theoretical statement needed by the current paper is simpler than a full e-process guarantee.
-
-\paragraph{Proposition 1.}
-Assume the probe outcomes are conditionally independent across rounds given candidate correctness. Then for any incorrect candidate $c$,
+\paragraph{Theorem 1 target: Bayes-optimal arbitration.}
+If context reliability has prior $\pi(r)$ and the answer posterior factorizes
+through a reliability-dependent mixture, then the Bayes-optimal predictive
+distribution is obtained by integrating over posterior reliability:
 \[
-\Pr(c \text{ survives } T \text{ rounds}) \leq \prod_{k=1}^{T}(1-p_k),
+p^\star(y \mid q, c) = \int p(y \mid q, c, r)\, p(r \mid q, c)\, dr.
 \]
-and for any correct candidate,
+Within the log-linear family used by practical decoders, this becomes a
+reliability-aware interpolation
 \[
-\Pr(c \text{ is rejected by round } T) \leq 1 - \prod_{k=1}^{T}(1-\delta_k) \leq \sum_{k=1}^{T}\delta_k.
+p^\star(y \mid q, c) \propto p_\theta(y \mid q)^{1-w^\star(q,c)}
+p_{\mathrm{ctx}}(y \mid q, c)^{w^\star(q,c)},
 \]
+where $w^\star(q,c)$ is the posterior expectation of context reliability up to
+the calibration map induced by the likelihood family. The nontrivial part is
+not Bayes' rule itself, but tying $w^\star$ to observable signals such as
+retrieval reliability, popularity, dynamicity, contradiction type, and semantic
+entropy.
 
-The proof is immediate from conditional independence: an incorrect candidate survives only if every round fails to detect its error, while a correct candidate is rejected only if at least one false alarm occurs. The proposition formalizes why sequential falsification can help even when selection by vote or weak public tests saturates.
+\paragraph{Theorem 2 target: fixed policies are minimax-suboptimal.}
+Let $\mathcal{A}_{\mathrm{fixed}}$ be the class of policies that always trust
+context, always trust parametric memory, or use one global mixture weight. If
+there exist two conflict families in which context is respectively reliable and
+misleading, then every fixed policy incurs $\Omega(1)$ excess Bayes risk on
+some mixture over those families, while an adaptive policy that sees a
+separating reliability signal can achieve regret proportional to the signal's
+classification error. Empirically, this theorem predicts the exact pattern we
+measure: fixed trust policies should fail badly not because they are badly
+tuned, but because no single global rule can handle both families at once.
 
-\paragraph{Confidence scoring in the current prototype.}
-The current implementation keeps a multiplicative trace score over rounds and converts it into a confidence proxy for within-pool ranking. This score is motivated by testing-by-betting ideas, but it should be interpreted conservatively: without externally calibrated benchmark-specific false-alarm rates, it is not yet a formally anytime-valid e-value for correctness. In this paper we therefore treat confidence empirically. We report calibration diagnostics when available, use the score only for selection among surviving candidates, and reserve stronger statistical guarantees for future work.
+\paragraph{Theorem 3 target: reasoning-time calibration amplification.}
+Our original theorem-3 target was monotone: under conflict, longer CoT should
+strictly worsen calibration. The real-trace evidence rules out that blunt form.
+The supported target is now a sharper theorem family:
 
-\paragraph{Why this is not self-debugging.}
-Self-debugging is a \emph{repair} procedure: start from one candidate, execute it, feed the failure signal back to the model, and ask for a revised candidate. Our falsification pipeline is instead a \emph{selection-from-diversity} procedure: generate a population once, then spend test-time compute on eliminating inconsistent members of that population. This distinction matters scientifically. Repair methods can be strong baselines, but they answer a different question than ours. We are interested in whether additional verification compute can identify already-generated correct candidates without rewriting them, and whether the resulting survivor pool supports useful confidence ranking.
+\begin{quote}
+\textbf{Theorem 3c / 3c'.} Under misspecified sequential reasoning updates with
+competing knowledge sources, reasoning amplifies overconfidence under conflict,
+and the shape of that amplification depends on conflict intensity and conflict
+family. Some regimes exhibit an interior peak followed by partial recovery;
+harder regimes can remain overconfident through long CoT.
+\end{quote}
 
-\paragraph{Probe-family ablations.}
-The implementation now exposes explicit probe families for ablation: public-only probes, mutation-only probes, edge-case probes, random stress probes, differential-only probes, and the full adaptive-population mixture. This is important for the empirical claim of the paper. If falsification only works when it replays public tests, then it is too close to standard filtering. If it improves when richer probe families are enabled, that supports the interpretation that targeted elimination rather than repeated public-test execution drives the gains.
+This is a misspecified-Bayes statement rather than a generic ``thinking more is
+bad'' statement. Each reasoning step can be viewed as reweighting the relative
+support of parametric and contextual explanations. Under conflict, the model is
+updating within an imperfect family, so posterior sharpening can run ahead of
+truth-tracking, producing overconfidence. Whether the curve later bends back
+depends on the effective conflict geometry.
 
-\paragraph{Component ablations.}
-The corrected codebase also supports component-level ablations inside falsification itself. In particular, runs can disable adaptive probe choice, disable elimination while retaining probe-based scoring, or replace wealth-based confidence ranking with survival-only selection. These controls let us test whether gains come from adaptive population separation, hard elimination, or confidence-guided survivor ranking, rather than treating falsification as a monolithic black box.
-
-\paragraph{Selection.}
-After falsification, candidates are ranked by three criteria in order: surviving all rounds, higher confidence proxy, and stronger trace score. Rejected candidates receive zero confidence. This prioritizes elimination first and ranking second, matching the practical goal of suppressing false positives before comparing plausible survivors.
+\paragraph{Observable proxies and implemented policies.}
+The implemented experiments compare six policy families:
+\begin{enumerate}
+\item `bayes\_proxy': a reliability-aware arbitration rule,
+\item `heuristic\_adaptive': a generic non-oracle adaptive baseline,
+\item `simulated\_model': the model's own implied arbitration behavior,
+\item `fixed\_50',
+\item `always\_context',
+\item `always\_parametric'.
+\end{enumerate}
+The first two are the scientifically meaningful comparison. The last three are
+the theorem-2 stress tests. The evaluation focuses on regret against an oracle
+arbitration distribution, plus accuracy, ECE, Brier score, and the
+oracle--model KL gap.

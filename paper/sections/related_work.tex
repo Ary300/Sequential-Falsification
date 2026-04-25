@@ -1,15 +1,47 @@
 \section{Related Work}
 
-This work connects four strands of literature: code and math benchmarking, inference-time scaling, execution-guided correction, and sequential statistical inference.
+\paragraph{Knowledge conflict benchmarks and analyses.}
+Recent work has mapped the space of knowledge conflicts in LLMs into
+context-memory, inter-context, and intra-memory forms
+\citep{xu2024knowledgeconflicts}. ConflictQA and related studies show that
+models are highly sensitive to coherent counter-memory and can exhibit
+confirmation bias under multi-evidence conflict \citep{xie2024conflictqa}.
+Large benchmark efforts such as ConflictBank, WikiContradict, and DynamicQA
+provide the empirical substrate for studying controlled and naturalistic
+conflicts \citep{su2024conflictbank,hou2024wikicontradict,marjanovic2024dynamicqa}.
+These papers give the task surface, but not a Bayes-optimal or minimax account
+of how arbitration should work.
 
-\paragraph{Benchmarks for code and math reasoning.}
-HumanEval introduced functional-correctness evaluation for natural-language-to-code generation \citep{chen2021codex}, while MBPP expanded coverage toward more beginner-oriented Python tasks \citep{austin2021program}. EvalPlus later showed that both benchmarks can substantially overestimate correctness when test suites are too weak, motivating stronger evaluation and hidden-test augmentation \citep{liu2023evalplus}. For competitive-programming-style code generation, LiveCodeBench provides a time-stamped, contamination-aware benchmark with stdin/stdout execution and hidden tests \citep{jain2024livecodebench}. For math, the MATH dataset remains a standard benchmark for difficult symbolic reasoning \citep{hendrycks2021math}.
+\paragraph{Adaptive retrieval is mostly heuristic.}
+PopQA-style adaptive retrieval uses popularity as a practical signal for when
+retrieval helps, but the resulting policy is threshold-based rather than
+decision-theoretically optimal \citep{mallen2023popqa}. Self-RAG and related
+adaptive-RAG systems similarly learn or tune retrieval decisions without
+deriving them from a posterior-predictive optimum \citep{asai2024selfrag}. Our
+Theorems 1 and 2 aim at exactly this gap: a reliability-aware arbitration rule
+and a formal statement that fixed trust policies are structurally dominated on
+conflict families.
 
-\paragraph{Inference-time scaling and selection.}
-Self-consistency showed that repeated sampling plus answer aggregation can substantially improve reasoning performance \citep{wang2022selfconsistency}. In code generation, self-debugging uses execution feedback to repair an initial program \citep{chen2023selfdebug}, while more recent frameworks such as S* combine larger candidate pools with pairwise distinguishing tests and adaptive selection \citep{li2025sstar}. Our method is closest in spirit to these execution-guided approaches, but its objective is different: rather than primarily reranking candidates, it uses extra compute to invalidate them sequentially.
+\paragraph{Mechanistic and calibration views of overthinking.}
+Recent work shows that longer reasoning can hurt accuracy or calibration.
+``Overthinking the Truth'' identifies a depth-wise failure mode in which models
+move from correct intermediate beliefs to incorrect final ones under misleading
+context \citep{halawi2024overthinking}. Chen et al.\ show that training-time
+cross-entropy sharpening can harm pass@$N$, while Ghosal et al.\ document
+non-monotone accuracy under large reasoning budgets \citep{chen2025rethinking,
+ghosal2025mirage}. Sun et al.\ report that rationales and context reiteration
+increase context reliance, especially on tasks where parametric knowledge
+matters \citep{sun2025context}. Our calibration result is adjacent to this
+literature but differs in two ways: it is conditioned on knowledge conflict,
+and it is framed as a posterior misspecification phenomenon rather than a
+purely empirical observation.
 
-\paragraph{Limits of imperfect verifiers.}
-The importance of false positives has recently been made explicit by \citet{stroebl2024flaws}, who argue that inference scaling with imperfect verifiers has a structural ceiling. Their framing is particularly relevant for HumanEval/MBPP-style settings, where public or limited tests can reward brittle programs. Our narrative begins from the same observation but explores a different response: instead of accepting verifier weakness as a fixed ceiling for resampling, we add extra verification rounds aimed at reducing the pool of surviving false positives.
-
-\paragraph{Sequential inference and e-values.}
-E-values, test supermartingales, and confidence sequences provide tools for inference under optional stopping and adaptive data collection \citep{vovk2021evalues, howard2021confidence, ramdas2023savi}. These ideas are appealing for test-time scaling because repeated probe generation is inherently sequential and adaptive. In the current project, they serve as design inspiration and a target formalism. The implemented prototype does \emph{not} yet instantiate a fully justified anytime-valid e-process for candidate correctness, because the benchmark-dependent false-alarm rates of our probes have not been externally calibrated. We therefore separate the clean survival-bound argument, which is already valid, from the stronger statistical guarantees that remain future work.
+\paragraph{Misspecified Bayes as a template.}
+The theorem-3 mechanism is best understood through classical results on
+misspecified Bayesian updating. Berk established that under misspecification the
+posterior concentrates on a KL projection rather than the truth
+\citep{berk1966}. Later work shows that misspecified posteriors can be
+arbitrarily overconfident and that bagging or other robustification can reduce
+that pathology \citep{grunwald2017,huggins2020bayesbag}. We use this literature
+as the conceptual bridge between reasoning-time source conflict and the
+confidence blow-up seen in real reasoning traces.

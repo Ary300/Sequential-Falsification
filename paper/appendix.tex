@@ -1,84 +1,47 @@
 \section{Appendix}
 
-\subsection{Proof of Proposition 1}
+\subsection{Proof Sketch for Theorem 1}
 
-For an incorrect candidate, survival through $T$ rounds requires that no probe detects an error. Under conditional independence,
+Under a strictly proper scoring rule, the Bayes action is the posterior
+predictive distribution. Once the latent reliability variable $r$ is introduced
+and the answer posterior is parameterized as a reliability-aware interpolation
+between parametric and contextual beliefs, the optimal action is the integral
+over posterior reliability:
 \[
-\Pr(c \text{ survives } T \mid c \text{ incorrect})
-= \prod_{k=1}^{T}\Pr(Z_k=0 \mid c \text{ incorrect})
-\leq \prod_{k=1}^{T}(1-p_k).
+p^\star(y \mid q,c)=\int p(y \mid q,c,r)\,p(r \mid q,c)\,dr.
 \]
-If each $p_k \geq p_{\min}$, this further implies
-\[
-\Pr(c \text{ survives } T \mid c \text{ incorrect}) \leq (1-p_{\min})^T.
-\]
+Restricting to the implemented log-linear family yields the decoder used by the
+Bayes proxy experiments. The missing proof step in the current draft is the
+identifiability lemma tying posterior reliability to observable signals.
 
-For a correct candidate,
-\[
-\Pr(c \text{ survives } T \mid c \text{ correct})
- = \prod_{k=1}^{T}\Pr(Z_k=0 \mid c \text{ correct})
- \geq \prod_{k=1}^{T}(1-\delta_k),
-\]
-so
-\[
-\Pr(c \text{ is rejected by round } T \mid c \text{ correct})
-\leq 1-\prod_{k=1}^{T}(1-\delta_k).
-\]
-Applying the union bound yields the simpler but looser inequality
-\[
-1-\prod_{k=1}^{T}(1-\delta_k) \leq \sum_{k=1}^{T}\delta_k.
-\]
+\subsection{Proof Sketch for Theorem 2}
 
-\subsection{Why We Removed the Stronger Anytime-Validity Claim}
+Take two conflict families, $D_+$ and $D_-$, such that context is respectively
+reliable and misleading. Any fixed policy must fail on at least one of these
+families. A Yao-style mixture over $\{D_+,D_-\}$ therefore induces a constant
+lower bound on the best fixed policy. An adaptive policy that sees a separating
+signal $s(q,c)$ incurs regret proportional to the signal error. This establishes
+that fixed trust policies are minimax-suboptimal over the conflict family.
 
-An earlier version of the manuscript framed the prototype score as a fully valid e-process for candidate correctness. That interpretation was too strong for the current implementation. To justify an anytime-valid guarantee, the round-level score must be constructed using benchmark-specific null models or externally calibrated false-alarm rates that are actually satisfied by the probes in use. The current repository does not yet provide that calibration layer. For scientific correctness, the main paper now treats the score as a testing-inspired confidence proxy and limits the formal statement to the survival bound above.
+\subsection{Theorem-3 Reporting Convention}
 
-\subsection{Benchmarks and Execution Modes}
+The theorem-3 tables report the confidence--accuracy gap rather than only ECE.
+For the conflict slices considered here, the gap is the cleanest expression of
+the phenomenon of interest: confidence can rise sharply even when accuracy is
+flat or falling. We still report ECE in the generated artifacts, and in some
+slices the two are numerically very close.
 
-\paragraph{HumanEval+ and MBPP+.}
-These tasks are loaded through EvalPlus-style metadata, with public and hidden tests normalized into a common internal representation. HumanEval tasks are treated as function-completion problems. MBPP tasks may require explicit function-definition prompting when the original prompt does not provide a usable function skeleton.
+\subsection{Current 14B Scaling Snapshot}
 
-\paragraph{LiveCodeBench.}
-These tasks are executed as standalone programs when the benchmark specifies stdin/stdout behavior. This distinction is essential. A major debugging outcome of this project was that wrapping such tasks in a synthetic \texttt{solve()} function path can invalidate the evaluation.
-
-\paragraph{MATH subset.}
-The current math evaluation uses a difficulty-balanced subset compatible with a MATH-500-style setup. Exact final-answer matching is used in the present implementation.
-
-\subsection{Current Corrected Validation Slices}
-
-Table~\ref{tab:appendix-slices} expands the main-paper summary with the corrected slices available at the time of writing. Most of these were produced on DeltaAI before the clean Anvil rerun campaign replaced the older headline tables, so they should be interpreted as corrected validation evidence rather than the final publication matrix.
-
-\begin{table}[h]
-\centering
-\caption{Corrected validation slices used in this draft.}
-\label{tab:appendix-slices}
-\begin{tabular}{llcccccc}
-\toprule
-Model & Benchmark & Problems & Seeds & Greedy & Majority & Ours & Oracle \\
-\midrule
-R1-Distill-Qwen-7B & HumanEval+ & 16 & 3 & 37.5 & 25.0 & 68.8 & 75.0 \\
-R1-Distill-Qwen-7B & MBPP+ & 16 & 3 & $2.1 \pm 2.1$ & $4.2 \pm 2.1$ & $2.1 \pm 2.1$ & $6.2 \pm 0.0$ \\
-R1-Distill-Qwen-7B & LiveCodeBench v6 & 16 & 1 & 6.2 & 6.2 & 12.5 & 12.5 \\
-R1-Distill-Qwen-7B & MATH subset & 16 & 3 & $79.2 \pm 4.2$ & $95.8 \pm 2.1$ & $97.9 \pm 2.1$ & $97.9 \pm 2.1$ \\
-Qwen2.5-Coder-14B & HumanEval+ & 8 & 3 & $33.3 \pm 4.2$ & $33.3 \pm 4.2$ & $41.7 \pm 4.2$ & $41.7 \pm 4.2$ \\
-Qwen2.5-Coder-14B & MBPP+ & 8 & 3 & $91.7 \pm 4.2$ & $91.7 \pm 4.2$ & $100.0 \pm 0.0$ & $100.0 \pm 0.0$ \\
-R1-Distill-Qwen-32B & HumanEval+ & 8 & 3 & $41.7 \pm 4.2$ & $33.3 \pm 4.2$ & $87.5 \pm 0.0$ & $95.8 \pm 4.2$ \\
-R1-Distill-Qwen-32B & MBPP+ & 8 & 3 & $29.2 \pm 4.2$ & $29.2 \pm 4.2$ & $54.2 \pm 11.0$ & $54.2 \pm 11.0$ \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\subsection{Larger Completed Corrected Runs}
-
-Two larger corrected DeltaAI runs completed after the initial capped slices and are incorporated into the main paper. Their final summaries were:
+The finished DeepSeek-R1-Distill-Qwen-14B run contains `4200` rows. Its
+headline conflict-slice numbers are:
 
 \begin{itemize}
-\item LiveCodeBench v6, 100 problems, DeepSeek-R1-Distill-Qwen-7B, 1 seed: falsification 8.0, greedy 3.0, majority vote 3.0, oracle 8.0.
-\item MATH subset, 100 problems, DeepSeek-R1-Distill-Qwen-7B, 3 seeds: falsification $33.7 \pm 1.7$, greedy $11.7 \pm 2.3$, majority vote $23.0 \pm 2.1$, oracle $33.7 \pm 1.7$.
+\item WikiContradict conflict: $0.2717 \rightarrow 0.4516 \rightarrow 0.3750$
+\item ConflictBank conflict: $0.5876 \rightarrow 0.9449 \rightarrow 0.9513$
 \end{itemize}
 
-These runs are scientifically important because they show that the pipeline improvements survive a jump from tiny pilots to materially larger slices. The math run also yields informative calibration statistics in the current implementation, with mean ECE approximately $0.0086$ and mean Brier score approximately $2.2 \times 10^{-4}$ across the three seeds.
-
-\subsection{Implementation Notes}
-
-The released code supports public-test, mutation, edge-case, and random-stress probe paths in the corrected falsification workflow, with hidden tests quarantined to final evaluation by default. The repository also now supports explicit component ablations for adaptive probe choice, elimination on detection, and confidence-based survivor ranking, plus a non-adaptive generated-test filtering baseline that helps separate ``any extra tests help'' from genuinely adaptive falsification. Long benchmark runs write per-seed progress files after every completed problem, and a recovery script can rebuild aggregate \texttt{results.json} files from those progress logs if a cluster job terminates early.
+The first row reinforces the intermediate-CoT peak. The second shows that some
+conflict regimes remain catastrophically overconfident even at long CoT. This
+is why the final theorem-3 statement is family-dependent rather than uniformly
+non-monotone.

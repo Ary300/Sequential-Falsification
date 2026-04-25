@@ -1,50 +1,102 @@
 \section{Experiments}
 
-We evaluate primarily on HumanEval+, MBPP+, and LiveCodeBench v6. The primary code metric is pass@1 under hidden tests. The repository also supports MATH-500, GSM8K, and AIME-style answer-only benchmarks, but those rows are now treated as scope checks rather than falsification evidence because the current math path uses oracle-free answer agreement instead of a real symbolic or PRM verifier. The implemented baselines used in the corrected code runs are greedy decoding, majority vote over $N$ candidates, a non-adaptive generated-test filter, self-debugging when that path is wired for the benchmark, oracle pass@$N$, and our sequential falsification method. The repository now also includes executable local proxies for S* and CodeT: an adaptive elimination baseline without calibrated ranking, and a non-adaptive agreement-scoring baseline over generated probes. These are useful engineering baselines, but they are still \emph{not} the original external SkyThought or Microsoft implementations, so any results from them should be reported as local proxies rather than as definitive head-to-head comparisons.
+\paragraph{Benchmark and model matrix.}
+The current empirical core has two layers. For Theorems 1 and 2, we use a
+corrected broad wave spanning PopQA, DynamicQA, NQ-Swap, and WikiContradict,
+plus a conflict-heavy wave that emphasizes contradiction and conflict slices.
+These waves cover Llama-3.1-8B, Qwen-2.5-7B, Qwen-2.5-14B, Qwen-3-8B,
+DeepSeek-R1-Distill-Qwen-7B, and Pythia-6.9B. For Theorem 3, we use real
+DeepSeek-R1-Distill-Qwen-7B and 14B generations on WikiContradict and
+ambiguity-screened ConflictBank with three reasoning budgets: `no\_cot',
+`short\_cot' (`128`), and `long\_cot' (`1024`).
 
-\paragraph{Experimental protocol.}
-All corrected runs use benchmark-aware local generation and execution, but the serving backend is cluster-specific: earlier DeltaAI runs used a local vLLM-compatible stack, while the clean Anvil rerun path uses the repository's direct \texttt{transformers} backend because recent \texttt{vllm} wheels were incompatible with Anvil's system glibc. For HumanEval+ and MBPP+, we load EvalPlus tasks and evaluate against normalized public and hidden tests \citep{liu2023evalplus}. For LiveCodeBench, we decode both public tests and compressed private tests from the \texttt{code\_generation\_lite} release and execute candidates as standalone programs when the benchmark requires stdin/stdout I/O \citep{jain2024livecodebench}. In the corrected falsification path, hidden tests are reserved for final evaluation and never used to choose probes. For math-style evaluation, final scoring uses exact-match answers, but selection no longer calls this scorer unless the method is the explicit oracle. Whenever possible, runs use three random seeds and report mean accuracy with standard error.
+\paragraph{Metrics.}
+The arbitration experiments report mean regret against an oracle arbitration
+distribution, plus accuracy, ECE, and the oracle--model absolute and KL gaps.
+The theorem-3 experiments report accuracy, mean confidence, ECE, and the
+confidence--accuracy gap. We emphasize the gap because the core phenomenon is
+confidence sharpening without commensurate accuracy gain.
 
-\paragraph{Why the current results mix validation slices and larger corrected runs.}
-The original project plan called for a much larger benchmark matrix, but several pipeline issues had to be corrected first: method-aware resume behavior, benchmark-specific prompting for MBPP and LiveCodeBench, and proper stdin/stdout execution for competitive-programming tasks. The results below therefore have two roles. Some are \emph{capped validation slices} that establish end-to-end correctness after these fixes; others are the first \emph{larger corrected runs} launched from that repaired pipeline. Together, they provide materially stronger evidence than unit tests or mock runs, while still stopping short of the final full-benchmark campaign.
+\subsection{Theorems 1 and 2: Arbitration and Fixed-Policy Failure}
 
 \begin{table}[t]
 \centering
-\caption{Completed corrected DeltaAI results available at writing time. Accuracies are percentages; mean $\pm$ standard error is reported when multiple seeds are available.}
-\label{tab:main-validation}
-\begin{tabular}{llccccc}
+\caption{Headline theorem-1/theorem-2 results. Lower regret is better.}
+\label{tab:headline-regret}
+\begin{tabular}{lcc}
 \toprule
-Model & Benchmark & Problems & Greedy & Majority & Ours & Oracle \\
+Policy & Broad wave regret & Conflict-heavy wave regret \\
 \midrule
-Qwen2.5-Coder-14B & MBPP+ & 378 & $70.5 \pm 0.4$ & $71.6 \pm 0.3$ & $\mathbf{75.1 \pm 0.3}$ & $80.3 \pm 0.2$ \\
-R1-Distill-Qwen-32B & MBPP+ & 378 & $31.0 \pm 0.3$ & $30.8 \pm 0.3$ & $\mathbf{64.4 \pm 1.6}$ & $66.8 \pm 1.2$ \\
-R1-Distill-Qwen-7B & LiveCodeBench v6 & 100 & 3.0 & 3.0 & \textbf{8.0} & 8.0 \\
-R1-Distill-Qwen-7B & MBPP+ & 378 & $11.2 \pm 0.4$ & $10.8 \pm 0.2$ & $\mathbf{33.8 \pm 1.0}$ & $34.8 \pm 1.3$ \\
+Bayes proxy & $\mathbf{-0.0461}$ & $\mathbf{-0.1256}$ \\
+Heuristic adaptive & $-0.0233$ & $-0.0752$ \\
+Simulated model & $0.1408$ & $0.1104$ \\
+Fixed 50/50 & $0.3650$ & $0.3037$ \\
+Always context & $7.2237$ & $5.9037$ \\
+Always parametric & $5.9356$ & $7.1329$ \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\paragraph{Main findings.}
-First, falsification delivers the clearest gains on HumanEval+, and these gains persist beyond the tiny validation slices. In the current monitored DeltaAI runs, DeepSeek-R1-Distill-Qwen-7B improves from 32.3\% majority-vote accuracy to 65.2\%, Qwen2.5-Coder-14B improves from $23.8 \pm 1.2$ to $42.4 \pm 1.5$, and DeepSeek-R1-Distill-Qwen-32B improves from $34.5 \pm 0.3$ to $79.6 \pm 1.5$ while the oracle reaches $83.5 \pm 0.6$. These are exactly the kinds of gaps that motivate falsification rather than pure agreement-based selection. The artifact state is slightly ahead of the older prose for two models now. The publication-ready bundle contains a finished 14B single-seed HumanEval+ row at 43.9 for both falsification and self-debug, versus 23.2 for majority vote and 45.7 for the oracle. It also contains a finished 32B single-seed HumanEval+ row at 82.9 for falsification, 82.3 for self-debug, 29.9 for majority vote, and 84.8 for the oracle. We still treat the multi-seed monitoring bundle as the more informative live view, but these completed rows matter because they show the corrected HumanEval path can now produce fully materialized benchmark outputs for the stronger models rather than only progress-derived summaries.
+Table~\ref{tab:headline-regret} is the empirical backbone of Theorems 1 and 2.
+The Bayes proxy beats the generic adaptive heuristic on both waves, and the gap
+widens on the conflict-heavy slice. More importantly, every fixed trust policy
+is dramatically worse. This is the practical face of the minimax theorem:
+fixed trust is not merely suboptimal, it is operating in the wrong decision
+class.
 
-Second, MBPP+ is much more heterogeneous and exposes the hardest scientific objection to the paper. On the completed 378-problem three-seed MBPP+ runs, falsification reaches $33.8 \pm 1.0$ for the 7B model, $75.1 \pm 0.3$ for the 14B model, and $64.4 \pm 1.6$ for the 32B model, while the corresponding self-debug baselines are $33.8 \pm 1.0$, $75.2 \pm 0.4$, and $64.6 \pm 1.5$. This is useful evidence in two directions: falsification is clearly much stronger than greedy or majority vote on the harder models, but the current implementation does \emph{not} yet separate itself cleanly from self-debug on MBPP+.
+The broad wave is also informative about model heterogeneity. Three of the four
+main broad-wave models favor the Bayes proxy over the heuristic by about
+$0.0319$ regret, but Qwen-2.5-14B-Instruct slightly favors the heuristic
+($0.0050$ versus $0.0098$). That exception is scientifically useful. It shows
+the theorem-1/2 story is not a tautology baked into the proxy. Likewise, in
+the conflict-heavy wave, Pythia-6.9B is essentially tied between the Bayes
+proxy and the model-implied policy, while DeepSeek-R1-Distill-Qwen-7B remains
+far from the Bayes rule.
 
-Third, fixing benchmark semantics matters. Earlier LiveCodeBench debug runs were invalid because the system treated stdin/stdout problems like function-completion tasks. After correcting the loader, prompt format, and execution path, the first larger corrected 7B run reaches 8.0\% on 100 problems, compared with 3.0\% for both greedy and majority-vote selection. The absolute numbers are still low, but the corrected path finally measures the intended task at a more meaningful scale than the earlier 16-problem slice.
+\subsection{Theorem 3: Real Reasoning Traces}
 
-Fourth, math rows should be interpreted conservatively. Earlier drafts reported strong MATH subset numbers, but those rows used answer checks inside the selection path and are therefore deprecated as falsification evidence. The current code path removes that leakage: math benchmark scoring still uses the reference answer for final evaluation, while deployable methods select by answer agreement unless a future verifier is integrated. This is less flashy, but it keeps the paper scientifically defensible.
+\begin{table}[t]
+\centering
+\caption{Conflict-slice overconfidence gaps on real DeepSeek-R1-Distill traces.}
+\label{tab:theorem3}
+\begin{tabular}{llccc}
+\toprule
+Model & Benchmark & `cot=0' & `cot=128' & `cot=1024' \\
+\midrule
+7B & WikiContradict conflict & $0.2923$ & $0.4825$ & $0.4429$ \\
+7B & ConflictBank conflict & $0.5505$ & $0.7531$ & $0.5308$ \\
+14B & WikiContradict conflict & $0.2717$ & $0.4516$ & $0.3750$ \\
+14B & ConflictBank conflict & $0.5876$ & $0.9449$ & $0.9513$ \\
+\bottomrule
+\end{tabular}
+\end{table}
 
-Fifth, the self-debug comparison is now scientifically central rather than a footnote. On the current monitored HumanEval+ rows, self-debug is 70.1 for the 7B model, 42.4 for the 14B model, and 80.8 for the 32B model, compared with falsification at 65.2, 42.4, and 79.6 respectively. That means the present repository already supports a strong diagnosis of why majority voting fails and how execution-based elimination recovers the oracle gap, but it does not yet support a clean claim that falsification dominates self-debugging as an accuracy method. This is why the paper's strongest current contribution is the combination of benchmark-aware elimination, adaptive-vs-nonadaptive test comparisons, confidence diagnostics, and a cleaner empirical framing of test-time scaling failure on reasoning-oriented code models.
+Table~\ref{tab:theorem3} is the key theorem-3 result. The original monotone
+story is too simple. On the 7B model, both conflict benchmarks show an
+intermediate-CoT peak, with gap increases of $+0.1902$ on WikiContradict and
+$+0.2026$ on ConflictBank from `cot=0' to `cot=128', followed by partial
+recovery at `cot=1024'. On the 14B model, WikiContradict replicates the same
+peak-and-recover shape, but ConflictBank conflict remains catastrophic through
+long CoT: the gap rises from $0.5876$ to $0.9449$ and then stays at $0.9513$.
 
-Sixth, broader baseline coverage now makes the paper materially harder to dismiss. The current bundle includes a non-adaptive generated-test filter and executable local CodeT/S* proxies on the rows where those paths have finished. These comparisons are mixed in exactly the way a reviewer would want to see rather than be protected from. On DeepSeek-R1-Distill-Qwen-32B HumanEval+, falsification remains clearly stronger than the non-adaptive generated-test filter (79.6 versus 67.0), which supports the claim that adaptive elimination buys something beyond simply adding more tests. On DeepSeek-R1-Distill-Qwen-7B HumanEval+, however, the local S* proxy currently reaches 76.9 while falsification is at 65.2 and the CodeT proxy is at 69.2, showing that this row is genuinely competitive rather than a one-sided win. Qwen2.5-Coder-14B HumanEval+ is closer: falsification is 42.4, the S* proxy is 41.4, and the CodeT proxy is 39.7. The right reading of these rows is not that the problem has gone away; it is that the repository now exposes a reviewer-grade baseline surface and forces the method to earn its claims against something stronger than majority vote alone. For the same reason, any final main-paper table should distinguish clearly between completed external baselines, local executable proxies, and progress-derived monitoring rows.
+This is a better result than the dead monotone theorem. It reveals that
+reasoning-time calibration failure is \emph{structured}. Medium CoT is a
+reliable peak-overconfidence regime, but the late-stage behavior depends on the
+conflict family. Naturalistic contradiction shows partial self-correction;
+controlled conflict at 14B can stay locked into near-total overconfidence.
 
-\paragraph{Calibration and theory status.}
-The repository now generates comparative calibration tables, reliability-diagram payloads, and selective-prediction curves for falsification, majority vote, self-debug, and greedy selection. These artifacts matter because calibration is the clearest contribution that does not collapse into self-debugging. The current capped slices are still too small to support strong final calibration claims, so we do not claim that the confidence proxy is fully calibrated or anytime-valid. Instead, the present empirical result is more modest: the score is useful for within-pool ranking, and the larger scientific question of confidence calibration remains open.
+The no-conflict slices tell the same story more carefully. On ConflictBank
+no-conflict, 14B accuracy rises strongly with longer CoT ($0.514 \rightarrow
+0.862$) and the ECE curve largely recovers by long CoT. On WikiContradict
+no-conflict, overconfidence still rises materially. So theorem 3 should not be
+written as a universal conflict-versus-no-conflict sign flip. The supported
+claim is narrower and stronger: reasoning amplifies overconfidence under
+conflict, but the shape of that amplification depends on conflict family and
+reasoning depth.
 
-\paragraph{Ablation status.}
-The corrected repository now supports the main reviewer-critical sweep families directly in code rather than only in the paper plan: $N$-scaling sweeps, falsification-round sweeps, temperature sweeps, compute-matched comparisons, and component ablations that toggle adaptive probe choice, elimination, and confidence-based survivor ranking. It also now includes explicit probe-family sweeps for mutation, edge-case, random-stress, and differential-only falsification. The clean Anvil rerun queue is still focused on replacing stale headline benchmark numbers first, so these ablations should be read as implemented experimental capacity rather than completed large-scale results at the time of writing. To keep this distinction explicit, the paper bundle now also emits a separate completion table and a baseline-coverage report, which makes it easier to see when a method is absent because it was not run, rather than because it underperformed.
-
-\paragraph{Cluster workflow.}
-The current large-run path is hybrid but asymmetric. The best paper-quality results available at writing time come from DeltaAI, where long jobs can be resumed from seed-level progress checkpoints and then converted into reportable payloads even if the final \texttt{results.json} aggregation does not materialize automatically. Anvil remains useful for larger clean rerun campaigns, but those jobs are still more exposed to allocation caps and long dependency chains. Operationally, the two clusters now differ: DeltaAI uses a local OpenAI-compatible serving stack, while the Anvil rerun path uses a project-local conda environment and the repository's direct \texttt{transformers} backend because recent \texttt{vllm} wheels were incompatible with Anvil's system glibc. In both environments, runs checkpoint per-seed progress and then trigger a reporting job. If a long run exits before final aggregation, a progress-collection script reconstructs a valid partial result file so figures and tables remain reproducible. The most recent operational step in this direction is a DeltaAI resume chain for the three incomplete HumanEval seeds in the 7B, 14B, and 32B paper runs.
-
-\paragraph{Limitations.}
-This draft is now stronger than a pure pilot paper, but it is still not yet a final large-scale benchmarking paper. The main missing pieces are: (1) completion of the currently resumed DeltaAI HumanEval paper seeds so that the strongest HumanEval rows move from the monitoring bundle into the publication-ready bundle, (2) broader scaling and round-ablation sweeps at the target $N$ values, (3) replacement of the current local S*/CodeT proxies with the original external implementations, (4) fuller LiveCodeBench and math coverage for the larger models, and (5) externally calibrated false-alarm estimates needed for a true anytime-valid confidence guarantee. Most importantly, the current results do not yet answer the reviewer's hardest question in the affirmative: falsification clearly beats majority voting, but it does not yet consistently beat self-debugging or every stronger proxy baseline. Future gains should therefore be measured not against the earlier invalid runs, but against this cleaner and more demanding baseline surface.
+\paragraph{Takeaways.}
+The paper's empirical story is now coherent. Theorems 1 and 2 are supported by
+corrected benchmark-backed regret results. Theorem 3 lands in revised form on
+real reasoning traces and scales beyond a single model. What remains outside
+the current paper core are the larger checkpoint-family sweeps and mitigation
+experiments such as bagged reasoning or confidence-decoupled heads.

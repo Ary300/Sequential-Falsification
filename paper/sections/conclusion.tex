@@ -1,7 +1,25 @@
 \section{Conclusion}
 
-Sequential falsification is motivated by a simple but important observation: when verifier errors limit the value of resampling, a reasonable next use of inference-time compute is to challenge candidate solutions instead of merely generating more of them. The corrected implementation in this project now supports that idea end to end across function-completion code tasks and stdin/stdout competitive-programming tasks. It also supports answer-only math benchmarks as evaluation targets, but not yet as fully adversarial falsification targets.
+Knowledge arbitration should be treated as an inference problem, not as a
+retrieval heuristic. Once written as a posterior-predictive decision problem,
+the right comparison is not between one tuned adaptive rule and another, but
+between reliability-aware arbitration and fixed trust policies that cannot
+adapt to conflict families. Our corrected benchmark waves show that the
+Bayes-style rule wins that comparison cleanly, while fixed trust in retrieval
+or fixed trust in parametric memory incurs enormous regret.
 
-The present paper makes three concrete contributions. First, it delivers a working and benchmark-aware falsification pipeline with corrected execution semantics for the major code evaluation suites used here. Second, it replaces several earlier overclaims with a cleaner scientific framing: the current confidence mechanism is a useful empirical ranking signal, but not yet a formally anytime-valid guarantee, and the novelty claim is code-focused rather than a blanket claim over all calibration-aware test-time scaling. Third, it now provides both larger completed runs and monitored partial runs showing that sequential falsification can strongly outperform majority-vote selection on code tasks, with especially large gains on HumanEval+ and meaningful gains on MBPP+ and LiveCodeBench.
+The reasoning-time result is also now clearer than it was at the start of the
+project. The original monotone claim does not survive contact with real traces.
+What survives is a more interesting law: reasoning amplifies overconfidence
+under conflict, and the shape of that amplification depends on the conflict
+family. WikiContradict exhibits an intermediate-CoT peak with partial recovery.
+ConflictBank conflict becomes even harsher at 14B, remaining severely
+overconfident through long CoT.
 
-The next stage is straightforward but still substantial: finish the resumed HumanEval paper seeds, scale the corrected protocol to the full benchmark counts, integrate stronger external baselines, close the remaining LiveCodeBench and math coverage gaps, and calibrate benchmark-specific false-alarm rates so that the statistical story matches the ambition of the original project. The main scientific hurdle is now clear rather than hidden: falsification already beats agreement-based selection convincingly, but it still needs to separate itself more cleanly from self-debugging and from the strongest local proxy baselines on the hardest HumanEval rows. If those pieces hold up, sequential falsification could become a practical way to push inference-time scaling beyond naive resampling while also producing more trustworthy confidence estimates.
+The immediate next steps are now straightforward. The theory side needs full
+proof writeups for the Bayes-optimal rule and the fixed-policy minimax lower
+bound. The empirical side needs checkpoint-family sweeps and mitigation
+experiments such as bagged reasoning and confidence decoupling. But the main
+paper arc is no longer speculative: fixed trust policies are wrong, a
+reliability-aware rule does better, and real reasoning traces reveal a
+structured calibration pathology under knowledge conflict.

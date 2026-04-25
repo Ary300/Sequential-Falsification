@@ -2,7 +2,7 @@
   "headline": {
     "theorem_1": "A Bayes-style reliability-aware arbitration rule beats the generic heuristic and sharply beats fixed trust policies across the broad real matrix.",
     "theorem_2": "Fixed trust policies are minimax-bad in practice: in the conflict-heavy wave, they incur much larger regret than the principled Bayes proxy.",
-    "theorem_3": "Calibration failure peaks at an intermediate CoT budget, then partially self-corrects at very long CoT."
+    "theorem_3": "Reasoning amplifies overconfidence under conflict, with the exact CoT shape depending on benchmark family."
   },
   "project": "bayes_optimal_knowledge_arbitration",
   "theorem_1": {
@@ -187,24 +187,24 @@
   },
   "theorem_3_replication": {
     "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-14B",
-    "num_rows": 4031,
+    "num_rows": 4200,
     "rows": [
       {
         "benchmark": "conflictbank",
-        "gap_cot_0": 0.5821,
-        "gap_cot_1024": 0.95,
-        "gap_cot_128": 0.9434,
-        "gap_delta_0_128": 0.3613,
-        "gap_delta_128_1024": 0.0066,
+        "gap_cot_0": 0.5876,
+        "gap_cot_1024": 0.9513,
+        "gap_cot_128": 0.9449,
+        "gap_delta_0_128": 0.3573,
+        "gap_delta_128_1024": 0.0064,
         "split": "conflict"
       },
       {
         "benchmark": "conflictbank",
-        "gap_cot_0": 0.0732,
-        "gap_cot_1024": 0.103,
-        "gap_cot_128": 0.3064,
-        "gap_delta_0_128": 0.2332,
-        "gap_delta_128_1024": -0.2034,
+        "gap_cot_0": 0.0691,
+        "gap_cot_1024": 0.1032,
+        "gap_cot_128": 0.3108,
+        "gap_delta_0_128": 0.2417,
+        "gap_delta_128_1024": -0.2076,
         "split": "no_conflict"
       },
       {
@@ -226,7 +226,7 @@
         "split": "no_conflict"
       }
     ],
-    "source_job": "delta_job_2193269_partial",
+    "source_job": "delta_job_2193269",
     "source_results_dir": "/work/nvme/bgvi/adas17/tts_results/theorem3_real_generation_r1_14b_v3"
   }
 }

@@ -7,6 +7,21 @@ This file tracks whether we actually have the kind of results the paper needs.
 The goal is to prevent a repeat of vague "we're making progress" updates when
 the headline results are still missing.
 
+## Current landing
+
+The project now has a real paper-level core:
+
+- theorem 1 landed on the corrected broad wave;
+- theorem 2 landed on the corrected conflict-heavy wave;
+- theorem 3 landed in revised form on real 7B and 14B DeepSeek traces.
+
+The strongest current theorem-3 headline is:
+
+- reasoning amplifies overconfidence under conflict;
+- `WikiContradict` shows an intermediate-CoT peak with partial recovery;
+- `ConflictBank` conflict at 14B remains catastrophically overconfident
+  through long CoT.
+
 ## Headline-result checklist
 
 | Item | Needed for paper | Current status |
@@ -235,10 +250,11 @@ where **source adoption** becomes most extreme. This separation is important:
 theorem 3 is about the dynamics of calibration failure, not just monotone
 context-following.
 
-## Active replication
+## 14B replication outcome
 
-The first 14B theorem-3 replication attempt did not fail scientifically. It
-failed because the run wrote screening output into quota-limited home storage.
+The first 14B theorem-3 replication attempt failed operationally because the
+run wrote screening output into quota-limited home storage. The rerouted Delta
+run completed successfully.
 
 - job `2193155`
 - model `deepseek-ai/DeepSeek-R1-Distill-Qwen-14B`
@@ -246,13 +262,7 @@ failed because the run wrote screening output into quota-limited home storage.
 - partial artifact preserved:
   `results/theorem3_real_generation_r1_14b/conflictbank_screening.jsonl`
 
-Immediate next step:
-
-- reroute theorem-3 output to `/work/nvme/bgvi/adas17/...`
-- relaunch the 14B replication from the same code path
-- harvest the final JSON back into the repo once the run completes
-
-Current live rerun:
+Successful rerun:
 
 - job `2193269`
 - working tree:
@@ -260,20 +270,18 @@ Current live rerun:
 - output root:
   `/work/nvme/bgvi/adas17/tts_results/theorem3_real_generation_r1_14b_v3`
 
-Even before final aggregation, the partial 14B raw rows already give a usable
-scaling read:
+Final completed 14B read (`4200` rows):
 
-- `4031` parsed rows currently written
 - `ConflictBank` conflict gap:
-  `0.5821 -> 0.9434 -> 0.9500`
+  `0.5876 -> 0.9449 -> 0.9513`
 - `ConflictBank` no-conflict gap:
-  `0.0732 -> 0.3064 -> 0.1030`
+  `0.0691 -> 0.3108 -> 0.1032`
 - `WikiContradict` conflict gap:
   `0.2717 -> 0.4516 -> 0.3750`
 - `WikiContradict` no-conflict gap:
   `0.2963 -> 0.4229 -> 0.4164`
 
-This means the theorem-3 scaling picture is no longer speculative:
+This locks in the theorem-3 scaling picture:
 
 - the non-monotone intermediate-CoT peak still holds on `WikiContradict`;
 - the 14B `ConflictBank` conflict slice is even harsher than the 7B run,

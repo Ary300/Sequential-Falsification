@@ -11,8 +11,9 @@
 
 We cast knowledge conflict as a posterior-predictive decision problem, derive a
 Bayes-style arbitration rule that beats generic heuristics and fixed trust
-policies on real conflict benchmarks, and show that calibration failure peaks
-at an intermediate chain-of-thought budget before partially self-correcting.
+policies on real conflict benchmarks, and show that reasoning amplifies
+overconfidence under conflict, with the exact CoT shape depending on conflict
+family.
 
 ## Current abstract draft
 
@@ -32,13 +33,14 @@ In our corrected broad real wave, the Bayes proxy achieves mean regret
 wave, the gap widens to `-0.1256` versus `-0.0752`, with fixed policies at
 `5.9037` and `7.1329`. For reasoning-time calibration, real DeepSeek-R1-Distill
 traces show that the original monotone “more CoT is worse” story is too simple:
-overconfidence instead peaks at an intermediate CoT budget and partially
-self-corrects at very long CoT, with a `+0.2026` confidence-gap jump from
-`cot=0` to `cot=128` and a `-0.2223` drop from `cot=128` to `cot=1024` on
-ConflictBank conflict examples. These results position knowledge arbitration as
-a principled inference problem rather than a retrieval heuristic, and they give
-a concrete recipe for replacing fixed trust policies with reliability-aware
-decoding rules.
+7B traces peak at intermediate CoT on both `ConflictBank` and
+`WikiContradict`, while the completed 14B replication shows benchmark-family
+dependence: `WikiContradict` still partially recovers at long CoT, but
+`ConflictBank` conflict remains catastrophically overconfident through
+`cot=1024`. These results position knowledge arbitration as a principled
+inference problem rather than a retrieval heuristic, and they give a concrete
+recipe for replacing fixed trust policies with reliability-aware decoding
+rules.
 
 ## What the intro should say plainly
 
@@ -46,8 +48,8 @@ decoding rules.
 - Parametric memory should not be trusted by default.
 - The right object is a reliability-aware posterior-predictive arbitration rule.
 - Fixed trust policies fail badly enough that this is not a small-tuning issue.
-- Reasoning-time calibration under conflict is real, but the effect is not
-  monotone; the interesting law is an intermediate-CoT overconfidence peak.
+- Reasoning-time calibration under conflict is real, but the shape is
+  conflict-family dependent rather than uniformly monotone.
 
 ## Best empirical bullets right now
 
@@ -63,8 +65,8 @@ decoding rules.
 - Theorem-3 real-trace signal:
   `ConflictBank` conflict gap `0.5505 -> 0.7531 -> 0.5308`,
   `WikiContradict` conflict gap `0.2923 -> 0.4825 -> 0.4429`.
-- Partial 14B scaling signal:
-  `ConflictBank` conflict gap `0.5821 -> 0.9434 -> 0.9500`,
+- Finished 14B scaling signal:
+  `ConflictBank` conflict gap `0.5876 -> 0.9449 -> 0.9513`,
   `WikiContradict` conflict gap `0.2717 -> 0.4516 -> 0.3750`.
 
 ## Honest caveats we should write explicitly
@@ -73,10 +75,11 @@ decoding rules.
   full real-generation sweeps.
 - The broad-wave Bayes win has one exception:
   `Qwen2.5-14B-Instruct` slightly favors the generic heuristic.
-- Theorem 3 is landed in revised non-monotone form, not the original monotone
-  conflict-conditioned form.
-- The 14B replication already has strong partial raw rows, but the final
-  aggregated artifact is still pending.
+- Theorem 3 is landed in revised family-dependent form, not the original
+  monotone conflict-conditioned form.
+- `WikiContradict` supports an intermediate-CoT peak with partial recovery,
+  while `ConflictBank` conflict at 14B stays severely overconfident through
+  long CoT.
 
 ## Best current figure order
 

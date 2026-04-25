@@ -17,6 +17,31 @@ This document answers four things:
 - what must happen next before we can honestly claim the project is on a
   spotlight path.
 
+## Current landing
+
+As of `2026-04-25`, the repo has a real paper-shaped result set:
+
+- theorem 1 is supported by the corrected broad wave:
+  `bayes_proxy = -0.0461` versus `heuristic_adaptive = -0.0233`;
+- theorem 2 is supported by the corrected conflict-heavy wave:
+  `bayes_proxy = -0.1256` versus `heuristic_adaptive = -0.0752`,
+  with fixed policies at `5.9037` and `7.1329`;
+- theorem 3 is supported in revised form by real 7B and 14B DeepSeek traces.
+
+The 14B replication is now complete, not partial. Its final conflict-slice
+read is:
+
+- `ConflictBank` conflict gap:
+  `0.5876 -> 0.9449 -> 0.9513`
+- `WikiContradict` conflict gap:
+  `0.2717 -> 0.4516 -> 0.3750`
+
+So the honest theorem-3 landing is no longer “monotone CoT hurts calibration.”
+It is:
+
+> reasoning amplifies overconfidence under conflict, with the exact CoT shape
+> depending on conflict family.
+
 ## One-sentence thesis
 
 The project now studies knowledge conflict as a posterior-predictive decision
@@ -414,7 +439,7 @@ for an operational reason, not a scientific one:
 - immediate fix: reroute theorem-3 outputs to `/work/nvme/bgvi/adas17/...`
   instead of quota-limited home storage before relaunching
 
-That relaunch is now in progress:
+That relaunch completed successfully:
 
 - Delta job `2193269`
 - working tree moved to:
@@ -422,13 +447,12 @@ That relaunch is now in progress:
 - output root:
   `/work/nvme/bgvi/adas17/tts_results/theorem3_real_generation_r1_14b_v3`
 
-The partial 14B raw rows are already strong enough to matter. From `4031`
-parsed rows written before final aggregation:
+The completed 14B final report now reads:
 
 - `ConflictBank` conflict gap:
-  `0.5821 -> 0.9434 -> 0.9500`
+  `0.5876 -> 0.9449 -> 0.9513`
 - `ConflictBank` no-conflict gap:
-  `0.0732 -> 0.3064 -> 0.1030`
+  `0.0691 -> 0.3108 -> 0.1032`
 - `WikiContradict` conflict gap:
   `0.2717 -> 0.4516 -> 0.3750`
 - `WikiContradict` no-conflict gap:
@@ -486,7 +510,6 @@ The following repo areas are legacy relative to the new paper direction:
 
 - `docs/METHODS_DETAILED.md`
 - `docs/RESULTS_DETAILED_UP_TO_NOW.md`
-- `paper/`
 - `src/capacity.py`
 - `src/matching.py`
 - `src/verifiers/`

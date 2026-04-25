@@ -284,13 +284,11 @@ Mechanistic reading from the completed 7B run:
 That makes theorem 3c a statement about the dynamics of calibration failure,
 not merely about raw context-following.
 
-If this pattern also survives the in-flight `DeepSeek-R1-Distill-Qwen-14B`
-replication, it becomes the default theorem-3 landing point for the paper.
-
-Partial 14B raw-row update:
+The finished `DeepSeek-R1-Distill-Qwen-14B` replication sharpens the same story,
+but with an important benchmark-family split:
 
 - `ConflictBank` conflict gap:
-  `0.5821 -> 0.9434 -> 0.9500`
+  `0.5876 -> 0.9449 -> 0.9513`
 - `WikiContradict` conflict gap:
   `0.2717 -> 0.4516 -> 0.3750`
 
@@ -307,16 +305,15 @@ So the scaling result is more nuanced than a pure 7B replication:
 | --- | --- | --- |
 | Theorem 1 | `PopQA`, `DynamicQA`, synthetic oracle | early positive |
 | Theorem 2 | broad real regret comparisons, `WikiContradict`, `ConflictBank` | early positive |
-| Theorem 3 | `WikiContradict`, `ConflictBank`, real-trace CoT sweeps | landed in revised non-monotone form; scaling replication in flight |
+| Theorem 3 | `WikiContradict`, `ConflictBank`, real-trace CoT sweeps | landed in revised family-dependent form; 14B replication complete |
 
 ## Immediate next steps
 
 1. Turn Theorem 1 into a proof sketch with the exact decision class and loss.
 2. Turn Theorem 2 into a two-distribution minimax lower bound.
-3. Replicate Theorem 3c on `DeepSeek-R1-Distill-Qwen-14B`.
-4. Add mitigation conditions:
+3. Add mitigation conditions:
    - parallel-chain bagging
    - confidence decoupling
    - deterministic decoding control
-5. Promote the cleaned theorem statements into the paper outline now that the
+4. Promote the cleaned theorem statements into the paper outline now that the
    empirical theorem-3 story has a stable landing point.

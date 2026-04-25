@@ -4,7 +4,7 @@
 
 - Theorem 1: A Bayes-style reliability-aware arbitration rule beats the generic heuristic and sharply beats fixed trust policies across the broad real matrix.
 - Theorem 2: Fixed trust policies are minimax-bad in practice: in the conflict-heavy wave, they incur much larger regret than the principled Bayes proxy.
-- Theorem 3: Calibration failure peaks at an intermediate CoT budget, then partially self-corrects at very long CoT.
+- Theorem 3: Reasoning amplifies overconfidence under conflict, with the exact CoT shape depending on benchmark family.
 
 ## Theorem 1
 
@@ -55,7 +55,7 @@ Per-model read:
 
 - Source run: `delta_job_2190906` on `deepseek-ai/DeepSeek-R1-Distill-Qwen-7B`
 - Total parsed rows: `4200`
-- Partial 14B follow-on: `delta_job_2193269_partial` on `deepseek-ai/DeepSeek-R1-Distill-Qwen-14B` with `4031` rows
+- Final 14B follow-on: `delta_job_2193269` on `deepseek-ai/DeepSeek-R1-Distill-Qwen-14B` with `4200` rows
 
 | Benchmark | Split | `cot=0` gap | `cot=128` gap | `cot=1024` gap | `0->128` gap delta | `128->1024` gap delta |
 |---|---|---:|---:|---:|---:|---:|
@@ -64,12 +64,12 @@ Per-model read:
 | wikicontradict | conflict | 0.2923 | 0.4825 | 0.4429 | 0.1902 | -0.0396 |
 | wikicontradict | no_conflict | 0.2643 | 0.5038 | 0.4331 | 0.2395 | -0.0707 |
 
-Partial 14B replication:
+Final 14B replication:
 
 | Benchmark | Split | `cot=0` gap | `cot=128` gap | `cot=1024` gap | `0->128` gap delta | `128->1024` gap delta |
 |---|---|---:|---:|---:|---:|---:|
-| conflictbank | conflict | 0.5821 | 0.9434 | 0.9500 | 0.3613 | 0.0066 |
-| conflictbank | no_conflict | 0.0732 | 0.3064 | 0.1030 | 0.2332 | -0.2034 |
+| conflictbank | conflict | 0.5876 | 0.9449 | 0.9513 | 0.3573 | 0.0064 |
+| conflictbank | no_conflict | 0.0691 | 0.3108 | 0.1032 | 0.2417 | -0.2076 |
 | wikicontradict | conflict | 0.2717 | 0.4516 | 0.3750 | 0.1799 | -0.0766 |
 | wikicontradict | no_conflict | 0.2963 | 0.4229 | 0.4164 | 0.1266 | -0.0065 |
 
@@ -77,7 +77,7 @@ Partial 14B replication:
 
 - Theorem 1/2 are already paper-strong at the proxy-regret layer.
 - Theorem 3 does not support the old monotone statement.
-- The strongest current theorem-3 claim is the non-monotone intermediate-CoT overconfidence peak.
+- The strongest current theorem-3 claim is conflict-conditioned overconfidence amplification with family-dependent shape.
 - Broad-wave exception worth writing honestly: `Qwen2.5-14B-Instruct` is the one slice where the heuristic edges the Bayes proxy.
 - Conflict-wave near-tie worth noting: `pythia-6.9b` is essentially tied between Bayes proxy and simulated model.
-- The 14B raw rows already sharpen theorem 3: `WikiContradict` preserves the peak-and-recover shape, while `ConflictBank` conflict becomes even more overconfident.
+- The finished 14B run sharpens theorem 3: `WikiContradict` preserves the peak-and-recover shape, while `ConflictBank` conflict stays catastrophically overconfident through long CoT.

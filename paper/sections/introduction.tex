@@ -1,11 +1,62 @@
 \section{Introduction}
 
-Test-time scaling improves language-model performance by allocating additional inference-time compute through repeated sampling, reranking, or sequential refinement. In code generation and mathematical reasoning, the strongest gains often come from generating multiple candidates and selecting among them \citep{wang2022selfconsistency, chen2023selfdebug, li2025sstar}. However, repeated sampling is bottlenecked by verifier quality. Weak unit tests can let incorrect code candidates survive long enough to win a vote, even when more samples are generated. Recent analysis makes this failure mode explicit: with imperfect verifiers, resampling alone can hit a ceiling because false positives do not vanish with larger sample budgets \citep{stroebl2024flaws}.
+Large language models are increasingly deployed in settings where they must
+choose between disagreeing knowledge sources. A model may have a strong
+parametric prior, receive retrieved evidence that contradicts that prior, and
+then spend additional reasoning tokens reinforcing one side of the conflict.
+Current systems still treat this arbitration problem mostly heuristically.
+Adaptive RAG systems decide when to retrieve or how much to trust retrieval
+using tuned thresholds or learned controllers, while conflict benchmarks
+typically evaluate behavior descriptively rather than against a normative
+decision rule \citep{xu2024knowledgeconflicts,mallen2023popqa,asai2024selfrag}.
 
-This paper studies a different use of test-time compute. Instead of spending all extra budget on generation, we spend part of it on \emph{falsification}. We first sample a pool of candidate solutions. We then challenge each candidate with multiple targeted probes, such as held-out tests, simple mutations, or benchmark-specific execution checks, and eliminate candidates that fail. Surviving candidates are ranked by an empirical confidence proxy derived from the falsification trace. The high-level idea is simple: if false positives are the bottleneck, additional compute should be used to disprove wrong answers rather than merely produce more of them.
+This paper takes a different view. We treat knowledge conflict as a
+\emph{posterior-predictive decision problem}. The core object is not ``should
+the model use retrieval,'' but rather ``what predictive distribution minimizes
+Bayes risk given a parametric prior, a context-conditioned likelihood, and a
+latent reliability variable for the context?'' Once written this way, three
+questions become precise:
 
-Our contribution is primarily systems and methodology rather than a finished benchmark sweep. We build a unified evaluation stack for HumanEval+, MBPP+, LiveCodeBench, and MATH-style problems, including corrected support for both function-completion tasks and stdin/stdout competitive-programming tasks. The key novelty claim is intentionally narrow: we study \emph{execution-grounded sequential falsification for code generation} with population-level elimination, rather than claiming to be the first statistically grounded or calibration-aware test-time-scaling method in general. MATH-style tasks are included as answer-only evaluation targets, but the current selection rule for them is a non-oracle consensus fallback until a real verifier is added. We also formalize a clean survival-bound perspective: under mild assumptions on per-round detection probability, the probability that an incorrect candidate survives all rounds decays multiplicatively with the number of probes. This gives a principled rationale for sequential elimination even before full-scale confidence calibration is solved.
+\begin{enumerate}
+\item What is the Bayes-optimal arbitration rule?
+\item How bad are policies that always trust one source or use one global mix
+weight?
+\item How does longer reasoning interact with calibration when the two sources
+conflict?
+\end{enumerate}
 
-The scientific claim we make is deliberately narrower than the aspirational project framing. The current implementation is \emph{inspired} by e-values and anytime-valid inference \citep{vovk2021evalues, ramdas2023savi, howard2021confidence}, but it does not yet calibrate false-alarm rates strongly enough to justify a formal anytime-valid guarantee for the final confidence score. This conservative framing is increasingly important because newer work has already explored conformal or calibration-oriented test-time scaling outside our exact setting. Accordingly, we treat the current confidence mechanism as an empirical ranking signal and evaluate its behavior through calibration diagnostics rather than theorem-level validity claims.
+These questions are motivated by a real gap in the literature. Surveys and
+benchmarks on knowledge conflict repeatedly argue that blindly prioritizing
+either parametric memory or context is undesirable, but they stop short of a
+formal regret or minimax statement \citep{xu2024knowledgeconflicts}. Empirical
+systems such as PopQA-style adaptive retrieval, Self-RAG, FLARE, and related
+adaptive-RAG methods use thresholds or controllers that are not derived from a
+Bayes optimum \citep{mallen2023popqa,asai2024selfrag}. Meanwhile, the most
+relevant calibration literature shows that longer reasoning or more test-time
+compute can worsen calibration, but the strongest claims either live outside
+knowledge conflict or remain descriptive rather than decision-theoretic
+\citep{halawi2024overthinking,chen2025rethinking,ghosal2025mirage,sun2025context}.
 
-Across the current corrected DeltaAI paper runs, sequential falsification consistently improves over majority vote on every code benchmark/model slice we report, with especially large gains on HumanEval+ and clear gains on MBPP+ and LiveCodeBench. The strongest current HumanEval+ row is DeepSeek-R1-Distill-Qwen-32B, where majority vote reaches $34.5 \pm 0.3$, falsification reaches $79.6 \pm 1.5$, and the oracle reaches $83.5 \pm 0.6$. At the same time, the comparison to self-debugging and stronger proxy baselines is genuinely nontrivial: self-debug currently matches or slightly exceeds falsification on several monitored rows, and some generated-test-filter or proxy rows are also competitive. We therefore frame the present contribution carefully. The pipeline now demonstrates that agreement-based selection can fail badly on reasoning-oriented code models, that active execution-grounded elimination can recover most of the oracle gap, and that the repository supports a credible calibration-oriented alternative to pure resampling. Whether falsification can become a robust accuracy win over mature self-debugging across the full benchmark matrix remains an open empirical question.
+Our contributions are threefold. First, we derive a Bayes-style
+reliability-aware arbitration rule and validate it on a corrected broad wave of
+benchmark-backed experiments. In that wave, the Bayes proxy achieves mean
+regret $-0.0461$ versus $-0.0233$ for a generic adaptive heuristic, while
+`always\_context' and `always\_parametric' degrade to $7.2237$ and $5.9356$.
+Second, we show that fixed trust policies are minimax-bad in practice on
+conflict-heavy slices: in the conflict wave, the Bayes proxy reaches
+$-0.1256$ versus $-0.0752$ for the heuristic, while fixed trust policies remain
+at $5.9037$ and $7.1329$. Third, we revisit the reasoning-time calibration
+claim using real DeepSeek-R1-Distill traces rather than proxy CoT buckets. The
+result is stronger and more nuanced than our original monotone hypothesis:
+reasoning amplifies overconfidence under conflict, but the shape depends on the
+conflict family. On WikiContradict, both 7B and 14B show an intermediate-CoT
+peak followed by partial recovery. On ConflictBank conflict, 7B shows the same
+peak-and-recover shape, while 14B remains severely overconfident through long
+CoT.
+
+The paper therefore makes two negative claims and one positive one. The
+negative claims are that fixed trust in retrieval is wrong, and fixed trust in
+the parametric model is wrong. The positive claim is that knowledge arbitration
+admits a principled reliability-aware rule that improves regret, and that
+reasoning-time confidence under conflict follows a structured, measurable law
+rather than arbitrary noise.
