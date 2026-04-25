@@ -24,6 +24,48 @@
     "mean_oracle_model_kl": 1.2288,
     "name": "broad_real_headline_wave_reestimated_v3",
     "num_series": 176,
+    "per_model": [
+      {
+        "bayes_proxy_mean_regret": 0.009765363334986127,
+        "bayes_vs_heuristic_gain": -0.00478565652499565,
+        "bayes_vs_simulated_gain": 0.24478551565689605,
+        "fixed_50_mean_regret": 0.3650119290428282,
+        "heuristic_adaptive_mean_regret": 0.004979706809990476,
+        "model": "Qwen/Qwen2.5-14B-Instruct",
+        "num_examples": 11240,
+        "simulated_model_mean_regret": 0.25455087899188217
+      },
+      {
+        "bayes_proxy_mean_regret": -0.06468272369863501,
+        "bayes_vs_heuristic_gain": 0.031889801111682846,
+        "bayes_vs_simulated_gain": 0.0008581849739035807,
+        "fixed_50_mean_regret": 0.3650119290428282,
+        "heuristic_adaptive_mean_regret": -0.03279292258695216,
+        "model": "Qwen/Qwen2.5-7B-Instruct",
+        "num_examples": 11240,
+        "simulated_model_mean_regret": -0.06382453872473143
+      },
+      {
+        "bayes_proxy_mean_regret": -0.06468272369863501,
+        "bayes_vs_heuristic_gain": 0.031889801111682846,
+        "bayes_vs_simulated_gain": 0.500868646950034,
+        "fixed_50_mean_regret": 0.3650119290428282,
+        "heuristic_adaptive_mean_regret": -0.03279292258695216,
+        "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+        "num_examples": 11240,
+        "simulated_model_mean_regret": 0.43618592325139893
+      },
+      {
+        "bayes_proxy_mean_regret": -0.06468272369863501,
+        "bayes_vs_heuristic_gain": 0.031889801111682846,
+        "bayes_vs_simulated_gain": 0.0008581849739035807,
+        "fixed_50_mean_regret": 0.3650119290428282,
+        "heuristic_adaptive_mean_regret": -0.03279292258695216,
+        "model": "meta-llama/Llama-3.1-8B-Instruct",
+        "num_examples": 11240,
+        "simulated_model_mean_regret": -0.06382453872473143
+      }
+    ],
     "simulated_model_mean_regret": 0.1407719311984596
   },
   "theorem_2": {
@@ -45,6 +87,58 @@
     "mean_oracle_model_kl": 2.1393,
     "name": "conflict_headline_wave_reestimated_v3",
     "num_series": 175,
+    "per_model": [
+      {
+        "bayes_proxy_mean_regret": -0.15097882742800953,
+        "bayes_vs_heuristic_gain": 0.0316483769298023,
+        "bayes_vs_simulated_gain": -0.0024351370025132157,
+        "fixed_50_mean_regret": 0.3037045321923151,
+        "heuristic_adaptive_mean_regret": -0.11933045049820723,
+        "model": "EleutherAI/pythia-6.9b",
+        "num_examples": 14050,
+        "simulated_model_mean_regret": -0.15341396443052274
+      },
+      {
+        "bayes_proxy_mean_regret": -0.11922208245543915,
+        "bayes_vs_heuristic_gain": 0.0551106167038377,
+        "bayes_vs_simulated_gain": 0.19809922202436114,
+        "fixed_50_mean_regret": 0.3037045321923151,
+        "heuristic_adaptive_mean_regret": -0.06411146575160145,
+        "model": "Qwen/Qwen2.5-7B-Instruct",
+        "num_examples": 14050,
+        "simulated_model_mean_regret": 0.078877139568922
+      },
+      {
+        "bayes_proxy_mean_regret": -0.11922208245543915,
+        "bayes_vs_heuristic_gain": 0.0551106167038377,
+        "bayes_vs_simulated_gain": 0.19809922202436114,
+        "fixed_50_mean_regret": 0.3037045321923151,
+        "heuristic_adaptive_mean_regret": -0.06411146575160145,
+        "model": "Qwen/Qwen3-8B",
+        "num_examples": 14050,
+        "simulated_model_mean_regret": 0.078877139568922
+      },
+      {
+        "bayes_proxy_mean_regret": -0.11922208245543915,
+        "bayes_vs_heuristic_gain": 0.0551106167038377,
+        "bayes_vs_simulated_gain": 0.5877776688269907,
+        "fixed_50_mean_regret": 0.3037045321923151,
+        "heuristic_adaptive_mean_regret": -0.06411146575160145,
+        "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+        "num_examples": 14050,
+        "simulated_model_mean_regret": 0.4685555863715515
+      },
+      {
+        "bayes_proxy_mean_regret": -0.11922208245543915,
+        "bayes_vs_heuristic_gain": 0.0551106167038377,
+        "bayes_vs_simulated_gain": 0.19809922202436114,
+        "fixed_50_mean_regret": 0.3037045321923151,
+        "heuristic_adaptive_mean_regret": -0.06411146575160145,
+        "model": "meta-llama/Llama-3.1-8B-Instruct",
+        "num_examples": 14050,
+        "simulated_model_mean_regret": 0.078877139568922
+      }
+    ],
     "simulated_model_mean_regret": 0.11035460812956133
   },
   "theorem_3": {

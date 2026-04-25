@@ -21,6 +21,13 @@
 - Mean oracle-model KL: `1.2288`
 - Mean conflict / no-conflict ECE deltas: `-0.0054` / `-0.0238`
 
+Per-model read:
+
+- `Qwen/Qwen2.5-14B-Instruct`: Bayes `0.0098`, heuristic `0.0050`, simulated `0.2546`
+- `Qwen/Qwen2.5-7B-Instruct`: Bayes `-0.0647`, heuristic `-0.0328`, simulated `-0.0638`
+- `deepseek-ai/DeepSeek-R1-Distill-Qwen-7B`: Bayes `-0.0647`, heuristic `-0.0328`, simulated `0.4362`
+- `meta-llama/Llama-3.1-8B-Instruct`: Bayes `-0.0647`, heuristic `-0.0328`, simulated `-0.0638`
+
 ## Theorem 2
 
 - Wave: `conflict_headline_wave_reestimated_v3` across `175` series
@@ -35,6 +42,14 @@
 - Mean oracle-model absolute gap: `0.2768`
 - Mean oracle-model KL: `2.1393`
 - Mean conflict / no-conflict ECE deltas: `-0.0191` / `-0.0383`
+
+Per-model read:
+
+- `EleutherAI/pythia-6.9b`: Bayes `-0.1510`, heuristic `-0.1193`, simulated `-0.1534`
+- `Qwen/Qwen2.5-7B-Instruct`: Bayes `-0.1192`, heuristic `-0.0641`, simulated `0.0789`
+- `Qwen/Qwen3-8B`: Bayes `-0.1192`, heuristic `-0.0641`, simulated `0.0789`
+- `deepseek-ai/DeepSeek-R1-Distill-Qwen-7B`: Bayes `-0.1192`, heuristic `-0.0641`, simulated `0.4686`
+- `meta-llama/Llama-3.1-8B-Instruct`: Bayes `-0.1192`, heuristic `-0.0641`, simulated `0.0789`
 
 ## Theorem 3
 
@@ -53,3 +68,5 @@
 - Theorem 1/2 are already paper-strong at the proxy-regret layer.
 - Theorem 3 does not support the old monotone statement.
 - The strongest current theorem-3 claim is the non-monotone intermediate-CoT overconfidence peak.
+- Broad-wave exception worth writing honestly: `Qwen2.5-14B-Instruct` is the one slice where the heuristic edges the Bayes proxy.
+- Conflict-wave near-tie worth noting: `pythia-6.9b` is essentially tied between Bayes proxy and simulated model.

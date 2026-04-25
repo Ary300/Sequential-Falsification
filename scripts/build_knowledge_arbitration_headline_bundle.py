@@ -20,6 +20,50 @@ def _load_json(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
+def _per_model_summary(result_payload: dict[str, Any]) -> list[dict[str, Any]]:
+    rows = []
+    for experiment in result_payload["experiments"]:
+        rows.extend(experiment["rows"])
+
+    grouped: dict[str, dict[str, float]] = {}
+    for row in rows:
+        model = str(row["model"])
+        bucket = grouped.setdefault(
+            model,
+            {
+                "num_examples": 0.0,
+                "bayes_proxy": 0.0,
+                "heuristic_adaptive": 0.0,
+                "simulated_model": 0.0,
+                "fixed_50": 0.0,
+            },
+        )
+        bucket["num_examples"] += 1.0
+        for policy in ["bayes_proxy", "heuristic_adaptive", "simulated_model", "fixed_50"]:
+            bucket[policy] += float(row["regret_by_policy"][policy])
+
+    out = []
+    for model, bucket in sorted(grouped.items()):
+        n = bucket["num_examples"] or 1.0
+        bayes = bucket["bayes_proxy"] / n
+        heuristic = bucket["heuristic_adaptive"] / n
+        simulated = bucket["simulated_model"] / n
+        fixed = bucket["fixed_50"] / n
+        out.append(
+            {
+                "model": model,
+                "num_examples": int(n),
+                "bayes_proxy_mean_regret": bayes,
+                "heuristic_adaptive_mean_regret": heuristic,
+                "simulated_model_mean_regret": simulated,
+                "fixed_50_mean_regret": fixed,
+                "bayes_vs_heuristic_gain": heuristic - bayes,
+                "bayes_vs_simulated_gain": simulated - bayes,
+            }
+        )
+    return out
+
+
 def _theorem12_section(name: str, report_summary: dict[str, Any], result_payload: dict[str, Any]) -> dict[str, Any]:
     policies = result_payload["summary"]
     bayes = float(policies["bayes_proxy"]["mean_regret"])
@@ -50,6 +94,7 @@ def _theorem12_section(name: str, report_summary: dict[str, Any], result_payload
         "mean_oracle_model_kl": float(oracle_vs_model["mean_kl_to_oracle"]),
         "mean_conflict_ece_delta": float(headline["mean_conflict_ece_delta"]),
         "mean_no_conflict_ece_delta": float(headline["mean_no_conflict_ece_delta"]),
+        "per_model": _per_model_summary(result_payload),
     }
 
 
@@ -113,29 +158,59 @@ def build_markdown(bundle: dict[str, Any]) -> str:
         f"- Mean oracle-model KL: `{t1['mean_oracle_model_kl']}`",
         f"- Mean conflict / no-conflict ECE deltas: `{t1['mean_conflict_ece_delta']}` / `{t1['mean_no_conflict_ece_delta']}`",
         "",
-        "## Theorem 2",
+        "Per-model read:",
         "",
-        f"- Wave: `{t2['name']}` across `{t2['num_series']}` series",
-        f"- `bayes_proxy` mean regret: `{t2['bayes_proxy_mean_regret']}`",
-        f"- `bayes_proxy` accuracy / ECE: `{t2['bayes_proxy_accuracy']:.4f}` / `{t2['bayes_proxy_ece']:.4f}`",
-        f"- `heuristic_adaptive` mean regret: `{t2['heuristic_adaptive_mean_regret']}`",
-        f"- Bayes minus heuristic regret gap: `{t2['heuristic_adaptive_mean_regret'] - t2['bayes_proxy_mean_regret']:.4f}`",
-        f"- `simulated_model` mean regret: `{t2['simulated_model_mean_regret']}`",
-        f"- `fixed_50` mean regret: `{t2['fixed_50_mean_regret']}`",
-        f"- `always_context` mean regret: `{t2['always_context_mean_regret']}`",
-        f"- `always_parametric` mean regret: `{t2['always_parametric_mean_regret']}`",
-        f"- Mean oracle-model absolute gap: `{t2['mean_oracle_model_abs_gap']}`",
-        f"- Mean oracle-model KL: `{t2['mean_oracle_model_kl']}`",
-        f"- Mean conflict / no-conflict ECE deltas: `{t2['mean_conflict_ece_delta']}` / `{t2['mean_no_conflict_ece_delta']}`",
-        "",
-        "## Theorem 3",
-        "",
-        f"- Source run: `{t3['source_job']}` on `{t3['model']}`",
-        f"- Total parsed rows: `{t3['num_rows']}`",
-        "",
-        "| Benchmark | Split | `cot=0` gap | `cot=128` gap | `cot=1024` gap | `0->128` gap delta | `128->1024` gap delta |",
-        "|---|---|---:|---:|---:|---:|---:|",
     ]
+
+    for row in t1["per_model"]:
+        lines.append(
+            f"- `{row['model']}`: Bayes `{row['bayes_proxy_mean_regret']:.4f}`, "
+            f"heuristic `{row['heuristic_adaptive_mean_regret']:.4f}`, "
+            f"simulated `{row['simulated_model_mean_regret']:.4f}`"
+        )
+
+    lines.extend(
+        [
+            "",
+            "## Theorem 2",
+            "",
+            f"- Wave: `{t2['name']}` across `{t2['num_series']}` series",
+            f"- `bayes_proxy` mean regret: `{t2['bayes_proxy_mean_regret']}`",
+            f"- `bayes_proxy` accuracy / ECE: `{t2['bayes_proxy_accuracy']:.4f}` / `{t2['bayes_proxy_ece']:.4f}`",
+            f"- `heuristic_adaptive` mean regret: `{t2['heuristic_adaptive_mean_regret']}`",
+            f"- Bayes minus heuristic regret gap: `{t2['heuristic_adaptive_mean_regret'] - t2['bayes_proxy_mean_regret']:.4f}`",
+            f"- `simulated_model` mean regret: `{t2['simulated_model_mean_regret']}`",
+            f"- `fixed_50` mean regret: `{t2['fixed_50_mean_regret']}`",
+            f"- `always_context` mean regret: `{t2['always_context_mean_regret']}`",
+            f"- `always_parametric` mean regret: `{t2['always_parametric_mean_regret']}`",
+            f"- Mean oracle-model absolute gap: `{t2['mean_oracle_model_abs_gap']}`",
+            f"- Mean oracle-model KL: `{t2['mean_oracle_model_kl']}`",
+            f"- Mean conflict / no-conflict ECE deltas: `{t2['mean_conflict_ece_delta']}` / `{t2['mean_no_conflict_ece_delta']}`",
+            "",
+            "Per-model read:",
+            "",
+        ]
+    )
+
+    for row in t2["per_model"]:
+        lines.append(
+            f"- `{row['model']}`: Bayes `{row['bayes_proxy_mean_regret']:.4f}`, "
+            f"heuristic `{row['heuristic_adaptive_mean_regret']:.4f}`, "
+            f"simulated `{row['simulated_model_mean_regret']:.4f}`"
+        )
+
+    lines.extend(
+        [
+            "",
+            "## Theorem 3",
+            "",
+            f"- Source run: `{t3['source_job']}` on `{t3['model']}`",
+            f"- Total parsed rows: `{t3['num_rows']}`",
+            "",
+            "| Benchmark | Split | `cot=0` gap | `cot=128` gap | `cot=1024` gap | `0->128` gap delta | `128->1024` gap delta |",
+            "|---|---|---:|---:|---:|---:|---:|",
+        ]
+    )
 
     for row in t3["rows"]:
         lines.append(
@@ -151,6 +226,8 @@ def build_markdown(bundle: dict[str, Any]) -> str:
             "- Theorem 1/2 are already paper-strong at the proxy-regret layer.",
             "- Theorem 3 does not support the old monotone statement.",
             "- The strongest current theorem-3 claim is the non-monotone intermediate-CoT overconfidence peak.",
+            "- Broad-wave exception worth writing honestly: `Qwen2.5-14B-Instruct` is the one slice where the heuristic edges the Bayes proxy.",
+            "- Conflict-wave near-tie worth noting: `pythia-6.9b` is essentially tied between Bayes proxy and simulated model.",
         ]
     )
     return "\n".join(lines) + "\n"
