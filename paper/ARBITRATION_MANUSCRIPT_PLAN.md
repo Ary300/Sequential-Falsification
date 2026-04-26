@@ -15,9 +15,10 @@ The strongest honest headline today is:
 1. A Bayes-style reliability-aware arbitration rule beats a generic adaptive
    heuristic and dramatically outperforms fixed trust policies.
 2. Fixed trust policies are minimax-bad in practice on conflict-heavy slices.
-3. Calibration failure under reasoning is real, but it lands in revised
-   non-monotone form: overconfidence peaks at intermediate CoT and partially
-   self-corrects at very long CoT.
+3. Calibration failure under reasoning is real, but the corrected control means
+   it should now be written as a harder and narrower theorem: hard-QA
+   overconfidence amplification with conflict-sensitive persistence, not a
+   clean conflict-only sign flip.
 
 ## Current empirical backbone
 
@@ -62,8 +63,9 @@ The strongest honest headline today is:
 - The conflict-wave has one near-tie:
   `pythia-6.9b` is essentially tied between the Bayes proxy and simulated
   model.
-- The 14B theorem-3 replication is the live scaling check that decides whether
-  theorem 3 is a single-model result or a broader reasoning-model law.
+- The next real question is not whether theorem 3 exists at all, but whether it
+  can be rewritten into a novelty-bearing two-regime result and then
+  replicated beyond the current DeepSeek panel.
 
 ## Recommended section mapping
 
@@ -73,7 +75,7 @@ Use one of:
 
 1. `When Should LLMs Trust Retrieval? Bayes-Optimal Knowledge Arbitration`
 2. `Fixed Trust Policies Are Wrong: Bayes-Optimal Knowledge Arbitration for LLMs`
-3. `Knowledge Arbitration Under Conflict: Bayes-Optimal Rules and Non-Monotone CoT Calibration`
+3. `Knowledge Arbitration Under Conflict: Bayes-Optimal Rules and Two-Regime Reasoning Calibration`
 
 ### Abstract
 
@@ -89,7 +91,8 @@ Must say plainly:
 - parametric memory should not be trusted by default;
 - arbitration is a posterior-predictive decision problem;
 - fixed trust policies fail badly enough that this is not just a tuning issue;
-- theorem 3 lands as an intermediate-CoT overconfidence peak, not a monotone law.
+- theorem 3 should be rewritten around the corrected closed-book control, not
+  left as the old peak-only story.
 
 ### Theory section
 
@@ -98,7 +101,8 @@ Subsections:
 1. Posterior-predictive setup and notation.
 2. Theorem 1: Bayes-optimal arbitration rule.
 3. Theorem 2: minimax suboptimality of fixed policies.
-4. Theorem 3c / 3c': intermediate-CoT overconfidence peak.
+4. Theorem 3 rewrite: two-regime self-correction / misspecified-Bayes
+   overconfidence amplification.
 
 ### Experiments section
 

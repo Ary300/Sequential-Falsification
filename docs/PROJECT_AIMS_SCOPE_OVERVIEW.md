@@ -17,6 +17,9 @@ This document answers four things:
 - what must happen next before we can honestly claim the project is on a
   spotlight path.
 
+The current spotlight-ambition execution plan now lives in
+[`docs/SPOTLIGHT_EXECUTION_PLAN_2026.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/SPOTLIGHT_EXECUTION_PLAN_2026.md).
+
 ## Current landing
 
 As of `2026-04-25`, the repo has a real paper-shaped result set:
@@ -65,8 +68,8 @@ more ambitious:
 1. define the arbitration problem formally;
 2. derive the Bayes-optimal arbitration rule;
 3. prove that fixed trust policies are minimax-suboptimal;
-4. prove a conflict-conditioned calibration-coupling result for chain-of-thought
-   length;
+4. prove a revised calibration theorem for chain-of-thought length that
+   survives the corrected `closed_book` control;
 5. validate those claims on conflict benchmarks with real LLMs.
 
 The repo therefore needs to behave like a knowledge-conflict theory-and-systems
@@ -77,14 +80,18 @@ project, not like a code-generation TTS project with a new abstract.
 The active submission target is now:
 
 - a Bayes-optimal knowledge arbitration paper;
-- aimed at NeurIPS/ICLR-style theory-plus-empirics;
+- aimed at `ICML` / `NeurIPS` / `ICLR`-style theory-plus-empirics;
+- with `ICML 2026` as the primary spotlight attempt and `NeurIPS 2026` as the
+  immediate fallback;
 - with spotlight-tier ambition only if the empirical prediction is visibly
-  surprising on frontier reasoning models.
+  surprising on frontier reasoning models and the empirical matrix is expanded
+  well beyond the current scope.
 
 The core claim we want reviewers to remember is:
 
-> Fixed trust policies are formally wrong, and long reasoning can make
-> conflict-conditioned confidence worse.
+> Fixed trust policies are formally wrong, and extended reasoning can amplify
+> overconfidence on hard knowledge tasks, with controlled conflict making the
+> pathology worse at larger scale.
 
 ## What counts as a headline result now
 
@@ -104,10 +111,11 @@ suboptimal, not merely empirically weaker on a benchmark.
 
 ### 3. A real empirical prediction that lands
 
-The high-risk, high-upside result is a conflict-conditioned calibration claim:
+The high-risk, high-upside result is a rewritten calibration claim:
 
-- on conflict subsets, longer CoT should worsen calibration;
-- on no-conflict subsets, that degradation should disappear or reverse;
+- longer CoT can amplify overconfidence on hard knowledge QA;
+- explicit conflict should create a more pathological regime on at least some
+  controlled conflict families;
 - the phenomenon should persist even under deterministic decoding.
 
 If that three-part arc lands, the paper has a real spotlight argument.

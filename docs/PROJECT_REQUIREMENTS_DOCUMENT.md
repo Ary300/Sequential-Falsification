@@ -4,9 +4,9 @@ Project: Bayes-Optimal Knowledge Arbitration Under Context-Memory Conflict
 
 Status: Active research pivot
 
-Target venue: NeurIPS 2027 main conference
+Target venue: ICML 2026 primary; NeurIPS 2026 fallback; ICLR / NeurIPS 2027 continuation
 
-Ambition: Main-track acceptance with spotlight-tier upside
+Ambition: Main-track acceptance with spotlight-tier upside if theorem 3 is successfully rewritten and the empirical matrix is expanded to spotlight-scale
 
 Last updated: 2026-04-23
 
@@ -46,8 +46,9 @@ The project has three theorem targets and one empirical spine:
 
 - Theorem 1: derive the Bayes-optimal arbitration rule.
 - Theorem 2: prove minimax suboptimality of fixed trust policies.
-- Theorem 3: prove and test a conflict-conditioned calibration-coupling claim
-  for chain-of-thought length.
+- Theorem 3: replace the original conflict-only calibration claim with a
+  stronger and more defensible two-regime / misspecified-Bayes reasoning
+  theorem that survives the corrected `closed_book` control.
 - Experimental spine: validate the predictions across conflict benchmarks, open
   model families, and at least one checkpoint-resolved family.
 
@@ -56,8 +57,9 @@ The project has three theorem targets and one empirical spine:
 - Can we derive an optimal arbitration policy between parametric memory and
   retrieved context from a clean Bayesian decision problem?
 - Can we prove that fixed trust policies are structurally dominated?
-- Under explicit knowledge conflict, does longer chain-of-thought worsen
-  calibration in a predictable way?
+- Under explicit knowledge conflict and hard-QA settings more generally, does
+  longer chain-of-thought amplify overconfidence in a predictable, scale- and
+  benchmark-dependent way?
 - Can we estimate the relevant reliability terms from observable model signals
   tightly enough to make the theory operational?
 
@@ -78,8 +80,8 @@ Target:
 
 Stretch:
 
-- the conflict-conditioned CoT result is visibly surprising on frontier
-  reasoning models;
+- the rewritten theorem-3 result is visibly surprising on frontier reasoning
+  models and survives a true `closed_book` control;
 - the paper develops a practical arbitration recipe reviewers can immediately
   use in RAG systems.
 
