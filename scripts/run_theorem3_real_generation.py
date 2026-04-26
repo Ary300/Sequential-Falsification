@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+from dataclasses import fields
 import json
 from pathlib import Path
 import sys
@@ -40,16 +41,18 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> None:
     args = parse_args()
-    config = GenerationConfig(
-        backend=args.backend,
-        model=args.model,
-        api_base=args.api_base,
-        api_key=args.api_key,
-        request_timeout=args.request_timeout,
-        temperature=args.temperature,
-        top_p=args.top_p,
-        seed=args.seed,
-    )
+    supported_fields = {field.name for field in fields(GenerationConfig)}
+    config_kwargs = {
+        "backend": args.backend,
+        "model": args.model,
+        "api_base": args.api_base,
+        "api_key": args.api_key,
+        "request_timeout": args.request_timeout,
+        "temperature": args.temperature,
+        "top_p": args.top_p,
+        "seed": args.seed,
+    }
+    config = GenerationConfig(**{key: value for key, value in config_kwargs.items() if key in supported_fields})
     payload = run_real_generation_experiment(
         config=config,
         benchmarks=[item.strip() for item in args.benchmarks.split(",") if item.strip()],
