@@ -21,7 +21,7 @@ confidence sharpening without commensurate accuracy gain.
 
 \begin{table}[t]
 \centering
-\caption{Headline theorem-1/theorem-2 results. Lower regret is better.}
+\caption{Original headline theorem-1/theorem-2 waves. Lower regret is better.}
 \label{tab:headline-regret}
 \begin{tabular}{lcc}
 \toprule
@@ -37,12 +37,41 @@ Always parametric & $5.9356$ & $7.1329$ \\
 \end{tabular}
 \end{table}
 
+\begin{table}[t]
+\centering
+\caption{Expanded spotlight-scale benchmark-backed theorem-1/theorem-2 matrix.}
+\label{tab:spotlight-regret}
+\begin{tabular}{lc}
+\toprule
+Policy & Spotlight matrix regret \\
+\midrule
+Simulated model & $\mathbf{-0.2046}$ \\
+Bayes proxy & $-0.1722$ \\
+Heuristic adaptive & $-0.0889$ \\
+Oracle & $0.0000$ \\
+Fixed 50/50 & $0.4035$ \\
+Always parametric & $5.2420$ \\
+Always context & $7.9943$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
 Table~\ref{tab:headline-regret} is the empirical backbone of Theorems 1 and 2.
 The Bayes proxy beats the generic adaptive heuristic on both waves, and the gap
 widens on the conflict-heavy slice. More importantly, every fixed trust policy
 is dramatically worse. This is the practical face of the minimax theorem:
 fixed trust is not merely suboptimal, it is operating in the wrong decision
 class.
+
+Table~\ref{tab:spotlight-regret} shows that this is not just a small-wave
+artifact. On the expanded spotlight-scale benchmark-backed matrix spanning
+ConflictBank, FaithEval, MemoTrap, NQ-Swap, and PopQA across five model
+families and 174{,}080 parsed examples, the Bayes proxy still beats the generic
+heuristic by $0.0833$ regret while fixed trust policies remain catastrophically
+bad. The absolute oracle--model arbitration gap stays nontrivial
+($0.1932$ mean absolute gap, $1.4680$ mean KL), which means the proxy result is
+not vacuous. This expanded matrix is now the strongest theorem-1/theorem-2
+evidence in the paper.
 
 The broad wave is also informative about model heterogeneity. Three of the four
 main broad-wave models favor the Bayes proxy over the heuristic by about
@@ -87,6 +116,16 @@ family and model scale. Naturalistic contradiction shows partial
 self-correction; controlled conflict at 14B can stay locked into near-total
 overconfidence.
 
+The live same-family Qwen sweep already reinforces this split even before the
+jobs finish. On partial Qwen-2.5-7B rows, ConflictBank conflict is already
+near-maximally overconfident across all three CoT budgets
+($0.9839 \rightarrow 0.9818 \rightarrow 0.9674$), while the corresponding
+no-conflict slice stays small and even improves slightly
+($0.0982 \rightarrow 0.0725 \rightarrow 0.0628$). On the partial
+Qwen-2.5-32B WikiContradict slice, the gap grows from $0.1139$ to $0.3636$ at
+medium CoT and then falls to $0.2486$ at long CoT, which is the first
+same-family evidence for the rewritten two-regime self-correction story.
+
 The true closed-book controls rule out a clean conflict-versus-no-conflict sign
 flip. On ConflictBank closed-book, the 14B model already shows a strong gap
 trajectory ($0.4917 \rightarrow 0.8168 \rightarrow 0.7890$), but explicit
@@ -99,7 +138,9 @@ conflict-conditioned sign flip.
 
 \paragraph{Takeaways.}
 The paper's empirical story is now coherent. Theorems 1 and 2 are supported by
-corrected benchmark-backed regret results. Theorem 3 lands in revised form on
-real reasoning traces and scales beyond a single model. What remains outside
-the current paper core are the larger checkpoint-family sweeps and mitigation
-experiments such as bagged reasoning or confidence-decoupled heads.
+corrected benchmark-backed regret results, including an expanded spotlight-scale
+matrix. Theorem 3 lands in revised form on real reasoning traces and currently
+rests on a completed DeepSeek 7B/14B family comparison plus an active same-family
+Qwen 7B/14B/32B Delta sweep. What remains outside the current paper core are
+the larger checkpoint-family sweeps and mitigation experiments such as bagged
+reasoning or confidence-decoupled heads.

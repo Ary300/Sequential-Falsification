@@ -84,6 +84,11 @@ rules.
 - Live same-family Qwen theorem-3 sweep:
   `2196739` (`Qwen2.5-7B`), `2196740` (`Qwen2.5-14B`),
   `2196741` (`Qwen2.5-32B`) running on Delta with successful `vLLM` startup.
+- Live same-family Qwen partial signal already on disk:
+  `Qwen2.5-7B` `ConflictBank` conflict `0.9839 -> 0.9818 -> 0.9674` versus
+  no-conflict `0.0982 -> 0.0725 -> 0.0628`.
+- Live same-family Qwen 32B partial self-correction:
+  `WikiContradict` conflict `0.1139 -> 0.3636 -> 0.2486`.
 - Corrected closed-book control decision:
   option `A` is ruled out.
 - The strongest theorem-3 statement is now:
@@ -101,6 +106,8 @@ rules.
 - `WikiContradict` supports an intermediate-CoT peak with partial recovery,
   while `ConflictBank` conflict at 14B stays severely overconfident through
   long CoT.
+- The live Qwen family evidence is still partial and should be described as
+  provisional until those Delta jobs finish.
 
 ## Best current figure order
 

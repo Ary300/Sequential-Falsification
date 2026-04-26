@@ -33,6 +33,8 @@ The corrected closed-book control analysis is now explicit in
 [`docs/generated/theorem3_closedbook_control_analysis.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/theorem3_closedbook_control_analysis.md).
 The current DeepSeek family comparison is also now explicit in
 [`docs/generated/theorem3_deepseek_family_sweep.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/theorem3_deepseek_family_sweep.md).
+The live same-family Qwen partial read is now explicit in
+[`docs/generated/theorem3_qwen_family_partial.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/theorem3_qwen_family_partial.md).
 Its decision is `not A`:
 
 - the true `closed_book` control also becomes more overconfident with CoT;
@@ -126,6 +128,18 @@ Current best honest headline:
   `bayes_proxy = -0.0774` versus `heuristic_adaptive = -0.0189`
   across `65,190` examples on `AmbigDocs`, `ConflictBank`, `FaithEval`,
   `RAMDocs`, and `WikiContradict`.
+- The live partial same-family Qwen theorem-3 read is stronger than the old
+  mixed proxy stack on controlled conflict:
+  on `ConflictBank`, `Qwen2.5-7B` already shows
+  conflict `0.9839 -> 0.9818 -> 0.9674` versus
+  no-conflict `0.0982 -> 0.0725 -> 0.0628`,
+  while `Qwen2.5-14B` shows
+  conflict `0.9838 -> 0.9811 -> 0.9792` versus
+  no-conflict `0.1811 -> 0.1784 -> 0.1108`.
+- The same partial Qwen sweep also gives the first same-family evidence for the
+  rewritten two-regime story on `WikiContradict`:
+  `Qwen2.5-32B` conflict currently reads
+  `0.1139 -> 0.3636 -> 0.2486`, indicating partial long-CoT self-correction.
 - The corrected broad-wave oracle-vs-model arbitration gap remains visibly
   nontrivial: mean absolute gap `0.1969`, mean KL `1.2288`.
 - The expanded spotlight matrix still shows a much larger conflict-vs-no-conflict
@@ -169,6 +183,9 @@ Current blocker:
   CoT length from synthetic buckets and run real generations instead;
 - the next real gate is now the live same-family Qwen sweep on Delta:
   `2196739` (`7B`), `2196740` (`14B`), and `2196741` (`32B`).
+- that gate is no longer hypothetical: partial rows are already landing and
+  they currently support a stronger controlled-conflict theorem-3 story on
+  `ConflictBank` than we had before.
 
 What is now in place:
 

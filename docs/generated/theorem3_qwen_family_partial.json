@@ -1,0 +1,105 @@
+{
+  "as_of": "2026-04-26",
+  "status": "partial_live_delta",
+  "jobs": [
+    {
+      "job_id": 2196739,
+      "model": "Qwen/Qwen2.5-7B-Instruct"
+    },
+    {
+      "job_id": 2196740,
+      "model": "Qwen/Qwen2.5-14B-Instruct"
+    },
+    {
+      "job_id": 2196741,
+      "model": "Qwen/Qwen2.5-32B-Instruct"
+    }
+  ],
+  "rows": [
+    {
+      "model": "Qwen/Qwen2.5-7B-Instruct",
+      "benchmark": "conflictbank",
+      "split": "conflict",
+      "gap_cot_0": 0.9839,
+      "gap_cot_128": 0.9818,
+      "gap_cot_1024": 0.9674
+    },
+    {
+      "model": "Qwen/Qwen2.5-7B-Instruct",
+      "benchmark": "conflictbank",
+      "split": "no_conflict",
+      "gap_cot_0": 0.0982,
+      "gap_cot_128": 0.0725,
+      "gap_cot_1024": 0.0628
+    },
+    {
+      "model": "Qwen/Qwen2.5-7B-Instruct",
+      "benchmark": "wikicontradict",
+      "split": "conflict",
+      "gap_cot_0": 0.1327,
+      "gap_cot_128": 0.5917,
+      "gap_cot_1024": 0.671
+    },
+    {
+      "model": "Qwen/Qwen2.5-7B-Instruct",
+      "benchmark": "wikicontradict",
+      "split": "no_conflict",
+      "gap_cot_0": 0.1315,
+      "gap_cot_128": 0.5612,
+      "gap_cot_1024": 0.6545
+    },
+    {
+      "model": "Qwen/Qwen2.5-14B-Instruct",
+      "benchmark": "conflictbank",
+      "split": "conflict",
+      "gap_cot_0": 0.9838,
+      "gap_cot_128": 0.9811,
+      "gap_cot_1024": 0.9792
+    },
+    {
+      "model": "Qwen/Qwen2.5-14B-Instruct",
+      "benchmark": "conflictbank",
+      "split": "no_conflict",
+      "gap_cot_0": 0.1811,
+      "gap_cot_128": 0.1784,
+      "gap_cot_1024": 0.1108
+    },
+    {
+      "model": "Qwen/Qwen2.5-14B-Instruct",
+      "benchmark": "wikicontradict",
+      "split": "conflict",
+      "gap_cot_0": 0.1222,
+      "gap_cot_128": 0.4182,
+      "gap_cot_1024": 0.4572
+    },
+    {
+      "model": "Qwen/Qwen2.5-14B-Instruct",
+      "benchmark": "wikicontradict",
+      "split": "no_conflict",
+      "gap_cot_0": 0.0952,
+      "gap_cot_128": 0.3745,
+      "gap_cot_1024": 0.466
+    },
+    {
+      "model": "Qwen/Qwen2.5-32B-Instruct",
+      "benchmark": "wikicontradict",
+      "split": "conflict",
+      "gap_cot_0": 0.1139,
+      "gap_cot_128": 0.3636,
+      "gap_cot_1024": 0.2486
+    },
+    {
+      "model": "Qwen/Qwen2.5-32B-Instruct",
+      "benchmark": "wikicontradict",
+      "split": "no_conflict",
+      "gap_cot_0": 0.1312,
+      "gap_cot_128": 0.4028,
+      "gap_cot_1024": 0.3421
+    }
+  ],
+  "headline_read": {
+    "conflictbank_same_family_separation": true,
+    "wikicontradict_hard_qa_pattern": true,
+    "qwen32b_partial_self_correction": true
+  }
+}

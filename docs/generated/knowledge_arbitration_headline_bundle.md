@@ -2,11 +2,30 @@
 
 ## Headline Claims
 
-- Theorem 1: A Bayes-style reliability-aware arbitration rule beats the generic heuristic and sharply beats fixed trust policies across the broad real matrix.
-- Theorem 2: Fixed trust policies are minimax-bad in practice: in the conflict-heavy wave, they incur much larger regret than the principled Bayes proxy.
+- Theorem 1: A Bayes-style reliability-aware arbitration rule beats the generic heuristic and sharply beats fixed trust policies, and the result gets stronger on the expanded `5 x 5` benchmark-backed spotlight matrix.
+- Theorem 2: Fixed trust policies are minimax-bad in practice: in both the conflict-heavy wave and the expanded spotlight matrix, they incur much larger regret than the principled Bayes proxy.
 - Theorem 3: Reasoning amplifies overconfidence on hard knowledge QA, and
   explicit conflict further worsens the effect on controlled conflict families
   at larger scale.
+
+## Expanded Spotlight Matrix
+
+- Wave: `arbitration_spotlight_t12_benchmark_v1` on `174,080` examples across
+  `5` benchmarks x `5` models
+- Benchmarks: `ConflictBank`, `FaithEval`, `MemoTrap`, `NQ-Swap`, `PopQA`
+- `bayes_proxy` mean regret: `-0.1722`
+- `heuristic_adaptive` mean regret: `-0.0889`
+- Bayes minus heuristic regret gap: `0.0833`
+- `simulated_model` mean regret: `-0.2046`
+- `fixed_50` mean regret: `0.4035`
+- `always_context` mean regret: `7.9943`
+- `always_parametric` mean regret: `5.2420`
+- Mean oracle-model absolute gap: `0.1932`
+- Mean oracle-model KL: `1.4680`
+- Mean conflict / no-conflict ECE deltas: `-0.1321` / `-0.0212`
+
+This is now the strongest theorem-1/theorem-2 benchmark-backed result in the
+repo.
 
 ## Theorem 1
 
@@ -53,6 +72,22 @@ Per-model read:
 - `deepseek-ai/DeepSeek-R1-Distill-Qwen-7B`: Bayes `-0.1192`, heuristic `-0.0641`, simulated `0.4686`
 - `meta-llama/Llama-3.1-8B-Instruct`: Bayes `-0.1192`, heuristic `-0.0641`, simulated `0.0789`
 
+## Theorem 2: Proxy Size-Scaling Support
+
+- Wave: `arbitration_spotlight_t3_scaling_proxy_v1` on `65,190` examples
+  across `AmbigDocs`, `ConflictBank`, `FaithEval`, `RAMDocs`, and
+  `WikiContradict`
+- `bayes_proxy` mean regret: `-0.0774`
+- `heuristic_adaptive` mean regret: `-0.0189`
+- Bayes minus heuristic regret gap: `0.0585`
+- `simulated_model` mean regret: `0.1533`
+- `fixed_50` mean regret: `0.3352`
+- `always_context` mean regret: `6.5247`
+- `always_parametric` mean regret: `6.5751`
+- Mean oracle-model absolute gap: `0.2448`
+- Mean oracle-model KL: `1.7309`
+- Mean conflict / no-conflict ECE deltas: `-0.0736` / `-0.0229`
+
 ## Theorem 3
 
 - Source run: `delta_job_2190906` on `deepseek-ai/DeepSeek-R1-Distill-Qwen-7B`
@@ -82,9 +117,14 @@ Corrected closed-book controls:
 
 ## Current Read
 
-- Theorem 1/2 are already paper-strong at the proxy-regret layer.
+- Theorem 1/2 are now paper-strong at the proxy-regret layer and materially
+  stronger on the new `5 x 5` spotlight matrix than on the original smaller
+  waves.
 - Theorem 3 does not support the old monotone or conflict-only sign-flip statement.
 - The strongest current theorem-3 claim is hard-QA overconfidence amplification with conflict-sensitive severity on controlled conflict families.
 - Broad-wave exception worth writing honestly: `Qwen2.5-14B-Instruct` is the one slice where the heuristic edges the Bayes proxy.
 - Conflict-wave near-tie worth noting: `pythia-6.9b` is essentially tied between Bayes proxy and simulated model.
 - The finished 14B run plus corrected closed-book control sharpen theorem 3: `ConflictBank` conflict stays catastrophically overconfident through long CoT, while `WikiContradict` looks more like a hard-QA overconfidence task than a clean conflict-specific effect.
+- The live same-family theorem-3 gate is now the Delta Qwen sweep:
+  `2196739` (`7B`), `2196740` (`14B`), and `2196741` (`32B`), all running
+  with successful `vLLM` startup and active generation traffic.
