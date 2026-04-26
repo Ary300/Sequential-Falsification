@@ -31,6 +31,30 @@ track.
 3. `arbitration_pilot_gold_conflict`
 4. `arbitration_checkpoint_family`
 
+## Spotlight-scale next wave
+
+The pilot wave is no longer enough for spotlight contention. The next execution
+target is defined in:
+
+- [knowledge_arbitration_spotlight.yaml](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/src/configs/knowledge_arbitration_spotlight.yaml)
+- [build_arbitration_spotlight_manifest.py](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/scripts/build_arbitration_spotlight_manifest.py)
+
+That wave is designed to clear the spotlight-floor matrix:
+
+- `5+` model families
+- `5+` benchmarks
+- `6+` serious baselines
+- `4+` ablations
+
+Core spotlight experiments:
+
+| Experiment | Purpose |
+| --- | --- |
+| `arbitration_spotlight_t12_matrix` | theorem-1/theorem-2 headline matrix |
+| `arbitration_spotlight_t3_size_scaling` | theorem-3 scale verification |
+| `arbitration_spotlight_t3_eta_ablation` | theorem-3 rewrite and intervention scaffold |
+| `arbitration_spotlight_api_headline_subset` | API comparator slice if budget allows |
+
 ## Headline-result gate
 
 We do not have a headline result until at least one of these happens:
