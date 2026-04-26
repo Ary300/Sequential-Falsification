@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import Any, Callable
 
 from huggingface_hub import hf_hub_download, hf_hub_url
+from datasets import load_dataset
 import pandas as pd
 import requests
 
@@ -298,6 +299,250 @@ def _load_wikicontradict(max_examples: int | None = None) -> list[dict[str, Any]
     return _limit_rows(rows, max_examples)
 
 
+def _load_memotrap(max_examples: int | None = None) -> list[dict[str, Any]]:
+    dataset = load_dataset("Albertmade/memo-trap")
+    split = dataset["train"]
+    rows = []
+    for index, row in enumerate(split):
+        choices = [str(item).strip() for item in row.get("classes", []) if str(item).strip()]
+        if len(choices) < 2:
+            continue
+        answer_index = int(row.get("answer_index", 0))
+        answer_index = max(0, min(answer_index, len(choices) - 1))
+        gold_answer = choices[answer_index]
+        distractors = [choice for idx, choice in enumerate(choices) if idx != answer_index]
+        conflict_answer = distractors[0] if distractors else ""
+        prompt = str(row.get("prompt", "")).strip()
+        rows.append(
+            {
+                "id": f"memotrap_{index}",
+                "question": prompt,
+                "answers": [gold_answer],
+                "contexts": [f"{prompt}{gold_answer}", f"{prompt}{conflict_answer}"],
+                "condition": "memotrap",
+                "metadata": {
+                    "benchmark": "memotrap",
+                    "parametric_answers": [gold_answer],
+                    "aligned_context_answers": [gold_answer],
+                    "conflict_context_answers": [conflict_answer] if conflict_answer else [],
+                    "aligned_context_text": f"{prompt}{gold_answer}",
+                    "conflict_context_text": f"{prompt}{conflict_answer}" if conflict_answer else prompt,
+                    "supports_conditions": ["closed_book", "aligned_context", "conflict_context"],
+                    "popularity_score": 0.45,
+                    "dynamicity_score": 0.08,
+                    "conflict_strength": 0.74,
+                    "round": int(row.get("round", 0)),
+                },
+            }
+        )
+    return _limit_rows(rows, max_examples)
+
+
+def _load_faitheval(max_examples: int | None = None) -> list[dict[str, Any]]:
+    rows = []
+
+    counterfactual = load_dataset("Salesforce/FaithEval-counterfactual-v1.0")["test"]
+    for row in counterfactual:
+        choices = row.get("choices", {}) or {}
+        labels = [str(item).strip() for item in choices.get("label", [])]
+        texts = [str(item).strip() for item in choices.get("text", [])]
+        choice_map = {label: text for label, text in zip(labels, texts)}
+        gold_answer = str(row.get("answer", "")).strip() or choice_map.get(str(row.get("answerKey", "")).strip(), "")
+        distractors = [text for text in texts if text and text != gold_answer]
+        rows.append(
+            {
+                "id": str(row.get("id", f"cf_{len(rows)}")),
+                "question": str(row.get("question", "")).strip(),
+                "answers": [gold_answer] if gold_answer else [],
+                "contexts": [str(row.get("context", "")).strip()],
+                "condition": "faitheval_counterfactual",
+                "metadata": {
+                    "benchmark": "faitheval",
+                    "subset": "counterfactual",
+                    "parametric_answers": [gold_answer] if gold_answer else [],
+                    "aligned_context_answers": [gold_answer] if gold_answer else [],
+                    "conflict_context_answers": distractors[:1],
+                    "aligned_context_text": str(row.get("context", "")).strip(),
+                    "conflict_context_text": str(row.get("context", "")).strip(),
+                    "supports_conditions": ["closed_book", "aligned_context", "conflict_context"],
+                    "popularity_score": 0.5,
+                    "dynamicity_score": 0.25,
+                    "conflict_strength": 0.72,
+                    "justification": str(row.get("justification", "")),
+                },
+            }
+        )
+
+    inconsistent = load_dataset("Salesforce/FaithEval-inconsistent-v1.0")["test"]
+    for row in inconsistent:
+        answers = _parse_string_list(row.get("answers"))
+        if not answers:
+            continue
+        gold_answer = answers[0]
+        conflict_answers = answers[1:] or answers[:1]
+        rows.append(
+            {
+                "id": str(row.get("qid", f"inc_{len(rows)}")),
+                "question": str(row.get("question", "")).strip(),
+                "answers": [gold_answer],
+                "contexts": [str(row.get("context", "")).strip()],
+                "condition": "faitheval_inconsistent",
+                "metadata": {
+                    "benchmark": "faitheval",
+                    "subset": "inconsistent",
+                    "parametric_answers": [gold_answer],
+                    "aligned_context_answers": [gold_answer],
+                    "conflict_context_answers": conflict_answers,
+                    "aligned_context_text": str(row.get("context", "")).strip(),
+                    "conflict_context_text": str(row.get("context", "")).strip(),
+                    "supports_conditions": ["closed_book", "aligned_context", "conflict_context"],
+                    "popularity_score": 0.48,
+                    "dynamicity_score": 0.22,
+                    "conflict_strength": 0.81,
+                    "justification": str(row.get("justification", "")),
+                },
+            }
+        )
+
+    unanswerable = load_dataset("Salesforce/FaithEval-unanswerable-v1.0")["test"]
+    for row in unanswerable:
+        rows.append(
+            {
+                "id": str(row.get("qid", f"un_{len(rows)}")),
+                "question": str(row.get("question", "")).strip(),
+                "answers": _parse_string_list(row.get("answers")) or ["unanswerable"],
+                "contexts": [str(row.get("context", "")).strip()],
+                "condition": "faitheval_unanswerable",
+                "metadata": {
+                    "benchmark": "faitheval",
+                    "subset": "unanswerable",
+                    "parametric_answers": ["unanswerable"],
+                    "aligned_context_answers": ["unanswerable"],
+                    "conflict_context_answers": [],
+                    "aligned_context_text": str(row.get("context", "")).strip(),
+                    "conflict_context_text": str(row.get("context", "")).strip(),
+                    "supports_conditions": ["closed_book", "aligned_context"],
+                    "popularity_score": 0.42,
+                    "dynamicity_score": 0.18,
+                    "conflict_strength": 0.34,
+                    "justification": str(row.get("justification", "")),
+                },
+            }
+        )
+
+    return _limit_rows(rows, max_examples)
+
+
+def _load_ambigdocs(max_examples: int | None = None) -> list[dict[str, Any]]:
+    dataset = load_dataset("duynht/ambigdocs_answerability")["test"]
+    rows = []
+    for row in dataset:
+        answers = _parse_string_list(row.get("answer"))
+        if not answers:
+            continue
+        gold_answer = answers[0]
+        conflict_answers = answers[1:]
+        retrieved_documents = row.get("retrieved_documents", []) or []
+        aligned_text = ""
+        conflict_text = ""
+        if retrieved_documents:
+            aligned_text = str(retrieved_documents[0].get("text", "")).strip()
+        if len(retrieved_documents) > 1:
+            conflict_text = str(retrieved_documents[1].get("text", "")).strip()
+        elif aligned_text:
+            conflict_text = aligned_text
+        rows.append(
+            {
+                "id": str(row.get("qid", f"ambigdocs_{len(rows)}")),
+                "question": str(row.get("question", "")).strip(),
+                "answers": [gold_answer],
+                "contexts": [doc.get("text", "") for doc in retrieved_documents[:2]],
+                "condition": "ambigdocs",
+                "metadata": {
+                    "benchmark": "ambigdocs",
+                    "parametric_answers": [gold_answer],
+                    "aligned_context_answers": [gold_answer],
+                    "conflict_context_answers": conflict_answers[:1],
+                    "aligned_context_text": aligned_text,
+                    "conflict_context_text": conflict_text,
+                    "supports_conditions": ["closed_book", "aligned_context", "conflict_context"],
+                    "popularity_score": 0.44,
+                    "dynamicity_score": 0.12,
+                    "conflict_strength": 0.69,
+                    "is_disambiguated": bool(row.get("is_disambiguated", False)),
+                    "num_documents": int(row.get("num_documents", 0) or 0),
+                },
+            }
+        )
+    return _limit_rows(rows, max_examples)
+
+
+def _load_ramdocs(max_examples: int | None = None) -> list[dict[str, Any]]:
+    dataset = load_dataset("HanNight/RAMDocs")["test"]
+    rows = []
+    for index, row in enumerate(dataset):
+        gold_answers = _parse_string_list(row.get("gold_answers"))
+        wrong_answers = _parse_string_list(row.get("wrong_answers"))
+        documents = row.get("documents", []) or []
+        contexts = [str(doc.get("text", "")).strip() for doc in documents[:3] if str(doc.get("text", "")).strip()]
+        aligned_text = contexts[0] if contexts else ""
+        conflict_text = contexts[1] if len(contexts) > 1 else aligned_text
+        rows.append(
+            {
+                "id": f"ramdocs_{index}",
+                "question": str(row.get("question", "")).strip(),
+                "answers": gold_answers,
+                "contexts": contexts,
+                "condition": "ramdocs",
+                "metadata": {
+                    "benchmark": "ramdocs",
+                    "parametric_answers": gold_answers,
+                    "aligned_context_answers": gold_answers,
+                    "conflict_context_answers": wrong_answers,
+                    "aligned_context_text": aligned_text,
+                    "conflict_context_text": conflict_text,
+                    "supports_conditions": ["closed_book", "aligned_context", "conflict_context"],
+                    "popularity_score": 0.41,
+                    "dynamicity_score": 0.14,
+                    "conflict_strength": 0.77,
+                    "disambig_entity": _parse_string_list(row.get("disambig_entity")),
+                },
+            }
+        )
+    return _limit_rows(rows, max_examples)
+
+
+def _load_clasheval(max_examples: int | None = None) -> list[dict[str, Any]]:
+    dataset = load_dataset("sagnikrayc/clasheval")["train"]
+    rows = []
+    for index, row in enumerate(dataset):
+        original_answer = str(row.get("answer_original", "")).strip()
+        modified_answer = str(row.get("answer_mod", "")).strip()
+        rows.append(
+            {
+                "id": f"clasheval_{index}",
+                "question": str(row.get("question", "")).strip(),
+                "answers": [original_answer] if original_answer else [],
+                "contexts": [str(row.get("context_original", "")).strip(), str(row.get("context_mod", "")).strip()],
+                "condition": "clasheval",
+                "metadata": {
+                    "benchmark": "clasheval",
+                    "parametric_answers": [original_answer] if original_answer else [],
+                    "aligned_context_answers": [original_answer] if original_answer else [],
+                    "conflict_context_answers": [modified_answer] if modified_answer else [],
+                    "aligned_context_text": str(row.get("context_original", "")).strip(),
+                    "conflict_context_text": str(row.get("context_mod", "")).strip(),
+                    "supports_conditions": ["closed_book", "aligned_context", "conflict_context"],
+                    "popularity_score": 0.5,
+                    "dynamicity_score": 0.2,
+                    "conflict_strength": min(max(float(row.get("mod_degree", 3)) / 4.0, 0.45), 0.95),
+                    "dataset": str(row.get("dataset", "")),
+                },
+            }
+        )
+    return _limit_rows(rows, max_examples)
+
+
 def _stream_conflictbank_rows(max_examples: int | None = None) -> list[dict[str, Any]]:
     url = hf_hub_url(repo_id="Warrieryes/CB_qa", filename="QA_dataset.json", repo_type="dataset")
     response = requests.get(url, stream=True, timeout=60)
@@ -379,10 +624,15 @@ def _load_conflictbank(max_examples: int | None = None) -> list[dict[str, Any]]:
 
 
 BUILTIN_LOADERS: dict[str, Callable[[int | None], list[dict[str, Any]]]] = {
+    "ambigdocs": _load_ambigdocs,
+    "clasheval": _load_clasheval,
     "conflictbank": _load_conflictbank,
     "dynamicqa": _load_dynamicqa,
+    "faitheval": _load_faitheval,
+    "memotrap": _load_memotrap,
     "nq_swap": _load_nq_swap,
     "popqa": _load_popqa,
+    "ramdocs": _load_ramdocs,
     "wikicontradict": _load_wikicontradict,
 }
 

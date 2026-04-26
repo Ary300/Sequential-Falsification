@@ -1,0 +1,95 @@
+{
+  "t12_matrix": {
+    "results_path": "results/arbitration_spotlight_t12_benchmark_v1/report/arbitration_summary.json",
+    "num_benchmarks": 5,
+    "num_models": 5,
+    "num_examples": 174080,
+    "num_groups": 260,
+    "benchmarks": [
+      "conflictbank",
+      "faitheval",
+      "memotrap",
+      "nq_swap",
+      "popqa"
+    ],
+    "models": [
+      "Qwen/Qwen2.5-14B-Instruct",
+      "Qwen/Qwen2.5-7B-Instruct",
+      "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+      "meta-llama/Llama-3.1-70B-Instruct",
+      "meta-llama/Llama-3.1-8B-Instruct"
+    ],
+    "regret": {
+      "simulated_model": -0.2046,
+      "bayes_proxy": -0.1722,
+      "heuristic_adaptive": -0.0889,
+      "fixed_50": 0.4035,
+      "always_parametric": 5.242,
+      "always_context": 7.9943
+    },
+    "headline": {
+      "bayes_minus_heuristic": -0.0833,
+      "mean_oracle_model_abs_gap": 0.1932,
+      "mean_oracle_model_kl": 1.468,
+      "mean_conflict_ece_delta": -0.1321,
+      "mean_no_conflict_ece_delta": -0.0212
+    }
+  },
+  "t3_proxy_matrix": {
+    "results_path": "results/arbitration_spotlight_t3_scaling_proxy_v1/report/arbitration_summary.json",
+    "num_benchmarks": 5,
+    "num_models": 5,
+    "num_examples": 65190,
+    "num_groups": 195,
+    "benchmarks": [
+      "ambigdocs",
+      "conflictbank",
+      "faitheval",
+      "ramdocs",
+      "wikicontradict"
+    ],
+    "models": [
+      "Qwen/Qwen2.5-14B-Instruct",
+      "Qwen/Qwen2.5-32B-Instruct",
+      "Qwen/Qwen2.5-7B-Instruct",
+      "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+      "meta-llama/Llama-3.1-8B-Instruct"
+    ],
+    "regret": {
+      "bayes_proxy": -0.0774,
+      "heuristic_adaptive": -0.0189,
+      "simulated_model": 0.1533,
+      "fixed_50": 0.3352,
+      "always_context": 6.5247,
+      "always_parametric": 6.5751
+    },
+    "headline": {
+      "bayes_minus_heuristic": -0.0585,
+      "mean_oracle_model_abs_gap": 0.2448,
+      "mean_oracle_model_kl": 1.7309,
+      "mean_conflict_ece_delta": -0.0736,
+      "mean_no_conflict_ece_delta": -0.0229
+    }
+  },
+  "live_delta_theorem3_jobs": [
+    {
+      "job_id": 2196739,
+      "job_name": "theorem3_qwen7b",
+      "node": "gh082",
+      "status": "running"
+    },
+    {
+      "job_id": 2196740,
+      "job_name": "theorem3_qwen14b",
+      "node": "gh082",
+      "status": "running"
+    },
+    {
+      "job_id": 2196741,
+      "job_name": "theorem3_qwen32b",
+      "node": "gh074",
+      "status": "running"
+    }
+  ],
+  "as_of": "2026-04-26"
+}

@@ -22,13 +22,17 @@ The current spotlight-ambition execution plan now lives in
 
 ## Current landing
 
-As of `2026-04-25`, the repo has a real paper-shaped result set:
+As of `2026-04-26`, the repo has a real paper-shaped result set:
 
 - theorem 1 is supported by the corrected broad wave:
   `bayes_proxy = -0.0461` versus `heuristic_adaptive = -0.0233`;
 - theorem 2 is supported by the corrected conflict-heavy wave:
   `bayes_proxy = -0.1256` versus `heuristic_adaptive = -0.0752`,
   with fixed policies at `5.9037` and `7.1329`;
+- theorem 1 / theorem 2 are also supported by an expanded benchmark-backed
+  spotlight matrix on `174,080` examples:
+  `bayes_proxy = -0.1722` versus `heuristic_adaptive = -0.0889`,
+  with fixed policies at `7.9943` and `5.2420`;
 - theorem 3 is supported only in a weaker corrected form by real 7B and 14B
   DeepSeek traces plus the finished `closed_book` control.
 
@@ -45,6 +49,16 @@ and it is no longer a clean conflict-only claim either. It is:
 
 > reasoning amplifies overconfidence under conflict, with the exact CoT shape
 > depending on conflict family.
+
+The next real theorem-3 gate is now live on Delta as a same-family Qwen size
+sweep:
+
+- `2196739` `Qwen2.5-7B`
+- `2196740` `Qwen2.5-14B`
+- `2196741` `Qwen2.5-32B`
+
+All three jobs have passed `vLLM` startup successfully and are the active test
+for whether the 7B/14B DeepSeek asymmetry generalizes.
 
 ## One-sentence thesis
 

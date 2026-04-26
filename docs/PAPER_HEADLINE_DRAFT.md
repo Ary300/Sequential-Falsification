@@ -27,6 +27,10 @@ and derive a Bayes-style reliability-aware arbitration rule. On benchmark-backed
 conflict matrices spanning PopQA, DynamicQA, NQ-Swap, WikiContradict, and
 ConflictBank slices, the resulting policy beats a generic adaptive heuristic and
 substantially outperforms fixed trust policies, which incur much larger regret.
+On the expanded spotlight-scale benchmark-backed matrix (`5` benchmarks x `5`
+models, `174,080` examples), the Bayes proxy achieves mean regret `-0.1722`
+versus `-0.0889` for the heuristic, while `always_context` and
+`always_parametric` degrade to `7.9943` and `5.2420`.
 In our corrected broad real wave, the Bayes proxy achieves mean regret
 `-0.0461` versus `-0.0233` for the heuristic, while `always_context` and
 `always_parametric` degrade to `7.2237` and `5.9356`. In the conflict-heavy
@@ -62,15 +66,24 @@ rules.
 - Conflict-heavy corrected wave:
   `bayes_proxy = -0.1256`, `heuristic_adaptive = -0.0752`,
   `simulated_model = 0.1104`, `fixed_50 = 0.3037`.
+- Expanded benchmark-backed spotlight matrix:
+  `bayes_proxy = -0.1722`, `heuristic_adaptive = -0.0889`,
+  `simulated_model = -0.2046`, `fixed_50 = 0.4035`.
+- Expanded theorem-3 proxy size-scaling matrix:
+  `bayes_proxy = -0.0774`, `heuristic_adaptive = -0.0189`,
+  `simulated_model = 0.1533`, `fixed_50 = 0.3352`.
 - Fixed-policy failures stay dramatic:
-  `always_context = 7.2237` / `5.9037`,
-  `always_parametric = 5.9356` / `7.1329`.
+  `always_context = 7.2237` / `5.9037` / `7.9943`,
+  `always_parametric = 5.9356` / `7.1329` / `5.2420`.
 - Theorem-3 real-trace signal:
   `ConflictBank` conflict gap `0.5505 -> 0.7531 -> 0.5308`,
   `WikiContradict` conflict gap `0.2923 -> 0.4825 -> 0.4429`.
 - Finished 14B scaling signal:
   `ConflictBank` conflict gap `0.5876 -> 0.9449 -> 0.9513`,
   `WikiContradict` conflict gap `0.2717 -> 0.4516 -> 0.3750`.
+- Live same-family Qwen theorem-3 sweep:
+  `2196739` (`Qwen2.5-7B`), `2196740` (`Qwen2.5-14B`),
+  `2196741` (`Qwen2.5-32B`) running on Delta with successful `vLLM` startup.
 - Corrected closed-book control decision:
   option `A` is ruled out.
 - The strongest theorem-3 statement is now:

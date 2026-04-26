@@ -13,8 +13,13 @@ The project now has a real paper-level core:
 
 - theorem 1 landed on the corrected broad wave;
 - theorem 2 landed on the corrected conflict-heavy wave;
+- theorem 1 / theorem 2 now also landed on an expanded benchmark-backed
+  spotlight matrix covering `5` benchmarks x `5` models;
 - theorem 3 landed only in a weaker corrected form on real 7B and 14B DeepSeek
   traces.
+
+The new expanded spotlight-wave summary is explicit in
+[`docs/generated/arbitration_spotlight_wave_summary.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/arbitration_spotlight_wave_summary.md).
 
 The strongest current theorem-3 headline is:
 
@@ -45,8 +50,11 @@ Its decision is `not A`:
 | Real benchmark pilot on `PopQA` | yes | done via `arbitration_real_headline_wave_reestimated_v3` |
 | Real benchmark pilot on `DynamicQA` | yes | done via `arbitration_real_headline_wave_reestimated_v3` |
 | Real benchmark pilot on `ConflictBank` subset | yes | done in compact conflict wave |
+| Expanded `5 x 5` benchmark-backed spotlight matrix | strongly preferred | done via `arbitration_spotlight_t12_benchmark_v1` |
+| Expanded theorem-3 proxy size-scaling matrix | strongly preferred | done via `arbitration_spotlight_t3_scaling_proxy_v1` |
 | Conflict vs no-conflict calibration curves | yes | done for broad pilot and `WikiContradict` focus |
 | Checkpoint-family experiment | strongly preferred | not started |
+| Real same-family theorem-3 size sweep (`Qwen 7B/14B/32B`) | strongly preferred | running on Delta (`2196739`, `2196740`, `2196741`) |
 | Mitigation experiment | strongly preferred | not started |
 
 ## Benchmark coverage
@@ -104,8 +112,23 @@ Current best honest headline:
   `bayes_proxy = -0.1256`, `heuristic_adaptive = -0.0752`,
   `simulated_model = 0.1104`, `fixed_50 = 0.3037`,
   `always_context = 5.9037`, `always_parametric = 7.1329`.
+- In the expanded benchmark-backed spotlight matrix
+  ([`results/arbitration_spotlight_t12_benchmark_v1/report/summary.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/results/arbitration_spotlight_t12_benchmark_v1/report/summary.md)),
+  the theorem-1/theorem-2 story gets stronger and broader:
+  `bayes_proxy = -0.1722`, `heuristic_adaptive = -0.0889`,
+  `fixed_50 = 0.4035`, `always_parametric = 5.2420`,
+  `always_context = 7.9943` across `174,080` examples on
+  `ConflictBank`, `FaithEval`, `MemoTrap`, `NQ-Swap`, and `PopQA`.
+- In the expanded theorem-3 proxy size-scaling matrix
+  ([`results/arbitration_spotlight_t3_scaling_proxy_v1/report/summary.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/results/arbitration_spotlight_t3_scaling_proxy_v1/report/summary.md)),
+  `bayes_proxy = -0.0774` versus `heuristic_adaptive = -0.0189`
+  across `65,190` examples on `AmbigDocs`, `ConflictBank`, `FaithEval`,
+  `RAMDocs`, and `WikiContradict`.
 - The corrected broad-wave oracle-vs-model arbitration gap remains visibly
   nontrivial: mean absolute gap `0.1969`, mean KL `1.2288`.
+- The expanded spotlight matrix still shows a much larger conflict-vs-no-conflict
+  calibration movement in the proxy stack:
+  `-0.1321` versus `-0.0212`.
 - The broad theorem-3 signal is **not** landed yet:
   mean conflict ECE delta is `-0.0054`, so the wide benchmark mix does not yet
   support the headline that long CoT worsens calibration under conflict.
@@ -141,7 +164,9 @@ The sharpened fallback claim is:
 Current blocker:
 
 - the proxy theorem-3 diagnosis is complete, and it told us to stop inferring
-  CoT length from synthetic buckets and run real generations instead.
+  CoT length from synthetic buckets and run real generations instead;
+- the next real gate is now the live same-family Qwen sweep on Delta:
+  `2196739` (`7B`), `2196740` (`14B`), and `2196741` (`32B`).
 
 What is now in place:
 
