@@ -65,12 +65,27 @@ Key interpretation:
 
 ## Live Delta theorem-3 family sweep
 
-As of `2026-04-26`, the real-generation Qwen family jobs are running:
+As of `2026-04-26`, the real-generation Qwen family jobs have moved past the
+"did the jobs actually start?" phase and into usable theorem-3 evidence:
 
-- `2196739` `theorem3_qwen7b` on `gh082`
-- `2196740` `theorem3_qwen14b` on `gh082`
-- `2196741` `theorem3_qwen32b` on `gh074`
+- `2196739` `theorem3_qwen7b` completed on `gh082`
+- `2196740` `theorem3_qwen14b` completed on `gh082`
+- `2196741` `theorem3_qwen32b` is running on `gh074`
 
-All three jobs have successfully completed `vLLM` startup and are past model
-load. These are the live tests for whether the `7B -> 14B -> 32B` same-family
-scale sweep reproduces the two-regime / conflict-persistence theorem-3 story.
+Current theorem-3 read:
+
+- Final `Qwen2.5-7B` `ConflictBank` conflict:
+  `0.9856 -> 0.9849 -> 0.9693`
+- Final `Qwen2.5-7B` `ConflictBank` no-conflict:
+  `0.0868 -> 0.0723 -> 0.0537`
+- Final `Qwen2.5-14B` `ConflictBank` conflict:
+  `0.9776 -> 0.9731 -> 0.9584`
+- Partial `Qwen2.5-32B` `ConflictBank` conflict:
+  `0.9448 -> 0.9312 -> 0.8829`
+- Partial `Qwen2.5-32B` `WikiContradict` conflict:
+  `0.0945 -> 0.3520 -> 0.2635`
+
+These rows are the strongest same-family theorem-3 evidence in the repo so far:
+controlled conflict stays catastrophically overconfident through scale, while
+naturalistic contradiction is the first place where long-CoT recovery reappears
+at `32B`.

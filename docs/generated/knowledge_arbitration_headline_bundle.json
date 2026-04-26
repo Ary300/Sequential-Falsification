@@ -2,7 +2,7 @@
   "headline": {
     "theorem_1": "A Bayes-style reliability-aware arbitration rule beats the generic heuristic and sharply beats fixed trust policies across the broad real matrix.",
     "theorem_2": "Fixed trust policies are minimax-bad in practice: in the conflict-heavy wave, they incur much larger regret than the principled Bayes proxy.",
-    "theorem_3": "Reasoning amplifies overconfidence under conflict, with the exact CoT shape depending on benchmark family."
+    "theorem_3": "Reasoning amplifies overconfidence on hard knowledge QA, with controlled conflict staying catastrophic while same-family 32B begins to recover on naturalistic contradiction."
   },
   "project": "bayes_optimal_knowledge_arbitration",
   "theorem_1": {
@@ -288,5 +288,72 @@
     ],
     "source_job": "delta_job_2193269",
     "source_results_dir": "/work/nvme/bgvi/adas17/tts_results/theorem3_real_generation_r1_14b_v3"
+  },
+  "theorem_3_qwen_live": {
+    "as_of": "2026-04-26",
+    "jobs": [
+      {
+        "job_id": 2196739,
+        "model": "Qwen/Qwen2.5-7B-Instruct",
+        "state": "COMPLETED"
+      },
+      {
+        "job_id": 2196740,
+        "model": "Qwen/Qwen2.5-14B-Instruct",
+        "state": "COMPLETED"
+      },
+      {
+        "job_id": 2196741,
+        "model": "Qwen/Qwen2.5-32B-Instruct",
+        "state": "RUNNING"
+      }
+    ],
+    "rows": [
+      {
+        "model": "Qwen/Qwen2.5-7B-Instruct",
+        "benchmark": "conflictbank",
+        "split": "conflict",
+        "gap_cot_0": 0.9856,
+        "gap_cot_128": 0.9849,
+        "gap_cot_1024": 0.9693,
+        "status": "final"
+      },
+      {
+        "model": "Qwen/Qwen2.5-7B-Instruct",
+        "benchmark": "conflictbank",
+        "split": "no_conflict",
+        "gap_cot_0": 0.0868,
+        "gap_cot_128": 0.0723,
+        "gap_cot_1024": 0.0537,
+        "status": "final"
+      },
+      {
+        "model": "Qwen/Qwen2.5-14B-Instruct",
+        "benchmark": "conflictbank",
+        "split": "conflict",
+        "gap_cot_0": 0.9776,
+        "gap_cot_128": 0.9731,
+        "gap_cot_1024": 0.9584,
+        "status": "final"
+      },
+      {
+        "model": "Qwen/Qwen2.5-32B-Instruct",
+        "benchmark": "conflictbank",
+        "split": "conflict",
+        "gap_cot_0": 0.9448,
+        "gap_cot_128": 0.9312,
+        "gap_cot_1024": 0.8829,
+        "status": "partial_live"
+      },
+      {
+        "model": "Qwen/Qwen2.5-32B-Instruct",
+        "benchmark": "wikicontradict",
+        "split": "conflict",
+        "gap_cot_0": 0.0945,
+        "gap_cot_128": 0.352,
+        "gap_cot_1024": 0.2635,
+        "status": "partial_live"
+      }
+    ]
   }
 }

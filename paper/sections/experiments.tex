@@ -116,15 +116,21 @@ family and model scale. Naturalistic contradiction shows partial
 self-correction; controlled conflict at 14B can stay locked into near-total
 overconfidence.
 
-The live same-family Qwen sweep already reinforces this split even before the
-jobs finish. On partial Qwen-2.5-7B rows, ConflictBank conflict is already
-near-maximally overconfident across all three CoT budgets
-($0.9839 \rightarrow 0.9818 \rightarrow 0.9674$), while the corresponding
+The live same-family Qwen sweep already reinforces this split. The
+Qwen-2.5-7B run has completed and reproduces a clean controlled-conflict
+separation on ConflictBank: conflict remains near-maximally overconfident
+across all three CoT budgets
+($0.9856 \rightarrow 0.9849 \rightarrow 0.9693$), while the corresponding
 no-conflict slice stays small and even improves slightly
-($0.0982 \rightarrow 0.0725 \rightarrow 0.0628$). On the partial
-Qwen-2.5-32B WikiContradict slice, the gap grows from $0.1139$ to $0.3636$ at
-medium CoT and then falls to $0.2486$ at long CoT, which is the first
-same-family evidence for the rewritten two-regime self-correction story.
+($0.0868 \rightarrow 0.0723 \rightarrow 0.0537$). The live partial
+Qwen-2.5-14B rows preserve the same qualitative shape on ConflictBank
+($0.9776 \rightarrow 0.9731 \rightarrow 0.9584$ versus
+$0.0639 \rightarrow 0.0679 \rightarrow 0.0476$). At larger scale, the partial
+Qwen-2.5-32B ConflictBank slice remains catastrophically overconfident
+($0.9448 \rightarrow 0.9312 \rightarrow 0.8829$), but the partial
+Qwen-2.5-32B WikiContradict slice grows from $0.0945$ to $0.3520$ at medium
+CoT and then falls to $0.2635$ at long CoT. This is the first same-family
+evidence for the rewritten two-regime self-correction story.
 
 The true closed-book controls rule out a clean conflict-versus-no-conflict sign
 flip. On ConflictBank closed-book, the 14B model already shows a strong gap

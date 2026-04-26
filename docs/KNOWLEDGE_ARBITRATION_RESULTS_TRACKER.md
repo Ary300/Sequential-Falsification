@@ -35,6 +35,9 @@ The current DeepSeek family comparison is also now explicit in
 [`docs/generated/theorem3_deepseek_family_sweep.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/theorem3_deepseek_family_sweep.md).
 The live same-family Qwen partial read is now explicit in
 [`docs/generated/theorem3_qwen_family_partial.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/theorem3_qwen_family_partial.md).
+That file is now stronger than before: `Qwen2.5-7B` and `Qwen2.5-14B` are
+final, and the `32B` job has populated both `ConflictBank` and
+`WikiContradict` groups on disk.
 Its decision is `not A`:
 
 - the true `closed_book` control also becomes more overconfident with CoT;
@@ -58,7 +61,7 @@ Its decision is `not A`:
 | Expanded theorem-3 proxy size-scaling matrix | strongly preferred | done via `arbitration_spotlight_t3_scaling_proxy_v1` |
 | Conflict vs no-conflict calibration curves | yes | done for broad pilot and `WikiContradict` focus |
 | Checkpoint-family experiment | strongly preferred | not started |
-| Real same-family theorem-3 size sweep (`Qwen 7B/14B/32B`) | strongly preferred | running on Delta (`2196739`, `2196740`, `2196741`) |
+| Real same-family theorem-3 size sweep (`Qwen 7B/14B/32B`) | strongly preferred | `7B` and `14B` complete; `32B` active with populated groups on Delta |
 | Mitigation experiment | strongly preferred | not started |
 
 ## Benchmark coverage
@@ -128,18 +131,21 @@ Current best honest headline:
   `bayes_proxy = -0.0774` versus `heuristic_adaptive = -0.0189`
   across `65,190` examples on `AmbigDocs`, `ConflictBank`, `FaithEval`,
   `RAMDocs`, and `WikiContradict`.
-- The live partial same-family Qwen theorem-3 read is stronger than the old
-  mixed proxy stack on controlled conflict:
-  on `ConflictBank`, `Qwen2.5-7B` already shows
-  conflict `0.9839 -> 0.9818 -> 0.9674` versus
-  no-conflict `0.0982 -> 0.0725 -> 0.0628`,
-  while `Qwen2.5-14B` shows
-  conflict `0.9838 -> 0.9811 -> 0.9792` versus
-  no-conflict `0.1811 -> 0.1784 -> 0.1108`.
-- The same partial Qwen sweep also gives the first same-family evidence for the
+- The live same-family Qwen theorem-3 read is stronger than the old mixed
+  proxy stack on controlled conflict:
+  final `Qwen2.5-7B` `ConflictBank` conflict reads
+  `0.9856 -> 0.9849 -> 0.9693` versus
+  no-conflict `0.0868 -> 0.0723 -> 0.0537`,
+  while final `Qwen2.5-14B` now shows
+  `0.9776 -> 0.9731 -> 0.9584` versus
+  `0.0639 -> 0.0679 -> 0.0476`.
+- The same live Qwen sweep also gives the first same-family evidence for the
   rewritten two-regime story on `WikiContradict`:
-  `Qwen2.5-32B` conflict currently reads
-  `0.1139 -> 0.3636 -> 0.2486`, indicating partial long-CoT self-correction.
+  partial `Qwen2.5-32B` conflict now reads
+  `0.0945 -> 0.3520 -> 0.2635`, indicating long-CoT self-correction.
+- The same partial `Qwen2.5-32B` run still shows persistent controlled-conflict
+  failure on `ConflictBank`:
+  `0.9448 -> 0.9312 -> 0.8829`.
 - The corrected broad-wave oracle-vs-model arbitration gap remains visibly
   nontrivial: mean absolute gap `0.1969`, mean KL `1.2288`.
 - The expanded spotlight matrix still shows a much larger conflict-vs-no-conflict
@@ -181,11 +187,12 @@ Current blocker:
 
 - the proxy theorem-3 diagnosis is complete, and it told us to stop inferring
   CoT length from synthetic buckets and run real generations instead;
-- the next real gate is now the live same-family Qwen sweep on Delta:
-  `2196739` (`7B`), `2196740` (`14B`), and `2196741` (`32B`).
-- that gate is no longer hypothetical: partial rows are already landing and
-  they currently support a stronger controlled-conflict theorem-3 story on
-  `ConflictBank` than we had before.
+- the next real gate is now finishing the live same-family Qwen sweep on Delta:
+  `2196741` (`32B`);
+- that gate is no longer hypothetical: the `7B` and `14B` runs are complete,
+  and the live rows already support a stronger controlled-conflict theorem-3
+  story on `ConflictBank` plus a first same-family `32B` recovery signal on
+  `WikiContradict`.
 
 What is now in place:
 

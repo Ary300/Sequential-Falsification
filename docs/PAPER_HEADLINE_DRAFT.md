@@ -40,8 +40,9 @@ DeepSeek-R1-Distill traces show that the original conflict-only story does not
 hold. The true `closed_book` control also becomes more overconfident with
 longer CoT. What survives is a sharper, family-dependent result:
 `ConflictBank` conflict at `14B` remains catastrophically overconfident through
-`cot=1024`, while `WikiContradict` behaves more like a hard-QA overconfidence
-task than a clean conflict-only effect. These results position knowledge
+`cot=1024`, while the live same-family `Qwen2.5` sweep shows the first `32B`
+recovery signal on `WikiContradict` but persistent controlled-conflict failure
+on `ConflictBank`. These results position knowledge
 arbitration as a principled
 inference problem rather than a retrieval heuristic, and they give a concrete
 recipe for replacing fixed trust policies with reliability-aware decoding
@@ -82,13 +83,17 @@ rules.
   `ConflictBank` conflict gap `0.5876 -> 0.9449 -> 0.9513`,
   `WikiContradict` conflict gap `0.2717 -> 0.4516 -> 0.3750`.
 - Live same-family Qwen theorem-3 sweep:
-  `2196739` (`Qwen2.5-7B`), `2196740` (`Qwen2.5-14B`),
-  `2196741` (`Qwen2.5-32B`) running on Delta with successful `vLLM` startup.
-- Live same-family Qwen partial signal already on disk:
-  `Qwen2.5-7B` `ConflictBank` conflict `0.9839 -> 0.9818 -> 0.9674` versus
-  no-conflict `0.0982 -> 0.0725 -> 0.0628`.
-- Live same-family Qwen 32B partial self-correction:
-  `WikiContradict` conflict `0.1139 -> 0.3636 -> 0.2486`.
+  `2196739` (`Qwen2.5-7B`) and `2196740` (`Qwen2.5-14B`) completed, while
+  `2196741` (`Qwen2.5-32B`) is still running on Delta.
+- Final same-family Qwen 7B controlled-conflict signal:
+  `ConflictBank` conflict `0.9856 -> 0.9849 -> 0.9693` versus
+  no-conflict `0.0868 -> 0.0723 -> 0.0537`.
+- Final same-family Qwen 14B controlled-conflict signal:
+  `ConflictBank` conflict `0.9776 -> 0.9731 -> 0.9584` versus
+  no-conflict `0.0639 -> 0.0679 -> 0.0476`.
+- Same-family Qwen 32B partial theorem-3 split:
+  `ConflictBank` conflict `0.9448 -> 0.9312 -> 0.8829`, while
+  `WikiContradict` conflict `0.0945 -> 0.3520 -> 0.2635`.
 - Corrected closed-book control decision:
   option `A` is ruled out.
 - The strongest theorem-3 statement is now:
@@ -106,14 +111,15 @@ rules.
 - `WikiContradict` supports an intermediate-CoT peak with partial recovery,
   while `ConflictBank` conflict at 14B stays severely overconfident through
   long CoT.
-- The live Qwen family evidence is still partial and should be described as
-  provisional until those Delta jobs finish.
+- The `Qwen2.5-7B` and `Qwen2.5-14B` theorem-3 evidence is final, but the
+  `32B` `ConflictBank` numbers are still live partial reads and should be
+  described as provisional until that Delta job finishes.
 
 ## Best current figure order
 
 1. Figure 1: corrected regret bars, Bayes proxy vs heuristic vs fixed policies.
 2. Figure 2: oracle-vs-model arbitration gap on the corrected broad wave.
 3. Figure 3: theorem-3 overconfidence-gap curves for `ConflictBank` and
-   `WikiContradict`.
+   `WikiContradict`, with a same-family `Qwen2.5 7B -> 14B -> 32B` overlay.
 4. Figure 4: per-model Bayes-vs-heuristic gains, explicitly showing the
    `Qwen2.5-14B-Instruct` exception.

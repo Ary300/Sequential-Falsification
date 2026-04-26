@@ -76,13 +76,13 @@
       "job_id": 2196739,
       "job_name": "theorem3_qwen7b",
       "node": "gh082",
-      "status": "running"
+      "status": "completed"
     },
     {
       "job_id": 2196740,
       "job_name": "theorem3_qwen14b",
       "node": "gh082",
-      "status": "running"
+      "status": "completed"
     },
     {
       "job_id": 2196741,
@@ -91,5 +91,32 @@
       "status": "running"
     }
   ],
+  "live_delta_theorem3_read": {
+    "qwen25_7b_conflictbank_conflict": [
+      0.9856,
+      0.9849,
+      0.9693
+    ],
+    "qwen25_7b_conflictbank_no_conflict": [
+      0.0868,
+      0.0723,
+      0.0537
+    ],
+    "qwen25_14b_conflictbank_conflict_partial": [
+      0.9776,
+      0.9731,
+      0.9584
+    ],
+    "qwen25_32b_conflictbank_conflict_partial": [
+      0.9448,
+      0.9312,
+      0.8829
+    ],
+    "qwen25_32b_wikicontradict_conflict_partial": [
+      0.0945,
+      0.352,
+      0.2635
+    ]
+  },
   "as_of": "2026-04-26"
 }

@@ -126,5 +126,14 @@ Corrected closed-book controls:
 - Conflict-wave near-tie worth noting: `pythia-6.9b` is essentially tied between Bayes proxy and simulated model.
 - The finished 14B run plus corrected closed-book control sharpen theorem 3: `ConflictBank` conflict stays catastrophically overconfident through long CoT, while `WikiContradict` looks more like a hard-QA overconfidence task than a clean conflict-specific effect.
 - The live same-family theorem-3 gate is now the Delta Qwen sweep:
-  `2196739` (`7B`), `2196740` (`14B`), and `2196741` (`32B`), all running
-  with successful `vLLM` startup and active generation traffic.
+  `2196739` (`7B`) and `2196740` (`14B`) completed cleanly, while
+  `2196741` (`32B`) continues to fill in the remaining `ConflictBank` rows.
+- Final `Qwen2.5-7B` same-family controlled-conflict result:
+  `ConflictBank` conflict `0.9856 -> 0.9849 -> 0.9693` versus
+  no-conflict `0.0868 -> 0.0723 -> 0.0537`.
+- Final `Qwen2.5-14B` same-family controlled-conflict result:
+  `ConflictBank` conflict `0.9776 -> 0.9731 -> 0.9584` versus
+  no-conflict `0.0639 -> 0.0679 -> 0.0476`.
+- Partial same-family scale split:
+  `Qwen2.5-32B` `WikiContradict` conflict `0.0945 -> 0.3520 -> 0.2635`,
+  while `Qwen2.5-32B` `ConflictBank` conflict remains `0.9448 -> 0.9312 -> 0.8829`.
