@@ -31,6 +31,8 @@ The strongest current theorem-3 headline is:
 
 The corrected closed-book control analysis is now explicit in
 [`docs/generated/theorem3_closedbook_control_analysis.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/theorem3_closedbook_control_analysis.md).
+The current DeepSeek family comparison is also now explicit in
+[`docs/generated/theorem3_deepseek_family_sweep.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/theorem3_deepseek_family_sweep.md).
 Its decision is `not A`:
 
 - the true `closed_book` control also becomes more overconfident with CoT;
