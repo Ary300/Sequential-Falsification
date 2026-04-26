@@ -191,21 +191,25 @@ error is strictly increasing over a non-trivial range of `k`.
 
 ### What this should predict empirically
 
-- On conflict subsets, long CoT should worsen calibration.
-- On no-conflict subsets, that degradation should disappear or reverse.
+- On hard conflict subsets, longer CoT can worsen calibration dramatically.
+- A true `closed_book` control may still show overconfidence amplification on
+  hard QA, so conflict need not be necessary for the effect.
+- The strongest conflict-specific evidence should appear as an interaction:
+  explicit conflict changes the shape or persistence of the overconfidence
+  curve.
 - The effect should survive deterministic decoding.
 
 ### Current evidence
 
-- Broad pilots do **not** yet support this as a universal headline.
-- The cleanest current positive slice is `WikiContradict`, where conflict ECE
-  rises with long CoT while the no-conflict bucket improves.
-- `ConflictBank` and `DynamicQA` currently do not match the desired direction in
-  the proxy pipeline, so theorem 3 remains an open empirical target.
-- The first partial real-generation run with `DeepSeek-R1-Distill-Qwen-7B`
-  suggests a nearby but weaker phenomenon may be real: CoT can sharply increase
-  overconfidence on hard knowledge QA even when the effect is not
-  conflict-specific.
+- Broad pilots do **not** support the original universal conflict-conditioned
+  headline.
+- The corrected `closed_book` control now rules out the clean sign-flip
+  theorem: overconfidence also rises without retrieved conflict.
+- The strongest surviving slice is `ConflictBank` at `14B`, where explicit
+  conflict remains substantially more pathological than `closed_book` through
+  `cot=1024`.
+- `WikiContradict` behaves more like a hard-QA overconfidence task than a clean
+  conflict-only effect.
 
 ### Proof plan
 
@@ -220,7 +224,7 @@ error is strictly increasing over a non-trivial range of `k`.
 ### Fallback theorem if conflict-specificity fails
 
 If the full real-generation runs continue to show confidence inflation without a
-clear conflict/no-conflict separation, the paper should not force the original
+clear conflict/closed-book separation, the paper should not force the original
 theorem. The fallback version is:
 
 `Theorem 3b (CoT-Induced Overconfidence on Hard Knowledge QA).`
@@ -232,6 +236,18 @@ even when average accuracy does not improve.
 This is weaker and less novel than the conflict-conditioned version, so it
 should only be used if the completed real-generation matrix rules out the
 sharper theorem.
+
+### Corrected empirical landing
+
+The finished `closed_book` controls imply that theorem 3 should not be written
+as a conflict-vs-no-conflict sign flip. The strongest honest version is:
+
+`Theorem 3d (Scale-Dependent Overconfidence Amplification).`
+
+On hard knowledge QA, longer reasoning can amplify overconfidence even without
+retrieved conflict. Under explicit controlled conflict, larger reasoning models
+can become even more pathological, saturating near maximal overconfidence
+instead of self-correcting.
 
 ### Alternate theorem if the effect is non-monotone rather than monotone
 

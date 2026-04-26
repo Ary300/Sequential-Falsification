@@ -26,7 +26,8 @@ As of `2026-04-25`, the repo has a real paper-shaped result set:
 - theorem 2 is supported by the corrected conflict-heavy wave:
   `bayes_proxy = -0.1256` versus `heuristic_adaptive = -0.0752`,
   with fixed policies at `5.9037` and `7.1329`;
-- theorem 3 is supported in revised form by real 7B and 14B DeepSeek traces.
+- theorem 3 is supported only in a weaker corrected form by real 7B and 14B
+  DeepSeek traces plus the finished `closed_book` control.
 
 The 14B replication is now complete, not partial. Its final conflict-slice
 read is:
@@ -36,8 +37,8 @@ read is:
 - `WikiContradict` conflict gap:
   `0.2717 -> 0.4516 -> 0.3750`
 
-So the honest theorem-3 landing is no longer “monotone CoT hurts calibration.”
-It is:
+So the honest theorem-3 landing is no longer “monotone CoT hurts calibration,”
+and it is no longer a clean conflict-only claim either. It is:
 
 > reasoning amplifies overconfidence under conflict, with the exact CoT shape
 > depending on conflict family.
@@ -412,8 +413,8 @@ So the strongest defensible theorem-3 reading is now:
   conflict gap rises by `+0.1902` from `cot=0` to `cot=128` and then drops by
   `-0.0396` from `cot=128` to `cot=1024`.
 
-This means theorem 3 can land as a **non-monotone calibration-coupling
-theorem** rather than the original monotone long-CoT version.
+This means theorem 3 can land only as a **non-monotone hard-QA overconfidence
+theorem** rather than the original monotone long-CoT conflict theorem.
 
 The exact completed 7B theorem-3 picture is:
 
@@ -464,7 +465,27 @@ So the scaling picture is now sharper:
 - `ConflictBank` at 14B shows an even more extreme confidence blow-up on the
   conflict slice, with no meaningful recovery by `cot=1024`;
 - the 14B theorem-3 story therefore looks stronger, not weaker, than the 7B
-  run.
+  run on `ConflictBank`.
+
+The corrected closed-book controls are now also complete:
+
+- `7B` `ConflictBank` closed-book gap:
+  `0.4885 -> 0.7220 -> 0.6235`
+- `7B` `WikiContradict` closed-book gap:
+  `0.4950 -> 0.6220 -> 0.6499`
+- `14B` `ConflictBank` closed-book gap:
+  `0.4917 -> 0.8168 -> 0.7890`
+- `14B` `WikiContradict` closed-book gap:
+  `0.5044 -> 0.5879 -> 0.6938`
+
+That corrected control changes the final theorem-3 interpretation:
+
+- option `A` is ruled out;
+- CoT-induced overconfidence is real even without retrieved conflict;
+- explicit conflict still worsens the effect on `ConflictBank`, especially at
+  `14B`;
+- `WikiContradict` behaves more like a hard-QA overconfidence task than a clean
+  conflict-only effect.
 
 The ambiguity-filter diagnosis sharpens the interpretation:
 
@@ -474,14 +495,8 @@ The ambiguity-filter diagnosis sharpens the interpretation:
 - the best current reading is that theorem 3 may hold for naturalistic source
   ambiguity but not for every synthetic or easily-detectable conflict setup.
 
-There is also one important remaining limitation:
-
-- the theorem-3 pipeline is still proxy-based, so it does not contain raw
-  generated reasoning traces and cannot yet tell us whether longer CoT buckets
-  correspond to genuine extended reasoning versus filler text.
-
 That means the project now has a real benchmark-backed arbitration signal, but
-not yet the broad conflict-conditioned CoT headline needed for the full paper.
+not the broad conflict-conditioned CoT headline originally hoped for.
 
 ## Reality check
 

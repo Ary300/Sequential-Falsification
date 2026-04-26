@@ -12,8 +12,8 @@
 We cast knowledge conflict as a posterior-predictive decision problem, derive a
 Bayes-style arbitration rule that beats generic heuristics and fixed trust
 policies on real conflict benchmarks, and show that chain-of-thought amplifies
-overconfidence generally but does so more severely and more persistently on hard
-conflict families.
+overconfidence on hard knowledge QA, with explicit conflict making the failure
+more persistent on controlled conflict families at larger scale.
 
 ## Current abstract draft
 
@@ -31,13 +31,14 @@ In our corrected broad real wave, the Bayes proxy achieves mean regret
 `-0.0461` versus `-0.0233` for the heuristic, while `always_context` and
 `always_parametric` degrade to `7.2237` and `5.9356`. In the conflict-heavy
 wave, the gap widens to `-0.1256` versus `-0.0752`, with fixed policies at
-`5.9037` and `7.1329`. For reasoning-time calibration, real DeepSeek-R1-Distill
-traces show that the original monotone “more CoT is worse” story is too simple:
-7B traces peak at intermediate CoT on both `ConflictBank` and
-`WikiContradict`, while the completed 14B replication shows benchmark-family
-dependence: `WikiContradict` still partially recovers at long CoT, but
-`ConflictBank` conflict remains catastrophically overconfident through
-`cot=1024`. These results position knowledge arbitration as a principled
+`5.9037` and `7.1329`. For reasoning-time calibration, corrected real
+DeepSeek-R1-Distill traces show that the original conflict-only story does not
+hold. The true `closed_book` control also becomes more overconfident with
+longer CoT. What survives is a sharper, family-dependent result:
+`ConflictBank` conflict at `14B` remains catastrophically overconfident through
+`cot=1024`, while `WikiContradict` behaves more like a hard-QA overconfidence
+task than a clean conflict-only effect. These results position knowledge
+arbitration as a principled
 inference problem rather than a retrieval heuristic, and they give a concrete
 recipe for replacing fixed trust policies with reliability-aware decoding
 rules.
@@ -48,8 +49,10 @@ rules.
 - Parametric memory should not be trusted by default.
 - The right object is a reliability-aware posterior-predictive arbitration rule.
 - Fixed trust policies fail badly enough that this is not a small-tuning issue.
-- Reasoning-time calibration under conflict is real, but the shape is
-  conflict-family dependent rather than uniformly monotone.
+- Reasoning-time calibration failure is real, but the corrected closed-book
+  control shows it is not uniquely conflict-triggered.
+- Explicit conflict still matters on `ConflictBank`, especially at `14B`, where
+  longer CoT prevents recovery and drives near-maximal overconfidence.
 
 ## Best empirical bullets right now
 
@@ -68,9 +71,11 @@ rules.
 - Finished 14B scaling signal:
   `ConflictBank` conflict gap `0.5876 -> 0.9449 -> 0.9513`,
   `WikiContradict` conflict gap `0.2717 -> 0.4516 -> 0.3750`.
-- Conflict-control decision:
-  no-conflict also gets more overconfident, but overall less than conflict,
-  so theorem 3 is an interaction claim rather than a pure sign-flip claim.
+- Corrected closed-book control decision:
+  option `A` is ruled out.
+- The strongest theorem-3 statement is now:
+  CoT amplifies overconfidence on hard knowledge QA, and explicit conflict can
+  further intensify that pathology on controlled conflict families.
 
 ## Honest caveats we should write explicitly
 
@@ -78,8 +83,8 @@ rules.
   full real-generation sweeps.
 - The broad-wave Bayes win has one exception:
   `Qwen2.5-14B-Instruct` slightly favors the generic heuristic.
-- Theorem 3 is landed in revised family-dependent form, not the original
-  monotone conflict-conditioned form.
+- Theorem 3 is landed only in a weaker corrected form, not the original
+  conflict-conditioned sign-flip form.
 - `WikiContradict` supports an intermediate-CoT peak with partial recovery,
   while `ConflictBank` conflict at 14B stays severely overconfident through
   long CoT.

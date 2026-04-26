@@ -79,20 +79,23 @@ recovery at `cot=1024'. On the 14B model, WikiContradict replicates the same
 peak-and-recover shape, but ConflictBank conflict remains catastrophic through
 long CoT: the gap rises from $0.5876$ to $0.9449$ and then stays at $0.9513$.
 
-This is a better result than the dead monotone theorem. It reveals that
-reasoning-time calibration failure is \emph{structured}. Medium CoT is a
-reliable peak-overconfidence regime, but the late-stage behavior depends on the
-conflict family. Naturalistic contradiction shows partial self-correction;
-controlled conflict at 14B can stay locked into near-total overconfidence.
+This is a better result than the dead monotone theorem, but the corrected
+closed-book control also changes the story. Reasoning-time calibration failure
+is \emph{structured}, not cleanly conflict-only. Medium CoT is often a
+peak-overconfidence regime, but the late-stage behavior depends on benchmark
+family and model scale. Naturalistic contradiction shows partial
+self-correction; controlled conflict at 14B can stay locked into near-total
+overconfidence.
 
-The no-conflict slices tell the same story more carefully. On ConflictBank
-no-conflict, 14B accuracy rises strongly with longer CoT ($0.514 \rightarrow
-0.862$) and the ECE curve largely recovers by long CoT. On WikiContradict
-no-conflict, overconfidence still rises materially. So theorem 3 should not be
-written as a universal conflict-versus-no-conflict sign flip. The supported
-claim is narrower and stronger: reasoning amplifies overconfidence under
-conflict, but the shape of that amplification depends on conflict family and
-reasoning depth.
+The true closed-book controls rule out a clean conflict-versus-no-conflict sign
+flip. On ConflictBank closed-book, the 14B model already shows a strong gap
+trajectory ($0.4917 \rightarrow 0.8168 \rightarrow 0.7890$), but explicit
+conflict is worse still ($0.5876 \rightarrow 0.9449 \rightarrow 0.9513$). On
+WikiContradict, the closed-book control is actually more overconfident than the
+conflict condition for both models. So theorem 3 should be written as a
+hard-QA overconfidence amplification result with a conflict-sensitive
+interaction on controlled conflict families, not as a universal
+conflict-conditioned sign flip.
 
 \paragraph{Takeaways.}
 The paper's empirical story is now coherent. Theorems 1 and 2 are supported by

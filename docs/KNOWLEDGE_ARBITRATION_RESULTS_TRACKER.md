@@ -13,22 +13,26 @@ The project now has a real paper-level core:
 
 - theorem 1 landed on the corrected broad wave;
 - theorem 2 landed on the corrected conflict-heavy wave;
-- theorem 3 landed in revised form on real 7B and 14B DeepSeek traces.
+- theorem 3 landed only in a weaker corrected form on real 7B and 14B DeepSeek
+  traces.
 
 The strongest current theorem-3 headline is:
 
-- reasoning amplifies overconfidence under conflict;
-- `WikiContradict` shows an intermediate-CoT peak with partial recovery;
+- reasoning amplifies overconfidence on hard knowledge QA;
 - `ConflictBank` conflict at 14B remains catastrophically overconfident
-  through long CoT.
+  through long CoT;
+- the corrected `closed_book` control rules out a clean conflict-only sign
+  flip.
 
-The conflict-control analysis is now explicit in
-[`docs/generated/theorem3_conflict_control_analysis.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/theorem3_conflict_control_analysis.md).
-Its decision is `B`, not `A`:
+The corrected closed-book control analysis is now explicit in
+[`docs/generated/theorem3_closedbook_control_analysis.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/theorem3_closedbook_control_analysis.md).
+Its decision is `not A`:
 
-- no-conflict rows also become more overconfident with CoT;
-- but overall they rise less and/or recover faster than the conflict rows;
-- so theorem 3 is an interaction claim, not a pure sign-flip claim.
+- the true `closed_book` control also becomes more overconfident with CoT;
+- on `ConflictBank`, conflict is worse mainly at larger scale and especially at
+  `14B`;
+- on `WikiContradict`, the closed-book control is already more overconfident
+  than explicit conflict.
 
 ## Headline-result checklist
 
