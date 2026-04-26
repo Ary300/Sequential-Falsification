@@ -315,6 +315,33 @@ So the scaling result is more nuanced than a pure 7B replication:
   little recovery by `cot=1024`, suggesting the recovery term in theorem `3c'`
   may itself depend on benchmark family or source-detectability.
 
+The same-family `Qwen2.5` sweep now sharpens that split further and turns it
+into a size-threshold statement:
+
+- on `WikiContradict` conflict, `Qwen2.5-7B` and `Qwen2.5-14B` remain in the
+  persistent/saturating regime, but `Qwen2.5-32B` shifts to
+  `0.0945 -> 0.3520 -> 0.2635`, which is the first same-family long-CoT
+  recovery signal;
+- on `ConflictBank` conflict, the same family stays catastrophically
+  overconfident across all observed scales:
+  `0.9856 -> 0.9849 -> 0.9693` at `7B`,
+  `0.9776 -> 0.9731 -> 0.9584` at `14B`,
+  and partial `32B` still at `0.9448 -> 0.9312 -> 0.8829`.
+
+So the strongest current empirical theorem-3 landing is no longer just
+"family-dependent" in words. It is:
+
+`Theorem 3e (Benchmark-Dependent Recovery Threshold).`
+
+There exists a benchmark-family-dependent scale threshold `s*` such that:
+
+1. on naturalistic contradiction (`WikiContradict`), long-CoT recovery first
+   reappears by approximately `s* ~= 32B` in the current same-family Qwen
+   sweep;
+2. on controlled conflict (`ConflictBank`), no such recovery threshold has
+   appeared through `32B`, and the long-CoT confidence gap remains above
+   `0.88`.
+
 ## Experimental pairing
 
 | Theorem | Primary benchmark evidence | Current status |

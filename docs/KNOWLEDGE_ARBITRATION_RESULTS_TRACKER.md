@@ -33,8 +33,10 @@ The corrected closed-book control analysis is now explicit in
 [`docs/generated/theorem3_closedbook_control_analysis.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/theorem3_closedbook_control_analysis.md).
 The current DeepSeek family comparison is also now explicit in
 [`docs/generated/theorem3_deepseek_family_sweep.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/theorem3_deepseek_family_sweep.md).
-The live same-family Qwen partial read is now explicit in
-[`docs/generated/theorem3_qwen_family_partial.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/theorem3_qwen_family_partial.md).
+The completed same-family Qwen read is now explicit in
+[`docs/generated/theorem3_qwen_family_final.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/theorem3_qwen_family_final.md).
+The new same-family threshold read is now explicit in
+[`docs/generated/theorem3_same_family_threshold_summary.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/theorem3_same_family_threshold_summary.md).
 That file is now stronger than before: `Qwen2.5-7B` and `Qwen2.5-14B` are
 final, and the `32B` job has populated both `ConflictBank` and
 `WikiContradict` groups on disk.
@@ -61,7 +63,7 @@ Its decision is `not A`:
 | Expanded theorem-3 proxy size-scaling matrix | strongly preferred | done via `arbitration_spotlight_t3_scaling_proxy_v1` |
 | Conflict vs no-conflict calibration curves | yes | done for broad pilot and `WikiContradict` focus |
 | Checkpoint-family experiment | strongly preferred | not started |
-| Real same-family theorem-3 size sweep (`Qwen 7B/14B/32B`) | strongly preferred | `7B` and `14B` complete; `32B` active with populated groups on Delta |
+| Real same-family theorem-3 size sweep (`Qwen 7B/14B/32B`) | strongly preferred | done |
 | Mitigation experiment | strongly preferred | not started |
 
 ## Benchmark coverage
@@ -82,7 +84,7 @@ Its decision is `not A`:
 | Family | Pilot coverage | Main coverage target | Status |
 | --- | --- | --- | --- |
 | `Llama-3.1` | 8B | 8B + optional larger | pilot done |
-| `Qwen-2.5` / `Qwen-3` | 7B/8B | 7B/8B + optional 32B | pilot partially done (`Qwen-2.5-7B`, `Qwen-2.5-14B`) |
+| `Qwen-2.5` / `Qwen-3` | 7B/8B | 7B/8B + optional 32B | theorem-3 family sweep done through `Qwen2.5-32B` |
 | `DeepSeek-R1-Distill` | 7B | 7B + optional 14B | pilot done |
 | `Pythia` | 6.9B or nearby | checkpoint sweep | not started |
 | `OLMo-2` | 7B | checkpoint sweep | not started |
@@ -139,13 +141,17 @@ Current best honest headline:
   while final `Qwen2.5-14B` now shows
   `0.9776 -> 0.9731 -> 0.9584` versus
   `0.0639 -> 0.0679 -> 0.0476`.
-- The same live Qwen sweep also gives the first same-family evidence for the
+- The same completed Qwen sweep also gives the first same-family evidence for the
   rewritten two-regime story on `WikiContradict`:
-  partial `Qwen2.5-32B` conflict now reads
+  final `Qwen2.5-32B` conflict now reads
   `0.0945 -> 0.3520 -> 0.2635`, indicating long-CoT self-correction.
-- The same partial `Qwen2.5-32B` run still shows persistent controlled-conflict
+- The same final `Qwen2.5-32B` run still shows persistent controlled-conflict
   failure on `ConflictBank`:
-  `0.9448 -> 0.9312 -> 0.8829`.
+  `0.9484 -> 0.9307 -> 0.8871`.
+- The size-threshold read is now sharp enough to cite directly:
+  `s* ~= 32B` for same-family `Qwen2.5` recovery on `WikiContradict` conflict,
+  but no recovery threshold has appeared through `32B` on `ConflictBank`
+  conflict.
 - The corrected broad-wave oracle-vs-model arbitration gap remains visibly
   nontrivial: mean absolute gap `0.1969`, mean KL `1.2288`.
 - The expanded spotlight matrix still shows a much larger conflict-vs-no-conflict
@@ -187,12 +193,11 @@ Current blocker:
 
 - the proxy theorem-3 diagnosis is complete, and it told us to stop inferring
   CoT length from synthetic buckets and run real generations instead;
-- the next real gate is now finishing the live same-family Qwen sweep on Delta:
-  `2196741` (`32B`);
-- that gate is no longer hypothetical: the `7B` and `14B` runs are complete,
-  and the live rows already support a stronger controlled-conflict theorem-3
-  story on `ConflictBank` plus a first same-family `32B` recovery signal on
-  `WikiContradict`.
+- the same-family Qwen sweep gate is now closed:
+  `7B`, `14B`, and `32B` are all complete;
+- that gate no longer blocks the paper: the finished rows support a stronger
+  controlled-conflict theorem-3 story on `ConflictBank` plus a first
+  same-family `32B` recovery signal on `WikiContradict`.
 
 What is now in place:
 

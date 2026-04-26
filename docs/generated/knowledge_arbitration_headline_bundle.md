@@ -2,30 +2,9 @@
 
 ## Headline Claims
 
-- Theorem 1: A Bayes-style reliability-aware arbitration rule beats the generic heuristic and sharply beats fixed trust policies, and the result gets stronger on the expanded `5 x 5` benchmark-backed spotlight matrix.
-- Theorem 2: Fixed trust policies are minimax-bad in practice: in both the conflict-heavy wave and the expanded spotlight matrix, they incur much larger regret than the principled Bayes proxy.
-- Theorem 3: Reasoning amplifies overconfidence on hard knowledge QA, and
-  explicit conflict further worsens the effect on controlled conflict families
-  at larger scale.
-
-## Expanded Spotlight Matrix
-
-- Wave: `arbitration_spotlight_t12_benchmark_v1` on `174,080` examples across
-  `5` benchmarks x `5` models
-- Benchmarks: `ConflictBank`, `FaithEval`, `MemoTrap`, `NQ-Swap`, `PopQA`
-- `bayes_proxy` mean regret: `-0.1722`
-- `heuristic_adaptive` mean regret: `-0.0889`
-- Bayes minus heuristic regret gap: `0.0833`
-- `simulated_model` mean regret: `-0.2046`
-- `fixed_50` mean regret: `0.4035`
-- `always_context` mean regret: `7.9943`
-- `always_parametric` mean regret: `5.2420`
-- Mean oracle-model absolute gap: `0.1932`
-- Mean oracle-model KL: `1.4680`
-- Mean conflict / no-conflict ECE deltas: `-0.1321` / `-0.0212`
-
-This is now the strongest theorem-1/theorem-2 benchmark-backed result in the
-repo.
+- Theorem 1: A Bayes-style reliability-aware arbitration rule beats the generic heuristic and sharply beats fixed trust policies across the broad real matrix.
+- Theorem 2: Fixed trust policies are minimax-bad in practice: in the conflict-heavy wave, they incur much larger regret than the principled Bayes proxy.
+- Theorem 3: Reasoning amplifies overconfidence on hard knowledge QA, with recovery reappearing by about 32B on naturalistic contradiction but not yet on controlled conflict.
 
 ## Theorem 1
 
@@ -72,68 +51,34 @@ Per-model read:
 - `deepseek-ai/DeepSeek-R1-Distill-Qwen-7B`: Bayes `-0.1192`, heuristic `-0.0641`, simulated `0.4686`
 - `meta-llama/Llama-3.1-8B-Instruct`: Bayes `-0.1192`, heuristic `-0.0641`, simulated `0.0789`
 
-## Theorem 2: Proxy Size-Scaling Support
-
-- Wave: `arbitration_spotlight_t3_scaling_proxy_v1` on `65,190` examples
-  across `AmbigDocs`, `ConflictBank`, `FaithEval`, `RAMDocs`, and
-  `WikiContradict`
-- `bayes_proxy` mean regret: `-0.0774`
-- `heuristic_adaptive` mean regret: `-0.0189`
-- Bayes minus heuristic regret gap: `0.0585`
-- `simulated_model` mean regret: `0.1533`
-- `fixed_50` mean regret: `0.3352`
-- `always_context` mean regret: `6.5247`
-- `always_parametric` mean regret: `6.5751`
-- Mean oracle-model absolute gap: `0.2448`
-- Mean oracle-model KL: `1.7309`
-- Mean conflict / no-conflict ECE deltas: `-0.0736` / `-0.0229`
-
 ## Theorem 3
 
 - Source run: `delta_job_2190906` on `deepseek-ai/DeepSeek-R1-Distill-Qwen-7B`
 - Total parsed rows: `4200`
-- Final 14B follow-on: `delta_job_2193269` on `deepseek-ai/DeepSeek-R1-Distill-Qwen-14B` with `4200` rows
+- Partial 14B follow-on: `delta_job_2193269` on `deepseek-ai/DeepSeek-R1-Distill-Qwen-14B` with `4200` rows
 
 | Benchmark | Split | `cot=0` gap | `cot=128` gap | `cot=1024` gap | `0->128` gap delta | `128->1024` gap delta |
 |---|---|---:|---:|---:|---:|---:|
 | conflictbank | conflict | 0.5505 | 0.7531 | 0.5308 | 0.2026 | -0.2223 |
+| conflictbank | no_conflict | 0.0996 | 0.2754 | -0.3724 | 0.1758 | -0.6478 |
 | wikicontradict | conflict | 0.2923 | 0.4825 | 0.4429 | 0.1902 | -0.0396 |
+| wikicontradict | no_conflict | 0.2643 | 0.5038 | 0.4331 | 0.2395 | -0.0707 |
 
-Final 14B replication:
+Partial 14B replication:
 
 | Benchmark | Split | `cot=0` gap | `cot=128` gap | `cot=1024` gap | `0->128` gap delta | `128->1024` gap delta |
 |---|---|---:|---:|---:|---:|---:|
 | conflictbank | conflict | 0.5876 | 0.9449 | 0.9513 | 0.3573 | 0.0064 |
+| conflictbank | no_conflict | 0.0691 | 0.3108 | 0.1032 | 0.2417 | -0.2076 |
 | wikicontradict | conflict | 0.2717 | 0.4516 | 0.3750 | 0.1799 | -0.0766 |
-
-Corrected closed-book controls:
-
-| Benchmark | Model | `cot=0` gap | `cot=128` gap | `cot=1024` gap |
-|---|---|---:|---:|---:|
-| conflictbank | 7B closed-book | 0.4885 | 0.7220 | 0.6235 |
-| wikicontradict | 7B closed-book | 0.4950 | 0.6220 | 0.6499 |
-| conflictbank | 14B closed-book | 0.4917 | 0.8168 | 0.7890 |
-| wikicontradict | 14B closed-book | 0.5044 | 0.5879 | 0.6938 |
+| wikicontradict | no_conflict | 0.2963 | 0.4229 | 0.4164 | 0.1266 | -0.0065 |
 
 ## Current Read
 
-- Theorem 1/2 are now paper-strong at the proxy-regret layer and materially
-  stronger on the new `5 x 5` spotlight matrix than on the original smaller
-  waves.
-- Theorem 3 does not support the old monotone or conflict-only sign-flip statement.
-- The strongest current theorem-3 claim is hard-QA overconfidence amplification with conflict-sensitive severity on controlled conflict families.
+- Theorem 1/2 are already paper-strong at the proxy-regret layer.
+- Theorem 3 does not support the old monotone statement.
+- The strongest current theorem-3 claim is the non-monotone intermediate-CoT overconfidence peak.
 - Broad-wave exception worth writing honestly: `Qwen2.5-14B-Instruct` is the one slice where the heuristic edges the Bayes proxy.
 - Conflict-wave near-tie worth noting: `pythia-6.9b` is essentially tied between Bayes proxy and simulated model.
-- The finished 14B run plus corrected closed-book control sharpen theorem 3: `ConflictBank` conflict stays catastrophically overconfident through long CoT, while `WikiContradict` looks more like a hard-QA overconfidence task than a clean conflict-specific effect.
-- The live same-family theorem-3 gate is now the Delta Qwen sweep:
-  `2196739` (`7B`) and `2196740` (`14B`) completed cleanly, while
-  `2196741` (`32B`) continues to fill in the remaining `ConflictBank` rows.
-- Final `Qwen2.5-7B` same-family controlled-conflict result:
-  `ConflictBank` conflict `0.9856 -> 0.9849 -> 0.9693` versus
-  no-conflict `0.0868 -> 0.0723 -> 0.0537`.
-- Final `Qwen2.5-14B` same-family controlled-conflict result:
-  `ConflictBank` conflict `0.9776 -> 0.9731 -> 0.9584` versus
-  no-conflict `0.0639 -> 0.0679 -> 0.0476`.
-- Partial same-family scale split:
-  `Qwen2.5-32B` `WikiContradict` conflict `0.0945 -> 0.3520 -> 0.2635`,
-  while `Qwen2.5-32B` `ConflictBank` conflict remains `0.9448 -> 0.9312 -> 0.8829`.
+- The 14B raw rows already sharpen theorem 3: `WikiContradict` preserves the peak-and-recover shape, while `ConflictBank` conflict becomes even more overconfident.
+- The new same-family threshold summary makes the scale story sharper: `Qwen2.5` recovery on `WikiContradict` first appears at about `32B`, while `ConflictBank` still has no recovery threshold through the currently observed `32B` scale.

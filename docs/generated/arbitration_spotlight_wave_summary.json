@@ -88,7 +88,7 @@
       "job_id": 2196741,
       "job_name": "theorem3_qwen32b",
       "node": "gh074",
-      "status": "running"
+      "status": "completed"
     }
   ],
   "live_delta_theorem3_read": {
@@ -108,9 +108,9 @@
       0.9584
     ],
     "qwen25_32b_conflictbank_conflict_partial": [
-      0.9448,
-      0.9312,
-      0.8829
+      0.9484,
+      0.9307,
+      0.8871
     ],
     "qwen25_32b_wikicontradict_conflict_partial": [
       0.0945,

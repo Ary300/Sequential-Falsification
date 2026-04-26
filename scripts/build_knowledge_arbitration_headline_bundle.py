@@ -104,7 +104,8 @@ def build_bundle() -> dict[str, Any]:
     compact_report = _load_json(ROOT / "results/arbitration_conflict_headline_wave_reestimated_v3/report/arbitration_summary.json")
     compact_results = _load_json(ROOT / "results/arbitration_conflict_headline_wave_reestimated_v3/arbitration_conflict_headline_wave_benchmark_results.json")
     theorem3 = _load_json(ROOT / "docs/generated/theorem3_real_7b_final.json")
-    theorem3_replication = _load_json(ROOT / "docs/generated/theorem3_real_14b_partial.json")
+    theorem3_replication = _load_json(ROOT / "docs/generated/theorem3_real_14b_final.json")
+    theorem3_same_family = _load_json(ROOT / "docs/generated/theorem3_same_family_threshold_summary.json")
 
     theorem1 = _theorem12_section("broad_real_headline_wave_reestimated_v3", broad_report, broad_results)
     theorem2 = _theorem12_section("conflict_headline_wave_reestimated_v3", compact_report, compact_results)
@@ -117,18 +118,19 @@ def build_bundle() -> dict[str, Any]:
                 "sharply beats fixed trust policies across the broad real matrix."
             ),
             "theorem_2": (
-                "Fixed trust policies are minimax-bad in practice: in the conflict-heavy wave, they "
-                "incur much larger regret than the principled Bayes proxy."
-            ),
-            "theorem_3": (
-                "Calibration failure peaks at an intermediate CoT budget, then partially self-corrects "
-                "at very long CoT."
-            ),
-        },
+            "Fixed trust policies are minimax-bad in practice: in the conflict-heavy wave, they "
+            "incur much larger regret than the principled Bayes proxy."
+        ),
+        "theorem_3": (
+            "Reasoning amplifies overconfidence on hard knowledge QA, with recovery reappearing "
+            "by about 32B on naturalistic contradiction but not yet on controlled conflict."
+        ),
+    },
         "theorem_1": theorem1,
         "theorem_2": theorem2,
         "theorem_3": theorem3,
         "theorem_3_replication": theorem3_replication,
+        "theorem_3_same_family": theorem3_same_family,
     }
 
 
@@ -137,6 +139,7 @@ def build_markdown(bundle: dict[str, Any]) -> str:
     t2 = bundle["theorem_2"]
     t3 = bundle["theorem_3"]
     t3_rep = bundle["theorem_3_replication"]
+    t3_same_family = bundle["theorem_3_same_family"]
     lines = [
         "# Knowledge Arbitration Headline Bundle",
         "",
@@ -249,6 +252,8 @@ def build_markdown(bundle: dict[str, Any]) -> str:
             "- Broad-wave exception worth writing honestly: `Qwen2.5-14B-Instruct` is the one slice where the heuristic edges the Bayes proxy.",
             "- Conflict-wave near-tie worth noting: `pythia-6.9b` is essentially tied between Bayes proxy and simulated model.",
             "- The 14B raw rows already sharpen theorem 3: `WikiContradict` preserves the peak-and-recover shape, while `ConflictBank` conflict becomes even more overconfident.",
+            "- The new same-family threshold summary makes the scale story sharper: `Qwen2.5` recovery on `WikiContradict` first appears at about "
+            f"`{t3_same_family['headline']['qwen_wikicontradict_conflict_recovery_threshold_b']}B`, while `ConflictBank` still has no recovery threshold through the currently observed `32B` scale.",
         ]
     )
     return "\n".join(lines) + "\n"

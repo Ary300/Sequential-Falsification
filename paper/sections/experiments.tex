@@ -122,15 +122,18 @@ separation on ConflictBank: conflict remains near-maximally overconfident
 across all three CoT budgets
 ($0.9856 \rightarrow 0.9849 \rightarrow 0.9693$), while the corresponding
 no-conflict slice stays small and even improves slightly
-($0.0868 \rightarrow 0.0723 \rightarrow 0.0537$). The live partial
+($0.0868 \rightarrow 0.0723 \rightarrow 0.0537$). The completed
 Qwen-2.5-14B rows preserve the same qualitative shape on ConflictBank
 ($0.9776 \rightarrow 0.9731 \rightarrow 0.9584$ versus
-$0.0639 \rightarrow 0.0679 \rightarrow 0.0476$). At larger scale, the partial
+$0.0639 \rightarrow 0.0679 \rightarrow 0.0476$). At larger scale, the final
 Qwen-2.5-32B ConflictBank slice remains catastrophically overconfident
-($0.9448 \rightarrow 0.9312 \rightarrow 0.8829$), but the partial
+($0.9484 \rightarrow 0.9307 \rightarrow 0.8871$), but the final
 Qwen-2.5-32B WikiContradict slice grows from $0.0945$ to $0.3520$ at medium
 CoT and then falls to $0.2635$ at long CoT. This is the first same-family
-evidence for the rewritten two-regime self-correction story.
+evidence for the rewritten two-regime self-correction story, and it gives the
+strongest current empirical size-threshold read: recovery first reappears by
+about $32$B on naturalistic contradiction, while no corresponding recovery
+threshold is visible through $32$B on controlled conflict.
 
 The true closed-book controls rule out a clean conflict-versus-no-conflict sign
 flip. On ConflictBank closed-book, the 14B model already shows a strong gap
@@ -145,8 +148,8 @@ conflict-conditioned sign flip.
 \paragraph{Takeaways.}
 The paper's empirical story is now coherent. Theorems 1 and 2 are supported by
 corrected benchmark-backed regret results, including an expanded spotlight-scale
-matrix. Theorem 3 lands in revised form on real reasoning traces and currently
-rests on a completed DeepSeek 7B/14B family comparison plus an active same-family
-Qwen 7B/14B/32B Delta sweep. What remains outside the current paper core are
+matrix. Theorem 3 lands in revised form on real reasoning traces and now rests
+on completed DeepSeek 7B/14B and Qwen 7B/14B/32B family sweeps. What remains
+outside the current paper core are
 the larger checkpoint-family sweeps and mitigation experiments such as bagged
 reasoning or confidence-decoupled heads.

@@ -83,17 +83,21 @@ rules.
   `ConflictBank` conflict gap `0.5876 -> 0.9449 -> 0.9513`,
   `WikiContradict` conflict gap `0.2717 -> 0.4516 -> 0.3750`.
 - Live same-family Qwen theorem-3 sweep:
-  `2196739` (`Qwen2.5-7B`) and `2196740` (`Qwen2.5-14B`) completed, while
-  `2196741` (`Qwen2.5-32B`) is still running on Delta.
+  `2196739` (`Qwen2.5-7B`), `2196740` (`Qwen2.5-14B`), and
+  `2196741` (`Qwen2.5-32B`) all completed on Delta.
 - Final same-family Qwen 7B controlled-conflict signal:
   `ConflictBank` conflict `0.9856 -> 0.9849 -> 0.9693` versus
   no-conflict `0.0868 -> 0.0723 -> 0.0537`.
 - Final same-family Qwen 14B controlled-conflict signal:
   `ConflictBank` conflict `0.9776 -> 0.9731 -> 0.9584` versus
   no-conflict `0.0639 -> 0.0679 -> 0.0476`.
-- Same-family Qwen 32B partial theorem-3 split:
-  `ConflictBank` conflict `0.9448 -> 0.9312 -> 0.8829`, while
+- Final same-family Qwen 32B theorem-3 split:
+  `ConflictBank` conflict `0.9484 -> 0.9307 -> 0.8871`, while
   `WikiContradict` conflict `0.0945 -> 0.3520 -> 0.2635`.
+- Same-family theorem-3 threshold summary:
+  `s* ~= 32B` for `Qwen2.5` recovery on `WikiContradict` conflict, with no
+  corresponding recovery threshold yet visible through `32B` on
+  `ConflictBank` conflict.
 - Corrected closed-book control decision:
   option `A` is ruled out.
 - The strongest theorem-3 statement is now:
@@ -111,9 +115,9 @@ rules.
 - `WikiContradict` supports an intermediate-CoT peak with partial recovery,
   while `ConflictBank` conflict at 14B stays severely overconfident through
   long CoT.
-- The `Qwen2.5-7B` and `Qwen2.5-14B` theorem-3 evidence is final, but the
-  `32B` `ConflictBank` numbers are still live partial reads and should be
-  described as provisional until that Delta job finishes.
+- The same-family `Qwen2.5` theorem-3 sweep is now complete, but the stronger
+  headline should still be written as benchmark-dependent rather than as a
+  universal recovery theorem.
 
 ## Best current figure order
 

@@ -65,12 +65,12 @@ Key interpretation:
 
 ## Live Delta theorem-3 family sweep
 
-As of `2026-04-26`, the real-generation Qwen family jobs have moved past the
-"did the jobs actually start?" phase and into usable theorem-3 evidence:
+As of `2026-04-26`, the real-generation Qwen family jobs have completed and
+now provide a full same-family theorem-3 read:
 
 - `2196739` `theorem3_qwen7b` completed on `gh082`
 - `2196740` `theorem3_qwen14b` completed on `gh082`
-- `2196741` `theorem3_qwen32b` is running on `gh074`
+- `2196741` `theorem3_qwen32b` completed on `gh074`
 
 Current theorem-3 read:
 
@@ -80,9 +80,9 @@ Current theorem-3 read:
   `0.0868 -> 0.0723 -> 0.0537`
 - Final `Qwen2.5-14B` `ConflictBank` conflict:
   `0.9776 -> 0.9731 -> 0.9584`
-- Partial `Qwen2.5-32B` `ConflictBank` conflict:
-  `0.9448 -> 0.9312 -> 0.8829`
-- Partial `Qwen2.5-32B` `WikiContradict` conflict:
+- Final `Qwen2.5-32B` `ConflictBank` conflict:
+  `0.9484 -> 0.9307 -> 0.8871`
+- Final `Qwen2.5-32B` `WikiContradict` conflict:
   `0.0945 -> 0.3520 -> 0.2635`
 
 These rows are the strongest same-family theorem-3 evidence in the repo so far:
