@@ -67,8 +67,9 @@ Table~\ref{tab:spotlight-regret} shows that this is not just a small-wave
 artifact. On the expanded spotlight-scale benchmark-backed matrix spanning
 ConflictBank, FaithEval, MemoTrap, NQ-Swap, and PopQA across five model
 families and 174{,}080 parsed examples, the Bayes proxy still beats the generic
-heuristic by $0.0833$ regret while fixed trust policies remain catastrophically
-bad. The absolute oracle--model arbitration gap stays nontrivial
+heuristic by $0.0833$ regret, with a series-bootstrap $95\%$ interval of
+$[0.0371, 0.1112]$, while fixed trust policies remain catastrophically bad.
+The absolute oracle--model arbitration gap stays nontrivial
 ($0.1932$ mean absolute gap, $1.4680$ mean KL), which means the proxy result is
 not vacuous. This expanded matrix is now the strongest theorem-1/theorem-2
 evidence in the paper.
@@ -76,10 +77,12 @@ evidence in the paper.
 The named comparator wave on the same matrix sharpens the positioning. The
 Bayes proxy also beats the strongest named retrieval-style proxy baselines:
 Self-RAG at $-0.1456$, Astute RAG at $-0.1396$, CoCoA at $-0.1278$, AdaCAD at
-$-0.1063$, and CAD at $-0.0790$. So the spotlight-scale theorem-1/theorem-2
-story is no longer just ``better than a generic heuristic''; it now also
-clears the strongest named comparator family available inside the benchmark
-engine.
+$-0.1063$, and CAD at $-0.0790$. The point-estimate Bayes advantage over the
+strongest named comparator (Self-RAG) is $0.0266$, though the corresponding
+bootstrap interval is wider ($[-0.0379, 0.0686]$). So the spotlight-scale
+theorem-1/theorem-2 story is no longer just ``better than a generic
+heuristic''; it also clears the strongest named comparator family available
+inside the benchmark engine at the point-estimate layer.
 
 The broad wave is also informative about model heterogeneity. Three of the four
 main broad-wave models favor the Bayes proxy over the heuristic by about
@@ -165,6 +168,16 @@ two-regime distinction the rewritten theorem needs. Naturalistic contradiction
 looks calibratable once confidence sharpening is corrected, whereas controlled
 conflict at larger scale is an answer-level failure that confidence rescaling
 alone cannot rescue.
+
+The benchmark-backed theorem-3 proxy matrix supports the revised claim at the
+regret layer. Across AmbigDocs, ConflictBank, FaithEval, RAMDocs, and
+WikiContradict, the Bayes proxy beats the generic heuristic by $0.0585$ regret
+with a series-bootstrap $95\%$ interval of $[0.0155, 0.0961]$. The strongest
+named comparator on that size-scaling matrix is CoCoA at $-0.0795$, which is a
+near-tie rather than the main headline. Accordingly, the theorem-3 story should
+be anchored on the real-trace two-regime result plus the clean
+Bayes-versus-heuristic proxy read, not on a decisive named-comparator
+reversal.
 
 \paragraph{Takeaways.}
 The paper's empirical story is now coherent. Theorems 1 and 2 are supported by

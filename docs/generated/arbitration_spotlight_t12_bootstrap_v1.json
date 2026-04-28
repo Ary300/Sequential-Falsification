@@ -1,0 +1,24 @@
+{
+  "num_series": 25,
+  "bayes_proxy_mean_regret": -0.1722,
+  "heuristic_mean_regret": -0.0889,
+  "strongest_named_comparator": "self_rag",
+  "strongest_named_comparator_mean_regret": -0.1456,
+  "bayes_advantage_vs_heuristic": 0.0833,
+  "bayes_advantage_vs_strongest_named": 0.0266,
+  "bootstrap": {
+    "num_bootstrap": 10000,
+    "seed": 42,
+    "bayes_vs_heuristic": {
+      "mean_gap": 0.0835,
+      "ci95_low": 0.0371,
+      "ci95_high": 0.1112
+    },
+    "bayes_vs_strongest_named": {
+      "baseline": "self_rag",
+      "mean_gap": 0.0268,
+      "ci95_low": -0.0379,
+      "ci95_high": 0.0686
+    }
+  }
+}

@@ -2,9 +2,9 @@
 
 ## Headline Claims
 
-- Theorem 1: A Bayes-style reliability-aware arbitration rule beats the generic heuristic and sharply beats fixed trust policies across the broad real matrix, while also beating Self-RAG, Astute RAG, CoCoA, AdaCAD, and CAD on the 5x5 spotlight proxy matrix.
+- Theorem 1: A Bayes-style reliability-aware arbitration rule beats the generic heuristic and sharply beats fixed trust policies across the broad real matrix, while on the 5x5 spotlight matrix it beats the generic heuristic with a positive 95% bootstrap interval and also pointwise beats Self-RAG, Astute RAG, CoCoA, AdaCAD, and CAD.
 - Theorem 2: Fixed trust policies are minimax-bad in practice: in the conflict-heavy wave, they incur much larger regret than the principled Bayes proxy.
-- Theorem 3: Reasoning amplifies overconfidence on hard knowledge QA, with recovery reappearing by about 32B on naturalistic contradiction but not yet on controlled conflict; conflict slices tolerate only about half the do-no-harm eta of no-conflict slices.
+- Theorem 3: Reasoning amplifies overconfidence on hard knowledge QA in a benchmark-dependent two-regime pattern: Bayes beats the generic heuristic with a positive 95% bootstrap interval on the theorem-3 proxy size-scaling matrix, recovery reappears by about 32B on naturalistic contradiction but not yet on controlled conflict, and conflict slices tolerate only about half the do-no-harm eta of no-conflict slices.
 
 ## Theorem 1
 
@@ -22,6 +22,8 @@
 - Mean conflict / no-conflict ECE deltas: `-0.0054` / `-0.0238`
 - Strongest named comparator on the spotlight proxy matrix: `self_rag` at `-0.1456`
 - Bayes advantage vs that comparator: `0.0266`
+- Spotlight bootstrap Bayes vs heuristic CI: `[0.0371, 0.1112]`
+- Spotlight bootstrap Bayes vs strongest named comparator CI: `[-0.0379, 0.0686]`
 
 Per-model read:
 
@@ -61,6 +63,8 @@ Per-model read:
 - 14B eta-tempering shrink factor (conflict / no-conflict): `0.52`
 - ConflictBank conflict best attainable confidence-only gap: `0.482`
 - WikiContradict conflict best attainable confidence-only gap: `0.0034` at eta `0.1`
+- Theorem-3 proxy bootstrap Bayes vs heuristic CI: `[0.0155, 0.0961]`
+- Theorem-3 proxy bootstrap Bayes vs strongest named comparator CI: `[-0.0466, 0.0376]`
 
 | Benchmark | Split | `cot=0` gap | `cot=128` gap | `cot=1024` gap | `0->128` gap delta | `128->1024` gap delta |
 |---|---|---:|---:|---:|---:|---:|
@@ -80,12 +84,13 @@ Partial 14B replication:
 
 ## Current Read
 
-- Theorem 1/2 are already paper-strong at the proxy-regret layer.
-- Theorem 3 does not support the old monotone statement.
-- The strongest current theorem-3 claim is the non-monotone intermediate-CoT overconfidence peak.
+- Theorem 1/2 are already paper-strong at the spotlight-matrix layer: Bayes beats the generic heuristic by `0.0833` regret with a positive bootstrap CI.
+- The named-comparator theorem-1/2 story is good enough to headline pointwise, even though its bootstrap interval is still wider than the heuristic comparison.
+- Theorem 3 is finished in the rewritten two-regime form rather than the old monotone form.
 - Broad-wave exception worth writing honestly: `Qwen2.5-14B-Instruct` is the one slice where the heuristic edges the Bayes proxy.
 - Conflict-wave near-tie worth noting: `pythia-6.9b` is essentially tied between Bayes proxy and simulated model.
 - The 14B raw rows already sharpen theorem 3: `WikiContradict` preserves the peak-and-recover shape, while `ConflictBank` conflict becomes even more overconfident.
 - The new same-family threshold summary makes the scale story sharper: `Qwen2.5` recovery on `WikiContradict` first appears at about `32B`, while `ConflictBank` still has no recovery threshold through the currently observed `32B` scale.
 - The new eta intervention summary makes the mechanism claim sharper: confidence-only tempering can nearly recalibrate naturalistic contradiction at 14B, but it cannot rescue `ConflictBank` conflict once long-CoT has collapsed answer accuracy.
-- On the theorem-3 size-scaling proxy matrix, the strongest named comparator is `cocoa` with regret `-0.0795`, which is a near-tie rather than a decisive reversal.
+- On the theorem-3 size-scaling proxy matrix, Bayes beats the generic heuristic by `0.0585` regret with bootstrap CI `[0.0155, 0.0961]`.
+- On that same theorem-3 proxy matrix, the strongest named comparator is `cocoa` with regret `-0.0795`, so the named-comparator read there is a near-tie rather than the main headline.

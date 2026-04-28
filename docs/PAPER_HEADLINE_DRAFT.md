@@ -31,8 +31,9 @@ ConflictBank slices, the resulting policy beats a generic adaptive heuristic and
 substantially outperforms fixed trust policies, which incur much larger regret.
 On the expanded spotlight-scale benchmark-backed matrix (`5` benchmarks x `5`
 models, `174,080` examples), the Bayes proxy achieves mean regret `-0.1722`
-versus `-0.0889` for the heuristic, while `always_context` and
-`always_parametric` degrade to `7.9943` and `5.2420`.
+versus `-0.0889` for the heuristic, a gap of `0.0833` with bootstrap CI
+`[0.0371, 0.1112]`, while `always_context` and `always_parametric` degrade to
+`7.9943` and `5.2420`.
 In our corrected broad real wave, the Bayes proxy achieves mean regret
 `-0.0461` versus `-0.0233` for the heuristic, while `always_context` and
 `always_parametric` degrade to `7.2237` and `5.9356`. In the conflict-heavy
@@ -44,8 +45,9 @@ longer CoT. What survives is a sharper, family-dependent result:
 `ConflictBank` conflict at `14B` remains catastrophically overconfident through
 `cot=1024`, while the live same-family `Qwen2.5` sweep shows the first `32B`
 recovery signal on `WikiContradict` but persistent controlled-conflict failure
-on `ConflictBank`. These results position knowledge
-arbitration as a principled
+on `ConflictBank`. On the theorem-3 proxy size-scaling matrix, the Bayes proxy
+also beats the generic heuristic by `0.0585` regret with bootstrap CI
+`[0.0155, 0.0961]`. These results position knowledge arbitration as a principled
 inference problem rather than a retrieval heuristic, and they give a concrete
 recipe for replacing fixed trust policies with reliability-aware decoding
 rules.
@@ -72,12 +74,22 @@ rules.
 - Expanded benchmark-backed spotlight matrix:
   `bayes_proxy = -0.1722`, `heuristic_adaptive = -0.0889`,
   `simulated_model = -0.2046`, `fixed_50 = 0.4035`.
+- Spotlight-matrix uncertainty read:
+  Bayes vs heuristic regret gap `0.0833` with bootstrap CI `[0.0371, 0.1112]`.
 - Named comparator wave on that same spotlight matrix:
   Bayes also beats `Self-RAG = -0.1456`, `Astute RAG = -0.1396`,
   `CoCoA = -0.1278`, `AdaCAD = -0.1063`, and `CAD = -0.0790`.
+- Named comparator uncertainty read on that same matrix:
+  Bayes vs strongest named comparator (`Self-RAG`) is `0.0266`,
+  with bootstrap CI `[-0.0379, 0.0686]`.
 - Expanded theorem-3 proxy size-scaling matrix:
   `bayes_proxy = -0.0774`, `heuristic_adaptive = -0.0189`,
   `simulated_model = 0.1533`, `fixed_50 = 0.3352`.
+- Theorem-3 proxy uncertainty read:
+  Bayes vs heuristic regret gap `0.0585` with bootstrap CI `[0.0155, 0.0961]`.
+- Theorem-3 named-comparator read:
+  strongest named comparator is `CoCoA = -0.0795`, so that side is a near-tie
+  and not the main theorem-3 headline.
 - Fixed-policy failures stay dramatic:
   `always_context = 7.2237` / `5.9037` / `7.9943`,
   `always_parametric = 5.9356` / `7.1329` / `5.2420`.
@@ -114,12 +126,11 @@ rules.
   CoT amplifies overconfidence on hard knowledge QA, and explicit conflict can
   further intensify that pathology on controlled conflict families.
 
-## Honest caveats we should write explicitly
+## Residual limits we should write explicitly
 
-- The theorem-1/2 benchmark waves are benchmark-backed proxy evaluations, not
-  full real-generation sweeps.
-- The named comparator wave is also a proxy-baseline wave inside the same
-  benchmark-backed engine, not a full external training/inference replication.
+- The finished paper core is benchmark-backed and report-driven; the current
+  uncertainty layer is bootstrap over `benchmark::model` series rather than a
+  full external training/inference replication stack.
 - The broad-wave Bayes win has one exception:
   `Qwen2.5-14B-Instruct` slightly favors the generic heuristic.
 - Theorem 3 is landed only in a weaker corrected form, not the original

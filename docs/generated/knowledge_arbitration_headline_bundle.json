@@ -138,11 +138,59 @@
     }
   },
   "headline": {
-    "theorem_1": "A Bayes-style reliability-aware arbitration rule beats the generic heuristic and sharply beats fixed trust policies across the broad real matrix, while also beating Self-RAG, Astute RAG, CoCoA, AdaCAD, and CAD on the 5x5 spotlight proxy matrix.",
+    "theorem_1": "A Bayes-style reliability-aware arbitration rule beats the generic heuristic and sharply beats fixed trust policies across the broad real matrix, while on the 5x5 spotlight matrix it beats the generic heuristic with a positive 95% bootstrap interval and also pointwise beats Self-RAG, Astute RAG, CoCoA, AdaCAD, and CAD.",
     "theorem_2": "Fixed trust policies are minimax-bad in practice: in the conflict-heavy wave, they incur much larger regret than the principled Bayes proxy.",
-    "theorem_3": "Reasoning amplifies overconfidence on hard knowledge QA, with recovery reappearing by about 32B on naturalistic contradiction but not yet on controlled conflict; conflict slices tolerate only about half the do-no-harm eta of no-conflict slices."
+    "theorem_3": "Reasoning amplifies overconfidence on hard knowledge QA in a benchmark-dependent two-regime pattern: Bayes beats the generic heuristic with a positive 95% bootstrap interval on the theorem-3 proxy size-scaling matrix, recovery reappears by about 32B on naturalistic contradiction but not yet on controlled conflict, and conflict slices tolerate only about half the do-no-harm eta of no-conflict slices."
   },
   "project": "bayes_optimal_knowledge_arbitration",
+  "spotlight_bootstrap_t12": {
+    "bayes_advantage_vs_heuristic": 0.0833,
+    "bayes_advantage_vs_strongest_named": 0.0266,
+    "bayes_proxy_mean_regret": -0.1722,
+    "bootstrap": {
+      "bayes_vs_heuristic": {
+        "ci95_high": 0.1112,
+        "ci95_low": 0.0371,
+        "mean_gap": 0.0835
+      },
+      "bayes_vs_strongest_named": {
+        "baseline": "self_rag",
+        "ci95_high": 0.0686,
+        "ci95_low": -0.0379,
+        "mean_gap": 0.0268
+      },
+      "num_bootstrap": 10000,
+      "seed": 42
+    },
+    "heuristic_mean_regret": -0.0889,
+    "num_series": 25,
+    "strongest_named_comparator": "self_rag",
+    "strongest_named_comparator_mean_regret": -0.1456
+  },
+  "spotlight_bootstrap_t3": {
+    "bayes_advantage_vs_heuristic": 0.0585,
+    "bayes_advantage_vs_strongest_named": -0.0021,
+    "bayes_proxy_mean_regret": -0.0774,
+    "bootstrap": {
+      "bayes_vs_heuristic": {
+        "ci95_high": 0.0961,
+        "ci95_low": 0.0155,
+        "mean_gap": 0.0583
+      },
+      "bayes_vs_strongest_named": {
+        "baseline": "cocoa",
+        "ci95_high": 0.0376,
+        "ci95_low": -0.0466,
+        "mean_gap": -0.0022
+      },
+      "num_bootstrap": 10000,
+      "seed": 42
+    },
+    "heuristic_mean_regret": -0.0189,
+    "num_series": 25,
+    "strongest_named_comparator": "cocoa",
+    "strongest_named_comparator_mean_regret": -0.0795
+  },
   "theorem_1": {
     "always_context_mean_regret": 7.223688766628678,
     "always_parametric_mean_regret": 5.935552288286208,

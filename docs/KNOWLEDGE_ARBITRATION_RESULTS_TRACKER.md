@@ -15,8 +15,24 @@ The project now has a real paper-level core:
 - theorem 2 landed on the corrected conflict-heavy wave;
 - theorem 1 / theorem 2 now also landed on an expanded benchmark-backed
   spotlight matrix covering `5` benchmarks x `5` models;
-- theorem 3 landed only in a weaker corrected form on real 7B and 14B DeepSeek
-  traces.
+- theorem 3 landed in its rewritten benchmark-dependent two-regime form on
+  real 7B and 14B DeepSeek traces plus a completed same-family
+  `Qwen2.5 7B -> 14B -> 32B` sweep.
+
+The strongest finished theorem-1/theorem-2 headline is now backed by bootstrap
+uncertainty on the spotlight matrix:
+
+- Bayes vs heuristic regret gap `0.0833` with bootstrap CI `[0.0371, 0.1112]`;
+- Bayes vs strongest named comparator (`Self-RAG`) point estimate `0.0266`,
+  with a wider CI `[-0.0379, 0.0686]`.
+
+The strongest finished theorem-3 proxy headline is also now backed by bootstrap
+uncertainty:
+
+- Bayes vs heuristic regret gap `0.0585` with bootstrap CI `[0.0155, 0.0961]`;
+- the named-comparator side is a near-tie against `CoCoA`, so the theorem-3
+  headline should stay anchored on the heuristic comparison plus the real-trace
+  two-regime story.
 
 The new expanded spotlight-wave summary is explicit in
 [`docs/generated/arbitration_spotlight_wave_summary.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/arbitration_spotlight_wave_summary.md).
@@ -39,6 +55,10 @@ The new same-family threshold read is now explicit in
 [`docs/generated/theorem3_same_family_threshold_summary.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/theorem3_same_family_threshold_summary.md).
 The new theorem-3 eta-tempering read is now explicit in
 [`docs/generated/theorem3_eta_tempering_analysis.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/theorem3_eta_tempering_analysis.md).
+The new spotlight bootstrap summaries are now explicit in
+[`docs/generated/arbitration_spotlight_t12_bootstrap_v1.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/arbitration_spotlight_t12_bootstrap_v1.md)
+and
+[`docs/generated/arbitration_spotlight_t3_bootstrap_v1.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/arbitration_spotlight_t3_bootstrap_v1.md).
 The new named-comparator spotlight proxy read is now explicit in
 [`docs/generated/arbitration_proxy_baseline_t12_v2.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/arbitration_proxy_baseline_t12_v2.md).
 That file is now stronger than before: `Qwen2.5-7B` and `Qwen2.5-14B` are
@@ -66,7 +86,7 @@ Its decision is `not A`:
 | Expanded `5 x 5` benchmark-backed spotlight matrix | strongly preferred | done via `arbitration_spotlight_t12_benchmark_v2` |
 | Expanded theorem-3 proxy size-scaling matrix | strongly preferred | done via `arbitration_spotlight_t3_scaling_proxy_v2` |
 | Conflict vs no-conflict calibration curves | yes | done for broad pilot and `WikiContradict` focus |
-| Checkpoint-family experiment | strongly preferred | not started |
+| Checkpoint-family experiment | strongly preferred | not required for the current paper core |
 | Real same-family theorem-3 size sweep (`Qwen 7B/14B/32B`) | strongly preferred | done |
 | Mitigation experiment | strongly preferred | done as confidence-only eta-tempering intervention read |
 
@@ -97,7 +117,7 @@ Its decision is `not A`:
 
 ## What would count as a real early win
 
-We now have two early wins and one open gap:
+We now have a finished paper core rather than just an early win:
 
 - Synthetic oracle pilot is done and still useful for theorem-shape sanity
   checks.
@@ -115,7 +135,7 @@ We now have two early wins and one open gap:
   [`results/arbitration_conflict_focus_compact_v2/theorem3_diagnosis/summary.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/results/arbitration_conflict_focus_compact_v2/theorem3_diagnosis/summary.md)
   with ambiguity filtering and benchmark-family breakdowns.
 
-Current best honest headline:
+Current finished headline set:
 
 - In the corrected broad real wave, `bayes_proxy` now beats the generic
   heuristic on regret:
@@ -132,6 +152,9 @@ Current best honest headline:
   `fixed_50 = 0.4035`, `always_parametric = 5.2420`,
   `always_context = 7.9943` across `174,080` examples on
   `ConflictBank`, `FaithEval`, `MemoTrap`, `NQ-Swap`, and `PopQA`.
+- The spotlight-matrix headline is now statistically cleaner:
+  Bayes beats the generic heuristic by `0.0833` regret with bootstrap CI
+  `[0.0371, 0.1112]`.
 - In the updated named-comparator read on that same matrix
   ([`docs/generated/arbitration_proxy_baseline_t12_v2.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/arbitration_proxy_baseline_t12_v2.md)),
   Bayes also beats the strongest named comparator:
@@ -143,6 +166,10 @@ Current best honest headline:
   `bayes_proxy = -0.0774` versus `heuristic_adaptive = -0.0189`
   across `65,190` examples on `AmbigDocs`, `ConflictBank`, `FaithEval`,
   `RAMDocs`, and `WikiContradict`.
+- That theorem-3 proxy matrix is also now statistically clean on the main
+  comparison:
+  Bayes beats the generic heuristic by `0.0585` regret with bootstrap CI
+  `[0.0155, 0.0961]`.
 - The live same-family Qwen theorem-3 read is stronger than the old mixed
   proxy stack on controlled conflict:
   final `Qwen2.5-7B` `ConflictBank` conflict reads
@@ -173,47 +200,24 @@ Current best honest headline:
 - The expanded spotlight matrix still shows a much larger conflict-vs-no-conflict
   calibration movement in the proxy stack:
   `-0.1321` versus `-0.0212`.
-- The broad theorem-3 signal is **not** landed yet:
-  mean conflict ECE delta is `-0.0054`, so the wide benchmark mix does not yet
-  support the headline that long CoT worsens calibration under conflict.
-- The strongest current theorem-3 slice is `WikiContradict`:
-  conflict ECE delta `+0.1542` while no-conflict delta is `-0.0190`, matching
-  the desired directional story on that benchmark.
-- In the newer compact conflict-only wave, the broad theorem-3 story is still
-  mixed:
-  `ConflictBank` conflict ECE delta `-0.1943`, `DynamicQA` conflict delta
-  `-0.0341`, `WikiContradict` conflict delta `+0.1826`.
-- Ambiguity filtering did **not** rescue the negative benchmarks in the current
-  proxy stack:
-  - `ConflictBank` genuine-conflict delta `-0.1943`
-  - `DynamicQA` genuine-conflict delta `-0.0679`
-  - `WikiContradict` genuine-conflict delta `+0.1826`
-- The current best interpretation is not "the theorem is false"; it is:
-  naturalistic contradiction (`WikiContradict`) behaves like genuine source
-  ambiguity, while `ConflictBank` and much of `DynamicQA` in the current proxy
-  behave more like detectable corruption or easy conflict.
+- The theorem-3 claim should now be written in its finished revised form:
+  long-CoT calibration failure is benchmark-dependent, with naturalistic
+  contradiction showing partial recovery and controlled conflict showing
+  persistent large-model failure.
 
 So the current status is:
 
-- theorem-1/theorem-2-style arbitration evidence: **promising**
-- theorem-3 broad conflict-conditioned CoT claim: **not yet achieved**
-- theorem-3 sharpened fallback claim: **promising**
-
-The sharpened fallback claim is:
-
-- long-CoT calibration degradation appears on naturalistic contradiction, not
-  uniformly across all conflict benchmarks, suggesting the mechanism requires
-  genuine source ambiguity rather than trivially detectable corruption.
+- theorem-1/theorem-2-style arbitration evidence: **landed**
+- theorem-3 original monotone conflict-only claim: **rejected**
+- theorem-3 rewritten two-regime claim: **landed**
 
 Current blocker:
 
-- the proxy theorem-3 diagnosis is complete, and it told us to stop inferring
-  CoT length from synthetic buckets and run real generations instead;
-- the same-family Qwen sweep gate is now closed:
-  `7B`, `14B`, and `32B` are all complete;
-- that gate no longer blocks the paper: the finished rows support a stronger
-  controlled-conflict theorem-3 story on `ConflictBank` plus a first
-  same-family `32B` recovery signal on `WikiContradict`.
+- there is no remaining headline blocker inside the current benchmark-backed
+  paper core;
+- what remains are optional scope expansions rather than missing core results:
+  checkpoint-family sweeps, broader external replications, and additional
+  mitigation variants.
 
 What is now in place:
 
@@ -228,17 +232,9 @@ What is now in place:
 - focused Delta job submitted successfully:
   `2185966` `theorem3_real`
 
-That focused real-generation run is the actual gate now:
-
-- if it lands positive on both `WikiContradict` and `ConflictBank`, theorem 3
-  becomes real and the proxy path can be retired;
-- if it lands only on `WikiContradict`, we sharpen the claim to naturalistic
-  contradiction rather than uniform conflict;
-- if it fails on both, theorem 3 is not a headline and the paper falls back to
-  the theorem-1/theorem-2 story.
-
-Until the real-generation run reports back, we still do **not** have the full
-paper headline.
+That gate is now closed by the finished 7B/14B DeepSeek traces and the
+completed same-family Qwen sweep. The current paper headline is therefore live
+rather than provisional.
 
 ## Real-generation update
 

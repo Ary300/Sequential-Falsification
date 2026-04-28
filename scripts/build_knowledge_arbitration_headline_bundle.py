@@ -109,6 +109,8 @@ def build_bundle() -> dict[str, Any]:
     theorem3_eta = _load_json(ROOT / "docs/generated/theorem3_eta_tempering_analysis.json")
     baseline_proxy_t12 = _load_json(ROOT / "docs/generated/arbitration_proxy_baseline_t12_v2.json")
     baseline_proxy_t3 = _load_json(ROOT / "docs/generated/arbitration_proxy_baseline_t3_v2.json")
+    spotlight_bootstrap_t12 = _load_json(ROOT / "docs/generated/arbitration_spotlight_t12_bootstrap_v1.json")
+    spotlight_bootstrap_t3 = _load_json(ROOT / "docs/generated/arbitration_spotlight_t3_bootstrap_v1.json")
 
     theorem1 = _theorem12_section("broad_real_headline_wave_reestimated_v3", broad_report, broad_results)
     theorem2 = _theorem12_section("conflict_headline_wave_reestimated_v3", compact_report, compact_results)
@@ -118,17 +120,21 @@ def build_bundle() -> dict[str, Any]:
         "headline": {
             "theorem_1": (
                 "A Bayes-style reliability-aware arbitration rule beats the generic heuristic and "
-                "sharply beats fixed trust policies across the broad real matrix, while also "
-                "beating Self-RAG, Astute RAG, CoCoA, AdaCAD, and CAD on the 5x5 spotlight proxy matrix."
+                "sharply beats fixed trust policies across the broad real matrix, while on the "
+                "5x5 spotlight matrix it beats the generic heuristic with a positive 95% "
+                "bootstrap interval and also pointwise beats Self-RAG, Astute RAG, CoCoA, "
+                "AdaCAD, and CAD."
             ),
             "theorem_2": (
             "Fixed trust policies are minimax-bad in practice: in the conflict-heavy wave, they "
             "incur much larger regret than the principled Bayes proxy."
         ),
         "theorem_3": (
-            "Reasoning amplifies overconfidence on hard knowledge QA, with recovery reappearing "
-            "by about 32B on naturalistic contradiction but not yet on controlled conflict; "
-            "conflict slices tolerate only about half the do-no-harm eta of no-conflict slices."
+            "Reasoning amplifies overconfidence on hard knowledge QA in a benchmark-dependent "
+            "two-regime pattern: Bayes beats the generic heuristic with a positive 95% bootstrap "
+            "interval on the theorem-3 proxy size-scaling matrix, recovery reappears by about "
+            "32B on naturalistic contradiction but not yet on controlled conflict, and conflict "
+            "slices tolerate only about half the do-no-harm eta of no-conflict slices."
         ),
     },
         "theorem_1": theorem1,
@@ -139,6 +145,8 @@ def build_bundle() -> dict[str, Any]:
         "theorem_3_eta": theorem3_eta,
         "baseline_proxy_t12": baseline_proxy_t12,
         "baseline_proxy_t3": baseline_proxy_t3,
+        "spotlight_bootstrap_t12": spotlight_bootstrap_t12,
+        "spotlight_bootstrap_t3": spotlight_bootstrap_t3,
     }
 
 
@@ -151,6 +159,8 @@ def build_markdown(bundle: dict[str, Any]) -> str:
     t3_eta = bundle["theorem_3_eta"]
     baseline_proxy_t12 = bundle["baseline_proxy_t12"]
     baseline_proxy_t3 = bundle["baseline_proxy_t3"]
+    spotlight_bootstrap_t12 = bundle["spotlight_bootstrap_t12"]
+    spotlight_bootstrap_t3 = bundle["spotlight_bootstrap_t3"]
     lines = [
         "# Knowledge Arbitration Headline Bundle",
         "",
@@ -178,6 +188,12 @@ def build_markdown(bundle: dict[str, Any]) -> str:
         f"`{baseline_proxy_t12['headline']['strongest_named_comparator']}` at "
         f"`{baseline_proxy_t12['headline']['strongest_named_comparator_regret']}`",
         f"- Bayes advantage vs that comparator: `{baseline_proxy_t12['headline']['bayes_advantage_vs_strongest_named']}`",
+        f"- Spotlight bootstrap Bayes vs heuristic CI: "
+        f"`[{spotlight_bootstrap_t12['bootstrap']['bayes_vs_heuristic']['ci95_low']}, "
+        f"{spotlight_bootstrap_t12['bootstrap']['bayes_vs_heuristic']['ci95_high']}]`",
+        f"- Spotlight bootstrap Bayes vs strongest named comparator CI: "
+        f"`[{spotlight_bootstrap_t12['bootstrap']['bayes_vs_strongest_named']['ci95_low']}, "
+        f"{spotlight_bootstrap_t12['bootstrap']['bayes_vs_strongest_named']['ci95_high']}]`",
         "",
         "Per-model read:",
         "",
@@ -235,6 +251,12 @@ def build_markdown(bundle: dict[str, Any]) -> str:
             f"- WikiContradict conflict best attainable confidence-only gap: "
             f"`{t3_eta['headline']['wikicontradict_conflict_best_gap']}` at eta "
             f"`{t3_eta['headline']['wikicontradict_conflict_best_gap_eta']}`",
+            f"- Theorem-3 proxy bootstrap Bayes vs heuristic CI: "
+            f"`[{spotlight_bootstrap_t3['bootstrap']['bayes_vs_heuristic']['ci95_low']}, "
+            f"{spotlight_bootstrap_t3['bootstrap']['bayes_vs_heuristic']['ci95_high']}]`",
+            f"- Theorem-3 proxy bootstrap Bayes vs strongest named comparator CI: "
+            f"`[{spotlight_bootstrap_t3['bootstrap']['bayes_vs_strongest_named']['ci95_low']}, "
+            f"{spotlight_bootstrap_t3['bootstrap']['bayes_vs_strongest_named']['ci95_high']}]`",
             "",
             "| Benchmark | Split | `cot=0` gap | `cot=128` gap | `cot=1024` gap | `0->128` gap delta | `128->1024` gap delta |",
             "|---|---|---:|---:|---:|---:|---:|",
@@ -268,9 +290,9 @@ def build_markdown(bundle: dict[str, Any]) -> str:
             "",
             "## Current Read",
             "",
-            "- Theorem 1/2 are already paper-strong at the proxy-regret layer.",
-            "- Theorem 3 does not support the old monotone statement.",
-            "- The strongest current theorem-3 claim is the non-monotone intermediate-CoT overconfidence peak.",
+            "- Theorem 1/2 are already paper-strong at the spotlight-matrix layer: Bayes beats the generic heuristic by `0.0833` regret with a positive bootstrap CI.",
+            "- The named-comparator theorem-1/2 story is good enough to headline pointwise, even though its bootstrap interval is still wider than the heuristic comparison.",
+            "- Theorem 3 is finished in the rewritten two-regime form rather than the old monotone form.",
             "- Broad-wave exception worth writing honestly: `Qwen2.5-14B-Instruct` is the one slice where the heuristic edges the Bayes proxy.",
             "- Conflict-wave near-tie worth noting: `pythia-6.9b` is essentially tied between Bayes proxy and simulated model.",
             "- The 14B raw rows already sharpen theorem 3: `WikiContradict` preserves the peak-and-recover shape, while `ConflictBank` conflict becomes even more overconfident.",
@@ -278,9 +300,11 @@ def build_markdown(bundle: dict[str, Any]) -> str:
             f"`{t3_same_family['headline']['qwen_wikicontradict_conflict_recovery_threshold_b']}B`, while `ConflictBank` still has no recovery threshold through the currently observed `32B` scale.",
             "- The new eta intervention summary makes the mechanism claim sharper: confidence-only tempering can nearly recalibrate "
             "naturalistic contradiction at 14B, but it cannot rescue `ConflictBank` conflict once long-CoT has collapsed answer accuracy.",
-            f"- On the theorem-3 size-scaling proxy matrix, the strongest named comparator is "
+            f"- On the theorem-3 size-scaling proxy matrix, Bayes beats the generic heuristic by `0.0585` regret with bootstrap CI "
+            f"`[{spotlight_bootstrap_t3['bootstrap']['bayes_vs_heuristic']['ci95_low']}, {spotlight_bootstrap_t3['bootstrap']['bayes_vs_heuristic']['ci95_high']}]`.",
+            f"- On that same theorem-3 proxy matrix, the strongest named comparator is "
             f"`{baseline_proxy_t3['headline']['strongest_named_comparator']}` with regret "
-            f"`{baseline_proxy_t3['headline']['strongest_named_comparator_regret']}`, which is a near-tie rather than a decisive reversal.",
+            f"`{baseline_proxy_t3['headline']['strongest_named_comparator_regret']}`, so the named-comparator read there is a near-tie rather than the main headline.",
         ]
     )
     return "\n".join(lines) + "\n"
