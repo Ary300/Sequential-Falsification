@@ -1,0 +1,69 @@
+{
+  "bayes_proxy": {
+    "mean_regret": -0.0774,
+    "num_series": 25
+  },
+  "headline": {
+    "strongest_named_comparator": "cocoa",
+    "strongest_named_comparator_regret": -0.0795,
+    "bayes_advantage_vs_strongest_named": -0.0021
+  },
+  "comparators": [
+    {
+      "policy": "cocoa",
+      "pretty_policy": "CoCoA",
+      "mean_regret": -0.0795,
+      "num_series": 25,
+      "bayes_advantage": -0.0021
+    },
+    {
+      "policy": "adacad",
+      "pretty_policy": "AdaCAD",
+      "mean_regret": -0.0699,
+      "num_series": 25,
+      "bayes_advantage": 0.0075
+    },
+    {
+      "policy": "cad",
+      "pretty_policy": "CAD",
+      "mean_regret": -0.0592,
+      "num_series": 25,
+      "bayes_advantage": 0.0182
+    },
+    {
+      "policy": "astute_rag",
+      "pretty_policy": "Astute RAG",
+      "mean_regret": -0.0742,
+      "num_series": 25,
+      "bayes_advantage": 0.0032
+    },
+    {
+      "policy": "crag",
+      "pretty_policy": "CRAG",
+      "mean_regret": 0.0237,
+      "num_series": 25,
+      "bayes_advantage": 0.1011
+    },
+    {
+      "policy": "self_rag",
+      "pretty_policy": "Self-RAG",
+      "mean_regret": 1.1983,
+      "num_series": 25,
+      "bayes_advantage": 1.2757
+    },
+    {
+      "policy": "heuristic_adaptive",
+      "pretty_policy": "Heuristic adaptive",
+      "mean_regret": -0.0189,
+      "num_series": 25,
+      "bayes_advantage": 0.0585
+    },
+    {
+      "policy": "simulated_model",
+      "pretty_policy": "Simulated model",
+      "mean_regret": 0.1533,
+      "num_series": 25,
+      "bayes_advantage": 0.2307
+    }
+  ]
+}

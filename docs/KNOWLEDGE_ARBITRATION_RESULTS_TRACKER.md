@@ -37,6 +37,10 @@ The completed same-family Qwen read is now explicit in
 [`docs/generated/theorem3_qwen_family_final.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/theorem3_qwen_family_final.md).
 The new same-family threshold read is now explicit in
 [`docs/generated/theorem3_same_family_threshold_summary.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/theorem3_same_family_threshold_summary.md).
+The new theorem-3 eta-tempering read is now explicit in
+[`docs/generated/theorem3_eta_tempering_analysis.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/theorem3_eta_tempering_analysis.md).
+The new named-comparator spotlight proxy read is now explicit in
+[`docs/generated/arbitration_proxy_baseline_t12_v2.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/arbitration_proxy_baseline_t12_v2.md).
 That file is now stronger than before: `Qwen2.5-7B` and `Qwen2.5-14B` are
 final, and the `32B` job has populated both `ConflictBank` and
 `WikiContradict` groups on disk.
@@ -59,12 +63,12 @@ Its decision is `not A`:
 | Real benchmark pilot on `PopQA` | yes | done via `arbitration_real_headline_wave_reestimated_v3` |
 | Real benchmark pilot on `DynamicQA` | yes | done via `arbitration_real_headline_wave_reestimated_v3` |
 | Real benchmark pilot on `ConflictBank` subset | yes | done in compact conflict wave |
-| Expanded `5 x 5` benchmark-backed spotlight matrix | strongly preferred | done via `arbitration_spotlight_t12_benchmark_v1` |
-| Expanded theorem-3 proxy size-scaling matrix | strongly preferred | done via `arbitration_spotlight_t3_scaling_proxy_v1` |
+| Expanded `5 x 5` benchmark-backed spotlight matrix | strongly preferred | done via `arbitration_spotlight_t12_benchmark_v2` |
+| Expanded theorem-3 proxy size-scaling matrix | strongly preferred | done via `arbitration_spotlight_t3_scaling_proxy_v2` |
 | Conflict vs no-conflict calibration curves | yes | done for broad pilot and `WikiContradict` focus |
 | Checkpoint-family experiment | strongly preferred | not started |
 | Real same-family theorem-3 size sweep (`Qwen 7B/14B/32B`) | strongly preferred | done |
-| Mitigation experiment | strongly preferred | not started |
+| Mitigation experiment | strongly preferred | done as confidence-only eta-tempering intervention read |
 
 ## Benchmark coverage
 
@@ -122,14 +126,20 @@ Current best honest headline:
   `simulated_model = 0.1104`, `fixed_50 = 0.3037`,
   `always_context = 5.9037`, `always_parametric = 7.1329`.
 - In the expanded benchmark-backed spotlight matrix
-  ([`results/arbitration_spotlight_t12_benchmark_v1/report/summary.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/results/arbitration_spotlight_t12_benchmark_v1/report/summary.md)),
+  ([`results/arbitration_spotlight_t12_benchmark_v2/report/summary.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/results/arbitration_spotlight_t12_benchmark_v2/report/summary.md)),
   the theorem-1/theorem-2 story gets stronger and broader:
   `bayes_proxy = -0.1722`, `heuristic_adaptive = -0.0889`,
   `fixed_50 = 0.4035`, `always_parametric = 5.2420`,
   `always_context = 7.9943` across `174,080` examples on
   `ConflictBank`, `FaithEval`, `MemoTrap`, `NQ-Swap`, and `PopQA`.
+- In the updated named-comparator read on that same matrix
+  ([`docs/generated/arbitration_proxy_baseline_t12_v2.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/arbitration_proxy_baseline_t12_v2.md)),
+  Bayes also beats the strongest named comparator:
+  `Self-RAG = -0.1456`, `Astute RAG = -0.1396`, `CoCoA = -0.1278`,
+  `AdaCAD = -0.1063`, and `CAD = -0.0790`, with a Bayes advantage of
+  `0.0266` over `Self-RAG`.
 - In the expanded theorem-3 proxy size-scaling matrix
-  ([`results/arbitration_spotlight_t3_scaling_proxy_v1/report/summary.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/results/arbitration_spotlight_t3_scaling_proxy_v1/report/summary.md)),
+  ([`results/arbitration_spotlight_t3_scaling_proxy_v2/report/summary.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/results/arbitration_spotlight_t3_scaling_proxy_v2/report/summary.md)),
   `bayes_proxy = -0.0774` versus `heuristic_adaptive = -0.0189`
   across `65,190` examples on `AmbigDocs`, `ConflictBank`, `FaithEval`,
   `RAMDocs`, and `WikiContradict`.
@@ -152,6 +162,12 @@ Current best honest headline:
   `s* ~= 32B` for same-family `Qwen2.5` recovery on `WikiContradict` conflict,
   but no recovery threshold has appeared through `32B` on `ConflictBank`
   conflict.
+- The new theorem-3 mitigation read is now also sharp enough to cite directly:
+  on the finished 14B real-generation summary, conflict slices tolerate only
+  about `0.52x` the do-no-harm `eta` of no-conflict slices. Confidence-only
+  tempering can nearly recalibrate `WikiContradict` conflict
+  (best proxy gap `0.0034`), but it cannot rescue `ConflictBank` conflict,
+  whose best attainable proxy gap still bottoms out at `0.4820`.
 - The corrected broad-wave oracle-vs-model arbitration gap remains visibly
   nontrivial: mean absolute gap `0.1969`, mean KL `1.2288`.
 - The expanded spotlight matrix still shows a much larger conflict-vs-no-conflict

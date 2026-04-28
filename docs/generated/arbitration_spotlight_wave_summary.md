@@ -3,7 +3,7 @@
 ## Benchmark-backed spotlight matrix (`T1/T2`)
 
 Source:
-[`results/arbitration_spotlight_t12_benchmark_v1/report/summary.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/results/arbitration_spotlight_t12_benchmark_v1/report/summary.md)
+[`results/arbitration_spotlight_t12_benchmark_v2/report/summary.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/results/arbitration_spotlight_t12_benchmark_v2/report/summary.md)
 
 - Coverage: `5` benchmarks x `5` models x `4` conditions x `4` CoT budgets
   on `174,080` parsed examples and `260` grouped slices.
@@ -33,11 +33,13 @@ Other key diagnostics:
 - mean oracle-vs-model KL: `1.4680`
 - mean conflict ECE delta across CoT: `-0.1321`
 - mean no-conflict ECE delta across CoT: `-0.0212`
+- strongest named comparator is now `Self-RAG = -0.1456`, so Bayes keeps a
+  `0.0266` mean-regret advantage over the best named baseline on this matrix.
 
 ## Proxy theorem-3 size-scaling matrix
 
 Source:
-[`results/arbitration_spotlight_t3_scaling_proxy_v1/report/summary.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/results/arbitration_spotlight_t3_scaling_proxy_v1/report/summary.md)
+[`results/arbitration_spotlight_t3_scaling_proxy_v2/report/summary.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/results/arbitration_spotlight_t3_scaling_proxy_v2/report/summary.md)
 
 - Coverage: `5` benchmarks x `5` models x `3` conditions x `3` CoT budgets
   on `65,190` parsed examples and `195` grouped slices.
@@ -59,9 +61,24 @@ Key interpretation:
 
 - the expanded proxy size-scaling matrix still favors the Bayes-style rule over
   the generic heuristic by `0.0585` mean-regret points;
+- the named-comparator wave is tighter on this theorem-3 proxy slice:
+  `CoCoA = -0.0795` versus `bayes_proxy = -0.0774`, which is a near-tie rather
+  than a decisive reversal;
 - conflict slices move much more than no-conflict slices in the proxy stack
   (`-0.0736` vs `-0.0229` ECE delta), but this remains supporting evidence
   rather than the final theorem-3 claim.
+
+## Eta Intervention
+
+Source:
+[`docs/generated/theorem3_eta_tempering_analysis.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/theorem3_eta_tempering_analysis.md)
+
+- On the finished 14B real theorem-3 summary, conflict slices tolerate only
+  about `0.52x` the do-no-harm `eta` of no-conflict slices.
+- `WikiContradict` conflict can be nearly recalibrated by confidence-only
+  tempering, with best proxy gap `0.0034`.
+- `ConflictBank` conflict cannot be rescued the same way: even maximal
+  tempering bottoms out at proxy gap `0.4820`.
 
 ## Live Delta theorem-3 family sweep
 

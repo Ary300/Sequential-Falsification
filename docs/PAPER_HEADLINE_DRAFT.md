@@ -11,9 +11,11 @@
 
 We cast knowledge conflict as a posterior-predictive decision problem, derive a
 Bayes-style arbitration rule that beats generic heuristics and fixed trust
-policies on real conflict benchmarks, and show that chain-of-thought amplifies
-overconfidence on hard knowledge QA, with explicit conflict making the failure
-more persistent on controlled conflict families at larger scale.
+policies on real conflict benchmarks, beats named adaptive-retrieval proxy
+comparators on the expanded `5 x 5` spotlight matrix, and shows that
+chain-of-thought amplifies overconfidence on hard knowledge QA, with explicit
+conflict making the failure more persistent on controlled conflict families at
+larger scale.
 
 ## Current abstract draft
 
@@ -70,6 +72,9 @@ rules.
 - Expanded benchmark-backed spotlight matrix:
   `bayes_proxy = -0.1722`, `heuristic_adaptive = -0.0889`,
   `simulated_model = -0.2046`, `fixed_50 = 0.4035`.
+- Named comparator wave on that same spotlight matrix:
+  Bayes also beats `Self-RAG = -0.1456`, `Astute RAG = -0.1396`,
+  `CoCoA = -0.1278`, `AdaCAD = -0.1063`, and `CAD = -0.0790`.
 - Expanded theorem-3 proxy size-scaling matrix:
   `bayes_proxy = -0.0774`, `heuristic_adaptive = -0.0189`,
   `simulated_model = 0.1533`, `fixed_50 = 0.3352`.
@@ -98,6 +103,11 @@ rules.
   `s* ~= 32B` for `Qwen2.5` recovery on `WikiContradict` conflict, with no
   corresponding recovery threshold yet visible through `32B` on
   `ConflictBank` conflict.
+- 14B eta-tempering intervention summary:
+  conflict slices tolerate only about `0.52x` the do-no-harm `eta` of
+  no-conflict slices; `WikiContradict` conflict can be driven down to a
+  proxy gap of `0.0034`, but `ConflictBank` conflict bottoms out at `0.4820`
+  because confidence-only tempering cannot fix near-zero answer accuracy.
 - Corrected closed-book control decision:
   option `A` is ruled out.
 - The strongest theorem-3 statement is now:
@@ -108,6 +118,8 @@ rules.
 
 - The theorem-1/2 benchmark waves are benchmark-backed proxy evaluations, not
   full real-generation sweeps.
+- The named comparator wave is also a proxy-baseline wave inside the same
+  benchmark-backed engine, not a full external training/inference replication.
 - The broad-wave Bayes win has one exception:
   `Qwen2.5-14B-Instruct` slightly favors the generic heuristic.
 - Theorem 3 is landed only in a weaker corrected form, not the original

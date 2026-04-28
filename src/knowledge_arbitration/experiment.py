@@ -18,7 +18,7 @@ from utils.metrics import (
 
 from .loaders import load_arbitration_dataset
 from .metrics import arbitration_kl_divergence, bayes_regret
-from .posterior import ArbitrationFeatures, bayes_arbitration_probability, oracle_arbitration_probability
+from .posterior import ArbitrationFeatures, bayes_arbitration_probability, logit, oracle_arbitration_probability, sigmoid
 
 
 def _clip(value: float, lower: float = 1e-6, upper: float = 1.0 - 1e-6) -> float:
@@ -101,6 +101,65 @@ def _heuristic_adaptive_probability(features: ArbitrationFeatures) -> float:
     context_advantage = features.contextual_score - features.parametric_score
     reliability_advantage = features.context_reliability - features.parametric_reliability
     return _clip(0.5 + 0.65 * context_advantage + 0.35 * reliability_advantage)
+
+
+def _cad_probability(features: ArbitrationFeatures) -> float:
+    evidence_gap = logit(_clip(features.contextual_score)) - logit(_clip(features.parametric_score))
+    return sigmoid(1.05 * evidence_gap)
+
+
+def _adacad_probability(features: ArbitrationFeatures) -> float:
+    evidence_gap = logit(_clip(features.contextual_score)) - logit(_clip(features.parametric_score))
+    reliability_gap = logit(_clip(features.context_reliability)) - logit(_clip(features.parametric_reliability))
+    disagreement = abs(features.contextual_score - features.parametric_score)
+    return sigmoid(1.0 * evidence_gap + 0.18 * reliability_gap + 0.25 * disagreement)
+
+
+def _cocoa_probability(features: ArbitrationFeatures) -> float:
+    evidence_gap = logit(_clip(features.contextual_score)) - logit(_clip(features.parametric_score))
+    reliability_gap = logit(_clip(features.context_reliability)) - logit(_clip(features.parametric_reliability))
+    contextual_peakedness = logit(_clip(max(features.contextual_score, 1.0 - features.contextual_score)))
+    parametric_peakedness = logit(_clip(max(features.parametric_score, 1.0 - features.parametric_score)))
+    peakedness_gap = contextual_peakedness - parametric_peakedness
+    return sigmoid(1.08 * evidence_gap + 0.22 * reliability_gap + 0.10 * peakedness_gap)
+
+
+def _self_rag_probability(features: ArbitrationFeatures) -> float:
+    retrieval_signal = 0.65 * features.context_reliability + 0.35 * features.contextual_score
+    conflict_drag = 0.30 * features.conflict_magnitude
+    return _clip(retrieval_signal - conflict_drag)
+
+
+def _crag_probability(features: ArbitrationFeatures) -> float:
+    retrieval_signal = 0.52 * features.context_reliability + 0.28 * features.contextual_score
+    fallback_signal = 0.20 * features.parametric_reliability
+    conflict_drag = 0.12 * features.conflict_magnitude
+    return _clip(retrieval_signal + fallback_signal - conflict_drag)
+
+
+def _astute_rag_probability(features: ArbitrationFeatures) -> float:
+    evidence_gap = logit(_clip(features.contextual_score)) - logit(_clip(features.parametric_score))
+    reliability_gap = logit(_clip(features.context_reliability)) - logit(_clip(features.parametric_reliability))
+    conflict_penalty = features.conflict_magnitude * max(0.0, 0.55 - features.context_reliability)
+    return sigmoid(1.12 * evidence_gap + 0.24 * reliability_gap - 0.22 * conflict_penalty)
+
+
+def _policy_probabilities(features: ArbitrationFeatures, *, model_name: str, cot_length: int | str) -> dict[str, float]:
+    return {
+        "oracle": oracle_arbitration_probability(features),
+        "bayes_proxy": bayes_arbitration_probability(features),
+        "cocoa": _cocoa_probability(features),
+        "adacad": _adacad_probability(features),
+        "cad": _cad_probability(features),
+        "astute_rag": _astute_rag_probability(features),
+        "crag": _crag_probability(features),
+        "self_rag": _self_rag_probability(features),
+        "heuristic_adaptive": _heuristic_adaptive_probability(features),
+        "fixed_50": 0.5,
+        "always_context": 1.0,
+        "always_parametric": 0.0,
+        "simulated_model": _simulated_model_probability(features, model_name, cot_length),
+    }
 
 
 def _simulated_model_probability(features: ArbitrationFeatures, model_name: str, cot_length: int | str) -> float:
@@ -262,6 +321,12 @@ def run_synthetic_experiment(experiment: dict[str, Any]) -> dict[str, Any]:
     policy_rows: dict[str, list[dict[str, Any]]] = {
         "oracle": [],
         "bayes_proxy": [],
+        "cocoa": [],
+        "adacad": [],
+        "cad": [],
+        "astute_rag": [],
+        "crag": [],
+        "self_rag": [],
         "heuristic_adaptive": [],
         "fixed_50": [],
         "always_context": [],
@@ -278,15 +343,7 @@ def run_synthetic_experiment(experiment: dict[str, Any]) -> dict[str, Any]:
                         oracle_probability = oracle_arbitration_probability(features)
                         rng = random.Random(_stable_seed("label", benchmark, model_name, condition, cot_length, example_idx, seed))
                         label = 1 if rng.random() < oracle_probability else 0
-                        policy_probabilities = {
-                            "oracle": oracle_probability,
-                            "bayes_proxy": bayes_arbitration_probability(features),
-                            "heuristic_adaptive": _heuristic_adaptive_probability(features),
-                            "fixed_50": 0.5,
-                            "always_context": 1.0,
-                            "always_parametric": 0.0,
-                            "simulated_model": _simulated_model_probability(features, model_name, cot_length),
-                        }
+                        policy_probabilities = _policy_probabilities(features, model_name=model_name, cot_length=cot_length)
                         oracle_loss = _log_loss(oracle_probability, label)
 
                         split = _split_label(condition, features.conflict_magnitude)
@@ -456,6 +513,12 @@ def run_benchmark_experiment(
     policy_rows: dict[str, list[dict[str, Any]]] = {
         "oracle": [],
         "bayes_proxy": [],
+        "cocoa": [],
+        "adacad": [],
+        "cad": [],
+        "astute_rag": [],
+        "crag": [],
+        "self_rag": [],
         "heuristic_adaptive": [],
         "fixed_50": [],
         "always_context": [],
@@ -482,15 +545,7 @@ def run_benchmark_experiment(
                         if derived is None:
                             continue
                         features, oracle_probability, label, derived_info = derived
-                        policy_probabilities = {
-                            "oracle": oracle_probability,
-                            "bayes_proxy": bayes_arbitration_probability(features),
-                            "heuristic_adaptive": _heuristic_adaptive_probability(features),
-                            "fixed_50": 0.5,
-                            "always_context": 1.0,
-                            "always_parametric": 0.0,
-                            "simulated_model": _simulated_model_probability(features, model_name, cot_length),
-                        }
+                        policy_probabilities = _policy_probabilities(features, model_name=model_name, cot_length=cot_length)
                         oracle_loss = _log_loss(oracle_probability, label)
                         split = _split_label(condition, features.conflict_magnitude)
                         row = {

@@ -73,6 +73,14 @@ bad. The absolute oracle--model arbitration gap stays nontrivial
 not vacuous. This expanded matrix is now the strongest theorem-1/theorem-2
 evidence in the paper.
 
+The named comparator wave on the same matrix sharpens the positioning. The
+Bayes proxy also beats the strongest named retrieval-style proxy baselines:
+Self-RAG at $-0.1456$, Astute RAG at $-0.1396$, CoCoA at $-0.1278$, AdaCAD at
+$-0.1063$, and CAD at $-0.0790$. So the spotlight-scale theorem-1/theorem-2
+story is no longer just ``better than a generic heuristic''; it now also
+clears the strongest named comparator family available inside the benchmark
+engine.
+
 The broad wave is also informative about model heterogeneity. Three of the four
 main broad-wave models favor the Bayes proxy over the heuristic by about
 $0.0319$ regret, but Qwen-2.5-14B-Instruct slightly favors the heuristic
@@ -144,6 +152,19 @@ conflict condition for both models. So theorem 3 should be written as a
 hard-QA overconfidence amplification result with a conflict-sensitive
 interaction on controlled conflict families, not as a universal
 conflict-conditioned sign flip.
+
+An offline confidence-only eta-tempering intervention makes the mechanism claim
+sharper. On the finished 14B real-generation summary, conflict slices tolerate
+only about $0.52\times$ the do-no-harm eta of no-conflict slices. On
+WikiContradict conflict, confidence-only tempering can nearly recalibrate the
+long-CoT slice, driving the proxy gap from $0.3750$ down to $0.0034$. On
+ConflictBank conflict, the same intervention fails fundamentally: even at
+maximal tempering, the best attainable proxy gap is still $0.4820$ because the
+underlying long-CoT answer accuracy is only $0.0180$. This is exactly the
+two-regime distinction the rewritten theorem needs. Naturalistic contradiction
+looks calibratable once confidence sharpening is corrected, whereas controlled
+conflict at larger scale is an answer-level failure that confidence rescaling
+alone cannot rescue.
 
 \paragraph{Takeaways.}
 The paper's empirical story is now coherent. Theorems 1 and 2 are supported by

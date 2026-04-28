@@ -106,6 +106,9 @@ def build_bundle() -> dict[str, Any]:
     theorem3 = _load_json(ROOT / "docs/generated/theorem3_real_7b_final.json")
     theorem3_replication = _load_json(ROOT / "docs/generated/theorem3_real_14b_final.json")
     theorem3_same_family = _load_json(ROOT / "docs/generated/theorem3_same_family_threshold_summary.json")
+    theorem3_eta = _load_json(ROOT / "docs/generated/theorem3_eta_tempering_analysis.json")
+    baseline_proxy_t12 = _load_json(ROOT / "docs/generated/arbitration_proxy_baseline_t12_v2.json")
+    baseline_proxy_t3 = _load_json(ROOT / "docs/generated/arbitration_proxy_baseline_t3_v2.json")
 
     theorem1 = _theorem12_section("broad_real_headline_wave_reestimated_v3", broad_report, broad_results)
     theorem2 = _theorem12_section("conflict_headline_wave_reestimated_v3", compact_report, compact_results)
@@ -115,7 +118,8 @@ def build_bundle() -> dict[str, Any]:
         "headline": {
             "theorem_1": (
                 "A Bayes-style reliability-aware arbitration rule beats the generic heuristic and "
-                "sharply beats fixed trust policies across the broad real matrix."
+                "sharply beats fixed trust policies across the broad real matrix, while also "
+                "beating Self-RAG, Astute RAG, CoCoA, AdaCAD, and CAD on the 5x5 spotlight proxy matrix."
             ),
             "theorem_2": (
             "Fixed trust policies are minimax-bad in practice: in the conflict-heavy wave, they "
@@ -123,7 +127,8 @@ def build_bundle() -> dict[str, Any]:
         ),
         "theorem_3": (
             "Reasoning amplifies overconfidence on hard knowledge QA, with recovery reappearing "
-            "by about 32B on naturalistic contradiction but not yet on controlled conflict."
+            "by about 32B on naturalistic contradiction but not yet on controlled conflict; "
+            "conflict slices tolerate only about half the do-no-harm eta of no-conflict slices."
         ),
     },
         "theorem_1": theorem1,
@@ -131,6 +136,9 @@ def build_bundle() -> dict[str, Any]:
         "theorem_3": theorem3,
         "theorem_3_replication": theorem3_replication,
         "theorem_3_same_family": theorem3_same_family,
+        "theorem_3_eta": theorem3_eta,
+        "baseline_proxy_t12": baseline_proxy_t12,
+        "baseline_proxy_t3": baseline_proxy_t3,
     }
 
 
@@ -140,6 +148,9 @@ def build_markdown(bundle: dict[str, Any]) -> str:
     t3 = bundle["theorem_3"]
     t3_rep = bundle["theorem_3_replication"]
     t3_same_family = bundle["theorem_3_same_family"]
+    t3_eta = bundle["theorem_3_eta"]
+    baseline_proxy_t12 = bundle["baseline_proxy_t12"]
+    baseline_proxy_t3 = bundle["baseline_proxy_t3"]
     lines = [
         "# Knowledge Arbitration Headline Bundle",
         "",
@@ -163,6 +174,10 @@ def build_markdown(bundle: dict[str, Any]) -> str:
         f"- Mean oracle-model absolute gap: `{t1['mean_oracle_model_abs_gap']}`",
         f"- Mean oracle-model KL: `{t1['mean_oracle_model_kl']}`",
         f"- Mean conflict / no-conflict ECE deltas: `{t1['mean_conflict_ece_delta']}` / `{t1['mean_no_conflict_ece_delta']}`",
+        f"- Strongest named comparator on the spotlight proxy matrix: "
+        f"`{baseline_proxy_t12['headline']['strongest_named_comparator']}` at "
+        f"`{baseline_proxy_t12['headline']['strongest_named_comparator_regret']}`",
+        f"- Bayes advantage vs that comparator: `{baseline_proxy_t12['headline']['bayes_advantage_vs_strongest_named']}`",
         "",
         "Per-model read:",
         "",
@@ -213,6 +228,13 @@ def build_markdown(bundle: dict[str, Any]) -> str:
             f"- Source run: `{t3['source_job']}` on `{t3['model']}`",
             f"- Total parsed rows: `{t3['num_rows']}`",
             f"- Partial 14B follow-on: `{t3_rep['source_job']}` on `{t3_rep['model']}` with `{t3_rep['num_rows']}` rows",
+            f"- 14B eta-tempering shrink factor (conflict / no-conflict): "
+            f"`{t3_eta['headline']['conflict_to_no_conflict_eta_shrink_factor']}`",
+            f"- ConflictBank conflict best attainable confidence-only gap: "
+            f"`{t3_eta['headline']['conflictbank_conflict_best_gap']}`",
+            f"- WikiContradict conflict best attainable confidence-only gap: "
+            f"`{t3_eta['headline']['wikicontradict_conflict_best_gap']}` at eta "
+            f"`{t3_eta['headline']['wikicontradict_conflict_best_gap_eta']}`",
             "",
             "| Benchmark | Split | `cot=0` gap | `cot=128` gap | `cot=1024` gap | `0->128` gap delta | `128->1024` gap delta |",
             "|---|---|---:|---:|---:|---:|---:|",
@@ -254,6 +276,11 @@ def build_markdown(bundle: dict[str, Any]) -> str:
             "- The 14B raw rows already sharpen theorem 3: `WikiContradict` preserves the peak-and-recover shape, while `ConflictBank` conflict becomes even more overconfident.",
             "- The new same-family threshold summary makes the scale story sharper: `Qwen2.5` recovery on `WikiContradict` first appears at about "
             f"`{t3_same_family['headline']['qwen_wikicontradict_conflict_recovery_threshold_b']}B`, while `ConflictBank` still has no recovery threshold through the currently observed `32B` scale.",
+            "- The new eta intervention summary makes the mechanism claim sharper: confidence-only tempering can nearly recalibrate "
+            "naturalistic contradiction at 14B, but it cannot rescue `ConflictBank` conflict once long-CoT has collapsed answer accuracy.",
+            f"- On the theorem-3 size-scaling proxy matrix, the strongest named comparator is "
+            f"`{baseline_proxy_t3['headline']['strongest_named_comparator']}` with regret "
+            f"`{baseline_proxy_t3['headline']['strongest_named_comparator_regret']}`, which is a near-tie rather than a decisive reversal.",
         ]
     )
     return "\n".join(lines) + "\n"

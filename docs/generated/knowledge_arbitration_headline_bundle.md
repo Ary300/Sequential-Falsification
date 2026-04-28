@@ -2,9 +2,9 @@
 
 ## Headline Claims
 
-- Theorem 1: A Bayes-style reliability-aware arbitration rule beats the generic heuristic and sharply beats fixed trust policies across the broad real matrix.
+- Theorem 1: A Bayes-style reliability-aware arbitration rule beats the generic heuristic and sharply beats fixed trust policies across the broad real matrix, while also beating Self-RAG, Astute RAG, CoCoA, AdaCAD, and CAD on the 5x5 spotlight proxy matrix.
 - Theorem 2: Fixed trust policies are minimax-bad in practice: in the conflict-heavy wave, they incur much larger regret than the principled Bayes proxy.
-- Theorem 3: Reasoning amplifies overconfidence on hard knowledge QA, with recovery reappearing by about 32B on naturalistic contradiction but not yet on controlled conflict.
+- Theorem 3: Reasoning amplifies overconfidence on hard knowledge QA, with recovery reappearing by about 32B on naturalistic contradiction but not yet on controlled conflict; conflict slices tolerate only about half the do-no-harm eta of no-conflict slices.
 
 ## Theorem 1
 
@@ -20,6 +20,8 @@
 - Mean oracle-model absolute gap: `0.1969`
 - Mean oracle-model KL: `1.2288`
 - Mean conflict / no-conflict ECE deltas: `-0.0054` / `-0.0238`
+- Strongest named comparator on the spotlight proxy matrix: `self_rag` at `-0.1456`
+- Bayes advantage vs that comparator: `0.0266`
 
 Per-model read:
 
@@ -56,6 +58,9 @@ Per-model read:
 - Source run: `delta_job_2190906` on `deepseek-ai/DeepSeek-R1-Distill-Qwen-7B`
 - Total parsed rows: `4200`
 - Partial 14B follow-on: `delta_job_2193269` on `deepseek-ai/DeepSeek-R1-Distill-Qwen-14B` with `4200` rows
+- 14B eta-tempering shrink factor (conflict / no-conflict): `0.52`
+- ConflictBank conflict best attainable confidence-only gap: `0.482`
+- WikiContradict conflict best attainable confidence-only gap: `0.0034` at eta `0.1`
 
 | Benchmark | Split | `cot=0` gap | `cot=128` gap | `cot=1024` gap | `0->128` gap delta | `128->1024` gap delta |
 |---|---|---:|---:|---:|---:|---:|
@@ -82,3 +87,5 @@ Partial 14B replication:
 - Conflict-wave near-tie worth noting: `pythia-6.9b` is essentially tied between Bayes proxy and simulated model.
 - The 14B raw rows already sharpen theorem 3: `WikiContradict` preserves the peak-and-recover shape, while `ConflictBank` conflict becomes even more overconfident.
 - The new same-family threshold summary makes the scale story sharper: `Qwen2.5` recovery on `WikiContradict` first appears at about `32B`, while `ConflictBank` still has no recovery threshold through the currently observed `32B` scale.
+- The new eta intervention summary makes the mechanism claim sharper: confidence-only tempering can nearly recalibrate naturalistic contradiction at 14B, but it cannot rescue `ConflictBank` conflict once long-CoT has collapsed answer accuracy.
+- On the theorem-3 size-scaling proxy matrix, the strongest named comparator is `cocoa` with regret `-0.0795`, which is a near-tie rather than a decisive reversal.

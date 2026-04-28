@@ -1,8 +1,146 @@
 {
+  "baseline_proxy_t12": {
+    "bayes_proxy": {
+      "mean_regret": -0.1722,
+      "num_series": 25
+    },
+    "comparators": [
+      {
+        "bayes_advantage": 0.0444,
+        "mean_regret": -0.1278,
+        "num_series": 25,
+        "policy": "cocoa",
+        "pretty_policy": "CoCoA"
+      },
+      {
+        "bayes_advantage": 0.0659,
+        "mean_regret": -0.1063,
+        "num_series": 25,
+        "policy": "adacad",
+        "pretty_policy": "AdaCAD"
+      },
+      {
+        "bayes_advantage": 0.0932,
+        "mean_regret": -0.079,
+        "num_series": 25,
+        "policy": "cad",
+        "pretty_policy": "CAD"
+      },
+      {
+        "bayes_advantage": 0.0326,
+        "mean_regret": -0.1396,
+        "num_series": 25,
+        "policy": "astute_rag",
+        "pretty_policy": "Astute RAG"
+      },
+      {
+        "bayes_advantage": 0.1273,
+        "mean_regret": -0.0449,
+        "num_series": 25,
+        "policy": "crag",
+        "pretty_policy": "CRAG"
+      },
+      {
+        "bayes_advantage": 0.0266,
+        "mean_regret": -0.1456,
+        "num_series": 25,
+        "policy": "self_rag",
+        "pretty_policy": "Self-RAG"
+      },
+      {
+        "bayes_advantage": 0.0833,
+        "mean_regret": -0.0889,
+        "num_series": 25,
+        "policy": "heuristic_adaptive",
+        "pretty_policy": "Heuristic adaptive"
+      },
+      {
+        "bayes_advantage": -0.0324,
+        "mean_regret": -0.2046,
+        "num_series": 25,
+        "policy": "simulated_model",
+        "pretty_policy": "Simulated model"
+      }
+    ],
+    "headline": {
+      "bayes_advantage_vs_strongest_named": 0.0266,
+      "strongest_named_comparator": "self_rag",
+      "strongest_named_comparator_regret": -0.1456
+    }
+  },
+  "baseline_proxy_t3": {
+    "bayes_proxy": {
+      "mean_regret": -0.0774,
+      "num_series": 25
+    },
+    "comparators": [
+      {
+        "bayes_advantage": -0.0021,
+        "mean_regret": -0.0795,
+        "num_series": 25,
+        "policy": "cocoa",
+        "pretty_policy": "CoCoA"
+      },
+      {
+        "bayes_advantage": 0.0075,
+        "mean_regret": -0.0699,
+        "num_series": 25,
+        "policy": "adacad",
+        "pretty_policy": "AdaCAD"
+      },
+      {
+        "bayes_advantage": 0.0182,
+        "mean_regret": -0.0592,
+        "num_series": 25,
+        "policy": "cad",
+        "pretty_policy": "CAD"
+      },
+      {
+        "bayes_advantage": 0.0032,
+        "mean_regret": -0.0742,
+        "num_series": 25,
+        "policy": "astute_rag",
+        "pretty_policy": "Astute RAG"
+      },
+      {
+        "bayes_advantage": 0.1011,
+        "mean_regret": 0.0237,
+        "num_series": 25,
+        "policy": "crag",
+        "pretty_policy": "CRAG"
+      },
+      {
+        "bayes_advantage": 1.2757,
+        "mean_regret": 1.1983,
+        "num_series": 25,
+        "policy": "self_rag",
+        "pretty_policy": "Self-RAG"
+      },
+      {
+        "bayes_advantage": 0.0585,
+        "mean_regret": -0.0189,
+        "num_series": 25,
+        "policy": "heuristic_adaptive",
+        "pretty_policy": "Heuristic adaptive"
+      },
+      {
+        "bayes_advantage": 0.2307,
+        "mean_regret": 0.1533,
+        "num_series": 25,
+        "policy": "simulated_model",
+        "pretty_policy": "Simulated model"
+      }
+    ],
+    "headline": {
+      "bayes_advantage_vs_strongest_named": -0.0021,
+      "strongest_named_comparator": "cocoa",
+      "strongest_named_comparator_regret": -0.0795
+    }
+  },
   "headline": {
-    "theorem_1": "A Bayes-style reliability-aware arbitration rule beats the generic heuristic and sharply beats fixed trust policies across the broad real matrix.",
+    "theorem_1": "A Bayes-style reliability-aware arbitration rule beats the generic heuristic and sharply beats fixed trust policies across the broad real matrix, while also beating Self-RAG, Astute RAG, CoCoA, AdaCAD, and CAD on the 5x5 spotlight proxy matrix.",
     "theorem_2": "Fixed trust policies are minimax-bad in practice: in the conflict-heavy wave, they incur much larger regret than the principled Bayes proxy.",
-    "theorem_3": "Reasoning amplifies overconfidence on hard knowledge QA, with recovery reappearing by about 32B on naturalistic contradiction but not yet on controlled conflict."
+    "theorem_3": "Reasoning amplifies overconfidence on hard knowledge QA, with recovery reappearing by about 32B on naturalistic contradiction but not yet on controlled conflict; conflict slices tolerate only about half the do-no-harm eta of no-conflict slices."
   },
   "project": "bayes_optimal_knowledge_arbitration",
   "theorem_1": {
@@ -184,6 +322,596 @@
     ],
     "source_job": "delta_job_2190906",
     "source_results_dir": "/u/adas17/tts-falsification/results/theorem3_real_generation_r1_7b"
+  },
+  "theorem_3_eta": {
+    "headline": {
+      "conflict_to_no_conflict_eta_shrink_factor": 0.52,
+      "conflictbank_conflict_best_gap": 0.482,
+      "conflictbank_conflict_gap_floor_at_eta_zero": 0.482,
+      "mean_conflict_do_no_harm_eta": 0.325,
+      "mean_no_conflict_do_no_harm_eta": 0.625,
+      "wikicontradict_conflict_best_gap": 0.0034,
+      "wikicontradict_conflict_best_gap_eta": 0.1
+    },
+    "slice_rows": [
+      {
+        "benchmark": "conflictbank",
+        "best_brier_eta": 0.0,
+        "best_brier_value": 0.25,
+        "best_gap_eta": 0.0,
+        "best_gap_value": 0.482,
+        "do_no_harm_eta": 0.1,
+        "eta_rows": [
+          {
+            "eta": 0.0,
+            "proxy_abs_gap": 0.482,
+            "proxy_brier": 0.25,
+            "tempered_confidence": 0.5
+          },
+          {
+            "eta": 0.05,
+            "proxy_abs_gap": 0.525,
+            "proxy_brier": 0.2934,
+            "tempered_confidence": 0.543
+          },
+          {
+            "eta": 0.1,
+            "proxy_abs_gap": 0.5675,
+            "proxy_brier": 0.3397,
+            "tempered_confidence": 0.5855
+          },
+          {
+            "eta": 0.15,
+            "proxy_abs_gap": 0.6086,
+            "proxy_brier": 0.3881,
+            "tempered_confidence": 0.6266
+          },
+          {
+            "eta": 0.2,
+            "proxy_abs_gap": 0.6481,
+            "proxy_brier": 0.4377,
+            "tempered_confidence": 0.6661
+          },
+          {
+            "eta": 0.25,
+            "proxy_abs_gap": 0.6853,
+            "proxy_brier": 0.4873,
+            "tempered_confidence": 0.7033
+          },
+          {
+            "eta": 0.3,
+            "proxy_abs_gap": 0.72,
+            "proxy_brier": 0.5361,
+            "tempered_confidence": 0.738
+          },
+          {
+            "eta": 0.35,
+            "proxy_abs_gap": 0.752,
+            "proxy_brier": 0.5832,
+            "tempered_confidence": 0.77
+          },
+          {
+            "eta": 0.4,
+            "proxy_abs_gap": 0.7811,
+            "proxy_brier": 0.6279,
+            "tempered_confidence": 0.7991
+          },
+          {
+            "eta": 0.45,
+            "proxy_abs_gap": 0.8074,
+            "proxy_brier": 0.6696,
+            "tempered_confidence": 0.8254
+          },
+          {
+            "eta": 0.5,
+            "proxy_abs_gap": 0.8309,
+            "proxy_brier": 0.7081,
+            "tempered_confidence": 0.8489
+          },
+          {
+            "eta": 0.55,
+            "proxy_abs_gap": 0.8518,
+            "proxy_brier": 0.7432,
+            "tempered_confidence": 0.8698
+          },
+          {
+            "eta": 0.6,
+            "proxy_abs_gap": 0.8701,
+            "proxy_brier": 0.7747,
+            "tempered_confidence": 0.8881
+          },
+          {
+            "eta": 0.65,
+            "proxy_abs_gap": 0.8861,
+            "proxy_brier": 0.8029,
+            "tempered_confidence": 0.9041
+          },
+          {
+            "eta": 0.7,
+            "proxy_abs_gap": 0.9001,
+            "proxy_brier": 0.8278,
+            "tempered_confidence": 0.9181
+          },
+          {
+            "eta": 0.75,
+            "proxy_abs_gap": 0.9122,
+            "proxy_brier": 0.8497,
+            "tempered_confidence": 0.9302
+          },
+          {
+            "eta": 0.8,
+            "proxy_abs_gap": 0.9226,
+            "proxy_brier": 0.8688,
+            "tempered_confidence": 0.9406
+          },
+          {
+            "eta": 0.85,
+            "proxy_abs_gap": 0.9315,
+            "proxy_brier": 0.8854,
+            "tempered_confidence": 0.9495
+          },
+          {
+            "eta": 0.9,
+            "proxy_abs_gap": 0.9392,
+            "proxy_brier": 0.8997,
+            "tempered_confidence": 0.9572
+          },
+          {
+            "eta": 0.95,
+            "proxy_abs_gap": 0.9457,
+            "proxy_brier": 0.9121,
+            "tempered_confidence": 0.9637
+          },
+          {
+            "eta": 1.0,
+            "proxy_abs_gap": 0.9513,
+            "proxy_brier": 0.9226,
+            "tempered_confidence": 0.9693
+          }
+        ],
+        "gap_floor_at_eta_zero": 0.482,
+        "long_accuracy": 0.018,
+        "long_confidence": 0.9693,
+        "no_cot_gap": 0.5876,
+        "observed_long_gap": 0.9513,
+        "paired_no_conf_eta": null,
+        "paired_no_conf_target_gap": 0.1032,
+        "split": "conflict"
+      },
+      {
+        "benchmark": "conflictbank",
+        "best_brier_eta": 0.55,
+        "best_brier_value": 0.119,
+        "best_gap_eta": 0.55,
+        "best_gap_value": 0.0005,
+        "do_no_harm_eta": 0.75,
+        "eta_rows": [
+          {
+            "eta": 0.0,
+            "proxy_abs_gap": 0.362,
+            "proxy_brier": 0.25,
+            "tempered_confidence": 0.5
+          },
+          {
+            "eta": 0.05,
+            "proxy_abs_gap": 0.3206,
+            "proxy_brier": 0.2217,
+            "tempered_confidence": 0.5414
+          },
+          {
+            "eta": 0.1,
+            "proxy_abs_gap": 0.2797,
+            "proxy_brier": 0.1972,
+            "tempered_confidence": 0.5823
+          },
+          {
+            "eta": 0.15,
+            "proxy_abs_gap": 0.2399,
+            "proxy_brier": 0.1765,
+            "tempered_confidence": 0.6221
+          },
+          {
+            "eta": 0.2,
+            "proxy_abs_gap": 0.2017,
+            "proxy_brier": 0.1596,
+            "tempered_confidence": 0.6603
+          },
+          {
+            "eta": 0.25,
+            "proxy_abs_gap": 0.1655,
+            "proxy_brier": 0.1463,
+            "tempered_confidence": 0.6965
+          },
+          {
+            "eta": 0.3,
+            "proxy_abs_gap": 0.1316,
+            "proxy_brier": 0.1363,
+            "tempered_confidence": 0.7304
+          },
+          {
+            "eta": 0.35,
+            "proxy_abs_gap": 0.1001,
+            "proxy_brier": 0.129,
+            "tempered_confidence": 0.7619
+          },
+          {
+            "eta": 0.4,
+            "proxy_abs_gap": 0.0713,
+            "proxy_brier": 0.124,
+            "tempered_confidence": 0.7907
+          },
+          {
+            "eta": 0.45,
+            "proxy_abs_gap": 0.0451,
+            "proxy_brier": 0.121,
+            "tempered_confidence": 0.8169
+          },
+          {
+            "eta": 0.5,
+            "proxy_abs_gap": 0.0216,
+            "proxy_brier": 0.1194,
+            "tempered_confidence": 0.8404
+          },
+          {
+            "eta": 0.55,
+            "proxy_abs_gap": 0.0005,
+            "proxy_brier": 0.119,
+            "tempered_confidence": 0.8615
+          },
+          {
+            "eta": 0.6,
+            "proxy_abs_gap": 0.0181,
+            "proxy_brier": 0.1193,
+            "tempered_confidence": 0.8801
+          },
+          {
+            "eta": 0.65,
+            "proxy_abs_gap": 0.0346,
+            "proxy_brier": 0.1202,
+            "tempered_confidence": 0.8966
+          },
+          {
+            "eta": 0.7,
+            "proxy_abs_gap": 0.049,
+            "proxy_brier": 0.1214,
+            "tempered_confidence": 0.911
+          },
+          {
+            "eta": 0.75,
+            "proxy_abs_gap": 0.0616,
+            "proxy_brier": 0.1227,
+            "tempered_confidence": 0.9236
+          },
+          {
+            "eta": 0.8,
+            "proxy_abs_gap": 0.0725,
+            "proxy_brier": 0.1242,
+            "tempered_confidence": 0.9345
+          },
+          {
+            "eta": 0.85,
+            "proxy_abs_gap": 0.082,
+            "proxy_brier": 0.1257,
+            "tempered_confidence": 0.944
+          },
+          {
+            "eta": 0.9,
+            "proxy_abs_gap": 0.0901,
+            "proxy_brier": 0.1271,
+            "tempered_confidence": 0.9521
+          },
+          {
+            "eta": 0.95,
+            "proxy_abs_gap": 0.0972,
+            "proxy_brier": 0.1284,
+            "tempered_confidence": 0.9592
+          },
+          {
+            "eta": 1.0,
+            "proxy_abs_gap": 0.1032,
+            "proxy_brier": 0.1296,
+            "tempered_confidence": 0.9652
+          }
+        ],
+        "gap_floor_at_eta_zero": 0.362,
+        "long_accuracy": 0.862,
+        "long_confidence": 0.9652,
+        "no_cot_gap": 0.0691,
+        "observed_long_gap": 0.1032,
+        "paired_no_conf_eta": 1.0,
+        "paired_no_conf_target_gap": 0.1032,
+        "split": "no_conflict"
+      },
+      {
+        "benchmark": "wikicontradict",
+        "best_brier_eta": 0.1,
+        "best_brier_value": 0.2458,
+        "best_gap_eta": 0.1,
+        "best_gap_value": 0.0034,
+        "do_no_harm_eta": 0.55,
+        "eta_rows": [
+          {
+            "eta": 0.0,
+            "proxy_abs_gap": 0.065,
+            "proxy_brier": 0.25,
+            "tempered_confidence": 0.5
+          },
+          {
+            "eta": 0.05,
+            "proxy_abs_gap": 0.0307,
+            "proxy_brier": 0.2467,
+            "tempered_confidence": 0.5343
+          },
+          {
+            "eta": 0.1,
+            "proxy_abs_gap": 0.0034,
+            "proxy_brier": 0.2458,
+            "tempered_confidence": 0.5684
+          },
+          {
+            "eta": 0.15,
+            "proxy_abs_gap": 0.0367,
+            "proxy_brier": 0.2471,
+            "tempered_confidence": 0.6017
+          },
+          {
+            "eta": 0.2,
+            "proxy_abs_gap": 0.0692,
+            "proxy_brier": 0.2506,
+            "tempered_confidence": 0.6342
+          },
+          {
+            "eta": 0.25,
+            "proxy_abs_gap": 0.1005,
+            "proxy_brier": 0.2559,
+            "tempered_confidence": 0.6655
+          },
+          {
+            "eta": 0.3,
+            "proxy_abs_gap": 0.1304,
+            "proxy_brier": 0.2628,
+            "tempered_confidence": 0.6954
+          },
+          {
+            "eta": 0.35,
+            "proxy_abs_gap": 0.1587,
+            "proxy_brier": 0.271,
+            "tempered_confidence": 0.7237
+          },
+          {
+            "eta": 0.4,
+            "proxy_abs_gap": 0.1854,
+            "proxy_brier": 0.2801,
+            "tempered_confidence": 0.7504
+          },
+          {
+            "eta": 0.45,
+            "proxy_abs_gap": 0.2102,
+            "proxy_brier": 0.29,
+            "tempered_confidence": 0.7752
+          },
+          {
+            "eta": 0.5,
+            "proxy_abs_gap": 0.2333,
+            "proxy_brier": 0.3002,
+            "tempered_confidence": 0.7983
+          },
+          {
+            "eta": 0.55,
+            "proxy_abs_gap": 0.2546,
+            "proxy_brier": 0.3106,
+            "tempered_confidence": 0.8196
+          },
+          {
+            "eta": 0.6,
+            "proxy_abs_gap": 0.274,
+            "proxy_brier": 0.3209,
+            "tempered_confidence": 0.839
+          },
+          {
+            "eta": 0.65,
+            "proxy_abs_gap": 0.2917,
+            "proxy_brier": 0.3309,
+            "tempered_confidence": 0.8567
+          },
+          {
+            "eta": 0.7,
+            "proxy_abs_gap": 0.3078,
+            "proxy_brier": 0.3405,
+            "tempered_confidence": 0.8728
+          },
+          {
+            "eta": 0.75,
+            "proxy_abs_gap": 0.3223,
+            "proxy_brier": 0.3497,
+            "tempered_confidence": 0.8873
+          },
+          {
+            "eta": 0.8,
+            "proxy_abs_gap": 0.3354,
+            "proxy_brier": 0.3582,
+            "tempered_confidence": 0.9004
+          },
+          {
+            "eta": 0.85,
+            "proxy_abs_gap": 0.347,
+            "proxy_brier": 0.3662,
+            "tempered_confidence": 0.912
+          },
+          {
+            "eta": 0.9,
+            "proxy_abs_gap": 0.3575,
+            "proxy_brier": 0.3736,
+            "tempered_confidence": 0.9225
+          },
+          {
+            "eta": 0.95,
+            "proxy_abs_gap": 0.3668,
+            "proxy_brier": 0.3803,
+            "tempered_confidence": 0.9318
+          },
+          {
+            "eta": 1.0,
+            "proxy_abs_gap": 0.375,
+            "proxy_brier": 0.3864,
+            "tempered_confidence": 0.94
+          }
+        ],
+        "gap_floor_at_eta_zero": 0.065,
+        "long_accuracy": 0.565,
+        "long_confidence": 0.94,
+        "no_cot_gap": 0.2717,
+        "observed_long_gap": 0.375,
+        "paired_no_conf_eta": 1.0,
+        "paired_no_conf_target_gap": 0.4164,
+        "split": "conflict"
+      },
+      {
+        "benchmark": "wikicontradict",
+        "best_brier_eta": 0.05,
+        "best_brier_value": 0.2491,
+        "best_gap_eta": 0.05,
+        "best_gap_value": 0.0058,
+        "do_no_harm_eta": 0.5,
+        "eta_rows": [
+          {
+            "eta": 0.0,
+            "proxy_abs_gap": 0.03,
+            "proxy_brier": 0.25,
+            "tempered_confidence": 0.5
+          },
+          {
+            "eta": 0.05,
+            "proxy_abs_gap": 0.0058,
+            "proxy_brier": 0.2491,
+            "tempered_confidence": 0.5358
+          },
+          {
+            "eta": 0.1,
+            "proxy_abs_gap": 0.0413,
+            "proxy_brier": 0.2508,
+            "tempered_confidence": 0.5713
+          },
+          {
+            "eta": 0.15,
+            "proxy_abs_gap": 0.076,
+            "proxy_brier": 0.2549,
+            "tempered_confidence": 0.606
+          },
+          {
+            "eta": 0.2,
+            "proxy_abs_gap": 0.1097,
+            "proxy_brier": 0.2611,
+            "tempered_confidence": 0.6397
+          },
+          {
+            "eta": 0.25,
+            "proxy_abs_gap": 0.1421,
+            "proxy_brier": 0.2693,
+            "tempered_confidence": 0.6721
+          },
+          {
+            "eta": 0.3,
+            "proxy_abs_gap": 0.1729,
+            "proxy_brier": 0.279,
+            "tempered_confidence": 0.7029
+          },
+          {
+            "eta": 0.35,
+            "proxy_abs_gap": 0.202,
+            "proxy_brier": 0.2899,
+            "tempered_confidence": 0.732
+          },
+          {
+            "eta": 0.4,
+            "proxy_abs_gap": 0.2292,
+            "proxy_brier": 0.3016,
+            "tempered_confidence": 0.7592
+          },
+          {
+            "eta": 0.45,
+            "proxy_abs_gap": 0.2545,
+            "proxy_brier": 0.3139,
+            "tempered_confidence": 0.7845
+          },
+          {
+            "eta": 0.5,
+            "proxy_abs_gap": 0.2778,
+            "proxy_brier": 0.3263,
+            "tempered_confidence": 0.8078
+          },
+          {
+            "eta": 0.55,
+            "proxy_abs_gap": 0.2991,
+            "proxy_brier": 0.3385,
+            "tempered_confidence": 0.8291
+          },
+          {
+            "eta": 0.6,
+            "proxy_abs_gap": 0.3185,
+            "proxy_brier": 0.3505,
+            "tempered_confidence": 0.8485
+          },
+          {
+            "eta": 0.65,
+            "proxy_abs_gap": 0.336,
+            "proxy_brier": 0.362,
+            "tempered_confidence": 0.866
+          },
+          {
+            "eta": 0.7,
+            "proxy_abs_gap": 0.3518,
+            "proxy_brier": 0.3729,
+            "tempered_confidence": 0.8818
+          },
+          {
+            "eta": 0.75,
+            "proxy_abs_gap": 0.366,
+            "proxy_brier": 0.383,
+            "tempered_confidence": 0.896
+          },
+          {
+            "eta": 0.8,
+            "proxy_abs_gap": 0.3786,
+            "proxy_brier": 0.3925,
+            "tempered_confidence": 0.9086
+          },
+          {
+            "eta": 0.85,
+            "proxy_abs_gap": 0.3899,
+            "proxy_brier": 0.4011,
+            "tempered_confidence": 0.9199
+          },
+          {
+            "eta": 0.9,
+            "proxy_abs_gap": 0.3998,
+            "proxy_brier": 0.409,
+            "tempered_confidence": 0.9298
+          },
+          {
+            "eta": 0.95,
+            "proxy_abs_gap": 0.4086,
+            "proxy_brier": 0.4161,
+            "tempered_confidence": 0.9386
+          },
+          {
+            "eta": 1.0,
+            "proxy_abs_gap": 0.4164,
+            "proxy_brier": 0.4225,
+            "tempered_confidence": 0.9464
+          }
+        ],
+        "gap_floor_at_eta_zero": 0.03,
+        "long_accuracy": 0.53,
+        "long_confidence": 0.9464,
+        "no_cot_gap": 0.2963,
+        "observed_long_gap": 0.4164,
+        "paired_no_conf_eta": 1.0,
+        "paired_no_conf_target_gap": 0.4164,
+        "split": "no_conflict"
+      }
+    ],
+    "source": "theorem3_real_14b_final"
   },
   "theorem_3_replication": {
     "headline": {
