@@ -52,7 +52,12 @@ reasoning amplifies overconfidence under conflict, but the shape depends on the
 conflict family. On WikiContradict, both 7B and 14B show an intermediate-CoT
 peak followed by partial recovery. On ConflictBank conflict, 7B shows the same
 peak-and-recover shape, while 14B remains severely overconfident through long
-CoT.
+CoT. A completed same-family Qwen sweep sharpens the interpretation further:
+the specific ``7B recovers / 14B saturates'' asymmetry does not replicate
+universally across families, but a benchmark-dependent two-regime law does.
+Qwen shows no recovery through 32B on controlled ConflictBank conflict, while
+32B is the first scale at which recovery reappears on naturalistic
+WikiContradict contradiction.
 
 The paper therefore makes two negative claims and one positive one. The
 negative claims are that fixed trust in retrieval is wrong, and fixed trust in

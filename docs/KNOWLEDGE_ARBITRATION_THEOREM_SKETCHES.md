@@ -158,7 +158,7 @@ Thus fixed trust policies are minimax-suboptimal over the conflict family.
 4. Optional strengthening: add a Fano-style lemma showing no policy without
    auxiliary signal can escape the lower bound.
 
-## Theorem 3: Conflict-Conditioned Calibration Coupling
+## Theorem 3: Two-Regime Self-Correction Under Conflict
 
 ### Informal statement
 
@@ -168,26 +168,34 @@ correct, causing calibration to worsen with longer chain-of-thought.
 
 ### Draft statement
 
+Let `p_t(y | q, c)` denote the implicit answer distribution after `t`
+reasoning steps and let the CoT trace token or segment at step `t` be `z_t`.
+Model the update as a generalized-Bayes step with learning rate `eta`:
+
+`p_{t+1}(y | q, c) proportional to p_t(y | q, c) * exp(-eta * ell_t(y; q, c, z_t))`
+
 Assume:
 
-1. A conflict condition:
+1. a conflict condition:
    `KL(p_theta(. | q) || p_ctx(. | q, c)) >= delta > 0`
-2. A sequential reasoning process producing posteriors `p_k(y | q, c)` after
-   `k` chain-of-thought steps
-3. The updates are misspecified in the Berk / Grünwald sense: the true answer
-   distribution is not in the family implicitly selected by the sequential
-   reasoning process
+2. the effective update family is misspecified in the Berk / Kleijn-van-der-Vaart / Grünwald sense
+3. the evidence is endogenous in the Berk-Nash sense because the trace is
+   sampled from the same model whose belief is being updated
 
-Then there exists a calibration functional `C_k` such that, on the conflict
-subset,
+Then there exists a critical learning rate `eta_bar(q, c)` such that:
 
-`E[C_{k+1}] - E[C_k] >= g(delta, k) - h(k)`
+- for `eta > eta_bar(q, c)`, the iterated posterior sharpens toward a wrong
+  KL-projection answer faster than it improves accuracy;
+- conflict lowers the threshold:
+  `eta_bar(q, c_conflict) < eta_bar(q, c_no_conflict)`;
+- across model families and benchmarks, the empirical manifestation can take
+  one of two stable regimes:
+  - `peak_then_partial_recovery`
+  - `persistent_or_saturating`
 
-where `g` is positive and increases with conflict strength, while `h` captures
-finite-sample noise and vanishes asymptotically.
-
-Under a genericity condition ruling out degenerate equal-fit cases, calibration
-error is strictly increasing over a non-trivial range of `k`.
+This is the rewritten theorem-3 target. It predicts benchmark-dependent
+two-regime behavior rather than a universal monotone increase in calibration
+error.
 
 ### What this should predict empirically
 
@@ -202,14 +210,17 @@ error is strictly increasing over a non-trivial range of `k`.
 ### Current evidence
 
 - Broad pilots do **not** support the original universal conflict-conditioned
-  headline.
-- The corrected `closed_book` control now rules out the clean sign-flip
-  theorem: overconfidence also rises without retrieved conflict.
-- The strongest surviving slice is `ConflictBank` at `14B`, where explicit
-  conflict remains substantially more pathological than `closed_book` through
-  `cot=1024`.
-- `WikiContradict` behaves more like a hard-QA overconfidence task than a clean
-  conflict-only effect.
+  monotone headline.
+- The corrected `closed_book` control rules out the clean sign-flip theorem:
+  overconfidence also rises without retrieved conflict.
+- The real DeepSeek `7B` and `14B` runs support the rewritten two-regime form:
+  `WikiContradict` preserves `peak_then_partial_recovery`, while `ConflictBank`
+  at `14B` is `persistent_or_saturating`.
+- The completed same-family `Qwen2.5` sweep falsifies a stronger universal
+  claim. Qwen does **not** replicate a clean `7B recovers / 14B saturates`
+  asymmetry on `ConflictBank`; instead, no recovery appears through `32B`.
+- The best cross-family statement is therefore benchmark-dependent:
+  naturalistic contradiction and controlled conflict occupy different regimes.
 
 ### Proof plan
 
@@ -221,43 +232,18 @@ error is strictly increasing over a non-trivial range of `k`.
    degradation.
 5. Add a boundary-case corollary showing why no-conflict subsets can improve.
 
-### Fallback theorem if conflict-specificity fails
-
-If the full real-generation runs continue to show confidence inflation without a
-clear conflict/closed-book separation, the paper should not force the original
-theorem. The fallback version is:
-
-`Theorem 3b (CoT-Induced Overconfidence on Hard Knowledge QA).`
-
-Under misspecified sequential reasoning updates, there exists a hard-task
-subset on which longer chain-of-thought increases the confidence-accuracy gap,
-even when average accuracy does not improve.
-
-This is weaker and less novel than the conflict-conditioned version, so it
-should only be used if the completed real-generation matrix rules out the
-sharper theorem.
-
 ### Corrected empirical landing
 
-The finished `closed_book` controls imply that theorem 3 should not be written
-as a conflict-vs-no-conflict sign flip. The strongest honest version is:
+The strongest honest theorem now is:
 
-`Theorem 3d (Scale-Dependent Overconfidence Amplification).`
+`Theorem 3' (Two-Regime Self-Correction Under Conflict).`
 
-On hard knowledge QA, longer reasoning can amplify overconfidence even without
-retrieved conflict. Under explicit controlled conflict, larger reasoning models
-can become even more pathological, saturating near maximal overconfidence
-instead of self-correcting.
-
-### Alternate theorem if the effect is non-monotone rather than monotone
-
-The current real-generation wave suggests a more interesting variant may be
-available:
-
-`Theorem 3c (Intermediate-CoT Overconfidence Peak).`
-
-Under misspecified sequential reasoning updates with competing knowledge
-sources, the confidence-accuracy gap need not grow monotonically with reasoning
+Under misspecified generalized-Bayes reasoning updates with endogenous
+evidence, explicit conflict lowers the effective safe learning rate and makes
+wrong-answer posterior sharpening more persistent. Empirically, the result is
+benchmark-dependent two-regime behavior: naturalistic contradiction can show an
+interior overconfidence peak followed by partial recovery, while controlled
+conflict at larger scale can remain stuck in a saturated overconfidence regime.
 depth. Instead, there can exist an interior reasoning budget `k* > 0` at which
 overconfidence is maximized, followed by partial self-correction at longer
 reasoning depths.

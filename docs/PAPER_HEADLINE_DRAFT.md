@@ -111,6 +111,10 @@ rules.
 - Final same-family Qwen 32B theorem-3 split:
   `ConflictBank` conflict `0.9484 -> 0.9307 -> 0.8871`, while
   `WikiContradict` conflict `0.0945 -> 0.3520 -> 0.2635`.
+- Cross-family theorem-3 verdict:
+  DeepSeek replicates the `7B -> 14B` `ConflictBank` asymmetry, but Qwen does
+  not; the universal asymmetry claim is false, and the stronger headline is a
+  benchmark-dependent two-regime law.
 - Same-family theorem-3 threshold summary:
   `s* ~= 32B` for `Qwen2.5` recovery on `WikiContradict` conflict, with no
   corresponding recovery threshold yet visible through `32B` on
@@ -141,6 +145,8 @@ rules.
 - The same-family `Qwen2.5` theorem-3 sweep is now complete, but the stronger
   headline should still be written as benchmark-dependent rather than as a
   universal recovery theorem.
+- The killer figure package is now on disk as an SVG artifact:
+  `figures/spotlight_killer/spotlight_killer_figure.svg`.
 
 ## Best current figure order
 

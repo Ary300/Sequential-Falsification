@@ -146,6 +146,13 @@ strongest current empirical size-threshold read: recovery first reappears by
 about $32$B on naturalistic contradiction, while no corresponding recovery
 threshold is visible through $32$B on controlled conflict.
 
+This same-family verification also settles an important negative question. The
+specific DeepSeek pattern of ``7B recovers while 14B saturates'' does not
+replicate universally across families. Qwen does not recover on ConflictBank at
+either 7B or 14B, and in fact shows no recovery through 32B. So the theorem-3
+co-headline should not be written as a family-invariant asymmetry. The stronger
+and more durable claim is the benchmark-dependent two-regime law itself.
+
 The true closed-book controls rule out a clean conflict-versus-no-conflict sign
 flip. On ConflictBank closed-book, the 14B model already shows a strong gap
 trajectory ($0.4917 \rightarrow 0.8168 \rightarrow 0.7890$), but explicit

@@ -106,6 +106,7 @@ def build_bundle() -> dict[str, Any]:
     theorem3 = _load_json(ROOT / "docs/generated/theorem3_real_7b_final.json")
     theorem3_replication = _load_json(ROOT / "docs/generated/theorem3_real_14b_final.json")
     theorem3_same_family = _load_json(ROOT / "docs/generated/theorem3_same_family_threshold_summary.json")
+    theorem3_cross_family = _load_json(ROOT / "docs/generated/theorem3_cross_family_verdict.json")
     theorem3_eta = _load_json(ROOT / "docs/generated/theorem3_eta_tempering_analysis.json")
     baseline_proxy_t12 = _load_json(ROOT / "docs/generated/arbitration_proxy_baseline_t12_v2.json")
     baseline_proxy_t3 = _load_json(ROOT / "docs/generated/arbitration_proxy_baseline_t3_v2.json")
@@ -142,6 +143,7 @@ def build_bundle() -> dict[str, Any]:
         "theorem_3": theorem3,
         "theorem_3_replication": theorem3_replication,
         "theorem_3_same_family": theorem3_same_family,
+        "theorem_3_cross_family": theorem3_cross_family,
         "theorem_3_eta": theorem3_eta,
         "baseline_proxy_t12": baseline_proxy_t12,
         "baseline_proxy_t3": baseline_proxy_t3,
@@ -156,6 +158,7 @@ def build_markdown(bundle: dict[str, Any]) -> str:
     t3 = bundle["theorem_3"]
     t3_rep = bundle["theorem_3_replication"]
     t3_same_family = bundle["theorem_3_same_family"]
+    t3_cross_family = bundle["theorem_3_cross_family"]
     t3_eta = bundle["theorem_3_eta"]
     baseline_proxy_t12 = bundle["baseline_proxy_t12"]
     baseline_proxy_t3 = bundle["baseline_proxy_t3"]
@@ -298,6 +301,9 @@ def build_markdown(bundle: dict[str, Any]) -> str:
             "- The 14B raw rows already sharpen theorem 3: `WikiContradict` preserves the peak-and-recover shape, while `ConflictBank` conflict becomes even more overconfident.",
             "- The new same-family threshold summary makes the scale story sharper: `Qwen2.5` recovery on `WikiContradict` first appears at about "
             f"`{t3_same_family['headline']['qwen_wikicontradict_conflict_recovery_threshold_b']}B`, while `ConflictBank` still has no recovery threshold through the currently observed `32B` scale.",
+            f"- The cross-family verification is now decisive: DeepSeek replicates the `7B -> 14B` ConflictBank asymmetry = "
+            f"`{t3_cross_family['headline']['deepseek_7b_14b_conflictbank_asymmetry_replicates']}`, "
+            f"but Qwen does not = `{t3_cross_family['headline']['qwen_7b_14b_conflictbank_asymmetry_replicates']}`.",
             "- The new eta intervention summary makes the mechanism claim sharper: confidence-only tempering can nearly recalibrate "
             "naturalistic contradiction at 14B, but it cannot rescue `ConflictBank` conflict once long-CoT has collapsed answer accuracy.",
             f"- On the theorem-3 size-scaling proxy matrix, Bayes beats the generic heuristic by `0.0585` regret with bootstrap CI "

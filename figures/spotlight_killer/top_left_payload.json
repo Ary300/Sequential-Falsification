@@ -1,0 +1,36 @@
+{
+  "categories": [
+    "Bayes",
+    "Heuristic",
+    "Self-RAG",
+    "CoCoA",
+    "AdaCAD",
+    "CAD",
+    "Fixed 50",
+    "Always ctx",
+    "Always param"
+  ],
+  "policy_keys": [
+    "bayes_proxy",
+    "heuristic_adaptive",
+    "self_rag",
+    "cocoa",
+    "adacad",
+    "cad",
+    "fixed_50",
+    "always_context",
+    "always_parametric"
+  ],
+  "title": "Spotlight Matrix Regret",
+  "values": [
+    -0.1722,
+    -0.0889,
+    -0.1456,
+    -0.1278,
+    -0.1063,
+    -0.079,
+    0.4035,
+    7.9943,
+    5.242
+  ]
+}

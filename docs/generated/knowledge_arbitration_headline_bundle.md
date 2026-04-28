@@ -91,6 +91,7 @@ Partial 14B replication:
 - Conflict-wave near-tie worth noting: `pythia-6.9b` is essentially tied between Bayes proxy and simulated model.
 - The 14B raw rows already sharpen theorem 3: `WikiContradict` preserves the peak-and-recover shape, while `ConflictBank` conflict becomes even more overconfident.
 - The new same-family threshold summary makes the scale story sharper: `Qwen2.5` recovery on `WikiContradict` first appears at about `32B`, while `ConflictBank` still has no recovery threshold through the currently observed `32B` scale.
+- The cross-family verification is now decisive: DeepSeek replicates the `7B -> 14B` ConflictBank asymmetry = `True`, but Qwen does not = `False`.
 - The new eta intervention summary makes the mechanism claim sharper: confidence-only tempering can nearly recalibrate naturalistic contradiction at 14B, but it cannot rescue `ConflictBank` conflict once long-CoT has collapsed answer accuracy.
 - On the theorem-3 size-scaling proxy matrix, Bayes beats the generic heuristic by `0.0585` regret with bootstrap CI `[0.0155, 0.0961]`.
 - On that same theorem-3 proxy matrix, the strongest named comparator is `cocoa` with regret `-0.0795`, so the named-comparator read there is a near-tie rather than the main headline.

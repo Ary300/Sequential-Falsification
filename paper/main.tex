@@ -26,14 +26,18 @@ WikiContradict, the Bayes proxy achieves mean regret $-0.0461$ versus
 $-0.0233$ for a generic adaptive heuristic, while fixed trust policies degrade
 to $7.2237$ (`always\_context') and $5.9356$ (`always\_parametric'). On a
 conflict-heavy wave, the gap widens to $-0.1256$ versus $-0.0752$, with fixed
-policies at $5.9037$ and $7.1329$. For reasoning-time calibration, real
+policies at $5.9037$ and $7.1329$. On the expanded 5x5 spotlight matrix, the
+Bayes proxy also beats the generic heuristic by $0.0833$ regret with a
+bootstrap $95\%$ interval of $[0.0371, 0.1112]$. For reasoning-time calibration, real
 DeepSeek-R1-Distill traces show that the original monotone ``more chain of
 thought is worse'' story is too simple: reasoning reliably amplifies
 overconfidence under conflict, but the shape depends on conflict family. On the
 7B model, both WikiContradict and ConflictBank show an intermediate-CoT peak
 followed by partial recovery; on the 14B model, WikiContradict retains this
 peak-and-recover pattern, while ConflictBank conflict stays catastrophically
-overconfident through long CoT. These results position knowledge arbitration as
+overconfident through long CoT. A completed same-family Qwen sweep shows that
+this should be written as benchmark-dependent two-regime behavior rather than a
+family-invariant 7B-vs-14B asymmetry. These results position knowledge arbitration as
 a principled inference problem rather than a retrieval heuristic, and they show
 that fixed trust policies fail badly enough to be a modeling error rather than
 a tuning issue.

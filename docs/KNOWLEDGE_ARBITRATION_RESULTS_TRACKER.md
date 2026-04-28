@@ -53,12 +53,16 @@ The completed same-family Qwen read is now explicit in
 [`docs/generated/theorem3_qwen_family_final.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/theorem3_qwen_family_final.md).
 The new same-family threshold read is now explicit in
 [`docs/generated/theorem3_same_family_threshold_summary.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/theorem3_same_family_threshold_summary.md).
+The new cross-family theorem-3 verdict is now explicit in
+[`docs/generated/theorem3_cross_family_verdict.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/theorem3_cross_family_verdict.md).
 The new theorem-3 eta-tempering read is now explicit in
 [`docs/generated/theorem3_eta_tempering_analysis.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/theorem3_eta_tempering_analysis.md).
 The new spotlight bootstrap summaries are now explicit in
 [`docs/generated/arbitration_spotlight_t12_bootstrap_v1.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/arbitration_spotlight_t12_bootstrap_v1.md)
 and
 [`docs/generated/arbitration_spotlight_t3_bootstrap_v1.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/arbitration_spotlight_t3_bootstrap_v1.md).
+The new 2x2 killer figure package is now explicit in
+[`figures/spotlight_killer/README.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/figures/spotlight_killer/README.md).
 The new named-comparator spotlight proxy read is now explicit in
 [`docs/generated/arbitration_proxy_baseline_t12_v2.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/arbitration_proxy_baseline_t12_v2.md).
 That file is now stronger than before: `Qwen2.5-7B` and `Qwen2.5-14B` are
@@ -182,6 +186,9 @@ Current finished headline set:
   rewritten two-regime story on `WikiContradict`:
   final `Qwen2.5-32B` conflict now reads
   `0.0945 -> 0.3520 -> 0.2635`, indicating long-CoT self-correction.
+- The explicit cross-family verdict is now also settled:
+  DeepSeek replicates the `7B -> 14B` `ConflictBank` asymmetry, but Qwen does
+  not, so the universal asymmetry claim is false.
 - The same final `Qwen2.5-32B` run still shows persistent controlled-conflict
   failure on `ConflictBank`:
   `0.9484 -> 0.9307 -> 0.8871`.

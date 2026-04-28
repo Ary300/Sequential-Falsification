@@ -14,7 +14,11 @@ What survives is a more interesting law: reasoning amplifies overconfidence
 under conflict, and the shape of that amplification depends on the conflict
 family. WikiContradict exhibits an intermediate-CoT peak with partial recovery.
 ConflictBank conflict becomes even harsher at 14B, remaining severely
-overconfident through long CoT.
+overconfident through long CoT. The completed same-family Qwen sweep shows that
+this should not be oversold as a universal 7B-vs-14B asymmetry: Qwen does not
+recover on ConflictBank through 32B, while 32B is the first scale at which
+recovery reappears on WikiContradict. The finished theorem-3 claim is therefore
+benchmark-dependent two-regime behavior, not a family-invariant scale law.
 
 The immediate next steps are now straightforward. The theory side needs full
 proof writeups for the Bayes-optimal rule and the fixed-policy minimax lower

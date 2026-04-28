@@ -371,6 +371,87 @@
     "source_job": "delta_job_2190906",
     "source_results_dir": "/u/adas17/tts-falsification/results/theorem3_real_generation_r1_7b"
   },
+  "theorem_3_cross_family": {
+    "headline": {
+      "cross_family_universal_asymmetry_holds": false,
+      "deepseek_7b_14b_conflictbank_asymmetry_replicates": true,
+      "paper_verdict": "No universal cross-family 7B-vs-14B asymmetry: the strongest theorem-3 claim is benchmark-dependent two-regime behavior, not a family-invariant 7B-recovers / 14B-saturates law.",
+      "qwen_7b_14b_conflictbank_asymmetry_replicates": false
+    },
+    "rows": [
+      {
+        "benchmark": "conflictbank",
+        "family": "DeepSeek-R1-Distill-Qwen",
+        "gap_cot_0": 0.5505,
+        "gap_cot_1024": 0.5308,
+        "gap_cot_128": 0.7531,
+        "gap_delta_0_128": 0.2026,
+        "gap_delta_128_1024": -0.2223,
+        "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+        "model_pretty": "DeepSeek-R1-Distill-Qwen-7B",
+        "model_size_b": 7,
+        "shape": "peak_then_full_recovery",
+        "source_job": "delta_job_2190906",
+        "split": "conflict",
+        "status": "final"
+      },
+      {
+        "benchmark": "conflictbank",
+        "family": "DeepSeek-R1-Distill-Qwen",
+        "gap_cot_0": 0.5876,
+        "gap_cot_1024": 0.9513,
+        "gap_cot_128": 0.9449,
+        "gap_delta_0_128": 0.3573,
+        "gap_delta_128_1024": 0.0064,
+        "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-14B",
+        "model_pretty": "DeepSeek-R1-Distill-Qwen-14B",
+        "model_size_b": 14,
+        "shape": "persistent_or_saturating",
+        "source_job": "delta_job_2193269",
+        "split": "conflict",
+        "status": "final"
+      },
+      {
+        "benchmark": "conflictbank",
+        "family": "Qwen2.5",
+        "gap_cot_0": 0.9856,
+        "gap_cot_1024": 0.9693,
+        "gap_cot_128": 0.9849,
+        "model": "Qwen/Qwen2.5-7B-Instruct",
+        "model_pretty": "Qwen2.5-7B",
+        "model_size_b": 7,
+        "shape": "monotone_improving",
+        "split": "conflict",
+        "status": "final"
+      },
+      {
+        "benchmark": "conflictbank",
+        "family": "Qwen2.5",
+        "gap_cot_0": 0.9776,
+        "gap_cot_1024": 0.9584,
+        "gap_cot_128": 0.9731,
+        "model": "Qwen/Qwen2.5-14B-Instruct",
+        "model_pretty": "Qwen2.5-14B",
+        "model_size_b": 14,
+        "shape": "monotone_improving",
+        "split": "conflict",
+        "status": "final"
+      },
+      {
+        "benchmark": "wikicontradict",
+        "family": "Qwen2.5",
+        "gap_cot_0": 0.0945,
+        "gap_cot_1024": 0.2635,
+        "gap_cot_128": 0.352,
+        "model": "Qwen/Qwen2.5-32B-Instruct",
+        "model_pretty": "Qwen2.5-32B",
+        "model_size_b": 32,
+        "shape": "peak_then_partial_recovery",
+        "split": "conflict",
+        "status": "final"
+      }
+    ]
+  },
   "theorem_3_eta": {
     "headline": {
       "conflict_to_no_conflict_eta_shrink_factor": 0.52,
