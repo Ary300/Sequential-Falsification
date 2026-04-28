@@ -57,6 +57,14 @@ The new cross-family theorem-3 verdict is now explicit in
 [`docs/generated/theorem3_cross_family_verdict.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/theorem3_cross_family_verdict.md).
 The new theorem-3 eta-tempering read is now explicit in
 [`docs/generated/theorem3_eta_tempering_analysis.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/theorem3_eta_tempering_analysis.md).
+The explicit eta-decoding recipe is now also on disk in
+[`docs/generated/eta_tempered_decoding_recipe.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/eta_tempered_decoding_recipe.md).
+The benchmark-family consistency read is now explicit in
+[`docs/generated/benchmark_family_consistency_note.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/benchmark_family_consistency_note.md).
+The RLVR-conditioned theorem-3 framing note is now explicit in
+[`docs/generated/theorem3_rlvr_reframing_note.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/theorem3_rlvr_reframing_note.md).
+The staged co-author / advisor outreach packet is now explicit in
+[`docs/generated/senior_outreach_packet.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/senior_outreach_packet.md).
 The new spotlight bootstrap summaries are now explicit in
 [`docs/generated/arbitration_spotlight_t12_bootstrap_v1.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/arbitration_spotlight_t12_bootstrap_v1.md)
 and
@@ -169,6 +177,10 @@ Current finished headline set:
 - The spotlight-matrix headline is now statistically cleaner:
   Bayes beats the generic heuristic by `0.0833` regret with bootstrap CI
   `[0.0371, 0.1112]`.
+- The spotlight-matrix benchmark-family read is now also explicit:
+  `ConflictBank`, `FaithEval`, `MemoTrap`, and `NQ-Swap` are unanimous `5/5`
+  Bayes-over-heuristic wins across the five model families, while `PopQA`
+  remains the lone mixed family because of the Llama-70B outlier slice.
 - The dedicated `PopQA` read is now explicit too:
   Bayes beats the generic heuristic by `0.0950` regret with benchmark-level
   bootstrap CI `[0.0440, 0.1460]`, and the gain remains positive across low,
@@ -196,6 +208,10 @@ Current finished headline set:
   comparison:
   Bayes beats the generic heuristic by `0.0585` regret with bootstrap CI
   `[0.0155, 0.0961]`.
+- The theorem-3 proxy benchmark-family read is now explicit too:
+  `AmbigDocs`, `ConflictBank`, `FaithEval`, and `RAMDocs` are unanimous `5/5`
+  Bayes-over-heuristic wins, while `WikiContradict` is a unanimous negative
+  exception on the proxy regret layer.
 - The added optional baselines now have explicit theorem-3 proxy numbers too:
   `MADAM-RAG = -0.0232`, `NWCAD = -0.0290`, and `JuICE = -0.0595`,
   all still trailing Bayes even though `CoCoA = -0.0795` remains the honest
@@ -228,6 +244,9 @@ Current finished headline set:
   tempering can nearly recalibrate `WikiContradict` conflict
   (best proxy gap `0.0034`), but it cannot rescue `ConflictBank` conflict,
   whose best attainable proxy gap still bottoms out at `0.4820`.
+- The theorem-3 wording itself is now sharpened too:
+  the cleanest statement is an RLVR-conditioned misspecification law rather
+  than a universal scale law.
 - The corrected broad-wave oracle-vs-model arbitration gap remains visibly
   nontrivial: mean absolute gap `0.1969`, mean KL `1.2288`.
 - The expanded spotlight matrix still shows a much larger conflict-vs-no-conflict

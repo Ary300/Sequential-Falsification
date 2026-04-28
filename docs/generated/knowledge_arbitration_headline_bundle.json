@@ -179,6 +179,448 @@
       "strongest_named_comparator_regret": -0.0795
     }
   },
+  "benchmark_family_consistency": {
+    "t12_matrix": [
+      {
+        "benchmark": "conflictbank",
+        "evalue_vs_baseline": 7.5938,
+        "evalue_vs_comparator": 7.5938,
+        "mean_gap_vs_baseline": 0.1359,
+        "mean_gap_vs_comparator": 0.0544,
+        "num_models": 5,
+        "positive_models_vs_baseline": 5,
+        "positive_models_vs_comparator": 5,
+        "rows": [
+          {
+            "gap_vs_baseline": 0.1422,
+            "gap_vs_comparator": 0.0532,
+            "model": "Qwen/Qwen2.5-14B-Instruct"
+          },
+          {
+            "gap_vs_baseline": 0.127,
+            "gap_vs_comparator": 0.0567,
+            "model": "Qwen/Qwen2.5-7B-Instruct"
+          },
+          {
+            "gap_vs_baseline": 0.127,
+            "gap_vs_comparator": 0.0567,
+            "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B"
+          },
+          {
+            "gap_vs_baseline": 0.1563,
+            "gap_vs_comparator": 0.0486,
+            "model": "meta-llama/Llama-3.1-70B-Instruct"
+          },
+          {
+            "gap_vs_baseline": 0.127,
+            "gap_vs_comparator": 0.0567,
+            "model": "meta-llama/Llama-3.1-8B-Instruct"
+          }
+        ],
+        "sign_test_p_vs_baseline": 0.0312,
+        "sign_test_p_vs_baseline_holm": 0.156,
+        "sign_test_p_vs_comparator": 0.0312,
+        "sign_test_p_vs_comparator_holm": 0.156
+      },
+      {
+        "benchmark": "faitheval",
+        "evalue_vs_baseline": 7.5938,
+        "evalue_vs_comparator": 7.5938,
+        "mean_gap_vs_baseline": 0.1024,
+        "mean_gap_vs_comparator": 0.051,
+        "num_models": 5,
+        "positive_models_vs_baseline": 5,
+        "positive_models_vs_comparator": 5,
+        "rows": [
+          {
+            "gap_vs_baseline": 0.0992,
+            "gap_vs_comparator": 0.0489,
+            "model": "Qwen/Qwen2.5-14B-Instruct"
+          },
+          {
+            "gap_vs_baseline": 0.1041,
+            "gap_vs_comparator": 0.0548,
+            "model": "Qwen/Qwen2.5-7B-Instruct"
+          },
+          {
+            "gap_vs_baseline": 0.1041,
+            "gap_vs_comparator": 0.0548,
+            "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B"
+          },
+          {
+            "gap_vs_baseline": 0.1003,
+            "gap_vs_comparator": 0.0416,
+            "model": "meta-llama/Llama-3.1-70B-Instruct"
+          },
+          {
+            "gap_vs_baseline": 0.1041,
+            "gap_vs_comparator": 0.0548,
+            "model": "meta-llama/Llama-3.1-8B-Instruct"
+          }
+        ],
+        "sign_test_p_vs_baseline": 0.0312,
+        "sign_test_p_vs_baseline_holm": 0.156,
+        "sign_test_p_vs_comparator": 0.0312,
+        "sign_test_p_vs_comparator_holm": 0.156
+      },
+      {
+        "benchmark": "memotrap",
+        "evalue_vs_baseline": 7.5938,
+        "evalue_vs_comparator": 7.5938,
+        "mean_gap_vs_baseline": 0.101,
+        "mean_gap_vs_comparator": 0.0495,
+        "num_models": 5,
+        "positive_models_vs_baseline": 5,
+        "positive_models_vs_comparator": 5,
+        "rows": [
+          {
+            "gap_vs_baseline": 0.0974,
+            "gap_vs_comparator": 0.0473,
+            "model": "Qwen/Qwen2.5-14B-Instruct"
+          },
+          {
+            "gap_vs_baseline": 0.1026,
+            "gap_vs_comparator": 0.0534,
+            "model": "Qwen/Qwen2.5-7B-Instruct"
+          },
+          {
+            "gap_vs_baseline": 0.1026,
+            "gap_vs_comparator": 0.0534,
+            "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B"
+          },
+          {
+            "gap_vs_baseline": 0.0997,
+            "gap_vs_comparator": 0.0399,
+            "model": "meta-llama/Llama-3.1-70B-Instruct"
+          },
+          {
+            "gap_vs_baseline": 0.1026,
+            "gap_vs_comparator": 0.0534,
+            "model": "meta-llama/Llama-3.1-8B-Instruct"
+          }
+        ],
+        "sign_test_p_vs_baseline": 0.0312,
+        "sign_test_p_vs_baseline_holm": 0.156,
+        "sign_test_p_vs_comparator": 0.0312,
+        "sign_test_p_vs_comparator_holm": 0.156
+      },
+      {
+        "benchmark": "nq_swap",
+        "evalue_vs_baseline": 7.5938,
+        "evalue_vs_comparator": 7.5938,
+        "mean_gap_vs_baseline": 0.102,
+        "mean_gap_vs_comparator": 0.0502,
+        "num_models": 5,
+        "positive_models_vs_baseline": 5,
+        "positive_models_vs_comparator": 5,
+        "rows": [
+          {
+            "gap_vs_baseline": 0.0982,
+            "gap_vs_comparator": 0.0482,
+            "model": "Qwen/Qwen2.5-14B-Instruct"
+          },
+          {
+            "gap_vs_baseline": 0.1038,
+            "gap_vs_comparator": 0.054,
+            "model": "Qwen/Qwen2.5-7B-Instruct"
+          },
+          {
+            "gap_vs_baseline": 0.1038,
+            "gap_vs_comparator": 0.054,
+            "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B"
+          },
+          {
+            "gap_vs_baseline": 0.1002,
+            "gap_vs_comparator": 0.041,
+            "model": "meta-llama/Llama-3.1-70B-Instruct"
+          },
+          {
+            "gap_vs_baseline": 0.1038,
+            "gap_vs_comparator": 0.054,
+            "model": "meta-llama/Llama-3.1-8B-Instruct"
+          }
+        ],
+        "sign_test_p_vs_baseline": 0.0312,
+        "sign_test_p_vs_baseline_holm": 0.156,
+        "sign_test_p_vs_comparator": 0.0312,
+        "sign_test_p_vs_comparator_holm": 0.156
+      },
+      {
+        "benchmark": "popqa",
+        "evalue_vs_baseline": 0.8438,
+        "evalue_vs_comparator": 2.5312,
+        "mean_gap_vs_baseline": -0.0246,
+        "mean_gap_vs_comparator": 0.0171,
+        "num_models": 5,
+        "positive_models_vs_baseline": 3,
+        "positive_models_vs_comparator": 4,
+        "rows": [
+          {
+            "gap_vs_baseline": -0.0013,
+            "gap_vs_comparator": 0.0156,
+            "model": "Qwen/Qwen2.5-14B-Instruct"
+          },
+          {
+            "gap_vs_baseline": 0.0951,
+            "gap_vs_comparator": 0.0275,
+            "model": "Qwen/Qwen2.5-7B-Instruct"
+          },
+          {
+            "gap_vs_baseline": 0.0951,
+            "gap_vs_comparator": 0.0275,
+            "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B"
+          },
+          {
+            "gap_vs_baseline": -0.4072,
+            "gap_vs_comparator": -0.0128,
+            "model": "meta-llama/Llama-3.1-70B-Instruct"
+          },
+          {
+            "gap_vs_baseline": 0.0951,
+            "gap_vs_comparator": 0.0275,
+            "model": "meta-llama/Llama-3.1-8B-Instruct"
+          }
+        ],
+        "sign_test_p_vs_baseline": 0.8125,
+        "sign_test_p_vs_baseline_holm": 0.8125,
+        "sign_test_p_vs_comparator": 0.1875,
+        "sign_test_p_vs_comparator_holm": 0.1875
+      }
+    ],
+    "t3_matrix": [
+      {
+        "benchmark": "ambigdocs",
+        "evalue_vs_baseline": 7.5938,
+        "evalue_vs_comparator": 7.5938,
+        "mean_gap_vs_baseline": 0.1022,
+        "mean_gap_vs_comparator": 0.0504,
+        "num_models": 5,
+        "positive_models_vs_baseline": 5,
+        "positive_models_vs_comparator": 5,
+        "rows": [
+          {
+            "gap_vs_baseline": 0.0986,
+            "gap_vs_comparator": 0.0482,
+            "model": "Qwen/Qwen2.5-14B-Instruct"
+          },
+          {
+            "gap_vs_baseline": 0.1008,
+            "gap_vs_comparator": 0.0411,
+            "model": "Qwen/Qwen2.5-32B-Instruct"
+          },
+          {
+            "gap_vs_baseline": 0.1039,
+            "gap_vs_comparator": 0.0542,
+            "model": "Qwen/Qwen2.5-7B-Instruct"
+          },
+          {
+            "gap_vs_baseline": 0.1039,
+            "gap_vs_comparator": 0.0542,
+            "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B"
+          },
+          {
+            "gap_vs_baseline": 0.1039,
+            "gap_vs_comparator": 0.0542,
+            "model": "meta-llama/Llama-3.1-8B-Instruct"
+          }
+        ],
+        "sign_test_p_vs_baseline": 0.0312,
+        "sign_test_p_vs_baseline_holm": 0.156,
+        "sign_test_p_vs_comparator": 0.0312,
+        "sign_test_p_vs_comparator_holm": 0.156
+      },
+      {
+        "benchmark": "conflictbank",
+        "evalue_vs_baseline": 7.5938,
+        "evalue_vs_comparator": 7.5938,
+        "mean_gap_vs_baseline": 0.1359,
+        "mean_gap_vs_comparator": 0.0544,
+        "num_models": 5,
+        "positive_models_vs_baseline": 5,
+        "positive_models_vs_comparator": 5,
+        "rows": [
+          {
+            "gap_vs_baseline": 0.1422,
+            "gap_vs_comparator": 0.0532,
+            "model": "Qwen/Qwen2.5-14B-Instruct"
+          },
+          {
+            "gap_vs_baseline": 0.1563,
+            "gap_vs_comparator": 0.0486,
+            "model": "Qwen/Qwen2.5-32B-Instruct"
+          },
+          {
+            "gap_vs_baseline": 0.127,
+            "gap_vs_comparator": 0.0567,
+            "model": "Qwen/Qwen2.5-7B-Instruct"
+          },
+          {
+            "gap_vs_baseline": 0.127,
+            "gap_vs_comparator": 0.0567,
+            "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B"
+          },
+          {
+            "gap_vs_baseline": 0.127,
+            "gap_vs_comparator": 0.0567,
+            "model": "meta-llama/Llama-3.1-8B-Instruct"
+          }
+        ],
+        "sign_test_p_vs_baseline": 0.0312,
+        "sign_test_p_vs_baseline_holm": 0.156,
+        "sign_test_p_vs_comparator": 0.0312,
+        "sign_test_p_vs_comparator_holm": 0.156
+      },
+      {
+        "benchmark": "faitheval",
+        "evalue_vs_baseline": 7.5938,
+        "evalue_vs_comparator": 7.5938,
+        "mean_gap_vs_baseline": 0.1024,
+        "mean_gap_vs_comparator": 0.051,
+        "num_models": 5,
+        "positive_models_vs_baseline": 5,
+        "positive_models_vs_comparator": 5,
+        "rows": [
+          {
+            "gap_vs_baseline": 0.0992,
+            "gap_vs_comparator": 0.0489,
+            "model": "Qwen/Qwen2.5-14B-Instruct"
+          },
+          {
+            "gap_vs_baseline": 0.1003,
+            "gap_vs_comparator": 0.0416,
+            "model": "Qwen/Qwen2.5-32B-Instruct"
+          },
+          {
+            "gap_vs_baseline": 0.1041,
+            "gap_vs_comparator": 0.0548,
+            "model": "Qwen/Qwen2.5-7B-Instruct"
+          },
+          {
+            "gap_vs_baseline": 0.1041,
+            "gap_vs_comparator": 0.0548,
+            "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B"
+          },
+          {
+            "gap_vs_baseline": 0.1041,
+            "gap_vs_comparator": 0.0548,
+            "model": "meta-llama/Llama-3.1-8B-Instruct"
+          }
+        ],
+        "sign_test_p_vs_baseline": 0.0312,
+        "sign_test_p_vs_baseline_holm": 0.156,
+        "sign_test_p_vs_comparator": 0.0312,
+        "sign_test_p_vs_comparator_holm": 0.156
+      },
+      {
+        "benchmark": "ramdocs",
+        "evalue_vs_baseline": 7.5938,
+        "evalue_vs_comparator": 7.5938,
+        "mean_gap_vs_baseline": 0.097,
+        "mean_gap_vs_comparator": 0.0461,
+        "num_models": 5,
+        "positive_models_vs_baseline": 5,
+        "positive_models_vs_comparator": 5,
+        "rows": [
+          {
+            "gap_vs_baseline": 0.0936,
+            "gap_vs_comparator": 0.0438,
+            "model": "Qwen/Qwen2.5-14B-Instruct"
+          },
+          {
+            "gap_vs_baseline": 0.0955,
+            "gap_vs_comparator": 0.0357,
+            "model": "Qwen/Qwen2.5-32B-Instruct"
+          },
+          {
+            "gap_vs_baseline": 0.0986,
+            "gap_vs_comparator": 0.0504,
+            "model": "Qwen/Qwen2.5-7B-Instruct"
+          },
+          {
+            "gap_vs_baseline": 0.0986,
+            "gap_vs_comparator": 0.0504,
+            "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B"
+          },
+          {
+            "gap_vs_baseline": 0.0986,
+            "gap_vs_comparator": 0.0504,
+            "model": "meta-llama/Llama-3.1-8B-Instruct"
+          }
+        ],
+        "sign_test_p_vs_baseline": 0.0312,
+        "sign_test_p_vs_baseline_holm": 0.156,
+        "sign_test_p_vs_comparator": 0.0312,
+        "sign_test_p_vs_comparator_holm": 0.156
+      },
+      {
+        "benchmark": "wikicontradict",
+        "evalue_vs_baseline": 0.0312,
+        "evalue_vs_comparator": 0.0312,
+        "mean_gap_vs_baseline": -0.1453,
+        "mean_gap_vs_comparator": -0.2125,
+        "num_models": 5,
+        "positive_models_vs_baseline": 0,
+        "positive_models_vs_comparator": 0,
+        "rows": [
+          {
+            "gap_vs_baseline": -0.1572,
+            "gap_vs_comparator": -0.223,
+            "model": "Qwen/Qwen2.5-14B-Instruct"
+          },
+          {
+            "gap_vs_baseline": -0.1119,
+            "gap_vs_comparator": -0.2733,
+            "model": "Qwen/Qwen2.5-32B-Instruct"
+          },
+          {
+            "gap_vs_baseline": -0.1525,
+            "gap_vs_comparator": -0.1887,
+            "model": "Qwen/Qwen2.5-7B-Instruct"
+          },
+          {
+            "gap_vs_baseline": -0.1525,
+            "gap_vs_comparator": -0.1887,
+            "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B"
+          },
+          {
+            "gap_vs_baseline": -0.1525,
+            "gap_vs_comparator": -0.1887,
+            "model": "meta-llama/Llama-3.1-8B-Instruct"
+          }
+        ],
+        "sign_test_p_vs_baseline": 0.0312,
+        "sign_test_p_vs_baseline_holm": 0.156,
+        "sign_test_p_vs_comparator": 0.0312,
+        "sign_test_p_vs_comparator_holm": 0.156
+      }
+    ]
+  },
+  "eta_recipe": {
+    "headline": {
+      "conflict_to_no_conflict_eta_shrink_factor": 0.52,
+      "conflictbank_conflict_best_gap": 0.482,
+      "conflictbank_conflict_gap_floor_at_eta_zero": 0.482,
+      "mean_conflict_do_no_harm_eta": 0.325,
+      "mean_no_conflict_do_no_harm_eta": 0.625,
+      "wikicontradict_conflict_best_gap": 0.0034,
+      "wikicontradict_conflict_best_gap_eta": 0.1
+    },
+    "operating_point": {
+      "conflictbank_conflict_best_gap": 0.482,
+      "eta_shrink_factor": 0.52,
+      "mean_conflict_eta": 0.325,
+      "mean_no_conflict_eta": 0.625,
+      "wikicontradict_conflict_best_gap": 0.0034,
+      "wikicontradict_conflict_best_gap_eta": 0.1
+    },
+    "recipe": [
+      "Hold out a 200-example calibration split for each model-and-benchmark cell.",
+      "Generate standard CoT traces once, then sweep eta in [0.1, 1.0] over the post-trace answer distribution.",
+      "Choose the largest eta that improves Brier without hurting answer accuracy on the calibration split.",
+      "Decode on the evaluation split with p_eta(a | trace, c) proportional to p(a | trace, c)^eta * p_theta(a | q)^(1-eta).",
+      "If the best eta still leaves a large confidence gap, treat the failure as answer-level and not calibration-only."
+    ]
+  },
   "headline": {
     "theorem_1": "A Bayes-style reliability-aware arbitration rule beats the generic heuristic and sharply beats fixed trust policies across the broad real matrix, while on the 5x5 spotlight matrix it beats the generic heuristic with a positive 95% bootstrap interval and also pointwise beats Self-RAG, Astute RAG, MADAM-RAG, NWCAD, JuICE, CoCoA, AdaCAD, and CAD.",
     "theorem_2": "Fixed trust policies are minimax-bad in practice: in the conflict-heavy wave, they incur much larger regret than the principled Bayes proxy.",
@@ -513,6 +955,41 @@
     "num_series": 25,
     "strongest_named_comparator": "cocoa",
     "strongest_named_comparator_mean_regret": -0.0795
+  },
+  "theorem3_rlvr": {
+    "contrast_points": [
+      {
+        "our_read": "Compatible. That is the well-specified or low-conflict side of the split.",
+        "paper": "Yoon et al. (NeurIPS 2025)",
+        "result": "CoT improves confidence calibration in most settings.",
+        "setting": "QA without explicit knowledge conflict"
+      },
+      {
+        "our_read": "Compatible. This is the hard-QA / misspecified side of the split.",
+        "paper": "Lacombe et al. (ICML 2025 workshop)",
+        "result": "Longer reasoning budgets impair calibration.",
+        "setting": "Knowledge-intensive confidence assessment"
+      },
+      {
+        "our_read": "This is the best mechanistic phrase for the endogenous-evidence side of theorem 3.",
+        "paper": "Welch et al. (arXiv 2603.16728)",
+        "result": "Implicit answer conditioning drives overconfidence.",
+        "setting": "Vision-language uncertainty under CoT"
+      },
+      {
+        "our_read": "This is the training-time cousin of our test-time conditional law.",
+        "paper": "Damani et al. (RLCR)",
+        "result": "Binary reward reasoning hurts calibration; Brier-style rewards repair it.",
+        "setting": "Reward design for reasoning calibration"
+      }
+    ],
+    "headline": {
+      "conditional_law": "Reasoning-time overconfidence under knowledge conflict is best written as a conditional RLVR / misspecification law, not as a universal scale law.",
+      "deepseek_asymmetry_replicates": true,
+      "eta_shrink_factor": 0.52,
+      "qwen_asymmetry_replicates": false
+    },
+    "recommended_statement": "Models trained with verifiable-reward reasoning objectives can enter a misspecified, endogenous-evidence regime under knowledge conflict, where longer CoT sharpens confidence faster than it improves accuracy. The effect is benchmark-dependent and strongest on controlled conflict families."
   },
   "theorem_1": {
     "always_context_mean_regret": 7.223688766628678,

@@ -45,3 +45,36 @@ The first row reinforces the intermediate-CoT peak. The second shows that some
 conflict regimes remain catastrophically overconfident even at long CoT. This
 is why the final theorem-3 statement is family-dependent rather than uniformly
 non-monotone.
+
+\subsection{Eta-Tempered Decoding Recipe}
+
+The concrete intervention implied by theorem 3 is confidence-only
+$\eta$-tempering of the post-trace answer distribution. The recommended recipe
+is:
+\begin{enumerate}
+\item hold out a small calibration split for each model-and-benchmark cell;
+\item generate standard CoT traces once;
+\item sweep $\eta \in [0.1, 1.0]$ over the post-trace answer distribution;
+\item choose the largest $\eta$ that improves Brier score without harming
+accuracy on the calibration split;
+\item treat large residual gaps after tempering as answer-level failures rather
+than calibration-only failures.
+\end{enumerate}
+
+The finished 14B intervention read gives the operational headline directly:
+conflict slices tolerate only about $0.52\times$ the do-no-harm $\eta$ of
+no-conflict slices. WikiContradict conflict is almost fully recalibratable by
+confidence-only tempering, while ConflictBank conflict is not.
+
+\subsection{Benchmark-Family Consistency Read}
+
+The overall spotlight-matrix bootstrap interval is the main uncertainty
+statement in the paper, but the per-benchmark family breakdown is also
+informative. On the expanded spotlight matrix, ConflictBank, FaithEval,
+MemoTrap, and NQ-Swap are unanimous $5/5$ Bayes-over-heuristic wins across
+model families, while PopQA is the lone mixed family because of the Llama-70B
+outlier slice. On the theorem-3 proxy matrix, AmbigDocs, ConflictBank,
+FaithEval, and RAMDocs are unanimous $5/5$ Bayes-over-heuristic wins, while
+WikiContradict is a unanimous negative exception. This is the cleanest compact
+summary of why theorem 3 should be written as benchmark-dependent rather than
+universally positive at the regret layer.

@@ -49,6 +49,19 @@ literature but differs in two ways: it is conditioned on knowledge conflict,
 and it is framed as a posterior misspecification phenomenon rather than a
 purely empirical observation.
 
+The closest empirical tension comes from recent calibration papers on reasoning
+models. Yoon et al.\ find that reasoning models often express their confidence
+more accurately on standard QA without explicit knowledge conflict
+\citep{yoon2025confidence}. Lacombe et al.\ find the opposite trend on
+knowledge-intensive confidence-assessment tasks, where larger reasoning budgets
+hurt calibration \citep{lacombe2025dontthinktwice}. Welch et al.\ isolate
+``implicit answer conditioning'' as a mechanism for CoT-induced overconfidence
+in VLMs \citep{welch2026cost}, while Damani et al.\ show that binary reward
+reasoning objectives can directly degrade calibration and that Brier-style
+rewards repair it \citep{damani2025rlcr}. Our theorem-3 read is designed to
+reconcile these observations: calibration can improve in well-specified or
+low-conflict regimes and degrade in misspecified, endogenous-evidence regimes.
+
 \paragraph{Misspecified Bayes as a template.}
 The theorem-3 mechanism is best understood through classical results on
 misspecified Bayesian updating. Berk established that under misspecification the

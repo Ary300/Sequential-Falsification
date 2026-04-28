@@ -83,6 +83,10 @@ rules.
 - Named comparator uncertainty read on that same matrix:
   Bayes vs strongest named comparator (`Self-RAG`) is `0.0266`,
   with bootstrap CI `[-0.0379, 0.0686]`.
+- Benchmark-family consistency on that same matrix:
+  `ConflictBank`, `FaithEval`, `MemoTrap`, and `NQ-Swap` are unanimous `5/5`
+  Bayes-over-heuristic wins across model families; `PopQA` is the lone mixed
+  family because of the `Llama-3.1-70B` outlier slice.
 - Dedicated `PopQA` real-benchmark read:
   Bayes beats the generic heuristic by `0.0950` regret with benchmark-level
   bootstrap CI `[0.0440, 0.1460]`, and the gain is still positive in low, mid,
@@ -103,6 +107,10 @@ rules.
   strongest named comparator is `CoCoA = -0.0795`, so that side is a near-tie
   and not the main theorem-3 headline; Bayes still stays ahead of
   `MADAM-RAG = -0.0232`, `NWCAD = -0.0290`, and `JuICE = -0.0595` there.
+- Theorem-3 benchmark-family read:
+  `AmbigDocs`, `ConflictBank`, `FaithEval`, and `RAMDocs` are unanimous `5/5`
+  Bayes-over-heuristic wins, while `WikiContradict` is a unanimous negative
+  exception on the proxy regret layer.
 - Fixed-policy failures stay dramatic:
   `always_context = 7.2237` / `5.9037` / `7.9943`,
   `always_parametric = 5.9356` / `7.1329` / `5.2420`.
@@ -143,6 +151,12 @@ rules.
   no-conflict slices; `WikiContradict` conflict can be driven down to a
   proxy gap of `0.0034`, but `ConflictBank` conflict bottoms out at `0.4820`
   because confidence-only tempering cannot fix near-zero answer accuracy.
+- The explicit method recipe is now clear:
+  use a small calibration split, sweep `eta in [0.1, 1.0]` on the post-trace
+  answer distribution, and choose the largest `eta` that improves Brier
+  without harming accuracy.
+- The cleanest theorem-3 framing is now:
+  an RLVR-conditioned misspecification law, not a universal scale law.
 - Corrected closed-book control decision:
   option `A` is ruled out.
 - The strongest theorem-3 statement is now:

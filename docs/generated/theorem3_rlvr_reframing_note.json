@@ -1,0 +1,35 @@
+{
+  "headline": {
+    "conditional_law": "Reasoning-time overconfidence under knowledge conflict is best written as a conditional RLVR / misspecification law, not as a universal scale law.",
+    "deepseek_asymmetry_replicates": true,
+    "qwen_asymmetry_replicates": false,
+    "eta_shrink_factor": 0.52
+  },
+  "recommended_statement": "Models trained with verifiable-reward reasoning objectives can enter a misspecified, endogenous-evidence regime under knowledge conflict, where longer CoT sharpens confidence faster than it improves accuracy. The effect is benchmark-dependent and strongest on controlled conflict families.",
+  "contrast_points": [
+    {
+      "paper": "Yoon et al. (NeurIPS 2025)",
+      "setting": "QA without explicit knowledge conflict",
+      "result": "CoT improves confidence calibration in most settings.",
+      "our_read": "Compatible. That is the well-specified or low-conflict side of the split."
+    },
+    {
+      "paper": "Lacombe et al. (ICML 2025 workshop)",
+      "setting": "Knowledge-intensive confidence assessment",
+      "result": "Longer reasoning budgets impair calibration.",
+      "our_read": "Compatible. This is the hard-QA / misspecified side of the split."
+    },
+    {
+      "paper": "Welch et al. (arXiv 2603.16728)",
+      "setting": "Vision-language uncertainty under CoT",
+      "result": "Implicit answer conditioning drives overconfidence.",
+      "our_read": "This is the best mechanistic phrase for the endogenous-evidence side of theorem 3."
+    },
+    {
+      "paper": "Damani et al. (RLCR)",
+      "setting": "Reward design for reasoning calibration",
+      "result": "Binary reward reasoning hurts calibration; Brier-style rewards repair it.",
+      "our_read": "This is the training-time cousin of our test-time conditional law."
+    }
+  ]
+}

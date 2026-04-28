@@ -28,6 +28,7 @@
 - Dedicated `PopQA` benchmark read: Bayes beats the heuristic by `0.095` with CI `[0.044, 0.146]`.
 - Dedicated `NQ-Swap` benchmark read: Bayes beats the heuristic by `0.1038` with CI `[0.0829, 0.125]`.
 - Dedicated `Llama-3.1-8B` five-benchmark read: Bayes beats the heuristic by `0.1108` with CI `[0.0895, 0.122]`.
+- Benchmark-family consistency: on the spotlight matrix, `ConflictBank`, `FaithEval`, `MemoTrap`, and `NQ-Swap` are unanimous `5/5` Bayes-over-heuristic wins across model families.
 - Spotlight bootstrap Bayes vs strongest named comparator CI: `[-0.0379, 0.0686]`
 
 Per-model read:
@@ -98,9 +99,12 @@ Partial 14B replication:
 - The 14B raw rows already sharpen theorem 3: `WikiContradict` preserves the peak-and-recover shape, while `ConflictBank` conflict becomes even more overconfident.
 - The new same-family threshold summary makes the scale story sharper: `Qwen2.5` recovery on `WikiContradict` first appears at about `32B`, while `ConflictBank` still has no recovery threshold through the currently observed `32B` scale.
 - The cross-family verification is now decisive: DeepSeek replicates the `7B -> 14B` ConflictBank asymmetry = `True`, but Qwen does not = `False`.
+- The cleanest theorem-3 wording is now the RLVR-conditioned one: `Models trained with verifiable-reward reasoning objectives can enter a misspecified, endogenous-evidence regime under knowledge conflict, where longer CoT sharpens confidence faster than it improves accuracy. The effect is benchmark-dependent and strongest on controlled conflict families.`
 - The new eta intervention summary makes the mechanism claim sharper: confidence-only tempering can nearly recalibrate naturalistic contradiction at 14B, but it cannot rescue `ConflictBank` conflict once long-CoT has collapsed answer accuracy.
+- Eta-tempered decoding now has an explicit paper recipe: mean conflict do-no-harm `eta = 0.325`, mean no-conflict do-no-harm `eta = 0.625`, with shrink factor `0.52`.
 - On the theorem-3 size-scaling proxy matrix, Bayes beats the generic heuristic by `0.0585` regret with bootstrap CI `[0.0155, 0.0961]`.
 - On that same theorem-3 proxy matrix, Bayes still stays ahead of `MADAM-RAG = -0.0232`, `NWCAD = -0.029`, and `JuICE = -0.0595`, even though CoCoA remains the near-tie baseline to write honestly.
+- Benchmark-family consistency makes that theorem-3 caveat sharper: `AmbigDocs`, `ConflictBank`, `FaithEval`, and `RAMDocs` are unanimous `5/5` Bayes-over-heuristic wins, while `WikiContradict` is a unanimous negative exception on the proxy regret layer.
 - On that same theorem-3 proxy matrix, the strongest named comparator is `cocoa` with regret `-0.0795`, so the named-comparator read there is a near-tie rather than the main headline.
 
 ## Playbook Status

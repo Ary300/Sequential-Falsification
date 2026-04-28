@@ -78,6 +78,29 @@ same one seen in our completed trace runs: naturalistic contradiction can still
 show an interior overconfidence peak with partial recovery, while controlled
 conflict at larger scale can remain trapped in a saturated regime.
 
+\paragraph{RLVR-conditioned reading and eta-tempered decoding.}
+The cross-family evidence suggests that theorem 3 should be read conditionally
+rather than as a pure scale law. DeepSeek-R1-Distill reproduces the
+``7B recovers / 14B saturates'' ConflictBank asymmetry, while Qwen does not;
+the stable statement is therefore that verifiable-reward reasoning objectives
+and endogenous CoT evidence can push some conflict families into a saturated
+overconfidence regime \citep{welch2026cost,damani2025rlcr}. This conditional
+reading is also what reconciles our results with Yoon et al.'s positive
+calibration findings in non-conflict QA \citep{yoon2025confidence}.
+
+The associated practical method is an $\eta$-tempered decoder applied only to
+the post-trace answer distribution. Given a generated trace and answer
+distribution $p(a \mid \text{trace}, c)$, we use
+\[
+p_\eta(a \mid \text{trace}, c) \propto
+p(a \mid \text{trace}, c)^\eta\, p_\theta(a \mid q)^{1-\eta},
+\]
+with $\eta$ chosen on a small calibration split to improve Brier score without
+harming accuracy. The finished 14B intervention read implies exactly the
+practical rule our paper needs: conflict slices tolerate substantially smaller
+safe $\eta$ than no-conflict slices, and confidence-only tempering succeeds on
+naturalistic contradiction but not on answer-level controlled-conflict failure.
+
 \paragraph{Observable proxies and implemented policies.}
 The implemented experiments compare six policy families:
 \begin{enumerate}

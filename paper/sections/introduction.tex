@@ -9,6 +9,12 @@ Adaptive RAG systems decide when to retrieve or how much to trust retrieval
 using tuned thresholds or learned controllers, while conflict benchmarks
 typically evaluate behavior descriptively rather than against a normative
 decision rule \citep{xu2024knowledgeconflicts,mallen2023popqa,asai2024selfrag}.
+At the same time, recent calibration papers have split into two apparently
+contradictory camps: on standard QA without explicit knowledge conflict,
+reasoning models often become \emph{better} calibrated as CoT unfolds
+\citep{yoon2025confidence}, while in harder or misspecified settings longer
+reasoning can instead drive systematic overconfidence
+\citep{lacombe2025dontthinktwice,welch2026cost,damani2025rlcr}.
 
 This paper takes a different view. We treat knowledge conflict as a
 \emph{posterior-predictive decision problem}. The core object is not ``should
@@ -35,7 +41,9 @@ Bayes optimum \citep{mallen2023popqa,asai2024selfrag}. Meanwhile, the most
 relevant calibration literature shows that longer reasoning or more test-time
 compute can worsen calibration, but the strongest claims either live outside
 knowledge conflict or remain descriptive rather than decision-theoretic
-\citep{halawi2024overthinking,chen2025rethinking,ghosal2025mirage,sun2025context}.
+\citep{halawi2024overthinking,chen2025rethinking,ghosal2025mirage,
+sun2025context,yoon2025confidence,lacombe2025dontthinktwice,welch2026cost,
+damani2025rlcr}.
 
 Our contributions are threefold. First, we derive a Bayes-style
 reliability-aware arbitration rule and validate it on a corrected broad wave of
@@ -57,7 +65,10 @@ the specific ``7B recovers / 14B saturates'' asymmetry does not replicate
 universally across families, but a benchmark-dependent two-regime law does.
 Qwen shows no recovery through 32B on controlled ConflictBank conflict, while
 32B is the first scale at which recovery reappears on naturalistic
-WikiContradict contradiction.
+WikiContradict contradiction. The cleanest interpretation is not a universal
+scale law but a conditional misspecification law: some reasoning-trained models
+and conflict families enter a regime where longer CoT sharpens confidence
+faster than it improves accuracy.
 
 The paper therefore makes two negative claims and one positive one. The
 negative claims are that fixed trust in retrieval is wrong, and fixed trust in

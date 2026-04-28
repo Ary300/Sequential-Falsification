@@ -121,6 +121,9 @@ def build_bundle() -> dict[str, Any]:
     spotlight_bootstrap_t3 = _load_json(ROOT / "docs/generated/arbitration_spotlight_t3_bootstrap_v1.json")
     popqa_nqswap_note = _load_json(ROOT / "docs/generated/popqa_nqswap_real_benchmark_note.json")
     llama_8b_note = _load_json(ROOT / "docs/generated/llama_8b_spotlight_note.json")
+    benchmark_family_consistency = _load_json(ROOT / "docs/generated/benchmark_family_consistency_note.json")
+    eta_recipe = _load_json(ROOT / "docs/generated/eta_tempered_decoding_recipe.json")
+    theorem3_rlvr = _load_json(ROOT / "docs/generated/theorem3_rlvr_reframing_note.json")
 
     if broad_report is not None and broad_results is not None:
         theorem1 = _theorem12_section("broad_real_headline_wave_reestimated_v3", broad_report, broad_results)
@@ -175,6 +178,9 @@ def build_bundle() -> dict[str, Any]:
         "spotlight_bootstrap_t3": spotlight_bootstrap_t3,
         "popqa_nqswap_note": popqa_nqswap_note,
         "llama_8b_note": llama_8b_note,
+        "benchmark_family_consistency": benchmark_family_consistency,
+        "eta_recipe": eta_recipe,
+        "theorem3_rlvr": theorem3_rlvr,
     }
 
 
@@ -192,6 +198,9 @@ def build_markdown(bundle: dict[str, Any]) -> str:
     spotlight_bootstrap_t3 = bundle["spotlight_bootstrap_t3"]
     popqa_nqswap = bundle["popqa_nqswap_note"]
     llama_8b = bundle["llama_8b_note"]
+    benchmark_family = bundle["benchmark_family_consistency"]
+    eta_recipe = bundle["eta_recipe"]
+    theorem3_rlvr = bundle["theorem3_rlvr"]
     playbook = bundle["playbook_status"]
     t12_comparators = {row["policy"]: row for row in baseline_proxy_t12["comparators"]}
     t3_comparators = {row["policy"]: row for row in baseline_proxy_t3["comparators"]}
@@ -241,6 +250,8 @@ def build_markdown(bundle: dict[str, Any]) -> str:
         f"`{llama_8b['overall']['bayes_vs_heuristic_gain']}` with CI "
         f"`[{llama_8b['bootstrap_bayes_vs_heuristic']['ci95_low']}, "
         f"{llama_8b['bootstrap_bayes_vs_heuristic']['ci95_high']}]`.",
+        f"- Benchmark-family consistency: on the spotlight matrix, `ConflictBank`, `FaithEval`, "
+        f"`MemoTrap`, and `NQ-Swap` are unanimous `5/5` Bayes-over-heuristic wins across model families.",
         f"- Spotlight bootstrap Bayes vs strongest named comparator CI: "
         f"`[{spotlight_bootstrap_t12['bootstrap']['bayes_vs_strongest_named']['ci95_low']}, "
         f"{spotlight_bootstrap_t12['bootstrap']['bayes_vs_strongest_named']['ci95_high']}]`",
@@ -355,14 +366,20 @@ def build_markdown(bundle: dict[str, Any]) -> str:
             f"- The cross-family verification is now decisive: DeepSeek replicates the `7B -> 14B` ConflictBank asymmetry = "
             f"`{t3_cross_family['headline']['deepseek_7b_14b_conflictbank_asymmetry_replicates']}`, "
             f"but Qwen does not = `{t3_cross_family['headline']['qwen_7b_14b_conflictbank_asymmetry_replicates']}`.",
+            f"- The cleanest theorem-3 wording is now the RLVR-conditioned one: "
+            f"`{theorem3_rlvr['recommended_statement']}`",
             "- The new eta intervention summary makes the mechanism claim sharper: confidence-only tempering can nearly recalibrate "
             "naturalistic contradiction at 14B, but it cannot rescue `ConflictBank` conflict once long-CoT has collapsed answer accuracy.",
+            f"- Eta-tempered decoding now has an explicit paper recipe: mean conflict do-no-harm `eta = {eta_recipe['operating_point']['mean_conflict_eta']}`, "
+            f"mean no-conflict do-no-harm `eta = {eta_recipe['operating_point']['mean_no_conflict_eta']}`, "
+            f"with shrink factor `{eta_recipe['operating_point']['eta_shrink_factor']}`.",
             f"- On the theorem-3 size-scaling proxy matrix, Bayes beats the generic heuristic by `0.0585` regret with bootstrap CI "
             f"`[{spotlight_bootstrap_t3['bootstrap']['bayes_vs_heuristic']['ci95_low']}, {spotlight_bootstrap_t3['bootstrap']['bayes_vs_heuristic']['ci95_high']}]`.",
             f"- On that same theorem-3 proxy matrix, Bayes still stays ahead of "
             f"`MADAM-RAG = {t3_comparators['madam_rag']['mean_regret']}`, "
             f"`NWCAD = {t3_comparators['nwcad']['mean_regret']}`, and "
             f"`JuICE = {t3_comparators['juice']['mean_regret']}`, even though CoCoA remains the near-tie baseline to write honestly.",
+            "- Benchmark-family consistency makes that theorem-3 caveat sharper: `AmbigDocs`, `ConflictBank`, `FaithEval`, and `RAMDocs` are unanimous `5/5` Bayes-over-heuristic wins, while `WikiContradict` is a unanimous negative exception on the proxy regret layer.",
             f"- On that same theorem-3 proxy matrix, the strongest named comparator is "
             f"`{baseline_proxy_t3['headline']['strongest_named_comparator']}` with regret "
             f"`{baseline_proxy_t3['headline']['strongest_named_comparator_regret']}`, so the named-comparator read there is a near-tie rather than the main headline.",

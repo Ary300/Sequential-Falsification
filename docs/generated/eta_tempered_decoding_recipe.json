@@ -1,0 +1,26 @@
+{
+  "headline": {
+    "mean_conflict_do_no_harm_eta": 0.325,
+    "mean_no_conflict_do_no_harm_eta": 0.625,
+    "conflict_to_no_conflict_eta_shrink_factor": 0.52,
+    "conflictbank_conflict_gap_floor_at_eta_zero": 0.482,
+    "conflictbank_conflict_best_gap": 0.482,
+    "wikicontradict_conflict_best_gap": 0.0034,
+    "wikicontradict_conflict_best_gap_eta": 0.1
+  },
+  "recipe": [
+    "Hold out a 200-example calibration split for each model-and-benchmark cell.",
+    "Generate standard CoT traces once, then sweep eta in [0.1, 1.0] over the post-trace answer distribution.",
+    "Choose the largest eta that improves Brier without hurting answer accuracy on the calibration split.",
+    "Decode on the evaluation split with p_eta(a | trace, c) proportional to p(a | trace, c)^eta * p_theta(a | q)^(1-eta).",
+    "If the best eta still leaves a large confidence gap, treat the failure as answer-level and not calibration-only."
+  ],
+  "operating_point": {
+    "mean_conflict_eta": 0.325,
+    "mean_no_conflict_eta": 0.625,
+    "eta_shrink_factor": 0.52,
+    "conflictbank_conflict_best_gap": 0.482,
+    "wikicontradict_conflict_best_gap": 0.0034,
+    "wikicontradict_conflict_best_gap_eta": 0.1
+  }
+}
