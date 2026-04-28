@@ -84,6 +84,18 @@ theorem-1/theorem-2 story is no longer just ``better than a generic
 heuristic''; it also clears the strongest named comparator family available
 inside the benchmark engine at the point-estimate layer.
 
+The two most visible benchmark-specific scope gaps are now also closed with
+dedicated reads. On PopQA, which directly stress-tests popularity-conditioned
+retrieval, the Bayes proxy beats the generic heuristic by $0.0950$ regret with
+a benchmark-level series-bootstrap interval of $[0.0440, 0.1460]$, and the gain
+remains positive in low-, mid-, and high-popularity bins. On NQ-Swap, the
+canonical entity-substitution benchmark in this literature, the Bayes proxy
+beats the generic heuristic by $0.1038$ regret with interval
+$[0.0829, 0.1250]$, while also beating CoCoA there by $0.0540$. So the T2
+story is no longer only matrix-level; it is explicit on the benchmark that
+motivated popularity-threshold retrieval and on the benchmark most papers in
+the comparator set use.
+
 The broad wave is also informative about model heterogeneity. Three of the four
 main broad-wave models favor the Bayes proxy over the heuristic by about
 $0.0319$ regret, but Qwen-2.5-14B-Instruct slightly favors the heuristic

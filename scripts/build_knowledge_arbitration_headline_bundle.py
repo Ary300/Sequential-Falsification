@@ -112,6 +112,7 @@ def build_bundle() -> dict[str, Any]:
     baseline_proxy_t3 = _load_json(ROOT / "docs/generated/arbitration_proxy_baseline_t3_v2.json")
     spotlight_bootstrap_t12 = _load_json(ROOT / "docs/generated/arbitration_spotlight_t12_bootstrap_v1.json")
     spotlight_bootstrap_t3 = _load_json(ROOT / "docs/generated/arbitration_spotlight_t3_bootstrap_v1.json")
+    popqa_nqswap_note = _load_json(ROOT / "docs/generated/popqa_nqswap_real_benchmark_note.json")
 
     theorem1 = _theorem12_section("broad_real_headline_wave_reestimated_v3", broad_report, broad_results)
     theorem2 = _theorem12_section("conflict_headline_wave_reestimated_v3", compact_report, compact_results)
@@ -157,6 +158,7 @@ def build_bundle() -> dict[str, Any]:
         "baseline_proxy_t3": baseline_proxy_t3,
         "spotlight_bootstrap_t12": spotlight_bootstrap_t12,
         "spotlight_bootstrap_t3": spotlight_bootstrap_t3,
+        "popqa_nqswap_note": popqa_nqswap_note,
     }
 
 
@@ -172,6 +174,7 @@ def build_markdown(bundle: dict[str, Any]) -> str:
     baseline_proxy_t3 = bundle["baseline_proxy_t3"]
     spotlight_bootstrap_t12 = bundle["spotlight_bootstrap_t12"]
     spotlight_bootstrap_t3 = bundle["spotlight_bootstrap_t3"]
+    popqa_nqswap = bundle["popqa_nqswap_note"]
     playbook = bundle["playbook_status"]
     lines = [
         "# Knowledge Arbitration Headline Bundle",
@@ -204,6 +207,14 @@ def build_markdown(bundle: dict[str, Any]) -> str:
         f"- Spotlight bootstrap Bayes vs heuristic CI: "
         f"`[{spotlight_bootstrap_t12['bootstrap']['bayes_vs_heuristic']['ci95_low']}, "
         f"{spotlight_bootstrap_t12['bootstrap']['bayes_vs_heuristic']['ci95_high']}]`",
+        f"- Dedicated `PopQA` benchmark read: Bayes beats the heuristic by "
+        f"`{popqa_nqswap['headline']['popqa_bayes_vs_heuristic_gain']}` with CI "
+        f"`[{popqa_nqswap['headline']['popqa_bayes_vs_heuristic_ci95']['ci95_low']}, "
+        f"{popqa_nqswap['headline']['popqa_bayes_vs_heuristic_ci95']['ci95_high']}]`.",
+        f"- Dedicated `NQ-Swap` benchmark read: Bayes beats the heuristic by "
+        f"`{popqa_nqswap['headline']['nq_swap_bayes_vs_heuristic_gain']}` with CI "
+        f"`[{popqa_nqswap['headline']['nq_swap_bayes_vs_heuristic_ci95']['ci95_low']}, "
+        f"{popqa_nqswap['headline']['nq_swap_bayes_vs_heuristic_ci95']['ci95_high']}]`.",
         f"- Spotlight bootstrap Bayes vs strongest named comparator CI: "
         f"`[{spotlight_bootstrap_t12['bootstrap']['bayes_vs_strongest_named']['ci95_low']}, "
         f"{spotlight_bootstrap_t12['bootstrap']['bayes_vs_strongest_named']['ci95_high']}]`",

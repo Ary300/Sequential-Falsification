@@ -1,0 +1,180 @@
+{
+  "source_results": "results/arbitration_spotlight_t12_benchmark_v2/arbitration_spotlight_t12_matrix_benchmark_results.json",
+  "target_models": [
+    "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+    "Qwen/Qwen2.5-7B-Instruct"
+  ],
+  "benchmarks": {
+    "popqa": {
+      "num_rows": 8192,
+      "num_models": 2,
+      "per_model": [
+        {
+          "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+          "num_rows": 4096,
+          "bayes_proxy_mean_regret": -0.2094,
+          "heuristic_adaptive_mean_regret": -0.1143,
+          "always_context_mean_regret": 6.5511,
+          "always_parametric_mean_regret": 6.5511,
+          "adacad_mean_regret": -0.1619,
+          "cocoa_mean_regret": -0.1819,
+          "bayes_vs_heuristic_gain": 0.095,
+          "bayes_vs_cocoa_gain": 0.0275,
+          "bayes_vs_adacad_gain": 0.0474
+        },
+        {
+          "model": "Qwen/Qwen2.5-7B-Instruct",
+          "num_rows": 4096,
+          "bayes_proxy_mean_regret": -0.2094,
+          "heuristic_adaptive_mean_regret": -0.1143,
+          "always_context_mean_regret": 6.5511,
+          "always_parametric_mean_regret": 6.5511,
+          "adacad_mean_regret": -0.1619,
+          "cocoa_mean_regret": -0.1819,
+          "bayes_vs_heuristic_gain": 0.095,
+          "bayes_vs_cocoa_gain": 0.0275,
+          "bayes_vs_adacad_gain": 0.0474
+        }
+      ],
+      "bootstrap_bayes_vs_heuristic": {
+        "mean_gap": 0.0947,
+        "ci95_low": 0.044,
+        "ci95_high": 0.146,
+        "num_series": 16
+      },
+      "bootstrap_bayes_vs_cocoa": {
+        "mean_gap": 0.0275,
+        "ci95_low": 0.0218,
+        "ci95_high": 0.0332,
+        "num_series": 16
+      },
+      "popularity_bins": [
+        {
+          "bin": "low",
+          "num_rows": 2736,
+          "bayes_proxy_mean_regret": -0.2851,
+          "heuristic_adaptive_mean_regret": -0.1568,
+          "cocoa_mean_regret": -0.2498,
+          "adacad_mean_regret": -0.2236,
+          "bayes_vs_heuristic_gain": 0.1282
+        },
+        {
+          "bin": "mid",
+          "num_rows": 2736,
+          "bayes_proxy_mean_regret": -0.2566,
+          "heuristic_adaptive_mean_regret": -0.1273,
+          "cocoa_mean_regret": -0.222,
+          "adacad_mean_regret": -0.1963,
+          "bayes_vs_heuristic_gain": 0.1293
+        },
+        {
+          "bin": "high",
+          "num_rows": 2720,
+          "bayes_proxy_mean_regret": -0.0857,
+          "heuristic_adaptive_mean_regret": -0.0586,
+          "cocoa_mean_regret": -0.073,
+          "adacad_mean_regret": -0.0653,
+          "bayes_vs_heuristic_gain": 0.0271
+        }
+      ]
+    },
+    "nq_swap": {
+      "num_rows": 12288,
+      "num_models": 2,
+      "per_model": [
+        {
+          "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+          "num_rows": 6144,
+          "bayes_proxy_mean_regret": -0.174,
+          "heuristic_adaptive_mean_regret": -0.0702,
+          "always_context_mean_regret": 8.9658,
+          "always_parametric_mean_regret": 4.3607,
+          "adacad_mean_regret": -0.0954,
+          "cocoa_mean_regret": -0.12,
+          "bayes_vs_heuristic_gain": 0.1038,
+          "bayes_vs_cocoa_gain": 0.054,
+          "bayes_vs_adacad_gain": 0.0787
+        },
+        {
+          "model": "Qwen/Qwen2.5-7B-Instruct",
+          "num_rows": 6144,
+          "bayes_proxy_mean_regret": -0.174,
+          "heuristic_adaptive_mean_regret": -0.0702,
+          "always_context_mean_regret": 8.9658,
+          "always_parametric_mean_regret": 4.3607,
+          "adacad_mean_regret": -0.0954,
+          "cocoa_mean_regret": -0.12,
+          "bayes_vs_heuristic_gain": 0.1038,
+          "bayes_vs_cocoa_gain": 0.054,
+          "bayes_vs_adacad_gain": 0.0787
+        }
+      ],
+      "bootstrap_bayes_vs_heuristic": {
+        "mean_gap": 0.104,
+        "ci95_low": 0.0829,
+        "ci95_high": 0.125,
+        "num_series": 24
+      },
+      "bootstrap_bayes_vs_cocoa": {
+        "mean_gap": 0.054,
+        "ci95_low": 0.0449,
+        "ci95_high": 0.0634,
+        "num_series": 24
+      },
+      "substitution_types": [
+        {
+          "substitution_type": "alias",
+          "num_rows": 2544,
+          "bayes_proxy_mean_regret": -0.1775,
+          "heuristic_adaptive_mean_regret": -0.0738,
+          "cocoa_mean_regret": -0.1251,
+          "adacad_mean_regret": -0.0996,
+          "bayes_vs_heuristic_gain": 0.1037
+        },
+        {
+          "substitution_type": "corpus",
+          "num_rows": 3816,
+          "bayes_proxy_mean_regret": -0.1711,
+          "heuristic_adaptive_mean_regret": -0.0672,
+          "cocoa_mean_regret": -0.1157,
+          "adacad_mean_regret": -0.0918,
+          "bayes_vs_heuristic_gain": 0.1039
+        },
+        {
+          "substitution_type": "popularity",
+          "num_rows": 2136,
+          "bayes_proxy_mean_regret": -0.1745,
+          "heuristic_adaptive_mean_regret": -0.0706,
+          "cocoa_mean_regret": -0.1206,
+          "adacad_mean_regret": -0.0958,
+          "bayes_vs_heuristic_gain": 0.1039
+        },
+        {
+          "substitution_type": "type_swap",
+          "num_rows": 3792,
+          "bayes_proxy_mean_regret": -0.1745,
+          "heuristic_adaptive_mean_regret": -0.0706,
+          "cocoa_mean_regret": -0.1206,
+          "adacad_mean_regret": -0.0958,
+          "bayes_vs_heuristic_gain": 0.1039
+        }
+      ]
+    }
+  },
+  "headline": {
+    "popqa_bayes_vs_heuristic_gain": 0.095,
+    "popqa_bayes_vs_heuristic_ci95": {
+      "mean_gap": 0.0947,
+      "ci95_low": 0.044,
+      "ci95_high": 0.146,
+      "num_series": 16
+    },
+    "nq_swap_bayes_vs_heuristic_gain": 0.1038,
+    "nq_swap_bayes_vs_heuristic_ci95": {
+      "mean_gap": 0.104,
+      "ci95_low": 0.0829,
+      "ci95_high": 0.125,
+      "num_series": 24
+    }
+  }
+}

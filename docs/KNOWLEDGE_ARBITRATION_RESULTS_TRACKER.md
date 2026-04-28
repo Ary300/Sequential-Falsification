@@ -67,6 +67,8 @@ The new AdaCAD / CoCoA positioning note is now explicit in
 [`docs/generated/adacad_cocoa_positioning_note.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/adacad_cocoa_positioning_note.md).
 The new playbook-completion status note is now explicit in
 [`docs/generated/playbook_completion_status.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/playbook_completion_status.md).
+The new dedicated `PopQA` / `NQ-Swap` benchmark note is now explicit in
+[`docs/generated/popqa_nqswap_real_benchmark_note.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/popqa_nqswap_real_benchmark_note.md).
 The new named-comparator spotlight proxy read is now explicit in
 [`docs/generated/arbitration_proxy_baseline_t12_v2.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/arbitration_proxy_baseline_t12_v2.md).
 That file is now stronger than before: `Qwen2.5-7B` and `Qwen2.5-14B` are
@@ -163,6 +165,14 @@ Current finished headline set:
 - The spotlight-matrix headline is now statistically cleaner:
   Bayes beats the generic heuristic by `0.0833` regret with bootstrap CI
   `[0.0371, 0.1112]`.
+- The dedicated `PopQA` read is now explicit too:
+  Bayes beats the generic heuristic by `0.0950` regret with benchmark-level
+  bootstrap CI `[0.0440, 0.1460]`, and the gain remains positive across low,
+  mid, and high popularity bins.
+- The dedicated `NQ-Swap` read is now explicit too:
+  Bayes beats the generic heuristic by `0.1038` regret with benchmark-level
+  bootstrap CI `[0.0829, 0.1250]`, while also beating `CoCoA` there by
+  `0.0540`.
 - In the updated named-comparator read on that same matrix
   ([`docs/generated/arbitration_proxy_baseline_t12_v2.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/arbitration_proxy_baseline_t12_v2.md)),
   Bayes also beats the strongest named comparator:

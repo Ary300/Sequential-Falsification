@@ -150,6 +150,186 @@
     "popqa_nqswap_complete": true,
     "theorem3_rewrite_complete": true
   },
+  "popqa_nqswap_note": {
+    "benchmarks": {
+      "nq_swap": {
+        "bootstrap_bayes_vs_cocoa": {
+          "ci95_high": 0.0634,
+          "ci95_low": 0.0449,
+          "mean_gap": 0.054,
+          "num_series": 24
+        },
+        "bootstrap_bayes_vs_heuristic": {
+          "ci95_high": 0.125,
+          "ci95_low": 0.0829,
+          "mean_gap": 0.104,
+          "num_series": 24
+        },
+        "num_models": 2,
+        "num_rows": 12288,
+        "per_model": [
+          {
+            "adacad_mean_regret": -0.0954,
+            "always_context_mean_regret": 8.9658,
+            "always_parametric_mean_regret": 4.3607,
+            "bayes_proxy_mean_regret": -0.174,
+            "bayes_vs_adacad_gain": 0.0787,
+            "bayes_vs_cocoa_gain": 0.054,
+            "bayes_vs_heuristic_gain": 0.1038,
+            "cocoa_mean_regret": -0.12,
+            "heuristic_adaptive_mean_regret": -0.0702,
+            "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+            "num_rows": 6144
+          },
+          {
+            "adacad_mean_regret": -0.0954,
+            "always_context_mean_regret": 8.9658,
+            "always_parametric_mean_regret": 4.3607,
+            "bayes_proxy_mean_regret": -0.174,
+            "bayes_vs_adacad_gain": 0.0787,
+            "bayes_vs_cocoa_gain": 0.054,
+            "bayes_vs_heuristic_gain": 0.1038,
+            "cocoa_mean_regret": -0.12,
+            "heuristic_adaptive_mean_regret": -0.0702,
+            "model": "Qwen/Qwen2.5-7B-Instruct",
+            "num_rows": 6144
+          }
+        ],
+        "substitution_types": [
+          {
+            "adacad_mean_regret": -0.0996,
+            "bayes_proxy_mean_regret": -0.1775,
+            "bayes_vs_heuristic_gain": 0.1037,
+            "cocoa_mean_regret": -0.1251,
+            "heuristic_adaptive_mean_regret": -0.0738,
+            "num_rows": 2544,
+            "substitution_type": "alias"
+          },
+          {
+            "adacad_mean_regret": -0.0918,
+            "bayes_proxy_mean_regret": -0.1711,
+            "bayes_vs_heuristic_gain": 0.1039,
+            "cocoa_mean_regret": -0.1157,
+            "heuristic_adaptive_mean_regret": -0.0672,
+            "num_rows": 3816,
+            "substitution_type": "corpus"
+          },
+          {
+            "adacad_mean_regret": -0.0958,
+            "bayes_proxy_mean_regret": -0.1745,
+            "bayes_vs_heuristic_gain": 0.1039,
+            "cocoa_mean_regret": -0.1206,
+            "heuristic_adaptive_mean_regret": -0.0706,
+            "num_rows": 2136,
+            "substitution_type": "popularity"
+          },
+          {
+            "adacad_mean_regret": -0.0958,
+            "bayes_proxy_mean_regret": -0.1745,
+            "bayes_vs_heuristic_gain": 0.1039,
+            "cocoa_mean_regret": -0.1206,
+            "heuristic_adaptive_mean_regret": -0.0706,
+            "num_rows": 3792,
+            "substitution_type": "type_swap"
+          }
+        ]
+      },
+      "popqa": {
+        "bootstrap_bayes_vs_cocoa": {
+          "ci95_high": 0.0332,
+          "ci95_low": 0.0218,
+          "mean_gap": 0.0275,
+          "num_series": 16
+        },
+        "bootstrap_bayes_vs_heuristic": {
+          "ci95_high": 0.146,
+          "ci95_low": 0.044,
+          "mean_gap": 0.0947,
+          "num_series": 16
+        },
+        "num_models": 2,
+        "num_rows": 8192,
+        "per_model": [
+          {
+            "adacad_mean_regret": -0.1619,
+            "always_context_mean_regret": 6.5511,
+            "always_parametric_mean_regret": 6.5511,
+            "bayes_proxy_mean_regret": -0.2094,
+            "bayes_vs_adacad_gain": 0.0474,
+            "bayes_vs_cocoa_gain": 0.0275,
+            "bayes_vs_heuristic_gain": 0.095,
+            "cocoa_mean_regret": -0.1819,
+            "heuristic_adaptive_mean_regret": -0.1143,
+            "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+            "num_rows": 4096
+          },
+          {
+            "adacad_mean_regret": -0.1619,
+            "always_context_mean_regret": 6.5511,
+            "always_parametric_mean_regret": 6.5511,
+            "bayes_proxy_mean_regret": -0.2094,
+            "bayes_vs_adacad_gain": 0.0474,
+            "bayes_vs_cocoa_gain": 0.0275,
+            "bayes_vs_heuristic_gain": 0.095,
+            "cocoa_mean_regret": -0.1819,
+            "heuristic_adaptive_mean_regret": -0.1143,
+            "model": "Qwen/Qwen2.5-7B-Instruct",
+            "num_rows": 4096
+          }
+        ],
+        "popularity_bins": [
+          {
+            "adacad_mean_regret": -0.2236,
+            "bayes_proxy_mean_regret": -0.2851,
+            "bayes_vs_heuristic_gain": 0.1282,
+            "bin": "low",
+            "cocoa_mean_regret": -0.2498,
+            "heuristic_adaptive_mean_regret": -0.1568,
+            "num_rows": 2736
+          },
+          {
+            "adacad_mean_regret": -0.1963,
+            "bayes_proxy_mean_regret": -0.2566,
+            "bayes_vs_heuristic_gain": 0.1293,
+            "bin": "mid",
+            "cocoa_mean_regret": -0.222,
+            "heuristic_adaptive_mean_regret": -0.1273,
+            "num_rows": 2736
+          },
+          {
+            "adacad_mean_regret": -0.0653,
+            "bayes_proxy_mean_regret": -0.0857,
+            "bayes_vs_heuristic_gain": 0.0271,
+            "bin": "high",
+            "cocoa_mean_regret": -0.073,
+            "heuristic_adaptive_mean_regret": -0.0586,
+            "num_rows": 2720
+          }
+        ]
+      }
+    },
+    "headline": {
+      "nq_swap_bayes_vs_heuristic_ci95": {
+        "ci95_high": 0.125,
+        "ci95_low": 0.0829,
+        "mean_gap": 0.104,
+        "num_series": 24
+      },
+      "nq_swap_bayes_vs_heuristic_gain": 0.1038,
+      "popqa_bayes_vs_heuristic_ci95": {
+        "ci95_high": 0.146,
+        "ci95_low": 0.044,
+        "mean_gap": 0.0947,
+        "num_series": 16
+      },
+      "popqa_bayes_vs_heuristic_gain": 0.095
+    },
+    "source_results": "results/arbitration_spotlight_t12_benchmark_v2/arbitration_spotlight_t12_matrix_benchmark_results.json",
+    "target_models": [
+      "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+      "Qwen/Qwen2.5-7B-Instruct"
+    ]
+  },
   "project": "bayes_optimal_knowledge_arbitration",
   "spotlight_bootstrap_t12": {
     "bayes_advantage_vs_heuristic": 0.0833,

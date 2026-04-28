@@ -82,6 +82,13 @@ rules.
 - Named comparator uncertainty read on that same matrix:
   Bayes vs strongest named comparator (`Self-RAG`) is `0.0266`,
   with bootstrap CI `[-0.0379, 0.0686]`.
+- Dedicated `PopQA` real-benchmark read:
+  Bayes beats the generic heuristic by `0.0950` regret with benchmark-level
+  bootstrap CI `[0.0440, 0.1460]`, and the gain is still positive in low, mid,
+  and high popularity bins.
+- Dedicated `NQ-Swap` real-benchmark read:
+  Bayes beats the generic heuristic by `0.1038` regret with benchmark-level
+  bootstrap CI `[0.0829, 0.1250]`, and also beats `CoCoA` there by `0.0540`.
 - Expanded theorem-3 proxy size-scaling matrix:
   `bayes_proxy = -0.0774`, `heuristic_adaptive = -0.0189`,
   `simulated_model = 0.1533`, `fixed_50 = 0.3352`.
