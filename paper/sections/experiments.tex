@@ -96,6 +96,15 @@ story is no longer only matrix-level; it is explicit on the benchmark that
 motivated popularity-threshold retrieval and on the benchmark most papers in
 the comparator set use.
 
+The most visible model-family objection is also now explicitly closed at the
+8B open-weight tier. The finished spotlight matrix already contains
+Llama-3.1-8B-Instruct across all five main benchmarks. On that Llama-only
+five-benchmark slice, the Bayes proxy beats the generic heuristic by $0.1108$
+regret with series-bootstrap interval $[0.0895, 0.1220]$, and it beats CoCoA
+by $0.0519$ with interval $[0.0436, 0.0574]$. So Llama is not a missing family
+for the main results table; it is already a strong positive slice inside the
+completed matrix.
+
 The broad wave is also informative about model heterogeneity. Three of the four
 main broad-wave models favor the Bayes proxy over the heuristic by about
 $0.0319$ regret, but Qwen-2.5-14B-Instruct slightly favors the heuristic

@@ -142,6 +142,99 @@
     "theorem_2": "Fixed trust policies are minimax-bad in practice: in the conflict-heavy wave, they incur much larger regret than the principled Bayes proxy.",
     "theorem_3": "Reasoning amplifies overconfidence on hard knowledge QA in a benchmark-dependent two-regime pattern: Bayes beats the generic heuristic with a positive 95% bootstrap interval on the theorem-3 proxy size-scaling matrix, recovery reappears by about 32B on naturalistic contradiction but not yet on controlled conflict, and conflict slices tolerate only about half the do-no-harm eta of no-conflict slices."
   },
+  "llama_8b_note": {
+    "benchmarks": [
+      {
+        "adacad_mean_regret": -0.1778,
+        "always_context_mean_regret": 6.5511,
+        "always_parametric_mean_regret": 6.5511,
+        "bayes_proxy_mean_regret": -0.2594,
+        "bayes_vs_adacad_gain": 0.0816,
+        "bayes_vs_cocoa_gain": 0.0567,
+        "bayes_vs_heuristic_gain": 0.127,
+        "benchmark": "conflictbank",
+        "cocoa_mean_regret": -0.2027,
+        "heuristic_adaptive_mean_regret": -0.1324,
+        "num_rows": 12288
+      },
+      {
+        "adacad_mean_regret": -0.0928,
+        "always_context_mean_regret": 8.9658,
+        "always_parametric_mean_regret": 4.3607,
+        "bayes_proxy_mean_regret": -0.1718,
+        "bayes_vs_adacad_gain": 0.0791,
+        "bayes_vs_cocoa_gain": 0.0549,
+        "bayes_vs_heuristic_gain": 0.1041,
+        "benchmark": "faitheval",
+        "cocoa_mean_regret": -0.117,
+        "heuristic_adaptive_mean_regret": -0.0677,
+        "num_rows": 6144
+      },
+      {
+        "adacad_mean_regret": -0.093,
+        "always_context_mean_regret": 8.9375,
+        "always_parametric_mean_regret": 4.3863,
+        "bayes_proxy_mean_regret": -0.1706,
+        "bayes_vs_adacad_gain": 0.0776,
+        "bayes_vs_cocoa_gain": 0.0534,
+        "bayes_vs_heuristic_gain": 0.1026,
+        "benchmark": "memotrap",
+        "cocoa_mean_regret": -0.1172,
+        "heuristic_adaptive_mean_regret": -0.068,
+        "num_rows": 6144
+      },
+      {
+        "adacad_mean_regret": -0.0954,
+        "always_context_mean_regret": 8.9658,
+        "always_parametric_mean_regret": 4.3607,
+        "bayes_proxy_mean_regret": -0.174,
+        "bayes_vs_adacad_gain": 0.0787,
+        "bayes_vs_cocoa_gain": 0.054,
+        "bayes_vs_heuristic_gain": 0.1038,
+        "benchmark": "nq_swap",
+        "cocoa_mean_regret": -0.12,
+        "heuristic_adaptive_mean_regret": -0.0702,
+        "num_rows": 6144
+      },
+      {
+        "adacad_mean_regret": -0.1619,
+        "always_context_mean_regret": 6.5511,
+        "always_parametric_mean_regret": 6.5511,
+        "bayes_proxy_mean_regret": -0.2094,
+        "bayes_vs_adacad_gain": 0.0474,
+        "bayes_vs_cocoa_gain": 0.0275,
+        "bayes_vs_heuristic_gain": 0.095,
+        "benchmark": "popqa",
+        "cocoa_mean_regret": -0.1819,
+        "heuristic_adaptive_mean_regret": -0.1143,
+        "num_rows": 4096
+      }
+    ],
+    "bootstrap_bayes_vs_cocoa": {
+      "ci95_high": 0.0574,
+      "ci95_low": 0.0436,
+      "mean_gap": 0.0505,
+      "num_series": 52
+    },
+    "bootstrap_bayes_vs_heuristic": {
+      "ci95_high": 0.122,
+      "ci95_low": 0.0895,
+      "mean_gap": 0.1059,
+      "num_series": 52
+    },
+    "model": "meta-llama/Llama-3.1-8B-Instruct",
+    "num_rows": 34816,
+    "overall": {
+      "adacad_mean_regret": -0.1314,
+      "always_context_mean_regret": 7.8245,
+      "always_parametric_mean_regret": 5.396,
+      "bayes_proxy_mean_regret": -0.2073,
+      "bayes_vs_cocoa_gain": 0.0519,
+      "bayes_vs_heuristic_gain": 0.1108,
+      "cocoa_mean_regret": -0.1554,
+      "heuristic_adaptive_mean_regret": -0.0965
+    }
+  },
   "playbook_status": {
     "closest_cousin_baselines_complete": true,
     "core_playbook_complete": true,

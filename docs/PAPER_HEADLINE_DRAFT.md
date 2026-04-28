@@ -89,6 +89,10 @@ rules.
 - Dedicated `NQ-Swap` real-benchmark read:
   Bayes beats the generic heuristic by `0.1038` regret with benchmark-level
   bootstrap CI `[0.0829, 0.1250]`, and also beats `CoCoA` there by `0.0540`.
+- Dedicated `Llama-3.1-8B` five-benchmark read:
+  on the full Llama-only spotlight slice across `ConflictBank`, `FaithEval`,
+  `MemoTrap`, `NQ-Swap`, and `PopQA`, Bayes beats the generic heuristic by
+  `0.1108` regret with bootstrap CI `[0.0895, 0.1220]`.
 - Expanded theorem-3 proxy size-scaling matrix:
   `bayes_proxy = -0.0774`, `heuristic_adaptive = -0.0189`,
   `simulated_model = 0.1533`, `fixed_50 = 0.3352`.

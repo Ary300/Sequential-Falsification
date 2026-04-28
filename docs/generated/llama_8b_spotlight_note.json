@@ -1,0 +1,93 @@
+{
+  "model": "meta-llama/Llama-3.1-8B-Instruct",
+  "num_rows": 34816,
+  "benchmarks": [
+    {
+      "benchmark": "conflictbank",
+      "num_rows": 12288,
+      "bayes_proxy_mean_regret": -0.2594,
+      "heuristic_adaptive_mean_regret": -0.1324,
+      "cocoa_mean_regret": -0.2027,
+      "adacad_mean_regret": -0.1778,
+      "always_context_mean_regret": 6.5511,
+      "always_parametric_mean_regret": 6.5511,
+      "bayes_vs_heuristic_gain": 0.127,
+      "bayes_vs_cocoa_gain": 0.0567,
+      "bayes_vs_adacad_gain": 0.0816
+    },
+    {
+      "benchmark": "faitheval",
+      "num_rows": 6144,
+      "bayes_proxy_mean_regret": -0.1718,
+      "heuristic_adaptive_mean_regret": -0.0677,
+      "cocoa_mean_regret": -0.117,
+      "adacad_mean_regret": -0.0928,
+      "always_context_mean_regret": 8.9658,
+      "always_parametric_mean_regret": 4.3607,
+      "bayes_vs_heuristic_gain": 0.1041,
+      "bayes_vs_cocoa_gain": 0.0549,
+      "bayes_vs_adacad_gain": 0.0791
+    },
+    {
+      "benchmark": "memotrap",
+      "num_rows": 6144,
+      "bayes_proxy_mean_regret": -0.1706,
+      "heuristic_adaptive_mean_regret": -0.068,
+      "cocoa_mean_regret": -0.1172,
+      "adacad_mean_regret": -0.093,
+      "always_context_mean_regret": 8.9375,
+      "always_parametric_mean_regret": 4.3863,
+      "bayes_vs_heuristic_gain": 0.1026,
+      "bayes_vs_cocoa_gain": 0.0534,
+      "bayes_vs_adacad_gain": 0.0776
+    },
+    {
+      "benchmark": "nq_swap",
+      "num_rows": 6144,
+      "bayes_proxy_mean_regret": -0.174,
+      "heuristic_adaptive_mean_regret": -0.0702,
+      "cocoa_mean_regret": -0.12,
+      "adacad_mean_regret": -0.0954,
+      "always_context_mean_regret": 8.9658,
+      "always_parametric_mean_regret": 4.3607,
+      "bayes_vs_heuristic_gain": 0.1038,
+      "bayes_vs_cocoa_gain": 0.054,
+      "bayes_vs_adacad_gain": 0.0787
+    },
+    {
+      "benchmark": "popqa",
+      "num_rows": 4096,
+      "bayes_proxy_mean_regret": -0.2094,
+      "heuristic_adaptive_mean_regret": -0.1143,
+      "cocoa_mean_regret": -0.1819,
+      "adacad_mean_regret": -0.1619,
+      "always_context_mean_regret": 6.5511,
+      "always_parametric_mean_regret": 6.5511,
+      "bayes_vs_heuristic_gain": 0.095,
+      "bayes_vs_cocoa_gain": 0.0275,
+      "bayes_vs_adacad_gain": 0.0474
+    }
+  ],
+  "overall": {
+    "bayes_proxy_mean_regret": -0.2073,
+    "heuristic_adaptive_mean_regret": -0.0965,
+    "cocoa_mean_regret": -0.1554,
+    "adacad_mean_regret": -0.1314,
+    "always_context_mean_regret": 7.8245,
+    "always_parametric_mean_regret": 5.396,
+    "bayes_vs_heuristic_gain": 0.1108,
+    "bayes_vs_cocoa_gain": 0.0519
+  },
+  "bootstrap_bayes_vs_heuristic": {
+    "mean_gap": 0.1059,
+    "ci95_low": 0.0895,
+    "ci95_high": 0.122,
+    "num_series": 52
+  },
+  "bootstrap_bayes_vs_cocoa": {
+    "mean_gap": 0.0505,
+    "ci95_low": 0.0436,
+    "ci95_high": 0.0574,
+    "num_series": 52
+  }
+}

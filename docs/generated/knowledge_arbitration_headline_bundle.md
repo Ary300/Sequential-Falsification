@@ -26,6 +26,7 @@
 - Spotlight bootstrap Bayes vs heuristic CI: `[0.0371, 0.1112]`
 - Dedicated `PopQA` benchmark read: Bayes beats the heuristic by `0.095` with CI `[0.044, 0.146]`.
 - Dedicated `NQ-Swap` benchmark read: Bayes beats the heuristic by `0.1038` with CI `[0.0829, 0.125]`.
+- Dedicated `Llama-3.1-8B` five-benchmark read: Bayes beats the heuristic by `0.1108` with CI `[0.0895, 0.122]`.
 - Spotlight bootstrap Bayes vs strongest named comparator CI: `[-0.0379, 0.0686]`
 
 Per-model read:

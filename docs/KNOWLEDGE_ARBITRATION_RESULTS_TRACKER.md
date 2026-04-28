@@ -69,6 +69,8 @@ The new playbook-completion status note is now explicit in
 [`docs/generated/playbook_completion_status.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/playbook_completion_status.md).
 The new dedicated `PopQA` / `NQ-Swap` benchmark note is now explicit in
 [`docs/generated/popqa_nqswap_real_benchmark_note.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/popqa_nqswap_real_benchmark_note.md).
+The new dedicated `Llama-3.1-8B` five-benchmark note is now explicit in
+[`docs/generated/llama_8b_spotlight_note.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/llama_8b_spotlight_note.md).
 The new named-comparator spotlight proxy read is now explicit in
 [`docs/generated/arbitration_proxy_baseline_t12_v2.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/arbitration_proxy_baseline_t12_v2.md).
 That file is now stronger than before: `Qwen2.5-7B` and `Qwen2.5-14B` are
@@ -173,6 +175,9 @@ Current finished headline set:
   Bayes beats the generic heuristic by `0.1038` regret with benchmark-level
   bootstrap CI `[0.0829, 0.1250]`, while also beating `CoCoA` there by
   `0.0540`.
+- The dedicated `Llama-3.1-8B` coverage read is now explicit too:
+  on the completed five-benchmark Llama slice, Bayes beats the generic
+  heuristic by `0.1108` regret with bootstrap CI `[0.0895, 0.1220]`.
 - In the updated named-comparator read on that same matrix
   ([`docs/generated/arbitration_proxy_baseline_t12_v2.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/arbitration_proxy_baseline_t12_v2.md)),
   Bayes also beats the strongest named comparator:
