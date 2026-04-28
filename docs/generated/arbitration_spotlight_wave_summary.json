@@ -1,6 +1,6 @@
 {
   "t12_matrix": {
-    "results_path": "results/arbitration_spotlight_t12_benchmark_v1/report/arbitration_summary.json",
+    "results_path": "results/arbitration_spotlight_t12_benchmark_v2/report/arbitration_summary.json",
     "num_benchmarks": 5,
     "num_models": 5,
     "num_examples": 174080,
@@ -36,7 +36,7 @@
     }
   },
   "t3_proxy_matrix": {
-    "results_path": "results/arbitration_spotlight_t3_scaling_proxy_v1/report/arbitration_summary.json",
+    "results_path": "results/arbitration_spotlight_t3_scaling_proxy_v2/report/arbitration_summary.json",
     "num_benchmarks": 5,
     "num_models": 5,
     "num_examples": 65190,

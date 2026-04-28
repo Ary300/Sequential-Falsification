@@ -283,11 +283,11 @@ What is already real:
 - built-in benchmark loaders for `PopQA`, `DynamicQA`, `NQ-Swap`, and
   `WikiContradict`, plus a streamed `ConflictBank` subset loader;
 - a corrected benchmark-backed headline wave with a de-oracled Bayes proxy:
-  [`results/arbitration_real_headline_wave_reestimated_v3/report/summary.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/results/arbitration_real_headline_wave_reestimated_v3/report/summary.md);
+  [`docs/generated/knowledge_arbitration_headline_bundle.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/knowledge_arbitration_headline_bundle.md);
 - a focused `WikiContradict` contradiction report:
   [`results/arbitration_wikicontradict_focus/report/summary.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/results/arbitration_wikicontradict_focus/report/summary.md);
 - a corrected conflict-heavy benchmark wave:
-  [`results/arbitration_conflict_headline_wave_reestimated_v3/report/summary.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/results/arbitration_conflict_headline_wave_reestimated_v3/report/summary.md);
+  [`docs/generated/knowledge_arbitration_headline_bundle.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/knowledge_arbitration_headline_bundle.md);
 - a theorem-3 diagnosis with ambiguity filtering and sample rows:
   [`results/arbitration_conflict_focus_compact_v2/theorem3_diagnosis/summary.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/results/arbitration_conflict_focus_compact_v2/theorem3_diagnosis/summary.md).
 

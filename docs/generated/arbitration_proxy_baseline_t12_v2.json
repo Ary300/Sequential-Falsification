@@ -10,6 +10,27 @@
   },
   "comparators": [
     {
+      "policy": "madam_rag",
+      "pretty_policy": "MADAM-RAG",
+      "mean_regret": -0.1033,
+      "num_series": 25,
+      "bayes_advantage": 0.0689
+    },
+    {
+      "policy": "nwcad",
+      "pretty_policy": "NWCAD",
+      "mean_regret": -0.0716,
+      "num_series": 25,
+      "bayes_advantage": 0.1006
+    },
+    {
+      "policy": "juice",
+      "pretty_policy": "JuICE",
+      "mean_regret": -0.08,
+      "num_series": 25,
+      "bayes_advantage": 0.0922
+    },
+    {
       "policy": "cocoa",
       "pretty_policy": "CoCoA",
       "mean_regret": -0.1278,

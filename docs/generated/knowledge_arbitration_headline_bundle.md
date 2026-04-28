@@ -2,7 +2,7 @@
 
 ## Headline Claims
 
-- Theorem 1: A Bayes-style reliability-aware arbitration rule beats the generic heuristic and sharply beats fixed trust policies across the broad real matrix, while on the 5x5 spotlight matrix it beats the generic heuristic with a positive 95% bootstrap interval and also pointwise beats Self-RAG, Astute RAG, CoCoA, AdaCAD, and CAD.
+- Theorem 1: A Bayes-style reliability-aware arbitration rule beats the generic heuristic and sharply beats fixed trust policies across the broad real matrix, while on the 5x5 spotlight matrix it beats the generic heuristic with a positive 95% bootstrap interval and also pointwise beats Self-RAG, Astute RAG, MADAM-RAG, NWCAD, JuICE, CoCoA, AdaCAD, and CAD.
 - Theorem 2: Fixed trust policies are minimax-bad in practice: in the conflict-heavy wave, they incur much larger regret than the principled Bayes proxy.
 - Theorem 3: Reasoning amplifies overconfidence on hard knowledge QA in a benchmark-dependent two-regime pattern: Bayes beats the generic heuristic with a positive 95% bootstrap interval on the theorem-3 proxy size-scaling matrix, recovery reappears by about 32B on naturalistic contradiction but not yet on controlled conflict, and conflict slices tolerate only about half the do-no-harm eta of no-conflict slices.
 - Core playbook complete: `True`
@@ -23,6 +23,7 @@
 - Mean conflict / no-conflict ECE deltas: `-0.0054` / `-0.0238`
 - Strongest named comparator on the spotlight proxy matrix: `self_rag` at `-0.1456`
 - Bayes advantage vs that comparator: `0.0266`
+- Expanded comparator panel also clears `MADAM-RAG = -0.1033`, `NWCAD = -0.0716`, and `JuICE = -0.08` on the spotlight matrix.
 - Spotlight bootstrap Bayes vs heuristic CI: `[0.0371, 0.1112]`
 - Dedicated `PopQA` benchmark read: Bayes beats the heuristic by `0.095` with CI `[0.044, 0.146]`.
 - Dedicated `NQ-Swap` benchmark read: Bayes beats the heuristic by `0.1038` with CI `[0.0829, 0.125]`.
@@ -93,11 +94,13 @@ Partial 14B replication:
 - Theorem 3 is finished in the rewritten two-regime form rather than the old monotone form.
 - Broad-wave exception worth writing honestly: `Qwen2.5-14B-Instruct` is the one slice where the heuristic edges the Bayes proxy.
 - Conflict-wave near-tie worth noting: `pythia-6.9b` is essentially tied between Bayes proxy and simulated model.
+- On the spotlight matrix, Bayes also stays ahead of the added optional baselines `MADAM-RAG = -0.1033`, `NWCAD = -0.0716`, and `JuICE = -0.08`.
 - The 14B raw rows already sharpen theorem 3: `WikiContradict` preserves the peak-and-recover shape, while `ConflictBank` conflict becomes even more overconfident.
 - The new same-family threshold summary makes the scale story sharper: `Qwen2.5` recovery on `WikiContradict` first appears at about `32B`, while `ConflictBank` still has no recovery threshold through the currently observed `32B` scale.
 - The cross-family verification is now decisive: DeepSeek replicates the `7B -> 14B` ConflictBank asymmetry = `True`, but Qwen does not = `False`.
 - The new eta intervention summary makes the mechanism claim sharper: confidence-only tempering can nearly recalibrate naturalistic contradiction at 14B, but it cannot rescue `ConflictBank` conflict once long-CoT has collapsed answer accuracy.
 - On the theorem-3 size-scaling proxy matrix, Bayes beats the generic heuristic by `0.0585` regret with bootstrap CI `[0.0155, 0.0961]`.
+- On that same theorem-3 proxy matrix, Bayes still stays ahead of `MADAM-RAG = -0.0232`, `NWCAD = -0.029`, and `JuICE = -0.0595`, even though CoCoA remains the near-tie baseline to write honestly.
 - On that same theorem-3 proxy matrix, the strongest named comparator is `cocoa` with regret `-0.0795`, so the named-comparator read there is a near-tie rather than the main headline.
 
 ## Playbook Status

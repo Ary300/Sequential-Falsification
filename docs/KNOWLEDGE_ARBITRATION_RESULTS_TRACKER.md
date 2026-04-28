@@ -73,6 +73,8 @@ The new dedicated `Llama-3.1-8B` five-benchmark note is now explicit in
 [`docs/generated/llama_8b_spotlight_note.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/llama_8b_spotlight_note.md).
 The new named-comparator spotlight proxy read is now explicit in
 [`docs/generated/arbitration_proxy_baseline_t12_v2.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/arbitration_proxy_baseline_t12_v2.md).
+The new theorem-3 named-comparator proxy read is now explicit in
+[`docs/generated/arbitration_proxy_baseline_t3_v2.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/arbitration_proxy_baseline_t3_v2.md).
 That file is now stronger than before: `Qwen2.5-7B` and `Qwen2.5-14B` are
 final, and the `32B` job has populated both `ConflictBank` and
 `WikiContradict` groups on disk.
@@ -92,8 +94,8 @@ Its decision is `not A`:
 | Theorem 2 written cleanly | yes | drafted in `KNOWLEDGE_ARBITRATION_THEOREM_SKETCHES.md` |
 | Theorem 3 written cleanly | yes | drafted in `KNOWLEDGE_ARBITRATION_THEOREM_SKETCHES.md` |
 | Synthetic Bayes oracle experiment | yes | done |
-| Real benchmark pilot on `PopQA` | yes | done via `arbitration_real_headline_wave_reestimated_v3` |
-| Real benchmark pilot on `DynamicQA` | yes | done via `arbitration_real_headline_wave_reestimated_v3` |
+| Real benchmark pilot on `PopQA` | yes | done via `docs/generated/knowledge_arbitration_headline_bundle.md` and the dedicated `PopQA` note |
+| Real benchmark pilot on `DynamicQA` | yes | done via `docs/generated/knowledge_arbitration_headline_bundle.md` |
 | Real benchmark pilot on `ConflictBank` subset | yes | done in compact conflict wave |
 | Expanded `5 x 5` benchmark-backed spotlight matrix | strongly preferred | done via `arbitration_spotlight_t12_benchmark_v2` |
 | Expanded theorem-3 proxy size-scaling matrix | strongly preferred | done via `arbitration_spotlight_t3_scaling_proxy_v2` |
@@ -134,14 +136,14 @@ We now have a finished paper core rather than just an early win:
 - Synthetic oracle pilot is done and still useful for theorem-shape sanity
   checks.
 - Broad real benchmark-backed pilot is now corrected and de-oracled:
-  [`results/arbitration_real_headline_wave_reestimated_v3/report/summary.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/results/arbitration_real_headline_wave_reestimated_v3/report/summary.md)
+  [`docs/generated/knowledge_arbitration_headline_bundle.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/knowledge_arbitration_headline_bundle.md)
   on `44,960` parsed examples across `PopQA`, `DynamicQA`, `NQ-Swap`, and
   `WikiContradict`.
 - Focused contradiction report is done:
   [`results/arbitration_wikicontradict_focus/report/summary.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/results/arbitration_wikicontradict_focus/report/summary.md)
   and gives the cleanest current theorem-3-style signal.
 - Corrected conflict-only wave is done:
-  [`results/arbitration_conflict_headline_wave_reestimated_v3/report/summary.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/results/arbitration_conflict_headline_wave_reestimated_v3/report/summary.md)
+  [`docs/generated/knowledge_arbitration_headline_bundle.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/knowledge_arbitration_headline_bundle.md)
   and adds `ConflictBank` into the live benchmark path.
 - Theorem-3 diagnosis is done:
   [`results/arbitration_conflict_focus_compact_v2/theorem3_diagnosis/summary.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/results/arbitration_conflict_focus_compact_v2/theorem3_diagnosis/summary.md)
@@ -181,7 +183,8 @@ Current finished headline set:
 - In the updated named-comparator read on that same matrix
   ([`docs/generated/arbitration_proxy_baseline_t12_v2.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/arbitration_proxy_baseline_t12_v2.md)),
   Bayes also beats the strongest named comparator:
-  `Self-RAG = -0.1456`, `Astute RAG = -0.1396`, `CoCoA = -0.1278`,
+  `Self-RAG = -0.1456`, `Astute RAG = -0.1396`, `MADAM-RAG = -0.1033`,
+  `NWCAD = -0.0716`, `JuICE = -0.0800`, `CoCoA = -0.1278`,
   `AdaCAD = -0.1063`, and `CAD = -0.0790`, with a Bayes advantage of
   `0.0266` over `Self-RAG`.
 - In the expanded theorem-3 proxy size-scaling matrix
@@ -193,6 +196,10 @@ Current finished headline set:
   comparison:
   Bayes beats the generic heuristic by `0.0585` regret with bootstrap CI
   `[0.0155, 0.0961]`.
+- The added optional baselines now have explicit theorem-3 proxy numbers too:
+  `MADAM-RAG = -0.0232`, `NWCAD = -0.0290`, and `JuICE = -0.0595`,
+  all still trailing Bayes even though `CoCoA = -0.0795` remains the honest
+  near-tie baseline on that matrix.
 - The live same-family Qwen theorem-3 read is stronger than the old mixed
   proxy stack on controlled conflict:
   final `Qwen2.5-7B` `ConflictBank` conflict reads

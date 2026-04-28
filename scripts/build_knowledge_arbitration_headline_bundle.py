@@ -20,6 +20,12 @@ def _load_json(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
+def _load_optional_json(path: Path) -> dict[str, Any] | None:
+    if not path.exists():
+        return None
+    return _load_json(path)
+
+
 def _per_model_summary(result_payload: dict[str, Any]) -> list[dict[str, Any]]:
     rows = []
     for experiment in result_payload["experiments"]:
@@ -99,10 +105,11 @@ def _theorem12_section(name: str, report_summary: dict[str, Any], result_payload
 
 
 def build_bundle() -> dict[str, Any]:
-    broad_report = _load_json(ROOT / "results/arbitration_real_headline_wave_reestimated_v3/report/arbitration_summary.json")
-    broad_results = _load_json(ROOT / "results/arbitration_real_headline_wave_reestimated_v3/arbitration_real_headline_wave_benchmark_results.json")
-    compact_report = _load_json(ROOT / "results/arbitration_conflict_headline_wave_reestimated_v3/report/arbitration_summary.json")
-    compact_results = _load_json(ROOT / "results/arbitration_conflict_headline_wave_reestimated_v3/arbitration_conflict_headline_wave_benchmark_results.json")
+    prior_bundle = _load_optional_json(ROOT / "docs/generated/knowledge_arbitration_headline_bundle.json") or {}
+    broad_report = _load_optional_json(ROOT / "results/arbitration_real_headline_wave_reestimated_v3/report/arbitration_summary.json")
+    broad_results = _load_optional_json(ROOT / "results/arbitration_real_headline_wave_reestimated_v3/arbitration_real_headline_wave_benchmark_results.json")
+    compact_report = _load_optional_json(ROOT / "results/arbitration_conflict_headline_wave_reestimated_v3/report/arbitration_summary.json")
+    compact_results = _load_optional_json(ROOT / "results/arbitration_conflict_headline_wave_reestimated_v3/arbitration_conflict_headline_wave_benchmark_results.json")
     theorem3 = _load_json(ROOT / "docs/generated/theorem3_real_7b_final.json")
     theorem3_replication = _load_json(ROOT / "docs/generated/theorem3_real_14b_final.json")
     theorem3_same_family = _load_json(ROOT / "docs/generated/theorem3_same_family_threshold_summary.json")
@@ -115,8 +122,15 @@ def build_bundle() -> dict[str, Any]:
     popqa_nqswap_note = _load_json(ROOT / "docs/generated/popqa_nqswap_real_benchmark_note.json")
     llama_8b_note = _load_json(ROOT / "docs/generated/llama_8b_spotlight_note.json")
 
-    theorem1 = _theorem12_section("broad_real_headline_wave_reestimated_v3", broad_report, broad_results)
-    theorem2 = _theorem12_section("conflict_headline_wave_reestimated_v3", compact_report, compact_results)
+    if broad_report is not None and broad_results is not None:
+        theorem1 = _theorem12_section("broad_real_headline_wave_reestimated_v3", broad_report, broad_results)
+    else:
+        theorem1 = dict(prior_bundle.get("theorem_1", {}))
+
+    if compact_report is not None and compact_results is not None:
+        theorem2 = _theorem12_section("conflict_headline_wave_reestimated_v3", compact_report, compact_results)
+    else:
+        theorem2 = dict(prior_bundle.get("theorem_2", {}))
 
     return {
         "project": "bayes_optimal_knowledge_arbitration",
@@ -125,8 +139,8 @@ def build_bundle() -> dict[str, Any]:
                 "A Bayes-style reliability-aware arbitration rule beats the generic heuristic and "
                 "sharply beats fixed trust policies across the broad real matrix, while on the "
                 "5x5 spotlight matrix it beats the generic heuristic with a positive 95% "
-                "bootstrap interval and also pointwise beats Self-RAG, Astute RAG, CoCoA, "
-                "AdaCAD, and CAD."
+                "bootstrap interval and also pointwise beats Self-RAG, Astute RAG, MADAM-RAG, "
+                "NWCAD, JuICE, CoCoA, AdaCAD, and CAD."
             ),
             "theorem_2": (
             "Fixed trust policies are minimax-bad in practice: in the conflict-heavy wave, they "
@@ -179,6 +193,8 @@ def build_markdown(bundle: dict[str, Any]) -> str:
     popqa_nqswap = bundle["popqa_nqswap_note"]
     llama_8b = bundle["llama_8b_note"]
     playbook = bundle["playbook_status"]
+    t12_comparators = {row["policy"]: row for row in baseline_proxy_t12["comparators"]}
+    t3_comparators = {row["policy"]: row for row in baseline_proxy_t3["comparators"]}
     lines = [
         "# Knowledge Arbitration Headline Bundle",
         "",
@@ -207,6 +223,9 @@ def build_markdown(bundle: dict[str, Any]) -> str:
         f"`{baseline_proxy_t12['headline']['strongest_named_comparator']}` at "
         f"`{baseline_proxy_t12['headline']['strongest_named_comparator_regret']}`",
         f"- Bayes advantage vs that comparator: `{baseline_proxy_t12['headline']['bayes_advantage_vs_strongest_named']}`",
+        f"- Expanded comparator panel also clears `MADAM-RAG = {t12_comparators['madam_rag']['mean_regret']}`, "
+        f"`NWCAD = {t12_comparators['nwcad']['mean_regret']}`, and "
+        f"`JuICE = {t12_comparators['juice']['mean_regret']}` on the spotlight matrix.",
         f"- Spotlight bootstrap Bayes vs heuristic CI: "
         f"`[{spotlight_bootstrap_t12['bootstrap']['bayes_vs_heuristic']['ci95_low']}, "
         f"{spotlight_bootstrap_t12['bootstrap']['bayes_vs_heuristic']['ci95_high']}]`",
@@ -326,6 +345,10 @@ def build_markdown(bundle: dict[str, Any]) -> str:
             "- Theorem 3 is finished in the rewritten two-regime form rather than the old monotone form.",
             "- Broad-wave exception worth writing honestly: `Qwen2.5-14B-Instruct` is the one slice where the heuristic edges the Bayes proxy.",
             "- Conflict-wave near-tie worth noting: `pythia-6.9b` is essentially tied between Bayes proxy and simulated model.",
+            f"- On the spotlight matrix, Bayes also stays ahead of the added optional baselines "
+            f"`MADAM-RAG = {t12_comparators['madam_rag']['mean_regret']}`, "
+            f"`NWCAD = {t12_comparators['nwcad']['mean_regret']}`, and "
+            f"`JuICE = {t12_comparators['juice']['mean_regret']}`.",
             "- The 14B raw rows already sharpen theorem 3: `WikiContradict` preserves the peak-and-recover shape, while `ConflictBank` conflict becomes even more overconfident.",
             "- The new same-family threshold summary makes the scale story sharper: `Qwen2.5` recovery on `WikiContradict` first appears at about "
             f"`{t3_same_family['headline']['qwen_wikicontradict_conflict_recovery_threshold_b']}B`, while `ConflictBank` still has no recovery threshold through the currently observed `32B` scale.",
@@ -336,6 +359,10 @@ def build_markdown(bundle: dict[str, Any]) -> str:
             "naturalistic contradiction at 14B, but it cannot rescue `ConflictBank` conflict once long-CoT has collapsed answer accuracy.",
             f"- On the theorem-3 size-scaling proxy matrix, Bayes beats the generic heuristic by `0.0585` regret with bootstrap CI "
             f"`[{spotlight_bootstrap_t3['bootstrap']['bayes_vs_heuristic']['ci95_low']}, {spotlight_bootstrap_t3['bootstrap']['bayes_vs_heuristic']['ci95_high']}]`.",
+            f"- On that same theorem-3 proxy matrix, Bayes still stays ahead of "
+            f"`MADAM-RAG = {t3_comparators['madam_rag']['mean_regret']}`, "
+            f"`NWCAD = {t3_comparators['nwcad']['mean_regret']}`, and "
+            f"`JuICE = {t3_comparators['juice']['mean_regret']}`, even though CoCoA remains the near-tie baseline to write honestly.",
             f"- On that same theorem-3 proxy matrix, the strongest named comparator is "
             f"`{baseline_proxy_t3['headline']['strongest_named_comparator']}` with regret "
             f"`{baseline_proxy_t3['headline']['strongest_named_comparator_regret']}`, so the named-comparator read there is a near-tie rather than the main headline.",

@@ -78,6 +78,7 @@ rules.
   Bayes vs heuristic regret gap `0.0833` with bootstrap CI `[0.0371, 0.1112]`.
 - Named comparator wave on that same spotlight matrix:
   Bayes also beats `Self-RAG = -0.1456`, `Astute RAG = -0.1396`,
+  `MADAM-RAG = -0.1033`, `NWCAD = -0.0716`, `JuICE = -0.0800`,
   `CoCoA = -0.1278`, `AdaCAD = -0.1063`, and `CAD = -0.0790`.
 - Named comparator uncertainty read on that same matrix:
   Bayes vs strongest named comparator (`Self-RAG`) is `0.0266`,
@@ -100,7 +101,8 @@ rules.
   Bayes vs heuristic regret gap `0.0585` with bootstrap CI `[0.0155, 0.0961]`.
 - Theorem-3 named-comparator read:
   strongest named comparator is `CoCoA = -0.0795`, so that side is a near-tie
-  and not the main theorem-3 headline.
+  and not the main theorem-3 headline; Bayes still stays ahead of
+  `MADAM-RAG = -0.0232`, `NWCAD = -0.0290`, and `JuICE = -0.0595` there.
 - Fixed-policy failures stay dramatic:
   `always_context = 7.2237` / `5.9037` / `7.9943`,
   `always_parametric = 5.9356` / `7.1329` / `5.2420`.
@@ -128,8 +130,9 @@ rules.
   benchmark-dependent two-regime law.
 - AdaCAD / CoCoA positioning result:
   on the expanded spotlight matrix, Bayes beats `CoCoA` by `0.0444` regret and
-  `AdaCAD` by `0.0659`, so the closest functional cousins now read as
-  approximations to the same arbitration target rather than as unaddressed
+  `AdaCAD` by `0.0659`; the same matrix also keeps Bayes ahead of
+  `MADAM-RAG`, `NWCAD`, and `JuICE`, so the expanded comparator panel now reads
+  as approximations to the same arbitration target rather than as unaddressed
   threats.
 - Same-family theorem-3 threshold summary:
   `s* ~= 32B` for `Qwen2.5` recovery on `WikiContradict` conflict, with no

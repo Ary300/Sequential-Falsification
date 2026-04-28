@@ -6,6 +6,27 @@
     },
     "comparators": [
       {
+        "bayes_advantage": 0.0689,
+        "mean_regret": -0.1033,
+        "num_series": 25,
+        "policy": "madam_rag",
+        "pretty_policy": "MADAM-RAG"
+      },
+      {
+        "bayes_advantage": 0.1006,
+        "mean_regret": -0.0716,
+        "num_series": 25,
+        "policy": "nwcad",
+        "pretty_policy": "NWCAD"
+      },
+      {
+        "bayes_advantage": 0.0922,
+        "mean_regret": -0.08,
+        "num_series": 25,
+        "policy": "juice",
+        "pretty_policy": "JuICE"
+      },
+      {
         "bayes_advantage": 0.0444,
         "mean_regret": -0.1278,
         "num_series": 25,
@@ -75,6 +96,27 @@
     },
     "comparators": [
       {
+        "bayes_advantage": 0.0542,
+        "mean_regret": -0.0232,
+        "num_series": 25,
+        "policy": "madam_rag",
+        "pretty_policy": "MADAM-RAG"
+      },
+      {
+        "bayes_advantage": 0.0484,
+        "mean_regret": -0.029,
+        "num_series": 25,
+        "policy": "nwcad",
+        "pretty_policy": "NWCAD"
+      },
+      {
+        "bayes_advantage": 0.0179,
+        "mean_regret": -0.0595,
+        "num_series": 25,
+        "policy": "juice",
+        "pretty_policy": "JuICE"
+      },
+      {
         "bayes_advantage": -0.0021,
         "mean_regret": -0.0795,
         "num_series": 25,
@@ -138,7 +180,7 @@
     }
   },
   "headline": {
-    "theorem_1": "A Bayes-style reliability-aware arbitration rule beats the generic heuristic and sharply beats fixed trust policies across the broad real matrix, while on the 5x5 spotlight matrix it beats the generic heuristic with a positive 95% bootstrap interval and also pointwise beats Self-RAG, Astute RAG, CoCoA, AdaCAD, and CAD.",
+    "theorem_1": "A Bayes-style reliability-aware arbitration rule beats the generic heuristic and sharply beats fixed trust policies across the broad real matrix, while on the 5x5 spotlight matrix it beats the generic heuristic with a positive 95% bootstrap interval and also pointwise beats Self-RAG, Astute RAG, MADAM-RAG, NWCAD, JuICE, CoCoA, AdaCAD, and CAD.",
     "theorem_2": "Fixed trust policies are minimax-bad in practice: in the conflict-heavy wave, they incur much larger regret than the principled Bayes proxy.",
     "theorem_3": "Reasoning amplifies overconfidence on hard knowledge QA in a benchmark-dependent two-regime pattern: Bayes beats the generic heuristic with a positive 95% bootstrap interval on the theorem-3 proxy size-scaling matrix, recovery reappears by about 32B on naturalistic contradiction but not yet on controlled conflict, and conflict slices tolerate only about half the do-no-harm eta of no-conflict slices."
   },

@@ -144,10 +144,38 @@ def _astute_rag_probability(features: ArbitrationFeatures) -> float:
     return sigmoid(1.12 * evidence_gap + 0.24 * reliability_gap - 0.22 * conflict_penalty)
 
 
+def _juice_probability(features: ArbitrationFeatures) -> float:
+    evidence_gap = logit(_clip(features.contextual_score)) - logit(_clip(features.parametric_score))
+    reliability_gap = features.context_reliability - features.parametric_reliability
+    conflict_bonus = features.conflict_magnitude * max(0.0, abs(features.contextual_score - features.parametric_score) - 0.08)
+    return sigmoid(1.02 * evidence_gap + 0.18 * reliability_gap + 0.20 * conflict_bonus)
+
+
+def _nwcad_probability(features: ArbitrationFeatures) -> float:
+    evidence_gap = logit(_clip(features.contextual_score)) - logit(_clip(features.parametric_score))
+    reliability_gap = features.context_reliability - features.parametric_reliability
+    disagreement = abs(features.contextual_score - features.parametric_score)
+    if features.context_reliability < features.parametric_reliability and disagreement < 0.10:
+        return _clip(0.15 * features.contextual_score + 0.85 * features.parametric_score)
+    if features.context_reliability > 0.70 and features.contextual_score > features.parametric_score + 0.04:
+        return _clip(0.78 * features.contextual_score + 0.22 * features.parametric_score)
+    return sigmoid(0.92 * evidence_gap + 0.16 * reliability_gap + 0.10 * max(0.0, disagreement - 0.05))
+
+
+def _madam_rag_probability(features: ArbitrationFeatures) -> float:
+    retrieval_signal = 0.62 * features.context_reliability + 0.30 * features.contextual_score
+    debate_bonus = 0.12 * max(0.0, features.conflict_magnitude - 0.35) * max(0.0, features.context_reliability - 0.50)
+    conflict_brake = 0.16 * max(0.0, 0.50 - features.context_reliability) * features.conflict_magnitude
+    return _clip(retrieval_signal + debate_bonus - conflict_brake)
+
+
 def _policy_probabilities(features: ArbitrationFeatures, *, model_name: str, cot_length: int | str) -> dict[str, float]:
     return {
         "oracle": oracle_arbitration_probability(features),
         "bayes_proxy": bayes_arbitration_probability(features),
+        "madam_rag": _madam_rag_probability(features),
+        "nwcad": _nwcad_probability(features),
+        "juice": _juice_probability(features),
         "cocoa": _cocoa_probability(features),
         "adacad": _adacad_probability(features),
         "cad": _cad_probability(features),
@@ -321,6 +349,9 @@ def run_synthetic_experiment(experiment: dict[str, Any]) -> dict[str, Any]:
     policy_rows: dict[str, list[dict[str, Any]]] = {
         "oracle": [],
         "bayes_proxy": [],
+        "madam_rag": [],
+        "nwcad": [],
+        "juice": [],
         "cocoa": [],
         "adacad": [],
         "cad": [],
@@ -513,6 +544,9 @@ def run_benchmark_experiment(
     policy_rows: dict[str, list[dict[str, Any]]] = {
         "oracle": [],
         "bayes_proxy": [],
+        "madam_rag": [],
+        "nwcad": [],
+        "juice": [],
         "cocoa": [],
         "adacad": [],
         "cad": [],

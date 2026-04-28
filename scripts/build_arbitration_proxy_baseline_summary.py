@@ -10,6 +10,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 
 COMPARATORS = [
+    "madam_rag",
+    "nwcad",
+    "juice",
     "cocoa",
     "adacad",
     "cad",
@@ -31,6 +34,9 @@ def parse_args() -> argparse.Namespace:
 def _pretty(policy: str) -> str:
     mapping = {
         "bayes_proxy": "Bayes proxy",
+        "madam_rag": "MADAM-RAG",
+        "nwcad": "NWCAD",
+        "juice": "JuICE",
         "cocoa": "CoCoA",
         "adacad": "AdaCAD",
         "cad": "CAD",

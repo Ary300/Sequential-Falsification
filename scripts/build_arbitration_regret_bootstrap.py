@@ -10,7 +10,7 @@ from pathlib import Path
 from statistics import mean
 
 ROOT = Path(__file__).resolve().parents[1]
-NAMED_COMPARATORS = ["self_rag", "astute_rag", "cocoa", "adacad", "cad", "crag", "heuristic_adaptive"]
+NAMED_COMPARATORS = ["self_rag", "astute_rag", "madam_rag", "nwcad", "juice", "cocoa", "adacad", "cad", "crag", "heuristic_adaptive"]
 
 
 def parse_args() -> argparse.Namespace:
@@ -39,6 +39,9 @@ def _pretty(policy: str) -> str:
         "bayes_proxy": "Bayes proxy",
         "self_rag": "Self-RAG",
         "astute_rag": "Astute RAG",
+        "madam_rag": "MADAM-RAG",
+        "nwcad": "NWCAD",
+        "juice": "JuICE",
         "cocoa": "CoCoA",
         "adacad": "AdaCAD",
         "cad": "CAD",

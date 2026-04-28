@@ -25,7 +25,7 @@ The strongest honest headline today is:
 ### Theorem 1
 
 - Broad corrected wave:
-  [`results/arbitration_real_headline_wave_reestimated_v3/report/summary.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/results/arbitration_real_headline_wave_reestimated_v3/report/summary.md)
+  [`docs/generated/knowledge_arbitration_headline_bundle.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/knowledge_arbitration_headline_bundle.md)
 - Headline numbers:
   - `bayes_proxy = -0.0461`
   - `heuristic_adaptive = -0.0233`
@@ -36,7 +36,7 @@ The strongest honest headline today is:
 ### Theorem 2
 
 - Conflict-heavy corrected wave:
-  [`results/arbitration_conflict_headline_wave_reestimated_v3/report/summary.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/results/arbitration_conflict_headline_wave_reestimated_v3/report/summary.md)
+  [`docs/generated/knowledge_arbitration_headline_bundle.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/knowledge_arbitration_headline_bundle.md)
 - Headline numbers:
   - `bayes_proxy = -0.1256`
   - `heuristic_adaptive = -0.0752`

@@ -35,6 +35,9 @@ Other key diagnostics:
 - mean no-conflict ECE delta across CoT: `-0.0212`
 - strongest named comparator is now `Self-RAG = -0.1456`, so Bayes keeps a
   `0.0266` mean-regret advantage over the best named baseline on this matrix.
+- the expanded optional comparator panel is also favorable:
+  `MADAM-RAG = -0.1033`, `NWCAD = -0.0716`, and `JuICE = -0.0800` all trail
+  the Bayes proxy on the spotlight matrix.
 
 ## Proxy theorem-3 size-scaling matrix
 
@@ -64,6 +67,8 @@ Key interpretation:
 - the named-comparator wave is tighter on this theorem-3 proxy slice:
   `CoCoA = -0.0795` versus `bayes_proxy = -0.0774`, which is a near-tie rather
   than a decisive reversal;
+- Bayes still stays ahead of the added optional baselines on that same proxy
+  slice: `MADAM-RAG = -0.0232`, `NWCAD = -0.0290`, and `JuICE = -0.0595`;
 - conflict slices move much more than no-conflict slices in the proxy stack
   (`-0.0736` vs `-0.0229` ECE delta), but this remains supporting evidence
   rather than the final theorem-3 claim.
