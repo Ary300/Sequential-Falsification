@@ -86,8 +86,11 @@ family.
 ### Current evidence
 
 - Synthetic oracle experiments already support this direction.
-- Real benchmark-backed pilots already show a strong regret ordering in favor
-  of `Bayes Proxy`.
+- The completed spotlight matrix now gives the cleanest empirical read:
+  `bayes_proxy = -0.1722` versus `heuristic_adaptive = -0.0889`,
+  with fixed policies exploding to `5.2420` and `7.9943`.
+- The Bayes-vs-heuristic spotlight-matrix regret gap is `0.0833` with
+  bootstrap CI `[0.0371, 0.1112]`.
 
 ### Proof plan
 
@@ -145,9 +148,9 @@ Thus fixed trust policies are minimax-suboptimal over the conflict family.
 ### Current evidence
 
 - Real benchmark-backed pilots already show:
-  - `Bayes Proxy` at `0.0000` mean regret
-  - `heuristic_adaptive` materially worse
-  - fixed policies dramatically worse
+  - `bayes_proxy = -0.1256` on the conflict-heavy wave
+  - `heuristic_adaptive = -0.0752`
+  - fixed policies dramatically worse at `5.9037` and `7.1329`
 
 ### Proof plan
 
@@ -244,21 +247,6 @@ wrong-answer posterior sharpening more persistent. Empirically, the result is
 benchmark-dependent two-regime behavior: naturalistic contradiction can show an
 interior overconfidence peak followed by partial recovery, while controlled
 conflict at larger scale can remain stuck in a saturated overconfidence regime.
-depth. Instead, there can exist an interior reasoning budget `k* > 0` at which
-overconfidence is maximized, followed by partial self-correction at longer
-reasoning depths.
-
-Stronger version to target in the paper:
-
-`Theorem 3c' (Conflict-Strength-Dependent Overconfidence Peak).`
-
-Let `delta` denote a measure of source conflict, for example
-`delta = KL(p_param || p_ctx)` on the answer-relevant statistic. Under
-misspecified sequential reasoning updates, there exists an interior reasoning
-budget `k*(delta)` such that:
-
-1. for `k < k*(delta)`, posterior sharpening increases the confidence-accuracy
-   gap;
 2. at `k = k*(delta)`, the gap is maximized;
 3. for `k > k*(delta)`, partial self-correction reduces the gap, though it may
    remain above the `k = 0` baseline on the hardest slices.
@@ -332,17 +320,16 @@ There exists a benchmark-family-dependent scale threshold `s*` such that:
 
 | Theorem | Primary benchmark evidence | Current status |
 | --- | --- | --- |
-| Theorem 1 | `PopQA`, `DynamicQA`, synthetic oracle | early positive |
-| Theorem 2 | broad real regret comparisons, `WikiContradict`, `ConflictBank` | early positive |
+| Theorem 1 | `PopQA`, `DynamicQA`, synthetic oracle | landed |
+| Theorem 2 | broad real regret comparisons, `WikiContradict`, `ConflictBank` | landed |
 | Theorem 3 | `WikiContradict`, `ConflictBank`, real-trace CoT sweeps | landed in revised family-dependent form; 14B replication complete |
 
-## Immediate next steps
+## Remaining scope expansions
 
-1. Turn Theorem 1 into a proof sketch with the exact decision class and loss.
-2. Turn Theorem 2 into a two-distribution minimax lower bound.
-3. Add mitigation conditions:
-   - parallel-chain bagging
-   - confidence decoupling
-   - deterministic decoding control
-4. Promote the cleaned theorem statements into the paper outline now that the
-   empirical theorem-3 story has a stable landing point.
+- Turn Theorem 1 into a full proof sketch with the exact decision class and
+  loss.
+- Turn Theorem 2 into a two-distribution minimax lower bound.
+- Add optional mitigation conditions such as parallel-chain bagging and
+  confidence decoupling.
+- Keep these as strengthening work, not as blockers for the current finished
+  paper core.

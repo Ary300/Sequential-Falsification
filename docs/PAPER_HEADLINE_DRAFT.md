@@ -115,6 +115,11 @@ rules.
   DeepSeek replicates the `7B -> 14B` `ConflictBank` asymmetry, but Qwen does
   not; the universal asymmetry claim is false, and the stronger headline is a
   benchmark-dependent two-regime law.
+- AdaCAD / CoCoA positioning result:
+  on the expanded spotlight matrix, Bayes beats `CoCoA` by `0.0444` regret and
+  `AdaCAD` by `0.0659`, so the closest functional cousins now read as
+  approximations to the same arbitration target rather than as unaddressed
+  threats.
 - Same-family theorem-3 threshold summary:
   `s* ~= 32B` for `Qwen2.5` recovery on `WikiContradict` conflict, with no
   corresponding recovery threshold yet visible through `32B` on
@@ -147,6 +152,10 @@ rules.
   universal recovery theorem.
 - The killer figure package is now on disk as an SVG artifact:
   `figures/spotlight_killer/spotlight_killer_figure.svg`.
+- The six-week core playbook is now complete at the paper-core level:
+  cross-family verification, closest-cousin baselines, `PopQA` / `NQ-Swap`,
+  theorem-3 rewrite, and the killer figure all have explicit artifacts and
+  headline numbers on disk.
 
 ## Best current figure order
 

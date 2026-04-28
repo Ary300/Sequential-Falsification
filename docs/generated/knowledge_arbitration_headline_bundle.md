@@ -5,6 +5,7 @@
 - Theorem 1: A Bayes-style reliability-aware arbitration rule beats the generic heuristic and sharply beats fixed trust policies across the broad real matrix, while on the 5x5 spotlight matrix it beats the generic heuristic with a positive 95% bootstrap interval and also pointwise beats Self-RAG, Astute RAG, CoCoA, AdaCAD, and CAD.
 - Theorem 2: Fixed trust policies are minimax-bad in practice: in the conflict-heavy wave, they incur much larger regret than the principled Bayes proxy.
 - Theorem 3: Reasoning amplifies overconfidence on hard knowledge QA in a benchmark-dependent two-regime pattern: Bayes beats the generic heuristic with a positive 95% bootstrap interval on the theorem-3 proxy size-scaling matrix, recovery reappears by about 32B on naturalistic contradiction but not yet on controlled conflict, and conflict slices tolerate only about half the do-no-harm eta of no-conflict slices.
+- Core playbook complete: `True`
 
 ## Theorem 1
 
@@ -95,3 +96,11 @@ Partial 14B replication:
 - The new eta intervention summary makes the mechanism claim sharper: confidence-only tempering can nearly recalibrate naturalistic contradiction at 14B, but it cannot rescue `ConflictBank` conflict once long-CoT has collapsed answer accuracy.
 - On the theorem-3 size-scaling proxy matrix, Bayes beats the generic heuristic by `0.0585` regret with bootstrap CI `[0.0155, 0.0961]`.
 - On that same theorem-3 proxy matrix, the strongest named comparator is `cocoa` with regret `-0.0795`, so the named-comparator read there is a near-tie rather than the main headline.
+
+## Playbook Status
+
+- Cross-family verification complete: `True`
+- AdaCAD / CoCoA comparator wave complete: `True`
+- `PopQA` / `NQ-Swap` benchmark coverage complete: `True`
+- Theorem-3 rewrite complete: `True`
+- Killer figure complete: `True`

@@ -26,11 +26,13 @@ Closer decoder-level cousins such as CAD, AdaCAD, and CoCoA are also adaptive
 but remain heuristic from our perspective. They implement context-sensitive
 reweighting rules that are empirically strong, yet they do not derive the
 weight from a posterior over source reliability. This is precisely where our
-positioning matters. AdaCAD can be read as a first-order approximation to a
-Bayes-optimal arbitration weight, while CoCoA combines multiple confidence
-proxies into an effective retrieval-trust score. In that sense, these baselines
-are not counterexamples to our framing; they are evidence that the field has
-been engineering approximations to the same object without writing down the
+positioning matters. AdaCAD's token-level JSD weight can be read as a
+first-order approximation to a Bayes-optimal arbitration weight
+\citep{wang2025adacad}, while CoCoA combines entropy gap, contextual
+peakedness, and divergence proxies into an effective retrieval-trust score
+\citep{khandelwal2025cocoa}. In that sense, these baselines are not
+counterexamples to our framing; they are evidence that the field has been
+engineering approximations to the same object without writing down the
 decision-theoretic target explicitly.
 
 \paragraph{Mechanistic and calibration views of overthinking.}
@@ -51,11 +53,15 @@ purely empirical observation.
 The theorem-3 mechanism is best understood through classical results on
 misspecified Bayesian updating. Berk established that under misspecification the
 posterior concentrates on a KL projection rather than the truth
-\citep{berk1966}. Later work shows that misspecified posteriors can be
-arbitrarily overconfident and that bagging or other robustification can reduce
-that pathology \citep{grunwald2017,huggins2020bayesbag}. We use this literature
-as the conceptual bridge between reasoning-time source conflict and the
-confidence blow-up seen in real reasoning traces. Our contribution is not to
-reprove those misspecification results, but to transport them into a
-reasoning-time arbitration setting where the evidence is endogenous and the
-effective update rate differs across conflict families.
+\citep{berk1966}, while Kleijn and van der Vaart made that concentration
+picture explicit for misspecified posteriors \citep{kleijn2006}. Generalized
+Bayes gives the right formal language for reasoning-time updates with an
+effective learning rate $\eta$ \citep{bissiri2016}, and Grünwald--van Ommen
+show how too-aggressive updates can produce hypercompression and
+overconfidence-like failures under misspecification \citep{grunwald2017}. We
+then need an endogenous-evidence account, because CoT traces are produced by
+the same model whose beliefs are being updated; Berk--Nash style results supply
+that bridge \citep{esponda2016,fudenberg2021}. Our contribution is not to
+reprove those results, but to transport them into a reasoning-time arbitration
+setting where the evidence is endogenous and the effective update rate differs
+across conflict families.

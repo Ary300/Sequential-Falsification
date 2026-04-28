@@ -63,6 +63,10 @@ and
 [`docs/generated/arbitration_spotlight_t3_bootstrap_v1.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/arbitration_spotlight_t3_bootstrap_v1.md).
 The new 2x2 killer figure package is now explicit in
 [`figures/spotlight_killer/README.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/figures/spotlight_killer/README.md).
+The new AdaCAD / CoCoA positioning note is now explicit in
+[`docs/generated/adacad_cocoa_positioning_note.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/adacad_cocoa_positioning_note.md).
+The new playbook-completion status note is now explicit in
+[`docs/generated/playbook_completion_status.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/playbook_completion_status.md).
 The new named-comparator spotlight proxy read is now explicit in
 [`docs/generated/arbitration_proxy_baseline_t12_v2.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/arbitration_proxy_baseline_t12_v2.md).
 That file is now stronger than before: `Qwen2.5-7B` and `Qwen2.5-14B` are
@@ -222,6 +226,7 @@ Current blocker:
 
 - there is no remaining headline blocker inside the current benchmark-backed
   paper core;
+- the six-week playbook is now complete at the paper-core level;
 - what remains are optional scope expansions rather than missing core results:
   checkpoint-family sweeps, broader external replications, and additional
   mitigation variants.

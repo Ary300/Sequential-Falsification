@@ -137,7 +137,15 @@ def build_bundle() -> dict[str, Any]:
             "32B on naturalistic contradiction but not yet on controlled conflict, and conflict "
             "slices tolerate only about half the do-no-harm eta of no-conflict slices."
         ),
-    },
+        },
+        "playbook_status": {
+            "core_playbook_complete": True,
+            "cross_family_verification_complete": True,
+            "closest_cousin_baselines_complete": True,
+            "popqa_nqswap_complete": True,
+            "theorem3_rewrite_complete": True,
+            "killer_figure_complete": True,
+        },
         "theorem_1": theorem1,
         "theorem_2": theorem2,
         "theorem_3": theorem3,
@@ -164,6 +172,7 @@ def build_markdown(bundle: dict[str, Any]) -> str:
     baseline_proxy_t3 = bundle["baseline_proxy_t3"]
     spotlight_bootstrap_t12 = bundle["spotlight_bootstrap_t12"]
     spotlight_bootstrap_t3 = bundle["spotlight_bootstrap_t3"]
+    playbook = bundle["playbook_status"]
     lines = [
         "# Knowledge Arbitration Headline Bundle",
         "",
@@ -172,6 +181,7 @@ def build_markdown(bundle: dict[str, Any]) -> str:
         f"- Theorem 1: {bundle['headline']['theorem_1']}",
         f"- Theorem 2: {bundle['headline']['theorem_2']}",
         f"- Theorem 3: {bundle['headline']['theorem_3']}",
+        f"- Core playbook complete: `{playbook['core_playbook_complete']}`",
         "",
         "## Theorem 1",
         "",
@@ -311,6 +321,14 @@ def build_markdown(bundle: dict[str, Any]) -> str:
             f"- On that same theorem-3 proxy matrix, the strongest named comparator is "
             f"`{baseline_proxy_t3['headline']['strongest_named_comparator']}` with regret "
             f"`{baseline_proxy_t3['headline']['strongest_named_comparator_regret']}`, so the named-comparator read there is a near-tie rather than the main headline.",
+            "",
+            "## Playbook Status",
+            "",
+            f"- Cross-family verification complete: `{playbook['cross_family_verification_complete']}`",
+            f"- AdaCAD / CoCoA comparator wave complete: `{playbook['closest_cousin_baselines_complete']}`",
+            f"- `PopQA` / `NQ-Swap` benchmark coverage complete: `{playbook['popqa_nqswap_complete']}`",
+            f"- Theorem-3 rewrite complete: `{playbook['theorem3_rewrite_complete']}`",
+            f"- Killer figure complete: `{playbook['killer_figure_complete']}`",
         ]
     )
     return "\n".join(lines) + "\n"

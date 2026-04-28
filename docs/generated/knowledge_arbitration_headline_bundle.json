@@ -142,6 +142,14 @@
     "theorem_2": "Fixed trust policies are minimax-bad in practice: in the conflict-heavy wave, they incur much larger regret than the principled Bayes proxy.",
     "theorem_3": "Reasoning amplifies overconfidence on hard knowledge QA in a benchmark-dependent two-regime pattern: Bayes beats the generic heuristic with a positive 95% bootstrap interval on the theorem-3 proxy size-scaling matrix, recovery reappears by about 32B on naturalistic contradiction but not yet on controlled conflict, and conflict slices tolerate only about half the do-no-harm eta of no-conflict slices."
   },
+  "playbook_status": {
+    "closest_cousin_baselines_complete": true,
+    "core_playbook_complete": true,
+    "cross_family_verification_complete": true,
+    "killer_figure_complete": true,
+    "popqa_nqswap_complete": true,
+    "theorem3_rewrite_complete": true
+  },
   "project": "bayes_optimal_knowledge_arbitration",
   "spotlight_bootstrap_t12": {
     "bayes_advantage_vs_heuristic": 0.0833,
