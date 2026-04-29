@@ -87,8 +87,9 @@ The new extended-wave readiness note is now explicit in
 [`docs/generated/extended_empirical_wave_ready.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/extended_empirical_wave_ready.md).
 That artifact makes the next empirical wave concrete rather than aspirational:
 `13` wired models, `10` wired benchmarks, `15` wired baselines, `5` wired
-ablations, and explicit three-seed coverage in config, with the only live
-blocker being Delta Kerberos + Duo authentication from this session.
+ablations, and explicit three-seed coverage in config, with Delta now
+authenticated, `18` extended-wave jobs submitted, and a direct completed
+API-slice probe already pulled back locally.
 The new spotlight statistical-strength note is now explicit in
 [`docs/generated/spotlight_statistical_strength_note.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/spotlight_statistical_strength_note.md).
 That note sharpens the finished headline read:

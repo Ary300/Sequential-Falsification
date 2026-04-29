@@ -35,8 +35,180 @@
     "triviaqa",
     "wikicontradict"
   ],
-  "delta_auth_detail": "NCSA DeltaAI requires Kerberos plus Duo MFA from this session; BatchMode ssh to dtai-login.delta.ncsa.illinois.edu returned permission denied on 2026-04-28.",
-  "delta_auth_state": "blocked",
+  "delta_auth_detail": "Authenticated to DeltaAI on 2026-04-28, repaired the remote knowledge-arbitration loader package under src/, submitted 18 extended-wave jobs (2210217-2210234), and completed a direct API-slice probe locally on Delta while the queue waits at priority.",
+  "delta_auth_state": "submitted",
+  "delta_direct_probe": {
+    "bayes_proxy_mean_regret": 0.08013486032764011,
+    "bayes_vs_heuristic_gain": 0.06914416732016693,
+    "heuristic_adaptive_mean_regret": 0.14927902764780704,
+    "name": "arbitration_spotlight_extended_api_slice__seed=42",
+    "num_rows": 8064
+  },
+  "delta_submission_count": 18,
+  "delta_submissions": [
+    {
+      "cpus": "4",
+      "expanded_from": "arbitration_spotlight_extended_api_slice",
+      "experiment_name": "arbitration_spotlight_extended_api_slice__seed=42",
+      "gpus": "1",
+      "job_id": "2210217",
+      "mem": "16G",
+      "wall": "03:00:00"
+    },
+    {
+      "cpus": "8",
+      "expanded_from": "arbitration_spotlight_extended_model_wave",
+      "experiment_name": "arbitration_spotlight_extended_model_wave__seed=42",
+      "gpus": "1",
+      "job_id": "2210218",
+      "mem": "32G",
+      "wall": "08:00:00"
+    },
+    {
+      "cpus": "8",
+      "expanded_from": "arbitration_spotlight_extended_model_wave",
+      "experiment_name": "arbitration_spotlight_extended_model_wave__seed=43",
+      "gpus": "1",
+      "job_id": "2210219",
+      "mem": "32G",
+      "wall": "08:00:00"
+    },
+    {
+      "cpus": "8",
+      "expanded_from": "arbitration_spotlight_extended_model_wave",
+      "experiment_name": "arbitration_spotlight_extended_model_wave__seed=44",
+      "gpus": "1",
+      "job_id": "2210220",
+      "mem": "32G",
+      "wall": "08:00:00"
+    },
+    {
+      "cpus": "8",
+      "expanded_from": "arbitration_spotlight_extended_t3_calibration_wave",
+      "experiment_name": "arbitration_spotlight_extended_t3_calibration_wave__seed=42__eta_value=0p25",
+      "gpus": "1",
+      "job_id": "2210221",
+      "mem": "24G",
+      "wall": "06:00:00"
+    },
+    {
+      "cpus": "8",
+      "expanded_from": "arbitration_spotlight_extended_t3_calibration_wave",
+      "experiment_name": "arbitration_spotlight_extended_t3_calibration_wave__seed=42__eta_value=0p5",
+      "gpus": "1",
+      "job_id": "2210222",
+      "mem": "24G",
+      "wall": "06:00:00"
+    },
+    {
+      "cpus": "8",
+      "expanded_from": "arbitration_spotlight_extended_t3_calibration_wave",
+      "experiment_name": "arbitration_spotlight_extended_t3_calibration_wave__seed=42__eta_value=0p75",
+      "gpus": "1",
+      "job_id": "2210223",
+      "mem": "24G",
+      "wall": "06:00:00"
+    },
+    {
+      "cpus": "8",
+      "expanded_from": "arbitration_spotlight_extended_t3_calibration_wave",
+      "experiment_name": "arbitration_spotlight_extended_t3_calibration_wave__seed=42__eta_value=1p0",
+      "gpus": "1",
+      "job_id": "2210224",
+      "mem": "24G",
+      "wall": "06:00:00"
+    },
+    {
+      "cpus": "8",
+      "expanded_from": "arbitration_spotlight_extended_t3_calibration_wave",
+      "experiment_name": "arbitration_spotlight_extended_t3_calibration_wave__seed=43__eta_value=0p25",
+      "gpus": "1",
+      "job_id": "2210225",
+      "mem": "24G",
+      "wall": "06:00:00"
+    },
+    {
+      "cpus": "8",
+      "expanded_from": "arbitration_spotlight_extended_t3_calibration_wave",
+      "experiment_name": "arbitration_spotlight_extended_t3_calibration_wave__seed=43__eta_value=0p5",
+      "gpus": "1",
+      "job_id": "2210226",
+      "mem": "24G",
+      "wall": "06:00:00"
+    },
+    {
+      "cpus": "8",
+      "expanded_from": "arbitration_spotlight_extended_t3_calibration_wave",
+      "experiment_name": "arbitration_spotlight_extended_t3_calibration_wave__seed=43__eta_value=0p75",
+      "gpus": "1",
+      "job_id": "2210227",
+      "mem": "24G",
+      "wall": "06:00:00"
+    },
+    {
+      "cpus": "8",
+      "expanded_from": "arbitration_spotlight_extended_t3_calibration_wave",
+      "experiment_name": "arbitration_spotlight_extended_t3_calibration_wave__seed=43__eta_value=1p0",
+      "gpus": "1",
+      "job_id": "2210228",
+      "mem": "24G",
+      "wall": "06:00:00"
+    },
+    {
+      "cpus": "8",
+      "expanded_from": "arbitration_spotlight_extended_t3_calibration_wave",
+      "experiment_name": "arbitration_spotlight_extended_t3_calibration_wave__seed=44__eta_value=0p25",
+      "gpus": "1",
+      "job_id": "2210229",
+      "mem": "24G",
+      "wall": "06:00:00"
+    },
+    {
+      "cpus": "8",
+      "expanded_from": "arbitration_spotlight_extended_t3_calibration_wave",
+      "experiment_name": "arbitration_spotlight_extended_t3_calibration_wave__seed=44__eta_value=0p5",
+      "gpus": "1",
+      "job_id": "2210230",
+      "mem": "24G",
+      "wall": "06:00:00"
+    },
+    {
+      "cpus": "8",
+      "expanded_from": "arbitration_spotlight_extended_t3_calibration_wave",
+      "experiment_name": "arbitration_spotlight_extended_t3_calibration_wave__seed=44__eta_value=0p75",
+      "gpus": "1",
+      "job_id": "2210231",
+      "mem": "24G",
+      "wall": "06:00:00"
+    },
+    {
+      "cpus": "8",
+      "expanded_from": "arbitration_spotlight_extended_t3_calibration_wave",
+      "experiment_name": "arbitration_spotlight_extended_t3_calibration_wave__seed=44__eta_value=1p0",
+      "gpus": "1",
+      "job_id": "2210232",
+      "mem": "24G",
+      "wall": "06:00:00"
+    },
+    {
+      "cpus": "4",
+      "expanded_from": "arbitration_spotlight_extended_api_slice",
+      "experiment_name": "arbitration_spotlight_extended_api_slice__seed=43",
+      "gpus": "1",
+      "job_id": "2210233",
+      "mem": "16G",
+      "wall": "03:00:00"
+    },
+    {
+      "cpus": "4",
+      "expanded_from": "arbitration_spotlight_extended_api_slice",
+      "experiment_name": "arbitration_spotlight_extended_api_slice__seed=44",
+      "gpus": "1",
+      "job_id": "2210234",
+      "mem": "16G",
+      "wall": "03:00:00"
+    }
+  ],
   "experiments": [
     {
       "max_examples": 256,

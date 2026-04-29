@@ -428,6 +428,16 @@ def build_markdown(bundle: dict[str, Any]) -> str:
                 if extended_wave_ready
                 else "- The extended empirical wave readiness artifact has not been built yet."
             ),
+            (
+                f"- Delta submission read: `{extended_wave_ready.get('delta_submission_count', 0)}` jobs are now "
+                f"captured locally for the extended wave, and the direct completed probe "
+                f"`{extended_wave_ready.get('delta_direct_probe', {}).get('name', 'unknown')}` reports "
+                f"Bayes-vs-heuristic gain "
+                f"`{extended_wave_ready.get('delta_direct_probe', {}).get('bayes_vs_heuristic_gain', 0):.4f}` "
+                f"over `{extended_wave_ready.get('delta_direct_probe', {}).get('num_rows', 0)}` rows."
+                if extended_wave_ready.get("delta_direct_probe")
+                else "- No direct Delta probe summary has been pulled back yet."
+            ),
             "",
             "## Playbook Status",
             "",

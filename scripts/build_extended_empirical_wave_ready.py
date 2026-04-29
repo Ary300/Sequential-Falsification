@@ -40,6 +40,16 @@ def parse_args() -> argparse.Namespace:
         default="",
         help="Optional explanatory detail for the current Delta submission state.",
     )
+    parser.add_argument(
+        "--submission-manifest-jsonl",
+        default="docs/generated/delta_extended_wave_submissions.jsonl",
+        help="Optional JSONL manifest of submitted Delta jobs.",
+    )
+    parser.add_argument(
+        "--direct-result-manifest",
+        default="results/delta_knowledge_arbitration_extended_wave_direct/manifest.json",
+        help="Optional manifest for any directly completed Delta run.",
+    )
     return parser.parse_args()
 
 
@@ -47,7 +57,31 @@ def _load_json(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def build_payload(manifest: dict[str, Any], *, delta_auth_state: str, delta_auth_detail: str) -> dict[str, Any]:
+def _load_optional_json(path: Path) -> dict[str, Any] | None:
+    if not path.exists():
+        return None
+    return _load_json(path)
+
+
+def _load_optional_jsonl(path: Path) -> list[dict[str, Any]]:
+    if not path.exists():
+        return []
+    rows: list[dict[str, Any]] = []
+    for line in path.read_text(encoding="utf-8").splitlines():
+        stripped = line.strip()
+        if stripped:
+            rows.append(json.loads(stripped))
+    return rows
+
+
+def build_payload(
+    manifest: dict[str, Any],
+    *,
+    delta_auth_state: str,
+    delta_auth_detail: str,
+    submission_rows: list[dict[str, Any]],
+    direct_result_manifest: dict[str, Any] | None,
+) -> dict[str, Any]:
     readiness = manifest.get("readiness", {})
     experiments = manifest.get("experiments", [])
     benchmark_keys = sorted({item["key"] for exp in experiments for item in exp.get("benchmarks", [])})
@@ -67,6 +101,20 @@ def build_payload(manifest: dict[str, Any], *, delta_auth_state: str, delta_auth
             seeds.add(int(match.group(1)))
     total_cells = sum(int(exp.get("total_cells", 0)) for exp in experiments)
 
+    if delta_auth_state == "unknown" and submission_rows:
+        delta_auth_state = "submitted"
+
+    direct_probe = None
+    if direct_result_manifest and direct_result_manifest.get("experiments"):
+        first = direct_result_manifest["experiments"][0]
+        direct_probe = {
+            "name": first.get("name"),
+            "num_rows": first.get("num_rows"),
+            "bayes_proxy_mean_regret": first.get("bayes_proxy_mean_regret"),
+            "heuristic_adaptive_mean_regret": first.get("heuristic_adaptive_mean_regret"),
+            "bayes_vs_heuristic_gain": first.get("bayes_vs_heuristic_gain"),
+        }
+
     return {
         "manifest_path": manifest.get("config"),
         "num_experiments": int(manifest.get("num_experiments", len(experiments))),
@@ -79,6 +127,9 @@ def build_payload(manifest: dict[str, Any], *, delta_auth_state: str, delta_auth
         "readiness": readiness,
         "delta_auth_state": delta_auth_state,
         "delta_auth_detail": delta_auth_detail,
+        "delta_submission_count": len(submission_rows),
+        "delta_submissions": submission_rows,
+        "delta_direct_probe": direct_probe,
         "experiments": [
             {
                 "name": exp["name"],
@@ -114,6 +165,14 @@ def build_markdown(payload: dict[str, Any]) -> str:
     ]
     if payload["delta_auth_detail"]:
         lines.append(f"- Delta auth detail: {payload['delta_auth_detail']}")
+    if payload["delta_submission_count"]:
+        lines.append(f"- Delta submitted jobs captured locally: `{payload['delta_submission_count']}`")
+    if payload["delta_direct_probe"]:
+        probe = payload["delta_direct_probe"]
+        lines.append(
+            f"- Direct completed Delta probe: `{probe['name']}` with `{probe['num_rows']}` rows and "
+            f"Bayes-vs-heuristic gain `{probe['bayes_vs_heuristic_gain']:.4f}`"
+        )
 
     lines.extend(
         [
@@ -145,8 +204,8 @@ def build_markdown(payload: dict[str, Any]) -> str:
             "## Interpretation",
             "",
             "- The remaining gap is no longer missing code or missing benchmark plumbing.",
-            "- The remaining gap is authenticated external compute for the newly wired model and benchmark wave.",
-            "- This note should be read together with the empirical completion audit: the finished core already has headline-grade results, and this extended wave is the next compute-ready upgrade path.",
+            "- The extended wave is now both compute-ready and Delta-submitted; the open remaining gap is job completion, result pullback, and final write-up.",
+            "- This note should be read together with the empirical completion audit: the finished core already has headline-grade results, and this extended wave is now an active execution path rather than a dormant plan.",
             "",
         ]
     )
@@ -156,10 +215,14 @@ def build_markdown(payload: dict[str, Any]) -> str:
 def main() -> None:
     args = parse_args()
     manifest = _load_json(ROOT / args.manifest)
+    submission_rows = _load_optional_jsonl(ROOT / args.submission_manifest_jsonl)
+    direct_result_manifest = _load_optional_json(ROOT / args.direct_result_manifest)
     payload = build_payload(
         manifest,
         delta_auth_state=args.delta_auth_state,
         delta_auth_detail=args.delta_auth_detail,
+        submission_rows=submission_rows,
+        direct_result_manifest=direct_result_manifest,
     )
     output_prefix = ROOT / args.output_prefix
     output_prefix.parent.mkdir(parents=True, exist_ok=True)

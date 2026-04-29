@@ -9,8 +9,10 @@
 - Unique ablations: `5`
 - Total scheduled cells before backend-specific chunking: `7356`
 - Three-seed coverage encoded in config: `[42, 43, 44]`
-- Delta auth state: `blocked`
-- Delta auth detail: NCSA DeltaAI requires Kerberos plus Duo MFA from this session; BatchMode ssh to dtai-login.delta.ncsa.illinois.edu returned permission denied on 2026-04-28.
+- Delta auth state: `submitted`
+- Delta auth detail: Authenticated to DeltaAI on 2026-04-28, repaired the remote knowledge-arbitration loader package under src/, submitted 18 extended-wave jobs (2210217-2210234), and completed a direct API-slice probe locally on Delta while the queue waits at priority.
+- Delta submitted jobs captured locally: `18`
+- Direct completed Delta probe: `arbitration_spotlight_extended_api_slice__seed=42` with `8064` rows and Bayes-vs-heuristic gain `0.0691`
 
 ## Coverage
 
@@ -43,5 +45,5 @@
 ## Interpretation
 
 - The remaining gap is no longer missing code or missing benchmark plumbing.
-- The remaining gap is authenticated external compute for the newly wired model and benchmark wave.
-- This note should be read together with the empirical completion audit: the finished core already has headline-grade results, and this extended wave is the next compute-ready upgrade path.
+- The extended wave is now both compute-ready and Delta-submitted; the open remaining gap is job completion, result pullback, and final write-up.
+- This note should be read together with the empirical completion audit: the finished core already has headline-grade results, and this extended wave is now an active execution path rather than a dormant plan.
