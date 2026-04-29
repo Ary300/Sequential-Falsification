@@ -32,6 +32,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--conditions", default="aligned_context,conflict_context")
     parser.add_argument("--wikicontradict-max", type=int, default=200)
     parser.add_argument("--conflictbank-max", type=int, default=500)
+    parser.add_argument("--triviaqa-max", type=int, default=200)
     parser.add_argument("--conflictbank-screening-pool", type=int, default=1200)
     parser.add_argument("--ambiguity-low", type=float, default=0.2)
     parser.add_argument("--ambiguity-high", type=float, default=0.8)
@@ -60,6 +61,7 @@ def main() -> None:
         output_dir=ROOT / args.output_dir,
         wikicontradict_max=args.wikicontradict_max,
         conflictbank_max=args.conflictbank_max,
+        triviaqa_max=args.triviaqa_max,
         conflictbank_screening_pool=args.conflictbank_screening_pool,
         ambiguity_low=args.ambiguity_low,
         ambiguity_high=args.ambiguity_high,

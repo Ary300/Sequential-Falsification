@@ -1,0 +1,403 @@
+{
+  "headline": {
+    "flip_count": 0,
+    "num_series": 30,
+    "flip_rate": 0.0,
+    "mean_triviaqa_gap_delta": -0.0433,
+    "mean_conflictbank_gap_delta": -0.1327
+  },
+  "per_series": [
+    {
+      "seed": 42,
+      "model": "Qwen/Qwen2.5-14B-Instruct",
+      "triviaqa_gap_cot0": -0.0567,
+      "triviaqa_gap_long": -0.0168,
+      "triviaqa_gap_delta": -0.0399,
+      "conflictbank_gap_cot0": 0.1377,
+      "conflictbank_gap_long": 0.0,
+      "conflictbank_gap_delta": -0.1377,
+      "sign_flip": false
+    },
+    {
+      "seed": 42,
+      "model": "Qwen/Qwen2.5-32B-Instruct",
+      "triviaqa_gap_cot0": -0.1032,
+      "triviaqa_gap_long": -0.0675,
+      "triviaqa_gap_delta": -0.0357,
+      "conflictbank_gap_cot0": 0.0796,
+      "conflictbank_gap_long": 0.0,
+      "conflictbank_gap_delta": -0.0796,
+      "sign_flip": false
+    },
+    {
+      "seed": 42,
+      "model": "Qwen/Qwen2.5-7B-Instruct",
+      "triviaqa_gap_cot0": -0.0377,
+      "triviaqa_gap_long": -0.0,
+      "triviaqa_gap_delta": -0.0377,
+      "conflictbank_gap_cot0": 0.1943,
+      "conflictbank_gap_long": 0.0431,
+      "conflictbank_gap_delta": -0.1512,
+      "sign_flip": false
+    },
+    {
+      "seed": 42,
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Llama-70B",
+      "triviaqa_gap_cot0": -0.1032,
+      "triviaqa_gap_long": -0.008,
+      "triviaqa_gap_delta": -0.0952,
+      "conflictbank_gap_cot0": 0.0796,
+      "conflictbank_gap_long": 0.0,
+      "conflictbank_gap_delta": -0.0796,
+      "sign_flip": false
+    },
+    {
+      "seed": 42,
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+      "triviaqa_gap_cot0": -0.0377,
+      "triviaqa_gap_long": -0.0,
+      "triviaqa_gap_delta": -0.0377,
+      "conflictbank_gap_cot0": 0.1943,
+      "conflictbank_gap_long": 0.0,
+      "conflictbank_gap_delta": -0.1943,
+      "sign_flip": false
+    },
+    {
+      "seed": 42,
+      "model": "google/gemma-2-27b-it",
+      "triviaqa_gap_cot0": -0.0377,
+      "triviaqa_gap_long": -0.0,
+      "triviaqa_gap_delta": -0.0377,
+      "conflictbank_gap_cot0": 0.1943,
+      "conflictbank_gap_long": 0.0431,
+      "conflictbank_gap_delta": -0.1512,
+      "sign_flip": false
+    },
+    {
+      "seed": 42,
+      "model": "google/gemma-2-9b-it",
+      "triviaqa_gap_cot0": -0.0377,
+      "triviaqa_gap_long": -0.0,
+      "triviaqa_gap_delta": -0.0377,
+      "conflictbank_gap_cot0": 0.1943,
+      "conflictbank_gap_long": 0.0431,
+      "conflictbank_gap_delta": -0.1512,
+      "sign_flip": false
+    },
+    {
+      "seed": 42,
+      "model": "meta-llama/Llama-3.1-70B-Instruct",
+      "triviaqa_gap_cot0": -0.1032,
+      "triviaqa_gap_long": -0.0675,
+      "triviaqa_gap_delta": -0.0357,
+      "conflictbank_gap_cot0": 0.0796,
+      "conflictbank_gap_long": 0.0,
+      "conflictbank_gap_delta": -0.0796,
+      "sign_flip": false
+    },
+    {
+      "seed": 42,
+      "model": "meta-llama/Llama-3.1-8B-Instruct",
+      "triviaqa_gap_cot0": -0.0377,
+      "triviaqa_gap_long": -0.0,
+      "triviaqa_gap_delta": -0.0377,
+      "conflictbank_gap_cot0": 0.1943,
+      "conflictbank_gap_long": 0.0431,
+      "conflictbank_gap_delta": -0.1512,
+      "sign_flip": false
+    },
+    {
+      "seed": 42,
+      "model": "mistralai/Mistral-7B-Instruct-v0.3",
+      "triviaqa_gap_cot0": -0.0377,
+      "triviaqa_gap_long": -0.0,
+      "triviaqa_gap_delta": -0.0377,
+      "conflictbank_gap_cot0": 0.1943,
+      "conflictbank_gap_long": 0.0431,
+      "conflictbank_gap_delta": -0.1512,
+      "sign_flip": false
+    },
+    {
+      "seed": 43,
+      "model": "Qwen/Qwen2.5-14B-Instruct",
+      "triviaqa_gap_cot0": -0.0567,
+      "triviaqa_gap_long": -0.0168,
+      "triviaqa_gap_delta": -0.0399,
+      "conflictbank_gap_cot0": 0.1377,
+      "conflictbank_gap_long": 0.0,
+      "conflictbank_gap_delta": -0.1377,
+      "sign_flip": false
+    },
+    {
+      "seed": 43,
+      "model": "Qwen/Qwen2.5-32B-Instruct",
+      "triviaqa_gap_cot0": -0.1032,
+      "triviaqa_gap_long": -0.0675,
+      "triviaqa_gap_delta": -0.0357,
+      "conflictbank_gap_cot0": 0.0796,
+      "conflictbank_gap_long": 0.0,
+      "conflictbank_gap_delta": -0.0796,
+      "sign_flip": false
+    },
+    {
+      "seed": 43,
+      "model": "Qwen/Qwen2.5-7B-Instruct",
+      "triviaqa_gap_cot0": -0.0377,
+      "triviaqa_gap_long": -0.0,
+      "triviaqa_gap_delta": -0.0377,
+      "conflictbank_gap_cot0": 0.1943,
+      "conflictbank_gap_long": 0.0431,
+      "conflictbank_gap_delta": -0.1512,
+      "sign_flip": false
+    },
+    {
+      "seed": 43,
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Llama-70B",
+      "triviaqa_gap_cot0": -0.1032,
+      "triviaqa_gap_long": -0.008,
+      "triviaqa_gap_delta": -0.0952,
+      "conflictbank_gap_cot0": 0.0796,
+      "conflictbank_gap_long": 0.0,
+      "conflictbank_gap_delta": -0.0796,
+      "sign_flip": false
+    },
+    {
+      "seed": 43,
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+      "triviaqa_gap_cot0": -0.0377,
+      "triviaqa_gap_long": -0.0,
+      "triviaqa_gap_delta": -0.0377,
+      "conflictbank_gap_cot0": 0.1943,
+      "conflictbank_gap_long": 0.0,
+      "conflictbank_gap_delta": -0.1943,
+      "sign_flip": false
+    },
+    {
+      "seed": 43,
+      "model": "google/gemma-2-27b-it",
+      "triviaqa_gap_cot0": -0.0377,
+      "triviaqa_gap_long": -0.0,
+      "triviaqa_gap_delta": -0.0377,
+      "conflictbank_gap_cot0": 0.1943,
+      "conflictbank_gap_long": 0.0431,
+      "conflictbank_gap_delta": -0.1512,
+      "sign_flip": false
+    },
+    {
+      "seed": 43,
+      "model": "google/gemma-2-9b-it",
+      "triviaqa_gap_cot0": -0.0377,
+      "triviaqa_gap_long": -0.0,
+      "triviaqa_gap_delta": -0.0377,
+      "conflictbank_gap_cot0": 0.1943,
+      "conflictbank_gap_long": 0.0431,
+      "conflictbank_gap_delta": -0.1512,
+      "sign_flip": false
+    },
+    {
+      "seed": 43,
+      "model": "meta-llama/Llama-3.1-70B-Instruct",
+      "triviaqa_gap_cot0": -0.1032,
+      "triviaqa_gap_long": -0.0675,
+      "triviaqa_gap_delta": -0.0357,
+      "conflictbank_gap_cot0": 0.0796,
+      "conflictbank_gap_long": 0.0,
+      "conflictbank_gap_delta": -0.0796,
+      "sign_flip": false
+    },
+    {
+      "seed": 43,
+      "model": "meta-llama/Llama-3.1-8B-Instruct",
+      "triviaqa_gap_cot0": -0.0377,
+      "triviaqa_gap_long": -0.0,
+      "triviaqa_gap_delta": -0.0377,
+      "conflictbank_gap_cot0": 0.1943,
+      "conflictbank_gap_long": 0.0431,
+      "conflictbank_gap_delta": -0.1512,
+      "sign_flip": false
+    },
+    {
+      "seed": 43,
+      "model": "mistralai/Mistral-7B-Instruct-v0.3",
+      "triviaqa_gap_cot0": -0.0377,
+      "triviaqa_gap_long": -0.0,
+      "triviaqa_gap_delta": -0.0377,
+      "conflictbank_gap_cot0": 0.1943,
+      "conflictbank_gap_long": 0.0431,
+      "conflictbank_gap_delta": -0.1512,
+      "sign_flip": false
+    },
+    {
+      "seed": 44,
+      "model": "Qwen/Qwen2.5-14B-Instruct",
+      "triviaqa_gap_cot0": -0.0567,
+      "triviaqa_gap_long": -0.0168,
+      "triviaqa_gap_delta": -0.0399,
+      "conflictbank_gap_cot0": 0.1377,
+      "conflictbank_gap_long": 0.0,
+      "conflictbank_gap_delta": -0.1377,
+      "sign_flip": false
+    },
+    {
+      "seed": 44,
+      "model": "Qwen/Qwen2.5-32B-Instruct",
+      "triviaqa_gap_cot0": -0.1032,
+      "triviaqa_gap_long": -0.0675,
+      "triviaqa_gap_delta": -0.0357,
+      "conflictbank_gap_cot0": 0.0796,
+      "conflictbank_gap_long": 0.0,
+      "conflictbank_gap_delta": -0.0796,
+      "sign_flip": false
+    },
+    {
+      "seed": 44,
+      "model": "Qwen/Qwen2.5-7B-Instruct",
+      "triviaqa_gap_cot0": -0.0377,
+      "triviaqa_gap_long": -0.0,
+      "triviaqa_gap_delta": -0.0377,
+      "conflictbank_gap_cot0": 0.1943,
+      "conflictbank_gap_long": 0.0431,
+      "conflictbank_gap_delta": -0.1512,
+      "sign_flip": false
+    },
+    {
+      "seed": 44,
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Llama-70B",
+      "triviaqa_gap_cot0": -0.1032,
+      "triviaqa_gap_long": -0.008,
+      "triviaqa_gap_delta": -0.0952,
+      "conflictbank_gap_cot0": 0.0796,
+      "conflictbank_gap_long": 0.0,
+      "conflictbank_gap_delta": -0.0796,
+      "sign_flip": false
+    },
+    {
+      "seed": 44,
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+      "triviaqa_gap_cot0": -0.0377,
+      "triviaqa_gap_long": -0.0,
+      "triviaqa_gap_delta": -0.0377,
+      "conflictbank_gap_cot0": 0.1943,
+      "conflictbank_gap_long": 0.0,
+      "conflictbank_gap_delta": -0.1943,
+      "sign_flip": false
+    },
+    {
+      "seed": 44,
+      "model": "google/gemma-2-27b-it",
+      "triviaqa_gap_cot0": -0.0377,
+      "triviaqa_gap_long": -0.0,
+      "triviaqa_gap_delta": -0.0377,
+      "conflictbank_gap_cot0": 0.1943,
+      "conflictbank_gap_long": 0.0431,
+      "conflictbank_gap_delta": -0.1512,
+      "sign_flip": false
+    },
+    {
+      "seed": 44,
+      "model": "google/gemma-2-9b-it",
+      "triviaqa_gap_cot0": -0.0377,
+      "triviaqa_gap_long": -0.0,
+      "triviaqa_gap_delta": -0.0377,
+      "conflictbank_gap_cot0": 0.1943,
+      "conflictbank_gap_long": 0.0431,
+      "conflictbank_gap_delta": -0.1512,
+      "sign_flip": false
+    },
+    {
+      "seed": 44,
+      "model": "meta-llama/Llama-3.1-70B-Instruct",
+      "triviaqa_gap_cot0": -0.1032,
+      "triviaqa_gap_long": -0.0675,
+      "triviaqa_gap_delta": -0.0357,
+      "conflictbank_gap_cot0": 0.0796,
+      "conflictbank_gap_long": 0.0,
+      "conflictbank_gap_delta": -0.0796,
+      "sign_flip": false
+    },
+    {
+      "seed": 44,
+      "model": "meta-llama/Llama-3.1-8B-Instruct",
+      "triviaqa_gap_cot0": -0.0377,
+      "triviaqa_gap_long": -0.0,
+      "triviaqa_gap_delta": -0.0377,
+      "conflictbank_gap_cot0": 0.1943,
+      "conflictbank_gap_long": 0.0431,
+      "conflictbank_gap_delta": -0.1512,
+      "sign_flip": false
+    },
+    {
+      "seed": 44,
+      "model": "mistralai/Mistral-7B-Instruct-v0.3",
+      "triviaqa_gap_cot0": -0.0377,
+      "triviaqa_gap_long": -0.0,
+      "triviaqa_gap_delta": -0.0377,
+      "conflictbank_gap_cot0": 0.1943,
+      "conflictbank_gap_long": 0.0431,
+      "conflictbank_gap_delta": -0.1512,
+      "sign_flip": false
+    }
+  ],
+  "per_model": [
+    {
+      "model": "Qwen/Qwen2.5-14B-Instruct",
+      "mean_triviaqa_gap_delta": -0.0399,
+      "mean_conflictbank_gap_delta": -0.1377,
+      "count": 3
+    },
+    {
+      "model": "Qwen/Qwen2.5-32B-Instruct",
+      "mean_triviaqa_gap_delta": -0.0357,
+      "mean_conflictbank_gap_delta": -0.0796,
+      "count": 3
+    },
+    {
+      "model": "Qwen/Qwen2.5-7B-Instruct",
+      "mean_triviaqa_gap_delta": -0.0377,
+      "mean_conflictbank_gap_delta": -0.1512,
+      "count": 3
+    },
+    {
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Llama-70B",
+      "mean_triviaqa_gap_delta": -0.0952,
+      "mean_conflictbank_gap_delta": -0.0796,
+      "count": 3
+    },
+    {
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+      "mean_triviaqa_gap_delta": -0.0377,
+      "mean_conflictbank_gap_delta": -0.1943,
+      "count": 3
+    },
+    {
+      "model": "google/gemma-2-27b-it",
+      "mean_triviaqa_gap_delta": -0.0377,
+      "mean_conflictbank_gap_delta": -0.1512,
+      "count": 3
+    },
+    {
+      "model": "google/gemma-2-9b-it",
+      "mean_triviaqa_gap_delta": -0.0377,
+      "mean_conflictbank_gap_delta": -0.1512,
+      "count": 3
+    },
+    {
+      "model": "meta-llama/Llama-3.1-70B-Instruct",
+      "mean_triviaqa_gap_delta": -0.0357,
+      "mean_conflictbank_gap_delta": -0.0796,
+      "count": 3
+    },
+    {
+      "model": "meta-llama/Llama-3.1-8B-Instruct",
+      "mean_triviaqa_gap_delta": -0.0377,
+      "mean_conflictbank_gap_delta": -0.1512,
+      "count": 3
+    },
+    {
+      "model": "mistralai/Mistral-7B-Instruct-v0.3",
+      "mean_triviaqa_gap_delta": -0.0377,
+      "mean_conflictbank_gap_delta": -0.1512,
+      "count": 3
+    }
+  ]
+}

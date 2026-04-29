@@ -107,6 +107,25 @@ Partial 14B replication:
 - DeepSeek-Llama `ConflictBank` conflict `cot=1024` gain: `0.0518`.
 - Matching long-CoT slice comparison: DeepSeek-Qwen-7B = `0.1072`, Qwen2.5-32B = `0.0518`, Qwen2.5-14B = `0.0889`.
 
+## Synthetic Oracle
+
+- Synthetic calibration-to-oracle convergence reaches held-out `R^2 = 0.9984` at calibration size `2048`.
+- The exact-verifiability target `R^2 > 0.95` passes = `True`.
+
+## Component Ablation
+
+- Full Bayes mean regret: `-0.1984`.
+- Removing prior-strength estimate: `-0.2226` with worse-rate `0.74`.
+- Removing reliability estimate: `-0.1624` with worse-rate `0.94`.
+- Removing posterior update: `0.1695` with worse-rate `0.94`.
+
+## Yoon Contrast
+
+- Proxy-control sign-flip count: `0/30`.
+- Proxy `TriviaQA` gap-magnitude delta: `-0.0433`.
+- Proxy `ConflictBank` gap-magnitude delta: `-0.1327`.
+- The stronger real-generation Yoon contrast path is wired, but the dedicated Delta run has not completed yet.
+
 ## Current Read
 
 - Theorem 1/2 are already paper-strong at the spotlight-matrix layer: Bayes beats the generic heuristic by `0.0833` regret with a positive bootstrap CI.

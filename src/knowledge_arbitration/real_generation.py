@@ -521,6 +521,7 @@ def run_real_generation_experiment(
     output_dir: str | Path,
     wikicontradict_max: int = 200,
     conflictbank_max: int = 500,
+    triviaqa_max: int = 200,
     conflictbank_screening_pool: int = 1200,
     ambiguity_low: float = 0.2,
     ambiguity_high: float = 0.8,
@@ -554,6 +555,18 @@ def run_real_generation_experiment(
             output_dir=output_path,
             resume=resume,
         )
+    if "triviaqa" in benchmarks:
+        trivia_examples = load_arbitration_dataset("triviaqa", max_examples=triviaqa_max)
+        selection["triviaqa"] = {
+            "summary": {
+                "benchmark": "triviaqa",
+                "screening_pool": len(trivia_examples),
+                "selected_examples": len(trivia_examples),
+                "selection_rule": "first_n",
+            },
+            "examples": trivia_examples,
+            "records_by_id": {},
+        }
 
     raw_generations_path = output_path / "theorem3_generation_rows.jsonl"
     raw_errors_path = output_path / "theorem3_generation_errors.jsonl"
@@ -570,6 +583,7 @@ def run_real_generation_experiment(
         print(f"[theorem3] benchmark={benchmark} selected_examples={len(examples)} resume_rows={len(existing)}", flush=True)
         for example in examples:
             metadata = dict(example.get("metadata", {}))
+            supported_conditions = set(metadata.get("supports_conditions") or [])
             gold_answers = _answer_set(example.get("answers"))
             parametric_answers = _answer_set(metadata.get("parametric_answers") or example.get("answers"))
             aligned_answers = _answer_set(metadata.get("aligned_context_answers") or example.get("answers"))
@@ -578,6 +592,8 @@ def run_real_generation_experiment(
             for condition in requested_conditions:
                 if condition not in {"closed_book", "aligned_context", "conflict_context"}:
                     raise ValueError(f"Unsupported theorem-3 condition: {condition}")
+                if supported_conditions and condition not in supported_conditions:
+                    continue
                 split = _condition_split(condition)
                 context_answers = _condition_context_answers(
                     condition,
@@ -703,6 +719,7 @@ def run_real_generation_experiment(
             "ambiguity_interval": [ambiguity_low, ambiguity_high],
             "wikicontradict_max": wikicontradict_max,
             "conflictbank_max": conflictbank_max,
+            "triviaqa_max": triviaqa_max,
             "conflictbank_screening_pool": conflictbank_screening_pool,
             "screening": {benchmark: selection[benchmark]["summary"] for benchmark in selection},
             "completed_rows": completed,

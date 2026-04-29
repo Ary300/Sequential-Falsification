@@ -127,6 +127,10 @@ def build_bundle() -> dict[str, Any]:
     eta_recipe = _load_json(ROOT / "docs/generated/eta_tempered_decoding_recipe.json")
     theorem3_rlvr = _load_json(ROOT / "docs/generated/theorem3_rlvr_reframing_note.json")
     theorem3_rlvr_validation = _load_optional_json(ROOT / "docs/generated/theorem3_rlvr_validation_note.json") or {}
+    synthetic_oracle = _load_optional_json(ROOT / "docs/generated/synthetic_oracle_convergence.json") or {}
+    bayes_component_ablation = _load_optional_json(ROOT / "docs/generated/bayes_component_ablation_note.json") or {}
+    yoon_contrast = _load_optional_json(ROOT / "docs/generated/yoon_contrast_note.json") or {}
+    yoon_real_contrast = _load_optional_json(ROOT / "docs/generated/yoon_real_contrast_note.json") or {}
     playbook_target_matrix = _load_optional_json(ROOT / "docs/generated/playbook_target_matrix_update.json") or {}
     empirical_audit = _load_optional_json(ROOT / "docs/generated/empirical_completion_audit.json") or {
         "completed_items": [],
@@ -195,6 +199,10 @@ def build_bundle() -> dict[str, Any]:
         "eta_recipe": eta_recipe,
         "theorem3_rlvr": theorem3_rlvr,
         "theorem3_rlvr_validation": theorem3_rlvr_validation,
+        "synthetic_oracle": synthetic_oracle,
+        "bayes_component_ablation": bayes_component_ablation,
+        "yoon_contrast": yoon_contrast,
+        "yoon_real_contrast": yoon_real_contrast,
         "playbook_target_matrix": playbook_target_matrix,
         "empirical_audit": empirical_audit,
         "extended_wave_ready": extended_wave_ready,
@@ -223,6 +231,10 @@ def build_markdown(bundle: dict[str, Any]) -> str:
     eta_recipe = bundle["eta_recipe"]
     theorem3_rlvr = bundle["theorem3_rlvr"]
     theorem3_rlvr_validation = bundle.get("theorem3_rlvr_validation", {})
+    synthetic_oracle = bundle.get("synthetic_oracle", {})
+    bayes_component_ablation = bundle.get("bayes_component_ablation", {})
+    yoon_contrast = bundle.get("yoon_contrast", {})
+    yoon_real_contrast = bundle.get("yoon_real_contrast", {})
     playbook_target_matrix = bundle.get("playbook_target_matrix", {})
     empirical_audit = bundle["empirical_audit"]
     extended_wave_ready = bundle.get("extended_wave_ready", {})
@@ -468,6 +480,85 @@ def build_markdown(bundle: dict[str, Any]) -> str:
                 f"`{theorem3_rlvr_validation.get('headline', {}).get('qwen14_conflictbank_conflict_longcot_gain', 'unknown')}`."
                 if theorem3_rlvr_validation
                 else ""
+            ),
+            "",
+            "## Synthetic Oracle",
+            "",
+            (
+                f"- Synthetic calibration-to-oracle convergence reaches held-out "
+                f"`R^2 = {synthetic_oracle.get('headline', {}).get('largest_calibration_r2', 'unknown')}` "
+                f"at calibration size `{synthetic_oracle.get('headline', {}).get('largest_calibration_size', 'unknown')}`."
+                if synthetic_oracle
+                else "- Synthetic oracle convergence note has not been built yet."
+            ),
+            (
+                f"- The exact-verifiability target `R^2 > 0.95` passes = "
+                f"`{synthetic_oracle.get('headline', {}).get('target_r2_passed', 'unknown')}`."
+                if synthetic_oracle
+                else ""
+            ),
+            "",
+            "## Component Ablation",
+            "",
+            (
+                f"- Full Bayes mean regret: "
+                f"`{bayes_component_ablation.get('headline', {}).get('full_bayes_mean_regret', 'unknown')}`."
+                if bayes_component_ablation
+                else "- Component ablation note has not been built yet."
+            ),
+            (
+                f"- Removing prior-strength estimate: "
+                f"`{bayes_component_ablation.get('headline', {}).get('no_prior_strength_mean_regret', 'unknown')}` "
+                f"with worse-rate "
+                f"`{bayes_component_ablation.get('degradation', {}).get('no_prior_strength', {}).get('worse_rate', 'unknown')}`."
+                if bayes_component_ablation
+                else ""
+            ),
+            (
+                f"- Removing reliability estimate: "
+                f"`{bayes_component_ablation.get('headline', {}).get('no_reliability_mean_regret', 'unknown')}` "
+                f"with worse-rate "
+                f"`{bayes_component_ablation.get('degradation', {}).get('no_reliability', {}).get('worse_rate', 'unknown')}`."
+                if bayes_component_ablation
+                else ""
+            ),
+            (
+                f"- Removing posterior update: "
+                f"`{bayes_component_ablation.get('headline', {}).get('no_posterior_update_mean_regret', 'unknown')}` "
+                f"with worse-rate "
+                f"`{bayes_component_ablation.get('degradation', {}).get('no_posterior_update', {}).get('worse_rate', 'unknown')}`."
+                if bayes_component_ablation
+                else ""
+            ),
+            "",
+            "## Yoon Contrast",
+            "",
+            (
+                f"- Proxy-control sign-flip count: "
+                f"`{yoon_contrast.get('headline', {}).get('flip_count', 'unknown')}/"
+                f"{yoon_contrast.get('headline', {}).get('num_series', 'unknown')}`."
+                if yoon_contrast
+                else "- Yoon-contrast proxy note has not been built yet."
+            ),
+            (
+                f"- Proxy `TriviaQA` gap-magnitude delta: "
+                f"`{yoon_contrast.get('headline', {}).get('mean_triviaqa_gap_delta', 'unknown')}`."
+                if yoon_contrast
+                else ""
+            ),
+            (
+                f"- Proxy `ConflictBank` gap-magnitude delta: "
+                f"`{yoon_contrast.get('headline', {}).get('mean_conflictbank_gap_delta', 'unknown')}`."
+                if yoon_contrast
+                else ""
+            ),
+            (
+                f"- Real-generation Yoon contrast now exists on disk with strict sign flip = "
+                f"`{yoon_real_contrast.get('headline', {}).get('strict_sign_flip', 'unknown')}` "
+                f"and conflict-worse-than-closed-book-at-long-CoT = "
+                f"`{yoon_real_contrast.get('headline', {}).get('conflict_worse_than_closed_book_at_long_cot', 'unknown')}`."
+                if yoon_real_contrast
+                else "- The stronger real-generation Yoon contrast path is wired, but the dedicated Delta run has not completed yet."
             ),
             "",
             "## Current Read",

@@ -18,6 +18,7 @@ export HF_HOME=${HF_HOME:-/work/nvme/bgvi/adas17/hf_cache}
 
 MODEL=${MODEL:-deepseek-ai/DeepSeek-R1-Distill-Qwen-7B}
 BACKEND=${BACKEND:-openai}
+BENCHMARKS=${BENCHMARKS:-wikicontradict,conflictbank}
 CONDITIONS=${CONDITIONS:-aligned_context,conflict_context}
 REQUEST_TIMEOUT=${REQUEST_TIMEOUT:-600}
 TEMPERATURE=${TEMPERATURE:-0.0}
@@ -31,6 +32,7 @@ OUTPUT_DIR=${OUTPUT_DIR:-results/theorem3_real_generation_r1_7b}
 DELTA_RESULTS_ROOT=${DELTA_RESULTS_ROOT:-/work/nvme/bgvi/adas17/tts_results}
 WIKICONTRADICT_MAX=${WIKICONTRADICT_MAX:-200}
 CONFLICTBANK_MAX=${CONFLICTBANK_MAX:-500}
+TRIVIAQA_MAX=${TRIVIAQA_MAX:-200}
 CONFLICTBANK_SCREENING_POOL=${CONFLICTBANK_SCREENING_POOL:-1200}
 AMBIGUITY_LOW=${AMBIGUITY_LOW:-0.2}
 AMBIGUITY_HIGH=${AMBIGUITY_HIGH:-0.8}
@@ -49,6 +51,7 @@ mkdir -p "${RUN_OUTPUT_DIR}"
 ARGS=(
   --output-dir "${RUN_OUTPUT_DIR}" \
   --backend "${BACKEND}" \
+  --benchmarks "${BENCHMARKS}" \
   --conditions "${CONDITIONS}" \
   --model "${MODEL}" \
   --request-timeout "${REQUEST_TIMEOUT}" \
@@ -57,6 +60,7 @@ ARGS=(
   --seed "${SEED}" \
   --wikicontradict-max "${WIKICONTRADICT_MAX}" \
   --conflictbank-max "${CONFLICTBANK_MAX}" \
+  --triviaqa-max "${TRIVIAQA_MAX}" \
   --conflictbank-screening-pool "${CONFLICTBANK_SCREENING_POOL}" \
   --ambiguity-low "${AMBIGUITY_LOW}" \
   --ambiguity-high "${AMBIGUITY_HIGH}"
