@@ -1,0 +1,45 @@
+{
+  "starting_point": {
+    "method_only_conflictbank_gap_before": 0.937239,
+    "method_only_conflictbank_gap_after": 0.520508,
+    "method_only_conflictbank_accuracy_before": 0.036667,
+    "method_only_conflictbank_accuracy_after": 0.44,
+    "method_only_wikicontradict_gap_before": 0.328304,
+    "method_only_wikicontradict_gap_after": 0.318215
+  },
+  "priority_models": [
+    "deepseek-ai/DeepSeek-R1-Distill-Qwen-14B",
+    "deepseek-ai/DeepSeek-R1-Distill-Llama-70B"
+  ],
+  "priority_benchmarks": [
+    "ConflictBank",
+    "WikiContradict",
+    "GPQA",
+    "CLIMATEX"
+  ],
+  "training_recipe": {
+    "objective": "accuracy reward plus explicit Brier-style calibration reward",
+    "anti_pattern": "pure binary GRPO reward without uncertainty credit",
+    "reward_terms": [
+      "verifiable answer correctness",
+      "negative Brier score on reported answer probability",
+      "optional penalty for confidence when the answer is wrong"
+    ],
+    "comparison_arms": [
+      "baseline reasoning model",
+      "eta-tempered decoding only",
+      "Brier-reward finetune only",
+      "Brier-reward finetune plus eta-tempered decoding"
+    ]
+  },
+  "success_targets": {
+    "conflictbank_14b_gap_target": 0.35,
+    "conflictbank_14b_accuracy_floor": 0.44,
+    "wikicontradict_gap_target": 0.3,
+    "must_beat_method_only_on_conflictbank": true
+  },
+  "compute_note": {
+    "requires_external_training_compute": true,
+    "estimated_scope": "multi-day fine-tuning plus rerun of the theorem-3 benchmark panel"
+  }
+}
