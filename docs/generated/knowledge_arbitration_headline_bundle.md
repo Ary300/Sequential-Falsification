@@ -105,6 +105,7 @@ Partial 14B replication:
 - The cleanest theorem-3 wording is now the RLVR-conditioned one: `Models trained with verifiable-reward reasoning objectives can enter a misspecified, endogenous-evidence regime under knowledge conflict, where longer CoT sharpens confidence faster than it improves accuracy. The effect is benchmark-dependent and strongest on controlled conflict families.`
 - The new eta intervention summary makes the mechanism claim sharper: confidence-only tempering can nearly recalibrate naturalistic contradiction at 14B, but it cannot rescue `ConflictBank` conflict once long-CoT has collapsed answer accuracy.
 - Eta-tempered decoding now has an explicit paper recipe: mean conflict do-no-harm `eta = 0.325`, mean no-conflict do-no-harm `eta = 0.625`, with shrink factor `0.52`.
+- The real post-trace eta-decoding method run is now on disk for `conflictbank` / `conflict_context` with selected `eta = 0.0`; eval overconfidence gap moves from `0.937239` to `0.520508`.
 - On the theorem-3 size-scaling proxy matrix, Bayes beats the generic heuristic by `0.0585` regret with bootstrap CI `[0.0155, 0.0961]`.
 - On that same theorem-3 proxy matrix, Bayes still stays ahead of `MADAM-RAG = -0.0232`, `NWCAD = -0.029`, and `JuICE = -0.0595`, even though CoCoA remains the near-tie baseline to write honestly.
 - Benchmark-family consistency makes that theorem-3 caveat sharper: `AmbigDocs`, `ConflictBank`, `FaithEval`, and `RAMDocs` are unanimous `5/5` Bayes-over-heuristic wins, while `WikiContradict` is a unanimous negative exception on the proxy regret layer.

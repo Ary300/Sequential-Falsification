@@ -10,8 +10,8 @@
   },
   "recipe": [
     "Hold out a 200-example calibration split for each model-and-benchmark cell.",
-    "Generate standard CoT traces once, then sweep eta in [0.1, 1.0] over the post-trace answer distribution.",
-    "Choose the largest eta that improves Brier without hurting answer accuracy on the calibration split.",
+    "Generate standard CoT traces once, then sweep eta in [0.0, 1.0] over the post-trace answer distribution.",
+    "Choose the held-out Brier-optimal eta on the calibration split, and optionally report the largest no-harm eta as a conservative operating point.",
     "Decode on the evaluation split with p_eta(a | trace, c) proportional to p(a | trace, c)^eta * p_theta(a | q)^(1-eta).",
     "If the best eta still leaves a large confidence gap, treat the failure as answer-level and not calibration-only."
   ],

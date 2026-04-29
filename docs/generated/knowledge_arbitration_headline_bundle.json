@@ -938,8 +938,8 @@
     },
     "recipe": [
       "Hold out a 200-example calibration split for each model-and-benchmark cell.",
-      "Generate standard CoT traces once, then sweep eta in [0.1, 1.0] over the post-trace answer distribution.",
-      "Choose the largest eta that improves Brier without hurting answer accuracy on the calibration split.",
+      "Generate standard CoT traces once, then sweep eta in [0.0, 1.0] over the post-trace answer distribution.",
+      "Choose the held-out Brier-optimal eta on the calibration split, and optionally report the largest no-harm eta as a conservative operating point.",
       "Decode on the evaluation split with p_eta(a | trace, c) proportional to p(a | trace, c)^eta * p_theta(a | q)^(1-eta).",
       "If the best eta still leaves a large confidence gap, treat the failure as answer-level and not calibration-only."
     ]
@@ -3639,6 +3639,181 @@
       }
     ],
     "source": "theorem3_real_14b_final"
+  },
+  "theorem_3_eta_method": {
+    "calibration": {
+      "baseline_metrics": {
+        "accuracy": 0.05,
+        "brier": 0.903275,
+        "count": 200,
+        "ece": 0.919782,
+        "eta": 1.0,
+        "mean_confidence": 0.969782
+      },
+      "conservative_metrics": {
+        "accuracy": 0.075,
+        "brier": 0.891163,
+        "count": 200,
+        "ece": 0.896703,
+        "eta": 0.9,
+        "mean_confidence": 0.971703
+      },
+      "per_eta": [
+        {
+          "accuracy": 0.47,
+          "brier": 0.504515,
+          "count": 200,
+          "ece": 0.501219,
+          "eta": 0.0,
+          "mean_confidence": 0.971219
+        },
+        {
+          "accuracy": 0.4,
+          "brier": 0.557854,
+          "count": 200,
+          "ece": 0.558582,
+          "eta": 0.1,
+          "mean_confidence": 0.958582
+        },
+        {
+          "accuracy": 0.355,
+          "brier": 0.613434,
+          "count": 200,
+          "ece": 0.615498,
+          "eta": 0.2,
+          "mean_confidence": 0.970498
+        },
+        {
+          "accuracy": 0.31,
+          "brier": 0.666717,
+          "count": 200,
+          "ece": 0.663119,
+          "eta": 0.3,
+          "mean_confidence": 0.972352
+        },
+        {
+          "accuracy": 0.255,
+          "brier": 0.721442,
+          "count": 200,
+          "ece": 0.71147,
+          "eta": 0.4,
+          "mean_confidence": 0.965555
+        },
+        {
+          "accuracy": 0.195,
+          "brier": 0.773461,
+          "count": 200,
+          "ece": 0.774962,
+          "eta": 0.5,
+          "mean_confidence": 0.969962
+        },
+        {
+          "accuracy": 0.14,
+          "brier": 0.824553,
+          "count": 200,
+          "ece": 0.827647,
+          "eta": 0.6,
+          "mean_confidence": 0.967647
+        },
+        {
+          "accuracy": 0.11,
+          "brier": 0.866665,
+          "count": 200,
+          "ece": 0.874217,
+          "eta": 0.7,
+          "mean_confidence": 0.978408
+        },
+        {
+          "accuracy": 0.095,
+          "brier": 0.880136,
+          "count": 200,
+          "ece": 0.883232,
+          "eta": 0.8,
+          "mean_confidence": 0.978232
+        },
+        {
+          "accuracy": 0.075,
+          "brier": 0.891163,
+          "count": 200,
+          "ece": 0.896703,
+          "eta": 0.9,
+          "mean_confidence": 0.971703
+        },
+        {
+          "accuracy": 0.05,
+          "brier": 0.903275,
+          "count": 200,
+          "ece": 0.919782,
+          "eta": 1.0,
+          "mean_confidence": 0.969782
+        }
+      ],
+      "selected_metrics": {
+        "accuracy": 0.47,
+        "brier": 0.504515,
+        "count": 200,
+        "ece": 0.501219,
+        "eta": 0.0,
+        "mean_confidence": 0.971219
+      }
+    },
+    "evaluation": {
+      "baseline": {
+        "accuracy": 0.036667,
+        "brier": 0.9204,
+        "count": 300,
+        "ece": 0.937239,
+        "eta": 1.0,
+        "mean_confidence": 0.973905,
+        "overconfidence_gap": 0.937239
+      },
+      "conservative": {
+        "accuracy": 0.053333,
+        "brier": 0.913008,
+        "count": 300,
+        "ece": 0.922774,
+        "eta": 0.9,
+        "mean_confidence": 0.971993,
+        "overconfidence_gap": 0.91866
+      },
+      "selected": {
+        "accuracy": 0.44,
+        "brier": 0.530564,
+        "count": 300,
+        "ece": 0.529051,
+        "eta": 0.0,
+        "mean_confidence": 0.960508,
+        "overconfidence_gap": 0.520508
+      }
+    },
+    "metadata": {
+      "benchmark": "conflictbank",
+      "calibration_size": 200,
+      "condition": "conflict_context",
+      "cot_length": 1024,
+      "eta_grid": [
+        0.0,
+        0.1,
+        0.2,
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.7,
+        0.8,
+        0.9,
+        1.0
+      ],
+      "evaluation_size": 300,
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-14B",
+      "seed": 42,
+      "selection_rule": "sample_split_brier_optimal"
+    },
+    "selection": {
+      "conservative_eta": 0.9,
+      "oracle_eta": 0.0,
+      "selected_eta": 0.0
+    }
   },
   "theorem_3_replication": {
     "headline": {

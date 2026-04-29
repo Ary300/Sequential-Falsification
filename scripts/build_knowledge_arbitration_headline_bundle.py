@@ -115,6 +115,7 @@ def build_bundle() -> dict[str, Any]:
     theorem3_same_family = _load_json(ROOT / "docs/generated/theorem3_same_family_threshold_summary.json")
     theorem3_cross_family = _load_json(ROOT / "docs/generated/theorem3_cross_family_verdict.json")
     theorem3_eta = _load_json(ROOT / "docs/generated/theorem3_eta_tempering_analysis.json")
+    theorem3_eta_method = _load_optional_json(ROOT / "docs/generated/theorem3_eta_tempered_method_result.json") or {}
     baseline_proxy_t12 = _load_json(ROOT / "docs/generated/arbitration_proxy_baseline_t12_v2.json")
     baseline_proxy_t3 = _load_json(ROOT / "docs/generated/arbitration_proxy_baseline_t3_v2.json")
     spotlight_bootstrap_t12 = _load_json(ROOT / "docs/generated/arbitration_spotlight_t12_bootstrap_v1.json")
@@ -180,6 +181,7 @@ def build_bundle() -> dict[str, Any]:
         "theorem_3_same_family": theorem3_same_family,
         "theorem_3_cross_family": theorem3_cross_family,
         "theorem_3_eta": theorem3_eta,
+        "theorem_3_eta_method": theorem3_eta_method,
         "baseline_proxy_t12": baseline_proxy_t12,
         "baseline_proxy_t3": baseline_proxy_t3,
         "spotlight_bootstrap_t12": spotlight_bootstrap_t12,
@@ -205,6 +207,7 @@ def build_markdown(bundle: dict[str, Any]) -> str:
     t3_same_family = bundle["theorem_3_same_family"]
     t3_cross_family = bundle["theorem_3_cross_family"]
     t3_eta = bundle["theorem_3_eta"]
+    t3_eta_method = bundle.get("theorem_3_eta_method", {})
     baseline_proxy_t12 = bundle["baseline_proxy_t12"]
     baseline_proxy_t3 = bundle["baseline_proxy_t3"]
     spotlight_bootstrap_t12 = bundle["spotlight_bootstrap_t12"]
@@ -403,6 +406,17 @@ def build_markdown(bundle: dict[str, Any]) -> str:
             f"- Eta-tempered decoding now has an explicit paper recipe: mean conflict do-no-harm `eta = {eta_recipe['operating_point']['mean_conflict_eta']}`, "
             f"mean no-conflict do-no-harm `eta = {eta_recipe['operating_point']['mean_no_conflict_eta']}`, "
             f"with shrink factor `{eta_recipe['operating_point']['eta_shrink_factor']}`.",
+            (
+                f"- The real post-trace eta-decoding method run is now on disk for "
+                f"`{t3_eta_method.get('metadata', {}).get('benchmark', 'unknown')}` / "
+                f"`{t3_eta_method.get('metadata', {}).get('condition', 'unknown')}` with selected "
+                f"`eta = {t3_eta_method.get('selection', {}).get('selected_eta', 'unknown')}`; "
+                f"eval overconfidence gap moves from "
+                f"`{t3_eta_method.get('evaluation', {}).get('baseline', {}).get('overconfidence_gap', 'unknown')}` "
+                f"to `{t3_eta_method.get('evaluation', {}).get('selected', {}).get('overconfidence_gap', 'unknown')}`."
+                if t3_eta_method
+                else "- The real post-trace eta-decoding method run has not been pulled back yet."
+            ),
             f"- On the theorem-3 size-scaling proxy matrix, Bayes beats the generic heuristic by `0.0585` regret with bootstrap CI "
             f"`[{spotlight_bootstrap_t3['bootstrap']['bayes_vs_heuristic']['ci95_low']}, {spotlight_bootstrap_t3['bootstrap']['bayes_vs_heuristic']['ci95_high']}]`.",
             f"- On that same theorem-3 proxy matrix, Bayes still stays ahead of "

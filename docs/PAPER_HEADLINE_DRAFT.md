@@ -165,10 +165,19 @@ rules.
   no-conflict slices; `WikiContradict` conflict can be driven down to a
   proxy gap of `0.0034`, but `ConflictBank` conflict bottoms out at `0.4820`
   because confidence-only tempering cannot fix near-zero answer accuracy.
+- Real post-trace eta-decoding method result on `ConflictBank` conflict at `14B`:
+  sample-split Brier-optimal `eta = 0.0` moves eval accuracy from `0.0367`
+  to `0.4400`, and cuts the eval overconfidence gap from `0.9372` to
+  `0.5205`; the conservative largest-no-harm choice `eta = 0.9` only trims
+  that gap to `0.9187`.
+- Real post-trace eta-decoding companion result on `WikiContradict` conflict at `14B`:
+  sample-split Brier-optimal `eta = 0.3` moves eval accuracy from `0.6200`
+  to `0.6400`, and reduces the eval overconfidence gap from `0.3283` to
+  `0.3182`.
 - The explicit method recipe is now clear:
-  use a small calibration split, sweep `eta in [0.1, 1.0]` on the post-trace
-  answer distribution, and choose the largest `eta` that improves Brier
-  without harming accuracy.
+  use a small calibration split, sweep `eta in [0.0, 1.0]` on the post-trace
+  answer distribution, and choose the held-out Brier-optimal `eta`; report the
+  larger no-harm `eta` separately as a conservative operating point.
 - The cleanest theorem-3 framing is now:
   an RLVR-conditioned misspecification law, not a universal scale law.
 - Corrected closed-book control decision:

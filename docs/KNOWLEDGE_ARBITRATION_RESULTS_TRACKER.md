@@ -44,6 +44,10 @@ The strongest current theorem-3 headline is:
   through long CoT;
 - the corrected `closed_book` control rules out a clean conflict-only sign
   flip.
+- the new method result is now real rather than proxy-only:
+  sample-split `eta` selection on the `14B` `ConflictBank` conflict slice
+  moves eval accuracy from `0.0367` to `0.4400` and eval overconfidence gap
+  from `0.9372` to `0.5205`.
 
 The corrected closed-book control analysis is now explicit in
 [`docs/generated/theorem3_closedbook_control_analysis.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/theorem3_closedbook_control_analysis.md).
@@ -57,6 +61,10 @@ The new cross-family theorem-3 verdict is now explicit in
 [`docs/generated/theorem3_cross_family_verdict.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/theorem3_cross_family_verdict.md).
 The new theorem-3 eta-tempering read is now explicit in
 [`docs/generated/theorem3_eta_tempering_analysis.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/theorem3_eta_tempering_analysis.md).
+The real post-trace eta-decoding method result is now explicit in
+[`docs/generated/theorem3_eta_tempered_method_result.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/theorem3_eta_tempered_method_result.md),
+with the companion `WikiContradict` run in
+[`docs/generated/theorem3_eta_tempered_wikicontradict_result.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/theorem3_eta_tempered_wikicontradict_result.md).
 The explicit eta-decoding recipe is now also on disk in
 [`docs/generated/eta_tempered_decoding_recipe.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/eta_tempered_decoding_recipe.md).
 The benchmark-family consistency read is now explicit in
@@ -129,7 +137,7 @@ Its decision is `not A`:
 | Conflict vs no-conflict calibration curves | yes | done for broad pilot and `WikiContradict` focus |
 | Checkpoint-family experiment | strongly preferred | not required for the current paper core |
 | Real same-family theorem-3 size sweep (`Qwen 7B/14B/32B`) | strongly preferred | done |
-| Mitigation experiment | strongly preferred | done as confidence-only eta-tempering intervention read |
+| Mitigation experiment | strongly preferred | done as real post-trace eta-decoding run plus confidence-only eta-tempering read |
 
 ## Benchmark coverage
 
