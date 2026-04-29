@@ -28,6 +28,7 @@
 - Dedicated `PopQA` benchmark read: Bayes beats the heuristic by `0.095` with CI `[0.044, 0.146]`.
 - Dedicated `NQ-Swap` benchmark read: Bayes beats the heuristic by `0.1038` with CI `[0.0829, 0.125]`.
 - Dedicated `Llama-3.1-8B` five-benchmark read: Bayes beats the heuristic by `0.1108` with CI `[0.0895, 0.122]`.
+- Dedicated `Llama-3.1-70B` frontier read: count-weighted Bayes beats the heuristic by `0.0602` on the five-benchmark spotlight slice.
 - Benchmark-family consistency: on the spotlight matrix, `ConflictBank`, `FaithEval`, `MemoTrap`, and `NQ-Swap` are unanimous `5/5` Bayes-over-heuristic wins across model families.
 - Spotlight bootstrap Bayes vs strongest named comparator CI: `[-0.0379, 0.0686]`
 
@@ -96,6 +97,7 @@ Partial 14B replication:
 - Broad-wave exception worth writing honestly: `Qwen2.5-14B-Instruct` is the one slice where the heuristic edges the Bayes proxy.
 - Conflict-wave near-tie worth noting: `pythia-6.9b` is essentially tied between Bayes proxy and simulated model.
 - On the spotlight matrix, Bayes also stays ahead of the added optional baselines `MADAM-RAG = -0.1033`, `NWCAD = -0.0716`, and `JuICE = -0.08`.
+- The finished frontier-scale open-weight result is already on disk: `Llama-3.1-70B-Instruct` posts an aggregate Bayes-vs-heuristic gain of `0.0602` across the five-benchmark spotlight slice.
 - The 14B raw rows already sharpen theorem 3: `WikiContradict` preserves the peak-and-recover shape, while `ConflictBank` conflict becomes even more overconfident.
 - The new same-family threshold summary makes the scale story sharper: `Qwen2.5` recovery on `WikiContradict` first appears at about `32B`, while `ConflictBank` still has no recovery threshold through the currently observed `32B` scale.
 - The cross-family verification is now decisive: DeepSeek replicates the `7B -> 14B` ConflictBank asymmetry = `True`, but Qwen does not = `False`.
@@ -106,6 +108,7 @@ Partial 14B replication:
 - On that same theorem-3 proxy matrix, Bayes still stays ahead of `MADAM-RAG = -0.0232`, `NWCAD = -0.029`, and `JuICE = -0.0595`, even though CoCoA remains the near-tie baseline to write honestly.
 - Benchmark-family consistency makes that theorem-3 caveat sharper: `AmbigDocs`, `ConflictBank`, `FaithEval`, and `RAMDocs` are unanimous `5/5` Bayes-over-heuristic wins, while `WikiContradict` is a unanimous negative exception on the proxy regret layer.
 - On that same theorem-3 proxy matrix, the strongest named comparator is `cocoa` with regret `-0.0795`, so the named-comparator read there is a near-tie rather than the main headline.
+- The new empirical-completion audit makes the repo state explicit: the paper-strong empirical core is finished, and the remaining missing items are genuinely new runs such as `Mistral`, `Gemma`, `HotpotQA`, `TriviaQA`, `TabMWP`, `GPQA`, and `CLIMATEX`, not hidden completed results.
 
 ## Playbook Status
 
@@ -114,3 +117,4 @@ Partial 14B replication:
 - `PopQA` / `NQ-Swap` benchmark coverage complete: `True`
 - Theorem-3 rewrite complete: `True`
 - Killer figure complete: `True`
+- Empirical-completion audit on disk: `9` completed items, `8` genuinely missing compute extensions.

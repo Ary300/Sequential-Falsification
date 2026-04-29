@@ -121,9 +121,14 @@ def build_bundle() -> dict[str, Any]:
     spotlight_bootstrap_t3 = _load_json(ROOT / "docs/generated/arbitration_spotlight_t3_bootstrap_v1.json")
     popqa_nqswap_note = _load_json(ROOT / "docs/generated/popqa_nqswap_real_benchmark_note.json")
     llama_8b_note = _load_json(ROOT / "docs/generated/llama_8b_spotlight_note.json")
+    llama_70b_note = _load_json(ROOT / "docs/generated/llama_70b_frontier_note.json")
     benchmark_family_consistency = _load_json(ROOT / "docs/generated/benchmark_family_consistency_note.json")
     eta_recipe = _load_json(ROOT / "docs/generated/eta_tempered_decoding_recipe.json")
     theorem3_rlvr = _load_json(ROOT / "docs/generated/theorem3_rlvr_reframing_note.json")
+    empirical_audit = _load_optional_json(ROOT / "docs/generated/empirical_completion_audit.json") or {
+        "completed_items": [],
+        "missing_items": [],
+    }
 
     if broad_report is not None and broad_results is not None:
         theorem1 = _theorem12_section("broad_real_headline_wave_reestimated_v3", broad_report, broad_results)
@@ -178,9 +183,11 @@ def build_bundle() -> dict[str, Any]:
         "spotlight_bootstrap_t3": spotlight_bootstrap_t3,
         "popqa_nqswap_note": popqa_nqswap_note,
         "llama_8b_note": llama_8b_note,
+        "llama_70b_note": llama_70b_note,
         "benchmark_family_consistency": benchmark_family_consistency,
         "eta_recipe": eta_recipe,
         "theorem3_rlvr": theorem3_rlvr,
+        "empirical_audit": empirical_audit,
     }
 
 
@@ -198,9 +205,11 @@ def build_markdown(bundle: dict[str, Any]) -> str:
     spotlight_bootstrap_t3 = bundle["spotlight_bootstrap_t3"]
     popqa_nqswap = bundle["popqa_nqswap_note"]
     llama_8b = bundle["llama_8b_note"]
+    llama_70b = bundle["llama_70b_note"]
     benchmark_family = bundle["benchmark_family_consistency"]
     eta_recipe = bundle["eta_recipe"]
     theorem3_rlvr = bundle["theorem3_rlvr"]
+    empirical_audit = bundle["empirical_audit"]
     playbook = bundle["playbook_status"]
     t12_comparators = {row["policy"]: row for row in baseline_proxy_t12["comparators"]}
     t3_comparators = {row["policy"]: row for row in baseline_proxy_t3["comparators"]}
@@ -250,6 +259,8 @@ def build_markdown(bundle: dict[str, Any]) -> str:
         f"`{llama_8b['overall']['bayes_vs_heuristic_gain']}` with CI "
         f"`[{llama_8b['bootstrap_bayes_vs_heuristic']['ci95_low']}, "
         f"{llama_8b['bootstrap_bayes_vs_heuristic']['ci95_high']}]`.",
+        f"- Dedicated `Llama-3.1-70B` frontier read: count-weighted Bayes beats the heuristic by "
+        f"`{llama_70b['overall']['bayes_vs_heuristic_gain']}` on the five-benchmark spotlight slice.",
         f"- Benchmark-family consistency: on the spotlight matrix, `ConflictBank`, `FaithEval`, "
         f"`MemoTrap`, and `NQ-Swap` are unanimous `5/5` Bayes-over-heuristic wins across model families.",
         f"- Spotlight bootstrap Bayes vs strongest named comparator CI: "
@@ -360,6 +371,7 @@ def build_markdown(bundle: dict[str, Any]) -> str:
             f"`MADAM-RAG = {t12_comparators['madam_rag']['mean_regret']}`, "
             f"`NWCAD = {t12_comparators['nwcad']['mean_regret']}`, and "
             f"`JuICE = {t12_comparators['juice']['mean_regret']}`.",
+            f"- The finished frontier-scale open-weight result is already on disk: `Llama-3.1-70B-Instruct` posts an aggregate Bayes-vs-heuristic gain of `{llama_70b['overall']['bayes_vs_heuristic_gain']}` across the five-benchmark spotlight slice.",
             "- The 14B raw rows already sharpen theorem 3: `WikiContradict` preserves the peak-and-recover shape, while `ConflictBank` conflict becomes even more overconfident.",
             "- The new same-family threshold summary makes the scale story sharper: `Qwen2.5` recovery on `WikiContradict` first appears at about "
             f"`{t3_same_family['headline']['qwen_wikicontradict_conflict_recovery_threshold_b']}B`, while `ConflictBank` still has no recovery threshold through the currently observed `32B` scale.",
@@ -383,6 +395,7 @@ def build_markdown(bundle: dict[str, Any]) -> str:
             f"- On that same theorem-3 proxy matrix, the strongest named comparator is "
             f"`{baseline_proxy_t3['headline']['strongest_named_comparator']}` with regret "
             f"`{baseline_proxy_t3['headline']['strongest_named_comparator_regret']}`, so the named-comparator read there is a near-tie rather than the main headline.",
+            f"- The new empirical-completion audit makes the repo state explicit: the paper-strong empirical core is finished, and the remaining missing items are genuinely new runs such as `Mistral`, `Gemma`, `HotpotQA`, `TriviaQA`, `TabMWP`, `GPQA`, and `CLIMATEX`, not hidden completed results.",
             "",
             "## Playbook Status",
             "",
@@ -391,6 +404,7 @@ def build_markdown(bundle: dict[str, Any]) -> str:
             f"- `PopQA` / `NQ-Swap` benchmark coverage complete: `{playbook['popqa_nqswap_complete']}`",
             f"- Theorem-3 rewrite complete: `{playbook['theorem3_rewrite_complete']}`",
             f"- Killer figure complete: `{playbook['killer_figure_complete']}`",
+            f"- Empirical-completion audit on disk: `{len(empirical_audit['completed_items'])}` completed items, `{len(empirical_audit['missing_items'])}` genuinely missing compute extensions.",
         ]
     )
     return "\n".join(lines) + "\n"

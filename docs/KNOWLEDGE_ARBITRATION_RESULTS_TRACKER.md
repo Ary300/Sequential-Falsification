@@ -79,6 +79,10 @@ The new dedicated `PopQA` / `NQ-Swap` benchmark note is now explicit in
 [`docs/generated/popqa_nqswap_real_benchmark_note.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/popqa_nqswap_real_benchmark_note.md).
 The new dedicated `Llama-3.1-8B` five-benchmark note is now explicit in
 [`docs/generated/llama_8b_spotlight_note.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/llama_8b_spotlight_note.md).
+The new dedicated `Llama-3.1-70B` frontier note is now explicit in
+[`docs/generated/llama_70b_frontier_note.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/llama_70b_frontier_note.md).
+The new empirical-completion audit is now explicit in
+[`docs/generated/empirical_completion_audit.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/empirical_completion_audit.md).
 The new named-comparator spotlight proxy read is now explicit in
 [`docs/generated/arbitration_proxy_baseline_t12_v2.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/arbitration_proxy_baseline_t12_v2.md).
 The new theorem-3 named-comparator proxy read is now explicit in
@@ -192,6 +196,11 @@ Current finished headline set:
 - The dedicated `Llama-3.1-8B` coverage read is now explicit too:
   on the completed five-benchmark Llama slice, Bayes beats the generic
   heuristic by `0.1108` regret with bootstrap CI `[0.0895, 0.1220]`.
+- The dedicated `Llama-3.1-70B` frontier read is now explicit too:
+  on the completed five-benchmark frontier Llama slice, Bayes beats the
+  generic heuristic by `0.0602` regret on the count-weighted aggregate,
+  while still beating `CoCoA` and `AdaCAD` in aggregate and exposing `PopQA`
+  as the single visible outlier rather than a hidden failure.
 - In the updated named-comparator read on that same matrix
   ([`docs/generated/arbitration_proxy_baseline_t12_v2.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/arbitration_proxy_baseline_t12_v2.md)),
   Bayes also beats the strongest named comparator:

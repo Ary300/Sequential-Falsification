@@ -1,0 +1,107 @@
+{
+  "headline": {
+    "spotlight_matrix_gain": 0.0833,
+    "spotlight_matrix_ci95": {
+      "mean_gap": 0.0835,
+      "ci95_low": 0.0371,
+      "ci95_high": 0.1112
+    },
+    "theorem3_proxy_gain": 0.0585,
+    "theorem3_proxy_ci95": {
+      "mean_gap": 0.0583,
+      "ci95_low": 0.0155,
+      "ci95_high": 0.0961
+    },
+    "popqa_gain": 0.095,
+    "nq_swap_gain": 0.1038,
+    "llama8_gain": 0.1108,
+    "llama70_gain": 0.0602,
+    "qwen_recovery_threshold_b": 32,
+    "qwen_controlled_conflict_threshold_b": null,
+    "deepseek_cross_family_asymmetry": true,
+    "qwen_cross_family_asymmetry": false,
+    "eta_shrink_factor": 0.52,
+    "spotlight_unanimous_benchmarks": [
+      "conflictbank",
+      "faitheval",
+      "memotrap",
+      "nq_swap"
+    ]
+  },
+  "completed_items": [
+    {
+      "item": "spotlight_matrix_5x5",
+      "status": "done_with_headline_result",
+      "evidence": "5 models x 5 benchmarks x 174,080 rows"
+    },
+    {
+      "item": "frontier_open_weight_model",
+      "status": "done_with_headline_result",
+      "evidence": "Llama-3.1-70B five-benchmark slice on disk"
+    },
+    {
+      "item": "closest_cousin_baselines",
+      "status": "done_with_headline_result",
+      "evidence": "AdaCAD, CoCoA, MADAM-RAG, NWCAD, JuICE, Self-RAG, CAD surfaced in spotlight summaries"
+    },
+    {
+      "item": "popqa_benchmark",
+      "status": "done_with_headline_result",
+      "evidence": "Bayes vs heuristic 0.0950 [0.0440, 0.1460]"
+    },
+    {
+      "item": "nq_swap_benchmark",
+      "status": "done_with_headline_result",
+      "evidence": "Bayes vs heuristic 0.1038 [0.0829, 0.1250]"
+    },
+    {
+      "item": "same_family_qwen_theorem3_sweep",
+      "status": "done_with_headline_result",
+      "evidence": "Qwen2.5 7B/14B/32B complete with 32B recovery on WikiContradict only"
+    },
+    {
+      "item": "cross_family_theorem3_check",
+      "status": "done_with_honest_negative",
+      "evidence": "DeepSeek asymmetry true, Qwen asymmetry false"
+    },
+    {
+      "item": "eta_tempering_intervention",
+      "status": "done_with_mechanism_result",
+      "evidence": "conflict/no-conflict eta shrink factor 0.52"
+    },
+    {
+      "item": "killer_figure_package",
+      "status": "done",
+      "evidence": "scripted SVG package built from finished artifacts"
+    }
+  ],
+  "missing_items": [
+    "Mistral family runs are not on disk.",
+    "Gemma family runs are not on disk.",
+    "DeepSeek-R1-Distill-Llama frontier sweep is not on disk.",
+    "Closed-model API comparison is not on disk.",
+    "HotpotQA is not on disk as a finished paper artifact.",
+    "TriviaQA is not on disk as a finished paper artifact.",
+    "TabMWP is not on disk as a finished paper artifact.",
+    "GPQA / CLIMATEX / MATH-500 theorem-3 calibration extensions are not on disk as finished paper artifacts."
+  ],
+  "coverage": {
+    "models": [
+      "Qwen/Qwen2.5-14B-Instruct",
+      "Qwen/Qwen2.5-7B-Instruct",
+      "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+      "meta-llama/Llama-3.1-70B-Instruct",
+      "meta-llama/Llama-3.1-8B-Instruct"
+    ],
+    "benchmarks": [
+      "conflictbank",
+      "faitheval",
+      "memotrap",
+      "nq_swap",
+      "popqa"
+    ],
+    "num_models": 5,
+    "num_benchmarks": 5,
+    "num_rows": 174080
+  }
+}

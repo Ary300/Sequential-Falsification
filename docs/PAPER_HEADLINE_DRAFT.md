@@ -98,6 +98,10 @@ rules.
   on the full Llama-only spotlight slice across `ConflictBank`, `FaithEval`,
   `MemoTrap`, `NQ-Swap`, and `PopQA`, Bayes beats the generic heuristic by
   `0.1108` regret with bootstrap CI `[0.0895, 0.1220]`.
+- Dedicated `Llama-3.1-70B` frontier read:
+  on the full frontier Llama-only spotlight slice, Bayes beats the generic
+  heuristic by `0.0602` regret on the count-weighted aggregate, and
+  still beats `CoCoA` / `AdaCAD` in aggregate despite the `PopQA` outlier.
 - Expanded theorem-3 proxy size-scaling matrix:
   `bayes_proxy = -0.0774`, `heuristic_adaptive = -0.0189`,
   `simulated_model = 0.1533`, `fixed_50 = 0.3352`.
@@ -184,6 +188,9 @@ rules.
   cross-family verification, closest-cousin baselines, `PopQA` / `NQ-Swap`,
   theorem-3 rewrite, and the killer figure all have explicit artifacts and
   headline numbers on disk.
+- The new empirical-completion audit is also on disk and says the quiet part
+  plainly: the finished empirical core is headline-ready, and the remaining
+  asks are genuinely missing future compute rather than buried completed runs.
 
 ## Best current figure order
 

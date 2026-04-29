@@ -595,6 +595,113 @@
       }
     ]
   },
+  "empirical_audit": {
+    "completed_items": [
+      {
+        "evidence": "5 models x 5 benchmarks x 174,080 rows",
+        "item": "spotlight_matrix_5x5",
+        "status": "done_with_headline_result"
+      },
+      {
+        "evidence": "Llama-3.1-70B five-benchmark slice on disk",
+        "item": "frontier_open_weight_model",
+        "status": "done_with_headline_result"
+      },
+      {
+        "evidence": "AdaCAD, CoCoA, MADAM-RAG, NWCAD, JuICE, Self-RAG, CAD surfaced in spotlight summaries",
+        "item": "closest_cousin_baselines",
+        "status": "done_with_headline_result"
+      },
+      {
+        "evidence": "Bayes vs heuristic 0.0950 [0.0440, 0.1460]",
+        "item": "popqa_benchmark",
+        "status": "done_with_headline_result"
+      },
+      {
+        "evidence": "Bayes vs heuristic 0.1038 [0.0829, 0.1250]",
+        "item": "nq_swap_benchmark",
+        "status": "done_with_headline_result"
+      },
+      {
+        "evidence": "Qwen2.5 7B/14B/32B complete with 32B recovery on WikiContradict only",
+        "item": "same_family_qwen_theorem3_sweep",
+        "status": "done_with_headline_result"
+      },
+      {
+        "evidence": "DeepSeek asymmetry true, Qwen asymmetry false",
+        "item": "cross_family_theorem3_check",
+        "status": "done_with_honest_negative"
+      },
+      {
+        "evidence": "conflict/no-conflict eta shrink factor 0.52",
+        "item": "eta_tempering_intervention",
+        "status": "done_with_mechanism_result"
+      },
+      {
+        "evidence": "scripted SVG package built from finished artifacts",
+        "item": "killer_figure_package",
+        "status": "done"
+      }
+    ],
+    "coverage": {
+      "benchmarks": [
+        "conflictbank",
+        "faitheval",
+        "memotrap",
+        "nq_swap",
+        "popqa"
+      ],
+      "models": [
+        "Qwen/Qwen2.5-14B-Instruct",
+        "Qwen/Qwen2.5-7B-Instruct",
+        "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+        "meta-llama/Llama-3.1-70B-Instruct",
+        "meta-llama/Llama-3.1-8B-Instruct"
+      ],
+      "num_benchmarks": 5,
+      "num_models": 5,
+      "num_rows": 174080
+    },
+    "headline": {
+      "deepseek_cross_family_asymmetry": true,
+      "eta_shrink_factor": 0.52,
+      "llama70_gain": 0.0602,
+      "llama8_gain": 0.1108,
+      "nq_swap_gain": 0.1038,
+      "popqa_gain": 0.095,
+      "qwen_controlled_conflict_threshold_b": null,
+      "qwen_cross_family_asymmetry": false,
+      "qwen_recovery_threshold_b": 32,
+      "spotlight_matrix_ci95": {
+        "ci95_high": 0.1112,
+        "ci95_low": 0.0371,
+        "mean_gap": 0.0835
+      },
+      "spotlight_matrix_gain": 0.0833,
+      "spotlight_unanimous_benchmarks": [
+        "conflictbank",
+        "faitheval",
+        "memotrap",
+        "nq_swap"
+      ],
+      "theorem3_proxy_ci95": {
+        "ci95_high": 0.0961,
+        "ci95_low": 0.0155,
+        "mean_gap": 0.0583
+      },
+      "theorem3_proxy_gain": 0.0585
+    },
+    "missing_items": [
+      "Mistral family runs are not on disk.",
+      "Gemma family runs are not on disk.",
+      "DeepSeek-R1-Distill-Llama frontier sweep is not on disk.",
+      "Closed-model API comparison is not on disk.",
+      "HotpotQA is not on disk as a finished paper artifact.",
+      "TriviaQA is not on disk as a finished paper artifact.",
+      "TabMWP is not on disk as a finished paper artifact.",
+      "GPQA / CLIMATEX / MATH-500 theorem-3 calibration extensions are not on disk as finished paper artifacts."
+    ]
+  },
   "eta_recipe": {
     "headline": {
       "conflict_to_no_conflict_eta_shrink_factor": 0.52,
@@ -625,6 +732,89 @@
     "theorem_1": "A Bayes-style reliability-aware arbitration rule beats the generic heuristic and sharply beats fixed trust policies across the broad real matrix, while on the 5x5 spotlight matrix it beats the generic heuristic with a positive 95% bootstrap interval and also pointwise beats Self-RAG, Astute RAG, MADAM-RAG, NWCAD, JuICE, CoCoA, AdaCAD, and CAD.",
     "theorem_2": "Fixed trust policies are minimax-bad in practice: in the conflict-heavy wave, they incur much larger regret than the principled Bayes proxy.",
     "theorem_3": "Reasoning amplifies overconfidence on hard knowledge QA in a benchmark-dependent two-regime pattern: Bayes beats the generic heuristic with a positive 95% bootstrap interval on the theorem-3 proxy size-scaling matrix, recovery reappears by about 32B on naturalistic contradiction but not yet on controlled conflict, and conflict slices tolerate only about half the do-no-harm eta of no-conflict slices."
+  },
+  "llama_70b_note": {
+    "benchmarks": [
+      {
+        "adacad_mean_regret": -0.2021,
+        "always_context_mean_regret": 6.5511,
+        "always_parametric_mean_regret": 6.5511,
+        "bayes_proxy_mean_regret": -0.2844,
+        "bayes_vs_adacad_gain": 0.0823,
+        "bayes_vs_cocoa_gain": 0.0486,
+        "bayes_vs_heuristic_gain": 0.1563,
+        "benchmark": "conflictbank",
+        "cocoa_mean_regret": -0.2358,
+        "heuristic_adaptive_mean_regret": -0.1281,
+        "num_rows": 12288
+      },
+      {
+        "adacad_mean_regret": -0.1203,
+        "always_context_mean_regret": 8.9658,
+        "always_parametric_mean_regret": 4.3607,
+        "bayes_proxy_mean_regret": -0.1908,
+        "bayes_vs_adacad_gain": 0.0705,
+        "bayes_vs_cocoa_gain": 0.0416,
+        "bayes_vs_heuristic_gain": 0.1003,
+        "benchmark": "faitheval",
+        "cocoa_mean_regret": -0.1492,
+        "heuristic_adaptive_mean_regret": -0.0905,
+        "num_rows": 6144
+      },
+      {
+        "adacad_mean_regret": -0.1185,
+        "always_context_mean_regret": 8.9375,
+        "always_parametric_mean_regret": 4.3863,
+        "bayes_proxy_mean_regret": -0.1867,
+        "bayes_vs_adacad_gain": 0.0682,
+        "bayes_vs_cocoa_gain": 0.0399,
+        "bayes_vs_heuristic_gain": 0.0997,
+        "benchmark": "memotrap",
+        "cocoa_mean_regret": -0.1468,
+        "heuristic_adaptive_mean_regret": -0.087,
+        "num_rows": 6144
+      },
+      {
+        "adacad_mean_regret": -0.1202,
+        "always_context_mean_regret": 8.9658,
+        "always_parametric_mean_regret": 4.3607,
+        "bayes_proxy_mean_regret": -0.19,
+        "bayes_vs_adacad_gain": 0.0698,
+        "bayes_vs_cocoa_gain": 0.041,
+        "bayes_vs_heuristic_gain": 0.1002,
+        "benchmark": "nq_swap",
+        "cocoa_mean_regret": -0.149,
+        "heuristic_adaptive_mean_regret": -0.0898,
+        "num_rows": 6144
+      },
+      {
+        "adacad_mean_regret": 0.3344,
+        "always_context_mean_regret": 6.5511,
+        "always_parametric_mean_regret": 6.5511,
+        "bayes_proxy_mean_regret": 0.3999,
+        "bayes_vs_adacad_gain": -0.0655,
+        "bayes_vs_cocoa_gain": -0.0128,
+        "bayes_vs_heuristic_gain": -0.4072,
+        "benchmark": "popqa",
+        "cocoa_mean_regret": 0.3871,
+        "heuristic_adaptive_mean_regret": -0.0073,
+        "num_rows": 4096
+      }
+    ],
+    "model": "meta-llama/Llama-3.1-70B-Instruct",
+    "num_rows": 34816,
+    "num_series": 5,
+    "overall": {
+      "adacad_mean_regret": -0.0953,
+      "always_context_mean_regret": 7.8245,
+      "always_parametric_mean_regret": 5.396,
+      "bayes_proxy_mean_regret": -0.1535,
+      "bayes_vs_adacad_gain": 0.0581,
+      "bayes_vs_cocoa_gain": 0.0373,
+      "bayes_vs_heuristic_gain": 0.0602,
+      "cocoa_mean_regret": -0.1162,
+      "heuristic_adaptive_mean_regret": -0.0932
+    }
   },
   "llama_8b_note": {
     "benchmarks": [
