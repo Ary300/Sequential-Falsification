@@ -1,0 +1,216 @@
+{
+  "summary": {
+    "num_results": 18,
+    "waves": {
+      "api_slice": {
+        "count": 3,
+        "total_rows": 24192,
+        "mean_gain": 0.06914416732016693,
+        "min_gain": 0.06914416732016693,
+        "max_gain": 0.06914416732016693,
+        "mean_bayes_regret": 0.08013486032764011,
+        "mean_heuristic_regret": 0.14927902764780704
+      },
+      "model_wave": {
+        "count": 3,
+        "total_rows": 737280,
+        "mean_gain": 0.09065076945710755,
+        "min_gain": 0.09065076945710755,
+        "max_gain": 0.09065076945710755,
+        "mean_bayes_regret": -0.1869719333088057,
+        "mean_heuristic_regret": -0.09632116385169819
+      },
+      "t3_calibration_wave": {
+        "count": 12,
+        "total_rows": 774144,
+        "mean_gain": 0.08617177460226615,
+        "min_gain": 0.08617177460226613,
+        "max_gain": 0.08617177460226613,
+        "mean_bayes_regret": -0.15419734109545669,
+        "mean_heuristic_regret": -0.06802556649319055
+      }
+    },
+    "best_gain": {
+      "name": "arbitration_spotlight_extended_model_wave__seed=42",
+      "job_log": "logs/knowledge_arbitration_extended_wave/arbitration_spotlight_extended_model_wave__seed=42.2210265.out",
+      "wave": "model_wave",
+      "num_rows": 245760,
+      "bayes_proxy_mean_regret": -0.18697193330880574,
+      "heuristic_adaptive_mean_regret": -0.09632116385169819,
+      "gain": 0.09065076945710755
+    },
+    "worst_gain": {
+      "name": "arbitration_spotlight_extended_api_slice__seed=42",
+      "job_log": "logs/knowledge_arbitration_extended_wave/arbitration_spotlight_extended_api_slice__seed=42.2210276.out",
+      "wave": "api_slice",
+      "num_rows": 8064,
+      "bayes_proxy_mean_regret": 0.08013486032764011,
+      "heuristic_adaptive_mean_regret": 0.14927902764780704,
+      "gain": 0.06914416732016693
+    }
+  },
+  "rows": [
+    {
+      "name": "arbitration_spotlight_extended_api_slice__seed=42",
+      "job_log": "logs/knowledge_arbitration_extended_wave/arbitration_spotlight_extended_api_slice__seed=42.2210276.out",
+      "wave": "api_slice",
+      "num_rows": 8064,
+      "bayes_proxy_mean_regret": 0.08013486032764011,
+      "heuristic_adaptive_mean_regret": 0.14927902764780704,
+      "gain": 0.06914416732016693
+    },
+    {
+      "name": "arbitration_spotlight_extended_api_slice__seed=43",
+      "job_log": "logs/knowledge_arbitration_extended_wave/arbitration_spotlight_extended_api_slice__seed=43.2210233.out",
+      "wave": "api_slice",
+      "num_rows": 8064,
+      "bayes_proxy_mean_regret": 0.08013486032764011,
+      "heuristic_adaptive_mean_regret": 0.14927902764780704,
+      "gain": 0.06914416732016693
+    },
+    {
+      "name": "arbitration_spotlight_extended_api_slice__seed=44",
+      "job_log": "logs/knowledge_arbitration_extended_wave/arbitration_spotlight_extended_api_slice__seed=44.2210234.out",
+      "wave": "api_slice",
+      "num_rows": 8064,
+      "bayes_proxy_mean_regret": 0.08013486032764011,
+      "heuristic_adaptive_mean_regret": 0.14927902764780704,
+      "gain": 0.06914416732016693
+    },
+    {
+      "name": "arbitration_spotlight_extended_model_wave__seed=42",
+      "job_log": "logs/knowledge_arbitration_extended_wave/arbitration_spotlight_extended_model_wave__seed=42.2210265.out",
+      "wave": "model_wave",
+      "num_rows": 245760,
+      "bayes_proxy_mean_regret": -0.18697193330880574,
+      "heuristic_adaptive_mean_regret": -0.09632116385169819,
+      "gain": 0.09065076945710755
+    },
+    {
+      "name": "arbitration_spotlight_extended_model_wave__seed=43",
+      "job_log": "logs/knowledge_arbitration_extended_wave/arbitration_spotlight_extended_model_wave__seed=43.2210266.out",
+      "wave": "model_wave",
+      "num_rows": 245760,
+      "bayes_proxy_mean_regret": -0.18697193330880574,
+      "heuristic_adaptive_mean_regret": -0.09632116385169819,
+      "gain": 0.09065076945710755
+    },
+    {
+      "name": "arbitration_spotlight_extended_model_wave__seed=44",
+      "job_log": "logs/knowledge_arbitration_extended_wave/arbitration_spotlight_extended_model_wave__seed=44.2210267.out",
+      "wave": "model_wave",
+      "num_rows": 245760,
+      "bayes_proxy_mean_regret": -0.18697193330880574,
+      "heuristic_adaptive_mean_regret": -0.09632116385169819,
+      "gain": 0.09065076945710755
+    },
+    {
+      "name": "arbitration_spotlight_extended_t3_calibration_wave__seed=42__eta_value=0p25",
+      "job_log": "logs/knowledge_arbitration_extended_wave/arbitration_spotlight_extended_t3_calibration_wave__seed=42__eta_value=0p25.2210268.out",
+      "wave": "t3_calibration_wave",
+      "num_rows": 64512,
+      "bayes_proxy_mean_regret": -0.15419734109545669,
+      "heuristic_adaptive_mean_regret": -0.06802556649319055,
+      "gain": 0.08617177460226613
+    },
+    {
+      "name": "arbitration_spotlight_extended_t3_calibration_wave__seed=42__eta_value=0p5",
+      "job_log": "logs/knowledge_arbitration_extended_wave/arbitration_spotlight_extended_t3_calibration_wave__seed=42__eta_value=0p5.2210269.out",
+      "wave": "t3_calibration_wave",
+      "num_rows": 64512,
+      "bayes_proxy_mean_regret": -0.15419734109545669,
+      "heuristic_adaptive_mean_regret": -0.06802556649319055,
+      "gain": 0.08617177460226613
+    },
+    {
+      "name": "arbitration_spotlight_extended_t3_calibration_wave__seed=42__eta_value=0p75",
+      "job_log": "logs/knowledge_arbitration_extended_wave/arbitration_spotlight_extended_t3_calibration_wave__seed=42__eta_value=0p75.2210270.out",
+      "wave": "t3_calibration_wave",
+      "num_rows": 64512,
+      "bayes_proxy_mean_regret": -0.15419734109545669,
+      "heuristic_adaptive_mean_regret": -0.06802556649319055,
+      "gain": 0.08617177460226613
+    },
+    {
+      "name": "arbitration_spotlight_extended_t3_calibration_wave__seed=42__eta_value=1p0",
+      "job_log": "logs/knowledge_arbitration_extended_wave/arbitration_spotlight_extended_t3_calibration_wave__seed=42__eta_value=1p0.2210271.out",
+      "wave": "t3_calibration_wave",
+      "num_rows": 64512,
+      "bayes_proxy_mean_regret": -0.15419734109545669,
+      "heuristic_adaptive_mean_regret": -0.06802556649319055,
+      "gain": 0.08617177460226613
+    },
+    {
+      "name": "arbitration_spotlight_extended_t3_calibration_wave__seed=43__eta_value=0p25",
+      "job_log": "logs/knowledge_arbitration_extended_wave/arbitration_spotlight_extended_t3_calibration_wave__seed=43__eta_value=0p25.2210272.out",
+      "wave": "t3_calibration_wave",
+      "num_rows": 64512,
+      "bayes_proxy_mean_regret": -0.15419734109545669,
+      "heuristic_adaptive_mean_regret": -0.06802556649319055,
+      "gain": 0.08617177460226613
+    },
+    {
+      "name": "arbitration_spotlight_extended_t3_calibration_wave__seed=43__eta_value=0p5",
+      "job_log": "logs/knowledge_arbitration_extended_wave/arbitration_spotlight_extended_t3_calibration_wave__seed=43__eta_value=0p5.2210273.out",
+      "wave": "t3_calibration_wave",
+      "num_rows": 64512,
+      "bayes_proxy_mean_regret": -0.15419734109545669,
+      "heuristic_adaptive_mean_regret": -0.06802556649319055,
+      "gain": 0.08617177460226613
+    },
+    {
+      "name": "arbitration_spotlight_extended_t3_calibration_wave__seed=43__eta_value=0p75",
+      "job_log": "logs/knowledge_arbitration_extended_wave/arbitration_spotlight_extended_t3_calibration_wave__seed=43__eta_value=0p75.2210274.out",
+      "wave": "t3_calibration_wave",
+      "num_rows": 64512,
+      "bayes_proxy_mean_regret": -0.15419734109545669,
+      "heuristic_adaptive_mean_regret": -0.06802556649319055,
+      "gain": 0.08617177460226613
+    },
+    {
+      "name": "arbitration_spotlight_extended_t3_calibration_wave__seed=43__eta_value=1p0",
+      "job_log": "logs/knowledge_arbitration_extended_wave/arbitration_spotlight_extended_t3_calibration_wave__seed=43__eta_value=1p0.2210275.out",
+      "wave": "t3_calibration_wave",
+      "num_rows": 64512,
+      "bayes_proxy_mean_regret": -0.15419734109545669,
+      "heuristic_adaptive_mean_regret": -0.06802556649319055,
+      "gain": 0.08617177460226613
+    },
+    {
+      "name": "arbitration_spotlight_extended_t3_calibration_wave__seed=44__eta_value=0p25",
+      "job_log": "logs/knowledge_arbitration_extended_wave/arbitration_spotlight_extended_t3_calibration_wave__seed=44__eta_value=0p25.2210229.out",
+      "wave": "t3_calibration_wave",
+      "num_rows": 64512,
+      "bayes_proxy_mean_regret": -0.15419734109545669,
+      "heuristic_adaptive_mean_regret": -0.06802556649319055,
+      "gain": 0.08617177460226613
+    },
+    {
+      "name": "arbitration_spotlight_extended_t3_calibration_wave__seed=44__eta_value=0p5",
+      "job_log": "logs/knowledge_arbitration_extended_wave/arbitration_spotlight_extended_t3_calibration_wave__seed=44__eta_value=0p5.2210230.out",
+      "wave": "t3_calibration_wave",
+      "num_rows": 64512,
+      "bayes_proxy_mean_regret": -0.15419734109545669,
+      "heuristic_adaptive_mean_regret": -0.06802556649319055,
+      "gain": 0.08617177460226613
+    },
+    {
+      "name": "arbitration_spotlight_extended_t3_calibration_wave__seed=44__eta_value=0p75",
+      "job_log": "logs/knowledge_arbitration_extended_wave/arbitration_spotlight_extended_t3_calibration_wave__seed=44__eta_value=0p75.2210231.out",
+      "wave": "t3_calibration_wave",
+      "num_rows": 64512,
+      "bayes_proxy_mean_regret": -0.15419734109545669,
+      "heuristic_adaptive_mean_regret": -0.06802556649319055,
+      "gain": 0.08617177460226613
+    },
+    {
+      "name": "arbitration_spotlight_extended_t3_calibration_wave__seed=44__eta_value=1p0",
+      "job_log": "logs/knowledge_arbitration_extended_wave/arbitration_spotlight_extended_t3_calibration_wave__seed=44__eta_value=1p0.2210232.out",
+      "wave": "t3_calibration_wave",
+      "num_rows": 64512,
+      "bayes_proxy_mean_regret": -0.15419734109545669,
+      "heuristic_adaptive_mean_regret": -0.06802556649319055,
+      "gain": 0.08617177460226613
+    }
+  ]
+}

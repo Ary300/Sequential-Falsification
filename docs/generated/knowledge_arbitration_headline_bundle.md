@@ -109,10 +109,11 @@ Partial 14B replication:
 - On that same theorem-3 proxy matrix, Bayes still stays ahead of `MADAM-RAG = -0.0232`, `NWCAD = -0.029`, and `JuICE = -0.0595`, even though CoCoA remains the near-tie baseline to write honestly.
 - Benchmark-family consistency makes that theorem-3 caveat sharper: `AmbigDocs`, `ConflictBank`, `FaithEval`, and `RAMDocs` are unanimous `5/5` Bayes-over-heuristic wins, while `WikiContradict` is a unanimous negative exception on the proxy regret layer.
 - On that same theorem-3 proxy matrix, the strongest named comparator is `cocoa` with regret `-0.0795`, so the named-comparator read there is a near-tie rather than the main headline.
-- The new empirical-completion audit makes the repo state explicit: the paper-strong empirical core is finished, and the remaining missing items are genuinely new runs such as `Mistral`, `Gemma`, `HotpotQA`, `TriviaQA`, `TabMWP`, `GPQA`, and `CLIMATEX`, not hidden completed results.
+- The new empirical-completion audit now has to be read in light of the finished Delta wave: the previously missing `Mistral`, `Gemma`, closed-model API slice, `HotpotQA`, `TriviaQA`, `TabMWP`, `GPQA`, and `CLIMATEX` coverage is now complete in the extended results stack.
 - The theorem-3 proxy also now has an explicit statistical-strength read: `20/25` series wins over the heuristic, exact one-sided sign-test `p = 0.002039`, fixed-lambda e-value `103.9143`.
-- The extended empirical wave is now wired into the execution stack with `13` models, `10` benchmarks, and Delta auth state `submitted`.
+- The extended empirical wave is now wired into the execution stack with `13` models, `10` benchmarks, and Delta auth state `completed`.
 - Delta submission read: `18` jobs are now captured locally for the extended wave, and the direct completed probe `arbitration_spotlight_extended_api_slice__seed=42` reports Bayes-vs-heuristic gain `0.0691` over `8064` rows.
+- Full Delta completion read: `18` completed variants with mean Bayes-vs-heuristic gain `0.0907` on the model wave, `0.0862` on the theorem-3 calibration wave, and `0.0691` on the closed-model API slice.
 
 ## Playbook Status
 

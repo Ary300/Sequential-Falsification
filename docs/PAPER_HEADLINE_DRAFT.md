@@ -146,6 +146,16 @@ rules.
   `MADAM-RAG`, `NWCAD`, and `JuICE`, so the expanded comparator panel now reads
   as approximations to the same arbitration target rather than as unaddressed
   threats.
+- Completed Delta extended model wave:
+  across the `3` finished seed variants of the Mistral / Gemma / Llama / Qwen /
+  DeepSeek model wave, Bayes beats the heuristic by mean regret `0.0907` over
+  `737,280` benchmark-backed proxy rows.
+- Completed Delta theorem-3 calibration wave:
+  across the `12` finished eta-calibration variants, Bayes beats the heuristic
+  by mean regret `0.0862` over `774,144` rows.
+- Completed Delta closed-model API slice:
+  across `gpt-4o-mini`, `claude-3.5-haiku`, and `gemini-1.5-flash`, Bayes
+  beats the heuristic by mean regret `0.0691` over `24,192` rows.
 - Same-family theorem-3 threshold summary:
   `s* ~= 32B` for `Qwen2.5` recovery on `WikiContradict` conflict, with no
   corresponding recovery threshold yet visible through `32B` on
@@ -191,11 +201,17 @@ rules.
 - The new empirical-completion audit is also on disk and says the quiet part
   plainly: the finished empirical core is headline-ready, and the remaining
   asks are genuinely missing future compute rather than buried completed runs.
-- The next-wave execution scaffold is now also explicit:
+- The Delta extended-wave completion note is now also explicit:
+  [`docs/generated/delta_extended_wave_completion_summary.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/delta_extended_wave_completion_summary.md)
+  shows all `18` configured variants completed, with mean Bayes-vs-heuristic
+  gain `0.0907` on the model wave, `0.0862` on the theorem-3 calibration wave,
+  and `0.0691` on the closed-model API slice.
+- The old next-wave execution scaffold is still useful as provenance, but it is
+  no longer a blocker:
   [`docs/generated/extended_empirical_wave_ready.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/extended_empirical_wave_ready.md)
   wires `13` models, `10` benchmarks, `15` baselines, and explicit
-  three-seed coverage, so the remaining gap is authenticated external compute
-  rather than missing empirical infrastructure.
+  three-seed coverage, and that exact wave has now been executed to completion
+  on Delta after the remote loader repair.
 - The spotlight statistical-strength read is now also explicit:
   [`docs/generated/spotlight_statistical_strength_note.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/spotlight_statistical_strength_note.md)
   shows `23/25` theorem-1/theorem-2 series wins over the heuristic with exact

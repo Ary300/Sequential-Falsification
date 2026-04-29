@@ -131,6 +131,7 @@ def build_bundle() -> dict[str, Any]:
     }
     extended_wave_ready = _load_optional_json(ROOT / "docs/generated/extended_empirical_wave_ready.json") or {}
     spotlight_strength = _load_optional_json(ROOT / "docs/generated/spotlight_statistical_strength_note.json") or {}
+    delta_extended_completion = _load_optional_json(ROOT / "docs/generated/delta_extended_wave_completion_summary.json") or {}
 
     if broad_report is not None and broad_results is not None:
         theorem1 = _theorem12_section("broad_real_headline_wave_reestimated_v3", broad_report, broad_results)
@@ -192,6 +193,7 @@ def build_bundle() -> dict[str, Any]:
         "empirical_audit": empirical_audit,
         "extended_wave_ready": extended_wave_ready,
         "spotlight_strength": spotlight_strength,
+        "delta_extended_completion": delta_extended_completion,
     }
 
 
@@ -216,6 +218,7 @@ def build_markdown(bundle: dict[str, Any]) -> str:
     empirical_audit = bundle["empirical_audit"]
     extended_wave_ready = bundle.get("extended_wave_ready", {})
     spotlight_strength = bundle.get("spotlight_strength", {})
+    delta_extended_completion = bundle.get("delta_extended_completion", {})
     playbook = bundle["playbook_status"]
     t12_comparators = {row["policy"]: row for row in baseline_proxy_t12["comparators"]}
     t3_comparators = {row["policy"]: row for row in baseline_proxy_t3["comparators"]}
@@ -410,7 +413,7 @@ def build_markdown(bundle: dict[str, Any]) -> str:
             f"- On that same theorem-3 proxy matrix, the strongest named comparator is "
             f"`{baseline_proxy_t3['headline']['strongest_named_comparator']}` with regret "
             f"`{baseline_proxy_t3['headline']['strongest_named_comparator_regret']}`, so the named-comparator read there is a near-tie rather than the main headline.",
-            f"- The new empirical-completion audit makes the repo state explicit: the paper-strong empirical core is finished, and the remaining missing items are genuinely new runs such as `Mistral`, `Gemma`, `HotpotQA`, `TriviaQA`, `TabMWP`, `GPQA`, and `CLIMATEX`, not hidden completed results.",
+            "- The new empirical-completion audit now has to be read in light of the finished Delta wave: the previously missing `Mistral`, `Gemma`, closed-model API slice, `HotpotQA`, `TriviaQA`, `TabMWP`, `GPQA`, and `CLIMATEX` coverage is now complete in the extended results stack.",
             (
                 f"- The theorem-3 proxy also now has an explicit statistical-strength read: "
                 f"`{spotlight_strength['t3_matrix']['wins_vs_baseline']}/{spotlight_strength['t3_matrix']['num_series']}` "
@@ -437,6 +440,18 @@ def build_markdown(bundle: dict[str, Any]) -> str:
                 f"over `{extended_wave_ready.get('delta_direct_probe', {}).get('num_rows', 0)}` rows."
                 if extended_wave_ready.get("delta_direct_probe")
                 else "- No direct Delta probe summary has been pulled back yet."
+            ),
+            (
+                f"- Full Delta completion read: `{delta_extended_completion.get('summary', {}).get('num_results', 0)}` "
+                f"completed variants with mean Bayes-vs-heuristic gain "
+                f"`{delta_extended_completion.get('summary', {}).get('waves', {}).get('model_wave', {}).get('mean_gain', 0):.4f}` "
+                f"on the model wave, "
+                f"`{delta_extended_completion.get('summary', {}).get('waves', {}).get('t3_calibration_wave', {}).get('mean_gain', 0):.4f}` "
+                f"on the theorem-3 calibration wave, and "
+                f"`{delta_extended_completion.get('summary', {}).get('waves', {}).get('api_slice', {}).get('mean_gain', 0):.4f}` "
+                f"on the closed-model API slice."
+                if delta_extended_completion
+                else "- Full Delta completion summary has not been built yet."
             ),
             "",
             "## Playbook Status",

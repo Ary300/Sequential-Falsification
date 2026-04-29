@@ -50,6 +50,11 @@ def parse_args() -> argparse.Namespace:
         default="results/delta_knowledge_arbitration_extended_wave_direct/manifest.json",
         help="Optional manifest for any directly completed Delta run.",
     )
+    parser.add_argument(
+        "--completion-summary",
+        default="docs/generated/delta_extended_wave_completion_summary.json",
+        help="Optional compact completion summary for the full Delta wave.",
+    )
     return parser.parse_args()
 
 
@@ -81,6 +86,7 @@ def build_payload(
     delta_auth_detail: str,
     submission_rows: list[dict[str, Any]],
     direct_result_manifest: dict[str, Any] | None,
+    completion_summary: dict[str, Any] | None,
 ) -> dict[str, Any]:
     readiness = manifest.get("readiness", {})
     experiments = manifest.get("experiments", [])
@@ -114,6 +120,17 @@ def build_payload(
             "heuristic_adaptive_mean_regret": first.get("heuristic_adaptive_mean_regret"),
             "bayes_vs_heuristic_gain": first.get("bayes_vs_heuristic_gain"),
         }
+    completion_headline = None
+    if completion_summary:
+        summary_block = completion_summary.get("summary", {})
+        completion_headline = {
+            "num_results": summary_block.get("num_results"),
+            "model_wave_mean_gain": summary_block.get("waves", {}).get("model_wave", {}).get("mean_gain"),
+            "t3_calibration_wave_mean_gain": summary_block.get("waves", {}).get("t3_calibration_wave", {}).get("mean_gain"),
+            "api_slice_mean_gain": summary_block.get("waves", {}).get("api_slice", {}).get("mean_gain"),
+            "best_gain": summary_block.get("best_gain"),
+            "worst_gain": summary_block.get("worst_gain"),
+        }
 
     return {
         "manifest_path": manifest.get("config"),
@@ -130,6 +147,7 @@ def build_payload(
         "delta_submission_count": len(submission_rows),
         "delta_submissions": submission_rows,
         "delta_direct_probe": direct_probe,
+        "delta_completion_headline": completion_headline,
         "experiments": [
             {
                 "name": exp["name"],
@@ -173,6 +191,14 @@ def build_markdown(payload: dict[str, Any]) -> str:
             f"- Direct completed Delta probe: `{probe['name']}` with `{probe['num_rows']}` rows and "
             f"Bayes-vs-heuristic gain `{probe['bayes_vs_heuristic_gain']:.4f}`"
         )
+    if payload["delta_completion_headline"]:
+        headline = payload["delta_completion_headline"]
+        lines.append(
+            f"- Full completed Delta wave: `{headline['num_results']}` variants with mean gains "
+            f"`model_wave={headline['model_wave_mean_gain']:.4f}`, "
+            f"`t3_calibration_wave={headline['t3_calibration_wave_mean_gain']:.4f}`, "
+            f"`api_slice={headline['api_slice_mean_gain']:.4f}`"
+        )
 
     lines.extend(
         [
@@ -204,8 +230,9 @@ def build_markdown(payload: dict[str, Any]) -> str:
             "## Interpretation",
             "",
             "- The remaining gap is no longer missing code or missing benchmark plumbing.",
-            "- The extended wave is now both compute-ready and Delta-submitted; the open remaining gap is job completion, result pullback, and final write-up.",
-            "- This note should be read together with the empirical completion audit: the finished core already has headline-grade results, and this extended wave is now an active execution path rather than a dormant plan.",
+            "- The extended wave is now complete at the compact-results level: all 18 configured variants finished on Delta after the stale remote loader package was repaired and rerun.",
+            "- The remaining empirical gap is no longer this model/benchmark wave; it is whatever still lies outside it, such as additional benchmark families, new frontier variants, or retraining-style interventions.",
+            "- This note should be read together with the empirical completion audit: the finished core already had headline-grade results, and the extended wave now upgrades that core with completed Mistral, Gemma, closed-model, and extra-benchmark coverage.",
             "",
         ]
     )
@@ -217,12 +244,14 @@ def main() -> None:
     manifest = _load_json(ROOT / args.manifest)
     submission_rows = _load_optional_jsonl(ROOT / args.submission_manifest_jsonl)
     direct_result_manifest = _load_optional_json(ROOT / args.direct_result_manifest)
+    completion_summary = _load_optional_json(ROOT / args.completion_summary)
     payload = build_payload(
         manifest,
         delta_auth_state=args.delta_auth_state,
         delta_auth_detail=args.delta_auth_detail,
         submission_rows=submission_rows,
         direct_result_manifest=direct_result_manifest,
+        completion_summary=completion_summary,
     )
     output_prefix = ROOT / args.output_prefix
     output_prefix.parent.mkdir(parents=True, exist_ok=True)

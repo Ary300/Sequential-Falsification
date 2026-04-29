@@ -85,11 +85,13 @@ The new empirical-completion audit is now explicit in
 [`docs/generated/empirical_completion_audit.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/empirical_completion_audit.md).
 The new extended-wave readiness note is now explicit in
 [`docs/generated/extended_empirical_wave_ready.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/extended_empirical_wave_ready.md).
+The new extended-wave completion note is now explicit in
+[`docs/generated/delta_extended_wave_completion_summary.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/delta_extended_wave_completion_summary.md).
 That artifact makes the next empirical wave concrete rather than aspirational:
 `13` wired models, `10` wired benchmarks, `15` wired baselines, `5` wired
-ablations, and explicit three-seed coverage in config, with Delta now
-authenticated, `18` extended-wave jobs submitted, and a direct completed
-API-slice probe already pulled back locally.
+ablations, and explicit three-seed coverage in config, with the full
+`18`-variant Delta extended wave now completed and compact completion
+artifacts pulled back locally.
 The new spotlight statistical-strength note is now explicit in
 [`docs/generated/spotlight_statistical_strength_note.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/spotlight_statistical_strength_note.md).
 That note sharpens the finished headline read:
@@ -151,12 +153,12 @@ Its decision is `not A`:
 | `DeepSeek-R1-Distill` | 7B | 7B + optional 14B | pilot done |
 | `Pythia` | 6.9B or nearby | checkpoint sweep | not started |
 | `OLMo-2` | 7B | checkpoint sweep | not started |
-| `Mistral` | 7B | robustness | not started |
+| `Mistral` | 7B | robustness | extended-wave complete |
 | `Phi-3` | medium | robustness | not started |
 
-The key difference now is that these rows are no longer "missing because we
-have not wired them." They are "missing because they require fresh cluster or
-API runs on top of the new extended manifest."
+The key difference now is that `Mistral` is no longer missing at all, and the
+remaining open rows are no longer blocked by wiring. They are only the
+post-extended-wave additions that have not yet been scheduled.
 
 ## What would count as a real early win
 

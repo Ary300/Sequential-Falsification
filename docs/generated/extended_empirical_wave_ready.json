@@ -35,8 +35,32 @@
     "triviaqa",
     "wikicontradict"
   ],
-  "delta_auth_detail": "Authenticated to DeltaAI on 2026-04-28, repaired the remote knowledge-arbitration loader package under src/, submitted 18 extended-wave jobs (2210217-2210234), and completed a direct API-slice probe locally on Delta while the queue waits at priority.",
-  "delta_auth_state": "submitted",
+  "delta_auth_detail": "Authenticated to DeltaAI on 2026-04-28/29, repaired the remote knowledge-arbitration loader package under src/, resubmitted the stale-loader failures, and completed the full 18-variant extended wave on Delta. The first 12 jobs failed only because the remote src/knowledge_arbitration tree was stale before the repair; the rerun block 2210265-2210276 completed cleanly.",
+  "delta_auth_state": "completed",
+  "delta_completion_headline": {
+    "api_slice_mean_gain": 0.06914416732016693,
+    "best_gain": {
+      "bayes_proxy_mean_regret": -0.18697193330880574,
+      "gain": 0.09065076945710755,
+      "heuristic_adaptive_mean_regret": -0.09632116385169819,
+      "job_log": "logs/knowledge_arbitration_extended_wave/arbitration_spotlight_extended_model_wave__seed=42.2210265.out",
+      "name": "arbitration_spotlight_extended_model_wave__seed=42",
+      "num_rows": 245760,
+      "wave": "model_wave"
+    },
+    "model_wave_mean_gain": 0.09065076945710755,
+    "num_results": 18,
+    "t3_calibration_wave_mean_gain": 0.08617177460226615,
+    "worst_gain": {
+      "bayes_proxy_mean_regret": 0.08013486032764011,
+      "gain": 0.06914416732016693,
+      "heuristic_adaptive_mean_regret": 0.14927902764780704,
+      "job_log": "logs/knowledge_arbitration_extended_wave/arbitration_spotlight_extended_api_slice__seed=42.2210276.out",
+      "name": "arbitration_spotlight_extended_api_slice__seed=42",
+      "num_rows": 8064,
+      "wave": "api_slice"
+    }
+  },
   "delta_direct_probe": {
     "bayes_proxy_mean_regret": 0.08013486032764011,
     "bayes_vs_heuristic_gain": 0.06914416732016693,

@@ -9,10 +9,11 @@
 - Unique ablations: `5`
 - Total scheduled cells before backend-specific chunking: `7356`
 - Three-seed coverage encoded in config: `[42, 43, 44]`
-- Delta auth state: `submitted`
-- Delta auth detail: Authenticated to DeltaAI on 2026-04-28, repaired the remote knowledge-arbitration loader package under src/, submitted 18 extended-wave jobs (2210217-2210234), and completed a direct API-slice probe locally on Delta while the queue waits at priority.
+- Delta auth state: `completed`
+- Delta auth detail: Authenticated to DeltaAI on 2026-04-28/29, repaired the remote knowledge-arbitration loader package under src/, resubmitted the stale-loader failures, and completed the full 18-variant extended wave on Delta. The first 12 jobs failed only because the remote src/knowledge_arbitration tree was stale before the repair; the rerun block 2210265-2210276 completed cleanly.
 - Delta submitted jobs captured locally: `18`
 - Direct completed Delta probe: `arbitration_spotlight_extended_api_slice__seed=42` with `8064` rows and Bayes-vs-heuristic gain `0.0691`
+- Full completed Delta wave: `18` variants with mean gains `model_wave=0.0907`, `t3_calibration_wave=0.0862`, `api_slice=0.0691`
 
 ## Coverage
 
@@ -45,5 +46,6 @@
 ## Interpretation
 
 - The remaining gap is no longer missing code or missing benchmark plumbing.
-- The extended wave is now both compute-ready and Delta-submitted; the open remaining gap is job completion, result pullback, and final write-up.
-- This note should be read together with the empirical completion audit: the finished core already has headline-grade results, and this extended wave is now an active execution path rather than a dormant plan.
+- The extended wave is now complete at the compact-results level: all 18 configured variants finished on Delta after the stale remote loader package was repaired and rerun.
+- The remaining empirical gap is no longer this model/benchmark wave; it is whatever still lies outside it, such as additional benchmark families, new frontier variants, or retraining-style interventions.
+- This note should be read together with the empirical completion audit: the finished core already had headline-grade results, and the extended wave now upgrades that core with completed Mistral, Gemma, closed-model, and extra-benchmark coverage.
