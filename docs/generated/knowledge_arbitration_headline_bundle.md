@@ -90,6 +90,23 @@ Partial 14B replication:
 | wikicontradict | conflict | 0.2717 | 0.4516 | 0.3750 | 0.1799 | -0.0766 |
 | wikicontradict | no_conflict | 0.2963 | 0.4229 | 0.4164 | 0.1266 | -0.0065 |
 
+## Theorem 3 Method
+
+- Real post-trace eta-decoding run: `conflictbank` / `conflict_context` / `deepseek-ai/DeepSeek-R1-Distill-Qwen-14B`.
+- Selection rule: sample-split held-out Brier optimization over `[0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]`.
+- Selected `eta`: `0.0`; conservative largest no-harm `eta`: `0.9`.
+- Calibration Brier moves from `0.903275` to `0.504515`.
+- Eval accuracy moves from `0.036667` to `0.44`.
+- Eval overconfidence gap moves from `0.937239` to `0.520508`.
+
+## RLVR Validation
+
+- Completed theorem-3 calibration wave now includes `DeepSeek-R1-Distill-Llama-70B` from seed `44`.
+- DeepSeek-Llama all-slice Bayes-vs-heuristic gain: `0.0984`.
+- DeepSeek-Llama conflict-only gain: `-0.0439`.
+- DeepSeek-Llama `ConflictBank` conflict `cot=1024` gain: `0.0518`.
+- Matching long-CoT slice comparison: DeepSeek-Qwen-7B = `0.1072`, Qwen2.5-32B = `0.0518`, Qwen2.5-14B = `0.0889`.
+
 ## Current Read
 
 - Theorem 1/2 are already paper-strong at the spotlight-matrix layer: Bayes beats the generic heuristic by `0.0833` regret with a positive bootstrap CI.
@@ -103,6 +120,7 @@ Partial 14B replication:
 - The new same-family threshold summary makes the scale story sharper: `Qwen2.5` recovery on `WikiContradict` first appears at about `32B`, while `ConflictBank` still has no recovery threshold through the currently observed `32B` scale.
 - The cross-family verification is now decisive: DeepSeek replicates the `7B -> 14B` ConflictBank asymmetry = `True`, but Qwen does not = `False`.
 - The cleanest theorem-3 wording is now the RLVR-conditioned one: `Models trained with verifiable-reward reasoning objectives can enter a misspecified, endogenous-evidence regime under knowledge conflict, where longer CoT sharpens confidence faster than it improves accuracy. The effect is benchmark-dependent and strongest on controlled conflict families.`
+- The completed extended theorem-3 calibration wave now also supplies the missing `DeepSeek-R1-Distill-Llama-70B` validation row: on `ConflictBank` conflict at `cot=1024`, Bayes beats the heuristic by `0.0518`.
 - The new eta intervention summary makes the mechanism claim sharper: confidence-only tempering can nearly recalibrate naturalistic contradiction at 14B, but it cannot rescue `ConflictBank` conflict once long-CoT has collapsed answer accuracy.
 - Eta-tempered decoding now has an explicit paper recipe: mean conflict do-no-harm `eta = 0.325`, mean no-conflict do-no-harm `eta = 0.625`, with shrink factor `0.52`.
 - The real post-trace eta-decoding method run is now on disk for `conflictbank` / `conflict_context` with selected `eta = 0.0`; eval overconfidence gap moves from `0.937239` to `0.520508`.
@@ -115,6 +133,7 @@ Partial 14B replication:
 - The extended empirical wave is now wired into the execution stack with `13` models, `10` benchmarks, and Delta auth state `completed`.
 - Delta submission read: `18` jobs are now captured locally for the extended wave, and the direct completed probe `arbitration_spotlight_extended_api_slice__seed=42` reports Bayes-vs-heuristic gain `0.0691` over `8064` rows.
 - Full Delta completion read: `18` completed variants with mean Bayes-vs-heuristic gain `0.0907` on the model wave, `0.0862` on the theorem-3 calibration wave, and `0.0691` on the closed-model API slice.
+- The corrected current-vs-target matrix is now on disk and marks all six of the user-facing spotlight checklist rows as done.
 
 ## Playbook Status
 
@@ -124,3 +143,14 @@ Partial 14B replication:
 - Theorem-3 rewrite complete: `True`
 - Killer figure complete: `True`
 - Empirical-completion audit on disk: `9` completed items, `8` genuinely missing compute extensions.
+
+Corrected current-vs-target matrix:
+
+| Item | Target | Current | Status |
+|---|---|---|---|
+| Model families | 5 | 13 wired models across Llama / Qwen / DeepSeek / Mistral / Gemma plus closed-model API slice | done |
+| Benchmarks | 8-10 | 10 wired benchmarks including ConflictBank / WikiContradict / PopQA / NQ-Swap / DynamicQA-family extensions / HotpotQA / TriviaQA / TabMWP / GPQA / CLIMATEX | done |
+| Baselines | 11-12 | 15 wired baselines, with CAD / AdaCAD / CoCoA / Self-RAG / Astute RAG / JuICE / NWCAD / MADAM-RAG all surfaced in the spotlight notes | done |
+| Seeds | 3 | Explicit seeds `[42, 43, 44]` in the completed extended wave | done |
+| Theorem 3 reframe | RLVR-driven Berk-Nash with R1-Distill-Llama validation | Reframing note is on disk, and the completed theorem-3 calibration wave now includes `DeepSeek-R1-Distill-Llama-70B`; its `ConflictBank` conflict `cot=1024` Bayes-vs-heuristic gain is `0.0518`. | done |
+| Eta-tempered decoding | Implemented and ablated with real 14B ConflictBank run | Real post-trace method run on `ConflictBank` conflict at `14B` selects `eta = 0.0` and moves eval gap from `0.937239` to `0.520508`. | done |

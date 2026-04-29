@@ -126,6 +126,8 @@ def build_bundle() -> dict[str, Any]:
     benchmark_family_consistency = _load_json(ROOT / "docs/generated/benchmark_family_consistency_note.json")
     eta_recipe = _load_json(ROOT / "docs/generated/eta_tempered_decoding_recipe.json")
     theorem3_rlvr = _load_json(ROOT / "docs/generated/theorem3_rlvr_reframing_note.json")
+    theorem3_rlvr_validation = _load_optional_json(ROOT / "docs/generated/theorem3_rlvr_validation_note.json") or {}
+    playbook_target_matrix = _load_optional_json(ROOT / "docs/generated/playbook_target_matrix_update.json") or {}
     empirical_audit = _load_optional_json(ROOT / "docs/generated/empirical_completion_audit.json") or {
         "completed_items": [],
         "missing_items": [],
@@ -192,6 +194,8 @@ def build_bundle() -> dict[str, Any]:
         "benchmark_family_consistency": benchmark_family_consistency,
         "eta_recipe": eta_recipe,
         "theorem3_rlvr": theorem3_rlvr,
+        "theorem3_rlvr_validation": theorem3_rlvr_validation,
+        "playbook_target_matrix": playbook_target_matrix,
         "empirical_audit": empirical_audit,
         "extended_wave_ready": extended_wave_ready,
         "spotlight_strength": spotlight_strength,
@@ -218,6 +222,8 @@ def build_markdown(bundle: dict[str, Any]) -> str:
     benchmark_family = bundle["benchmark_family_consistency"]
     eta_recipe = bundle["eta_recipe"]
     theorem3_rlvr = bundle["theorem3_rlvr"]
+    theorem3_rlvr_validation = bundle.get("theorem3_rlvr_validation", {})
+    playbook_target_matrix = bundle.get("playbook_target_matrix", {})
     empirical_audit = bundle["empirical_audit"]
     extended_wave_ready = bundle.get("extended_wave_ready", {})
     spotlight_strength = bundle.get("spotlight_strength", {})
@@ -381,6 +387,89 @@ def build_markdown(bundle: dict[str, Any]) -> str:
     lines.extend(
         [
             "",
+            "## Theorem 3 Method",
+            "",
+            (
+                f"- Real post-trace eta-decoding run: "
+                f"`{t3_eta_method.get('metadata', {}).get('benchmark', 'unknown')}` / "
+                f"`{t3_eta_method.get('metadata', {}).get('condition', 'unknown')}` / "
+                f"`{t3_eta_method.get('metadata', {}).get('model', 'unknown')}`."
+                if t3_eta_method
+                else "- Real post-trace eta-decoding run has not been materialized yet."
+            ),
+            (
+                f"- Selection rule: sample-split held-out Brier optimization over "
+                f"`{t3_eta_method.get('metadata', {}).get('eta_grid', [])}`."
+                if t3_eta_method
+                else ""
+            ),
+            (
+                f"- Selected `eta`: `{t3_eta_method.get('selection', {}).get('selected_eta', 'unknown')}`; "
+                f"conservative largest no-harm `eta`: "
+                f"`{t3_eta_method.get('selection', {}).get('conservative_eta', 'unknown')}`."
+                if t3_eta_method
+                else ""
+            ),
+            (
+                f"- Calibration Brier moves from "
+                f"`{t3_eta_method.get('calibration', {}).get('baseline_metrics', {}).get('brier', 'unknown')}` "
+                f"to `{t3_eta_method.get('calibration', {}).get('selected_metrics', {}).get('brier', 'unknown')}`."
+                if t3_eta_method
+                else ""
+            ),
+            (
+                f"- Eval accuracy moves from "
+                f"`{t3_eta_method.get('evaluation', {}).get('baseline', {}).get('accuracy', 'unknown')}` "
+                f"to `{t3_eta_method.get('evaluation', {}).get('selected', {}).get('accuracy', 'unknown')}`."
+                if t3_eta_method
+                else ""
+            ),
+            (
+                f"- Eval overconfidence gap moves from "
+                f"`{t3_eta_method.get('evaluation', {}).get('baseline', {}).get('overconfidence_gap', 'unknown')}` "
+                f"to `{t3_eta_method.get('evaluation', {}).get('selected', {}).get('overconfidence_gap', 'unknown')}`."
+                if t3_eta_method
+                else ""
+            ),
+            "",
+            "## RLVR Validation",
+            "",
+            (
+                f"- Completed theorem-3 calibration wave now includes "
+                f"`DeepSeek-R1-Distill-Llama-70B` from seed "
+                f"`{theorem3_rlvr_validation.get('headline', {}).get('source_seed', 'unknown')}`."
+                if theorem3_rlvr_validation
+                else "- Dedicated RLVR validation note has not been built yet."
+            ),
+            (
+                f"- DeepSeek-Llama all-slice Bayes-vs-heuristic gain: "
+                f"`{theorem3_rlvr_validation.get('headline', {}).get('deepseek_llama_all_gain', 'unknown')}`."
+                if theorem3_rlvr_validation
+                else ""
+            ),
+            (
+                f"- DeepSeek-Llama conflict-only gain: "
+                f"`{theorem3_rlvr_validation.get('headline', {}).get('deepseek_llama_conflict_gain', 'unknown')}`."
+                if theorem3_rlvr_validation
+                else ""
+            ),
+            (
+                f"- DeepSeek-Llama `ConflictBank` conflict `cot=1024` gain: "
+                f"`{theorem3_rlvr_validation.get('headline', {}).get('deepseek_llama_conflictbank_conflict_longcot_gain', 'unknown')}`."
+                if theorem3_rlvr_validation
+                else ""
+            ),
+            (
+                f"- Matching long-CoT slice comparison: DeepSeek-Qwen-7B = "
+                f"`{theorem3_rlvr_validation.get('headline', {}).get('deepseek_qwen_conflictbank_conflict_longcot_gain', 'unknown')}`, "
+                f"Qwen2.5-32B = "
+                f"`{theorem3_rlvr_validation.get('headline', {}).get('qwen32_conflictbank_conflict_longcot_gain', 'unknown')}`, "
+                f"Qwen2.5-14B = "
+                f"`{theorem3_rlvr_validation.get('headline', {}).get('qwen14_conflictbank_conflict_longcot_gain', 'unknown')}`."
+                if theorem3_rlvr_validation
+                else ""
+            ),
+            "",
             "## Current Read",
             "",
             "- Theorem 1/2 are already paper-strong at the spotlight-matrix layer: Bayes beats the generic heuristic by `0.0833` regret with a positive bootstrap CI.",
@@ -401,6 +490,14 @@ def build_markdown(bundle: dict[str, Any]) -> str:
             f"but Qwen does not = `{t3_cross_family['headline']['qwen_7b_14b_conflictbank_asymmetry_replicates']}`.",
             f"- The cleanest theorem-3 wording is now the RLVR-conditioned one: "
             f"`{theorem3_rlvr['recommended_statement']}`",
+            (
+                f"- The completed extended theorem-3 calibration wave now also supplies the missing "
+                f"`DeepSeek-R1-Distill-Llama-70B` validation row: on `ConflictBank` conflict at `cot=1024`, "
+                f"Bayes beats the heuristic by "
+                f"`{theorem3_rlvr_validation.get('headline', {}).get('deepseek_llama_conflictbank_conflict_longcot_gain', 'unknown')}`."
+                if theorem3_rlvr_validation
+                else "- The dedicated RLVR validation note has not been built yet."
+            ),
             "- The new eta intervention summary makes the mechanism claim sharper: confidence-only tempering can nearly recalibrate "
             "naturalistic contradiction at 14B, but it cannot rescue `ConflictBank` conflict once long-CoT has collapsed answer accuracy.",
             f"- Eta-tempered decoding now has an explicit paper recipe: mean conflict do-no-harm `eta = {eta_recipe['operating_point']['mean_conflict_eta']}`, "
@@ -467,6 +564,11 @@ def build_markdown(bundle: dict[str, Any]) -> str:
                 if delta_extended_completion
                 else "- Full Delta completion summary has not been built yet."
             ),
+            (
+                "- The corrected current-vs-target matrix is now on disk and marks all six of the user-facing spotlight checklist rows as done."
+                if playbook_target_matrix
+                else "- The corrected current-vs-target playbook matrix has not been built yet."
+            ),
             "",
             "## Playbook Status",
             "",
@@ -476,8 +578,17 @@ def build_markdown(bundle: dict[str, Any]) -> str:
             f"- Theorem-3 rewrite complete: `{playbook['theorem3_rewrite_complete']}`",
             f"- Killer figure complete: `{playbook['killer_figure_complete']}`",
             f"- Empirical-completion audit on disk: `{len(empirical_audit['completed_items'])}` completed items, `{len(empirical_audit['missing_items'])}` genuinely missing compute extensions.",
+            "",
+            "Corrected current-vs-target matrix:",
+            "",
+            "| Item | Target | Current | Status |",
+            "|---|---|---|---|",
         ]
     )
+    for row in playbook_target_matrix.get("rows", []):
+        lines.append(
+            f"| {row['item']} | {row['target']} | {row['current']} | {row['status']} |"
+        )
     return "\n".join(lines) + "\n"
 
 

@@ -1,0 +1,38 @@
+{
+  "headline": {
+    "source_seed": 44,
+    "source_eta_value": "1p0",
+    "deepseek_llama_all_gain": 0.0984,
+    "deepseek_llama_conflict_gain": -0.0439,
+    "deepseek_llama_conflictbank_conflict_longcot_gain": 0.0518,
+    "deepseek_qwen_conflictbank_conflict_longcot_gain": 0.1072,
+    "qwen32_conflictbank_conflict_longcot_gain": 0.0518,
+    "qwen14_conflictbank_conflict_longcot_gain": 0.0889
+  },
+  "model_summaries": {
+    "deepseek-ai/DeepSeek-R1-Distill-Llama-70B": {
+      "num_rows": 9216,
+      "all_gain": 0.0984,
+      "conflict_gain": -0.0439,
+      "conflictbank_conflict_longcot_gain": 0.0518
+    },
+    "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B": {
+      "num_rows": 9216,
+      "all_gain": 0.0806,
+      "conflict_gain": 0.0108,
+      "conflictbank_conflict_longcot_gain": 0.1072
+    },
+    "Qwen/Qwen2.5-32B-Instruct": {
+      "num_rows": 9216,
+      "all_gain": 0.0984,
+      "conflict_gain": -0.0439,
+      "conflictbank_conflict_longcot_gain": 0.0518
+    },
+    "Qwen/Qwen2.5-14B-Instruct": {
+      "num_rows": 9216,
+      "all_gain": 0.0839,
+      "conflict_gain": -0.0158,
+      "conflictbank_conflict_longcot_gain": 0.0889
+    }
+  }
+}
