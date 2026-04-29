@@ -83,6 +83,12 @@ The new dedicated `Llama-3.1-70B` frontier note is now explicit in
 [`docs/generated/llama_70b_frontier_note.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/llama_70b_frontier_note.md).
 The new empirical-completion audit is now explicit in
 [`docs/generated/empirical_completion_audit.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/empirical_completion_audit.md).
+The new extended-wave readiness note is now explicit in
+[`docs/generated/extended_empirical_wave_ready.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/extended_empirical_wave_ready.md).
+That artifact makes the next empirical wave concrete rather than aspirational:
+`13` wired models, `10` wired benchmarks, `15` wired baselines, `5` wired
+ablations, and explicit three-seed coverage in config, with the only live
+blocker being Delta Kerberos + Duo authentication from this session.
 The new named-comparator spotlight proxy read is now explicit in
 [`docs/generated/arbitration_proxy_baseline_t12_v2.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/arbitration_proxy_baseline_t12_v2.md).
 The new theorem-3 named-comparator proxy read is now explicit in
@@ -140,6 +146,10 @@ Its decision is `not A`:
 | `OLMo-2` | 7B | checkpoint sweep | not started |
 | `Mistral` | 7B | robustness | not started |
 | `Phi-3` | medium | robustness | not started |
+
+The key difference now is that these rows are no longer "missing because we
+have not wired them." They are "missing because they require fresh cluster or
+API runs on top of the new extended manifest."
 
 ## What would count as a real early win
 

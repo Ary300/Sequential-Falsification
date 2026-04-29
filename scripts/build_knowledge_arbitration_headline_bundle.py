@@ -129,6 +129,7 @@ def build_bundle() -> dict[str, Any]:
         "completed_items": [],
         "missing_items": [],
     }
+    extended_wave_ready = _load_optional_json(ROOT / "docs/generated/extended_empirical_wave_ready.json") or {}
 
     if broad_report is not None and broad_results is not None:
         theorem1 = _theorem12_section("broad_real_headline_wave_reestimated_v3", broad_report, broad_results)
@@ -188,6 +189,7 @@ def build_bundle() -> dict[str, Any]:
         "eta_recipe": eta_recipe,
         "theorem3_rlvr": theorem3_rlvr,
         "empirical_audit": empirical_audit,
+        "extended_wave_ready": extended_wave_ready,
     }
 
 
@@ -210,6 +212,7 @@ def build_markdown(bundle: dict[str, Any]) -> str:
     eta_recipe = bundle["eta_recipe"]
     theorem3_rlvr = bundle["theorem3_rlvr"]
     empirical_audit = bundle["empirical_audit"]
+    extended_wave_ready = bundle.get("extended_wave_ready", {})
     playbook = bundle["playbook_status"]
     t12_comparators = {row["policy"]: row for row in baseline_proxy_t12["comparators"]}
     t3_comparators = {row["policy"]: row for row in baseline_proxy_t3["comparators"]}
@@ -396,6 +399,14 @@ def build_markdown(bundle: dict[str, Any]) -> str:
             f"`{baseline_proxy_t3['headline']['strongest_named_comparator']}` with regret "
             f"`{baseline_proxy_t3['headline']['strongest_named_comparator_regret']}`, so the named-comparator read there is a near-tie rather than the main headline.",
             f"- The new empirical-completion audit makes the repo state explicit: the paper-strong empirical core is finished, and the remaining missing items are genuinely new runs such as `Mistral`, `Gemma`, `HotpotQA`, `TriviaQA`, `TabMWP`, `GPQA`, and `CLIMATEX`, not hidden completed results.",
+            (
+                f"- The extended empirical wave is now wired into the execution stack with "
+                f"`{extended_wave_ready.get('readiness', {}).get('unique_models', 0)}` models, "
+                f"`{extended_wave_ready.get('readiness', {}).get('unique_benchmarks', 0)}` benchmarks, "
+                f"and Delta auth state `{extended_wave_ready.get('delta_auth_state', 'unknown')}`."
+                if extended_wave_ready
+                else "- The extended empirical wave readiness artifact has not been built yet."
+            ),
             "",
             "## Playbook Status",
             "",

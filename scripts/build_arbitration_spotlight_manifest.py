@@ -70,6 +70,8 @@ def _experiment_summary(experiment: dict[str, Any]) -> dict[str, Any]:
 
     return {
         "name": experiment["name"],
+        "expanded_from": experiment.get("expanded_from", experiment["name"]),
+        "sweep_values": experiment.get("sweep_values", {}),
         "priority": experiment.get("priority", "unspecified"),
         "benchmarks": benchmark_specs,
         "models": models,
@@ -132,4 +134,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

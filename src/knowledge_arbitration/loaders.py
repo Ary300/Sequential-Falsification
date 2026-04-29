@@ -225,6 +225,50 @@ def _load_dynamicqa(max_examples: int | None = None) -> list[dict[str, Any]]:
     return _limit_rows(rows, max_examples)
 
 
+def _load_triviaqa(max_examples: int | None = None) -> list[dict[str, Any]]:
+    dataset = load_dataset("trivia_qa", "rc.nocontext")["validation"]
+    rows = []
+    for row in dataset:
+        answer = row.get("answer", {}) or {}
+        aliases = _parse_string_list(answer.get("aliases"))
+        gold_answer = str(answer.get("value", "")).strip()
+        if gold_answer and gold_answer not in aliases:
+            aliases = [gold_answer] + aliases
+        search_results = row.get("search_results", {}) or {}
+        titles = _parse_string_list(search_results.get("title"))
+        descriptions = _parse_string_list(search_results.get("description"))
+        snippets = []
+        for title, description in zip(titles[:2], descriptions[:2]):
+            text = " ".join(part for part in [title, description] if part)
+            if text.strip():
+                snippets.append(text.strip())
+        aligned_text = snippets[0] if snippets else ""
+        conflict_text = snippets[1] if len(snippets) > 1 else aligned_text
+        rows.append(
+            {
+                "id": str(row.get("question_id", row.get("id", f"triviaqa_{len(rows)}"))),
+                "question": str(row.get("question", "")).strip(),
+                "answers": aliases or ([gold_answer] if gold_answer else []),
+                "contexts": [text for text in [aligned_text, conflict_text] if text],
+                "condition": "triviaqa",
+                "metadata": {
+                    "benchmark": "triviaqa",
+                    "parametric_answers": aliases or ([gold_answer] if gold_answer else []),
+                    "aligned_context_answers": aliases or ([gold_answer] if gold_answer else []),
+                    "conflict_context_answers": [],
+                    "aligned_context_text": aligned_text,
+                    "conflict_context_text": conflict_text,
+                    "supports_conditions": ["closed_book", "aligned_context", "irrelevant_noise"],
+                    "popularity_score": 0.62,
+                    "dynamicity_score": 0.12,
+                    "conflict_strength": 0.22,
+                    "question_source": str(row.get("question_source", "")),
+                },
+            }
+        )
+    return _limit_rows(rows, max_examples)
+
+
 def _load_nq_swap(max_examples: int | None = None) -> list[dict[str, Any]]:
     path = hf_hub_download(repo_id="younanna/NQ-Swap", filename="data/dev-00000-of-00001.parquet", repo_type="dataset")
     frame = pd.read_parquet(path)
@@ -253,6 +297,96 @@ def _load_nq_swap(max_examples: int | None = None) -> list[dict[str, Any]]:
                     "dynamicity_score": 0.2,
                     "conflict_strength": conflict_strength,
                     "substitution_type": substitution_type,
+                },
+            }
+        )
+    return _limit_rows(rows, max_examples)
+
+
+def _load_hotpotqa(max_examples: int | None = None) -> list[dict[str, Any]]:
+    dataset = load_dataset("hotpot_qa", "distractor")["validation"]
+    rows = []
+    for row in dataset:
+        contexts = row.get("context", {}) or {}
+        titles = _parse_string_list(contexts.get("title"))
+        sentences = contexts.get("sentences", []) or []
+        supporting = row.get("supporting_facts", {}) or {}
+        support_titles = set(_parse_string_list(supporting.get("title")))
+
+        aligned_blocks: list[str] = []
+        distractor_blocks: list[str] = []
+        for title, sentence_list in zip(titles, sentences):
+            text = " ".join(str(sentence).strip() for sentence in sentence_list if str(sentence).strip()).strip()
+            if not text:
+                continue
+            block = f"{title}: {text}" if title else text
+            if title in support_titles and len(aligned_blocks) < 2:
+                aligned_blocks.append(block)
+            elif len(distractor_blocks) < 2:
+                distractor_blocks.append(block)
+
+        aligned_text = "\n\n".join(aligned_blocks[:2]).strip()
+        conflict_text = "\n\n".join(distractor_blocks[:2]).strip() or aligned_text
+        answer = str(row.get("answer", "")).strip()
+        rows.append(
+            {
+                "id": str(row.get("id", f"hotpotqa_{len(rows)}")),
+                "question": str(row.get("question", "")).strip(),
+                "answers": [answer] if answer else [],
+                "contexts": [text for text in [aligned_text, conflict_text] if text],
+                "condition": "hotpotqa_distractor",
+                "metadata": {
+                    "benchmark": "hotpotqa",
+                    "parametric_answers": [answer] if answer else [],
+                    "aligned_context_answers": [answer] if answer else [],
+                    "conflict_context_answers": [],
+                    "aligned_context_text": aligned_text,
+                    "conflict_context_text": conflict_text,
+                    "supports_conditions": ["closed_book", "aligned_context", "conflict_context", "irrelevant_noise"],
+                    "popularity_score": 0.48,
+                    "dynamicity_score": 0.18,
+                    "conflict_strength": 0.58,
+                    "type": str(row.get("type", "")),
+                    "level": str(row.get("level", "")),
+                },
+            }
+        )
+    return _limit_rows(rows, max_examples)
+
+
+def _load_tabmwp(max_examples: int | None = None) -> list[dict[str, Any]]:
+    dataset = load_dataset("JiaerX/TabMWP")["train"]
+    rows = []
+    for row in dataset:
+        question = str(row.get("question", "")).strip()
+        answer = str(row.get("answer", "")).strip()
+        options = _parse_string_list(row.get("options"))
+        conflict_answer = ""
+        if options:
+            for option in options:
+                if option != answer:
+                    conflict_answer = option
+                    break
+        aligned_text = f"Table reasoning problem: {question}"
+        conflict_text = f"Alternative answer proposal: {conflict_answer}" if conflict_answer else aligned_text
+        rows.append(
+            {
+                "id": str(row.get("id", f"tabmwp_{len(rows)}")),
+                "question": question,
+                "answers": [answer] if answer else [],
+                "contexts": [aligned_text, conflict_text],
+                "condition": "tabmwp",
+                "metadata": {
+                    "benchmark": "tabmwp",
+                    "parametric_answers": [answer] if answer else [],
+                    "aligned_context_answers": [answer] if answer else [],
+                    "conflict_context_answers": [conflict_answer] if conflict_answer else [],
+                    "aligned_context_text": aligned_text,
+                    "conflict_context_text": conflict_text,
+                    "supports_conditions": ["closed_book", "aligned_context", "conflict_context"],
+                    "popularity_score": 0.30,
+                    "dynamicity_score": 0.05,
+                    "conflict_strength": 0.52,
                 },
             }
         )
@@ -293,6 +427,79 @@ def _load_wikicontradict(max_examples: int | None = None) -> list[dict[str, Any]
                     "conflict_strength": conflict_strength,
                     "contradict_type": contradict_type,
                     "same_passage": str(row.get("samepassage", "")),
+                },
+            }
+        )
+    return _limit_rows(rows, max_examples)
+
+
+def _load_gpqa(max_examples: int | None = None) -> list[dict[str, Any]]:
+    dataset = load_dataset("ariaattarml/verified-reasoning-o1-gpqa-mmlu-pro")["train"]
+    rows = []
+    for index, row in enumerate(dataset):
+        question = str(row.get("original_question", "")).strip()
+        gold_answer = str(row.get("correct_answer", "")).strip()
+        model_answer = str(row.get("model_answer", "")).strip()
+        reasoning = str(row.get("assistant_response", "")).strip()
+        aligned_text = reasoning
+        conflict_text = f"Candidate answer from a competing solver: {model_answer}" if model_answer else reasoning
+        rows.append(
+            {
+                "id": f"gpqa_{index}",
+                "question": question,
+                "answers": [gold_answer] if gold_answer else [],
+                "contexts": [text for text in [aligned_text, conflict_text] if text],
+                "condition": "gpqa",
+                "metadata": {
+                    "benchmark": "gpqa",
+                    "parametric_answers": [gold_answer] if gold_answer else [],
+                    "aligned_context_answers": [gold_answer] if gold_answer else [],
+                    "conflict_context_answers": [model_answer] if model_answer and model_answer != gold_answer else [],
+                    "aligned_context_text": aligned_text,
+                    "conflict_context_text": conflict_text,
+                    "supports_conditions": ["closed_book", "aligned_context", "conflict_context"],
+                    "popularity_score": 0.18,
+                    "dynamicity_score": 0.06,
+                    "conflict_strength": 0.61,
+                    "source": str(row.get("source", "")),
+                    "preferred": bool(row.get("preferred", False)),
+                },
+            }
+        )
+    return _limit_rows(rows, max_examples)
+
+
+def _load_climatex(max_examples: int | None = None) -> list[dict[str, Any]]:
+    dataset = load_dataset("rlacombe/ClimateX")["train"]
+    rows = []
+    for index, row in enumerate(dataset):
+        statement = str(row.get("statement", "")).strip()
+        confidence = str(row.get("confidence", "")).strip()
+        score = str(row.get("score", "")).strip()
+        answer = confidence or score or "supported"
+        aligned_text = f"Climate report excerpt: {statement}"
+        conflict_text = f"Climate confidence annotation: {confidence}; score: {score}"
+        rows.append(
+            {
+                "id": f"climatex_{index}",
+                "question": f"What confidence should we place in the following climate statement? {statement}",
+                "answers": [answer],
+                "contexts": [aligned_text, conflict_text],
+                "condition": "climatex",
+                "metadata": {
+                    "benchmark": "climatex",
+                    "parametric_answers": [answer],
+                    "aligned_context_answers": [answer],
+                    "conflict_context_answers": [],
+                    "aligned_context_text": aligned_text,
+                    "conflict_context_text": conflict_text,
+                    "supports_conditions": ["closed_book", "aligned_context", "irrelevant_noise"],
+                    "popularity_score": 0.12,
+                    "dynamicity_score": 0.26,
+                    "conflict_strength": 0.44,
+                    "report": str(row.get("report", "")),
+                    "page_num": int(row.get("page_num", 0) or 0),
+                    "split": str(row.get("split", "")),
                 },
             }
         )
@@ -625,14 +832,19 @@ def _load_conflictbank(max_examples: int | None = None) -> list[dict[str, Any]]:
 
 BUILTIN_LOADERS: dict[str, Callable[[int | None], list[dict[str, Any]]]] = {
     "ambigdocs": _load_ambigdocs,
+    "climatex": _load_climatex,
     "clasheval": _load_clasheval,
     "conflictbank": _load_conflictbank,
     "dynamicqa": _load_dynamicqa,
     "faitheval": _load_faitheval,
+    "gpqa": _load_gpqa,
+    "hotpotqa": _load_hotpotqa,
     "memotrap": _load_memotrap,
     "nq_swap": _load_nq_swap,
     "popqa": _load_popqa,
     "ramdocs": _load_ramdocs,
+    "tabmwp": _load_tabmwp,
+    "triviaqa": _load_triviaqa,
     "wikicontradict": _load_wikicontradict,
 }
 

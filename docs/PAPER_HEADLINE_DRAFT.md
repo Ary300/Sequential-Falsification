@@ -191,6 +191,11 @@ rules.
 - The new empirical-completion audit is also on disk and says the quiet part
   plainly: the finished empirical core is headline-ready, and the remaining
   asks are genuinely missing future compute rather than buried completed runs.
+- The next-wave execution scaffold is now also explicit:
+  [`docs/generated/extended_empirical_wave_ready.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/extended_empirical_wave_ready.md)
+  wires `13` models, `10` benchmarks, `15` baselines, and explicit
+  three-seed coverage, so the remaining gap is authenticated external compute
+  rather than missing empirical infrastructure.
 
 ## Best current figure order
 
