@@ -89,6 +89,12 @@ That artifact makes the next empirical wave concrete rather than aspirational:
 `13` wired models, `10` wired benchmarks, `15` wired baselines, `5` wired
 ablations, and explicit three-seed coverage in config, with the only live
 blocker being Delta Kerberos + Duo authentication from this session.
+The new spotlight statistical-strength note is now explicit in
+[`docs/generated/spotlight_statistical_strength_note.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/spotlight_statistical_strength_note.md).
+That note sharpens the finished headline read:
+the theorem-1/theorem-2 spotlight matrix wins `23/25` benchmark-model series
+against the heuristic with exact sign-test `p ~= 1e-5`, while the theorem-3
+proxy still wins `20/25` with exact sign-test `p ~= 0.0020`.
 The new named-comparator spotlight proxy read is now explicit in
 [`docs/generated/arbitration_proxy_baseline_t12_v2.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/arbitration_proxy_baseline_t12_v2.md).
 The new theorem-3 named-comparator proxy read is now explicit in

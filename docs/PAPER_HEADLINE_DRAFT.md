@@ -196,6 +196,11 @@ rules.
   wires `13` models, `10` benchmarks, `15` baselines, and explicit
   three-seed coverage, so the remaining gap is authenticated external compute
   rather than missing empirical infrastructure.
+- The spotlight statistical-strength read is now also explicit:
+  [`docs/generated/spotlight_statistical_strength_note.md`](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/spotlight_statistical_strength_note.md)
+  shows `23/25` theorem-1/theorem-2 series wins over the heuristic with exact
+  sign-test `p ~= 1e-5`, and `20/25` theorem-3 proxy series wins with
+  `p ~= 0.0020`.
 
 ## Best current figure order
 

@@ -31,6 +31,7 @@
 - Dedicated `Llama-3.1-70B` frontier read: count-weighted Bayes beats the heuristic by `0.0602` on the five-benchmark spotlight slice.
 - Benchmark-family consistency: on the spotlight matrix, `ConflictBank`, `FaithEval`, `MemoTrap`, and `NQ-Swap` are unanimous `5/5` Bayes-over-heuristic wins across model families.
 - Spotlight bootstrap Bayes vs strongest named comparator CI: `[-0.0379, 0.0686]`
+- Spotlight statistical-strength read: Bayes wins `23/25` benchmark-model series against the heuristic with exact one-sided sign-test `p = 0.000010` and fixed-lambda e-value `2805.6854`.
 
 Per-model read:
 
@@ -109,6 +110,7 @@ Partial 14B replication:
 - Benchmark-family consistency makes that theorem-3 caveat sharper: `AmbigDocs`, `ConflictBank`, `FaithEval`, and `RAMDocs` are unanimous `5/5` Bayes-over-heuristic wins, while `WikiContradict` is a unanimous negative exception on the proxy regret layer.
 - On that same theorem-3 proxy matrix, the strongest named comparator is `cocoa` with regret `-0.0795`, so the named-comparator read there is a near-tie rather than the main headline.
 - The new empirical-completion audit makes the repo state explicit: the paper-strong empirical core is finished, and the remaining missing items are genuinely new runs such as `Mistral`, `Gemma`, `HotpotQA`, `TriviaQA`, `TabMWP`, `GPQA`, and `CLIMATEX`, not hidden completed results.
+- The theorem-3 proxy also now has an explicit statistical-strength read: `20/25` series wins over the heuristic, exact one-sided sign-test `p = 0.002039`, fixed-lambda e-value `103.9143`.
 - The extended empirical wave is now wired into the execution stack with `13` models, `10` benchmarks, and Delta auth state `blocked`.
 
 ## Playbook Status

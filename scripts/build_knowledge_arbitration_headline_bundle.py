@@ -130,6 +130,7 @@ def build_bundle() -> dict[str, Any]:
         "missing_items": [],
     }
     extended_wave_ready = _load_optional_json(ROOT / "docs/generated/extended_empirical_wave_ready.json") or {}
+    spotlight_strength = _load_optional_json(ROOT / "docs/generated/spotlight_statistical_strength_note.json") or {}
 
     if broad_report is not None and broad_results is not None:
         theorem1 = _theorem12_section("broad_real_headline_wave_reestimated_v3", broad_report, broad_results)
@@ -190,6 +191,7 @@ def build_bundle() -> dict[str, Any]:
         "theorem3_rlvr": theorem3_rlvr,
         "empirical_audit": empirical_audit,
         "extended_wave_ready": extended_wave_ready,
+        "spotlight_strength": spotlight_strength,
     }
 
 
@@ -213,6 +215,7 @@ def build_markdown(bundle: dict[str, Any]) -> str:
     theorem3_rlvr = bundle["theorem3_rlvr"]
     empirical_audit = bundle["empirical_audit"]
     extended_wave_ready = bundle.get("extended_wave_ready", {})
+    spotlight_strength = bundle.get("spotlight_strength", {})
     playbook = bundle["playbook_status"]
     t12_comparators = {row["policy"]: row for row in baseline_proxy_t12["comparators"]}
     t3_comparators = {row["policy"]: row for row in baseline_proxy_t3["comparators"]}
@@ -269,6 +272,15 @@ def build_markdown(bundle: dict[str, Any]) -> str:
         f"- Spotlight bootstrap Bayes vs strongest named comparator CI: "
         f"`[{spotlight_bootstrap_t12['bootstrap']['bayes_vs_strongest_named']['ci95_low']}, "
         f"{spotlight_bootstrap_t12['bootstrap']['bayes_vs_strongest_named']['ci95_high']}]`",
+        (
+            f"- Spotlight statistical-strength read: Bayes wins "
+            f"`{spotlight_strength['t12_matrix']['wins_vs_baseline']}/{spotlight_strength['t12_matrix']['num_series']}` "
+            f"benchmark-model series against the heuristic with exact one-sided sign-test "
+            f"`p = {spotlight_strength['t12_matrix']['sign_test_p_vs_baseline']:.6f}` and "
+            f"fixed-lambda e-value `{spotlight_strength['t12_matrix']['evalue_vs_baseline']:.4f}`."
+            if spotlight_strength
+            else "- Spotlight statistical-strength note has not been built yet."
+        ),
         "",
         "Per-model read:",
         "",
@@ -399,6 +411,15 @@ def build_markdown(bundle: dict[str, Any]) -> str:
             f"`{baseline_proxy_t3['headline']['strongest_named_comparator']}` with regret "
             f"`{baseline_proxy_t3['headline']['strongest_named_comparator_regret']}`, so the named-comparator read there is a near-tie rather than the main headline.",
             f"- The new empirical-completion audit makes the repo state explicit: the paper-strong empirical core is finished, and the remaining missing items are genuinely new runs such as `Mistral`, `Gemma`, `HotpotQA`, `TriviaQA`, `TabMWP`, `GPQA`, and `CLIMATEX`, not hidden completed results.",
+            (
+                f"- The theorem-3 proxy also now has an explicit statistical-strength read: "
+                f"`{spotlight_strength['t3_matrix']['wins_vs_baseline']}/{spotlight_strength['t3_matrix']['num_series']}` "
+                f"series wins over the heuristic, exact one-sided sign-test "
+                f"`p = {spotlight_strength['t3_matrix']['sign_test_p_vs_baseline']:.6f}`, "
+                f"fixed-lambda e-value `{spotlight_strength['t3_matrix']['evalue_vs_baseline']:.4f}`."
+                if spotlight_strength
+                else "- The theorem-3 proxy statistical-strength note has not been built yet."
+            ),
             (
                 f"- The extended empirical wave is now wired into the execution stack with "
                 f"`{extended_wave_ready.get('readiness', {}).get('unique_models', 0)}` models, "
