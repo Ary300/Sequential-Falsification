@@ -98,6 +98,8 @@ Partial 14B replication:
 - Calibration Brier moves from `0.903275` to `0.504515`.
 - Eval accuracy moves from `0.036667` to `0.44`.
 - Eval overconfidence gap moves from `0.937239` to `0.520508`.
+- Assumption 3.2 trace-separation check on `100` `ConflictBank` conflict examples at `cot=1024`: current-answer state beats the strongest competing state on `0.81` of examples, with mean margin `10.7513` and median margin `8.4565`.
+- The same trace-separation check gives correct-example win fraction `1.0` and incorrect-example win fraction `0.8081`, which supports self-confirmation rather than simple truth-tracking.
 
 ## RLVR Validation
 
@@ -148,6 +150,7 @@ Partial 14B replication:
 - The cleanest theorem-3 wording is now the RLVR-conditioned one: `Models trained with verifiable-reward reasoning objectives can enter a misspecified, endogenous-evidence regime under knowledge conflict, where longer CoT sharpens confidence faster than it improves accuracy. The effect is benchmark-dependent and strongest on controlled conflict families.`
 - The completed extended theorem-3 calibration wave now also supplies the missing `DeepSeek-R1-Distill-Llama-70B` validation row: on `ConflictBank` conflict at `cot=1024`, Bayes beats the heuristic by `0.0518`.
 - The new eta intervention summary makes the mechanism claim sharper: confidence-only tempering can nearly recalibrate naturalistic contradiction at 14B, but it cannot rescue `ConflictBank` conflict once long-CoT has collapsed answer accuracy.
+- The Assumption 3.2 empirical check is now complete: on `ConflictBank` conflict at `cot=1024`, the generated trace is more likely under the model's current answer state than under the strongest competing state on `81%` of examples, with large positive average margin (`10.75`).
 - Eta-tempered decoding now has an explicit paper recipe: mean conflict do-no-harm `eta = 0.325`, mean no-conflict do-no-harm `eta = 0.625`, with shrink factor `0.52`.
 - The real post-trace eta-decoding method run is now on disk for `conflictbank` / `conflict_context` with selected `eta = 0.0`; eval overconfidence gap moves from `0.937239` to `0.520508`.
 - On the theorem-3 size-scaling proxy matrix, Bayes beats the generic heuristic by `0.0585` regret with bootstrap CI `[0.0155, 0.0961]`.
