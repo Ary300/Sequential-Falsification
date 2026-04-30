@@ -46,6 +46,43 @@ conflict regimes remain catastrophically overconfident even at long CoT. This
 is why the final theorem-3 statement is family-dependent rather than uniformly
 non-monotone.
 
+\subsection{Answer-Stability Diagnostic for Theorem 3(a)}
+
+The monotone-gap implication in theorem 3(a) is conditional on answer-state
+stability across the local CoT window. We therefore measured how often the
+predicted answer stays fixed across the canonical `cot=0', `cot=128', and
+`cot=1024' checkpoints on the finished
+DeepSeek-R1-Distill-Qwen-14B real-generation run.
+
+On `ConflictBank' conflict, answer stability is rare but non-zero:
+\begin{itemize}
+\item stable across `0/128/1024': $0.08$
+\item stable across the pre-saturation window `0/128': $0.098$
+\item stable across `128/1024': $0.364$
+\end{itemize}
+
+This means theorem 3(a) should be read as a conditional statement about the
+stable subset rather than as a universal per-example claim. Importantly, the
+stable pre-saturation subset still exhibits the predicted confidence-gap growth:
+among `ConflictBank' conflict examples whose answer is unchanged from `cot=0'
+to `cot=128', the mean gap increase is $+0.0908$ with zero mean accuracy
+change. On the fully stable `0 \rightarrow 1024' subset, the mean gap increase
+remains $+0.1025$ with zero mean accuracy change.
+
+\subsection{Benchmark-Dependent Separation Remark}
+
+The theorem-3 threshold should be understood as benchmark-dependent through the
+effective self-confirming separation parameter $\delta_c(s)$ rather than as a
+single model-only constant. Empirically, `WikiContradict' and `ConflictBank'
+fall into different regimes at the same model scale: on the finished 14B run,
+`WikiContradict' conflict shows partial long-CoT recovery
+($0.2717 \rightarrow 0.4516 \rightarrow 0.3750$), while `ConflictBank'
+conflict remains saturated
+($0.5876 \rightarrow 0.9449 \rightarrow 0.9513$). The cleanest interpretation
+is that controlled entity-swap conflicts induce a larger effective
+self-confirming separation than naturalistic contradiction, so the same model
+can lie on opposite sides of the safe-update boundary on the two benchmarks.
+
 \subsection{Eta-Tempered Decoding Recipe}
 
 The concrete intervention implied by theorem 3 is confidence-only
