@@ -16,6 +16,8 @@ import requests
 def _ensure_list(value: Any) -> list[Any]:
     if value is None:
         return []
+    if hasattr(value, "tolist"):
+        value = value.tolist()
     if isinstance(value, list):
         return value
     if isinstance(value, tuple):
@@ -750,6 +752,82 @@ def _load_clasheval(max_examples: int | None = None) -> list[dict[str, Any]]:
     return _limit_rows(rows, max_examples)
 
 
+def _render_mquake_chain(triples: Any, single_hops: Any) -> str:
+    lines: list[str] = []
+    for triple in _ensure_list(triples):
+        if isinstance(triple, (list, tuple)) and len(triple) == 3:
+            subject, relation, obj = [str(item).strip() for item in triple]
+            if subject or relation or obj:
+                lines.append(f"{subject} -- {relation} -> {obj}")
+    if not lines:
+        for hop in _ensure_list(single_hops):
+            if not isinstance(hop, dict):
+                continue
+            question = str(hop.get("question", "")).strip()
+            answer = str(hop.get("answer", "")).strip()
+            if question and answer:
+                lines.append(f"{question} Answer: {answer}")
+    return "\n".join(line for line in lines if line).strip()
+
+
+def _load_mquake_remastered(max_examples: int | None = None) -> list[dict[str, Any]]:
+    path = hf_hub_download(
+        repo_id="henryzhongsc/MQuAKE-Remastered",
+        filename="data/CF3k-00000-of-00001.parquet",
+        repo_type="dataset",
+    )
+    frame = pd.read_parquet(path)
+    rows = []
+    for _, row in frame.iterrows():
+        questions = _parse_string_list(row.get("questions"))
+        if not questions:
+            continue
+        answer = str(row.get("answer", "")).strip()
+        new_answer = str(row.get("new_answer", "")).strip()
+        if not answer or not new_answer:
+            continue
+
+        stale_text = _render_mquake_chain(row.get("orig_triples_labeled"), row.get("single_hops"))
+        edited_text = _render_mquake_chain(row.get("new_triples_labeled"), row.get("new_single_hops")) or stale_text
+        split_payload = row.get("split")
+        if hasattr(split_payload, "item"):
+            try:
+                split_payload = split_payload.item()
+            except Exception:
+                pass
+
+        rows.append(
+            {
+                "id": f"mquake_{int(row.get('case_id', len(rows)))}",
+                "question": questions[0],
+                "answers": [new_answer],
+                "contexts": [edited_text, stale_text],
+                "condition": "mquake_remastered",
+                "metadata": {
+                    "benchmark": "mquake_remastered",
+                    "parametric_answers": [answer],
+                    "aligned_context_answers": [new_answer],
+                    "conflict_context_answers": [answer],
+                    "aligned_context_text": edited_text,
+                    "conflict_context_text": stale_text,
+                    "supports_conditions": ["closed_book", "aligned_context", "conflict_context"],
+                    "popularity_score": 0.35,
+                    "dynamicity_score": 0.35,
+                    "conflict_strength": 0.88,
+                    "case_id": int(row.get("case_id", 0) or 0),
+                    "all_questions": questions,
+                    "answer_alias": _parse_string_list(row.get("answer_alias")),
+                    "new_answer_alias": _parse_string_list(row.get("new_answer_alias")),
+                    "single_hops": _ensure_list(row.get("single_hops")),
+                    "new_single_hops": _ensure_list(row.get("new_single_hops")),
+                    "requested_rewrite": _ensure_list(row.get("requested_rewrite")),
+                    "split": split_payload,
+                },
+            }
+        )
+    return _limit_rows(rows, max_examples)
+
+
 def _stream_conflictbank_rows(max_examples: int | None = None) -> list[dict[str, Any]]:
     url = hf_hub_url(repo_id="Warrieryes/CB_qa", filename="QA_dataset.json", repo_type="dataset")
     response = requests.get(url, stream=True, timeout=60)
@@ -840,6 +918,7 @@ BUILTIN_LOADERS: dict[str, Callable[[int | None], list[dict[str, Any]]]] = {
     "gpqa": _load_gpqa,
     "hotpotqa": _load_hotpotqa,
     "memotrap": _load_memotrap,
+    "mquake_remastered": _load_mquake_remastered,
     "nq_swap": _load_nq_swap,
     "popqa": _load_popqa,
     "ramdocs": _load_ramdocs,

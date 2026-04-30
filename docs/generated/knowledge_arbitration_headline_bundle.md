@@ -123,6 +123,8 @@ Partial 14B replication:
 
 - Confidence-head pilot on `ConflictBank` / `conflict_context` / `cot=1024`: Brier `0.927365` -> `0.215942`, ECE `0.9513` -> `0.374669`, AUROC `0.298484` -> `0.436524`.
 - Post-hoc baseline comparison on the same slice: best Brier method = `isotonic`, eta-tempering Brier = `0.530564`, Platt = `0.01666`, isotonic = `0.016379`.
+- MQuAKE multi-hop proxy compounding note: on the reference model `deepseek-ai/DeepSeek-R1-Distill-Qwen-14B`, depth-2 chain error is `0.089011` for Bayes vs `0.38785` for the heuristic and `0.75` for fixed-50.
+- Retrieval-backed WikiContradict demo: top-1 aligned retrieval rate `0.616601`, top-1 conflict retrieval rate `0.300395`, and top-5 contains both aligned and conflicting passages `0.719368`.
 
 ## Yoon Contrast
 

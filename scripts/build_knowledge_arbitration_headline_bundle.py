@@ -131,6 +131,8 @@ def build_bundle() -> dict[str, Any]:
     bayes_component_ablation = _load_optional_json(ROOT / "docs/generated/bayes_component_ablation_note.json") or {}
     theorem3_confidence_head = _load_optional_json(ROOT / "docs/generated/theorem3_confidence_head_pilot_result.json") or {}
     theorem3_calibration_baselines = _load_optional_json(ROOT / "docs/generated/theorem3_calibration_baselines.json") or {}
+    mquake_multihop = _load_optional_json(ROOT / "docs/generated/mquake_multihop_compounding_note.json") or {}
+    wikicontradict_rag_demo = _load_optional_json(ROOT / "docs/generated/wikicontradict_bm25_rag_demo.json") or {}
     yoon_contrast = _load_optional_json(ROOT / "docs/generated/yoon_contrast_note.json") or {}
     yoon_real_contrast = _load_optional_json(ROOT / "docs/generated/yoon_real_contrast_note.json") or {}
     playbook_target_matrix = _load_optional_json(ROOT / "docs/generated/playbook_target_matrix_update.json") or {}
@@ -205,6 +207,8 @@ def build_bundle() -> dict[str, Any]:
         "bayes_component_ablation": bayes_component_ablation,
         "theorem3_confidence_head": theorem3_confidence_head,
         "theorem3_calibration_baselines": theorem3_calibration_baselines,
+        "mquake_multihop": mquake_multihop,
+        "wikicontradict_rag_demo": wikicontradict_rag_demo,
         "yoon_contrast": yoon_contrast,
         "yoon_real_contrast": yoon_real_contrast,
         "playbook_target_matrix": playbook_target_matrix,
@@ -239,6 +243,8 @@ def build_markdown(bundle: dict[str, Any]) -> str:
     bayes_component_ablation = bundle.get("bayes_component_ablation", {})
     theorem3_confidence_head = bundle.get("theorem3_confidence_head", {})
     theorem3_calibration_baselines = bundle.get("theorem3_calibration_baselines", {})
+    mquake_multihop = bundle.get("mquake_multihop", {})
+    wikicontradict_rag_demo = bundle.get("wikicontradict_rag_demo", {})
     yoon_contrast = bundle.get("yoon_contrast", {})
     yoon_real_contrast = bundle.get("yoon_real_contrast", {})
     playbook_target_matrix = bundle.get("playbook_target_matrix", {})
@@ -561,6 +567,27 @@ def build_markdown(bundle: dict[str, Any]) -> str:
                 f"`{theorem3_calibration_baselines.get('headline', {}).get('isotonic_brier', 'unknown')}`."
                 if theorem3_calibration_baselines
                 else "- Theorem-3 calibration baseline comparison has not been built yet."
+            ),
+            (
+                f"- MQuAKE multi-hop proxy compounding note: on the reference model "
+                f"`{mquake_multihop.get('headline', {}).get('reference_model', 'unknown')}`, "
+                f"depth-2 chain error is "
+                f"`{mquake_multihop.get('headline', {}).get('bayes_depth_2_error', 'unknown')}` "
+                f"for Bayes vs `{mquake_multihop.get('headline', {}).get('heuristic_depth_2_error', 'unknown')}` "
+                f"for the heuristic and `{mquake_multihop.get('headline', {}).get('fixed50_depth_2_error', 'unknown')}` "
+                f"for fixed-50."
+                if mquake_multihop
+                else "- MQuAKE multi-hop compounding note has not been built yet."
+            ),
+            (
+                f"- Retrieval-backed WikiContradict demo: top-1 aligned retrieval rate "
+                f"`{wikicontradict_rag_demo.get('headline', {}).get('top1_aligned_rate', 'unknown')}`, "
+                f"top-1 conflict retrieval rate "
+                f"`{wikicontradict_rag_demo.get('headline', {}).get('top1_conflict_rate', 'unknown')}`, "
+                f"and top-5 contains both aligned and conflicting passages "
+                f"`{wikicontradict_rag_demo.get('headline', {}).get('top5_contains_both_rate', 'unknown')}`."
+                if wikicontradict_rag_demo
+                else "- Retrieval-backed WikiContradict demo has not been built yet."
             ),
             "",
             "## Yoon Contrast",
