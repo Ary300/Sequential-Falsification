@@ -29,43 +29,56 @@ class PromptStyle:
     system_prompt: str
 
 
-PROMPT_STYLES: dict[str, PromptStyle] = {
-    "no_cot": PromptStyle(
-        label="no_cot",
-        cot_length=0,
-        max_tokens=192,
+DEFAULT_COT_LENGTHS: tuple[int, ...] = (0, 128, 1024)
+
+
+def _prompt_style_for_cot_length(cot_length: int) -> PromptStyle:
+    if cot_length <= 0:
+        return PromptStyle(
+            label="no_cot",
+            cot_length=0,
+            max_tokens=192,
+            system_prompt=(
+                "Answer the question immediately. Do not include reasoning, explanation, or analysis. "
+                "Respond using exactly this format:\n"
+                "<answer>your answer</answer>\n"
+                "<confidence>0.00 to 1.00</confidence>"
+            ),
+        )
+
+    if cot_length <= 128:
+        descriptor = "brief reasoning"
+        instruction = "Think briefly and then answer. Keep your reasoning concise."
+    elif cot_length <= 512:
+        descriptor = "short but explicit reasoning"
+        instruction = (
+            "Think step by step and call out any conflict between memorized knowledge and the provided evidence."
+        )
+    else:
+        descriptor = "detailed reasoning"
+        instruction = (
+            "Think step by step very carefully, consider conflicting evidence explicitly, and then answer."
+        )
+
+    max_tokens = min(max(cot_length + 256, 512), 8192)
+    return PromptStyle(
+        label=f"cot_{cot_length}",
+        cot_length=cot_length,
+        max_tokens=max_tokens,
         system_prompt=(
-            "Answer the question immediately. Do not include reasoning, explanation, or analysis. "
+            f"{instruction} Aim for roughly {cot_length} reasoning tokens before the final answer when needed. "
             "Respond using exactly this format:\n"
+            f"<think>{descriptor}</think>\n"
             "<answer>your answer</answer>\n"
             "<confidence>0.00 to 1.00</confidence>"
         ),
-    ),
-    "short_cot": PromptStyle(
-        label="short_cot",
-        cot_length=128,
-        max_tokens=768,
-        system_prompt=(
-            "Think briefly and then answer. Keep your reasoning concise. "
-            "Respond using exactly this format:\n"
-            "<think>brief reasoning</think>\n"
-            "<answer>your answer</answer>\n"
-            "<confidence>0.00 to 1.00</confidence>"
-        ),
-    ),
-    "long_cot": PromptStyle(
-        label="long_cot",
-        cot_length=1024,
-        max_tokens=2048,
-        system_prompt=(
-            "Think step by step very carefully, consider conflicting evidence explicitly, and then answer. "
-            "Respond using exactly this format:\n"
-            "<think>detailed reasoning</think>\n"
-            "<answer>your answer</answer>\n"
-            "<confidence>0.00 to 1.00</confidence>"
-        ),
-    ),
-}
+    )
+
+
+def build_prompt_styles(cot_lengths: list[int] | tuple[int, ...] | None = None) -> list[PromptStyle]:
+    requested = cot_lengths or list(DEFAULT_COT_LENGTHS)
+    normalized = sorted({max(0, int(item)) for item in requested})
+    return [_prompt_style_for_cot_length(cot_length) for cot_length in normalized]
 
 
 @dataclass(frozen=True)
@@ -345,27 +358,28 @@ def _mock_chat(example: dict[str, Any], *, style: PromptStyle, condition: str, s
     parametric_answers = list(_answer_set(metadata.get("parametric_answers") or example.get("answers")))
     conflict_answers = list(_answer_set(metadata.get("conflict_context_answers")))
 
-    if condition == "conflict_context" and style.label == "long_cot":
+    if condition == "conflict_context" and style.cot_length >= 512:
         answer = conflict_answers[0] if conflict_answers else (gold_answers[0] if gold_answers else "unknown")
         confidence = 0.82
         reasoning = (
             "The passage strongly states an answer, and after carefully weighing the evidence I trust the context."
         )
-    elif condition == "conflict_context" and style.label == "short_cot":
+    elif condition == "conflict_context" and style.cot_length > 0:
         answer = gold_answers[0] if gold_answers else "unknown"
         confidence = 0.58
         reasoning = "The context conflicts with what I think I know, so I am uncertain."
     else:
         answer = gold_answers[0] if gold_answers else (parametric_answers[0] if parametric_answers else "unknown")
-        confidence = 0.74 if style.label == "no_cot" else 0.69
-        reasoning = "I compared the question with the most plausible evidence." if style.label != "no_cot" else ""
+        confidence = 0.74 if style.cot_length == 0 else 0.69
+        reasoning = "I compared the question with the most plausible evidence." if style.cot_length > 0 else ""
 
     if rng.random() < 0.05 and gold_answers:
         answer = gold_answers[0]
-    if style.label == "no_cot":
+    if style.cot_length == 0:
         response = f"<answer>{answer}</answer>\n<confidence>{confidence:.2f}</confidence>"
     else:
-        repeated = reasoning if style.label == "short_cot" else " ".join([reasoning] * 6)
+        repetitions = 1 if style.cot_length <= 128 else max(2, min(12, style.cot_length // 256))
+        repeated = " ".join([reasoning] * repetitions)
         response = (
             f"<think>{repeated}</think>\n"
             f"<answer>{answer}</answer>\n"
@@ -417,6 +431,7 @@ def screen_conflict_examples(
     screening_file = output_path / f"{benchmark}_screening.jsonl"
     screening_errors_file = output_path / f"{benchmark}_screening_errors.jsonl"
     existing = _load_jsonl_map(screening_file, ("benchmark", "id"))
+    screening_style = _prompt_style_for_cot_length(0)
 
     records: list[dict[str, Any]] = []
     for example in examples:
@@ -424,7 +439,7 @@ def screen_conflict_examples(
         cached = existing.get(key)
         if cached is None:
             try:
-                raw_response, usage = _generate_response(example, style=PROMPT_STYLES["no_cot"], condition="closed_book", config=config)
+                raw_response, usage = _generate_response(example, style=screening_style, condition="closed_book", config=config)
                 answer = _extract_answer(raw_response)
                 confidence = _extract_confidence(raw_response)
                 if confidence is None:
@@ -513,6 +528,16 @@ def _group_rows(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
     return out
 
 
+def _default_max_for_benchmark(benchmark: str, *, wikicontradict_max: int, conflictbank_max: int, triviaqa_max: int) -> int | None:
+    if benchmark == "wikicontradict":
+        return wikicontradict_max
+    if benchmark == "conflictbank":
+        return conflictbank_max
+    if benchmark == "triviaqa":
+        return triviaqa_max
+    return triviaqa_max
+
+
 def run_real_generation_experiment(
     *,
     config: GenerationConfig,
@@ -525,46 +550,49 @@ def run_real_generation_experiment(
     conflictbank_screening_pool: int = 1200,
     ambiguity_low: float = 0.2,
     ambiguity_high: float = 0.8,
+    cot_lengths: list[int] | None = None,
+    benchmark_maxima: dict[str, int] | None = None,
     resume: bool = True,
 ) -> dict[str, Any]:
     output_path = Path(output_dir)
     output_path.mkdir(parents=True, exist_ok=True)
     requested_conditions = conditions or ["aligned_context", "conflict_context"]
+    prompt_styles = build_prompt_styles(cot_lengths)
+    maxima = dict(benchmark_maxima or {})
 
     selection: dict[str, dict[str, Any]] = {}
-    if "wikicontradict" in benchmarks:
-        wiki_examples = load_arbitration_dataset("wikicontradict", max_examples=wikicontradict_max)
-        selection["wikicontradict"] = {
-            "summary": {
-                "benchmark": "wikicontradict",
-                "screening_pool": len(wiki_examples),
-                "selected_examples": len(wiki_examples),
-                "selection_rule": "first_n",
-            },
-            "examples": wiki_examples,
-            "records_by_id": {},
-        }
-    if "conflictbank" in benchmarks:
-        selection["conflictbank"] = screen_conflict_examples(
-            benchmark="conflictbank",
-            config=config,
-            low=ambiguity_low,
-            high=ambiguity_high,
-            max_examples=conflictbank_max,
-            screening_pool=conflictbank_screening_pool,
-            output_dir=output_path,
-            resume=resume,
+    for benchmark in benchmarks:
+        benchmark_max = maxima.get(
+            benchmark,
+            _default_max_for_benchmark(
+                benchmark,
+                wikicontradict_max=wikicontradict_max,
+                conflictbank_max=conflictbank_max,
+                triviaqa_max=triviaqa_max,
+            ),
         )
-    if "triviaqa" in benchmarks:
-        trivia_examples = load_arbitration_dataset("triviaqa", max_examples=triviaqa_max)
-        selection["triviaqa"] = {
+        if benchmark == "conflictbank":
+            selection["conflictbank"] = screen_conflict_examples(
+                benchmark="conflictbank",
+                config=config,
+                low=ambiguity_low,
+                high=ambiguity_high,
+                max_examples=benchmark_max or conflictbank_max,
+                screening_pool=max(conflictbank_screening_pool, benchmark_max or 0),
+                output_dir=output_path,
+                resume=resume,
+            )
+            continue
+
+        examples = load_arbitration_dataset(benchmark, max_examples=benchmark_max)
+        selection[benchmark] = {
             "summary": {
-                "benchmark": "triviaqa",
-                "screening_pool": len(trivia_examples),
-                "selected_examples": len(trivia_examples),
+                "benchmark": benchmark,
+                "screening_pool": len(examples),
+                "selected_examples": len(examples),
                 "selection_rule": "first_n",
             },
-            "examples": trivia_examples,
+            "examples": examples,
             "records_by_id": {},
         }
 
@@ -601,7 +629,7 @@ def run_real_generation_experiment(
                     conflict_answers=conflict_answers,
                 )
                 context_reliability = _condition_context_reliability(condition)
-                for style in (PROMPT_STYLES["no_cot"], PROMPT_STYLES["short_cot"], PROMPT_STYLES["long_cot"]):
+                for style in prompt_styles:
                     key = (
                         benchmark,
                         str(example.get("id")),
@@ -714,12 +742,13 @@ def run_real_generation_experiment(
             "benchmarks": benchmarks,
             "cot_styles": [
                 {"label": style.label, "cot_length": style.cot_length, "max_tokens": style.max_tokens}
-                for style in PROMPT_STYLES.values()
+                for style in prompt_styles
             ],
             "ambiguity_interval": [ambiguity_low, ambiguity_high],
             "wikicontradict_max": wikicontradict_max,
             "conflictbank_max": conflictbank_max,
             "triviaqa_max": triviaqa_max,
+            "benchmark_maxima": maxima,
             "conflictbank_screening_pool": conflictbank_screening_pool,
             "screening": {benchmark: selection[benchmark]["summary"] for benchmark in selection},
             "completed_rows": completed,

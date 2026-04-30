@@ -11107,6 +11107,65 @@
       ]
     }
   },
+  "theorem3_calibration_baselines": {
+    "headline": {
+      "best_brier_method": "isotonic",
+      "eta_brier": 0.530564,
+      "identity_brier": 0.924083,
+      "isotonic_brier": 0.016379,
+      "platt_brier": 0.01666,
+      "temperature_brier": 0.67548
+    },
+    "metadata": {
+      "benchmark": "conflictbank",
+      "calibration_size": 200,
+      "condition": "conflict_context",
+      "cot_length": 1024
+    }
+  },
+  "theorem3_confidence_head": {
+    "baseline_eval": {
+      "accuracy": 0.018,
+      "auroc": 0.298484,
+      "brier": 0.927365,
+      "count": 500,
+      "ece": 0.9513,
+      "mean_confidence": 0.9693,
+      "overconfidence_gap": 0.9513
+    },
+    "headline": {
+      "accuracy_delta": 0.0,
+      "auroc_delta": 0.13804,
+      "brier_delta": -0.711423,
+      "ece_delta": -0.576631,
+      "overconfidence_gap_delta": -0.576631
+    },
+    "metadata": {
+      "epochs": 12,
+      "eval_benchmark": "conflictbank",
+      "eval_condition": "conflict_context",
+      "eval_cot_length": 1024,
+      "feature_batch_size": 2,
+      "lr": 0.002,
+      "max_length": 1024,
+      "model_name": "deepseek-ai/DeepSeek-R1-Distill-Qwen-14B",
+      "num_eval_rows": 500,
+      "num_source_rows": 4200,
+      "num_train_rows": 1200,
+      "num_val_rows": 200,
+      "seed": 42,
+      "weight_decay": 0.0001
+    },
+    "pilot_eval": {
+      "accuracy": 0.018,
+      "auroc": 0.436524,
+      "brier": 0.215942,
+      "count": 500,
+      "ece": 0.374669,
+      "mean_confidence": 0.392669,
+      "overconfidence_gap": 0.374669
+    }
+  },
   "theorem3_rlvr": {
     "contrast_points": [
       {

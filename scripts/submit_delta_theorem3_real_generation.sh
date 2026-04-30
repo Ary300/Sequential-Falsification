@@ -25,6 +25,8 @@ SEED="${SEED:-42}"
 WIKICONTRADICT_MAX="${WIKICONTRADICT_MAX:-200}"
 CONFLICTBANK_MAX="${CONFLICTBANK_MAX:-500}"
 TRIVIAQA_MAX="${TRIVIAQA_MAX:-200}"
+COT_LENGTHS="${COT_LENGTHS:-0,128,1024}"
+BENCHMARK_MAXIMA="${BENCHMARK_MAXIMA:-}"
 CONFLICTBANK_SCREENING_POOL="${CONFLICTBANK_SCREENING_POOL:-1200}"
 AMBIGUITY_LOW="${AMBIGUITY_LOW:-0.2}"
 AMBIGUITY_HIGH="${AMBIGUITY_HIGH:-0.8}"
@@ -81,14 +83,39 @@ submit_remote() {
   fi
 }
 
+shell_quote() {
+  printf "%q" "$1"
+}
+
 cmd=$(
   cat <<EOF
-cd ${DELTA_PROJECT_ROOT} && \
+cd $(shell_quote "${DELTA_PROJECT_ROOT}") && \
 unset SBATCH_ACCOUNT SBATCH_PARTITION SBATCH_QOS && \
-sbatch --parsable --account="${GPU_ACCOUNT}" --partition="${GPU_PARTITION}" --qos="${GPU_QOS}" \
-  --gpus-per-node="${GPUS}" --cpus-per-task="${CPUS}" --time="${WALL}" --job-name="${JOB_NAME}" \
-  --export=ALL,DELTA_PROJECT_ROOT=${DELTA_PROJECT_ROOT},DELTA_VENV=${DELTA_VENV},DELTA_RESULTS_ROOT=${DELTA_RESULTS_ROOT},OUTPUT_DIR=${OUTPUT_DIR},MODEL=${MODEL},BACKEND=${BACKEND},BENCHMARKS=${BENCHMARKS},CONDITIONS=${CONDITIONS},REQUEST_TIMEOUT=${REQUEST_TIMEOUT},TEMPERATURE=${TEMPERATURE},TOP_P=${TOP_P},SEED=${SEED},WIKICONTRADICT_MAX=${WIKICONTRADICT_MAX},CONFLICTBANK_MAX=${CONFLICTBANK_MAX},TRIVIAQA_MAX=${TRIVIAQA_MAX},CONFLICTBANK_SCREENING_POOL=${CONFLICTBANK_SCREENING_POOL},AMBIGUITY_LOW=${AMBIGUITY_LOW},AMBIGUITY_HIGH=${AMBIGUITY_HIGH},TP_SIZE=${TP_SIZE},MAX_MODEL_LEN=${MAX_MODEL_LEN} \
-  slurm/delta/theorem3_real_generation_delta.sbatch
+export DELTA_PROJECT_ROOT=$(shell_quote "${DELTA_PROJECT_ROOT}") && \
+export DELTA_VENV=$(shell_quote "${DELTA_VENV}") && \
+export DELTA_RESULTS_ROOT=$(shell_quote "${DELTA_RESULTS_ROOT}") && \
+export OUTPUT_DIR=$(shell_quote "${OUTPUT_DIR}") && \
+export MODEL=$(shell_quote "${MODEL}") && \
+export BACKEND=$(shell_quote "${BACKEND}") && \
+export BENCHMARKS=$(shell_quote "${BENCHMARKS}") && \
+export CONDITIONS=$(shell_quote "${CONDITIONS}") && \
+export REQUEST_TIMEOUT=$(shell_quote "${REQUEST_TIMEOUT}") && \
+export TEMPERATURE=$(shell_quote "${TEMPERATURE}") && \
+export TOP_P=$(shell_quote "${TOP_P}") && \
+export SEED=$(shell_quote "${SEED}") && \
+export WIKICONTRADICT_MAX=$(shell_quote "${WIKICONTRADICT_MAX}") && \
+export CONFLICTBANK_MAX=$(shell_quote "${CONFLICTBANK_MAX}") && \
+export TRIVIAQA_MAX=$(shell_quote "${TRIVIAQA_MAX}") && \
+export COT_LENGTHS=$(shell_quote "${COT_LENGTHS}") && \
+export BENCHMARK_MAXIMA=$(shell_quote "${BENCHMARK_MAXIMA}") && \
+export CONFLICTBANK_SCREENING_POOL=$(shell_quote "${CONFLICTBANK_SCREENING_POOL}") && \
+export AMBIGUITY_LOW=$(shell_quote "${AMBIGUITY_LOW}") && \
+export AMBIGUITY_HIGH=$(shell_quote "${AMBIGUITY_HIGH}") && \
+export TP_SIZE=$(shell_quote "${TP_SIZE}") && \
+export MAX_MODEL_LEN=$(shell_quote "${MAX_MODEL_LEN}") && \
+sbatch --parsable --account=$(shell_quote "${GPU_ACCOUNT}") --partition=$(shell_quote "${GPU_PARTITION}") --qos=$(shell_quote "${GPU_QOS}") \
+  --gpus-per-node=$(shell_quote "${GPUS}") --cpus-per-task=$(shell_quote "${CPUS}") --time=$(shell_quote "${WALL}") --job-name=$(shell_quote "${JOB_NAME}") \
+  --export=ALL slurm/delta/theorem3_real_generation_delta.sbatch
 EOF
 )
 

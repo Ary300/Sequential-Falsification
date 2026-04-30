@@ -119,6 +119,11 @@ Partial 14B replication:
 - Removing reliability estimate: `-0.1624` with worse-rate `0.94`.
 - Removing posterior update: `0.1695` with worse-rate `0.94`.
 
+## Calibration Follow-Ups
+
+- Confidence-head pilot on `ConflictBank` / `conflict_context` / `cot=1024`: Brier `0.927365` -> `0.215942`, ECE `0.9513` -> `0.374669`, AUROC `0.298484` -> `0.436524`.
+- Post-hoc baseline comparison on the same slice: best Brier method = `isotonic`, eta-tempering Brier = `0.530564`, Platt = `0.01666`, isotonic = `0.016379`.
+
 ## Yoon Contrast
 
 - Proxy-control sign-flip count: `0/30`.

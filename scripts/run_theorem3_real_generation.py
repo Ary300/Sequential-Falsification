@@ -33,6 +33,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--wikicontradict-max", type=int, default=200)
     parser.add_argument("--conflictbank-max", type=int, default=500)
     parser.add_argument("--triviaqa-max", type=int, default=200)
+    parser.add_argument("--cot-lengths", default="0,128,1024")
+    parser.add_argument("--benchmark-maxima", default="")
     parser.add_argument("--conflictbank-screening-pool", type=int, default=1200)
     parser.add_argument("--ambiguity-low", type=float, default=0.2)
     parser.add_argument("--ambiguity-high", type=float, default=0.8)
@@ -54,6 +56,17 @@ def main() -> None:
         "seed": args.seed,
     }
     config = GenerationConfig(**{key: value for key, value in config_kwargs.items() if key in supported_fields})
+    benchmark_maxima: dict[str, int] = {}
+    if args.benchmark_maxima.strip():
+        for chunk in args.benchmark_maxima.split(","):
+            item = chunk.strip()
+            if not item:
+                continue
+            if "=" not in item:
+                raise ValueError(f"Invalid benchmark-maxima item: {item}")
+            benchmark, raw_value = item.split("=", 1)
+            benchmark_maxima[benchmark.strip()] = int(raw_value.strip())
+
     payload = run_real_generation_experiment(
         config=config,
         benchmarks=[item.strip() for item in args.benchmarks.split(",") if item.strip()],
@@ -62,6 +75,8 @@ def main() -> None:
         wikicontradict_max=args.wikicontradict_max,
         conflictbank_max=args.conflictbank_max,
         triviaqa_max=args.triviaqa_max,
+        cot_lengths=[int(item.strip()) for item in args.cot_lengths.split(",") if item.strip()],
+        benchmark_maxima=benchmark_maxima,
         conflictbank_screening_pool=args.conflictbank_screening_pool,
         ambiguity_low=args.ambiguity_low,
         ambiguity_high=args.ambiguity_high,

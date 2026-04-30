@@ -15,7 +15,7 @@ if str(SRC_DIR) not in sys.path:
     sys.path.insert(0, str(SRC_DIR))
 
 from utils.io import dump_json  # noqa: E402
-from utils.metrics import accuracy, brier_score, expected_calibration_error  # noqa: E402
+from utils.metrics import accuracy, brier_score, calibration_bins, expected_calibration_error, roc_auc_binary  # noqa: E402
 
 
 def parse_args() -> argparse.Namespace:
@@ -84,12 +84,14 @@ def _metrics(rows: list[dict[str, Any]]) -> dict[str, Any]:
         "accuracy": mean_accuracy,
         "ece": expected_calibration_error(confidences, outcomes),
         "brier": brier_score(confidences, outcomes),
+        "auroc": roc_auc_binary(confidences, outcomes),
         "mean_confidence": mean_confidence,
         "overconfidence_gap": mean_confidence - mean_accuracy,
         "mean_reasoning_words": (sum(reasoning_words) / len(reasoning_words)) if reasoning_words else 0.0,
         "mean_response_words": (sum(response_words) / len(response_words)) if response_words else 0.0,
         "context_match_rate": (sum(context_matches) / len(context_matches)) if context_matches else 0.0,
         "parametric_match_rate": (sum(parametric_matches) / len(parametric_matches)) if parametric_matches else 0.0,
+        "calibration_bins": calibration_bins(confidences, outcomes),
     }
 
 
@@ -177,6 +179,7 @@ def build_report(payload: dict[str, Any], *, short_cot: int, long_cot: int, max_
                     "ece_delta": round(long_metrics["ece"] - short_metrics["ece"], 4),
                     "brier_delta": round(long_metrics["brier"] - short_metrics["brier"], 4),
                     "accuracy_delta": round(long_metrics["accuracy"] - short_metrics["accuracy"], 4),
+                    "auroc_delta": round(long_metrics["auroc"] - short_metrics["auroc"], 4),
                     "confidence_delta": round(long_metrics["mean_confidence"] - short_metrics["mean_confidence"], 4),
                     "overconfidence_gap_delta": round(long_metrics["overconfidence_gap"] - short_metrics["overconfidence_gap"], 4),
                     "reasoning_word_delta": round(long_metrics["mean_reasoning_words"] - short_metrics["mean_reasoning_words"], 4),
@@ -259,13 +262,14 @@ def build_markdown(report: dict[str, Any]) -> str:
         "",
         "## Slice Metrics",
         "",
-        "| Benchmark | Split | CoT | Count | Accuracy | ECE | Brier | Mean conf | Overconf gap | Ctx match | Param match | Mean reasoning words |",
-        "|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|",
+        "| Benchmark | Split | CoT | Count | Accuracy | ECE | Brier | AUROC | Mean conf | Overconf gap | Ctx match | Param match | Mean reasoning words |",
+        "|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|",
     ]
     for row in report.get("slice_rows", []):
         lines.append(
             f"| {row['benchmark']} | {row['split']} | {row['cot_length']} | {row['count']} | "
             f"{row['accuracy']:.4f} | {row['ece']:.4f} | {row['brier']:.4f} | "
+            f"{row['auroc']:.4f} | "
             f"{row['mean_confidence']:.4f} | {row['overconfidence_gap']:.4f} | {row['context_match_rate']:.4f} | "
             f"{row['parametric_match_rate']:.4f} | {row['mean_reasoning_words']:.2f} |"
         )
@@ -275,14 +279,14 @@ def build_markdown(report: dict[str, Any]) -> str:
             "",
             "## Short-to-Long Deltas",
             "",
-            "| Benchmark | Split | ECE delta | Brier delta | Accuracy delta | Confidence delta | Overconf-gap delta | Ctx-match delta | Param-match delta | Reasoning-word delta |",
-            "|---|---|---:|---:|---:|---:|---:|---:|---:|---:|",
+            "| Benchmark | Split | ECE delta | Brier delta | Accuracy delta | AUROC delta | Confidence delta | Overconf-gap delta | Ctx-match delta | Param-match delta | Reasoning-word delta |",
+            "|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|",
         ]
     )
     for row in report.get("trend_rows", []):
         lines.append(
             f"| {row['benchmark']} | {row['split']} | {row['ece_delta']:.4f} | {row['brier_delta']:.4f} | "
-            f"{row['accuracy_delta']:.4f} | {row['confidence_delta']:.4f} | {row['overconfidence_gap_delta']:.4f} | "
+            f"{row['accuracy_delta']:.4f} | {row['auroc_delta']:.4f} | {row['confidence_delta']:.4f} | {row['overconfidence_gap_delta']:.4f} | "
             f"{row['context_match_delta']:.4f} | {row['parametric_match_delta']:.4f} | {row['reasoning_word_delta']:.2f} |"
         )
 

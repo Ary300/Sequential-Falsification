@@ -129,6 +129,8 @@ def build_bundle() -> dict[str, Any]:
     theorem3_rlvr_validation = _load_optional_json(ROOT / "docs/generated/theorem3_rlvr_validation_note.json") or {}
     synthetic_oracle = _load_optional_json(ROOT / "docs/generated/synthetic_oracle_convergence.json") or {}
     bayes_component_ablation = _load_optional_json(ROOT / "docs/generated/bayes_component_ablation_note.json") or {}
+    theorem3_confidence_head = _load_optional_json(ROOT / "docs/generated/theorem3_confidence_head_pilot_result.json") or {}
+    theorem3_calibration_baselines = _load_optional_json(ROOT / "docs/generated/theorem3_calibration_baselines.json") or {}
     yoon_contrast = _load_optional_json(ROOT / "docs/generated/yoon_contrast_note.json") or {}
     yoon_real_contrast = _load_optional_json(ROOT / "docs/generated/yoon_real_contrast_note.json") or {}
     playbook_target_matrix = _load_optional_json(ROOT / "docs/generated/playbook_target_matrix_update.json") or {}
@@ -201,6 +203,8 @@ def build_bundle() -> dict[str, Any]:
         "theorem3_rlvr_validation": theorem3_rlvr_validation,
         "synthetic_oracle": synthetic_oracle,
         "bayes_component_ablation": bayes_component_ablation,
+        "theorem3_confidence_head": theorem3_confidence_head,
+        "theorem3_calibration_baselines": theorem3_calibration_baselines,
         "yoon_contrast": yoon_contrast,
         "yoon_real_contrast": yoon_real_contrast,
         "playbook_target_matrix": playbook_target_matrix,
@@ -233,6 +237,8 @@ def build_markdown(bundle: dict[str, Any]) -> str:
     theorem3_rlvr_validation = bundle.get("theorem3_rlvr_validation", {})
     synthetic_oracle = bundle.get("synthetic_oracle", {})
     bayes_component_ablation = bundle.get("bayes_component_ablation", {})
+    theorem3_confidence_head = bundle.get("theorem3_confidence_head", {})
+    theorem3_calibration_baselines = bundle.get("theorem3_calibration_baselines", {})
     yoon_contrast = bundle.get("yoon_contrast", {})
     yoon_real_contrast = bundle.get("yoon_real_contrast", {})
     playbook_target_matrix = bundle.get("playbook_target_matrix", {})
@@ -529,6 +535,32 @@ def build_markdown(bundle: dict[str, Any]) -> str:
                 f"`{bayes_component_ablation.get('degradation', {}).get('no_posterior_update', {}).get('worse_rate', 'unknown')}`."
                 if bayes_component_ablation
                 else ""
+            ),
+            "",
+            "## Calibration Follow-Ups",
+            "",
+            (
+                f"- Confidence-head pilot on `ConflictBank` / `conflict_context` / `cot=1024`: "
+                f"Brier `{theorem3_confidence_head.get('baseline_eval', {}).get('brier', 'unknown')}` -> "
+                f"`{theorem3_confidence_head.get('pilot_eval', {}).get('brier', 'unknown')}`, "
+                f"ECE `{theorem3_confidence_head.get('baseline_eval', {}).get('ece', 'unknown')}` -> "
+                f"`{theorem3_confidence_head.get('pilot_eval', {}).get('ece', 'unknown')}`, "
+                f"AUROC `{theorem3_confidence_head.get('baseline_eval', {}).get('auroc', 'unknown')}` -> "
+                f"`{theorem3_confidence_head.get('pilot_eval', {}).get('auroc', 'unknown')}`."
+                if theorem3_confidence_head
+                else "- Confidence-head pilot result has not been materialized yet."
+            ),
+            (
+                f"- Post-hoc baseline comparison on the same slice: best Brier method = "
+                f"`{theorem3_calibration_baselines.get('headline', {}).get('best_brier_method', 'unknown')}`, "
+                f"eta-tempering Brier = "
+                f"`{theorem3_calibration_baselines.get('headline', {}).get('eta_brier', 'unknown')}`, "
+                f"Platt = "
+                f"`{theorem3_calibration_baselines.get('headline', {}).get('platt_brier', 'unknown')}`, "
+                f"isotonic = "
+                f"`{theorem3_calibration_baselines.get('headline', {}).get('isotonic_brier', 'unknown')}`."
+                if theorem3_calibration_baselines
+                else "- Theorem-3 calibration baseline comparison has not been built yet."
             ),
             "",
             "## Yoon Contrast",
