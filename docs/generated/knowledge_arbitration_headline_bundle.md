@@ -68,6 +68,10 @@ Per-model read:
 - Source run: `delta_job_2190906` on `deepseek-ai/DeepSeek-R1-Distill-Qwen-7B`
 - Total parsed rows: `4200`
 - Partial 14B follow-on: `delta_job_2193269` on `deepseek-ai/DeepSeek-R1-Distill-Qwen-14B` with `4200` rows
+- Dense-grid multi-seed headline read is now available from near-complete row files:
+  - `R1-Qwen-7B` seed-average conflict ECE delta `-0.0116`, no-conflict ECE delta `0.0632`, conflict-minus-no-conflict `-0.0748`
+  - `R1-Qwen-14B` seed-average conflict ECE delta `0.1953`, no-conflict ECE delta `0.0226`, conflict-minus-no-conflict `0.1727`
+  - `Qwen2.5-14B` control conflict-minus-no-conflict ECE delta `-0.0207`
 - 14B eta-tempering shrink factor (conflict / no-conflict): `0.52`
 - ConflictBank conflict best attainable confidence-only gap: `0.482`
 - WikiContradict conflict best attainable confidence-only gap: `0.0034` at eta `0.1`
@@ -147,6 +151,7 @@ Partial 14B replication:
 - The 14B raw rows already sharpen theorem 3: `WikiContradict` preserves the peak-and-recover shape, while `ConflictBank` conflict becomes even more overconfident.
 - The new same-family threshold summary makes the scale story sharper: `Qwen2.5` recovery on `WikiContradict` first appears at about `32B`, while `ConflictBank` still has no recovery threshold through the currently observed `32B` scale.
 - The cross-family verification is now decisive: DeepSeek replicates the `7B -> 14B` ConflictBank asymmetry = `True`, but Qwen does not = `False`.
+- The dense-grid seed summaries now sharpen that same story at the aggregate level: `R1-Qwen-14B` shows strong seed-stable conflict amplification (`+0.1727` conflict-minus-no-conflict ECE delta), while `R1-Qwen-7B` does not (`-0.0748`) and `Qwen2.5-14B` control remains non-replicating (`-0.0207`).
 - The cleanest theorem-3 wording is now the RLVR-conditioned one: `Models trained with verifiable-reward reasoning objectives can enter a misspecified, endogenous-evidence regime under knowledge conflict, where longer CoT sharpens confidence faster than it improves accuracy. The effect is benchmark-dependent and strongest on controlled conflict families.`
 - The completed extended theorem-3 calibration wave now also supplies the missing `DeepSeek-R1-Distill-Llama-70B` validation row: on `ConflictBank` conflict at `cot=1024`, Bayes beats the heuristic by `0.0518`.
 - The new eta intervention summary makes the mechanism claim sharper: confidence-only tempering can nearly recalibrate naturalistic contradiction at 14B, but it cannot rescue `ConflictBank` conflict once long-CoT has collapsed answer accuracy.
