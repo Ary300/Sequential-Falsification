@@ -555,6 +555,8 @@ def build_markdown(bundle: dict[str, Any]) -> str:
             (
                 f"- Real-generation Yoon contrast now exists on disk with strict sign flip = "
                 f"`{yoon_real_contrast.get('headline', {}).get('strict_sign_flip', 'unknown')}` "
+                f", conflict-worse-than-`TriviaQA`-at-short-CoT = "
+                f"`{yoon_real_contrast.get('headline', {}).get('conflict_worse_than_triviaqa_at_short_cot', 'unknown')}` "
                 f"and conflict-worse-than-closed-book-at-long-CoT = "
                 f"`{yoon_real_contrast.get('headline', {}).get('conflict_worse_than_closed_book_at_long_cot', 'unknown')}`."
                 if yoon_real_contrast

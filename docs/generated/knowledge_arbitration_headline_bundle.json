@@ -13001,5 +13001,32 @@
       }
     ]
   },
-  "yoon_real_contrast": {}
+  "yoon_real_contrast": {
+    "headline": {
+      "closed_book_gap_cot0": 0.4917,
+      "closed_book_gap_delta": 0.2973,
+      "closed_book_gap_delta_short": 0.3251,
+      "closed_book_gap_long": 0.789,
+      "closed_book_gap_short": 0.8168,
+      "conflict_worse_than_closed_book_at_long_cot": true,
+      "conflict_worse_than_triviaqa_at_long_cot": true,
+      "conflict_worse_than_triviaqa_at_short_cot": true,
+      "conflictbank_gap_cot0": 0.5876,
+      "conflictbank_gap_delta": 0.3637,
+      "conflictbank_gap_delta_short": 0.3573,
+      "conflictbank_gap_long": 0.9513,
+      "conflictbank_gap_short": 0.9449,
+      "strict_sign_flip": false,
+      "triviaqa_gap_cot0": 0.2512,
+      "triviaqa_gap_delta": 0.2318,
+      "triviaqa_gap_delta_short": 0.2432,
+      "triviaqa_gap_long": 0.483,
+      "triviaqa_gap_short": 0.4944
+    },
+    "metadata": {
+      "long_cot": 1024,
+      "short_cot": 128,
+      "triviaqa_count_per_cot": 200
+    }
+  }
 }

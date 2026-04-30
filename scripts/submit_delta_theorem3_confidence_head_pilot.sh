@@ -80,14 +80,37 @@ submit_remote() {
   fi
 }
 
+shell_quote() {
+  printf "%q" "$1"
+}
+
 cmd=$(
   cat <<EOF
-cd ${DELTA_PROJECT_ROOT} && \
+cd $(shell_quote "${DELTA_PROJECT_ROOT}") && \
 unset SBATCH_ACCOUNT SBATCH_PARTITION SBATCH_QOS && \
-sbatch --parsable --account="${GPU_ACCOUNT}" --partition="${GPU_PARTITION}" --qos="${GPU_QOS}" \
-  --gpus-per-node="${GPUS}" --cpus-per-task="${CPUS}" --time="${WALL}" --job-name="${JOB_NAME}" \
-  --export=ALL,DELTA_PROJECT_ROOT=${DELTA_PROJECT_ROOT},DELTA_VENV=${DELTA_VENV},DELTA_RESULTS_ROOT=/work/nvme/bgvi/${DELTA_USER}/tts_results,ROWS_JSONL=${ROWS_JSONL},OUTPUT_DIR=${OUTPUT_DIR},MODEL_NAME=${MODEL_NAME},MAX_TRAIN_ROWS=${MAX_TRAIN_ROWS},MAX_VAL_ROWS=${MAX_VAL_ROWS},MAX_EVAL_ROWS=${MAX_EVAL_ROWS},TRAIN_BENCHMARKS=${TRAIN_BENCHMARKS},EVAL_BENCHMARK=${EVAL_BENCHMARK},EVAL_CONDITION=${EVAL_CONDITION},EVAL_COT_LENGTH=${EVAL_COT_LENGTH},MAX_LENGTH=${MAX_LENGTH},FEATURE_BATCH_SIZE=${FEATURE_BATCH_SIZE},EPOCHS=${EPOCHS},LR=${LR},WEIGHT_DECAY=${WEIGHT_DECAY},SEED=${SEED},TORCH_DTYPE=${TORCH_DTYPE} \
-  slurm/delta/theorem3_confidence_head_pilot_delta.sbatch
+export DELTA_PROJECT_ROOT=$(shell_quote "${DELTA_PROJECT_ROOT}") && \
+export DELTA_VENV=$(shell_quote "${DELTA_VENV}") && \
+export DELTA_RESULTS_ROOT=$(shell_quote "/work/nvme/bgvi/${DELTA_USER}/tts_results") && \
+export ROWS_JSONL=$(shell_quote "${ROWS_JSONL}") && \
+export OUTPUT_DIR=$(shell_quote "${OUTPUT_DIR}") && \
+export MODEL_NAME=$(shell_quote "${MODEL_NAME}") && \
+export MAX_TRAIN_ROWS=$(shell_quote "${MAX_TRAIN_ROWS}") && \
+export MAX_VAL_ROWS=$(shell_quote "${MAX_VAL_ROWS}") && \
+export MAX_EVAL_ROWS=$(shell_quote "${MAX_EVAL_ROWS}") && \
+export TRAIN_BENCHMARKS=$(shell_quote "${TRAIN_BENCHMARKS}") && \
+export EVAL_BENCHMARK=$(shell_quote "${EVAL_BENCHMARK}") && \
+export EVAL_CONDITION=$(shell_quote "${EVAL_CONDITION}") && \
+export EVAL_COT_LENGTH=$(shell_quote "${EVAL_COT_LENGTH}") && \
+export MAX_LENGTH=$(shell_quote "${MAX_LENGTH}") && \
+export FEATURE_BATCH_SIZE=$(shell_quote "${FEATURE_BATCH_SIZE}") && \
+export EPOCHS=$(shell_quote "${EPOCHS}") && \
+export LR=$(shell_quote "${LR}") && \
+export WEIGHT_DECAY=$(shell_quote "${WEIGHT_DECAY}") && \
+export SEED=$(shell_quote "${SEED}") && \
+export TORCH_DTYPE=$(shell_quote "${TORCH_DTYPE}") && \
+sbatch --parsable --account=$(shell_quote "${GPU_ACCOUNT}") --partition=$(shell_quote "${GPU_PARTITION}") --qos=$(shell_quote "${GPU_QOS}") \
+  --gpus-per-node=$(shell_quote "${GPUS}") --cpus-per-task=$(shell_quote "${CPUS}") --time=$(shell_quote "${WALL}") --job-name=$(shell_quote "${JOB_NAME}") \
+  --export=ALL slurm/delta/theorem3_confidence_head_pilot_delta.sbatch
 EOF
 )
 

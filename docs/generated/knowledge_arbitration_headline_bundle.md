@@ -124,7 +124,7 @@ Partial 14B replication:
 - Proxy-control sign-flip count: `0/30`.
 - Proxy `TriviaQA` gap-magnitude delta: `-0.0433`.
 - Proxy `ConflictBank` gap-magnitude delta: `-0.1327`.
-- The stronger real-generation Yoon contrast path is wired, but the dedicated Delta run has not completed yet.
+- Real-generation Yoon contrast now exists on disk with strict sign flip = `False` , conflict-worse-than-`TriviaQA`-at-short-CoT = `True` and conflict-worse-than-closed-book-at-long-CoT = `True`.
 
 ## Current Read
 
