@@ -81,6 +81,13 @@ def build_prompt_styles(cot_lengths: list[int] | tuple[int, ...] | None = None) 
     return [_prompt_style_for_cot_length(cot_length) for cot_length in normalized]
 
 
+# Backward-compatible aliases used by older decoding/calibration utilities.
+PROMPT_STYLES: dict[str, PromptStyle] = {
+    "no_cot": _prompt_style_for_cot_length(0),
+    "long_cot": _prompt_style_for_cot_length(1024),
+}
+
+
 @dataclass(frozen=True)
 class GenerationConfig:
     backend: str = "openai"
