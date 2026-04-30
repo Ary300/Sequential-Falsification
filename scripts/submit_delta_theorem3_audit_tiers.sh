@@ -32,7 +32,7 @@ for seed in 42 43 44; do
     BENCHMARK_MAXIMA="${MAXIMA_CORE}" \
     CONFLICTBANK_SCREENING_POOL=1500 \
     SEED="${seed}" \
-    WALL=18:00:00 \
+    WALL=24:00:00 \
     GPUS=1 \
     TP_SIZE=1 \
     MAX_MODEL_LEN=24576
@@ -47,7 +47,7 @@ for seed in 42 43 44; do
     BENCHMARK_MAXIMA="${MAXIMA_CORE}" \
     CONFLICTBANK_SCREENING_POOL=1500 \
     SEED="${seed}" \
-    WALL=20:00:00 \
+    WALL=28:00:00 \
     GPUS=1 \
     TP_SIZE=1 \
     MAX_MODEL_LEN=24576
@@ -65,7 +65,7 @@ for model_name in "Qwen/Qwen2.5-7B" "Qwen/Qwen2.5-7B-Instruct" "Qwen/Qwen2.5-14B
     BENCHMARK_MAXIMA="${MAXIMA_CONTROL}" \
     CONFLICTBANK_SCREENING_POOL=1500 \
     SEED=42 \
-    WALL=18:00:00 \
+    WALL=24:00:00 \
     GPUS=1 \
     TP_SIZE=1 \
     MAX_MODEL_LEN=24576
@@ -111,7 +111,7 @@ submit_job "tierB_qwq32_dense" \
   BENCHMARK_MAXIMA="${MAXIMA_CONTROL}" \
   CONFLICTBANK_SCREENING_POOL=1500 \
   SEED=42 \
-  WALL=20:00:00 \
+  WALL=28:00:00 \
   GPUS=2 \
   TP_SIZE=2 \
   MAX_MODEL_LEN=24576
