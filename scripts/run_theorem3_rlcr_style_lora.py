@@ -172,6 +172,10 @@ def _load_model_and_tokenizer(args: argparse.Namespace):
     )
     model = get_peft_model(model, lora_config)
     model.config.use_cache = False
+    if hasattr(model, "gradient_checkpointing_enable"):
+        model.gradient_checkpointing_enable()
+    if hasattr(model, "enable_input_require_grads"):
+        model.enable_input_require_grads()
     return tokenizer, model
 
 
@@ -435,6 +439,15 @@ def main() -> None:
         },
         output_dir / "theorem3_rlcr_style_lora.pt",
     )
+    adapter_dir = output_dir / "adapter"
+    merged_dir = output_dir / "merged_model"
+    adapter_dir.mkdir(parents=True, exist_ok=True)
+    merged_dir.mkdir(parents=True, exist_ok=True)
+    wrapper.model.save_pretrained(adapter_dir)
+    tokenizer.save_pretrained(adapter_dir)
+    merged_model = wrapper.model.merge_and_unload() if hasattr(wrapper.model, "merge_and_unload") else wrapper.model
+    merged_model.save_pretrained(merged_dir)
+    tokenizer.save_pretrained(merged_dir)
     print(json.dumps({"output_dir": str(output_dir), "eval_rows": len(eval_rows)}, indent=2))
 
 
