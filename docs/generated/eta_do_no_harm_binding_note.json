@@ -1,0 +1,11 @@
+{
+  "baseline_accuracy": 0.036667,
+  "baseline_brier": 0.903275,
+  "baseline_confidence": 0.973905,
+  "baseline_gap": 0.937239,
+  "selected_brier": 0.504515,
+  "selected_eta": 0.0,
+  "tempered_accuracy": 0.44,
+  "tempered_confidence": 0.960508,
+  "tempered_gap": 0.520508
+}

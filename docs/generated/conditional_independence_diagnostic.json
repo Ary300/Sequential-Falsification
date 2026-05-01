@@ -1,0 +1,45 @@
+{
+  "datasets": {
+    "conflictbank": {
+      "both_verbatim_rate": 0.0378,
+      "conflict_verbatim_rate": 0.9466,
+      "family_breakdown": {
+        "misinformation": {
+          "both_verbatim_rate": 0.0625,
+          "conflict_verbatim_rate": 0.9258,
+          "gold_verbatim_rate": 0.0664,
+          "rows": 256
+        },
+        "semantic": {
+          "both_verbatim_rate": 0.0156,
+          "conflict_verbatim_rate": 0.9531,
+          "gold_verbatim_rate": 0.0156,
+          "rows": 256
+        },
+        "temporal": {
+          "both_verbatim_rate": 0.0352,
+          "conflict_verbatim_rate": 0.9609,
+          "gold_verbatim_rate": 0.0352,
+          "rows": 256
+        }
+      },
+      "gold_verbatim_rate": 0.0391,
+      "rows": 768
+    },
+    "wikicontradict": {
+      "both_verbatim_rate": 0.4111,
+      "conflict_verbatim_rate": 0.4111,
+      "family_breakdown": {
+        "all": {
+          "both_verbatim_rate": 0.4111,
+          "conflict_verbatim_rate": 0.4111,
+          "gold_verbatim_rate": 0.5336,
+          "rows": 253
+        }
+      },
+      "gold_verbatim_rate": 0.5336,
+      "rows": 253
+    }
+  },
+  "diagnostic": "bounded_conflict_context_verbatim_sample"
+}

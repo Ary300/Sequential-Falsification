@@ -1,0 +1,197 @@
+{
+  "benchmarks": [
+    "conflictbank",
+    "faitheval",
+    "popqa",
+    "triviaqa"
+  ],
+  "calibration_rows": [
+    {
+      "benchmark": "conflictbank",
+      "brier_delta": -0.0359,
+      "bucket": "conflict",
+      "ece_delta": -0.1512
+    },
+    {
+      "benchmark": "faitheval",
+      "brier_delta": -0.0292,
+      "bucket": "conflict",
+      "ece_delta": -0.1546
+    },
+    {
+      "benchmark": "faitheval",
+      "brier_delta": -0.0004,
+      "bucket": "no_conflict",
+      "ece_delta": -0.019
+    },
+    {
+      "benchmark": "popqa",
+      "brier_delta": -0.0,
+      "bucket": "no_conflict",
+      "ece_delta": -0.0025
+    },
+    {
+      "benchmark": "triviaqa",
+      "brier_delta": -0.0001,
+      "bucket": "no_conflict",
+      "ece_delta": -0.0103
+    }
+  ],
+  "conflict_oracle_gap_rows": [
+    {
+      "abs_gap": 0.1743,
+      "count": 384,
+      "model_p_context": 0.1943,
+      "oracle_p_context": 0.02,
+      "slice": "anthropic/claude-3.5-haiku | conflict_context | cot=0"
+    },
+    {
+      "abs_gap": 0.0231,
+      "count": 384,
+      "model_p_context": 0.0431,
+      "oracle_p_context": 0.02,
+      "slice": "anthropic/claude-3.5-haiku | conflict_context | cot=1024"
+    },
+    {
+      "abs_gap": 0.136,
+      "count": 384,
+      "model_p_context": 0.156,
+      "oracle_p_context": 0.02,
+      "slice": "anthropic/claude-3.5-haiku | conflict_context | cot=128"
+    },
+    {
+      "abs_gap": 0.1743,
+      "count": 384,
+      "model_p_context": 0.1943,
+      "oracle_p_context": 0.02,
+      "slice": "google/gemini-1.5-flash | conflict_context | cot=0"
+    },
+    {
+      "abs_gap": 0.0231,
+      "count": 384,
+      "model_p_context": 0.0431,
+      "oracle_p_context": 0.02,
+      "slice": "google/gemini-1.5-flash | conflict_context | cot=1024"
+    },
+    {
+      "abs_gap": 0.136,
+      "count": 384,
+      "model_p_context": 0.156,
+      "oracle_p_context": 0.02,
+      "slice": "google/gemini-1.5-flash | conflict_context | cot=128"
+    },
+    {
+      "abs_gap": 0.1743,
+      "count": 384,
+      "model_p_context": 0.1943,
+      "oracle_p_context": 0.02,
+      "slice": "openai/gpt-4o-mini | conflict_context | cot=0"
+    },
+    {
+      "abs_gap": 0.0231,
+      "count": 384,
+      "model_p_context": 0.0431,
+      "oracle_p_context": 0.02,
+      "slice": "openai/gpt-4o-mini | conflict_context | cot=1024"
+    },
+    {
+      "abs_gap": 0.136,
+      "count": 384,
+      "model_p_context": 0.156,
+      "oracle_p_context": 0.02,
+      "slice": "openai/gpt-4o-mini | conflict_context | cot=128"
+    },
+    {
+      "abs_gap": 0.1517,
+      "count": 128,
+      "model_p_context": 0.1717,
+      "oracle_p_context": 0.02,
+      "slice": "anthropic/claude-3.5-haiku | conflict_context | cot=0"
+    },
+    {
+      "abs_gap": 0.0029,
+      "count": 128,
+      "model_p_context": 0.0171,
+      "oracle_p_context": 0.02,
+      "slice": "anthropic/claude-3.5-haiku | conflict_context | cot=1024"
+    },
+    {
+      "abs_gap": 0.1125,
+      "count": 128,
+      "model_p_context": 0.1325,
+      "oracle_p_context": 0.02,
+      "slice": "anthropic/claude-3.5-haiku | conflict_context | cot=128"
+    },
+    {
+      "abs_gap": 0.1517,
+      "count": 128,
+      "model_p_context": 0.1717,
+      "oracle_p_context": 0.02,
+      "slice": "google/gemini-1.5-flash | conflict_context | cot=0"
+    },
+    {
+      "abs_gap": 0.0029,
+      "count": 128,
+      "model_p_context": 0.0171,
+      "oracle_p_context": 0.02,
+      "slice": "google/gemini-1.5-flash | conflict_context | cot=1024"
+    },
+    {
+      "abs_gap": 0.1125,
+      "count": 128,
+      "model_p_context": 0.1325,
+      "oracle_p_context": 0.02,
+      "slice": "google/gemini-1.5-flash | conflict_context | cot=128"
+    },
+    {
+      "abs_gap": 0.1517,
+      "count": 128,
+      "model_p_context": 0.1717,
+      "oracle_p_context": 0.02,
+      "slice": "openai/gpt-4o-mini | conflict_context | cot=0"
+    },
+    {
+      "abs_gap": 0.0029,
+      "count": 128,
+      "model_p_context": 0.0171,
+      "oracle_p_context": 0.02,
+      "slice": "openai/gpt-4o-mini | conflict_context | cot=1024"
+    },
+    {
+      "abs_gap": 0.1125,
+      "count": 128,
+      "model_p_context": 0.1325,
+      "oracle_p_context": 0.02,
+      "slice": "openai/gpt-4o-mini | conflict_context | cot=128"
+    }
+  ],
+  "methodology": "benchmark_backed_proxy_scaffold_not_api_native_logprobs",
+  "models": [
+    "anthropic/claude-3.5-haiku",
+    "google/gemini-1.5-flash",
+    "openai/gpt-4o-mini"
+  ],
+  "per_model_regret": {
+    "anthropic/claude-3.5-haiku": {
+      "bayes_proxy": 0.0093,
+      "best_policy": "always_parametric",
+      "cocoa": 0.0545,
+      "heuristic_adaptive": 0.0312,
+      "self_rag": 0.1135
+    },
+    "google/gemini-1.5-flash": {
+      "bayes_proxy": 0.0093,
+      "best_policy": "always_parametric",
+      "cocoa": 0.0545,
+      "heuristic_adaptive": 0.0312,
+      "self_rag": 0.1135
+    },
+    "openai/gpt-4o-mini": {
+      "bayes_proxy": 0.0093,
+      "best_policy": "always_parametric",
+      "cocoa": 0.0545,
+      "heuristic_adaptive": 0.0312,
+      "self_rag": 0.1135
+    }
+  }
+}

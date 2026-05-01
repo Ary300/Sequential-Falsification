@@ -1,0 +1,148 @@
+{
+  "comparators": {
+    "adacad": {
+      "benchmark_breakdown": {
+        "conflictbank": {
+          "mean_gap": 0.082,
+          "total": 5,
+          "wins": 5
+        },
+        "faitheval": {
+          "mean_gap": 0.0767,
+          "total": 5,
+          "wins": 5
+        },
+        "memotrap": {
+          "mean_gap": 0.075,
+          "total": 5,
+          "wins": 5
+        },
+        "nq_swap": {
+          "mean_gap": 0.0762,
+          "total": 5,
+          "wins": 5
+        },
+        "popqa": {
+          "mean_gap": 0.0194,
+          "total": 5,
+          "wins": 4
+        }
+      },
+      "ci95": [
+        0.0521,
+        0.0756
+      ],
+      "mean_gap": 0.0659,
+      "total": 25,
+      "wins": 24
+    },
+    "cocoa": {
+      "benchmark_breakdown": {
+        "conflictbank": {
+          "mean_gap": 0.0544,
+          "total": 5,
+          "wins": 5
+        },
+        "faitheval": {
+          "mean_gap": 0.051,
+          "total": 5,
+          "wins": 5
+        },
+        "memotrap": {
+          "mean_gap": 0.0495,
+          "total": 5,
+          "wins": 5
+        },
+        "nq_swap": {
+          "mean_gap": 0.0502,
+          "total": 5,
+          "wins": 5
+        },
+        "popqa": {
+          "mean_gap": 0.0171,
+          "total": 5,
+          "wins": 4
+        }
+      },
+      "ci95": [
+        0.0376,
+        0.0501
+      ],
+      "mean_gap": 0.0444,
+      "total": 25,
+      "wins": 24
+    },
+    "heuristic_adaptive": {
+      "benchmark_breakdown": {
+        "conflictbank": {
+          "mean_gap": 0.1359,
+          "total": 5,
+          "wins": 5
+        },
+        "faitheval": {
+          "mean_gap": 0.1024,
+          "total": 5,
+          "wins": 5
+        },
+        "memotrap": {
+          "mean_gap": 0.101,
+          "total": 5,
+          "wins": 5
+        },
+        "nq_swap": {
+          "mean_gap": 0.102,
+          "total": 5,
+          "wins": 5
+        },
+        "popqa": {
+          "mean_gap": -0.0246,
+          "total": 5,
+          "wins": 3
+        }
+      },
+      "ci95": [
+        0.0371,
+        0.1112
+      ],
+      "mean_gap": 0.0833,
+      "total": 25,
+      "wins": 23
+    },
+    "self_rag": {
+      "benchmark_breakdown": {
+        "conflictbank": {
+          "mean_gap": 0.1063,
+          "total": 5,
+          "wins": 5
+        },
+        "faitheval": {
+          "mean_gap": 0.0525,
+          "total": 5,
+          "wins": 5
+        },
+        "memotrap": {
+          "mean_gap": 0.0784,
+          "total": 5,
+          "wins": 5
+        },
+        "nq_swap": {
+          "mean_gap": 0.0534,
+          "total": 5,
+          "wins": 5
+        },
+        "popqa": {
+          "mean_gap": -0.1575,
+          "total": 5,
+          "wins": 0
+        }
+      },
+      "ci95": [
+        -0.0379,
+        0.0686
+      ],
+      "mean_gap": 0.0266,
+      "total": 25,
+      "wins": 20
+    }
+  }
+}
