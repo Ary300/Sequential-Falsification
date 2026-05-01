@@ -156,6 +156,7 @@ Partial 14B replication:
 - The completed extended theorem-3 calibration wave now also supplies the missing `DeepSeek-R1-Distill-Llama-70B` validation row: on `ConflictBank` conflict at `cot=1024`, Bayes beats the heuristic by `0.0518`.
 - The new eta intervention summary makes the mechanism claim sharper: confidence-only tempering can nearly recalibrate naturalistic contradiction at 14B, but it cannot rescue `ConflictBank` conflict once long-CoT has collapsed answer accuracy.
 - The Assumption 3.2 empirical check is now complete: on `ConflictBank` conflict at `cot=1024`, the generated trace is more likely under the model's current answer state than under the strongest competing state on `81%` of examples, with large positive average margin (`10.75`).
+- Explicit Yoon-style reliability-diagram plus bin-frequency figures have now been generated on Delta for the key `ConflictBank` conflict comparison between `R1-Qwen-14B` and `Qwen2.5-14B`.
 - Eta-tempered decoding now has an explicit paper recipe: mean conflict do-no-harm `eta = 0.325`, mean no-conflict do-no-harm `eta = 0.625`, with shrink factor `0.52`.
 - The real post-trace eta-decoding method run is now on disk for `conflictbank` / `conflict_context` with selected `eta = 0.0`; eval overconfidence gap moves from `0.937239` to `0.520508`.
 - On the theorem-3 size-scaling proxy matrix, Bayes beats the generic heuristic by `0.0585` regret with bootstrap CI `[0.0155, 0.0961]`.
@@ -168,6 +169,7 @@ Partial 14B replication:
 - Delta submission read: `18` jobs are now captured locally for the extended wave, and the direct completed probe `arbitration_spotlight_extended_api_slice__seed=42` reports Bayes-vs-heuristic gain `0.0691` over `8064` rows.
 - Full Delta completion read: `18` completed variants with mean Bayes-vs-heuristic gain `0.0907` on the model wave, `0.0862` on the theorem-3 calibration wave, and `0.0691` on the closed-model API slice.
 - The corrected current-vs-target matrix is now on disk and marks all six of the user-facing spotlight checklist rows as done.
+- A `Qwen2.5-32B` base-control run is now also queued to strengthen the cleaner non-RL baseline story beyond the already completed `7B` and `14B` base controls.
 
 ## Playbook Status
 
