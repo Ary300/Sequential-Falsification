@@ -130,7 +130,7 @@ the conflict-heavy wave, Pythia-6.9B is essentially tied between the Bayes
 proxy and the model-implied policy, while DeepSeek-R1-Distill-Qwen-7B remains
 far from the Bayes rule.
 
-\subsection{Theorem 3: Real Reasoning Traces}
+\subsection{Structural Theorem-3 Claim: Real Reasoning Traces}
 
 \begin{table}[t]
 \centering
@@ -234,8 +234,19 @@ not on a decisive named-comparator reversal.
 \paragraph{Takeaways.}
 The paper's empirical story is now coherent. Theorems 1 and 2 are supported by
 corrected benchmark-backed regret results, including an expanded spotlight-scale
-matrix. Theorem 3 lands in revised form on real reasoning traces and now rests
-on completed DeepSeek 7B/14B and Qwen 7B/14B/32B family sweeps. What remains
-outside the current paper core are
-the larger checkpoint-family sweeps and mitigation experiments such as bagged
-reasoning or confidence-decoupled heads.
+matrix. The theorem-3 portion lands in revised structural form on real
+reasoning traces and now rests on completed DeepSeek 7B/14B and Qwen
+7B/14B/32B family sweeps. What remains outside the current paper core are the
+larger checkpoint-family sweeps and mitigation experiments such as bagged
+reasoning, confidence-decoupled heads, and training-time reward redesign.
+
+\paragraph{Scope note.}
+The theorem-3 evidence should be read with three explicit limits in mind.
+First, our current training-time comparison is not yet a full head-to-head
+against RLCR \citep{damani2025rlcr}; the paper currently compares confidence-only
+$\eta$-tempering and smaller training-time calibration pilots rather than a
+completed Brier-reward redesign on the same backbone. Second, the retrieval
+deployment result is a bounded Wikipedia-backed demo rather than a
+production-scale retrieval system with continuously refreshed indexes and live
+traffic. Third, the current theorem-3 datasets, prompts, and calibration
+artifacts are English-only.

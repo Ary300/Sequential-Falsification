@@ -26,11 +26,23 @@ answer.
 
 The immediate next steps are now straightforward. The theory side needs full
 proof writeups for the Bayes-optimal rule and the fixed-policy minimax lower
-bound. The empirical side needs checkpoint-family sweeps and mitigation
-experiments such as bagged reasoning and confidence decoupling. But the main
-paper arc is no longer speculative: fixed trust policies are wrong, a
-reliability-aware rule does better, and real reasoning traces reveal a
-structured calibration pathology under knowledge conflict. The associated
-method story is now concrete too: confidence-only $\eta$-tempering is enough to
-nearly recalibrate naturalistic contradiction, but not enough to rescue
-answer-level controlled-conflict failures.
+bound, while the theorem-3 side should continue to be written as a structural
+misspecification account rather than as a theorem of equal formal status. The
+empirical side still needs direct training-time comparisons to RLCR-style
+reward redesign, broader checkpoint-family sweeps, and mitigation experiments
+such as bagged reasoning and confidence decoupling. But the main paper arc is
+no longer speculative: fixed trust policies are wrong, a reliability-aware
+rule does better, and real reasoning traces reveal a structured calibration
+pathology under knowledge conflict. The associated method story is now concrete
+too: confidence-only $\eta$-tempering is enough to nearly recalibrate
+naturalistic contradiction, but not enough to rescue answer-level
+controlled-conflict failures.
+
+\paragraph{Scope and limitations.}
+Three practical boundaries matter for interpretation. First, the current paper
+does not yet report a completed head-to-head number against RLCR
+\citep{damani2025rlcr}; our training-time evidence is still lighter-weight than
+a full reward-level redesign on the same backbone. Second, the retrieval demo
+is deployment-motivated but not production-scale: it uses bounded
+Wikipedia-backed retrieval rather than a continuously refreshed live stack.
+Third, the benchmark, prompt, and calibration suite here is English-only.

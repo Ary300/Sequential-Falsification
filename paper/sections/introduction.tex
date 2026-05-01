@@ -20,8 +20,9 @@ This paper takes a different view. We treat knowledge conflict as a
 \emph{posterior-predictive decision problem}. The core object is not ``should
 the model use retrieval,'' but rather ``what predictive distribution minimizes
 Bayes risk given a parametric prior, a context-conditioned likelihood, and a
-latent reliability variable for the context?'' Once written this way, three
-questions become precise:
+latent reliability variable for the context?'' Once written this way, two
+theorem-level questions and one structurally motivated reasoning-time question
+become precise:
 
 \begin{enumerate}
 \item What is the Bayes-optimal arbitration rule?
@@ -45,7 +46,8 @@ knowledge conflict or remain descriptive rather than decision-theoretic
 sun2025context,yoon2025confidence,lacombe2025dontthinktwice,welch2026cost,
 damani2025rlcr}.
 
-Our contributions are threefold. First, we derive a Bayes-style
+Our contributions are threefold, but not all at the same level of formal
+rigor. First, we derive a Bayes-style
 reliability-aware arbitration rule and validate it on a corrected broad wave of
 benchmark-backed experiments. In that wave, the Bayes proxy achieves mean
 regret $-0.0461$ versus $-0.0233$ for a generic adaptive heuristic, while
@@ -54,8 +56,12 @@ Second, we show that fixed trust policies are minimax-bad in practice on
 conflict-heavy slices: in the conflict wave, the Bayes proxy reaches
 $-0.1256$ versus $-0.0752$ for the heuristic, while fixed trust policies remain
 at $5.9037$ and $7.1329$. Third, we revisit the reasoning-time calibration
-claim using real DeepSeek-R1-Distill traces rather than proxy CoT buckets. The
-result is stronger and more nuanced than our original monotone hypothesis:
+claim using real DeepSeek-R1-Distill traces rather than proxy CoT buckets.
+This third contribution is best read as a structurally motivated
+misspecification account, grounded in generalized-Bayes and Berk--Nash
+analogies plus direct trace diagnostics, rather than as a closed-form theorem
+of the same status as the first two results. The result is stronger and more
+nuanced than our original monotone hypothesis:
 reasoning amplifies overconfidence under conflict, but the shape depends on the
 conflict family. On WikiContradict, both 7B and 14B show an intermediate-CoT
 peak followed by partial recovery. On ConflictBank conflict, 7B shows the same
@@ -76,3 +82,12 @@ the parametric model is wrong. The positive claim is that knowledge arbitration
 admits a principled reliability-aware rule that improves regret, and that
 reasoning-time confidence under conflict follows a structured, measurable law
 rather than arbitrary noise.
+
+We also make three scope boundaries explicit up front. First, our current
+training-time comparison to RLCR-style calibration improvement is not yet a
+head-to-head number in the paper body; the present intervention evidence is
+confidence-only $\eta$-tempering plus a smaller training-time pilot, not a full
+Damani-style reward redesign. Second, the retrieval deployment evidence is a
+bounded Wikipedia-backed demo rather than a production-scale retrieval stack.
+Third, the current experiments are English-only, so the reported gains should
+not be read as multilingual calibration guarantees.

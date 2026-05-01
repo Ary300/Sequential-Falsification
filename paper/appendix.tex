@@ -100,6 +100,36 @@ is that controlled entity-swap conflicts induce a larger effective
 self-confirming separation than naturalistic contradiction, so the same model
 can lie on opposite sides of the safe-update boundary on the two benchmarks.
 
+\subsection{Scope Note on Theorem-3 Rigor}
+
+Theorem 3 should be read differently from the first two results. Theorems 1
+and 2 are conventional theorem targets with direct decision-theoretic objects:
+posterior-predictive Bayes risk in theorem 1 and a fixed-policy minimax lower
+bound in theorem 2. Theorem 3 instead combines a structural analogy from
+misspecified-learning theory with direct empirical diagnostics on real traces.
+In particular, the Berk--Nash convergence step is ported from the econometrics
+and misspecified-learning literature as an analogy for endogenous evidence in
+autoregressive decoding, not as a literal transformer-specific convergence
+proof. Likewise, the empirical proxy $\hat{\eta}_{\mathrm{eff}}$ is intended as
+a directional indicator of safe-versus-unsafe update strength rather than as a
+point-identifying estimator of the underlying generalized-Bayes learning rate.
+
+This distinction matters for the cross-family interpretation as well. The
+DeepSeek-R1-Distill family gives the clearest saturated-conflict read, but the
+same 7B-to-14B asymmetry does not replicate cleanly in Qwen through 32B. That
+is why the paper's final theorem-3 statement is benchmark-dependent and
+training-family-conditioned rather than a universal scale law. It is also why
+we avoid overselling the result as a clean GRPO-versus-DPO causal isolation:
+R1-Distill is a distillation product rather than a from-scratch GRPO checkpoint
+matched to a DPO baseline.
+
+Three additional scope limits follow from this reading. First, the current
+paper does not yet contain a completed head-to-head number against
+RLCR-style reward redesign \citep{damani2025rlcr}; the present training-time
+evidence is lighter-weight. Second, the retrieval deployment demo is bounded
+rather than production-scale. Third, the current theorem-3 evidence is
+English-only.
+
 \subsection{Eta-Tempered Decoding Recipe}
 
 The concrete intervention implied by theorem 3 is confidence-only
