@@ -1,0 +1,290 @@
+{
+  "headline": {
+    "heldout_benchmarks": [
+      "clasheval",
+      "ramdocs"
+    ],
+    "seeds": [
+      42,
+      43,
+      44
+    ],
+    "all_predictions_supported": false
+  },
+  "predictions": [
+    {
+      "id": "P1",
+      "text": "On held-out conflict families, Bayes proxy will beat heuristic adaptive, CoCoA, Astute RAG, and Self-RAG on mean regret."
+    },
+    {
+      "id": "P2",
+      "text": "Always-context and always-parametric will remain catastrophically suboptimal on held-out conflict families."
+    },
+    {
+      "id": "P3",
+      "text": "The simulated theorem-3 model will show a larger long-CoT ECE change on conflict slices than on aligned-context slices."
+    }
+  ],
+  "results": {
+    "P1": {
+      "supported": true,
+      "details": {
+        "heuristic_adaptive": {
+          "mean_gap": 0.139,
+          "seed_gaps": [
+            0.139,
+            0.139,
+            0.139
+          ],
+          "all_positive": true
+        },
+        "cocoa": {
+          "mean_gap": 0.0539,
+          "seed_gaps": [
+            0.0539,
+            0.0539,
+            0.0539
+          ],
+          "all_positive": true
+        },
+        "astute_rag": {
+          "mean_gap": 0.0406,
+          "seed_gaps": [
+            0.0406,
+            0.0406,
+            0.0406
+          ],
+          "all_positive": true
+        },
+        "self_rag": {
+          "mean_gap": 0.0891,
+          "seed_gaps": [
+            0.0891,
+            0.0891,
+            0.0891
+          ],
+          "all_positive": true
+        },
+        "fixed_50": {
+          "mean_gap": 0.6085,
+          "seed_gaps": [
+            0.6085,
+            0.6085,
+            0.6085
+          ],
+          "all_positive": true
+        },
+        "always_context": {
+          "mean_gap": 6.8231,
+          "seed_gaps": [
+            6.8231,
+            6.8231,
+            6.8231
+          ],
+          "all_positive": true
+        },
+        "always_parametric": {
+          "mean_gap": 6.8231,
+          "seed_gaps": [
+            6.8231,
+            6.8231,
+            6.8231
+          ],
+          "all_positive": true
+        }
+      }
+    },
+    "P2": {
+      "supported": true,
+      "details": {
+        "always_context": {
+          "mean_gap": 6.8231,
+          "seed_gaps": [
+            6.8231,
+            6.8231,
+            6.8231
+          ],
+          "all_positive": true
+        },
+        "always_parametric": {
+          "mean_gap": 6.8231,
+          "seed_gaps": [
+            6.8231,
+            6.8231,
+            6.8231
+          ],
+          "all_positive": true
+        }
+      }
+    },
+    "P3": {
+      "supported": false,
+      "details": {
+        "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B": {
+          "mean_conflict_ece_delta": -0.1615,
+          "mean_no_conflict_ece_delta": -0.0215,
+          "mean_conflict_minus_no_conflict": -0.14,
+          "all_positive_conflict_minus_no_conflict": false
+        },
+        "Qwen/Qwen2.5-14B-Instruct": {
+          "mean_conflict_ece_delta": -0.1125,
+          "mean_no_conflict_ece_delta": -0.0323,
+          "mean_conflict_minus_no_conflict": -0.0802,
+          "all_positive_conflict_minus_no_conflict": false
+        },
+        "meta-llama/Llama-3.1-8B-Instruct": {
+          "mean_conflict_ece_delta": -0.1438,
+          "mean_no_conflict_ece_delta": -0.0215,
+          "mean_conflict_minus_no_conflict": -0.1223,
+          "all_positive_conflict_minus_no_conflict": false
+        }
+      }
+    }
+  },
+  "theorem3_rows": [
+    {
+      "seed": 42,
+      "benchmark": "clasheval",
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+      "conflict_ece_delta": -0.14740405132376433,
+      "no_conflict_ece_delta": -0.02428766014813888,
+      "conflict_minus_no_conflict": -0.12311639117562545
+    },
+    {
+      "seed": 42,
+      "benchmark": "clasheval",
+      "model": "Qwen/Qwen2.5-14B-Instruct",
+      "conflict_ece_delta": -0.10213671893053201,
+      "no_conflict_ece_delta": -0.0364978047594533,
+      "conflict_minus_no_conflict": -0.06563891417107871
+    },
+    {
+      "seed": 42,
+      "benchmark": "clasheval",
+      "model": "meta-llama/Llama-3.1-8B-Instruct",
+      "conflict_ece_delta": -0.13334363695586104,
+      "no_conflict_ece_delta": -0.02428766014813888,
+      "conflict_minus_no_conflict": -0.10905597680772217
+    },
+    {
+      "seed": 42,
+      "benchmark": "ramdocs",
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+      "conflict_ece_delta": -0.17550688679819226,
+      "no_conflict_ece_delta": -0.01870323445834554,
+      "conflict_minus_no_conflict": -0.15680365233984672
+    },
+    {
+      "seed": 42,
+      "benchmark": "ramdocs",
+      "model": "Qwen/Qwen2.5-14B-Instruct",
+      "conflict_ece_delta": -0.12291463076318128,
+      "no_conflict_ece_delta": -0.028136734141212205,
+      "conflict_minus_no_conflict": -0.09477789662196907
+    },
+    {
+      "seed": 42,
+      "benchmark": "ramdocs",
+      "model": "meta-llama/Llama-3.1-8B-Instruct",
+      "conflict_ece_delta": -0.15428164303816255,
+      "no_conflict_ece_delta": -0.01870323445834554,
+      "conflict_minus_no_conflict": -0.135578408579817
+    },
+    {
+      "seed": 43,
+      "benchmark": "clasheval",
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+      "conflict_ece_delta": -0.14740405132376433,
+      "no_conflict_ece_delta": -0.02428766014813888,
+      "conflict_minus_no_conflict": -0.12311639117562545
+    },
+    {
+      "seed": 43,
+      "benchmark": "clasheval",
+      "model": "Qwen/Qwen2.5-14B-Instruct",
+      "conflict_ece_delta": -0.10213671893053201,
+      "no_conflict_ece_delta": -0.0364978047594533,
+      "conflict_minus_no_conflict": -0.06563891417107871
+    },
+    {
+      "seed": 43,
+      "benchmark": "clasheval",
+      "model": "meta-llama/Llama-3.1-8B-Instruct",
+      "conflict_ece_delta": -0.13334363695586104,
+      "no_conflict_ece_delta": -0.02428766014813888,
+      "conflict_minus_no_conflict": -0.10905597680772217
+    },
+    {
+      "seed": 43,
+      "benchmark": "ramdocs",
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+      "conflict_ece_delta": -0.17550688679819226,
+      "no_conflict_ece_delta": -0.01870323445834554,
+      "conflict_minus_no_conflict": -0.15680365233984672
+    },
+    {
+      "seed": 43,
+      "benchmark": "ramdocs",
+      "model": "Qwen/Qwen2.5-14B-Instruct",
+      "conflict_ece_delta": -0.12291463076318128,
+      "no_conflict_ece_delta": -0.028136734141212205,
+      "conflict_minus_no_conflict": -0.09477789662196907
+    },
+    {
+      "seed": 43,
+      "benchmark": "ramdocs",
+      "model": "meta-llama/Llama-3.1-8B-Instruct",
+      "conflict_ece_delta": -0.15428164303816255,
+      "no_conflict_ece_delta": -0.01870323445834554,
+      "conflict_minus_no_conflict": -0.135578408579817
+    },
+    {
+      "seed": 44,
+      "benchmark": "clasheval",
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+      "conflict_ece_delta": -0.14740405132376433,
+      "no_conflict_ece_delta": -0.02428766014813888,
+      "conflict_minus_no_conflict": -0.12311639117562545
+    },
+    {
+      "seed": 44,
+      "benchmark": "clasheval",
+      "model": "Qwen/Qwen2.5-14B-Instruct",
+      "conflict_ece_delta": -0.10213671893053201,
+      "no_conflict_ece_delta": -0.0364978047594533,
+      "conflict_minus_no_conflict": -0.06563891417107871
+    },
+    {
+      "seed": 44,
+      "benchmark": "clasheval",
+      "model": "meta-llama/Llama-3.1-8B-Instruct",
+      "conflict_ece_delta": -0.13334363695586104,
+      "no_conflict_ece_delta": -0.02428766014813888,
+      "conflict_minus_no_conflict": -0.10905597680772217
+    },
+    {
+      "seed": 44,
+      "benchmark": "ramdocs",
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+      "conflict_ece_delta": -0.17550688679819226,
+      "no_conflict_ece_delta": -0.01870323445834554,
+      "conflict_minus_no_conflict": -0.15680365233984672
+    },
+    {
+      "seed": 44,
+      "benchmark": "ramdocs",
+      "model": "Qwen/Qwen2.5-14B-Instruct",
+      "conflict_ece_delta": -0.12291463076318128,
+      "no_conflict_ece_delta": -0.028136734141212205,
+      "conflict_minus_no_conflict": -0.09477789662196907
+    },
+    {
+      "seed": 44,
+      "benchmark": "ramdocs",
+      "model": "meta-llama/Llama-3.1-8B-Instruct",
+      "conflict_ece_delta": -0.15428164303816255,
+      "no_conflict_ece_delta": -0.01870323445834554,
+      "conflict_minus_no_conflict": -0.135578408579817
+    }
+  ]
+}
