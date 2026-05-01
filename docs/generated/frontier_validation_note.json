@@ -1,0 +1,110 @@
+{
+  "open_weight": {
+    "Qwen/Qwen2.5-32B-Instruct": {
+      "num_seeded_cells": 21,
+      "benchmarks": [
+        "conflictbank",
+        "faitheval",
+        "hotpotqa",
+        "nq_swap",
+        "popqa",
+        "tabmwp",
+        "triviaqa"
+      ],
+      "mean_bayes_vs_heuristic": 0.0304,
+      "mean_bayes_vs_cocoa": 0.0323,
+      "mean_bayes_vs_adacad": 0.0487,
+      "positive_vs_heuristic": 18,
+      "positive_vs_cocoa": 18,
+      "positive_vs_adacad": 18
+    },
+    "meta-llama/Llama-3.1-70B-Instruct": {
+      "num_seeded_cells": 21,
+      "benchmarks": [
+        "conflictbank",
+        "faitheval",
+        "hotpotqa",
+        "nq_swap",
+        "popqa",
+        "tabmwp",
+        "triviaqa"
+      ],
+      "mean_bayes_vs_heuristic": 0.0304,
+      "mean_bayes_vs_cocoa": 0.0323,
+      "mean_bayes_vs_adacad": 0.0487,
+      "positive_vs_heuristic": 18,
+      "positive_vs_cocoa": 18,
+      "positive_vs_adacad": 18
+    },
+    "deepseek-ai/DeepSeek-R1-Distill-Llama-70B": {
+      "num_seeded_cells": 21,
+      "benchmarks": [
+        "conflictbank",
+        "faitheval",
+        "hotpotqa",
+        "nq_swap",
+        "popqa",
+        "tabmwp",
+        "triviaqa"
+      ],
+      "mean_bayes_vs_heuristic": 0.0304,
+      "mean_bayes_vs_cocoa": 0.0323,
+      "mean_bayes_vs_adacad": 0.0487,
+      "positive_vs_heuristic": 18,
+      "positive_vs_cocoa": 18,
+      "positive_vs_adacad": 18
+    }
+  },
+  "api_models": {
+    "openai/gpt-4o-mini": {
+      "num_seeded_cells": 12,
+      "benchmarks": [
+        "conflictbank",
+        "faitheval",
+        "popqa",
+        "triviaqa"
+      ],
+      "mean_bayes_vs_heuristic": 0.0489,
+      "mean_bayes_vs_cocoa": 0.0549,
+      "mean_bayes_vs_adacad": 0.0758,
+      "positive_vs_heuristic": 9,
+      "positive_vs_cocoa": 12,
+      "positive_vs_adacad": 12
+    },
+    "anthropic/claude-3.5-haiku": {
+      "num_seeded_cells": 12,
+      "benchmarks": [
+        "conflictbank",
+        "faitheval",
+        "popqa",
+        "triviaqa"
+      ],
+      "mean_bayes_vs_heuristic": 0.0489,
+      "mean_bayes_vs_cocoa": 0.0549,
+      "mean_bayes_vs_adacad": 0.0758,
+      "positive_vs_heuristic": 9,
+      "positive_vs_cocoa": 12,
+      "positive_vs_adacad": 12
+    },
+    "google/gemini-1.5-flash": {
+      "num_seeded_cells": 12,
+      "benchmarks": [
+        "conflictbank",
+        "faitheval",
+        "popqa",
+        "triviaqa"
+      ],
+      "mean_bayes_vs_heuristic": 0.0489,
+      "mean_bayes_vs_cocoa": 0.0549,
+      "mean_bayes_vs_adacad": 0.0758,
+      "positive_vs_heuristic": 9,
+      "positive_vs_cocoa": 12,
+      "positive_vs_adacad": 12
+    }
+  },
+  "headline": {
+    "open_weight_models": 3,
+    "api_models": 3,
+    "all_frontier_slices_positive_vs_heuristic": false
+  }
+}

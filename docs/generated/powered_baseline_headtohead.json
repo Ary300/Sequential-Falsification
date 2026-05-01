@@ -1,0 +1,485 @@
+{
+  "headline": {
+    "seeds": [
+      42,
+      43,
+      44
+    ],
+    "models_per_seed": 10,
+    "benchmarks_per_seed": 7,
+    "total_series_per_baseline": 210
+  },
+  "baselines": {
+    "cocoa": {
+      "overall": {
+        "num_cells": 210,
+        "positive_cells": 201,
+        "mean_gap": 0.0426,
+        "ci_lower": 0.0405,
+        "ci_upper": 0.0445,
+        "one_sided_sign_p": 0.0
+      },
+      "benchmarks": [
+        {
+          "benchmark": "conflictbank",
+          "num_cells": 30,
+          "positive_cells": 30,
+          "mean_gap": 0.0539,
+          "ci_lower": 0.0526,
+          "ci_upper": 0.0552,
+          "one_sided_sign_p": 0.0
+        },
+        {
+          "benchmark": "faitheval",
+          "num_cells": 30,
+          "positive_cells": 30,
+          "mean_gap": 0.0502,
+          "ci_lower": 0.048,
+          "ci_upper": 0.0522,
+          "one_sided_sign_p": 0.0
+        },
+        {
+          "benchmark": "hotpotqa",
+          "num_cells": 30,
+          "positive_cells": 30,
+          "mean_gap": 0.0465,
+          "ci_lower": 0.0441,
+          "ci_upper": 0.0488,
+          "one_sided_sign_p": 0.0
+        },
+        {
+          "benchmark": "nq_swap",
+          "num_cells": 30,
+          "positive_cells": 30,
+          "mean_gap": 0.0495,
+          "ci_lower": 0.0474,
+          "ci_upper": 0.0514,
+          "one_sided_sign_p": 0.0
+        },
+        {
+          "benchmark": "popqa",
+          "num_cells": 30,
+          "positive_cells": 21,
+          "mean_gap": 0.0149,
+          "ci_lower": 0.0088,
+          "ci_upper": 0.0209,
+          "one_sided_sign_p": 0.021387
+        },
+        {
+          "benchmark": "tabmwp",
+          "num_cells": 30,
+          "positive_cells": 30,
+          "mean_gap": 0.0483,
+          "ci_lower": 0.0462,
+          "ci_upper": 0.0503,
+          "one_sided_sign_p": 0.0
+        },
+        {
+          "benchmark": "triviaqa",
+          "num_cells": 30,
+          "positive_cells": 30,
+          "mean_gap": 0.0349,
+          "ci_lower": 0.0334,
+          "ci_upper": 0.0362,
+          "one_sided_sign_p": 0.0
+        }
+      ],
+      "models": [
+        {
+          "model": "Qwen/Qwen2.5-14B-Instruct",
+          "num_cells": 21,
+          "positive_cells": 21,
+          "mean_gap": 0.0416,
+          "ci_lower": 0.0361,
+          "ci_upper": 0.0463
+        },
+        {
+          "model": "Qwen/Qwen2.5-32B-Instruct",
+          "num_cells": 21,
+          "positive_cells": 18,
+          "mean_gap": 0.0323,
+          "ci_lower": 0.0236,
+          "ci_upper": 0.0394
+        },
+        {
+          "model": "Qwen/Qwen2.5-7B-Instruct",
+          "num_cells": 21,
+          "positive_cells": 21,
+          "mean_gap": 0.048,
+          "ci_lower": 0.0434,
+          "ci_upper": 0.052
+        },
+        {
+          "model": "deepseek-ai/DeepSeek-R1-Distill-Llama-70B",
+          "num_cells": 21,
+          "positive_cells": 18,
+          "mean_gap": 0.0323,
+          "ci_lower": 0.0237,
+          "ci_upper": 0.0396
+        },
+        {
+          "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+          "num_cells": 21,
+          "positive_cells": 21,
+          "mean_gap": 0.048,
+          "ci_lower": 0.0434,
+          "ci_upper": 0.052
+        },
+        {
+          "model": "google/gemma-2-27b-it",
+          "num_cells": 21,
+          "positive_cells": 21,
+          "mean_gap": 0.048,
+          "ci_lower": 0.0433,
+          "ci_upper": 0.0518
+        },
+        {
+          "model": "google/gemma-2-9b-it",
+          "num_cells": 21,
+          "positive_cells": 21,
+          "mean_gap": 0.048,
+          "ci_lower": 0.0436,
+          "ci_upper": 0.052
+        },
+        {
+          "model": "meta-llama/Llama-3.1-70B-Instruct",
+          "num_cells": 21,
+          "positive_cells": 18,
+          "mean_gap": 0.0323,
+          "ci_lower": 0.0239,
+          "ci_upper": 0.0394
+        },
+        {
+          "model": "meta-llama/Llama-3.1-8B-Instruct",
+          "num_cells": 21,
+          "positive_cells": 21,
+          "mean_gap": 0.048,
+          "ci_lower": 0.0433,
+          "ci_upper": 0.0519
+        },
+        {
+          "model": "mistralai/Mistral-7B-Instruct-v0.3",
+          "num_cells": 21,
+          "positive_cells": 21,
+          "mean_gap": 0.048,
+          "ci_lower": 0.0435,
+          "ci_upper": 0.052
+        }
+      ]
+    },
+    "astute_rag": {
+      "overall": {
+        "num_cells": 210,
+        "positive_cells": 201,
+        "mean_gap": 0.0318,
+        "ci_lower": 0.0302,
+        "ci_upper": 0.0333,
+        "one_sided_sign_p": 0.0
+      },
+      "benchmarks": [
+        {
+          "benchmark": "conflictbank",
+          "num_cells": 30,
+          "positive_cells": 30,
+          "mean_gap": 0.04,
+          "ci_lower": 0.0394,
+          "ci_upper": 0.0407,
+          "one_sided_sign_p": 0.0
+        },
+        {
+          "benchmark": "faitheval",
+          "num_cells": 30,
+          "positive_cells": 30,
+          "mean_gap": 0.036,
+          "ci_lower": 0.0357,
+          "ci_upper": 0.0362,
+          "one_sided_sign_p": 0.0
+        },
+        {
+          "benchmark": "hotpotqa",
+          "num_cells": 30,
+          "positive_cells": 30,
+          "mean_gap": 0.0324,
+          "ci_lower": 0.0317,
+          "ci_upper": 0.033,
+          "one_sided_sign_p": 0.0
+        },
+        {
+          "benchmark": "nq_swap",
+          "num_cells": 30,
+          "positive_cells": 30,
+          "mean_gap": 0.0361,
+          "ci_lower": 0.0358,
+          "ci_upper": 0.0364,
+          "one_sided_sign_p": 0.0
+        },
+        {
+          "benchmark": "popqa",
+          "num_cells": 30,
+          "positive_cells": 21,
+          "mean_gap": 0.0133,
+          "ci_lower": 0.0061,
+          "ci_upper": 0.0203,
+          "one_sided_sign_p": 0.021387
+        },
+        {
+          "benchmark": "tabmwp",
+          "num_cells": 30,
+          "positive_cells": 30,
+          "mean_gap": 0.0363,
+          "ci_lower": 0.0359,
+          "ci_upper": 0.0367,
+          "one_sided_sign_p": 0.0
+        },
+        {
+          "benchmark": "triviaqa",
+          "num_cells": 30,
+          "positive_cells": 30,
+          "mean_gap": 0.0288,
+          "ci_lower": 0.0286,
+          "ci_upper": 0.0291,
+          "one_sided_sign_p": 0.0
+        }
+      ],
+      "models": [
+        {
+          "model": "Qwen/Qwen2.5-14B-Instruct",
+          "num_cells": 21,
+          "positive_cells": 21,
+          "mean_gap": 0.032,
+          "ci_lower": 0.0284,
+          "ci_upper": 0.0351
+        },
+        {
+          "model": "Qwen/Qwen2.5-32B-Instruct",
+          "num_cells": 21,
+          "positive_cells": 18,
+          "mean_gap": 0.0267,
+          "ci_lower": 0.018,
+          "ci_upper": 0.0338
+        },
+        {
+          "model": "Qwen/Qwen2.5-7B-Instruct",
+          "num_cells": 21,
+          "positive_cells": 21,
+          "mean_gap": 0.0344,
+          "ci_lower": 0.0328,
+          "ci_upper": 0.0359
+        },
+        {
+          "model": "deepseek-ai/DeepSeek-R1-Distill-Llama-70B",
+          "num_cells": 21,
+          "positive_cells": 18,
+          "mean_gap": 0.0267,
+          "ci_lower": 0.0181,
+          "ci_upper": 0.0339
+        },
+        {
+          "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+          "num_cells": 21,
+          "positive_cells": 21,
+          "mean_gap": 0.0344,
+          "ci_lower": 0.0327,
+          "ci_upper": 0.036
+        },
+        {
+          "model": "google/gemma-2-27b-it",
+          "num_cells": 21,
+          "positive_cells": 21,
+          "mean_gap": 0.0344,
+          "ci_lower": 0.0327,
+          "ci_upper": 0.0359
+        },
+        {
+          "model": "google/gemma-2-9b-it",
+          "num_cells": 21,
+          "positive_cells": 21,
+          "mean_gap": 0.0344,
+          "ci_lower": 0.0328,
+          "ci_upper": 0.0359
+        },
+        {
+          "model": "meta-llama/Llama-3.1-70B-Instruct",
+          "num_cells": 21,
+          "positive_cells": 18,
+          "mean_gap": 0.0267,
+          "ci_lower": 0.0184,
+          "ci_upper": 0.0338
+        },
+        {
+          "model": "meta-llama/Llama-3.1-8B-Instruct",
+          "num_cells": 21,
+          "positive_cells": 21,
+          "mean_gap": 0.0344,
+          "ci_lower": 0.0327,
+          "ci_upper": 0.0359
+        },
+        {
+          "model": "mistralai/Mistral-7B-Instruct-v0.3",
+          "num_cells": 21,
+          "positive_cells": 21,
+          "mean_gap": 0.0344,
+          "ci_lower": 0.0327,
+          "ci_upper": 0.0359
+        }
+      ]
+    },
+    "self_rag": {
+      "overall": {
+        "num_cells": 210,
+        "positive_cells": 180,
+        "mean_gap": 0.0219,
+        "ci_lower": 0.0019,
+        "ci_upper": 0.0395,
+        "one_sided_sign_p": 0.0
+      },
+      "benchmarks": [
+        {
+          "benchmark": "conflictbank",
+          "num_cells": 30,
+          "positive_cells": 30,
+          "mean_gap": 0.1072,
+          "ci_lower": 0.1033,
+          "ci_upper": 0.1114,
+          "one_sided_sign_p": 0.0
+        },
+        {
+          "benchmark": "faitheval",
+          "num_cells": 30,
+          "positive_cells": 30,
+          "mean_gap": 0.0545,
+          "ci_lower": 0.0519,
+          "ci_upper": 0.0572,
+          "one_sided_sign_p": 0.0
+        },
+        {
+          "benchmark": "hotpotqa",
+          "num_cells": 30,
+          "positive_cells": 30,
+          "mean_gap": 0.0284,
+          "ci_lower": 0.0253,
+          "ci_upper": 0.0315,
+          "one_sided_sign_p": 0.0
+        },
+        {
+          "benchmark": "nq_swap",
+          "num_cells": 30,
+          "positive_cells": 30,
+          "mean_gap": 0.0538,
+          "ci_lower": 0.0513,
+          "ci_upper": 0.0565,
+          "one_sided_sign_p": 0.0
+        },
+        {
+          "benchmark": "popqa",
+          "num_cells": 30,
+          "positive_cells": 0,
+          "mean_gap": -0.2053,
+          "ci_lower": -0.3033,
+          "ci_upper": -0.112,
+          "one_sided_sign_p": 1.0
+        },
+        {
+          "benchmark": "tabmwp",
+          "num_cells": 30,
+          "positive_cells": 30,
+          "mean_gap": 0.051,
+          "ci_lower": 0.0482,
+          "ci_upper": 0.0538,
+          "one_sided_sign_p": 0.0
+        },
+        {
+          "benchmark": "triviaqa",
+          "num_cells": 30,
+          "positive_cells": 30,
+          "mean_gap": 0.0638,
+          "ci_lower": 0.0622,
+          "ci_upper": 0.0654,
+          "one_sided_sign_p": 0.0
+        }
+      ],
+      "models": [
+        {
+          "model": "Qwen/Qwen2.5-14B-Instruct",
+          "num_cells": 21,
+          "positive_cells": 18,
+          "mean_gap": 0.0348,
+          "ci_lower": -0.0018,
+          "ci_upper": 0.0634
+        },
+        {
+          "model": "Qwen/Qwen2.5-32B-Instruct",
+          "num_cells": 21,
+          "positive_cells": 18,
+          "mean_gap": -0.0302,
+          "ci_lower": -0.138,
+          "ci_upper": 0.0661
+        },
+        {
+          "model": "Qwen/Qwen2.5-7B-Instruct",
+          "num_cells": 21,
+          "positive_cells": 18,
+          "mean_gap": 0.0458,
+          "ci_lower": 0.0326,
+          "ci_upper": 0.0591
+        },
+        {
+          "model": "deepseek-ai/DeepSeek-R1-Distill-Llama-70B",
+          "num_cells": 21,
+          "positive_cells": 18,
+          "mean_gap": -0.0302,
+          "ci_lower": -0.1375,
+          "ci_upper": 0.0665
+        },
+        {
+          "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+          "num_cells": 21,
+          "positive_cells": 18,
+          "mean_gap": 0.0458,
+          "ci_lower": 0.0331,
+          "ci_upper": 0.0593
+        },
+        {
+          "model": "google/gemma-2-27b-it",
+          "num_cells": 21,
+          "positive_cells": 18,
+          "mean_gap": 0.0458,
+          "ci_lower": 0.0332,
+          "ci_upper": 0.0589
+        },
+        {
+          "model": "google/gemma-2-9b-it",
+          "num_cells": 21,
+          "positive_cells": 18,
+          "mean_gap": 0.0458,
+          "ci_lower": 0.0327,
+          "ci_upper": 0.0591
+        },
+        {
+          "model": "meta-llama/Llama-3.1-70B-Instruct",
+          "num_cells": 21,
+          "positive_cells": 18,
+          "mean_gap": -0.0302,
+          "ci_lower": -0.1344,
+          "ci_upper": 0.0662
+        },
+        {
+          "model": "meta-llama/Llama-3.1-8B-Instruct",
+          "num_cells": 21,
+          "positive_cells": 18,
+          "mean_gap": 0.0458,
+          "ci_lower": 0.0324,
+          "ci_upper": 0.0591
+        },
+        {
+          "model": "mistralai/Mistral-7B-Instruct-v0.3",
+          "num_cells": 21,
+          "positive_cells": 18,
+          "mean_gap": 0.0458,
+          "ci_lower": 0.033,
+          "ci_upper": 0.0589
+        }
+      ]
+    }
+  }
+}
