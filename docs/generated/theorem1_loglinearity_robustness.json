@@ -1,0 +1,60 @@
+{
+  "headline": {
+    "calibration_size": 2048,
+    "r2_at_zero_violation": 0.9988,
+    "r2_at_max_violation": 0.729,
+    "excess_brier_at_zero_violation": 0.000154,
+    "excess_brier_at_max_violation": 0.035153
+  },
+  "rows": [
+    {
+      "violation_strength": 0.0,
+      "mean_r2": 0.9988,
+      "std_r2": 0.0006,
+      "mean_brier_to_oracle": 0.000154,
+      "mean_excess_brier": 0.000154
+    },
+    {
+      "violation_strength": 0.1,
+      "mean_r2": 0.9972,
+      "std_r2": 0.0013,
+      "mean_brier_to_oracle": 0.000353,
+      "mean_excess_brier": 0.000353
+    },
+    {
+      "violation_strength": 0.2,
+      "mean_r2": 0.9943,
+      "std_r2": 0.0013,
+      "mean_brier_to_oracle": 0.000711,
+      "mean_excess_brier": 0.000711
+    },
+    {
+      "violation_strength": 0.35,
+      "mean_r2": 0.9857,
+      "std_r2": 0.0018,
+      "mean_brier_to_oracle": 0.001781,
+      "mean_excess_brier": 0.001781
+    },
+    {
+      "violation_strength": 0.5,
+      "mean_r2": 0.9609,
+      "std_r2": 0.0048,
+      "mean_brier_to_oracle": 0.004823,
+      "mean_excess_brier": 0.004823
+    },
+    {
+      "violation_strength": 0.75,
+      "mean_r2": 0.8603,
+      "std_r2": 0.01,
+      "mean_brier_to_oracle": 0.01737,
+      "mean_excess_brier": 0.01737
+    },
+    {
+      "violation_strength": 1.0,
+      "mean_r2": 0.729,
+      "std_r2": 0.016,
+      "mean_brier_to_oracle": 0.035153,
+      "mean_excess_brier": 0.035153
+    }
+  ]
+}

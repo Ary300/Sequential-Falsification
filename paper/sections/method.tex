@@ -100,6 +100,11 @@ harming accuracy. The finished 14B intervention read implies exactly the
 practical rule our paper needs: conflict slices tolerate substantially smaller
 safe $\eta$ than no-conflict slices, and confidence-only tempering succeeds on
 naturalistic contradiction but not on answer-level controlled-conflict failure.
+In deployment, the recipe is correspondingly simple: generate one trace,
+choose $\eta$ on a small held-out calibration split, and temper only the
+post-trace answer distribution rather than the reasoning tokens themselves. If
+the residual long-CoT gap stays large after tempering, we treat the cell as an
+answer-level failure rather than a calibration-only failure.
 
 \paragraph{Observable proxies and implemented policies.}
 The implemented experiments compare six policy families:

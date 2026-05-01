@@ -15,7 +15,11 @@ The arbitration experiments report mean regret against an oracle arbitration
 distribution, plus accuracy, ECE, and the oracle--model absolute and KL gaps.
 The theorem-3 experiments report accuracy, mean confidence, ECE, and the
 confidence--accuracy gap. We emphasize the gap because the core phenomenon is
-confidence sharpening without commensurate accuracy gain.
+confidence sharpening without commensurate accuracy gain. For the headline
+theorem-3 cells we also generate explicit reliability diagrams with matching
+bin-frequency histograms, following the Yoon et al.\ reporting style, so the
+body-level scalar summaries are paired with the standard visual calibration
+diagnostics in the generated artifacts.
 
 \subsection{Theorems 1 and 2: Arbitration and Fixed-Policy Failure}
 
@@ -84,6 +88,11 @@ bootstrap interval is wider ($[-0.0379, 0.0686]$). So the spotlight-scale
 theorem-1/theorem-2 story is no longer just ``better than a generic
 heuristic''; it also clears the expanded named-comparator family available
 inside the benchmark engine at the point-estimate layer.
+For the closest multi-signal comparator, CoCoA, the body-level directional
+test is also clean even though the aggregate interval is wider: ConflictBank,
+FaithEval, MemoTrap, and NQ-Swap are each unanimous $5/5$
+Bayes-over-CoCoA benchmark-family wins (one-sided sign $p=0.0312$ per family),
+with PopQA as the lone mixed exception.
 
 The two most visible benchmark-specific scope gaps are now also closed with
 dedicated reads. On PopQA, which directly stress-tests popularity-conditioned
@@ -105,6 +114,11 @@ regret with series-bootstrap interval $[0.0895, 0.1220]$, and it beats CoCoA
 by $0.0519$ with interval $[0.0436, 0.0574]$. So Llama is not a missing family
 for the main results table; it is already a strong positive slice inside the
 completed matrix.
+At the frontier scale, Llama-3.1-70B-Instruct is also already in the completed
+five-benchmark matrix: Bayes still beats the generic heuristic by $0.0602$
+overall, and the lone visible weakness is PopQA, whose long popularity tail
+degrades retrieval-quality signal and therefore weakens the popularity-based
+prior-strength estimate that otherwise helps the arbitration rule.
 
 The broad wave is also informative about model heterogeneity. Three of the four
 main broad-wave models favor the Bayes proxy over the heuristic by about
@@ -174,6 +188,13 @@ replicate universally across families. Qwen does not recover on ConflictBank at
 either 7B or 14B, and in fact shows no recovery through 32B. So the theorem-3
 co-headline should not be written as a family-invariant asymmetry. The stronger
 and more durable claim is the benchmark-dependent two-regime law itself.
+The denser three-seed family summary makes that conditioning explicit in one
+line: DeepSeek-R1-Distill-Qwen-14B has a conflict-minus-no-conflict ECE delta
+of $+0.1727$, whereas DeepSeek-R1-Distill-Qwen-7B has $-0.0748$ and the
+Qwen-2.5-14B control has $-0.0207$. So the strongest version of theorem 3 is
+not ``all reasoning models worsen under conflict,'' but rather that the large
+DeepSeek RLVR checkpoint is the clearest saturated-conflict regime while the
+controls do not replicate it.
 
 The true closed-book controls rule out a clean conflict-versus-no-conflict sign
 flip. On ConflictBank closed-book, the 14B model already shows a strong gap
