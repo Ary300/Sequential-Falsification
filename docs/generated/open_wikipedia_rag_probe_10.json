@@ -1,0 +1,142 @@
+{
+  "examples": [
+    {
+      "conflict_answers": [
+        "Aporphine"
+      ],
+      "gold_answers": [
+        "Apomorphine",
+        "Aporphine",
+        "Apomorphine"
+      ],
+      "id": "1",
+      "question": "Which of the following are present in Nymphaea nouchali var. caerulea: apomorphine, aporphine, or neither?",
+      "results": []
+    },
+    {
+      "conflict_answers": [
+        "Yes."
+      ],
+      "gold_answers": [
+        "No.",
+        "Yes.",
+        "No."
+      ],
+      "id": "2",
+      "question": "Are there any other missiles besides the P-500 Bazalt that influenced the design of P-700 Granit missile?",
+      "results": []
+    },
+    {
+      "conflict_answers": [
+        "Yes."
+      ],
+      "gold_answers": [
+        "No.",
+        "Yes.",
+        "No."
+      ],
+      "id": "3",
+      "question": "Did the formation of the grooves on Phobos occur as a single event?",
+      "results": [
+        {
+          "conflict_hit": false,
+          "extract": "Although very small amounts of liquid water may occur transiently on the surface of Mars, limited to traces of dissolved moisture from the atmosphere and thin films, large quantities of ice are present on and under the surface. Small amounts of water vapor are present in the atmosphere, and liquid water may be present under the surface. In addition, a large quantity of liquid water was likely present on the surface in the distant past. Currently, ice is mostly present in polar permafrost.\n More than 5 million km3 of ice have been detected at or near the surface of Mars, enough to cover the planet to a depth of 35 meters (115 ft). Even more ice might be locked away in the deep subsurface. The chemical signature of water vapor on Mars was first unequivocally demonstrated in 1963 by spectroscopy using an Earth-based telescope. In 2008 and 2013, ice was detected in soil samples taken by the Phoenix lander and Curiosity rover. In 2018, radar findings suggested the presence of liquid water in subglacial lakes and in 2024, seismometer data suggested the presence of liquid water deep under the surface. \nMost of the ice on Mars is buried. However, ice is present at the surface at several locations. In the mid-latitudes, surface ice is present in impact craters, steep scarps and gullies. At latitudes near the poles, ice is present in glaciers. Ice is visible at the surface at the north polar ice cap, and abundant ice is present beneath the permanent carbon dioxide ice cap at the Martian south pole. \nThe present-day inventory of water on Mars can be estimated from spacecraft images, remote sensing techniques (spectroscopic measurements, ground-penetrating radar, etc.), and surface investigations from landers and rovers including x-ray spectroscopy, neutron spectroscopy and seismography. \nBefore about 3.8 billion years ago, Mars may have had a denser atmosphere and higher surface temperatures, potentially allowing greater amounts of liquid water on the surface, possibly including a large ocean that may have covered one-third of the planet. Water has also apparently flowed across the surface for short periods at various intervals more recently in Mars's history. Aeolis Palus in Gale Crater, explored by the Curiosity rover, is the geological remains of an ancient freshwater lake that could have been a hospitable environment for microbial life. \nGeologic evidence of past water includes enormous outflow channels carved by floods, ancient river valley networks, deltas, and lakebeds; and the detection of rocks and minerals on the surface that could only have formed in liquid water. Numerous geomorphic features suggest the presence of ground ice (permafrost) and the movement of ice in glaciers, both in the recent past and present. Gullies and slope lineae along cliffs and crater walls suggest that flowing water may continue to shape the surface of Mars, although what was thought to be low-volume liquid brines in shallow Martian soil, also called recurrent slope lineae, may be grains of flowing sand and dust slipping downhill to make dark streaks. \nAlthough the surface of Mars was periodically wet and could have been hospitable to microbial life billions of years ago, no definite evidence of life, past or present, has been found on Mars. The best potential locations for discovering life on Mars may be in subsurface environments. A large amount of underground ice, equivalent to the volume of water in Lake Superior, has been found under Utopia Planitia. In 2018, based on radar data, scientists reported the discovery of a possible subglacial lake on Mars, 1.5 km (0.93 mi) below the southern polar ice cap, with a horizontal extent of about 20 km (12 mi), findings that were strengthened by additional radar findings in September 2020,, although subsequent work has questioned this detection.\nUnderstanding the extent and situation of water on Mars is important to assess the planet's potential for harboring life and for providing usable resources for future human exploration. For this reason, \"Follow the Water\" was the science theme of NASA's Mars Exploration Program (MEP) in the first decade of the 21st century. NASA and ESA missions including 2001 Mars Odyssey, Mars Express, Mars Exploration Rovers (MERs), Mars Reconnaissance Orbiter (MRO), and Mars Phoenix lander have provided information about water's abundance and distribution on Mars. Mars Odyssey, Mars Express, MRO, and Mars Science Lander Curiosity rover are still operating, and discoveries continue to be made. \nIn August 2024, researchers reported that analysis of seismic data from NASA's InSight Mars Lander suggested the presence of a reservoir of liquid water at depths of 10\u201320 kilometres (6.2\u201312.4 mi) under the Martian crust.",
+          "gold_hit": true,
+          "pageid": "21857752",
+          "search_snippet": "very small amounts <span class=\"searchmatch\">of</span> liquid water may <span class=\"searchmatch\">occur</span> transiently <span class=\"searchmatch\">on</span> <span class=\"searchmatch\">the</span> surface <span class=\"searchmatch\">of</span> Mars, limited to traces <span class=\"searchmatch\">of</span> dissolved moisture from <span class=\"searchmatch\">the</span> atmosphere and thin",
+          "title": "Water on Mars"
+        },
+        {
+          "conflict_hit": false,
+          "extract": "The Solar System is the gravitationally bound system of the Sun and the masses that orbit it, most prominently its eight planets, of which Earth is one. The system formed about 4.6 billion years ago when a dense region of a molecular cloud collapsed, creating the Sun and a protoplanetary disc from which the orbiting bodies assembled.\nThe Sun accounts for 99.86% of the Solar System's total mass. Inside the Sun's core, hydrogen is fused into helium, releasing energy that is emitted through the Sun's photosphere. This creates the heliosphere and a decreasing temperature gradient across the Solar System.\nThe next most massive objects of the system are the eight planets, which by definition dominate the orbits they occupy. Closest to the Sun in order of increasing distance are the terrestrial planets \u2013 Mercury, Venus, Earth and Mars. These are the planets of the inner Solar System. Earth and Mars are the only planets that orbit within the Sun's habitable zone, in which sunlight can keep surface water liquid under atmospheric pressure. Beyond the frost line at about five astronomical units (AU), are the planets of the outer Solar System: two gas giants (Jupiter and Saturn) and two ice giants (Uranus and Neptune). Jupiter and Saturn possess nearly 90% of the non-stellar mass of the Solar System.\nObjects of planetary mass that do not dominate their orbit but orbit the Sun directly are called dwarf planets. The International Astronomical Union's Minor Planet Center lists Ceres, Pluto, Eris, Makemake, and Haumea as dwarf planets. Four other Solar System objects are generally identified as such: Orcus, Quaoar, Gonggong, and Sedna.  Less massive than the dwarf planets are the vast number of small Solar System bodies, such as asteroids, comets, centaurs, meteoroids, and interplanetary dust clouds. The dwarf planet Ceres and many of these smaller bodies are located in the asteroid belt (between Mars's and Jupiter's orbit), while all other dwarf planets are members of populations of trans-Neptunian objects, which may be found in the Kuiper belt just outside Neptune or in the further scattered disc.\nMany objects in the Solar System do not orbit the Sun directly and are instead natural satellites, commonly called 'moons', of larger bodies.  These can be found throughout the Solar System in sizes from planetary-mass moons at their largest to much less massive moonlets at their smallest. The largest two moons (Ganymede of Jupiter and Titan of Saturn) are larger (though less massive) than the smallest planet (Mercury), while the seven most massive, which includes Earth's Moon, are more massive and larger than any of the dwarf planets.\nWithin the heliosphere, the Solar System is constantly flooded by the charged plasma particles of the solar wind, which, along with interplanetary dust, gas and cosmic rays, form an interplanetary medium between the bodies of the Solar System. At around 70\u201390 AU from the Sun, the solar wind is halted by the interstellar medium, resulting in the heliopause and the border of the interplanetary medium to interstellar space. Further out somewhere beyond 2,000 AU from the Sun extends the outermost region of the Solar System, the theorized Oort cloud, the source for long-period comets, stretching to the edge of the Solar System, the edge of its Hill sphere, at 178,000\u2013227,000 AU (2.81\u20133.59 ly), where its gravitational potential becomes equal to the galactic potential. The Solar System currently moves through a cloud of interstellar medium called the Local Cloud. The closest star to the Solar System, Proxima Centauri, is 269,000 AU (4.25 ly) away. Both are within the Local Bubble, a relatively small 1,000 light-years (ly) wide region of the Milky Way.\n\n",
+          "gold_hit": true,
+          "pageid": "26903",
+          "search_snippet": "April 2024. One <span class=\"searchmatch\">of</span> <span class=\"searchmatch\">the</span> most striking features <span class=\"searchmatch\">of</span> <span class=\"searchmatch\">Phobos</span>, aside from its irregular shape, is its giant crater Stickney. Because <span class=\"searchmatch\">Phobos</span> is only 28 by 20",
+          "title": "Solar System"
+        },
+        {
+          "conflict_hit": false,
+          "extract": "Enceladus is the sixth-largest moon of Saturn and the 18th largest in the Solar System. It is about 500 kilometres (310 miles) in diameter, about a tenth of that of Saturn's largest moon, Titan. It is covered by clean, freshly deposited snow hundreds of meters thick, making it one of the most reflective bodies of the Solar System. Consequently, its surface temperature at noon reaches only \u2212198 \u00b0C (75.1 K; \u2212324.4 \u00b0F), far colder than a light-absorbing body would be. Despite its small size, Enceladus has a wide variety of surface features, ranging from old, heavily cratered regions to young, tectonically deformed terrain.\nEnceladus was discovered on August 28, 1789, by William Herschel, but little was known about it until the two Voyager spacecrafts, Voyager 1 and Voyager 2, flew by Saturn in 1980 and 1981. In 2005, the spacecraft Cassini started multiple close flybys of Enceladus, revealing its surface and environment in greater detail. In particular, Cassini discovered water-rich plumes venting from the south polar region. Cryovolcanoes near the south pole shoot geyser-like jets of water vapour, molecular hydrogen, other volatiles, and solid material, including sodium chloride crystals and ice particles, into space, totalling about 200 kilograms (440 pounds) per second. More than 100 geysers have been identified. Some of the water vapour falls back as snow, now several hundred metres thick; the rest escapes and supplies most of the material making up Saturn's E ring. According to NASA scientists, the plumes are similar in composition to comets. In 2014, NASA reported that Cassini had found evidence for a large south polar subsurface ocean of liquid water with a thickness of around 10 km (6 mi). The existence of Enceladus's subsurface ocean has since been mathematically modelled and replicated.\nThese observations of active cryoeruptions, along with the finding of escaping internal heat and very few (if any) impact craters in the south polar region, show that Enceladus is currently geologically active. Like many other satellites in the extensive systems of the giant planets, Enceladus participates in an orbital resonance. Its resonance with Dione excites its orbital eccentricity, which is damped by tidal forces, tidally heating its interior and driving the geological activity.\nCassini performed chemical analysis of Enceladus's plumes, finding evidence for hydrothermal activity, possibly driving complex chemistry. Ongoing research on Cassini data suggests that Enceladus's hydrothermal environment could be habitable to some of Earth's hydrothermal vent's microorganisms, and that plume-found methane could be produced by such organisms.\n\n",
+          "gold_hit": true,
+          "pageid": "208430",
+          "search_snippet": "outcrops along <span class=\"searchmatch\">the</span> cliff faces. Evidence <span class=\"searchmatch\">of</span> tectonics <span class=\"searchmatch\">on</span> Enceladus is also derived from <span class=\"searchmatch\">grooved</span> terrain, consisting <span class=\"searchmatch\">of</span> lanes <span class=\"searchmatch\">of</span> curvilinear <span class=\"searchmatch\">grooves</span> and ridges",
+          "title": "Enceladus"
+        },
+        {
+          "conflict_hit": false,
+          "extract": "The climate of Mars has been a topic of scientific curiosity for centuries, in part because it is the only terrestrial planet whose surface can be easily directly observed in detail from Earth with help from a telescope.\nAlthough Mars is smaller than Earth with only one tenth of Earth's mass, and 50% farther from the Sun than Earth, its climate has important similarities, such as the presence of polar ice caps, seasonal changes and observable weather patterns. It has attracted sustained study from planetologists and climatologists. While Mars's climate has similarities to Earth's, including periodic ice ages, there are also important differences, such as much lower thermal inertia. Mars's atmosphere has a scale height of approximately 11 km (36,000 ft), 60% greater than that on Earth. The climate is of considerable relevance to the question of whether life is or ever has been present on the planet.\nMars has been studied by Earth-based instruments since the 17th century, but it is only since the exploration of Mars began in the mid-1960s that close-range observation has been possible. Flyby and orbital spacecraft have provided data from above, while landers and rovers have measured atmospheric conditions directly. Advanced Earth-orbital instruments today continue to provide some useful \"big picture\" observations of relatively large weather phenomena.\nThe first Martian flyby mission was Mariner 4, which arrived in 1965. That quick two-day pass (July 14\u201315, 1965) with crude instruments contributed little to the state of knowledge of Martian climate. Later Mariner missions (Mariner 6 and 7) filled in some of the gaps in basic climate information. Data-based climate studies started in earnest with the Viking program landers in 1975 and continue with such probes as the Mars Reconnaissance Orbiter.\nThis observational work has been complemented by a type of scientific computer simulation called the Mars general circulation model. Several different iterations of MGCM have led to an increased understanding of Mars as well as the limits of such models.",
+          "gold_hit": true,
+          "pageid": "9596342",
+          "search_snippet": "more predictable than that <span class=\"searchmatch\">of</span> Earth. If an <span class=\"searchmatch\">event</span> <span class=\"searchmatch\">occurs</span> at <span class=\"searchmatch\">a</span> particular time <span class=\"searchmatch\">of</span> year in one year, <span class=\"searchmatch\">the</span> available data (sparse <span class=\"searchmatch\">as</span> it is) indicates that it",
+          "title": "Climate of Mars"
+        },
+        {
+          "conflict_hit": false,
+          "extract": "Ariel is the fourth-largest moon of Uranus. Ariel orbits and rotates in Uranus's equatorial plane, which is almost perpendicular to the planet's orbit, giving the moon an extreme seasonal cycle.\nIt was discovered on 24 October 1851 by William Lassell and named for a character in two different pieces of literature. As of 2019, much of the detailed knowledge of Ariel derives from a single flyby of Uranus performed by the space probe Voyager 2 in 1986, which managed to image around 35% of the moon's surface. There are no active plans at present to return to study the moon in more detail, although various concepts such as a Uranus Orbiter and Probe have been proposed.\nAfter Miranda, Ariel is the second-closest of Uranus's five major rounded satellites. Among the smallest of the Solar System's 19 known spherical moons (it ranks 14th among them in diameter), it is believed to be composed of roughly equal parts ice and rocky material. Its mass is approximately equal in magnitude to Earth's hydrosphere.\nLike all of Uranus's moons, Ariel probably formed from an accretion disc that surrounded the planet shortly after its formation, and, like other large moons, it is likely differentiated, with an inner core of rock surrounded by a mantle of ice. Ariel has a complex surface consisting of extensive cratered terrain cross-cut by a system of scarps, canyons, grabens and ridges. The surface shows signs of more recent geological activity than other Uranian moons, most likely due to tidal heating.\n\n",
+          "gold_hit": true,
+          "pageid": "405421",
+          "search_snippet": "occultations <span class=\"searchmatch\">of</span> Uranus&#039;s moons become possible. <span class=\"searchmatch\">A</span> number <span class=\"searchmatch\">of</span> such <span class=\"searchmatch\">events</span> <span class=\"searchmatch\">occurred</span> in 2007\u20132008, including an occultation <span class=\"searchmatch\">of</span> Ariel by Umbriel <span class=\"searchmatch\">on</span> 19 August",
+          "title": "Ariel (moon)"
+        }
+      ]
+    },
+    {
+      "conflict_answers": [
+        "No"
+      ],
+      "gold_answers": [
+        "Yes",
+        "No",
+        "Yes"
+      ],
+      "id": "4",
+      "question": "Did Bishop Heber meet D\u2019Oyly in the 1840s in Patna ?",
+      "results": []
+    },
+    {
+      "conflict_answers": [
+        "President Oler appeard in court in the 1890s"
+      ],
+      "gold_answers": [
+        "President Oler took the stand in 1911",
+        "President Oler appeard in court in the 1890s",
+        "President Oler took the stand in 1911"
+      ],
+      "id": "5",
+      "question": "What year did President Oler take the stand in court?",
+      "results": [
+        {
+          "conflict_hit": false,
+          "extract": "James Arthur Baldwin (n\u00e9 Jones; August 2, 1924 \u2013 December 1, 1987) was an American writer and civil rights activist who garnered acclaim for his essays, novels, plays, and poems. His 1953 novel Go Tell It on the Mountain has been ranked by Time magazine as one of the top 100 English-language novels. His 1955 essay collection Notes of a Native Son helped establish his reputation as a voice for human equality. His 1965 debate with William Buckley is regarded as one of the most influential debates on race in the United States. Baldwin was an influential public figure and orator, especially during the civil rights movement in the United States.\nBaldwin's fiction posed fundamental personal questions and dilemmas amid complex social and psychological pressures. Themes of masculinity, sexuality, race, and class intertwine to create intricate narratives that influenced both the civil rights movement and the gay liberation movement in mid-20th-century America. His protagonists are often, but not exclusively, African-American, and gay and bisexual men feature prominently in his work (as in his 1956 novel Giovanni's Room). His characters typically face internal and external obstacles in their search for self- and social acceptance.\nBaldwin's work continues to influence artists and writers. His unfinished manuscript Remember This House was expanded and adapted as the 2016 documentary film I Am Not Your Negro, winning the BAFTA Award for Best Documentary. His 1974 novel If Beale Street Could Talk was adapted into a 2018 film of the same name, which earned widespread praise.\n\n",
+          "gold_hit": false,
+          "pageid": "176935",
+          "search_snippet": "2013). &quot;On James Baldwin&quot;. <span class=\"searchmatch\">The</span> New York Review of Books. Retrieved July 6, 2017. <span class=\"searchmatch\">The</span> Chronicle April 12, 1987, p. 6. <span class=\"searchmatch\">Oler</span>, Tammy (October 31, 2019). &quot;57",
+          "title": "James Baldwin"
+        },
+        {
+          "conflict_hit": false,
+          "extract": "The following is a timeline of the presidency of Joe Biden during the third quarter of 2021, from July 1 to September 30, 2021. For a complete itinerary of his travels, see List of presidential trips made by Joe Biden (2021). To navigate between quarters, see timeline of the Joe Biden presidency. For the Q4 timeline see timeline of the Joe Biden presidency (2021 Q4).",
+          "gold_hit": false,
+          "pageid": "68023619",
+          "search_snippet": "getaway plans shift by <span class=\"searchmatch\">the</span> day&quot;. Associated Press. Retrieved August 16, 2021. <span class=\"searchmatch\">Oler</span>, Bobby; Kalich, Sydney (August 16, 2021). &quot;&#039;I <span class=\"searchmatch\">stand</span> squarely behind my",
+          "title": "Timeline of the Joe Biden presidency (2021 Q3)"
+        }
+      ]
+    }
+  ],
+  "headline": {
+    "top1_conflict_hit_rate": 0.0,
+    "top1_gold_hit_rate": 0.3,
+    "top5_both_hit_rate": 0.1,
+    "top5_conflict_hit_rate": 0.1,
+    "top5_gold_hit_rate": 0.3,
+    "top5_neither_hit_rate": 0.7
+  },
+  "metadata": {
+    "benchmark": "wikicontradict",
+    "num_examples": 10,
+    "retriever": "live_wikipedia_search_plus_extract_probe",
+    "search_limit": 5,
+    "top_k": 5
+  }
+}
