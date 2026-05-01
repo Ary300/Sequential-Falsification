@@ -1,0 +1,32 @@
+{
+  "bins": [
+    {
+      "bin": "low",
+      "num_rows": 2736,
+      "bayes_proxy_mean_regret": -0.2851,
+      "heuristic_adaptive_mean_regret": -0.1568,
+      "cocoa_mean_regret": -0.2498,
+      "adacad_mean_regret": -0.2236,
+      "bayes_vs_heuristic_gain": 0.1282
+    },
+    {
+      "bin": "mid",
+      "num_rows": 2736,
+      "bayes_proxy_mean_regret": -0.2566,
+      "heuristic_adaptive_mean_regret": -0.1273,
+      "cocoa_mean_regret": -0.222,
+      "adacad_mean_regret": -0.1963,
+      "bayes_vs_heuristic_gain": 0.1293
+    },
+    {
+      "bin": "high",
+      "num_rows": 2720,
+      "bayes_proxy_mean_regret": -0.0857,
+      "heuristic_adaptive_mean_regret": -0.0586,
+      "cocoa_mean_regret": -0.073,
+      "adacad_mean_regret": -0.0653,
+      "bayes_vs_heuristic_gain": 0.0271
+    }
+  ],
+  "read": "Bayes stays clearly ahead in the low- and mid-popularity bins and narrows to a small but still positive gain in the high-popularity bucket."
+}

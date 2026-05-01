@@ -16,15 +16,16 @@ identifiability lemma tying posterior reliability to observable signals.
 
 \subsection{Theorem-1 Log-Linearity Robustness Sweep}
 
-Theorem 1 is exact inside the log-linear family, so we also ran a synthetic
-misspecification sweep that perturbs the oracle away from that family with an
-explicit nonlinear term while keeping the same calibration-fit procedure. At
-calibration size `2048', the fitted rule still recovers the exact-family oracle
-nearly perfectly at zero violation (mean held-out $R^2 = 0.9988$, mean excess
-Brier $= 0.000154$). More importantly, degradation is smooth rather than
-catastrophic under controlled misspecification: at violation strengths
-`0.35' and `0.5' the held-out $R^2$ remains `0.9857' and `0.9609',
-respectively, and even the maximal sweep point only falls to `0.7290'. The
+Theorem 1 is exact inside the log-linear family, so we also ran an
+11-point synthetic misspecification sweep that perturbs the oracle away from
+that family with an explicit nonlinear term while keeping the same
+calibration-fit procedure. At calibration size `2048', the fitted rule still
+recovers the exact-family oracle nearly perfectly at zero violation (mean
+held-out $R^2 = 0.9988$, mean excess Brier $= 0.000154$). More importantly,
+degradation is smooth rather than catastrophic under controlled
+misspecification: at measured violation strengths `0.3', `0.5', and `0.7' the
+held-out $R^2$ remains `0.9891', `0.9609', and `0.8858', respectively, and
+even the maximal sweep point only falls to `0.7290'. The
 intended empirical interpretation is therefore not that real LLM logits must be
 exactly log-linear, but that the implemented Bayes-style rule tracks the
 oracle family very closely when the family is approximately right and degrades
@@ -131,3 +132,16 @@ FaithEval, and RAMDocs are unanimous $5/5$ Bayes-over-heuristic wins, while
 WikiContradict is a unanimous negative exception. This is the cleanest compact
 summary of why theorem 3 should be written as benchmark-dependent rather than
 universally positive at the regret layer.
+
+\subsection{Named-Baseline Holm Table}
+
+Appendix table `K' extends the benchmark-family sign-test read to every named
+baseline in the spotlight matrix: `Self-RAG', `Astute-RAG', `AdaCAD',
+`MADAM-RAG', `JuICE', `NWCAD', `CRAG', `CAD', and `CoCoA'. The strictest read
+remains the same one highlighted in the body. For `CoCoA', the four benchmark
+families `ConflictBank', `FaithEval', `MemoTrap', and `NQ-Swap' are all
+unanimous $5/5$ Bayes-over-CoCoA wins with nominal one-sided sign
+$p = 0.0312$, which becomes Holm-adjusted $p = 0.1560$ across the five
+benchmark families; `PopQA' remains the lone mixed exception. The full table is
+generated directly from the completed spotlight report so the multiple-testing
+correction is explicit rather than implicit.

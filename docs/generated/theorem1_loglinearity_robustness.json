@@ -29,11 +29,18 @@
       "mean_excess_brier": 0.000711
     },
     {
-      "violation_strength": 0.35,
-      "mean_r2": 0.9857,
-      "std_r2": 0.0018,
-      "mean_brier_to_oracle": 0.001781,
-      "mean_excess_brier": 0.001781
+      "violation_strength": 0.3,
+      "mean_r2": 0.9891,
+      "std_r2": 0.0019,
+      "mean_brier_to_oracle": 0.001352,
+      "mean_excess_brier": 0.001352
+    },
+    {
+      "violation_strength": 0.4,
+      "mean_r2": 0.9799,
+      "std_r2": 0.003,
+      "mean_brier_to_oracle": 0.002489,
+      "mean_excess_brier": 0.002489
     },
     {
       "violation_strength": 0.5,
@@ -43,11 +50,32 @@
       "mean_excess_brier": 0.004823
     },
     {
-      "violation_strength": 0.75,
-      "mean_r2": 0.8603,
-      "std_r2": 0.01,
-      "mean_brier_to_oracle": 0.01737,
-      "mean_excess_brier": 0.01737
+      "violation_strength": 0.6,
+      "mean_r2": 0.9295,
+      "std_r2": 0.0069,
+      "mean_brier_to_oracle": 0.008685,
+      "mean_excess_brier": 0.008685
+    },
+    {
+      "violation_strength": 0.7,
+      "mean_r2": 0.8858,
+      "std_r2": 0.0085,
+      "mean_brier_to_oracle": 0.014133,
+      "mean_excess_brier": 0.014133
+    },
+    {
+      "violation_strength": 0.8,
+      "mean_r2": 0.833,
+      "std_r2": 0.0114,
+      "mean_brier_to_oracle": 0.020888,
+      "mean_excess_brier": 0.020888
+    },
+    {
+      "violation_strength": 0.9,
+      "mean_r2": 0.7819,
+      "std_r2": 0.0138,
+      "mean_brier_to_oracle": 0.027725,
+      "mean_excess_brier": 0.027725
     },
     {
       "violation_strength": 1.0,

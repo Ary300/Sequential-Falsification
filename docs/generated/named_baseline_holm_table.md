@@ -1,0 +1,94 @@
+# Named Baseline Holm-Corrected Table
+
+This note reports Bayes-vs-baseline per-benchmark sign tests on the finished spotlight matrix.
+For each named baseline, Holm correction is applied across the five benchmark families.
+
+## self-rag
+
+| Benchmark | Mean gap | Wins | One-sided sign p | Holm p |
+|---|---:|---:|---:|---:|
+| conflictbank | 0.1063 | 5/5 | 0.0312 | 0.1560 |
+| faitheval | 0.0525 | 5/5 | 0.0312 | 0.1560 |
+| memotrap | 0.0784 | 5/5 | 0.0312 | 0.1560 |
+| nq_swap | 0.0534 | 5/5 | 0.0312 | 0.1560 |
+| popqa | -0.1575 | 0/5 | 1.0000 | 1.0000 |
+
+## astute-rag
+
+| Benchmark | Mean gap | Wins | One-sided sign p | Holm p |
+|---|---:|---:|---:|---:|
+| conflictbank | 0.0398 | 5/5 | 0.0312 | 0.1560 |
+| faitheval | 0.0359 | 5/5 | 0.0312 | 0.1560 |
+| memotrap | 0.0351 | 5/5 | 0.0312 | 0.1560 |
+| nq_swap | 0.0362 | 5/5 | 0.0312 | 0.1560 |
+| popqa | 0.0158 | 4/5 | 0.1875 | 0.1875 |
+
+## adacad
+
+| Benchmark | Mean gap | Wins | One-sided sign p | Holm p |
+|---|---:|---:|---:|---:|
+| conflictbank | 0.0820 | 5/5 | 0.0312 | 0.1560 |
+| faitheval | 0.0767 | 5/5 | 0.0312 | 0.1560 |
+| memotrap | 0.0750 | 5/5 | 0.0312 | 0.1560 |
+| nq_swap | 0.0762 | 5/5 | 0.0312 | 0.1560 |
+| popqa | 0.0194 | 4/5 | 0.1875 | 0.1875 |
+
+## madam-rag
+
+| Benchmark | Mean gap | Wins | One-sided sign p | Holm p |
+|---|---:|---:|---:|---:|
+| conflictbank | 0.1314 | 5/5 | 0.0312 | 0.1560 |
+| faitheval | 0.1102 | 5/5 | 0.0312 | 0.1560 |
+| memotrap | 0.1090 | 5/5 | 0.0312 | 0.1560 |
+| nq_swap | 0.1148 | 5/5 | 0.0312 | 0.1560 |
+| popqa | -0.1209 | 3/5 | 0.5000 | 0.5000 |
+
+## juice
+
+| Benchmark | Mean gap | Wins | One-sided sign p | Holm p |
+|---|---:|---:|---:|---:|
+| conflictbank | 0.1109 | 5/5 | 0.0312 | 0.1560 |
+| faitheval | 0.1059 | 5/5 | 0.0312 | 0.1560 |
+| memotrap | 0.1039 | 5/5 | 0.0312 | 0.1560 |
+| nq_swap | 0.1046 | 5/5 | 0.0312 | 0.1560 |
+| popqa | 0.0356 | 4/5 | 0.1875 | 0.1875 |
+
+## nwcad
+
+| Benchmark | Mean gap | Wins | One-sided sign p | Holm p |
+|---|---:|---:|---:|---:|
+| conflictbank | 0.1599 | 5/5 | 0.0312 | 0.1560 |
+| faitheval | 0.1426 | 5/5 | 0.0312 | 0.1560 |
+| memotrap | 0.1394 | 5/5 | 0.0312 | 0.1560 |
+| nq_swap | 0.1393 | 5/5 | 0.0312 | 0.1560 |
+| popqa | -0.0779 | 0/5 | 1.0000 | 1.0000 |
+
+## crag
+
+| Benchmark | Mean gap | Wins | One-sided sign p | Holm p |
+|---|---:|---:|---:|---:|
+| conflictbank | 0.1832 | 5/5 | 0.0312 | 0.1560 |
+| faitheval | 0.1720 | 5/5 | 0.0312 | 0.1560 |
+| memotrap | 0.1716 | 5/5 | 0.0312 | 0.1560 |
+| nq_swap | 0.1773 | 5/5 | 0.0312 | 0.1560 |
+| popqa | -0.0674 | 3/5 | 0.5000 | 0.5000 |
+
+## cad
+
+| Benchmark | Mean gap | Wins | One-sided sign p | Holm p |
+|---|---:|---:|---:|---:|
+| conflictbank | 0.1120 | 5/5 | 0.0312 | 0.1560 |
+| faitheval | 0.1063 | 5/5 | 0.0312 | 0.1560 |
+| memotrap | 0.1042 | 5/5 | 0.0312 | 0.1560 |
+| nq_swap | 0.1051 | 5/5 | 0.0312 | 0.1560 |
+| popqa | 0.0385 | 4/5 | 0.1875 | 0.1875 |
+
+## cocoa
+
+| Benchmark | Mean gap | Wins | One-sided sign p | Holm p |
+|---|---:|---:|---:|---:|
+| conflictbank | 0.0544 | 5/5 | 0.0312 | 0.1560 |
+| faitheval | 0.0510 | 5/5 | 0.0312 | 0.1560 |
+| memotrap | 0.0495 | 5/5 | 0.0312 | 0.1560 |
+| nq_swap | 0.0502 | 5/5 | 0.0312 | 0.1560 |
+| popqa | 0.0171 | 4/5 | 0.1875 | 0.1875 |

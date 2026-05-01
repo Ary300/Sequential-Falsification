@@ -93,7 +93,7 @@ def brier_to_oracle(y_true: np.ndarray, y_pred: np.ndarray) -> float:
 
 
 def run_experiment() -> dict:
-    violation_grid = [0.0, 0.1, 0.2, 0.35, 0.5, 0.75, 1.0]
+    violation_grid = [round(x * 0.1, 1) for x in range(11)]
     calibration_size = 2048
     seeds = list(range(10))
 
