@@ -283,6 +283,14 @@ def _extract_reasoning(text: str) -> str:
     if reasoning_lines:
         return "\n".join(reasoning_lines).strip()
 
+    answer_line = re.search(r"(?im)^\s*answer\s*:", text)
+    if answer_line:
+        prefix = text[: answer_line.start()].strip()
+        prefix = re.sub(r"(?im)^\s*reasoning\s*:\s*", "", prefix).strip()
+        prefix = re.sub(r"(?im)^\s*(question|context)\s*:.*$", "", prefix).strip()
+        if prefix:
+            return prefix
+
     answer_match = _ANSWER_RE.search(text)
     if answer_match:
         prefix = text[: answer_match.start()].strip()
