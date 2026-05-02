@@ -59,6 +59,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--max-prompt-length", type=int, default=768)
     parser.add_argument("--max-answer-length", type=int, default=24)
     parser.add_argument("--epochs", type=int, default=1)
+    parser.add_argument("--warmstart-epochs", type=int, default=1)
     parser.add_argument("--lr", type=float, default=5e-5)
     parser.add_argument("--weight-decay", type=float, default=1e-4)
     parser.add_argument("--beta", type=float, default=0.1, help="DPO temperature / GRPO-style regularization strength.")
@@ -193,6 +194,31 @@ def _tokenize_full(tokenizer: Any, prompt: str, completion: str, max_prompt_leng
     return prompt_ids, full_ids
 
 
+def _completion_ce_loss(model: Any, tokenizer: Any, prompt: str, completion: str, max_prompt_length: int) -> Any:
+    import torch
+    import torch.nn.functional as F
+
+    prompt_ids, full_ids = _tokenize_full(tokenizer, prompt, completion, max_prompt_length)
+    if len(full_ids) <= len(prompt_ids):
+        raise ValueError("Completion tokenization produced no target tokens.")
+    input_ids = torch.tensor([full_ids], dtype=torch.long, device=_device_of(model))
+    attention_mask = torch.ones_like(input_ids)
+    outputs = model(input_ids=input_ids, attention_mask=attention_mask, use_cache=False)
+    logits = outputs.logits[:, :-1, :]
+    targets = input_ids[:, 1:]
+    loss_per_token = F.cross_entropy(
+        logits.reshape(-1, logits.shape[-1]),
+        targets.reshape(-1),
+        reduction="none",
+    ).reshape_as(targets)
+    target_mask = torch.zeros_like(targets, dtype=torch.float32)
+    prompt_boundary = max(len(prompt_ids) - 1, 0)
+    if prompt_boundary < target_mask.shape[1]:
+        target_mask[:, prompt_boundary:] = 1.0
+    denom = target_mask.sum().clamp_min(1.0)
+    return (loss_per_token * target_mask).sum() / denom
+
+
 def _sequence_logprob(model: Any, tokenizer: Any, prompt: str, completion: str, max_prompt_length: int) -> Any:
     import torch
     import torch.nn.functional as F
@@ -313,6 +339,28 @@ def _dpo_epoch(model: Any, tokenizer: Any, train_rows: list[dict[str, Any]], arg
     return float(sum(running) / max(1, len(running)))
 
 
+def _sft_epoch(model: Any, tokenizer: Any, train_rows: list[dict[str, Any]], args: argparse.Namespace) -> float:
+    import torch
+
+    optimizer = torch.optim.AdamW(
+        [param for param in model.parameters() if param.requires_grad],
+        lr=args.lr,
+        weight_decay=args.weight_decay,
+    )
+    rng = random.Random(args.seed)
+    shuffled = list(train_rows)
+    rng.shuffle(shuffled)
+    running = []
+    model.train()
+    for row in shuffled:
+        optimizer.zero_grad(set_to_none=True)
+        loss = _completion_ce_loss(model, tokenizer, row["prompt"], row["chosen"], args.max_prompt_length)
+        loss.backward()
+        optimizer.step()
+        running.append(float(loss.item()))
+    return float(sum(running) / max(1, len(running)))
+
+
 def _grpo_epoch(model: Any, tokenizer: Any, train_rows: list[dict[str, Any]], args: argparse.Namespace) -> float:
     import torch
 
@@ -364,6 +412,17 @@ def _grpo_epoch(model: Any, tokenizer: Any, train_rows: list[dict[str, Any]], ar
 
 def _train(model: Any, tokenizer: Any, train_rows: list[dict[str, Any]], val_rows: list[dict[str, Any]], args: argparse.Namespace) -> list[dict[str, float]]:
     history = []
+    for epoch in range(1, args.warmstart_epochs + 1):
+        train_loss = _sft_epoch(model, tokenizer, train_rows, args)
+        val_metrics = _evaluate_model(model, tokenizer, val_rows, args, adapters_enabled=True)
+        history.append(
+            {
+                "stage": "warmstart_sft",
+                "epoch": epoch,
+                "train_loss": round(train_loss, 6),
+                "val_accuracy": round(float(val_metrics["accuracy"]), 6),
+            }
+        )
     for epoch in range(1, args.epochs + 1):
         if args.objective == "dpo":
             train_loss = _dpo_epoch(model, tokenizer, train_rows, args)
@@ -372,6 +431,7 @@ def _train(model: Any, tokenizer: Any, train_rows: list[dict[str, Any]], val_row
         val_metrics = _evaluate_model(model, tokenizer, val_rows, args, adapters_enabled=True)
         history.append(
             {
+                "stage": args.objective,
                 "epoch": epoch,
                 "train_loss": round(train_loss, 6),
                 "val_accuracy": round(float(val_metrics["accuracy"]), 6),
@@ -451,6 +511,7 @@ def main() -> None:
             "num_train_rows": len(train_rows),
             "num_val_rows": len(val_rows),
             "num_eval_rows": len(eval_rows),
+            "warmstart_epochs": args.warmstart_epochs,
             "epochs": args.epochs,
             "lr": args.lr,
             "weight_decay": args.weight_decay,
