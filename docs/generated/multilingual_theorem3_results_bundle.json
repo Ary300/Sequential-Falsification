@@ -1,0 +1,41 @@
+{
+  "headline": {
+    "mean_conflict_ece_delta": null,
+    "mean_conflict_minus_no_conflict_ece_delta": null,
+    "mean_no_conflict_ece_delta": null,
+    "runs_ready": 0,
+    "runs_total": 6
+  },
+  "runs": [
+    {
+      "label": "mistral_5lang",
+      "status": "missing",
+      "summary_path": "results/mistral7b_theorem3_multilingual_v1/theorem3_report/theorem3_summary.json"
+    },
+    {
+      "label": "gemma9_5lang",
+      "status": "missing",
+      "summary_path": "results/gemma9b_theorem3_multilingual_v1/theorem3_report/theorem3_summary.json"
+    },
+    {
+      "label": "mistral_ja",
+      "status": "missing",
+      "summary_path": "results/mistral7b_theorem3_multilingual_ja_v1/theorem3_report/theorem3_summary.json"
+    },
+    {
+      "label": "mistral_ar",
+      "status": "missing",
+      "summary_path": "results/mistral7b_theorem3_multilingual_ar_v1/theorem3_report/theorem3_summary.json"
+    },
+    {
+      "label": "mistral_fr",
+      "status": "missing",
+      "summary_path": "results/mistral7b_theorem3_multilingual_fr_v1/theorem3_report/theorem3_summary.json"
+    },
+    {
+      "label": "mistral_pt",
+      "status": "missing",
+      "summary_path": "results/mistral7b_theorem3_multilingual_pt_v1/theorem3_report/theorem3_summary.json"
+    }
+  ]
+}
