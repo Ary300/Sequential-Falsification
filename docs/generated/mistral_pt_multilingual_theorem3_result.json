@@ -1,0 +1,21 @@
+{
+  "headline": {
+    "conflict_minus_no_conflict_ece_delta": 0.0,
+    "mean_conflict_ece_delta": 0.127,
+    "mean_conflict_overconfidence_gap_delta": -0.057,
+    "mean_conflict_reasoning_word_delta": 25.0,
+    "mean_no_conflict_ece_delta": 0.127,
+    "mean_no_conflict_overconfidence_gap_delta": -0.057
+  },
+  "coverage": {
+    "benchmarks": [
+      "wikicontradict_pt"
+    ],
+    "num_groups": 6,
+    "num_rows": 60
+  },
+  "metadata": {
+    "model": "mistralai/Mistral-7B-Instruct-v0.3",
+    "screening": {}
+  }
+}

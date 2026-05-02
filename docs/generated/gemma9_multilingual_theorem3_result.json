@@ -1,0 +1,25 @@
+{
+  "headline": {
+    "conflict_minus_no_conflict_ece_delta": 0.007,
+    "mean_conflict_ece_delta": 0.0126,
+    "mean_conflict_overconfidence_gap_delta": 0.0306,
+    "mean_conflict_reasoning_word_delta": 15.04,
+    "mean_no_conflict_ece_delta": 0.0056,
+    "mean_no_conflict_overconfidence_gap_delta": 0.0236
+  },
+  "coverage": {
+    "benchmarks": [
+      "wikicontradict_de",
+      "wikicontradict_es",
+      "wikicontradict_fr",
+      "wikicontradict_it",
+      "wikicontradict_pt"
+    ],
+    "num_groups": 30,
+    "num_rows": 300
+  },
+  "metadata": {
+    "model": "google/gemma-2-9b-it",
+    "screening": {}
+  }
+}

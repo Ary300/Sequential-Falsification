@@ -20,11 +20,11 @@ from utils.io import dump_json  # noqa: E402
 DEFAULT_RUNS = ",".join(
     [
         "mistral_5lang=docs/generated/mistral_multilingual_theorem3_result.json",
-        "gemma9_5lang=results/gemma9b_theorem3_multilingual_v1/theorem3_report/theorem3_summary.json",
-        "mistral_ja=results/mistral7b_theorem3_multilingual_ja_v1/theorem3_report/theorem3_summary.json",
-        "mistral_ar=results/mistral7b_theorem3_multilingual_ar_v1/theorem3_report/theorem3_summary.json",
-        "mistral_fr=results/mistral7b_theorem3_multilingual_fr_v1/theorem3_report/theorem3_summary.json",
-        "mistral_pt=results/mistral7b_theorem3_multilingual_pt_v1/theorem3_report/theorem3_summary.json",
+        "gemma9_5lang=docs/generated/gemma9_multilingual_theorem3_result.json",
+        "mistral_ja=docs/generated/mistral_ja_multilingual_theorem3_result.json",
+        "mistral_ar=docs/generated/mistral_ar_multilingual_theorem3_result.json",
+        "mistral_fr=docs/generated/mistral_fr_multilingual_theorem3_result.json",
+        "mistral_pt=docs/generated/mistral_pt_multilingual_theorem3_result.json",
     ]
 )
 
