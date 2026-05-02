@@ -24,6 +24,7 @@ submit_job() {
   MAX_TRAIN_ROWS="${max_train}" \
   MAX_VAL_ROWS="${max_val}" \
   MAX_EVAL_ROWS="${max_eval}" \
+  TEMPERATURE=0.8 \
   RUN_THEOREM3_EVAL=1 \
   EVAL_WIKICONTRADICT_MAX=96 \
   EVAL_CONFLICTBANK_MAX=128 \

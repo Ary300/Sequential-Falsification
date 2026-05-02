@@ -276,7 +276,8 @@ def _generate_answer(model: Any, tokenizer: Any, prompt: str, max_prompt_length:
         "use_cache": False,
     }
     if do_sample:
-        generation_kwargs["temperature"] = temperature
+        safe_temperature = float(temperature) if temperature and float(temperature) > 0.0 else 0.8
+        generation_kwargs["temperature"] = safe_temperature
         generation_kwargs["top_p"] = top_p
     with torch.no_grad():
         sequences = model.generate(**generation_kwargs)
