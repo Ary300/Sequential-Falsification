@@ -3,8 +3,8 @@
     "languages_run": 5,
     "languages_with_any_conflict_hit": 3,
     "languages_with_any_gold_hit": 3,
-    "mean_topk_conflict_hit_rate": 0.1,
-    "mean_topk_gold_hit_rate": 0.1
+    "mean_topk_conflict_hit_rate": 0.08,
+    "mean_topk_gold_hit_rate": 0.08
   },
   "metadata": {
     "languages": [
@@ -13,7 +13,519 @@
       "de",
       "it",
       "pt"
-    ]
+    ],
+    "max_examples_per_language": 10,
+    "top_k": 3
+  },
+  "payloads": {
+    "de": {
+      "examples": [
+        {
+          "conflict_translated": [
+            "Aporphin"
+          ],
+          "gold_translated": [
+            "Apomorphin",
+            "Aporphin"
+          ],
+          "id": "1",
+          "question_en": "Which of the following are present in Nymphaea nouchali var. caerulea: apomorphine, aporphine, or neither?",
+          "question_translated": "Welche der folgenden sind in Nymphaea nouchali var. caerulea vorhanden: Apomorphin, Aporphin oder keines von beiden?",
+          "results": []
+        },
+        {
+          "conflict_translated": [
+            "Ja."
+          ],
+          "gold_translated": [
+            "Nr.",
+            "Ja."
+          ],
+          "id": "2",
+          "question_en": "Are there any other missiles besides the P-500 Bazalt that influenced the design of P-700 Granit missile?",
+          "question_translated": "Gibt es neben der P-500 Bazalt noch andere Raketen, die das Design der P-700 Granit-Rakete beeinflusst haben?",
+          "results": []
+        },
+        {
+          "conflict_translated": [
+            "Ja."
+          ],
+          "gold_translated": [
+            "Nr.",
+            "Ja."
+          ],
+          "id": "3",
+          "question_en": "Did the formation of the grooves on Phobos occur as a single event?",
+          "question_translated": "Ist die Bildung der Rillen auf Phobos als ein einziges Ereignis aufgetreten?",
+          "results": [
+            {
+              "conflict_hit": true,
+              "extract": "Opportunity (englisch f\u00fcr Chance/Gelegenheit) war ein US-amerikanischer Erkundungsroboter zur geologischen Erforschung des Mars, der von 2004 bis 2018 aktiv war. Die Sonde wurde von der NASA am 7. Juli 2003 im Rahmen des Mars-Exploration-Rover-Programm gestartet. Sein urspr\u00fcnglicher Name lautete deswegen auch Mars Exploration Rover B (MER-B) und wurde dann sp\u00e4ter in Opportunity ge\u00e4ndert.\nSie landete am 25. Januar 2004 erfolgreich in einem kleinen Krater (in der Tiefebene Meridiani Planum), den die NASA sp\u00e4ter Eagle Crater taufte. Obwohl Opportunity nur f\u00fcr eine Missionsdauer von 90 sol ausgelegt war, blieb sie 5111 sol bis zum 10. Juni 2018 aktiv. Ihre Mission endete nach 14 Jahren und 219 Tagen, als die Sonde nach einem Staubsturm nicht wieder aus dem Ruhezustand aufgeweckt werden konnte. In dieser Zeit legte Opportunity eine Strecke von 45,16 km zur\u00fcck. Die NASA erkl\u00e4rte am 13. Februar 2019, dass das Programm erfolgreich beendet wurde, nachdem alle Kommunikationsversuche mit der Sonde fehlgeschlagen seien.\nDie Schwestersonde Spirit (MER-A) landete am 4. Januar 2004 im Gusev-Krater und war bis zum 22. M\u00e4rz 2010 aktiv.",
+              "gold_hit": true,
+              "snippet": "stieg die Stromerzeugung bis <span class=\"searchmatch\">auf</span> 745\u00a0Wh pro Sol. Durch <span class=\"searchmatch\">die</span> gute Energiesituation konnte wieder <span class=\"searchmatch\">der</span> Marsmond <span class=\"searchmatch\">Phobos</span> in <span class=\"searchmatch\">der</span> Nacht beobachtet werden. Zudem",
+              "title": "Opportunity"
+            }
+          ]
+        },
+        {
+          "conflict_translated": [
+            "nein"
+          ],
+          "gold_translated": [
+            "Ja",
+            "nein"
+          ],
+          "id": "4",
+          "question_en": "Did Bishop Heber meet D\u2019Oyly in the 1840s in Patna ?",
+          "question_translated": "Hat Bischof Heber D\u2019Oyly in den 1840er Jahren in Patna getroffen?",
+          "results": []
+        },
+        {
+          "conflict_translated": [
+            "Pr\u00e4sident Oler legte in den 1890er Jahren vor Gericht Berufung ein"
+          ],
+          "gold_translated": [
+            "Pr\u00e4sident Oler trat 1911 in den Zeugenstand",
+            "Pr\u00e4sident Oler legte in den 1890er Jahren vor Gericht Berufung ein"
+          ],
+          "id": "5",
+          "question_en": "What year did President Oler take the stand in court?",
+          "question_translated": "In welchem Jahr trat Pr\u00e4sident Oler vor Gericht?",
+          "results": []
+        }
+      ],
+      "failed_examples": [],
+      "headline": {
+        "target_label": "German",
+        "target_lang": "de",
+        "top1_conflict_hit_rate": 0.1,
+        "top1_gold_hit_rate": 0.1,
+        "topk_both_hit_rate": 0.1,
+        "topk_conflict_hit_rate": 0.1,
+        "topk_gold_hit_rate": 0.1
+      },
+      "metadata": {
+        "benchmark": "wikicontradict",
+        "completed_examples": 10,
+        "failed_examples": 0,
+        "language": "de",
+        "language_label": "German",
+        "num_examples": 10,
+        "retriever": "translated_query_plus_de_wikipedia_search"
+      }
+    },
+    "es": {
+      "examples": [
+        {
+          "conflict_translated": [
+            "Aporfinas"
+          ],
+          "gold_translated": [
+            "Apomorfina",
+            "Aporfinas"
+          ],
+          "id": "1",
+          "question_en": "Which of the following are present in Nymphaea nouchali var. caerulea: apomorphine, aporphine, or neither?",
+          "question_translated": "\u00bfCu\u00e1les de los siguientes est\u00e1n presentes en Nymphaea nouchali var. caerulea: apomorfina, aporfina o ninguno?",
+          "results": []
+        },
+        {
+          "conflict_translated": [
+            "S\u00ed."
+          ],
+          "gold_translated": [
+            "No.",
+            "S\u00ed."
+          ],
+          "id": "2",
+          "question_en": "Are there any other missiles besides the P-500 Bazalt that influenced the design of P-700 Granit missile?",
+          "question_translated": "\u00bfHay alg\u00fan otro misil adem\u00e1s del P-500 Bazalt que haya influido en el dise\u00f1o del misil P-700 Granit?",
+          "results": []
+        },
+        {
+          "conflict_translated": [
+            "S\u00ed."
+          ],
+          "gold_translated": [
+            "No.",
+            "S\u00ed."
+          ],
+          "id": "3",
+          "question_en": "Did the formation of the grooves on Phobos occur as a single event?",
+          "question_translated": "\u00bfLa formaci\u00f3n de los surcos en Fobos ocurri\u00f3 como un solo evento?",
+          "results": [
+            {
+              "conflict_hit": false,
+              "extract": "Fobos (del griego \u03a6\u00f3\u03b2o\u03c2, \"miedo\") es el m\u00e1s grande de los dos sat\u00e9lites de Marte y el m\u00e1s cercano al planeta, siendo Deimos el otro sat\u00e9lite. Ambos fueron descubiertos por el astr\u00f3nomo estadounidense Asaph Hall (1829-1907) el 18 de agosto de 1877, con el gran refractor de 66 cm del Observatorio Naval de los Estados Unidos de Washington D. C., obra del \u00f3ptico estadounidense Alvan Clark (1804-1887). Fue el propio descubridor el que propuso los nombres, inspirado por el libro XV de la Il\u00edada, en el que el dios Ares (Marte en la mitolog\u00eda romana) invoca al miedo (fobos) y al terror (deimos).\nFobos es un peque\u00f1o sat\u00e9lite, de forma irregular, cuyo radio medio es de once kil\u00f3metros.\u200b Siempre presenta la misma cara a Marte, debido al anclaje por marea ejercido por el planeta. Orbita a unos 6000 kil\u00f3metros de la superficie marciana, lo que le convierte en el sat\u00e9lite m\u00e1s pr\u00f3ximo a su planeta del sistema solar.\u200b Estas fuerzas de marea crean una desaceleraci\u00f3n en Fobos, perdiendo este velocidad orbital, lo que ocasionar\u00e1 su colisi\u00f3n con Marte dentro de unos 50 a 100 millones de a\u00f1os, o bien su desintegraci\u00f3n y formaci\u00f3n de un anillo alrededor del planeta.\u200b\n\n",
+              "gold_hit": true,
+              "snippet": "<span class=\"searchmatch\">Fobos</span> (del griego \u03a6\u00f3\u03b2o\u03c2, &quot;miedo&quot;) es el m\u00e1s grande <span class=\"searchmatch\">de</span> <span class=\"searchmatch\">los</span> dos sat\u00e9lites <span class=\"searchmatch\">de</span> Marte y el m\u00e1s cercano al planeta, siendo Deimos el otro sat\u00e9lite. Ambos fueron",
+              "title": "Fobos (sat\u00e9lite)"
+            },
+            {
+              "conflict_hit": true,
+              "extract": "Heracles o H\u00e9racles\u200b (en griego antiguo: \u1f29\u03c1\u03b1\u03ba\u03bb\u1fc6\u03c2),\u200b llamado H\u00e9rcules por los romanos, es el h\u00e9roe\u200b m\u00e1s c\u00e9lebre de la mitolog\u00eda griega.\u200b Es especialmente conocido por su fuerza sobrehumana,\u200b su car\u00e1cter heroico y civilizador, y por sus extraordinarias haza\u00f1as \u2014en especial los doce trabajos.\u200b La iconograf\u00eda lo representa como un adulto robusto y musculoso, armado con una clava de acebuche\u200b y cubierta su cabeza con una piel de le\u00f3n.\u200b\u200b\nConsiderado un semidi\u00f3s por su origen,\u200b fue finalmente divinizado tras su muerte.\u200b En la antigua religi\u00f3n griega Heracles recib\u00eda dos tipos de culto: como h\u00e9roe y como dios; el primero se practicaba con libaciones y el divino, en templos y con sacrificios en su honor.\u200b Por este motivo el poeta P\u00edndaro lo denomin\u00f3: \u1f25\u03c1\u03c9\u03c2 \u03b8\u03b5\u03cc\u03c2 (h\u00e9r\u014ds the\u00f3s), esto es, h\u00e9roe-dios (\u2018h\u00e9roe divino\u2019).\u200b Her\u00f3doto, por su parte, lo incluy\u00f3 entre los dioses ol\u00edmpicos.\u200b Es por ello que ya en las fuentes arcaicas se usa una paradoja ontol\u00f3gica: la sombra (\u03b5\u1f34\u03b4\u03c9\u03bb\u03bf\u03bd) de Heracles reside en el inframundo como h\u00e9roe en tanto que su parte divina convive en el Olimpo.\u200b \nLa tradici\u00f3n m\u00e1s com\u00fan dice que Heracles es hijo de Zeus y la mortal Alcmena, as\u00ed como hijo adoptivo de Anfitri\u00f3n y bisnieto de Perseo.\u200b Al nacer fue llamado Alceo (\u1f08\u03bb\u03ba\u03b1\u1fd6\u03bf\u03c2) o Alcides (\u1f08\u03bb\u03ba\u03b5\u03af\u03b4\u03b7\u03c2), en honor a su abuelo Alceo;\u200b nombre que evoca la idea de \u00abfuerza\u00bb (en griego: \u1f00\u03bb\u03ba\u03ae).\u200b En su edad adulta recibi\u00f3 el nombre con que se lo conoce, a trav\u00e9s de la Pitia, para indicar su condici\u00f3n de servidor de la diosa Hera, pues Heracles significa: \u00abgloria de Hera\u00bb (\u1f2d\u03c1\u03b1 y \u03ba\u03bb\u03ad\u03bf\u03c2).\u200b\u200b\u200b",
+              "gold_hit": true,
+              "snippet": "adem\u00e1s hiri\u00f3 a Ares <span class=\"searchmatch\">en</span> el muslo. Pero entonces <span class=\"searchmatch\">Fobos</span> y Deimos, hijos <span class=\"searchmatch\">de</span> Ares, se llevaron a su padre al Olimpo para que se recuperara <span class=\"searchmatch\">de</span> sus heridas.\u200b Se",
+              "title": "Heracles"
+            }
+          ]
+        },
+        {
+          "conflict_translated": [
+            "No"
+          ],
+          "gold_translated": [
+            "S\u00ed",
+            "No"
+          ],
+          "id": "4",
+          "question_en": "Did Bishop Heber meet D\u2019Oyly in the 1840s in Patna ?",
+          "question_translated": "\u00bfEl obispo Heber conoci\u00f3 a D\u2019Oyly en la d\u00e9cada de 1840 en Patna ?",
+          "results": [
+            {
+              "conflict_hit": true,
+              "extract": "La historia de Daca, una de las megaciudades habitadas m\u00e1s antiguas del mundo, comienza con la existencia de los primeros asentamientos urbanizados en el \u00e1rea de lo que ahora se conoce como Daca, los cuales datan del siglo VII. El \u00e1rea de la ciudad fue gobernada por el reino hind\u00fa de Gauda, el budismo y el Imperio shiva\u00edsta de Pala antes de pasar al control de la dinast\u00eda hind\u00fa Sena en el siglo X.\u200b Despu\u00e9s de la dinast\u00eda Sena, la ciudad fue gobernada por la dinast\u00eda hind\u00fa Deva.\u200b Daca fue gobernada sucesivamente por los turcos y gobernadores afganos descendientes del Sultanato de Delhi, seguido por el Sultanato de Bengala, antes de la llegada de los mogoles en el a\u00f1o 1608. La ciudad se convirti\u00f3 en protoindustrializada y declarada capital de Sub\u00e1 de Bengala y capital comercial (financiera) de India Mogol. El puerto fluvial natural de Daca tiene una existencia registrada desde el siglo XVI. La ubicaci\u00f3n ribere\u00f1a estrat\u00e9gica de Daca en Bengala la convirti\u00f3 en un centro para los comerciantes euroasi\u00e1ticos, incluidos armenios, portugueses, franceses, holandeses y brit\u00e1nicos. La bulliciosa ciudad vieja era conocida como la Venecia del Este. Despu\u00e9s de los mogoles, los brit\u00e1nicos gobernaron la regi\u00f3n durante alrededor de 200 a\u00f1os hasta la independencia de la India en 1947. Cabe mencionar que despu\u00e9s de la Independencia de Banglad\u00e9s en 1971, Daca se convirti\u00f3 en la capital oficia del nuevo estado.",
+              "gold_hit": true,
+              "snippet": "<span class=\"searchmatch\">de</span> todas las pinturas. James Atkinson escribi\u00f3 estos relatos, acompa\u00f1ados <span class=\"searchmatch\">de</span> grabados hechos por Landseer. <span class=\"searchmatch\">En</span> 1824, un <span class=\"searchmatch\">obispo</span> ingl\u00e9s, Reginald <span class=\"searchmatch\">Heber</span>,",
+              "title": "Historia de Daca"
+            }
+          ]
+        },
+        {
+          "conflict_translated": [
+            "El presidente Oler apel\u00f3 ante el tribunal en la d\u00e9cada de 1890"
+          ],
+          "gold_translated": [
+            "El presidente Oler subi\u00f3 al estrado en 1911",
+            "El presidente Oler apel\u00f3 ante el tribunal en la d\u00e9cada de 1890"
+          ],
+          "id": "5",
+          "question_en": "What year did President Oler take the stand in court?",
+          "question_translated": "\u00bfEn qu\u00e9 a\u00f1o el presidente Oler subi\u00f3 al estrado en el tribunal?",
+          "results": []
+        }
+      ],
+      "failed_examples": [],
+      "headline": {
+        "target_label": "Spanish",
+        "target_lang": "es",
+        "top1_conflict_hit_rate": 0.1,
+        "top1_gold_hit_rate": 0.2,
+        "topk_both_hit_rate": 0.2,
+        "topk_conflict_hit_rate": 0.2,
+        "topk_gold_hit_rate": 0.2
+      },
+      "metadata": {
+        "benchmark": "wikicontradict",
+        "completed_examples": 10,
+        "failed_examples": 0,
+        "language": "es",
+        "language_label": "Spanish",
+        "num_examples": 10,
+        "retriever": "translated_query_plus_es_wikipedia_search"
+      }
+    },
+    "fr": {
+      "examples": [
+        {
+          "conflict_translated": [
+            "Aporphine"
+          ],
+          "gold_translated": [
+            "Apomorphine",
+            "Aporphine"
+          ],
+          "id": "1",
+          "question_en": "Which of the following are present in Nymphaea nouchali var. caerulea: apomorphine, aporphine, or neither?",
+          "question_translated": "Lesquels des \u00e9l\u00e9ments suivants sont pr\u00e9sents dans Nymphaea nouchali var. caerulea\u00a0: apomorphine, aporphine ou aucun des deux\u00a0?",
+          "results": []
+        },
+        {
+          "conflict_translated": [
+            "Oui."
+          ],
+          "gold_translated": [
+            "No.",
+            "Oui."
+          ],
+          "id": "2",
+          "question_en": "Are there any other missiles besides the P-500 Bazalt that influenced the design of P-700 Granit missile?",
+          "question_translated": "Existe-t-il d'autres missiles que le P-500 Bazalt qui ont influenc\u00e9 la conception du missile P-700 Granit\u00a0?",
+          "results": []
+        },
+        {
+          "conflict_translated": [
+            "Oui."
+          ],
+          "gold_translated": [
+            "No.",
+            "Oui."
+          ],
+          "id": "3",
+          "question_en": "Did the formation of the grooves on Phobos occur as a single event?",
+          "question_translated": "La formation des rainures sur Phobos s'est-elle produite en un seul \u00e9v\u00e9nement\u00a0?",
+          "results": []
+        },
+        {
+          "conflict_translated": [
+            "Non"
+          ],
+          "gold_translated": [
+            "Oui",
+            "Non"
+          ],
+          "id": "4",
+          "question_en": "Did Bishop Heber meet D\u2019Oyly in the 1840s in Patna ?",
+          "question_translated": "L'\u00e9v\u00eaque Heber a-t-il rencontr\u00e9 D\u2019Oyly dans les ann\u00e9es 1840 \u00e0 Patna\u00a0?",
+          "results": []
+        },
+        {
+          "conflict_translated": [
+            "Le pr\u00e9sident Oler fait appel devant les tribunaux dans les ann\u00e9es 1890"
+          ],
+          "gold_translated": [
+            "Le pr\u00e9sident Oler a pris la parole en 1911",
+            "Le pr\u00e9sident Oler fait appel devant les tribunaux dans les ann\u00e9es 1890"
+          ],
+          "id": "5",
+          "question_en": "What year did President Oler take the stand in court?",
+          "question_translated": "En quelle ann\u00e9e le pr\u00e9sident Oler a-t-il pris la parole devant le tribunal\u00a0?",
+          "results": [
+            {
+              "conflict_hit": false,
+              "extract": "Robert Brasillach ([\u0281\u0254b\u025b\u0281 b\u0281azijak] ), n\u00e9 le 31 mars 1909 \u00e0 Perpignan et mort fusill\u00e9 le 6 f\u00e9vrier 1945 au fort de Montrouge, \u00e0 Arcueil, est un homme de lettres, journaliste et collaborateur fran\u00e7ais.\nOutre ses activit\u00e9s litt\u00e9raires, il est surtout connu pour son engagement politique \u00e0 l'extr\u00eame droite : form\u00e9 \u00e0 l'Action fran\u00e7aise, il \u00e9volue vers le fascisme dans les ann\u00e9es 1930 (tout en continuant d'\u00e9crire dans L'Action fran\u00e7aise).\nSous l'Occupation, il devient r\u00e9dacteur en chef du journal collaborationniste et antis\u00e9mite Je suis partout. Par la suite, durant l'\u00e9puration, il est jug\u00e9 par un tribunal d'exception pour \u00ab intelligence avec l'ennemi \u00bb, condamn\u00e9 et fusill\u00e9.",
+              "gold_hit": false,
+              "snippet": "Gaulle est <span class=\"searchmatch\">pr\u00e9sident</span> de <span class=\"searchmatch\">la</span> R\u00e9publique, Alain Peyrefitte lui aurait demand\u00e9 <span class=\"searchmatch\">quelle</span> serait son attitude, apr\u00e8s toutes ces <span class=\"searchmatch\">ann\u00e9es</span>. Selon lui, <span class=\"searchmatch\">le</span> chef de l&#039;\u00c9tat",
+              "title": "Robert Brasillach"
+            },
+            {
+              "conflict_hit": false,
+              "extract": "Auschwitz (en allemand : Konzentrationslager Auschwitz , \u00ab camp de concentration d'Auschwitz \u00bb) est le plus grand complexe concentrationnaire du Troisi\u00e8me Reich, et est \u00e0 la fois un camp de concentration, un centre de mise \u00e0 mort et un camp d'extermination par le travail. Le camp est divis\u00e9 en trois parties distinctes : le camp de concentration Auschwitz I, initialement camp de prisonniers polonais ; le camp d\u2019extermination Auschwitz II, initialement camp de prisonniers de guerre sovi\u00e9tiques ; le camp de travailleurs forc\u00e9s Auschwitz III, fabrique de caoutchouc synth\u00e9tique, carburant synth\u00e9tique, explosifs, engrais etc, construit par IG Farben.\nEn effet, Auschwitz est aussi un centre industriel et un n\u0153ud de communication ferroviaire situ\u00e9 sur le territoire des localit\u00e9s d'O\u015bwi\u0119cim (Auschwitz en allemand) et de Brzezinka (Birkenau en allemand), \u00e0 une cinquantaine de kilom\u00e8tres \u00e0 l'ouest de Cracovie, dans la province de Sil\u00e9sie, occup\u00e9e par l'Allemagne apr\u00e8s l'invasion de la Pologne en septembre 1939.\nLe camp de concentration est cr\u00e9\u00e9 le 27 avril 1940 \u00e0 l'initiative de Heinrich Himmler et est dirig\u00e9 par les SS. Le centre d\u2019extermination est construit \u00e0 partir de la fin de 1941 et le second camp de concentration, destin\u00e9 au travail forc\u00e9 \u00e0 IG Farben est cr\u00e9\u00e9 au printemps 1942. Ces camps sont lib\u00e9r\u00e9s par l'Arm\u00e9e rouge le 27 janvier 1945.\nL'ensemble du camp et ses divers terrains annexes, dont le n\u0153ud ferroviaire de l'\u00e9poque, a une superficie d\u2019environ 55 km2 dont environ 10 km2 pour le camp \u00e0 lui seul. C'est une enclave m\u00e9morielle perp\u00e9tuelle dans le territoire de la Pologne d'aujourd'hui.\nEn cinq ans, plus de 1 100 000 hommes, femmes et enfants meurent \u00e0 Auschwitz, essentiellement \u00e0 partir de 1942 dans le cadre de ce que les nazis appel\u00e8rent la \u00ab Solution finale de la question juive \u00bb. Parmi ces victimes, 900 000 sont tu\u00e9es le jour m\u00eame de leur d\u00e9barquement des trains qui les ont amen\u00e9es, assassin\u00e9es dans les chambres \u00e0 gaz et incin\u00e9r\u00e9es dans les fours cr\u00e9matoires. Les autres victimes meurent des mauvais traitements qui leur sont inflig\u00e9s, de maladies, de malnutrition, voire \u00e0 la suite d'exp\u00e9riences m\u00e9dicales.\nUn nombre encore incertain de Tsiganes y sont \u00e9galement assassin\u00e9s. Cette trag\u00e9die est connue sous le nom de porajmos dans la m\u00e9moire collective rom.\nComme les autres camps de concentration nazis, Auschwitz \u00e9tait plac\u00e9 sous les ordres de Heinrich Himmler et de la SS. Le responsable du camp fut le SS-Obersturmbannf\u00fchrer Rudolf H\u00f6ss (du 1er mai 1940 au 1er d\u00e9cembre 1943, puis de nouveau entre mai et septembre 1944), remplac\u00e9 entre-temps par Arthur Liebehenschel, et ensuite par Richard Baer.\nEn raison de sa taille, Auschwitz est consid\u00e9r\u00e9 comme le symbole des meurtres de masse commis par les nazis et plus particuli\u00e8rement comme celui de la Shoah, au cours de laquelle pr\u00e8s de six millions de Juifs furent assassin\u00e9s.\nMonument historique majeur contribuant au \u00ab devoir de m\u00e9moire \u00bb, Auschwitz est, depuis 1979, inscrit au patrimoine mondial de l'Unesco. Le nom officiel du site comm\u00e9moratif est Auschwitz-Birkenau, camp allemand nazi de concentration et d'extermination (1940-1945).",
+              "gold_hit": false,
+              "snippet": " <span class=\"searchmatch\">La</span> sage-femme d\u2019Auschwitz, J\u2019ai Lu, 2023 Album d&#039;Auschwitz (voir \u00e9galement Solah\u00fctte) Apr\u00e8s <span class=\"searchmatch\">le</span> gazage et Dans <span class=\"searchmatch\">la</span> salle des fours de David <span class=\"searchmatch\">Ol\u00e8re</span> <span class=\"searchmatch\">La</span> Passag\u00e8re",
+              "title": "Auschwitz"
+            },
+            {
+              "conflict_hit": false,
+              "extract": "Le Konzentrationslager (KL) Natzweiler, plus connu en France sous le nom de camp du Struthof ou camp de concentration de Natzweiler-Struthof, est un camp de concentration nazi implant\u00e9 en 1941 sur le territoire de l'Alsace annex\u00e9e de fait par l'Allemagne nazie.\nEn septembre 1940, les nazis d\u00e9couvrent, sur le mont Louise, \u00e0 proximit\u00e9 du village de Natzwiller, germanis\u00e9 en Natzweiler, un filon de granit rose. En mars 1941, Himmler ordonne d'implanter sur le site un camp de concentration pour exploiter la roche au profit du Reich.\nEntre 1941 et 1945, environ 50 000 prisonniers sont enregistr\u00e9s au camp principal et/ou dans son r\u00e9seau de camps annexes. Trente-deux nationalit\u00e9s y sont repr\u00e9sent\u00e9es. Pour le camp principal, les d\u00e9tenus sont majoritairement des opposants politiques ou des r\u00e9sistants. Pour les camps annexes, ce sont essentiellement des travailleurs forc\u00e9s rafl\u00e9s dans les pays de l'Est de l'Europe, dont 17 % sont juifs.\nLe KL Natzweiler est le seul camp de concentration \u00e9tabli par les nazis sur le territoire fran\u00e7ais. Des exp\u00e9riences m\u00e9dicales y sont r\u00e9alis\u00e9es sur des d\u00e9tenus du camp principal. En 1942, il devient un lieu d'ex\u00e9cution pour les condamnations \u00e0 mort prononc\u00e9es par les tribunaux nazis d'Alsace-Moselle et du Bade-Wurtemberg. \u00c0 la fin de l'ann\u00e9e, il commence \u00e0 d\u00e9velopper un r\u00e9seau de camps annexes. En 1943, Natzweiler est d\u00e9sign\u00e9 comme camp de regroupement de tous les d\u00e9tenus masculins, victimes du d\u00e9cret Nuit et brouillard, d\u00e9tenus dits \u00ab NN \u00bb (en allemand : Nacht und Nebel).\nFait unique dans l'histoire concentrationnaire, Natzweiler est le seul KL qui continue \u00e0 fonctionner, via ses camps annexes, apr\u00e8s l'\u00e9vacuation du camp principal. On estime \u00e0 17 000 le nombre de morts dans le camp et dans son r\u00e9seau de camps annexes. C'est le premier camp de concentration d\u00e9couvert par les Am\u00e9ricains le 25 novembre 1944 (sur l'autre front, \u00e0 l'est, Majdanek fut le premier camp de la mort d\u00e9couvert par les Sovi\u00e9tiques le 24 juillet 1944).",
+              "gold_hit": false,
+              "snippet": "<span class=\"searchmatch\">En</span> 1942, <span class=\"searchmatch\">il</span> devient un lieu d&#039;ex\u00e9cution pour les condamnations <span class=\"searchmatch\">\u00e0</span> mort prononc\u00e9es par les <span class=\"searchmatch\">tribunaux</span> nazis d&#039;Alsace-Moselle et du Bade-Wurtemberg. <span class=\"searchmatch\">\u00c0</span> <span class=\"searchmatch\">la</span>",
+              "title": "Camp de concentration de Natzweiler-Struthof"
+            }
+          ]
+        }
+      ],
+      "failed_examples": [],
+      "headline": {
+        "target_label": "French",
+        "target_lang": "fr",
+        "top1_conflict_hit_rate": 0.0,
+        "top1_gold_hit_rate": 0.0,
+        "topk_both_hit_rate": 0.0,
+        "topk_conflict_hit_rate": 0.0,
+        "topk_gold_hit_rate": 0.0
+      },
+      "metadata": {
+        "benchmark": "wikicontradict",
+        "completed_examples": 10,
+        "failed_examples": 0,
+        "language": "fr",
+        "language_label": "French",
+        "num_examples": 10,
+        "retriever": "translated_query_plus_fr_wikipedia_search"
+      }
+    },
+    "it": {
+      "examples": [
+        {
+          "conflict_translated": [
+            "Aporfina"
+          ],
+          "gold_translated": [
+            "Apomorfina",
+            "Aporfina"
+          ],
+          "id": "1",
+          "question_en": "Which of the following are present in Nymphaea nouchali var. caerulea: apomorphine, aporphine, or neither?",
+          "question_translated": "Quali dei seguenti sono presenti in Nymphaea nouchali var. caerulea: apomorfina, aporfina o nessuna delle due?",
+          "results": []
+        },
+        {
+          "conflict_translated": [
+            "S\u00ec, s\u00ec."
+          ],
+          "gold_translated": [
+            "N&#176;",
+            "S\u00ec, s\u00ec."
+          ],
+          "id": "2",
+          "question_en": "Are there any other missiles besides the P-500 Bazalt that influenced the design of P-700 Granit missile?",
+          "question_translated": "Ci sono altri missili oltre al P-500 Bazalt che hanno influenzato il design del missile P-700 Granit?",
+          "results": []
+        },
+        {
+          "conflict_translated": [
+            "S\u00ec, s\u00ec."
+          ],
+          "gold_translated": [
+            "N&#176;",
+            "S\u00ec, s\u00ec."
+          ],
+          "id": "3",
+          "question_en": "Did the formation of the grooves on Phobos occur as a single event?",
+          "question_translated": "La formazione dei solchi su Phobos si \u00e8 verificata come un singolo evento?",
+          "results": [
+            {
+              "conflict_hit": true,
+              "extract": "Marte \u00e8 il quarto pianeta del sistema solare in ordine di distanza dal Sole; \u00e8 visibile a occhio nudo ed \u00e8 uno dei pianeti di tipo terrestre (roccioso) come  Mercurio, Venere e la Terra (1,52 unit\u00e0 astronomiche [227 000 000 km] di distanza dal Sole). Chiamato pianeta rosso per via del suo colore caratteristico causato dalla grande quantit\u00e0 di ossido di ferro che lo ricopre, Marte prende il nome dall'omonima divinit\u00e0 della mitologia romana e il suo simbolo astronomico \u00e8 la rappresentazione stilizzata dello scudo e della lancia del dio (; Unicode: \u2642).\nPur presentando temperature medie superficiali piuttosto basse (tra \u2212120 e \u221214 \u00b0C) e un'atmosfera molto rarefatta, \u00e8 il pianeta pi\u00f9 simile alla Terra tra quelli del sistema solare. Le sue dimensioni sono intermedie tra quelle del nostro pianeta e quelle della Luna, e l'inclinazione del suo asse di rotazione e la durata del giorno sono molto simili a quelle terrestri. La sua superficie presenta formazioni vulcaniche, valli, calotte polari e deserti sabbiosi, e formazioni geologiche che vi suggeriscono la presenza di un'idrosfera in un lontano passato. La superficie del pianeta appare fortemente craterizzata, a causa della quasi totale assenza di agenti erosivi (principalmente, l'attivit\u00e0 geologica, atmosferica e idrosferica) e dalla totale assenza di attivit\u00e0 tettonica delle placche capace di formare e poi modellare le strutture tettoniche. La bassissima densit\u00e0 dell'atmosfera non \u00e8 poi in grado di consumare buona parte delle meteore, che pertanto raggiungono il suolo con maggior frequenza che non sulla Terra. Tra le formazioni geologiche pi\u00f9 notevoli di Marte si segnalano: l'Olympus Mons, o monte Olimpo, il vulcano pi\u00f9 grande del sistema solare (alto 27 km); le Valles Marineris, un lungo canyon notevolmente pi\u00f9 esteso di quelli terrestri; e un enorme cratere sull'emisfero boreale, ampio circa il 40% dell'intera superficie marziana.\nAll'osservazione diretta, Marte presenta variazioni di colore, imputate storicamente alla presenza di vegetazione stagionale, che si modificano al variare dei periodi dell'anno; ma successive osservazioni spettroscopiche dell'atmosfera hanno da tempo fatto abbandonare l'ipotesi che vi potessero essere mari, canali e fiumi oppure un'atmosfera sufficientemente densa. La smentita finale arriv\u00f2 dalla missione Mariner 4, che nel 1965 mostr\u00f2 un pianeta desertico e arido, animato da tempeste di sabbia periodiche e particolarmente violente. Le missioni pi\u00f9 recenti hanno evidenziato la presenza di acqua ghiacciata.\nIntorno al pianeta orbitano due satelliti naturali, Fobos e Deimos, di piccole dimensioni e dalla forma irregolare.",
+              "gold_hit": true,
+              "snippet": "richiamano <span class=\"searchmatch\">la</span> mitologia greca secondo <span class=\"searchmatch\">la</span> quale <span class=\"searchmatch\">Phobos</span> e Deimos accompagnavano il padre Ares, Marte per i Romani, in battaglia. Non <span class=\"searchmatch\">\u00e8</span> ancora chiaro <span class=\"searchmatch\">come</span> e se",
+              "title": "Marte (astronomia)"
+            },
+            {
+              "conflict_hit": true,
+              "extract": "Il clima di Marte \u00e8 da secoli oggetto di curiosit\u00e0 scientifica sia perch\u00e9 \u00e8 l'unico pianeta terrestre la cui superficie pu\u00f2 essere facilmente osservata direttamente in dettaglio dalla Terra con l'aiuto di un telescopio, sia perch\u00e9 risulta possibile studiarne, con l'apposita strumentazione, la composizione atmosferica.\nSebbene Marte sia pi\u00f9 piccolo della Terra con solo un decimo della massa terrestre, e il 50% pi\u00f9 lontano dal Sole rispetto alla Terra (1,524 ua contro 1 ua del nostro pianeta) il suo clima presenta importanti somiglianze, come la presenza di calotte polari (simile alle nostre calotta glaciale artica e calotta glaciale antartica), cambiamenti stagionali e fenomeni meteorologici osservabili e modellizzabili partendo dalle conoscenze acquisite per il pianeta Terra, attirando l'attenzione di planetologi e climatologi e realizzando studi approfonditi. Comunque, anche se il clima di Marte presenta somiglianze con quello della Terra (comprese periodiche ere glaciali), esistono differenze importanti che ne diversificano il comportamento (come ad esempio un\u2019inerzia termica molto inferiore a quella terrestre). Infatti l'atmosfera di Marte ha un'altezza di scala di circa 11 chilometri, 60% maggiore di quella terrestre. Assieme alla struttura planetaria e a quella atmosferica, il clima di Marte e la sua evoluzione \u00e8 di notevole importanza per dare una risposta alla storica questione se la vita sia mai potuto esistere sul pianeta.\nMarte \u00e8 stato studiato con strumenti terrestri sin dal XVII secolo, ma \u00e8 solo da quando \u00e8 iniziata l'epoca della esplorazione di Marte, a met\u00e0 degli anni sessanta del XX secolo, che \u00e8 stata possibile l'osservazione a distanza ravvicinata. I veicoli spaziali in flyby ed in orbita del pianeta hanno fornito dati dall'alto dell'atmosfera, mentre lander e rover hanno misurato, sul posto dove risiedono, localmente le condizioni atmosferiche. Gli strumenti di oggi sofisticati e posti in orbita terrestre continuano a fornire utili osservazioni del quadro generale dei fenomeni meteorologici a scala relativamente grande che periodicamente avvengono sul pianeta rosso.\nLa prima missione di sorvolo marziano fu la Mariner 4, arrivata nel 1965. Quel rapido passaggio di due giorni (14-15 luglio 1965) con strumenti grezzi contribu\u00ec poco allo stato delle conoscenze del clima marziano. Le successive missioni Mariner (Mariner 6 e 7) colmarono alcune lacune nelle informazioni di base sul clima. Studi particolareggiati, basati sui dati ottenuti dalle missioni ma anche da osservazioni a terra, sono iniziati in maniera pi\u00f9 rigorosa con i lander del programma Viking nel 1975 e continuano tutt'oggi con le sonde come il Mars Reconnaissance Orbiter, il Mars Express, l'ExoMars con il suo Trace Gas Orbiter, HOPE della Emirates Mars Mission, la sonda MAVEN (Mars Atmosphere and Volatile EvolutioN), il 2001 Mars Odyssey e per finire con la missione cinese Tianwen-1.\nI dati ricavati dalle varie missioni di studio sulla dinamica climatica e sulla atmosfera di Marte hanno permesso alla NASA di definire una complessa simulazione digitale chiamata modello di circolazione generale di Marte (o MGCM, Mars General Circulation Model oggi tenuto dal Mars Climate Modeling Center) riferimento per ogni studio e ogni analisi relativa all'atmosfera e al clima marziano. Differenti iterazioni del modello e di altri hanno portato ad una maggiore comprensione delle dinamiche planetarie ed anche a definire alcuni limiti di tali modelli, affinati col progredire delle conoscenze provenienti dalle missioni consolidate e nuove e dei survey che con esse vengono effettuati. Il modello MGCM viene oggi supportato dal Mars Climate Modeling Center della NASA che rilascia anche un applicativo, ospitato dai server della Ames Research Center, per utilizzare, testare e controllare i dati osservativi, tramite il Mars Global Climate Model.",
+              "gold_hit": true,
+              "snippet": "(<span class=\"searchmatch\">come</span> avviene con il sistema Terra-Luna). Marte infatti possiede solo due piccole lune; <span class=\"searchmatch\">Phobos</span> e Deimos non possono stabilizzarla <span class=\"searchmatch\">come</span> avviene per <span class=\"searchmatch\">la</span> Luna",
+              "title": "Clima di Marte"
+            }
+          ]
+        },
+        {
+          "conflict_translated": [
+            "No"
+          ],
+          "gold_translated": [
+            "Si",
+            "No"
+          ],
+          "id": "4",
+          "question_en": "Did Bishop Heber meet D\u2019Oyly in the 1840s in Patna ?",
+          "question_translated": "Il vescovo Heber incontr\u00f2 D\u2019Oyly nel 1840 a Patna ?",
+          "results": []
+        },
+        {
+          "conflict_translated": [
+            "Il presidente Oler ricorre in tribunale negli anni '90 dell'Ottocento"
+          ],
+          "gold_translated": [
+            "Il presidente Oler prese posizione nel 1911",
+            "Il presidente Oler ricorre in tribunale negli anni '90 dell'Ottocento"
+          ],
+          "id": "5",
+          "question_en": "What year did President Oler take the stand in court?",
+          "question_translated": "In che anno il presidente Oler ha preso la parola in tribunale?",
+          "results": []
+        }
+      ],
+      "failed_examples": [],
+      "headline": {
+        "target_label": "Italian",
+        "target_lang": "it",
+        "top1_conflict_hit_rate": 0.1,
+        "top1_gold_hit_rate": 0.1,
+        "topk_both_hit_rate": 0.1,
+        "topk_conflict_hit_rate": 0.1,
+        "topk_gold_hit_rate": 0.1
+      },
+      "metadata": {
+        "benchmark": "wikicontradict",
+        "completed_examples": 10,
+        "failed_examples": 0,
+        "language": "it",
+        "language_label": "Italian",
+        "num_examples": 10,
+        "retriever": "translated_query_plus_it_wikipedia_search"
+      }
+    },
+    "pt": {
+      "examples": [
+        {
+          "conflict_translated": [
+            "Aporfinas"
+          ],
+          "gold_translated": [
+            "Apomorfina",
+            "Aporfinas"
+          ],
+          "id": "1",
+          "question_en": "Which of the following are present in Nymphaea nouchali var. caerulea: apomorphine, aporphine, or neither?",
+          "question_translated": "Quais das seguintes op\u00e7\u00f5es est\u00e3o presentes em Nymphaea nouchali var. caerulea: apomorfina, aporfina ou nenhuma das duas?",
+          "results": []
+        },
+        {
+          "conflict_translated": [
+            "Sim."
+          ],
+          "gold_translated": [
+            "N\u00ba.",
+            "Sim."
+          ],
+          "id": "2",
+          "question_en": "Are there any other missiles besides the P-500 Bazalt that influenced the design of P-700 Granit missile?",
+          "question_translated": "Existem outros m\u00edsseis al\u00e9m do P-500 Bazalt que influenciaram o projeto do m\u00edssil P-700 Granit?",
+          "results": []
+        },
+        {
+          "conflict_translated": [
+            "Sim."
+          ],
+          "gold_translated": [
+            "N\u00ba.",
+            "Sim."
+          ],
+          "id": "3",
+          "question_en": "Did the formation of the grooves on Phobos occur as a single event?",
+          "question_translated": "A forma\u00e7\u00e3o das ranhuras em Fobos ocorreu como um \u00fanico evento?",
+          "results": []
+        },
+        {
+          "conflict_translated": [
+            "N\u00e3o"
+          ],
+          "gold_translated": [
+            "Sim",
+            "N\u00e3o"
+          ],
+          "id": "4",
+          "question_en": "Did Bishop Heber meet D\u2019Oyly in the 1840s in Patna ?",
+          "question_translated": "O bispo Heber conheceu D\u2019Oyly na d\u00e9cada de 1840 em Patna ?",
+          "results": []
+        },
+        {
+          "conflict_translated": [
+            "O presidente Oler apelou no tribunal na d\u00e9cada de 1890"
+          ],
+          "gold_translated": [
+            "Presidente Oler testemunhou em 1911",
+            "O presidente Oler apelou no tribunal na d\u00e9cada de 1890"
+          ],
+          "id": "5",
+          "question_en": "What year did President Oler take the stand in court?",
+          "question_translated": "Em que ano o presidente Oler testemunhou no tribunal?",
+          "results": []
+        }
+      ],
+      "failed_examples": [],
+      "headline": {
+        "target_label": "Portuguese",
+        "target_lang": "pt",
+        "top1_conflict_hit_rate": 0.0,
+        "top1_gold_hit_rate": 0.0,
+        "topk_both_hit_rate": 0.0,
+        "topk_conflict_hit_rate": 0.0,
+        "topk_gold_hit_rate": 0.0
+      },
+      "metadata": {
+        "benchmark": "wikicontradict",
+        "completed_examples": 10,
+        "failed_examples": 0,
+        "language": "pt",
+        "language_label": "Portuguese",
+        "num_examples": 10,
+        "retriever": "translated_query_plus_pt_wikipedia_search"
+      }
+    }
   },
   "rows": [
     {
@@ -50,18 +562,18 @@
       "topk_gold_hit_rate": 0.1
     },
     {
-      "completed_examples": 5,
+      "completed_examples": 10,
       "failed_examples": 0,
       "label": "Italian",
       "language": "it",
-      "top1_conflict_hit_rate": 0.2,
-      "top1_gold_hit_rate": 0.2,
-      "topk_both_hit_rate": 0.2,
-      "topk_conflict_hit_rate": 0.2,
-      "topk_gold_hit_rate": 0.2
+      "top1_conflict_hit_rate": 0.1,
+      "top1_gold_hit_rate": 0.1,
+      "topk_both_hit_rate": 0.1,
+      "topk_conflict_hit_rate": 0.1,
+      "topk_gold_hit_rate": 0.1
     },
     {
-      "completed_examples": 5,
+      "completed_examples": 10,
       "failed_examples": 0,
       "label": "Portuguese",
       "language": "pt",
