@@ -412,6 +412,10 @@ def _completion_prompt(example: dict[str, Any], *, style: PromptStyle, condition
             "Use exactly this format:\n"
             "Answer: <short answer>\n"
             "Confidence: <0.00-1.00>\n\n"
+            "Example:\n"
+            "Question: Which city is the capital of France?\n"
+            "Answer: Paris\n"
+            "Confidence: 0.92\n\n"
             f"{base_block}\n\n"
             "Answer:"
         )
@@ -422,6 +426,11 @@ def _completion_prompt(example: dict[str, Any], *, style: PromptStyle, condition
         "Reasoning: <brief reasoning>\n"
         "Answer: <short answer>\n"
         "Confidence: <0.00-1.00>\n\n"
+        "Example:\n"
+        "Question: Which city is the capital of France?\n"
+        "Reasoning: France's capital is Paris.\n"
+        "Answer: Paris\n"
+        "Confidence: 0.92\n\n"
         f"{base_block}\n\n"
         "Reasoning:"
     )
