@@ -75,6 +75,15 @@ Read:
 
 ## Theorem 3 Assumption Audits
 
+### Proposition 1 audit bridge
+
+Source:
+- [proposition1_empirical_audits.md](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/proposition1_empirical_audits.md)
+
+Read:
+- The proposition-1 reduction hypotheses are now explicitly audited in the real
+  decoding setting through answer stability and trace-likelihood separation.
+
 ### Answer stability
 
 Source:
