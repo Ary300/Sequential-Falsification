@@ -47,9 +47,17 @@
       "label": "Japanese",
       "output_file": "data/generated/multilingual_theorem3/wikicontradict_ja_10.json",
       "rows": 10
+    },
+    {
+      "aligned_answer_in_context_rate": 0.3,
+      "code": "ar",
+      "conflict_answer_in_context_rate": 0.2,
+      "label": "Arabic",
+      "output_file": "data/generated/multilingual_theorem3/wikicontradict_ar_10.json",
+      "rows": 10
     }
   ],
-  "languages_built": 6,
+  "languages_built": 7,
   "max_examples": 10,
   "source_benchmark": "wikicontradict"
 }
