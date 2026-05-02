@@ -1,0 +1,111 @@
+{
+  "examples": [
+    {
+      "conflict_translated": [
+        "Aporfinas"
+      ],
+      "gold_translated": [
+        "Apomorfina",
+        "Aporfinas"
+      ],
+      "id": "1",
+      "question_en": "Which of the following are present in Nymphaea nouchali var. caerulea: apomorphine, aporphine, or neither?",
+      "question_translated": "\u00bfCu\u00e1les de los siguientes est\u00e1n presentes en Nymphaea nouchali var. caerulea: apomorfina, aporfina o ninguno?",
+      "results": []
+    },
+    {
+      "conflict_translated": [
+        "S\u00ed."
+      ],
+      "gold_translated": [
+        "No.",
+        "S\u00ed."
+      ],
+      "id": "2",
+      "question_en": "Are there any other missiles besides the P-500 Bazalt that influenced the design of P-700 Granit missile?",
+      "question_translated": "\u00bfHay alg\u00fan otro misil adem\u00e1s del P-500 Bazalt que haya influido en el dise\u00f1o del misil P-700 Granit?",
+      "results": []
+    },
+    {
+      "conflict_translated": [
+        "S\u00ed."
+      ],
+      "gold_translated": [
+        "No.",
+        "S\u00ed."
+      ],
+      "id": "3",
+      "question_en": "Did the formation of the grooves on Phobos occur as a single event?",
+      "question_translated": "\u00bfLa formaci\u00f3n de los surcos en Fobos ocurri\u00f3 como un solo evento?",
+      "results": [
+        {
+          "conflict_hit": false,
+          "extract": "Fobos (del griego \u03a6\u00f3\u03b2o\u03c2, \"miedo\") es el m\u00e1s grande de los dos sat\u00e9lites de Marte y el m\u00e1s cercano al planeta, siendo Deimos el otro sat\u00e9lite. Ambos fueron descubiertos por el astr\u00f3nomo estadounidense Asaph Hall (1829-1907) el 18 de agosto de 1877, con el gran refractor de 66 cm del Observatorio Naval de los Estados Unidos de Washington D. C., obra del \u00f3ptico estadounidense Alvan Clark (1804-1887). Fue el propio descubridor el que propuso los nombres, inspirado por el libro XV de la Il\u00edada, en el que el dios Ares (Marte en la mitolog\u00eda romana) invoca al miedo (fobos) y al terror (deimos).\nFobos es un peque\u00f1o sat\u00e9lite, de forma irregular, cuyo radio medio es de once kil\u00f3metros.\u200b Siempre presenta la misma cara a Marte, debido al anclaje por marea ejercido por el planeta. Orbita a unos 6000 kil\u00f3metros de la superficie marciana, lo que le convierte en el sat\u00e9lite m\u00e1s pr\u00f3ximo a su planeta del sistema solar.\u200b Estas fuerzas de marea crean una desaceleraci\u00f3n en Fobos, perdiendo este velocidad orbital, lo que ocasionar\u00e1 su colisi\u00f3n con Marte dentro de unos 50 a 100 millones de a\u00f1os, o bien su desintegraci\u00f3n y formaci\u00f3n de un anillo alrededor del planeta.\u200b\n\n",
+          "gold_hit": true,
+          "snippet": "<span class=\"searchmatch\">Fobos</span> (del griego \u03a6\u00f3\u03b2o\u03c2, &quot;miedo&quot;) es el m\u00e1s grande <span class=\"searchmatch\">de</span> <span class=\"searchmatch\">los</span> dos sat\u00e9lites <span class=\"searchmatch\">de</span> Marte y el m\u00e1s cercano al planeta, siendo Deimos el otro sat\u00e9lite. Ambos fueron",
+          "title": "Fobos (sat\u00e9lite)"
+        },
+        {
+          "conflict_hit": true,
+          "extract": "Heracles o H\u00e9racles\u200b (en griego antiguo: \u1f29\u03c1\u03b1\u03ba\u03bb\u1fc6\u03c2),\u200b llamado H\u00e9rcules por los romanos, es el h\u00e9roe\u200b m\u00e1s c\u00e9lebre de la mitolog\u00eda griega.\u200b Es especialmente conocido por su fuerza sobrehumana,\u200b su car\u00e1cter heroico y civilizador, y por sus extraordinarias haza\u00f1as \u2014en especial los doce trabajos.\u200b La iconograf\u00eda lo representa como un adulto robusto y musculoso, armado con una clava de acebuche\u200b y cubierta su cabeza con una piel de le\u00f3n.\u200b\u200b\nConsiderado un semidi\u00f3s por su origen,\u200b fue finalmente divinizado tras su muerte.\u200b En la antigua religi\u00f3n griega Heracles recib\u00eda dos tipos de culto: como h\u00e9roe y como dios; el primero se practicaba con libaciones y el divino, en templos y con sacrificios en su honor.\u200b Por este motivo el poeta P\u00edndaro lo denomin\u00f3: \u1f25\u03c1\u03c9\u03c2 \u03b8\u03b5\u03cc\u03c2 (h\u00e9r\u014ds the\u00f3s), esto es, h\u00e9roe-dios (\u2018h\u00e9roe divino\u2019).\u200b Her\u00f3doto, por su parte, lo incluy\u00f3 entre los dioses ol\u00edmpicos.\u200b Es por ello que ya en las fuentes arcaicas se usa una paradoja ontol\u00f3gica: la sombra (\u03b5\u1f34\u03b4\u03c9\u03bb\u03bf\u03bd) de Heracles reside en el inframundo como h\u00e9roe en tanto que su parte divina convive en el Olimpo.\u200b \nLa tradici\u00f3n m\u00e1s com\u00fan dice que Heracles es hijo de Zeus y la mortal Alcmena, as\u00ed como hijo adoptivo de Anfitri\u00f3n y bisnieto de Perseo.\u200b Al nacer fue llamado Alceo (\u1f08\u03bb\u03ba\u03b1\u1fd6\u03bf\u03c2) o Alcides (\u1f08\u03bb\u03ba\u03b5\u03af\u03b4\u03b7\u03c2), en honor a su abuelo Alceo;\u200b nombre que evoca la idea de \u00abfuerza\u00bb (en griego: \u1f00\u03bb\u03ba\u03ae).\u200b En su edad adulta recibi\u00f3 el nombre con que se lo conoce, a trav\u00e9s de la Pitia, para indicar su condici\u00f3n de servidor de la diosa Hera, pues Heracles significa: \u00abgloria de Hera\u00bb (\u1f2d\u03c1\u03b1 y \u03ba\u03bb\u03ad\u03bf\u03c2).\u200b\u200b\u200b",
+          "gold_hit": true,
+          "snippet": "adem\u00e1s hiri\u00f3 a Ares <span class=\"searchmatch\">en</span> el muslo. Pero entonces <span class=\"searchmatch\">Fobos</span> y Deimos, hijos <span class=\"searchmatch\">de</span> Ares, se llevaron a su padre al Olimpo para que se recuperara <span class=\"searchmatch\">de</span> sus heridas.\u200b Se",
+          "title": "Heracles"
+        }
+      ]
+    },
+    {
+      "conflict_translated": [
+        "No"
+      ],
+      "gold_translated": [
+        "S\u00ed",
+        "No"
+      ],
+      "id": "4",
+      "question_en": "Did Bishop Heber meet D\u2019Oyly in the 1840s in Patna ?",
+      "question_translated": "\u00bfEl obispo Heber conoci\u00f3 a D\u2019Oyly en la d\u00e9cada de 1840 en Patna ?",
+      "results": [
+        {
+          "conflict_hit": true,
+          "extract": "La historia de Daca, una de las megaciudades habitadas m\u00e1s antiguas del mundo, comienza con la existencia de los primeros asentamientos urbanizados en el \u00e1rea de lo que ahora se conoce como Daca, los cuales datan del siglo VII. El \u00e1rea de la ciudad fue gobernada por el reino hind\u00fa de Gauda, el budismo y el Imperio shiva\u00edsta de Pala antes de pasar al control de la dinast\u00eda hind\u00fa Sena en el siglo X.\u200b Despu\u00e9s de la dinast\u00eda Sena, la ciudad fue gobernada por la dinast\u00eda hind\u00fa Deva.\u200b Daca fue gobernada sucesivamente por los turcos y gobernadores afganos descendientes del Sultanato de Delhi, seguido por el Sultanato de Bengala, antes de la llegada de los mogoles en el a\u00f1o 1608. La ciudad se convirti\u00f3 en protoindustrializada y declarada capital de Sub\u00e1 de Bengala y capital comercial (financiera) de India Mogol. El puerto fluvial natural de Daca tiene una existencia registrada desde el siglo XVI. La ubicaci\u00f3n ribere\u00f1a estrat\u00e9gica de Daca en Bengala la convirti\u00f3 en un centro para los comerciantes euroasi\u00e1ticos, incluidos armenios, portugueses, franceses, holandeses y brit\u00e1nicos. La bulliciosa ciudad vieja era conocida como la Venecia del Este. Despu\u00e9s de los mogoles, los brit\u00e1nicos gobernaron la regi\u00f3n durante alrededor de 200 a\u00f1os hasta la independencia de la India en 1947. Cabe mencionar que despu\u00e9s de la Independencia de Banglad\u00e9s en 1971, Daca se convirti\u00f3 en la capital oficia del nuevo estado.",
+          "gold_hit": true,
+          "snippet": "<span class=\"searchmatch\">de</span> todas las pinturas. James Atkinson escribi\u00f3 estos relatos, acompa\u00f1ados <span class=\"searchmatch\">de</span> grabados hechos por Landseer. <span class=\"searchmatch\">En</span> 1824, un <span class=\"searchmatch\">obispo</span> ingl\u00e9s, Reginald <span class=\"searchmatch\">Heber</span>,",
+          "title": "Historia de Daca"
+        }
+      ]
+    },
+    {
+      "conflict_translated": [
+        "El presidente Oler apel\u00f3 ante el tribunal en la d\u00e9cada de 1890"
+      ],
+      "gold_translated": [
+        "El presidente Oler subi\u00f3 al estrado en 1911",
+        "El presidente Oler apel\u00f3 ante el tribunal en la d\u00e9cada de 1890"
+      ],
+      "id": "5",
+      "question_en": "What year did President Oler take the stand in court?",
+      "question_translated": "\u00bfEn qu\u00e9 a\u00f1o el presidente Oler subi\u00f3 al estrado en el tribunal?",
+      "results": []
+    }
+  ],
+  "failed_examples": [],
+  "headline": {
+    "target_label": "Spanish",
+    "target_lang": "es",
+    "top1_conflict_hit_rate": 0.1,
+    "top1_gold_hit_rate": 0.2,
+    "topk_both_hit_rate": 0.2,
+    "topk_conflict_hit_rate": 0.2,
+    "topk_gold_hit_rate": 0.2
+  },
+  "metadata": {
+    "benchmark": "wikicontradict",
+    "completed_examples": 10,
+    "failed_examples": 0,
+    "language": "es",
+    "language_label": "Spanish",
+    "num_examples": 10,
+    "retriever": "translated_query_plus_es_wikipedia_search"
+  }
+}

@@ -199,32 +199,45 @@ def build_payload(args: argparse.Namespace) -> dict[str, Any]:
     topk_conflict = 0
     topk_both = 0
     examples = []
+    failed_examples = []
+    completed_examples = 0
     target_lang = str(args.target_lang).strip().lower()
     target_label = str(args.target_label).strip() or target_lang
 
     for row in rows:
         metadata = row.get("metadata", {}) or {}
-        question_translated = _translate(session, str(row["question"]), cache, args.sleep_seconds, args.max_retries, target_lang)
-        gold_translated = [
-            _translate(session, item, cache, args.sleep_seconds, args.max_retries, target_lang)
-            for item in list(row.get("answers") or [])[:2]
-            if isinstance(item, str) and item.strip()
-        ]
-        conflict_translated = [
-            _translate(session, item, cache, args.sleep_seconds, args.max_retries, target_lang)
-            for item in list(metadata.get("conflict_context_answers") or [])[:2]
-            if isinstance(item, str) and item.strip()
-        ]
-        results = _search_target_wikipedia(
-            session,
-            question_translated,
-            cache,
-            target_lang=target_lang,
-            search_limit=args.search_limit,
-            top_k=args.top_k,
-            sleep_seconds=args.sleep_seconds,
-            max_retries=args.max_retries,
-        )
+        try:
+            question_translated = _translate(session, str(row["question"]), cache, args.sleep_seconds, args.max_retries, target_lang)
+            gold_translated = [
+                _translate(session, item, cache, args.sleep_seconds, args.max_retries, target_lang)
+                for item in list(row.get("answers") or [])[:2]
+                if isinstance(item, str) and item.strip()
+            ]
+            conflict_translated = [
+                _translate(session, item, cache, args.sleep_seconds, args.max_retries, target_lang)
+                for item in list(metadata.get("conflict_context_answers") or [])[:2]
+                if isinstance(item, str) and item.strip()
+            ]
+            results = _search_target_wikipedia(
+                session,
+                question_translated,
+                cache,
+                target_lang=target_lang,
+                search_limit=args.search_limit,
+                top_k=args.top_k,
+                sleep_seconds=args.sleep_seconds,
+                max_retries=args.max_retries,
+            )
+        except requests.RequestException as exc:
+            failed_examples.append(
+                {
+                    "id": row["id"],
+                    "question_en": row["question"],
+                    "error_type": type(exc).__name__,
+                    "error": str(exc),
+                }
+            )
+            continue
         scored = []
         for result in results:
             text = f"{result.get('title', '')}\n{result.get('snippet', '')}\n{result.get('extract', '')}"
@@ -248,6 +261,7 @@ def build_payload(args: argparse.Namespace) -> dict[str, Any]:
             topk_conflict += 1
         if any_gold and any_conflict:
             topk_both += 1
+        completed_examples += 1
 
         if len(examples) < 5:
             examples.append(
@@ -268,6 +282,8 @@ def build_payload(args: argparse.Namespace) -> dict[str, Any]:
             "language": target_lang,
             "language_label": target_label,
             "num_examples": len(rows),
+            "completed_examples": completed_examples,
+            "failed_examples": len(failed_examples),
             "retriever": f"translated_query_plus_{target_lang}_wikipedia_search",
         },
         "headline": {
@@ -280,6 +296,7 @@ def build_payload(args: argparse.Namespace) -> dict[str, Any]:
             "topk_both_hit_rate": round(topk_both / total, 6),
         },
         "examples": examples,
+        "failed_examples": failed_examples[:10],
     }
 
 
@@ -293,6 +310,8 @@ def build_markdown(payload: dict[str, Any]) -> str:
         "",
         "## Headline",
         "",
+        f"- Completed examples: `{payload['metadata'].get('completed_examples')}` / `{payload['metadata'].get('num_examples')}`",
+        f"- Failed examples: `{payload['metadata'].get('failed_examples')}`",
         f"- Top-1 gold-answer hit rate: `{payload['headline']['top1_gold_hit_rate']}`",
         f"- Top-1 conflict-answer hit rate: `{payload['headline']['top1_conflict_hit_rate']}`",
         f"- Top-{top_k} gold-answer hit rate: `{payload['headline']['topk_gold_hit_rate']}`",
@@ -314,6 +333,12 @@ def build_markdown(payload: dict[str, Any]) -> str:
             lines.append(
                 f"- `{result['title']}` gold=`{result['gold_hit']}` conflict=`{result['conflict_hit']}`: {snippet}"
             )
+        lines.append("")
+    if payload.get("failed_examples"):
+        lines.append("## Failed Examples")
+        lines.append("")
+        for item in payload["failed_examples"]:
+            lines.append(f"- `{item['id']}` `{item['error_type']}`: {item['error'][:180]}")
         lines.append("")
     lines.append("This is a transfer spot-check, not a multilingual theorem-3 replacement.")
     return "\n".join(lines) + "\n"

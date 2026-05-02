@@ -1,0 +1,110 @@
+{
+  "examples": [
+    {
+      "conflict_translated": [
+        "Aporphine"
+      ],
+      "gold_translated": [
+        "Apomorphine",
+        "Aporphine"
+      ],
+      "id": "1",
+      "question_en": "Which of the following are present in Nymphaea nouchali var. caerulea: apomorphine, aporphine, or neither?",
+      "question_translated": "Lesquels des \u00e9l\u00e9ments suivants sont pr\u00e9sents dans Nymphaea nouchali var. caerulea\u00a0: apomorphine, aporphine ou aucun des deux\u00a0?",
+      "results": []
+    },
+    {
+      "conflict_translated": [
+        "Oui."
+      ],
+      "gold_translated": [
+        "No.",
+        "Oui."
+      ],
+      "id": "2",
+      "question_en": "Are there any other missiles besides the P-500 Bazalt that influenced the design of P-700 Granit missile?",
+      "question_translated": "Existe-t-il d'autres missiles que le P-500 Bazalt qui ont influenc\u00e9 la conception du missile P-700 Granit\u00a0?",
+      "results": []
+    },
+    {
+      "conflict_translated": [
+        "Oui."
+      ],
+      "gold_translated": [
+        "No.",
+        "Oui."
+      ],
+      "id": "3",
+      "question_en": "Did the formation of the grooves on Phobos occur as a single event?",
+      "question_translated": "La formation des rainures sur Phobos s'est-elle produite en un seul \u00e9v\u00e9nement\u00a0?",
+      "results": []
+    },
+    {
+      "conflict_translated": [
+        "Non"
+      ],
+      "gold_translated": [
+        "Oui",
+        "Non"
+      ],
+      "id": "4",
+      "question_en": "Did Bishop Heber meet D\u2019Oyly in the 1840s in Patna ?",
+      "question_translated": "L'\u00e9v\u00eaque Heber a-t-il rencontr\u00e9 D\u2019Oyly dans les ann\u00e9es 1840 \u00e0 Patna\u00a0?",
+      "results": []
+    },
+    {
+      "conflict_translated": [
+        "Le pr\u00e9sident Oler fait appel devant les tribunaux dans les ann\u00e9es 1890"
+      ],
+      "gold_translated": [
+        "Le pr\u00e9sident Oler a pris la parole en 1911",
+        "Le pr\u00e9sident Oler fait appel devant les tribunaux dans les ann\u00e9es 1890"
+      ],
+      "id": "5",
+      "question_en": "What year did President Oler take the stand in court?",
+      "question_translated": "En quelle ann\u00e9e le pr\u00e9sident Oler a-t-il pris la parole devant le tribunal\u00a0?",
+      "results": [
+        {
+          "conflict_hit": false,
+          "extract": "Robert Brasillach ([\u0281\u0254b\u025b\u0281 b\u0281azijak] ), n\u00e9 le 31 mars 1909 \u00e0 Perpignan et mort fusill\u00e9 le 6 f\u00e9vrier 1945 au fort de Montrouge, \u00e0 Arcueil, est un homme de lettres, journaliste et collaborateur fran\u00e7ais.\nOutre ses activit\u00e9s litt\u00e9raires, il est surtout connu pour son engagement politique \u00e0 l'extr\u00eame droite : form\u00e9 \u00e0 l'Action fran\u00e7aise, il \u00e9volue vers le fascisme dans les ann\u00e9es 1930 (tout en continuant d'\u00e9crire dans L'Action fran\u00e7aise).\nSous l'Occupation, il devient r\u00e9dacteur en chef du journal collaborationniste et antis\u00e9mite Je suis partout. Par la suite, durant l'\u00e9puration, il est jug\u00e9 par un tribunal d'exception pour \u00ab intelligence avec l'ennemi \u00bb, condamn\u00e9 et fusill\u00e9.",
+          "gold_hit": false,
+          "snippet": "Gaulle est <span class=\"searchmatch\">pr\u00e9sident</span> de <span class=\"searchmatch\">la</span> R\u00e9publique, Alain Peyrefitte lui aurait demand\u00e9 <span class=\"searchmatch\">quelle</span> serait son attitude, apr\u00e8s toutes ces <span class=\"searchmatch\">ann\u00e9es</span>. Selon lui, <span class=\"searchmatch\">le</span> chef de l&#039;\u00c9tat",
+          "title": "Robert Brasillach"
+        },
+        {
+          "conflict_hit": false,
+          "extract": "Auschwitz (en allemand : Konzentrationslager Auschwitz , \u00ab camp de concentration d'Auschwitz \u00bb) est le plus grand complexe concentrationnaire du Troisi\u00e8me Reich, et est \u00e0 la fois un camp de concentration, un centre de mise \u00e0 mort et un camp d'extermination par le travail. Le camp est divis\u00e9 en trois parties distinctes : le camp de concentration Auschwitz I, initialement camp de prisonniers polonais ; le camp d\u2019extermination Auschwitz II, initialement camp de prisonniers de guerre sovi\u00e9tiques ; le camp de travailleurs forc\u00e9s Auschwitz III, fabrique de caoutchouc synth\u00e9tique, carburant synth\u00e9tique, explosifs, engrais etc, construit par IG Farben.\nEn effet, Auschwitz est aussi un centre industriel et un n\u0153ud de communication ferroviaire situ\u00e9 sur le territoire des localit\u00e9s d'O\u015bwi\u0119cim (Auschwitz en allemand) et de Brzezinka (Birkenau en allemand), \u00e0 une cinquantaine de kilom\u00e8tres \u00e0 l'ouest de Cracovie, dans la province de Sil\u00e9sie, occup\u00e9e par l'Allemagne apr\u00e8s l'invasion de la Pologne en septembre 1939.\nLe camp de concentration est cr\u00e9\u00e9 le 27 avril 1940 \u00e0 l'initiative de Heinrich Himmler et est dirig\u00e9 par les SS. Le centre d\u2019extermination est construit \u00e0 partir de la fin de 1941 et le second camp de concentration, destin\u00e9 au travail forc\u00e9 \u00e0 IG Farben est cr\u00e9\u00e9 au printemps 1942. Ces camps sont lib\u00e9r\u00e9s par l'Arm\u00e9e rouge le 27 janvier 1945.\nL'ensemble du camp et ses divers terrains annexes, dont le n\u0153ud ferroviaire de l'\u00e9poque, a une superficie d\u2019environ 55 km2 dont environ 10 km2 pour le camp \u00e0 lui seul. C'est une enclave m\u00e9morielle perp\u00e9tuelle dans le territoire de la Pologne d'aujourd'hui.\nEn cinq ans, plus de 1 100 000 hommes, femmes et enfants meurent \u00e0 Auschwitz, essentiellement \u00e0 partir de 1942 dans le cadre de ce que les nazis appel\u00e8rent la \u00ab Solution finale de la question juive \u00bb. Parmi ces victimes, 900 000 sont tu\u00e9es le jour m\u00eame de leur d\u00e9barquement des trains qui les ont amen\u00e9es, assassin\u00e9es dans les chambres \u00e0 gaz et incin\u00e9r\u00e9es dans les fours cr\u00e9matoires. Les autres victimes meurent des mauvais traitements qui leur sont inflig\u00e9s, de maladies, de malnutrition, voire \u00e0 la suite d'exp\u00e9riences m\u00e9dicales.\nUn nombre encore incertain de Tsiganes y sont \u00e9galement assassin\u00e9s. Cette trag\u00e9die est connue sous le nom de porajmos dans la m\u00e9moire collective rom.\nComme les autres camps de concentration nazis, Auschwitz \u00e9tait plac\u00e9 sous les ordres de Heinrich Himmler et de la SS. Le responsable du camp fut le SS-Obersturmbannf\u00fchrer Rudolf H\u00f6ss (du 1er mai 1940 au 1er d\u00e9cembre 1943, puis de nouveau entre mai et septembre 1944), remplac\u00e9 entre-temps par Arthur Liebehenschel, et ensuite par Richard Baer.\nEn raison de sa taille, Auschwitz est consid\u00e9r\u00e9 comme le symbole des meurtres de masse commis par les nazis et plus particuli\u00e8rement comme celui de la Shoah, au cours de laquelle pr\u00e8s de six millions de Juifs furent assassin\u00e9s.\nMonument historique majeur contribuant au \u00ab devoir de m\u00e9moire \u00bb, Auschwitz est, depuis 1979, inscrit au patrimoine mondial de l'Unesco. Le nom officiel du site comm\u00e9moratif est Auschwitz-Birkenau, camp allemand nazi de concentration et d'extermination (1940-1945).",
+          "gold_hit": false,
+          "snippet": " <span class=\"searchmatch\">La</span> sage-femme d\u2019Auschwitz, J\u2019ai Lu, 2023 Album d&#039;Auschwitz (voir \u00e9galement Solah\u00fctte) Apr\u00e8s <span class=\"searchmatch\">le</span> gazage et Dans <span class=\"searchmatch\">la</span> salle des fours de David <span class=\"searchmatch\">Ol\u00e8re</span> <span class=\"searchmatch\">La</span> Passag\u00e8re",
+          "title": "Auschwitz"
+        },
+        {
+          "conflict_hit": false,
+          "extract": "Le Konzentrationslager (KL) Natzweiler, plus connu en France sous le nom de camp du Struthof ou camp de concentration de Natzweiler-Struthof, est un camp de concentration nazi implant\u00e9 en 1941 sur le territoire de l'Alsace annex\u00e9e de fait par l'Allemagne nazie.\nEn septembre 1940, les nazis d\u00e9couvrent, sur le mont Louise, \u00e0 proximit\u00e9 du village de Natzwiller, germanis\u00e9 en Natzweiler, un filon de granit rose. En mars 1941, Himmler ordonne d'implanter sur le site un camp de concentration pour exploiter la roche au profit du Reich.\nEntre 1941 et 1945, environ 50 000 prisonniers sont enregistr\u00e9s au camp principal et/ou dans son r\u00e9seau de camps annexes. Trente-deux nationalit\u00e9s y sont repr\u00e9sent\u00e9es. Pour le camp principal, les d\u00e9tenus sont majoritairement des opposants politiques ou des r\u00e9sistants. Pour les camps annexes, ce sont essentiellement des travailleurs forc\u00e9s rafl\u00e9s dans les pays de l'Est de l'Europe, dont 17 % sont juifs.\nLe KL Natzweiler est le seul camp de concentration \u00e9tabli par les nazis sur le territoire fran\u00e7ais. Des exp\u00e9riences m\u00e9dicales y sont r\u00e9alis\u00e9es sur des d\u00e9tenus du camp principal. En 1942, il devient un lieu d'ex\u00e9cution pour les condamnations \u00e0 mort prononc\u00e9es par les tribunaux nazis d'Alsace-Moselle et du Bade-Wurtemberg. \u00c0 la fin de l'ann\u00e9e, il commence \u00e0 d\u00e9velopper un r\u00e9seau de camps annexes. En 1943, Natzweiler est d\u00e9sign\u00e9 comme camp de regroupement de tous les d\u00e9tenus masculins, victimes du d\u00e9cret Nuit et brouillard, d\u00e9tenus dits \u00ab NN \u00bb (en allemand : Nacht und Nebel).\nFait unique dans l'histoire concentrationnaire, Natzweiler est le seul KL qui continue \u00e0 fonctionner, via ses camps annexes, apr\u00e8s l'\u00e9vacuation du camp principal. On estime \u00e0 17 000 le nombre de morts dans le camp et dans son r\u00e9seau de camps annexes. C'est le premier camp de concentration d\u00e9couvert par les Am\u00e9ricains le 25 novembre 1944 (sur l'autre front, \u00e0 l'est, Majdanek fut le premier camp de la mort d\u00e9couvert par les Sovi\u00e9tiques le 24 juillet 1944).",
+          "gold_hit": false,
+          "snippet": "<span class=\"searchmatch\">En</span> 1942, <span class=\"searchmatch\">il</span> devient un lieu d&#039;ex\u00e9cution pour les condamnations <span class=\"searchmatch\">\u00e0</span> mort prononc\u00e9es par les <span class=\"searchmatch\">tribunaux</span> nazis d&#039;Alsace-Moselle et du Bade-Wurtemberg. <span class=\"searchmatch\">\u00c0</span> <span class=\"searchmatch\">la</span>",
+          "title": "Camp de concentration de Natzweiler-Struthof"
+        }
+      ]
+    }
+  ],
+  "failed_examples": [],
+  "headline": {
+    "target_label": "French",
+    "target_lang": "fr",
+    "top1_conflict_hit_rate": 0.0,
+    "top1_gold_hit_rate": 0.0,
+    "topk_both_hit_rate": 0.0,
+    "topk_conflict_hit_rate": 0.0,
+    "topk_gold_hit_rate": 0.0
+  },
+  "metadata": {
+    "benchmark": "wikicontradict",
+    "completed_examples": 10,
+    "failed_examples": 0,
+    "language": "fr",
+    "language_label": "French",
+    "num_examples": 10,
+    "retriever": "translated_query_plus_fr_wikipedia_search"
+  }
+}
