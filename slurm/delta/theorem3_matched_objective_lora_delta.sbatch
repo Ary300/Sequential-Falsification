@@ -67,6 +67,7 @@ EVAL_COT_LENGTHS=${EVAL_COT_LENGTHS:-0,128,1024}
 EVAL_WIKICONTRADICT_MAX=${EVAL_WIKICONTRADICT_MAX:-96}
 EVAL_CONFLICTBANK_MAX=${EVAL_CONFLICTBANK_MAX:-128}
 EVAL_TRIVIAQA_MAX=${EVAL_TRIVIAQA_MAX:-0}
+VLLM_MAX_MODEL_LEN=${VLLM_MAX_MODEL_LEN:-12288}
 
 cd "${DELTA_PROJECT_ROOT}"
 nvidia-smi -L || true
@@ -120,7 +121,7 @@ if [[ "${RUN_THEOREM3_EVAL}" == "1" ]]; then
     --generation-config vllm \
     --tensor-parallel-size 1 \
     --port "${API_PORT}" \
-    --max-model-len 12288 \
+    --max-model-len "${VLLM_MAX_MODEL_LEN}" \
     --gpu-memory-utilization 0.9 \
     > logs/vllm_matchobj_${SLURM_JOB_ID}.log 2>&1 &
   VLLM_PID=$!
