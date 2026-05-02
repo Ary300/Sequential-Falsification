@@ -33,6 +33,23 @@ from knowledge_arbitration.loaders import load_arbitration_dataset  # noqa: E402
 from utils.io import dump_json  # noqa: E402
 
 
+def _patch_generation_cache_compat() -> None:
+    try:
+        from transformers.cache_utils import DynamicCache
+    except Exception:
+        return
+    if hasattr(DynamicCache, "seen_tokens"):
+        return
+
+    def _seen_tokens(self: Any) -> int:
+        try:
+            return int(self.get_seq_length())
+        except Exception:
+            return 0
+
+    DynamicCache.seen_tokens = property(_seen_tokens)  # type: ignore[attr-defined]
+
+
 def _ensure_chat_template(tokenizer: Any) -> None:
     current = getattr(tokenizer, "chat_template", None)
     if current:
@@ -142,6 +159,8 @@ def _load_model_and_tokenizer(args: argparse.Namespace):
     import torch
     from peft import LoraConfig, TaskType, get_peft_model
     from transformers import AutoModelForCausalLM, AutoTokenizer
+
+    _patch_generation_cache_compat()
 
     dtype_map: dict[str, Any] = {
         "auto": "auto",
@@ -254,6 +273,7 @@ def _generate_answer(model: Any, tokenizer: Any, prompt: str, max_prompt_length:
         "eos_token_id": tokenizer.eos_token_id,
         "num_return_sequences": num_return_sequences,
         "do_sample": do_sample,
+        "use_cache": False,
     }
     if do_sample:
         generation_kwargs["temperature"] = temperature

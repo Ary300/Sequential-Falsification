@@ -181,8 +181,11 @@ def split_rows(
     unique_rows = list(rows)
     rng = random.Random(seed)
     rng.shuffle(unique_rows)
-    calibration = unique_rows[: min(calibration_size, len(unique_rows))]
-    evaluation = unique_rows[min(calibration_size, len(unique_rows)) :]
+    if len(unique_rows) <= 1:
+        return unique_rows, []
+    calibration_count = min(calibration_size, max(1, len(unique_rows) - 1))
+    calibration = unique_rows[:calibration_count]
+    evaluation = unique_rows[calibration_count:]
     return calibration, evaluation
 
 

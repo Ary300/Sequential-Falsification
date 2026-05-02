@@ -30,5 +30,5 @@ submit_job() {
   bash "${SCRIPT_DIR}/submit_delta_theorem3_matched_objective_lora.sh" "${EXTRA_ARGS[@]}"
 }
 
-submit_job dpo "allenai/OLMo-2-7B" "results/e1_olmo2_7b_dpo" "e1_o7_dpo" "16:00:00" 900 640 96 96
-submit_job grpo "allenai/OLMo-2-7B" "results/e1_olmo2_7b_grpo" "e1_o7_grpo" "16:00:00" 900 640 96 96
+submit_job dpo "allenai/OLMo-2-1124-7B" "results/e1_olmo2_7b_dpo" "e1_o7_dpo" "16:00:00" 900 640 96 96
+submit_job grpo "allenai/OLMo-2-1124-7B" "results/e1_olmo2_7b_grpo" "e1_o7_grpo" "16:00:00" 900 640 96 96
