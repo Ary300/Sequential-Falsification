@@ -27,6 +27,13 @@ if [[ ! -f "${DELTA_VENV}/bin/activate" ]]; then
 fi
 source "${DELTA_VENV}/bin/activate"
 export HF_HOME=${HF_HOME:-/work/nvme/bgvi/adas17/hf_cache}
+export XDG_CACHE_HOME=${XDG_CACHE_HOME:-/work/nvme/bgvi/adas17/.cache}
+export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-/work/nvme/bgvi/adas17/.config}
+export VLLM_CACHE_ROOT=${VLLM_CACHE_ROOT:-${XDG_CACHE_HOME}/vllm}
+export VLLM_CONFIG_ROOT=${VLLM_CONFIG_ROOT:-${XDG_CONFIG_HOME}/vllm}
+export VLLM_NO_USAGE_STATS=${VLLM_NO_USAGE_STATS:-1}
+export VLLM_DO_NOT_TRACK=${VLLM_DO_NOT_TRACK:-1}
+export DO_NOT_TRACK=${DO_NOT_TRACK:-1}
 
 DELTA_PROJECT_ROOT=${DELTA_PROJECT_ROOT:-/u/adas17/tts-falsification-git}
 DELTA_RESULTS_ROOT=${DELTA_RESULTS_ROOT:-/work/nvme/bgvi/adas17/tts_results}
@@ -63,6 +70,7 @@ EVAL_TRIVIAQA_MAX=${EVAL_TRIVIAQA_MAX:-0}
 
 cd "${DELTA_PROJECT_ROOT}"
 nvidia-smi -L || true
+mkdir -p "${HF_HOME}" "${XDG_CACHE_HOME}" "${XDG_CONFIG_HOME}" "${VLLM_CACHE_ROOT}" "${VLLM_CONFIG_ROOT}"
 
 if [[ "${OUTPUT_DIR}" = /* ]]; then
   RUN_OUTPUT_DIR="${OUTPUT_DIR}"
@@ -97,6 +105,7 @@ python scripts/run_theorem3_matched_objective_lora.py \
 
 if [[ "${RUN_THEOREM3_EVAL}" == "1" ]]; then
   API_PORT=$((20000 + (${SLURM_JOB_ID:-0} % 20000)))
+  export API_PORT
   MERGED_MODEL_DIR="${RUN_OUTPUT_DIR}/merged_model"
   if [[ -z "${EVAL_OUTPUT_DIR}" ]]; then
     RUN_EVAL_OUTPUT_DIR="${RUN_OUTPUT_DIR}/theorem3_eval"
