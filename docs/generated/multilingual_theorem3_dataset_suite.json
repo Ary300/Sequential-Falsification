@@ -1,0 +1,47 @@
+{
+  "languages": [
+    {
+      "aligned_answer_in_context_rate": 0.4,
+      "code": "es",
+      "conflict_answer_in_context_rate": 0.3,
+      "label": "Spanish",
+      "output_file": "data/generated/multilingual_theorem3/wikicontradict_es_10.json",
+      "rows": 10
+    },
+    {
+      "aligned_answer_in_context_rate": 0.3,
+      "code": "de",
+      "conflict_answer_in_context_rate": 0.3,
+      "label": "German",
+      "output_file": "data/generated/multilingual_theorem3/wikicontradict_de_10.json",
+      "rows": 10
+    },
+    {
+      "aligned_answer_in_context_rate": 0.4,
+      "code": "it",
+      "conflict_answer_in_context_rate": 0.2,
+      "label": "Italian",
+      "output_file": "data/generated/multilingual_theorem3/wikicontradict_it_10.json",
+      "rows": 10
+    },
+    {
+      "aligned_answer_in_context_rate": 0.3,
+      "code": "fr",
+      "conflict_answer_in_context_rate": 0.3,
+      "label": "French",
+      "output_file": "data/generated/multilingual_theorem3/wikicontradict_fr_10.json",
+      "rows": 10
+    },
+    {
+      "aligned_answer_in_context_rate": 0.3,
+      "code": "pt",
+      "conflict_answer_in_context_rate": 0.3,
+      "label": "Portuguese",
+      "output_file": "data/generated/multilingual_theorem3/wikicontradict_pt_10.json",
+      "rows": 10
+    }
+  ],
+  "languages_built": 5,
+  "max_examples": 10,
+  "source_benchmark": "wikicontradict"
+}

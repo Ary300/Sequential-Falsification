@@ -1,0 +1,562 @@
+[
+  {
+    "answers": [
+      "Apomorphin",
+      "Aporphin"
+    ],
+    "condition": "contradiction",
+    "contexts": [
+      "Apomorphin soll die wichtigste psychoaktive Verbindung sein.",
+      "Wie andere Arten der Gattung Nymphaea nouchali var. caerulea enth\u00e4lt das psychoaktive Alkaloid Aporphin (nicht zu verwechseln mit Apomorphin, einem Stoffwechselprodukt von Aporphin)."
+    ],
+    "id": "1",
+    "metadata": {
+      "aligned_context_answers": [
+        "Apomorphin"
+      ],
+      "aligned_context_answers_en": [
+        "Apomorphine"
+      ],
+      "aligned_context_text": "Apomorphin soll die wichtigste psychoaktive Verbindung sein.",
+      "aligned_context_text_en": "Apomorphine is said to be main psychoactive compound present.",
+      "answers_en": [
+        "Apomorphine",
+        "Aporphine"
+      ],
+      "benchmark": "wikicontradict_de",
+      "conflict_context_answers": [
+        "Aporphin"
+      ],
+      "conflict_context_answers_en": [
+        "Aporphine"
+      ],
+      "conflict_context_text": "Wie andere Arten der Gattung Nymphaea nouchali var. caerulea enth\u00e4lt das psychoaktive Alkaloid Aporphin (nicht zu verwechseln mit Apomorphin, einem Stoffwechselprodukt von Aporphin).",
+      "conflict_context_text_en": "Like other species in the genus, Nymphaea nouchali var. caerulea contains the psychoactive alkaloid aporphine (not to be confused with apomorphine, a metabolic product of aporphine).",
+      "conflict_strength": 0.68,
+      "contradict_type": "Implicit (reasoning required)",
+      "dynamicity_score": 0.35,
+      "parametric_answers": [
+        "Apomorphin"
+      ],
+      "parametric_answers_en": [
+        "Apomorphine"
+      ],
+      "popularity_score": 0.5,
+      "question_en": "Which of the following are present in Nymphaea nouchali var. caerulea: apomorphine, aporphine, or neither?",
+      "same_passage": "Different",
+      "source_benchmark": "wikicontradict",
+      "source_language": "en",
+      "supports_conditions": [
+        "aligned_context",
+        "conflict_context"
+      ],
+      "target_language": "de",
+      "target_language_label": "German"
+    },
+    "question": "Welche der folgenden sind in Nymphaea nouchali var. vorhanden? caerulea: Apomorphin, Aporphin oder keines von beidem?"
+  },
+  {
+    "answers": [
+      "NEIN.",
+      "Ja."
+    ],
+    "condition": "contradiction",
+    "contexts": [
+      "Die P-700 wurde von der P-500 Bazalt-Rakete mit Turbostrahltriebwerk abgeleitet.",
+      "Die Rakete wurde teilweise von der P-500 Bazalt abgeleitet."
+    ],
+    "id": "2",
+    "metadata": {
+      "aligned_context_answers": [
+        "NEIN."
+      ],
+      "aligned_context_answers_en": [
+        "No."
+      ],
+      "aligned_context_text": "Die P-700 wurde von der P-500 Bazalt-Rakete mit Turbostrahltriebwerk abgeleitet.",
+      "aligned_context_text_en": "The P-700 was derived from the P-500 Bazalt missile with a turbojet.",
+      "answers_en": [
+        "No.",
+        "Yes."
+      ],
+      "benchmark": "wikicontradict_de",
+      "conflict_context_answers": [
+        "Ja."
+      ],
+      "conflict_context_answers_en": [
+        "Yes."
+      ],
+      "conflict_context_text": "Die Rakete wurde teilweise von der P-500 Bazalt abgeleitet.",
+      "conflict_context_text_en": "The missile was partially derived from the P-500 Bazalt.",
+      "conflict_strength": 0.85,
+      "contradict_type": "Explicit",
+      "dynamicity_score": 0.35,
+      "parametric_answers": [
+        "NEIN."
+      ],
+      "parametric_answers_en": [
+        "No."
+      ],
+      "popularity_score": 0.5,
+      "question_en": "Are there any other missiles besides the P-500 Bazalt that influenced the design of P-700 Granit missile?",
+      "same_passage": "Different",
+      "source_benchmark": "wikicontradict",
+      "source_language": "en",
+      "supports_conditions": [
+        "aligned_context",
+        "conflict_context"
+      ],
+      "target_language": "de",
+      "target_language_label": "German"
+    },
+    "question": "Gibt es au\u00dfer der P-500 Bazalt noch andere Raketen, die das Design der P-700 Granit-Rakete beeinflusst haben?"
+  },
+  {
+    "answers": [
+      "NEIN.",
+      "Ja."
+    ],
+    "condition": "contradiction",
+    "contexts": [
+      "Das im Jahr 2015 entworfene Modell unterst\u00fctzte die Entdeckung, dass einige der Rillen j\u00fcnger sind als andere, was darauf hindeutet, dass der Prozess, der die Rillen erzeugt, noch nicht abgeschlossen ist.",
+      "Im November 2018 kamen Astronomen nach weiteren rechnerischen Wahrscheinlichkeitsanalysen zu dem Schluss, dass die vielen Rillen auf Phobos durch Felsbrocken verursacht wurden, die beim Asteroideneinschlag herausgeschleudert wurden, der den Stickney-Krater erzeugte. Diese Felsbrocken rollten in einem vorhersehbaren Muster auf der Mondoberfl\u00e4che."
+    ],
+    "id": "3",
+    "metadata": {
+      "aligned_context_answers": [
+        "NEIN."
+      ],
+      "aligned_context_answers_en": [
+        "No."
+      ],
+      "aligned_context_text": "Das im Jahr 2015 entworfene Modell unterst\u00fctzte die Entdeckung, dass einige der Rillen j\u00fcnger sind als andere, was darauf hindeutet, dass der Prozess, der die Rillen erzeugt, noch nicht abgeschlossen ist.",
+      "aligned_context_text_en": "The model designed in 2015 supported the discovery that some of the grooves are younger than others, implying that the process that produces the grooves is ongoing.",
+      "answers_en": [
+        "No.",
+        "Yes."
+      ],
+      "benchmark": "wikicontradict_de",
+      "conflict_context_answers": [
+        "Ja."
+      ],
+      "conflict_context_answers_en": [
+        "Yes."
+      ],
+      "conflict_context_text": "Im November 2018 kamen Astronomen nach weiteren rechnerischen Wahrscheinlichkeitsanalysen zu dem Schluss, dass die vielen Rillen auf Phobos durch Felsbrocken verursacht wurden, die beim Asteroideneinschlag herausgeschleudert wurden, der den Stickney-Krater erzeugte. Diese Felsbrocken rollten in einem vorhersehbaren Muster auf der Mondoberfl\u00e4che.",
+      "conflict_context_text_en": "In November 2018, following further computational probability analysis, astronomers concluded that the many grooves on Phobos were caused by boulders, ejected from the asteroid impact that created Stickney crater. These boulders rolled in a predictable pattern on the surface of the moon.",
+      "conflict_strength": 0.68,
+      "contradict_type": "Implicit (reasoning required)",
+      "dynamicity_score": 0.35,
+      "parametric_answers": [
+        "NEIN."
+      ],
+      "parametric_answers_en": [
+        "No."
+      ],
+      "popularity_score": 0.5,
+      "question_en": "Did the formation of the grooves on Phobos occur as a single event?",
+      "same_passage": "Different",
+      "source_benchmark": "wikicontradict",
+      "source_language": "en",
+      "supports_conditions": [
+        "aligned_context",
+        "conflict_context"
+      ],
+      "target_language": "de",
+      "target_language_label": "German"
+    },
+    "question": "Ist die Entstehung der Furchen auf Phobos ein Einzelereignis?"
+  },
+  {
+    "answers": [
+      "Ja",
+      "NEIN"
+    ],
+    "condition": "contradiction",
+    "contexts": [
+      "Bischof Heber, der Patna in den 1840er Jahren besuchte, beschrieb Charles D'Oyly als den \u201ebesten Gentleman-K\u00fcnstler, den ich je getroffen habe\u201c.",
+      "Nachdem Charles D'Oyly vierzig Jahre lang f\u00fcr das Unternehmen gearbeitet hatte, zwang ihn sein sich verschlechternder Gesundheitszustand 1838, in den Ruhestand zu gehen und Indien zu verlassen"
+    ],
+    "id": "4",
+    "metadata": {
+      "aligned_context_answers": [
+        "Ja"
+      ],
+      "aligned_context_answers_en": [
+        "Yes"
+      ],
+      "aligned_context_text": "Bischof Heber, der Patna in den 1840er Jahren besuchte, beschrieb Charles D'Oyly als den \u201ebesten Gentleman-K\u00fcnstler, den ich je getroffen habe\u201c.",
+      "aligned_context_text_en": "Bishop Heber, who visited Patna in the 1840s, described Charles D'Oyly as the \u201cbest gentleman artist I ever met\u201d.",
+      "answers_en": [
+        "Yes",
+        "No"
+      ],
+      "benchmark": "wikicontradict_de",
+      "conflict_context_answers": [
+        "NEIN"
+      ],
+      "conflict_context_answers_en": [
+        "No"
+      ],
+      "conflict_context_text": "Nachdem Charles D'Oyly vierzig Jahre lang f\u00fcr das Unternehmen gearbeitet hatte, zwang ihn sein sich verschlechternder Gesundheitszustand 1838, in den Ruhestand zu gehen und Indien zu verlassen",
+      "conflict_context_text_en": "After working for the Company for forty years, Charles D'Oyly's failing health compelled him to retire and leave India in 1838",
+      "conflict_strength": 0.68,
+      "contradict_type": "Implicit (reasoning required)",
+      "dynamicity_score": 0.35,
+      "parametric_answers": [
+        "Ja"
+      ],
+      "parametric_answers_en": [
+        "Yes"
+      ],
+      "popularity_score": 0.5,
+      "question_en": "Did Bishop Heber meet D\u2019Oyly in the 1840s in Patna ?",
+      "same_passage": "Different",
+      "source_benchmark": "wikicontradict",
+      "source_language": "en",
+      "supports_conditions": [
+        "aligned_context",
+        "conflict_context"
+      ],
+      "target_language": "de",
+      "target_language_label": "German"
+    },
+    "question": "Hat Bischof Heber D\u2019Oyly in den 1840er Jahren in Patna getroffen?"
+  },
+  {
+    "answers": [
+      "Pr\u00e4sident Oler nahm 1911 Stellung",
+      "Pr\u00e4sident Oler erschien in den 1890er Jahren vor Gericht"
+    ],
+    "condition": "contradiction",
+    "contexts": [
+      "Pr\u00e4sident Wesley M. Oler trat 1911 f\u00fcr das Unternehmen ein, als Detektive nach Rockland Lake reisten und die mit Eis gef\u00fcllten K\u00fchlh\u00e4user vorfanden, aber keine Arbeiter, die das Produkt auf Lastk\u00e4hne nach New York City verladen konnten. Der Mangel an Arbeitskr\u00e4ften hatte mit den zwei Dollar zu tun, die sie erhielten, w\u00e4hrend kleine, unabh\u00e4ngige Unternehmen das Doppelte von dem zahlten, was gr\u00f6\u00dfere Unternehmen wie Knickerbocker ihren Mitarbeitern zahlten. Oler trat in den Zeugenstand, um dem Gericht mitzuteilen, dass er seine Arbeiter angemessen entlohne und ihnen sogar einen Zuschlag f\u00fcr die Sonntagsarbeit bezahle, doch die Arbeiter rebellierten. Als die Ermittler die Situation genauer untersuchten, stellten sie fest, dass Oler heimlich Gesch\u00e4fte mit anderen Unternehmen \u00fcber den Kauf von Eis abgeschlossen hatte, als diese unter M\u00e4ngeln litten. Oler hatte zahlreiche Ausreden, warum er die Gesch\u00e4fte der Knickerbocker Ice Company so f\u00fchrte. Oler erkl\u00e4rte, es sei billiger, Eis in kleineren Mengen zu transportieren, um den Anforderungen der Kunden gerecht zu werden, als mehr Waggons zu kaufen und alles auf einmal zu transportieren. Au\u00dferdem waren die 1890er Jahre ein au\u00dfergew\u00f6hnlich warmer Winter, der f\u00fcr die Eisindustrie einen gro\u00dfen R\u00fcckschlag bedeutete, da es nicht viel Eis gab, das an die Verbraucher verkauft werden konnte. Oler teilte dem Gericht mit, dass er nach qualifizierten Arbeitskr\u00e4ften f\u00fcr die Eisernte in der warmen Jahreszeit gesucht habe, jedoch erfolglos gewesen sei, weshalb es zu diesen Komplikationen w\u00e4hrend seiner Zeit als Pr\u00e4sident des Unternehmens gekommen sei.",
+      "Pr\u00e4sident Wesley M. Oler trat 1911 f\u00fcr das Unternehmen ein, als Detektive nach Rockland Lake reisten und die mit Eis gef\u00fcllten K\u00fchlh\u00e4user vorfanden, aber keine Arbeiter, die das Produkt auf Lastk\u00e4hne nach New York City verladen konnten. Der Mangel an Arbeitskr\u00e4ften hatte mit den zwei Dollar zu tun, die sie erhielten, w\u00e4hrend kleine, unabh\u00e4ngige Unternehmen das Doppelte von dem zahlten, was gr\u00f6\u00dfere Unternehmen wie Knickerbocker ihren Mitarbeitern zahlten. Oler trat in den Zeugenstand, um dem Gericht mitzuteilen, dass er seine Arbeiter angemessen entlohne und ihnen sogar einen Zuschlag f\u00fcr die Sonntagsarbeit bezahle, doch die Arbeiter rebellierten. Als die Ermittler die Situation genauer untersuchten, stellten sie fest, dass Oler heimlich Gesch\u00e4fte mit anderen Unternehmen \u00fcber den Kauf von Eis abgeschlossen hatte, als diese unter M\u00e4ngeln litten. Oler hatte zahlreiche Ausreden, warum er die Gesch\u00e4fte der Knickerbocker Ice Company so f\u00fchrte. Oler erkl\u00e4rte, es sei billiger, Eis in kleineren Mengen zu transportieren, um den Anforderungen der Kunden gerecht zu werden, als mehr Waggons zu kaufen und alles auf einmal zu transportieren. Au\u00dferdem waren die 1890er Jahre ein au\u00dfergew\u00f6hnlich warmer Winter, der f\u00fcr die Eisindustrie einen gro\u00dfen R\u00fcckschlag bedeutete, da es nicht viel Eis gab, das an die Verbraucher verkauft werden konnte. Oler teilte dem Gericht mit, dass er nach qualifizierten Arbeitskr\u00e4ften f\u00fcr die Eisernte in der warmen Jahreszeit gesucht habe, jedoch erfolglos gewesen sei, weshalb es zu diesen Komplikationen w\u00e4hrend seiner Zeit als Pr\u00e4sident des Unternehmens gekommen sei."
+    ],
+    "id": "5",
+    "metadata": {
+      "aligned_context_answers": [
+        "Pr\u00e4sident Oler nahm 1911 Stellung"
+      ],
+      "aligned_context_answers_en": [
+        "President Oler took the stand in 1911"
+      ],
+      "aligned_context_text": "Pr\u00e4sident Wesley M. Oler trat 1911 f\u00fcr das Unternehmen ein, als Detektive nach Rockland Lake reisten und die mit Eis gef\u00fcllten K\u00fchlh\u00e4user vorfanden, aber keine Arbeiter, die das Produkt auf Lastk\u00e4hne nach New York City verladen konnten. Der Mangel an Arbeitskr\u00e4ften hatte mit den zwei Dollar zu tun, die sie erhielten, w\u00e4hrend kleine, unabh\u00e4ngige Unternehmen das Doppelte von dem zahlten, was gr\u00f6\u00dfere Unternehmen wie Knickerbocker ihren Mitarbeitern zahlten. Oler trat in den Zeugenstand, um dem Gericht mitzuteilen, dass er seine Arbeiter angemessen entlohne und ihnen sogar einen Zuschlag f\u00fcr die Sonntagsarbeit bezahle, doch die Arbeiter rebellierten. Als die Ermittler die Situation genauer untersuchten, stellten sie fest, dass Oler heimlich Gesch\u00e4fte mit anderen Unternehmen \u00fcber den Kauf von Eis abgeschlossen hatte, als diese unter M\u00e4ngeln litten. Oler hatte zahlreiche Ausreden, warum er die Gesch\u00e4fte der Knickerbocker Ice Company so f\u00fchrte. Oler erkl\u00e4rte, es sei billiger, Eis in kleineren Mengen zu transportieren, um den Anforderungen der Kunden gerecht zu werden, als mehr Waggons zu kaufen und alles auf einmal zu transportieren. Au\u00dferdem waren die 1890er Jahre ein au\u00dfergew\u00f6hnlich warmer Winter, der f\u00fcr die Eisindustrie einen gro\u00dfen R\u00fcckschlag bedeutete, da es nicht viel Eis gab, das an die Verbraucher verkauft werden konnte. Oler teilte dem Gericht mit, dass er nach qualifizierten Arbeitskr\u00e4ften f\u00fcr die Eisernte in der warmen Jahreszeit gesucht habe, jedoch erfolglos gewesen sei, weshalb es zu diesen Komplikationen w\u00e4hrend seiner Zeit als Pr\u00e4sident des Unternehmens gekommen sei.",
+      "aligned_context_text_en": "President Wesley M. Oler took the stand for the company in 1911 when detectives traveled to Rockland Lake to find the icehouses packed with ice but no workers to load the product onto barges to New York City. The lack of workers had to do with the two dollars they were getting paid when small, independent companies were paying double what bigger companies like Knickerbocker were paying their employees. Oler took to the stand to tell the court he was paying his workers properly and was even paying them extra for the work they did on Sundays, but the workers rebelled. When detectives dug deeper into the situation, they discovered Oler secretly made deals with other companies to purchase ice when they were suffering from deficiencies. Oler came up with numerous excuses why he was conducting the Knickerbocker Ice Company\u2019s business in such a way. Oler explained it was cheaper to transport ice in smaller quantities to meet the demands of clients than to purchase more rail cars and transport everything at once. Also, the 1890s was an exceptionally warm winter which was a major setback for the ice industry since there was not much ice to sell to consumers. Oler told the court he searched for skilled workers to harvest ice during the warm season but was unsuccessful, which is the why these complications occurred while he was president of the company.",
+      "answers_en": [
+        "President Oler took the stand in 1911",
+        "President Oler appeard in court in the 1890s"
+      ],
+      "benchmark": "wikicontradict_de",
+      "conflict_context_answers": [
+        "Pr\u00e4sident Oler erschien in den 1890er Jahren vor Gericht"
+      ],
+      "conflict_context_answers_en": [
+        "President Oler appeard in court in the 1890s"
+      ],
+      "conflict_context_text": "Pr\u00e4sident Wesley M. Oler trat 1911 f\u00fcr das Unternehmen ein, als Detektive nach Rockland Lake reisten und die mit Eis gef\u00fcllten K\u00fchlh\u00e4user vorfanden, aber keine Arbeiter, die das Produkt auf Lastk\u00e4hne nach New York City verladen konnten. Der Mangel an Arbeitskr\u00e4ften hatte mit den zwei Dollar zu tun, die sie erhielten, w\u00e4hrend kleine, unabh\u00e4ngige Unternehmen das Doppelte von dem zahlten, was gr\u00f6\u00dfere Unternehmen wie Knickerbocker ihren Mitarbeitern zahlten. Oler trat in den Zeugenstand, um dem Gericht mitzuteilen, dass er seine Arbeiter angemessen entlohne und ihnen sogar einen Zuschlag f\u00fcr die Sonntagsarbeit bezahle, doch die Arbeiter rebellierten. Als die Ermittler die Situation genauer untersuchten, stellten sie fest, dass Oler heimlich Gesch\u00e4fte mit anderen Unternehmen \u00fcber den Kauf von Eis abgeschlossen hatte, als diese unter M\u00e4ngeln litten. Oler hatte zahlreiche Ausreden, warum er die Gesch\u00e4fte der Knickerbocker Ice Company so f\u00fchrte. Oler erkl\u00e4rte, es sei billiger, Eis in kleineren Mengen zu transportieren, um den Anforderungen der Kunden gerecht zu werden, als mehr Waggons zu kaufen und alles auf einmal zu transportieren. Au\u00dferdem waren die 1890er Jahre ein au\u00dfergew\u00f6hnlich warmer Winter, der f\u00fcr die Eisindustrie einen gro\u00dfen R\u00fcckschlag bedeutete, da es nicht viel Eis gab, das an die Verbraucher verkauft werden konnte. Oler teilte dem Gericht mit, dass er nach qualifizierten Arbeitskr\u00e4ften f\u00fcr die Eisernte in der warmen Jahreszeit gesucht habe, jedoch erfolglos gewesen sei, weshalb es zu diesen Komplikationen w\u00e4hrend seiner Zeit als Pr\u00e4sident des Unternehmens gekommen sei.",
+      "conflict_context_text_en": "President Wesley M. Oler took the stand for the company in 1911 when detectives traveled to Rockland Lake to find the icehouses packed with ice but no workers to load the product onto barges to New York City. The lack of workers had to do with the two dollars they were getting paid when small, independent companies were paying double what bigger companies like Knickerbocker were paying their employees. Oler took to the stand to tell the court he was paying his workers properly and was even paying them extra for the work they did on Sundays, but the workers rebelled. When detectives dug deeper into the situation, they discovered Oler secretly made deals with other companies to purchase ice when they were suffering from deficiencies. Oler came up with numerous excuses why he was conducting the Knickerbocker Ice Company\u2019s business in such a way. Oler explained it was cheaper to transport ice in smaller quantities to meet the demands of clients than to purchase more rail cars and transport everything at once. Also, the 1890s was an exceptionally warm winter which was a major setback for the ice industry since there was not much ice to sell to consumers. Oler told the court he searched for skilled workers to harvest ice during the warm season but was unsuccessful, which is the why these complications occurred while he was president of the company.",
+      "conflict_strength": 0.68,
+      "contradict_type": "Implicit (reasoning required)",
+      "dynamicity_score": 0.35,
+      "parametric_answers": [
+        "Pr\u00e4sident Oler nahm 1911 Stellung"
+      ],
+      "parametric_answers_en": [
+        "President Oler took the stand in 1911"
+      ],
+      "popularity_score": 0.5,
+      "question_en": "What year did President Oler take the stand in court?",
+      "same_passage": "Same",
+      "source_benchmark": "wikicontradict",
+      "source_language": "en",
+      "supports_conditions": [
+        "aligned_context",
+        "conflict_context"
+      ],
+      "target_language": "de",
+      "target_language_label": "German"
+    },
+    "question": "In welchem \u200b\u200bJahr nahm Pr\u00e4sident Oler vor Gericht Stellung?"
+  },
+  {
+    "answers": [
+      "Angeln",
+      "IT, Medizin, Ingenieurwesen, Handel"
+    ],
+    "condition": "contradiction",
+    "contexts": [
+      "Ein erheblicher Teil der Einwohner von Kodimunai geht einer Arbeit nach, die mit der Fischerei zu tun hat. Zu diesen T\u00e4tigkeiten geh\u00f6ren Hochseefischen, Flachwasserfischen, Fischen vom Ufer aus (in der Landessprache \u201eKaramadi\u201c genannt), Fischen mit mechanisierten Booten, Fischexport usw.",
+      "Viele der Einwohner von Kodimunai arbeiten in einer Reihe anderer Bereiche wie IT, Medizin, Bildung, Ingenieurwesen, Handel, Frachtschifffahrt usw. Allerdings gibt es au\u00dfer der Fischerei keine nennenswerte lokale Industrie"
+    ],
+    "id": "6",
+    "metadata": {
+      "aligned_context_answers": [
+        "Angeln"
+      ],
+      "aligned_context_answers_en": [
+        "Fishing"
+      ],
+      "aligned_context_text": "Ein erheblicher Teil der Einwohner von Kodimunai geht einer Arbeit nach, die mit der Fischerei zu tun hat. Zu diesen T\u00e4tigkeiten geh\u00f6ren Hochseefischen, Flachwasserfischen, Fischen vom Ufer aus (in der Landessprache \u201eKaramadi\u201c genannt), Fischen mit mechanisierten Booten, Fischexport usw.",
+      "aligned_context_text_en": "A significant number of the residents of Kodimunai do jobs related to fishing. These jobs includes deep sea fishing, shallow water fishing, fishing from the shore (known as karamadi in the local language), fishing with mechanized boats, exporting fish, etc.",
+      "answers_en": [
+        "Fishing",
+        "IT, medicine, engineering, trading"
+      ],
+      "benchmark": "wikicontradict_de",
+      "conflict_context_answers": [
+        "IT, Medizin, Ingenieurwesen, Handel"
+      ],
+      "conflict_context_answers_en": [
+        "IT, medicine, engineering, trading"
+      ],
+      "conflict_context_text": "Viele der Einwohner von Kodimunai arbeiten in einer Reihe anderer Bereiche wie IT, Medizin, Bildung, Ingenieurwesen, Handel, Frachtschifffahrt usw. Allerdings gibt es au\u00dfer der Fischerei keine nennenswerte lokale Industrie",
+      "conflict_context_text_en": "Many of the residents of Kodimunai work in a number of other fields like IT, medicine, education, engineering, trading, cargo shipping, etc. However, there is no noticeable local industry except for fishing",
+      "conflict_strength": 0.68,
+      "contradict_type": "Implicit (reasoning required)",
+      "dynamicity_score": 0.35,
+      "parametric_answers": [
+        "Angeln"
+      ],
+      "parametric_answers_en": [
+        "Fishing"
+      ],
+      "popularity_score": 0.5,
+      "question_en": "What is the most common occupation for the residents of Kodimunai?",
+      "same_passage": "Different",
+      "source_benchmark": "wikicontradict",
+      "source_language": "en",
+      "supports_conditions": [
+        "aligned_context",
+        "conflict_context"
+      ],
+      "target_language": "de",
+      "target_language_label": "German"
+    },
+    "question": "Was ist die h\u00e4ufigste Besch\u00e4ftigung der Einwohner von Kodimunai?"
+  },
+  {
+    "answers": [
+      "Der Salzgehalt des Maracaibo-Sees liegt zwischen 1,5 % und 3,8 %",
+      "Der Salzgehalt des Maracibo-Sees liegt zwischen 0,2 % und 0,3 %"
+    ],
+    "condition": "contradiction",
+    "contexts": [
+      "Der Maracaibo-See ist im S\u00fcden tief und im Norden flach. Die n\u00f6rdliche H\u00e4lfte des Maracaibo-Sees, die wie ein Flaschenhals aussieht, ist 55 Kilometer lang. Der s\u00fcd\u00f6stliche Rand des Maracaibo-Seebeckens mit flachem Boden ist steil und der nordwestliche Rand ist sanft. Der Maracaibo-See ist aufgrund des Einflusses der Gezeiten leicht salzig und der Gesamtsalzgehalt des Maracaibo-Sees liegt zwischen 1,5 und 3,8 %.",
+      "Der Catatumbo-Fluss bildet ein vogelfu\u00dff\u00f6rmiges Delta im S\u00fcdwesten des Maracaibo-Seebeckens, und das Oberfl\u00e4chenseewasser im Delta hat einen Salzgehalt von nur 0,13 %. Allerdings erh\u00f6ht das Eindringen von Meerwasser aus der M\u00fcndung des Maracaibo-Sees den Salzgehalt des Grundseewassers auf 0,2\u20130,3 %."
+    ],
+    "id": "7",
+    "metadata": {
+      "aligned_context_answers": [
+        "Der Salzgehalt des Maracaibo-Sees liegt zwischen 1,5 % und 3,8 %"
+      ],
+      "aligned_context_answers_en": [
+        "The salinity of Lake Maracaibo is between 1.5% and 3.8%"
+      ],
+      "aligned_context_text": "Der Maracaibo-See ist im S\u00fcden tief und im Norden flach. Die n\u00f6rdliche H\u00e4lfte des Maracaibo-Sees, die wie ein Flaschenhals aussieht, ist 55 Kilometer lang. Der s\u00fcd\u00f6stliche Rand des Maracaibo-Seebeckens mit flachem Boden ist steil und der nordwestliche Rand ist sanft. Der Maracaibo-See ist aufgrund des Einflusses der Gezeiten leicht salzig und der Gesamtsalzgehalt des Maracaibo-Sees liegt zwischen 1,5 und 3,8 %.",
+      "aligned_context_text_en": "Lake Maracaibo is deep in the south and shallow in the north. The northern half of Lake Maracaibo, which looks like a bottleneck, is 55 kilometers long. The southeastern edge of Lake Maracaibo basin with a flat bottom is steep and the northwestern edge is gentle. Lake Maracaibo is slightly salty due to the influence of tides, and the overall salinity of Lake Maracaibo is between 1.5 and 3.8%.",
+      "answers_en": [
+        "The salinity of Lake Maracaibo is between 1.5% and 3.8%",
+        "The salinity of Lake Maracibo is between 0.2% and 0.3%"
+      ],
+      "benchmark": "wikicontradict_de",
+      "conflict_context_answers": [
+        "Der Salzgehalt des Maracibo-Sees liegt zwischen 0,2 % und 0,3 %"
+      ],
+      "conflict_context_answers_en": [
+        "The salinity of Lake Maracibo is between 0.2% and 0.3%"
+      ],
+      "conflict_context_text": "Der Catatumbo-Fluss bildet ein vogelfu\u00dff\u00f6rmiges Delta im S\u00fcdwesten des Maracaibo-Seebeckens, und das Oberfl\u00e4chenseewasser im Delta hat einen Salzgehalt von nur 0,13 %. Allerdings erh\u00f6ht das Eindringen von Meerwasser aus der M\u00fcndung des Maracaibo-Sees den Salzgehalt des Grundseewassers auf 0,2\u20130,3 %.",
+      "conflict_context_text_en": "The Catatumbo River forms a bird-foot-shaped delta in the southwest of Lake Maracaibo basin, and the surface lake water in the delta has a salinity of only 0.13%. However, the intrusion of seawater from the mouth of Lake Maracaibo makes the salinity of the bottom lake water higher, reaching 0.2-0.3%.",
+      "conflict_strength": 0.85,
+      "contradict_type": "Explicit",
+      "dynamicity_score": 0.35,
+      "parametric_answers": [
+        "Der Salzgehalt des Maracaibo-Sees liegt zwischen 1,5 % und 3,8 %"
+      ],
+      "parametric_answers_en": [
+        "The salinity of Lake Maracaibo is between 1.5% and 3.8%"
+      ],
+      "popularity_score": 0.5,
+      "question_en": "What is the salinity of Lake Maracaibo?",
+      "same_passage": "Different",
+      "source_benchmark": "wikicontradict",
+      "source_language": "en",
+      "supports_conditions": [
+        "aligned_context",
+        "conflict_context"
+      ],
+      "target_language": "de",
+      "target_language_label": "German"
+    },
+    "question": "Wie hoch ist der Salzgehalt des Maracaibo-Sees?"
+  },
+  {
+    "answers": [
+      "Der t\u00e4gliche Arbeiter",
+      "Die Hoover Gazette"
+    ],
+    "condition": "contradiction",
+    "contexts": [
+      "Dies ist eine Liste der nicht mehr existierenden Zeitungen der Vereinigten Staaten. Unter den Tausenden solcher Zeitungen werden nur namhafte Namen aufgef\u00fchrt, vor allem gro\u00dfe Tageszeitungen in Gro\u00dfst\u00e4dten, die zehn Jahre oder l\u00e4nger ver\u00f6ffentlicht haben.",
+      "Die Hoover Gazette war eine Wochenzeitung der Stadt Hoover, Alabama. Die Hoover Gazette war Eigentum der Eagle Publishing Company LLC. Die Hoover Gazette erschien erstmals am 5. Juni 2006. Die letzte Ausgabe der Hoover Gazette erschien am 15. August 2007. Die Zeitung Hoover Gazette erschien jeden Mittwoch."
+    ],
+    "id": "8",
+    "metadata": {
+      "aligned_context_answers": [
+        "Der t\u00e4gliche Arbeiter"
+      ],
+      "aligned_context_answers_en": [
+        "The Daily Worker"
+      ],
+      "aligned_context_text": "Dies ist eine Liste der nicht mehr existierenden Zeitungen der Vereinigten Staaten. Unter den Tausenden solcher Zeitungen werden nur namhafte Namen aufgef\u00fchrt, vor allem gro\u00dfe Tageszeitungen in Gro\u00dfst\u00e4dten, die zehn Jahre oder l\u00e4nger ver\u00f6ffentlicht haben.",
+      "aligned_context_text_en": "This is a list of defunct newspapers of the United States. Only notable names among the thousands of such newspapers are listed, primarily major metropolitan dailies which published for ten years or more.",
+      "answers_en": [
+        "The Daily Worker",
+        "The Hoover Gazette"
+      ],
+      "benchmark": "wikicontradict_de",
+      "conflict_context_answers": [
+        "Die Hoover Gazette"
+      ],
+      "conflict_context_answers_en": [
+        "The Hoover Gazette"
+      ],
+      "conflict_context_text": "Die Hoover Gazette war eine Wochenzeitung der Stadt Hoover, Alabama. Die Hoover Gazette war Eigentum der Eagle Publishing Company LLC. Die Hoover Gazette erschien erstmals am 5. Juni 2006. Die letzte Ausgabe der Hoover Gazette erschien am 15. August 2007. Die Zeitung Hoover Gazette erschien jeden Mittwoch.",
+      "conflict_context_text_en": "The Hoover Gazette was a weekly newspaper that served the city of Hoover, Alabama. The Hoover Gazette was owned by Eagle Publishing Company LLC. The Hoover Gazette was first published on June 5, 2006. The last edition of Hoover Gazette was on August 15, 2007. The newspaper Hoover Gazette was published each Wednesday.",
+      "conflict_strength": 0.68,
+      "contradict_type": "Implicit (reasoning required)",
+      "dynamicity_score": 0.35,
+      "parametric_answers": [
+        "Der t\u00e4gliche Arbeiter"
+      ],
+      "parametric_answers_en": [
+        "The Daily Worker"
+      ],
+      "popularity_score": 0.5,
+      "question_en": "What are examples of defunct newspapers in the United States?",
+      "same_passage": "Different",
+      "source_benchmark": "wikicontradict",
+      "source_language": "en",
+      "supports_conditions": [
+        "aligned_context",
+        "conflict_context"
+      ],
+      "target_language": "de",
+      "target_language_label": "German"
+    },
+    "question": "Was sind Beispiele f\u00fcr nicht mehr existierende Zeitungen in den Vereinigten Staaten?"
+  },
+  {
+    "answers": [
+      "1934",
+      "1933"
+    ],
+    "condition": "contradiction",
+    "contexts": [
+      "Little America II wurde 1934 etwa zehn Meter \u00fcber dem Standort der urspr\u00fcnglichen Basis Little America I errichtet, wobei ein Teil der urspr\u00fcnglichen Basis \u00fcber einen Tunnel zug\u00e4nglich war. Die Basis Little America II wurde 1934 kurzzeitig abgetrieben, doch der Eisberg verschmolz mit dem Hauptgletscher.",
+      "Bei einer sp\u00e4teren Expedition in die Antarktis entdeckte Byrds Expedition die noch stehenden T\u00fcrme von Little America, darunter das 1933 installierte Jacobs-Windkraftwerk."
+    ],
+    "id": "9",
+    "metadata": {
+      "aligned_context_answers": [
+        "1934"
+      ],
+      "aligned_context_answers_en": [
+        "1934"
+      ],
+      "aligned_context_text": "Little America II wurde 1934 etwa zehn Meter \u00fcber dem Standort der urspr\u00fcnglichen Basis Little America I errichtet, wobei ein Teil der urspr\u00fcnglichen Basis \u00fcber einen Tunnel zug\u00e4nglich war. Die Basis Little America II wurde 1934 kurzzeitig abgetrieben, doch der Eisberg verschmolz mit dem Hauptgletscher.",
+      "aligned_context_text_en": "Little America II was established in 1934, some thirty feet (ten meters) above the site of the original base Little America I, with some of the original base accessed via tunnel. The Little America II base was briefly set adrift in 1934, but the iceberg fused to the main glacier.",
+      "answers_en": [
+        "1934",
+        "1933"
+      ],
+      "benchmark": "wikicontradict_de",
+      "conflict_context_answers": [
+        "1933"
+      ],
+      "conflict_context_answers_en": [
+        "1933"
+      ],
+      "conflict_context_text": "Bei einer sp\u00e4teren Expedition in die Antarktis entdeckte Byrds Expedition die noch stehenden T\u00fcrme von Little America, darunter das 1933 installierte Jacobs-Windkraftwerk.",
+      "conflict_context_text_en": "In a later expedition to Antarctica, Byrd's expedition spotted Little America's towers still standing, including the Jacobs Wind plant installed in 1933.",
+      "conflict_strength": 0.68,
+      "contradict_type": "Implicit (reasoning required)",
+      "dynamicity_score": 0.35,
+      "parametric_answers": [
+        "1934"
+      ],
+      "parametric_answers_en": [
+        "1934"
+      ],
+      "popularity_score": 0.5,
+      "question_en": "When was Little America II base established?",
+      "same_passage": "Different",
+      "source_benchmark": "wikicontradict",
+      "source_language": "en",
+      "supports_conditions": [
+        "aligned_context",
+        "conflict_context"
+      ],
+      "target_language": "de",
+      "target_language_label": "German"
+    },
+    "question": "Wann wurde die Basis Little America II gegr\u00fcndet?"
+  },
+  {
+    "answers": [
+      "selektiv",
+      "nicht selektiv"
+    ],
+    "condition": "contradiction",
+    "contexts": [
+      "Zu den I1-Rezeptoren geh\u00f6ren Agonisten wie AGN 192403 und Moxonidin",
+      "Zu den nichtselektiven Liganden geh\u00f6ren Agonisten wie Agmatin (mutma\u00dflicher endogener Ligand an I1; interagiert auch mit NMDA, Nikotin und \u03b12-Adrenozeptoren), Apraclonidin (\u03b12-Adrenozeptor-Agonist), 2-BFI (I2-Agonist, NMDA-Antagonist), Cimetidin (I1-Agonist, H2-Rezeptor-Antagonist), Clonidin (I1-Agonist, \u03b12-Adrenozeptor-Agonist), LNP-509, LNP-911, 7-Me-Marsanidin, Dimethyltryptamin, mCPP und Moxonidin"
+    ],
+    "id": "10",
+    "metadata": {
+      "aligned_context_answers": [
+        "selektiv"
+      ],
+      "aligned_context_answers_en": [
+        "selective"
+      ],
+      "aligned_context_text": "Zu den I1-Rezeptoren geh\u00f6ren Agonisten wie AGN 192403 und Moxonidin",
+      "aligned_context_text_en": "I1 receptors include Agonists such as AGN 192403, and Moxonidine",
+      "answers_en": [
+        "selective",
+        "non-selective"
+      ],
+      "benchmark": "wikicontradict_de",
+      "conflict_context_answers": [
+        "nicht selektiv"
+      ],
+      "conflict_context_answers_en": [
+        "non-selective"
+      ],
+      "conflict_context_text": "Zu den nichtselektiven Liganden geh\u00f6ren Agonisten wie Agmatin (mutma\u00dflicher endogener Ligand an I1; interagiert auch mit NMDA, Nikotin und \u03b12-Adrenozeptoren), Apraclonidin (\u03b12-Adrenozeptor-Agonist), 2-BFI (I2-Agonist, NMDA-Antagonist), Cimetidin (I1-Agonist, H2-Rezeptor-Antagonist), Clonidin (I1-Agonist, \u03b12-Adrenozeptor-Agonist), LNP-509, LNP-911, 7-Me-Marsanidin, Dimethyltryptamin, mCPP und Moxonidin",
+      "conflict_context_text_en": "Nonselective ligands include Agonists such as Agmatine (putative endogenous ligand at I1; also interacts with NMDA, nicotinic, and \u03b12 adrenoceptors), Apraclonidine (\u03b12 adrenoceptor agonist), 2-BFI (I2 agonist, NMDA antagonist), Cimetidine (I1 agonist, H2 receptor antagonist), Clonidine (I1 agonist, \u03b12 adrenoceptor agonist), LNP-509, LNP-911, 7-Me-marsanidine, Dimethyltryptamine, mCPP, and Moxonidine",
+      "conflict_strength": 0.68,
+      "contradict_type": "Implicit (reasoning required)",
+      "dynamicity_score": 0.35,
+      "parametric_answers": [
+        "selektiv"
+      ],
+      "parametric_answers_en": [
+        "selective"
+      ],
+      "popularity_score": 0.5,
+      "question_en": "Is Moxonidine selective or non-selective Agonist?",
+      "same_passage": "Different",
+      "source_benchmark": "wikicontradict",
+      "source_language": "en",
+      "supports_conditions": [
+        "aligned_context",
+        "conflict_context"
+      ],
+      "target_language": "de",
+      "target_language_label": "German"
+    },
+    "question": "Ist Moxonidin ein selektiver oder nichtselektiver Agonist?"
+  }
+]

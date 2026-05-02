@@ -679,6 +679,7 @@ def run_real_generation_experiment(
     ambiguity_high: float = 0.8,
     cot_lengths: list[int] | None = None,
     benchmark_maxima: dict[str, int] | None = None,
+    dataset_paths: dict[str, str | Path] | None = None,
     resume: bool = True,
 ) -> dict[str, Any]:
     output_path = Path(output_dir)
@@ -686,6 +687,7 @@ def run_real_generation_experiment(
     requested_conditions = conditions or ["aligned_context", "conflict_context"]
     prompt_styles = build_prompt_styles(cot_lengths)
     maxima = dict(benchmark_maxima or {})
+    local_dataset_paths = {str(key): Path(value) for key, value in (dataset_paths or {}).items()}
 
     selection: dict[str, dict[str, Any]] = {}
     for benchmark in benchmarks:
@@ -711,13 +713,15 @@ def run_real_generation_experiment(
             )
             continue
 
-        examples = load_arbitration_dataset(benchmark, max_examples=benchmark_max)
+        dataset_path = local_dataset_paths.get(benchmark)
+        examples = load_arbitration_dataset(benchmark, dataset_path=dataset_path, max_examples=benchmark_max)
         selection[benchmark] = {
             "summary": {
                 "benchmark": benchmark,
+                "dataset_path": str(dataset_path) if dataset_path is not None else None,
                 "screening_pool": len(examples),
                 "selected_examples": len(examples),
-                "selection_rule": "first_n",
+                "selection_rule": "local_first_n" if dataset_path is not None else "first_n",
             },
             "examples": examples,
             "records_by_id": {},
@@ -876,6 +880,7 @@ def run_real_generation_experiment(
             "conflictbank_max": conflictbank_max,
             "triviaqa_max": triviaqa_max,
             "benchmark_maxima": maxima,
+            "dataset_paths": {key: str(value) for key, value in local_dataset_paths.items()},
             "conflictbank_screening_pool": conflictbank_screening_pool,
             "screening": {benchmark: selection[benchmark]["summary"] for benchmark in selection},
             "completed_rows": completed,

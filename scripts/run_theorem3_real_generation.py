@@ -36,6 +36,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--triviaqa-max", type=int, default=200)
     parser.add_argument("--cot-lengths", default="0,128,1024")
     parser.add_argument("--benchmark-maxima", default="")
+    parser.add_argument("--dataset-paths", default="")
     parser.add_argument("--conflictbank-screening-pool", type=int, default=1200)
     parser.add_argument("--ambiguity-low", type=float, default=0.2)
     parser.add_argument("--ambiguity-high", type=float, default=0.8)
@@ -68,6 +69,16 @@ def main() -> None:
                 raise ValueError(f"Invalid benchmark-maxima item: {item}")
             benchmark, raw_value = item.split("=", 1)
             benchmark_maxima[benchmark.strip()] = int(raw_value.strip())
+    dataset_paths: dict[str, str] = {}
+    if args.dataset_paths.strip():
+        for chunk in args.dataset_paths.split(","):
+            item = chunk.strip()
+            if not item:
+                continue
+            if "=" not in item:
+                raise ValueError(f"Invalid dataset-paths item: {item}")
+            benchmark, raw_value = item.split("=", 1)
+            dataset_paths[benchmark.strip()] = raw_value.strip()
 
     payload = run_real_generation_experiment(
         config=config,
@@ -79,6 +90,7 @@ def main() -> None:
         triviaqa_max=args.triviaqa_max,
         cot_lengths=[int(item.strip()) for item in args.cot_lengths.split(",") if item.strip()],
         benchmark_maxima=benchmark_maxima,
+        dataset_paths=dataset_paths,
         conflictbank_screening_pool=args.conflictbank_screening_pool,
         ambiguity_low=args.ambiguity_low,
         ambiguity_high=args.ambiguity_high,
