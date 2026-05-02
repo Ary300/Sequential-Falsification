@@ -43,6 +43,7 @@ REQUEST_TIMEOUT=${REQUEST_TIMEOUT:-600}
 TEMPERATURE=${TEMPERATURE:-0.0}
 TOP_P=${TOP_P:-1.0}
 SEED=${SEED:-42}
+REQUEST_FORMAT=${REQUEST_FORMAT:-chat}
 API_PORT=${API_PORT:-$((20000 + (${SLURM_JOB_ID:-0} % 20000)))}
 export API_PORT
 MAX_MODEL_LEN=${MAX_MODEL_LEN:-16384}
@@ -81,6 +82,7 @@ ARGS=(
   --temperature "${TEMPERATURE}" \
   --top-p "${TOP_P}" \
   --seed "${SEED}" \
+  --request-format "${REQUEST_FORMAT}" \
   --wikicontradict-max "${WIKICONTRADICT_MAX}" \
   --conflictbank-max "${CONFLICTBANK_MAX}" \
   --triviaqa-max "${TRIVIAQA_MAX}" \

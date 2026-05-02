@@ -104,6 +104,7 @@ class GenerationConfig:
     temperature: float = 0.0
     top_p: float = 1.0
     seed: int = 42
+    request_format: str = "chat"
 
 
 def _normalize_answer_text(text: Any) -> str:
@@ -210,6 +211,18 @@ def _extract_confidence(text: str) -> float | None:
                 value = value / 100.0
             return min(max(value, 0.0), 1.0)
 
+    for line in reversed([item.strip() for item in text.splitlines() if item.strip()]):
+        if not line.lower().startswith("confidence:"):
+            continue
+        candidate = line.split(":", 1)[1].strip()
+        try:
+            value = float(candidate.rstrip("%"))
+        except ValueError:
+            continue
+        if candidate.endswith("%") or value > 1.0:
+            value = value / 100.0
+        return min(max(value, 0.0), 1.0)
+
     for match in _NUMBER_RE.finditer(text):
         token = match.group(0).strip()
         try:
@@ -227,6 +240,14 @@ def _extract_answer(text: str) -> str:
     if tagged:
         return tagged.group(1).strip()
 
+    answer_lines = []
+    for line in text.splitlines():
+        stripped = line.strip()
+        if stripped.lower().startswith("answer:"):
+            answer_lines.append(stripped.split(":", 1)[1].strip())
+    if answer_lines:
+        return answer_lines[-1]
+
     stripped = re.sub(r"</?think>|</?answer>|</?confidence>", "", text, flags=re.IGNORECASE)
     lines = [line.strip() for line in stripped.splitlines() if line.strip()]
     if not lines:
@@ -242,6 +263,25 @@ def _extract_reasoning(text: str) -> str:
     tagged = _THINK_RE.search(text)
     if tagged:
         return tagged.group(1).strip()
+
+    reasoning_lines = []
+    in_reasoning = False
+    for line in text.splitlines():
+        stripped = line.strip()
+        lower = stripped.lower()
+        if lower.startswith("reasoning:"):
+            in_reasoning = True
+            payload = stripped.split(":", 1)[1].strip()
+            if payload:
+                reasoning_lines.append(payload)
+            continue
+        if lower.startswith("answer:") or lower.startswith("confidence:"):
+            if in_reasoning:
+                break
+        elif in_reasoning and stripped:
+            reasoning_lines.append(stripped)
+    if reasoning_lines:
+        return "\n".join(reasoning_lines).strip()
 
     answer_match = _ANSWER_RE.search(text)
     if answer_match:
@@ -363,6 +403,62 @@ def _openai_chat(messages: list[dict[str, str]], *, style: PromptStyle, config: 
     return text, usage_payload
 
 
+def _completion_prompt(example: dict[str, Any], *, style: PromptStyle, condition: str) -> str:
+    base_block = _question_block(example, condition)
+    if style.cot_length == 0:
+        return (
+            "Answer the question directly.\n"
+            "Do not repeat the question or context.\n"
+            "Use exactly this format:\n"
+            "Answer: <short answer>\n"
+            "Confidence: <0.00-1.00>\n\n"
+            f"{base_block}\n\n"
+            "Answer:"
+        )
+    return (
+        "Reason step by step, then answer.\n"
+        "Do not repeat the question or context.\n"
+        "Use exactly this format:\n"
+        "Reasoning: <brief reasoning>\n"
+        "Answer: <short answer>\n"
+        "Confidence: <0.00-1.00>\n\n"
+        f"{base_block}\n\n"
+        "Reasoning:"
+    )
+
+
+def _openai_completion(example: dict[str, Any], *, style: PromptStyle, condition: str, config: GenerationConfig) -> tuple[str, dict[str, Any]]:
+    from openai import OpenAI  # type: ignore
+
+    client = OpenAI(
+        base_url=config.api_base,
+        api_key=config.api_key,
+        timeout=config.request_timeout,
+        max_retries=1,
+    )
+    prompt = _completion_prompt(example, style=style, condition=condition)
+    response = client.completions.create(
+        model=config.model,
+        prompt=prompt,
+        max_tokens=style.max_tokens,
+        temperature=config.temperature,
+        top_p=config.top_p,
+        seed=config.seed,
+        stop=["\nQuestion:", "\nuser:", "\nassistant:"],
+    )
+    choice = response.choices[0]
+    text = getattr(choice, "text", "") or ""
+    usage = getattr(response, "usage", None)
+    usage_payload = {}
+    if usage is not None:
+        usage_payload = {
+            "prompt_tokens": getattr(usage, "prompt_tokens", None),
+            "completion_tokens": getattr(usage, "completion_tokens", None),
+            "total_tokens": getattr(usage, "total_tokens", None),
+        }
+    return text, usage_payload
+
+
 def _mock_chat(example: dict[str, Any], *, style: PromptStyle, condition: str, seed: int) -> tuple[str, dict[str, Any]]:
     rng = random.Random(f"{example.get('id')}::{condition}::{style.label}::{seed}")
     metadata = example.get("metadata", {})
@@ -402,14 +498,16 @@ def _mock_chat(example: dict[str, Any], *, style: PromptStyle, condition: str, s
 
 
 def _generate_response(example: dict[str, Any], *, style: PromptStyle, condition: str, config: GenerationConfig) -> tuple[str, dict[str, Any]]:
-    messages = [
-        {"role": "system", "content": style.system_prompt},
-        {"role": "user", "content": _question_block(example, condition)},
-    ]
     if config.backend == "mock":
         return _mock_chat(example, style=style, condition=condition, seed=config.seed)
     if config.backend != "openai":
         raise ValueError(f"Unsupported theorem-3 real-generation backend: {config.backend}")
+    if config.request_format == "completion":
+        return _openai_completion(example, style=style, condition=condition, config=config)
+    messages = [
+        {"role": "system", "content": style.system_prompt},
+        {"role": "user", "content": _question_block(example, condition)},
+    ]
     return _openai_chat(messages, style=style, config=config)
 
 
