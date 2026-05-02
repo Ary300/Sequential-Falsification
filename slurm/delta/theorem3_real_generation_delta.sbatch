@@ -27,6 +27,13 @@ if [[ ! -f "${DELTA_VENV}/bin/activate" ]]; then
 fi
 source "${DELTA_VENV}/bin/activate"
 export HF_HOME=${HF_HOME:-/work/nvme/bgvi/adas17/hf_cache}
+export XDG_CACHE_HOME=${XDG_CACHE_HOME:-/work/nvme/bgvi/adas17/.cache}
+export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-/work/nvme/bgvi/adas17/.config}
+export VLLM_CACHE_ROOT=${VLLM_CACHE_ROOT:-${XDG_CACHE_HOME}/vllm}
+export VLLM_CONFIG_ROOT=${VLLM_CONFIG_ROOT:-${XDG_CONFIG_HOME}/vllm}
+export VLLM_NO_USAGE_STATS=${VLLM_NO_USAGE_STATS:-1}
+export VLLM_DO_NOT_TRACK=${VLLM_DO_NOT_TRACK:-1}
+export DO_NOT_TRACK=${DO_NOT_TRACK:-1}
 
 MODEL=${MODEL:-deepseek-ai/DeepSeek-R1-Distill-Qwen-7B}
 BACKEND=${BACKEND:-openai}
@@ -37,6 +44,7 @@ TEMPERATURE=${TEMPERATURE:-0.0}
 TOP_P=${TOP_P:-1.0}
 SEED=${SEED:-42}
 API_PORT=${API_PORT:-$((20000 + (${SLURM_JOB_ID:-0} % 20000)))}
+export API_PORT
 MAX_MODEL_LEN=${MAX_MODEL_LEN:-16384}
 GPU_MEMORY_UTILIZATION=${GPU_MEMORY_UTILIZATION:-0.90}
 TP_SIZE=${TP_SIZE:-1}
@@ -54,6 +62,7 @@ DELTA_PROJECT_ROOT=${DELTA_PROJECT_ROOT:-/u/adas17/tts-falsification-git}
 
 cd "${DELTA_PROJECT_ROOT}"
 nvidia-smi -L || true
+mkdir -p "${HF_HOME}" "${XDG_CACHE_HOME}" "${XDG_CONFIG_HOME}" "${VLLM_CACHE_ROOT}" "${VLLM_CONFIG_ROOT}"
 
 if [[ "${OUTPUT_DIR}" = /* ]]; then
   RUN_OUTPUT_DIR="${OUTPUT_DIR}"
