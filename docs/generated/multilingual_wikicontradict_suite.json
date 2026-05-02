@@ -1,0 +1,75 @@
+{
+  "headline": {
+    "languages_run": 5,
+    "languages_with_any_conflict_hit": 3,
+    "languages_with_any_gold_hit": 3,
+    "mean_topk_conflict_hit_rate": 0.1,
+    "mean_topk_gold_hit_rate": 0.1
+  },
+  "metadata": {
+    "languages": [
+      "es",
+      "fr",
+      "de",
+      "it",
+      "pt"
+    ]
+  },
+  "rows": [
+    {
+      "completed_examples": 10,
+      "failed_examples": 0,
+      "label": "Spanish",
+      "language": "es",
+      "top1_conflict_hit_rate": 0.1,
+      "top1_gold_hit_rate": 0.2,
+      "topk_both_hit_rate": 0.2,
+      "topk_conflict_hit_rate": 0.2,
+      "topk_gold_hit_rate": 0.2
+    },
+    {
+      "completed_examples": 10,
+      "failed_examples": 0,
+      "label": "French",
+      "language": "fr",
+      "top1_conflict_hit_rate": 0.0,
+      "top1_gold_hit_rate": 0.0,
+      "topk_both_hit_rate": 0.0,
+      "topk_conflict_hit_rate": 0.0,
+      "topk_gold_hit_rate": 0.0
+    },
+    {
+      "completed_examples": 10,
+      "failed_examples": 0,
+      "label": "German",
+      "language": "de",
+      "top1_conflict_hit_rate": 0.1,
+      "top1_gold_hit_rate": 0.1,
+      "topk_both_hit_rate": 0.1,
+      "topk_conflict_hit_rate": 0.1,
+      "topk_gold_hit_rate": 0.1
+    },
+    {
+      "completed_examples": 5,
+      "failed_examples": 0,
+      "label": "Italian",
+      "language": "it",
+      "top1_conflict_hit_rate": 0.2,
+      "top1_gold_hit_rate": 0.2,
+      "topk_both_hit_rate": 0.2,
+      "topk_conflict_hit_rate": 0.2,
+      "topk_gold_hit_rate": 0.2
+    },
+    {
+      "completed_examples": 5,
+      "failed_examples": 0,
+      "label": "Portuguese",
+      "language": "pt",
+      "top1_conflict_hit_rate": 0.0,
+      "top1_gold_hit_rate": 0.0,
+      "topk_both_hit_rate": 0.0,
+      "topk_conflict_hit_rate": 0.0,
+      "topk_gold_hit_rate": 0.0
+    }
+  ]
+}

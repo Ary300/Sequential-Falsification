@@ -77,6 +77,7 @@ def _translate(
     session: requests.Session,
     text: str,
     cache: dict[str, Any],
+    cache_path: Path,
     sleep_seconds: float,
     max_retries: int,
     target_lang: str,
@@ -100,7 +101,7 @@ def _translate(
     response.raise_for_status()
     translated = str(response.json().get("responseData", {}).get("translatedText", "")).strip() or text
     cache[key] = translated
-    _save_cache(Path(args.cache_file), cache)  # type: ignore[name-defined]
+    _save_cache(cache_path, cache)
     time.sleep(sleep_seconds)
     return translated
 
@@ -109,6 +110,7 @@ def _search_target_wikipedia(
     session: requests.Session,
     question_translated: str,
     cache: dict[str, Any],
+    cache_path: Path,
     *,
     target_lang: str,
     search_limit: int,
@@ -182,7 +184,7 @@ def _search_target_wikipedia(
             }
         )
     cache[key] = results
-    _save_cache(Path(args.cache_file), cache)  # type: ignore[name-defined]
+    _save_cache(cache_path, cache)
     time.sleep(sleep_seconds)
     return results
 
@@ -190,7 +192,8 @@ def _search_target_wikipedia(
 def build_payload(args: argparse.Namespace) -> dict[str, Any]:
     session = requests.Session()
     session.headers.update({"User-Agent": "SequentialFalsification/1.0 (multilingual transfer probe)"})
-    cache = _load_cache(Path(args.cache_file))
+    cache_path = Path(args.cache_file)
+    cache = _load_cache(cache_path)
     rows = load_arbitration_dataset("wikicontradict", max_examples=args.max_examples)
 
     top1_gold = 0
@@ -207,14 +210,22 @@ def build_payload(args: argparse.Namespace) -> dict[str, Any]:
     for row in rows:
         metadata = row.get("metadata", {}) or {}
         try:
-            question_translated = _translate(session, str(row["question"]), cache, args.sleep_seconds, args.max_retries, target_lang)
+            question_translated = _translate(
+                session,
+                str(row["question"]),
+                cache,
+                cache_path,
+                args.sleep_seconds,
+                args.max_retries,
+                target_lang,
+            )
             gold_translated = [
-                _translate(session, item, cache, args.sleep_seconds, args.max_retries, target_lang)
+                _translate(session, item, cache, cache_path, args.sleep_seconds, args.max_retries, target_lang)
                 for item in list(row.get("answers") or [])[:2]
                 if isinstance(item, str) and item.strip()
             ]
             conflict_translated = [
-                _translate(session, item, cache, args.sleep_seconds, args.max_retries, target_lang)
+                _translate(session, item, cache, cache_path, args.sleep_seconds, args.max_retries, target_lang)
                 for item in list(metadata.get("conflict_context_answers") or [])[:2]
                 if isinstance(item, str) and item.strip()
             ]
@@ -222,6 +233,7 @@ def build_payload(args: argparse.Namespace) -> dict[str, Any]:
                 session,
                 question_translated,
                 cache,
+                cache_path,
                 target_lang=target_lang,
                 search_limit=args.search_limit,
                 top_k=args.top_k,

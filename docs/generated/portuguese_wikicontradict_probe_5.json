@@ -1,0 +1,88 @@
+{
+  "examples": [
+    {
+      "conflict_translated": [
+        "Aporfinas"
+      ],
+      "gold_translated": [
+        "Apomorfina",
+        "Aporfinas"
+      ],
+      "id": "1",
+      "question_en": "Which of the following are present in Nymphaea nouchali var. caerulea: apomorphine, aporphine, or neither?",
+      "question_translated": "Quais das seguintes op\u00e7\u00f5es est\u00e3o presentes em Nymphaea nouchali var. caerulea: apomorfina, aporfina ou nenhuma das duas?",
+      "results": []
+    },
+    {
+      "conflict_translated": [
+        "Sim."
+      ],
+      "gold_translated": [
+        "N\u00ba.",
+        "Sim."
+      ],
+      "id": "2",
+      "question_en": "Are there any other missiles besides the P-500 Bazalt that influenced the design of P-700 Granit missile?",
+      "question_translated": "Existem outros m\u00edsseis al\u00e9m do P-500 Bazalt que influenciaram o projeto do m\u00edssil P-700 Granit?",
+      "results": []
+    },
+    {
+      "conflict_translated": [
+        "Sim."
+      ],
+      "gold_translated": [
+        "N\u00ba.",
+        "Sim."
+      ],
+      "id": "3",
+      "question_en": "Did the formation of the grooves on Phobos occur as a single event?",
+      "question_translated": "A forma\u00e7\u00e3o das ranhuras em Fobos ocorreu como um \u00fanico evento?",
+      "results": []
+    },
+    {
+      "conflict_translated": [
+        "N\u00e3o"
+      ],
+      "gold_translated": [
+        "Sim",
+        "N\u00e3o"
+      ],
+      "id": "4",
+      "question_en": "Did Bishop Heber meet D\u2019Oyly in the 1840s in Patna ?",
+      "question_translated": "O bispo Heber conheceu D\u2019Oyly na d\u00e9cada de 1840 em Patna ?",
+      "results": []
+    },
+    {
+      "conflict_translated": [
+        "O presidente Oler apelou no tribunal na d\u00e9cada de 1890"
+      ],
+      "gold_translated": [
+        "Presidente Oler testemunhou em 1911",
+        "O presidente Oler apelou no tribunal na d\u00e9cada de 1890"
+      ],
+      "id": "5",
+      "question_en": "What year did President Oler take the stand in court?",
+      "question_translated": "Em que ano o presidente Oler testemunhou no tribunal?",
+      "results": []
+    }
+  ],
+  "failed_examples": [],
+  "headline": {
+    "target_label": "Portuguese",
+    "target_lang": "pt",
+    "top1_conflict_hit_rate": 0.0,
+    "top1_gold_hit_rate": 0.0,
+    "topk_both_hit_rate": 0.0,
+    "topk_conflict_hit_rate": 0.0,
+    "topk_gold_hit_rate": 0.0
+  },
+  "metadata": {
+    "benchmark": "wikicontradict",
+    "completed_examples": 5,
+    "failed_examples": 0,
+    "language": "pt",
+    "language_label": "Portuguese",
+    "num_examples": 5,
+    "retriever": "translated_query_plus_pt_wikipedia_search"
+  }
+}

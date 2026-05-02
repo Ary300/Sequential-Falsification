@@ -1,0 +1,96 @@
+{
+  "examples": [
+    {
+      "conflict_translated": [
+        "Aporphin"
+      ],
+      "gold_translated": [
+        "Apomorphin",
+        "Aporphin"
+      ],
+      "id": "1",
+      "question_en": "Which of the following are present in Nymphaea nouchali var. caerulea: apomorphine, aporphine, or neither?",
+      "question_translated": "Welche der folgenden sind in Nymphaea nouchali var. caerulea vorhanden: Apomorphin, Aporphin oder keines von beiden?",
+      "results": []
+    },
+    {
+      "conflict_translated": [
+        "Ja."
+      ],
+      "gold_translated": [
+        "Nr.",
+        "Ja."
+      ],
+      "id": "2",
+      "question_en": "Are there any other missiles besides the P-500 Bazalt that influenced the design of P-700 Granit missile?",
+      "question_translated": "Gibt es neben der P-500 Bazalt noch andere Raketen, die das Design der P-700 Granit-Rakete beeinflusst haben?",
+      "results": []
+    },
+    {
+      "conflict_translated": [
+        "Ja."
+      ],
+      "gold_translated": [
+        "Nr.",
+        "Ja."
+      ],
+      "id": "3",
+      "question_en": "Did the formation of the grooves on Phobos occur as a single event?",
+      "question_translated": "Ist die Bildung der Rillen auf Phobos als ein einziges Ereignis aufgetreten?",
+      "results": [
+        {
+          "conflict_hit": true,
+          "extract": "Opportunity (englisch f\u00fcr Chance/Gelegenheit) war ein US-amerikanischer Erkundungsroboter zur geologischen Erforschung des Mars, der von 2004 bis 2018 aktiv war. Die Sonde wurde von der NASA am 7. Juli 2003 im Rahmen des Mars-Exploration-Rover-Programm gestartet. Sein urspr\u00fcnglicher Name lautete deswegen auch Mars Exploration Rover B (MER-B) und wurde dann sp\u00e4ter in Opportunity ge\u00e4ndert.\nSie landete am 25. Januar 2004 erfolgreich in einem kleinen Krater (in der Tiefebene Meridiani Planum), den die NASA sp\u00e4ter Eagle Crater taufte. Obwohl Opportunity nur f\u00fcr eine Missionsdauer von 90 sol ausgelegt war, blieb sie 5111 sol bis zum 10. Juni 2018 aktiv. Ihre Mission endete nach 14 Jahren und 219 Tagen, als die Sonde nach einem Staubsturm nicht wieder aus dem Ruhezustand aufgeweckt werden konnte. In dieser Zeit legte Opportunity eine Strecke von 45,16 km zur\u00fcck. Die NASA erkl\u00e4rte am 13. Februar 2019, dass das Programm erfolgreich beendet wurde, nachdem alle Kommunikationsversuche mit der Sonde fehlgeschlagen seien.\nDie Schwestersonde Spirit (MER-A) landete am 4. Januar 2004 im Gusev-Krater und war bis zum 22. M\u00e4rz 2010 aktiv.",
+          "gold_hit": true,
+          "snippet": "stieg die Stromerzeugung bis <span class=\"searchmatch\">auf</span> 745\u00a0Wh pro Sol. Durch <span class=\"searchmatch\">die</span> gute Energiesituation konnte wieder <span class=\"searchmatch\">der</span> Marsmond <span class=\"searchmatch\">Phobos</span> in <span class=\"searchmatch\">der</span> Nacht beobachtet werden. Zudem",
+          "title": "Opportunity"
+        }
+      ]
+    },
+    {
+      "conflict_translated": [
+        "nein"
+      ],
+      "gold_translated": [
+        "Ja",
+        "nein"
+      ],
+      "id": "4",
+      "question_en": "Did Bishop Heber meet D\u2019Oyly in the 1840s in Patna ?",
+      "question_translated": "Hat Bischof Heber D\u2019Oyly in den 1840er Jahren in Patna getroffen?",
+      "results": []
+    },
+    {
+      "conflict_translated": [
+        "Pr\u00e4sident Oler legte in den 1890er Jahren vor Gericht Berufung ein"
+      ],
+      "gold_translated": [
+        "Pr\u00e4sident Oler trat 1911 in den Zeugenstand",
+        "Pr\u00e4sident Oler legte in den 1890er Jahren vor Gericht Berufung ein"
+      ],
+      "id": "5",
+      "question_en": "What year did President Oler take the stand in court?",
+      "question_translated": "In welchem Jahr trat Pr\u00e4sident Oler vor Gericht?",
+      "results": []
+    }
+  ],
+  "failed_examples": [],
+  "headline": {
+    "target_label": "German",
+    "target_lang": "de",
+    "top1_conflict_hit_rate": 0.1,
+    "top1_gold_hit_rate": 0.1,
+    "topk_both_hit_rate": 0.1,
+    "topk_conflict_hit_rate": 0.1,
+    "topk_gold_hit_rate": 0.1
+  },
+  "metadata": {
+    "benchmark": "wikicontradict",
+    "completed_examples": 10,
+    "failed_examples": 0,
+    "language": "de",
+    "language_label": "German",
+    "num_examples": 10,
+    "retriever": "translated_query_plus_de_wikipedia_search"
+  }
+}

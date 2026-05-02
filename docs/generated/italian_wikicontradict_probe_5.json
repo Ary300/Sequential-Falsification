@@ -1,0 +1,103 @@
+{
+  "examples": [
+    {
+      "conflict_translated": [
+        "Aporfina"
+      ],
+      "gold_translated": [
+        "Apomorfina",
+        "Aporfina"
+      ],
+      "id": "1",
+      "question_en": "Which of the following are present in Nymphaea nouchali var. caerulea: apomorphine, aporphine, or neither?",
+      "question_translated": "Quali dei seguenti sono presenti in Nymphaea nouchali var. caerulea: apomorfina, aporfina o nessuna delle due?",
+      "results": []
+    },
+    {
+      "conflict_translated": [
+        "S\u00ec, s\u00ec."
+      ],
+      "gold_translated": [
+        "N&#176;",
+        "S\u00ec, s\u00ec."
+      ],
+      "id": "2",
+      "question_en": "Are there any other missiles besides the P-500 Bazalt that influenced the design of P-700 Granit missile?",
+      "question_translated": "Ci sono altri missili oltre al P-500 Bazalt che hanno influenzato il design del missile P-700 Granit?",
+      "results": []
+    },
+    {
+      "conflict_translated": [
+        "S\u00ec, s\u00ec."
+      ],
+      "gold_translated": [
+        "N&#176;",
+        "S\u00ec, s\u00ec."
+      ],
+      "id": "3",
+      "question_en": "Did the formation of the grooves on Phobos occur as a single event?",
+      "question_translated": "La formazione dei solchi su Phobos si \u00e8 verificata come un singolo evento?",
+      "results": [
+        {
+          "conflict_hit": true,
+          "extract": "Marte \u00e8 il quarto pianeta del sistema solare in ordine di distanza dal Sole; \u00e8 visibile a occhio nudo ed \u00e8 uno dei pianeti di tipo terrestre (roccioso) come  Mercurio, Venere e la Terra (1,52 unit\u00e0 astronomiche [227 000 000 km] di distanza dal Sole). Chiamato pianeta rosso per via del suo colore caratteristico causato dalla grande quantit\u00e0 di ossido di ferro che lo ricopre, Marte prende il nome dall'omonima divinit\u00e0 della mitologia romana e il suo simbolo astronomico \u00e8 la rappresentazione stilizzata dello scudo e della lancia del dio (; Unicode: \u2642).\nPur presentando temperature medie superficiali piuttosto basse (tra \u2212120 e \u221214 \u00b0C) e un'atmosfera molto rarefatta, \u00e8 il pianeta pi\u00f9 simile alla Terra tra quelli del sistema solare. Le sue dimensioni sono intermedie tra quelle del nostro pianeta e quelle della Luna, e l'inclinazione del suo asse di rotazione e la durata del giorno sono molto simili a quelle terrestri. La sua superficie presenta formazioni vulcaniche, valli, calotte polari e deserti sabbiosi, e formazioni geologiche che vi suggeriscono la presenza di un'idrosfera in un lontano passato. La superficie del pianeta appare fortemente craterizzata, a causa della quasi totale assenza di agenti erosivi (principalmente, l'attivit\u00e0 geologica, atmosferica e idrosferica) e dalla totale assenza di attivit\u00e0 tettonica delle placche capace di formare e poi modellare le strutture tettoniche. La bassissima densit\u00e0 dell'atmosfera non \u00e8 poi in grado di consumare buona parte delle meteore, che pertanto raggiungono il suolo con maggior frequenza che non sulla Terra. Tra le formazioni geologiche pi\u00f9 notevoli di Marte si segnalano: l'Olympus Mons, o monte Olimpo, il vulcano pi\u00f9 grande del sistema solare (alto 27 km); le Valles Marineris, un lungo canyon notevolmente pi\u00f9 esteso di quelli terrestri; e un enorme cratere sull'emisfero boreale, ampio circa il 40% dell'intera superficie marziana.\nAll'osservazione diretta, Marte presenta variazioni di colore, imputate storicamente alla presenza di vegetazione stagionale, che si modificano al variare dei periodi dell'anno; ma successive osservazioni spettroscopiche dell'atmosfera hanno da tempo fatto abbandonare l'ipotesi che vi potessero essere mari, canali e fiumi oppure un'atmosfera sufficientemente densa. La smentita finale arriv\u00f2 dalla missione Mariner 4, che nel 1965 mostr\u00f2 un pianeta desertico e arido, animato da tempeste di sabbia periodiche e particolarmente violente. Le missioni pi\u00f9 recenti hanno evidenziato la presenza di acqua ghiacciata.\nIntorno al pianeta orbitano due satelliti naturali, Fobos e Deimos, di piccole dimensioni e dalla forma irregolare.",
+          "gold_hit": true,
+          "snippet": "richiamano <span class=\"searchmatch\">la</span> mitologia greca secondo <span class=\"searchmatch\">la</span> quale <span class=\"searchmatch\">Phobos</span> e Deimos accompagnavano il padre Ares, Marte per i Romani, in battaglia. Non <span class=\"searchmatch\">\u00e8</span> ancora chiaro <span class=\"searchmatch\">come</span> e se",
+          "title": "Marte (astronomia)"
+        },
+        {
+          "conflict_hit": true,
+          "extract": "Il clima di Marte \u00e8 da secoli oggetto di curiosit\u00e0 scientifica sia perch\u00e9 \u00e8 l'unico pianeta terrestre la cui superficie pu\u00f2 essere facilmente osservata direttamente in dettaglio dalla Terra con l'aiuto di un telescopio, sia perch\u00e9 risulta possibile studiarne, con l'apposita strumentazione, la composizione atmosferica.\nSebbene Marte sia pi\u00f9 piccolo della Terra con solo un decimo della massa terrestre, e il 50% pi\u00f9 lontano dal Sole rispetto alla Terra (1,524 ua contro 1 ua del nostro pianeta) il suo clima presenta importanti somiglianze, come la presenza di calotte polari (simile alle nostre calotta glaciale artica e calotta glaciale antartica), cambiamenti stagionali e fenomeni meteorologici osservabili e modellizzabili partendo dalle conoscenze acquisite per il pianeta Terra, attirando l'attenzione di planetologi e climatologi e realizzando studi approfonditi. Comunque, anche se il clima di Marte presenta somiglianze con quello della Terra (comprese periodiche ere glaciali), esistono differenze importanti che ne diversificano il comportamento (come ad esempio un\u2019inerzia termica molto inferiore a quella terrestre). Infatti l'atmosfera di Marte ha un'altezza di scala di circa 11 chilometri, 60% maggiore di quella terrestre. Assieme alla struttura planetaria e a quella atmosferica, il clima di Marte e la sua evoluzione \u00e8 di notevole importanza per dare una risposta alla storica questione se la vita sia mai potuto esistere sul pianeta.\nMarte \u00e8 stato studiato con strumenti terrestri sin dal XVII secolo, ma \u00e8 solo da quando \u00e8 iniziata l'epoca della esplorazione di Marte, a met\u00e0 degli anni sessanta del XX secolo, che \u00e8 stata possibile l'osservazione a distanza ravvicinata. I veicoli spaziali in flyby ed in orbita del pianeta hanno fornito dati dall'alto dell'atmosfera, mentre lander e rover hanno misurato, sul posto dove risiedono, localmente le condizioni atmosferiche. Gli strumenti di oggi sofisticati e posti in orbita terrestre continuano a fornire utili osservazioni del quadro generale dei fenomeni meteorologici a scala relativamente grande che periodicamente avvengono sul pianeta rosso.\nLa prima missione di sorvolo marziano fu la Mariner 4, arrivata nel 1965. Quel rapido passaggio di due giorni (14-15 luglio 1965) con strumenti grezzi contribu\u00ec poco allo stato delle conoscenze del clima marziano. Le successive missioni Mariner (Mariner 6 e 7) colmarono alcune lacune nelle informazioni di base sul clima. Studi particolareggiati, basati sui dati ottenuti dalle missioni ma anche da osservazioni a terra, sono iniziati in maniera pi\u00f9 rigorosa con i lander del programma Viking nel 1975 e continuano tutt'oggi con le sonde come il Mars Reconnaissance Orbiter, il Mars Express, l'ExoMars con il suo Trace Gas Orbiter, HOPE della Emirates Mars Mission, la sonda MAVEN (Mars Atmosphere and Volatile EvolutioN), il 2001 Mars Odyssey e per finire con la missione cinese Tianwen-1.\nI dati ricavati dalle varie missioni di studio sulla dinamica climatica e sulla atmosfera di Marte hanno permesso alla NASA di definire una complessa simulazione digitale chiamata modello di circolazione generale di Marte (o MGCM, Mars General Circulation Model oggi tenuto dal Mars Climate Modeling Center) riferimento per ogni studio e ogni analisi relativa all'atmosfera e al clima marziano. Differenti iterazioni del modello e di altri hanno portato ad una maggiore comprensione delle dinamiche planetarie ed anche a definire alcuni limiti di tali modelli, affinati col progredire delle conoscenze provenienti dalle missioni consolidate e nuove e dei survey che con esse vengono effettuati. Il modello MGCM viene oggi supportato dal Mars Climate Modeling Center della NASA che rilascia anche un applicativo, ospitato dai server della Ames Research Center, per utilizzare, testare e controllare i dati osservativi, tramite il Mars Global Climate Model.",
+          "gold_hit": true,
+          "snippet": "(<span class=\"searchmatch\">come</span> avviene con il sistema Terra-Luna). Marte infatti possiede solo due piccole lune; <span class=\"searchmatch\">Phobos</span> e Deimos non possono stabilizzarla <span class=\"searchmatch\">come</span> avviene per <span class=\"searchmatch\">la</span> Luna",
+          "title": "Clima di Marte"
+        }
+      ]
+    },
+    {
+      "conflict_translated": [
+        "No"
+      ],
+      "gold_translated": [
+        "Si",
+        "No"
+      ],
+      "id": "4",
+      "question_en": "Did Bishop Heber meet D\u2019Oyly in the 1840s in Patna ?",
+      "question_translated": "Il vescovo Heber incontr\u00f2 D\u2019Oyly nel 1840 a Patna ?",
+      "results": []
+    },
+    {
+      "conflict_translated": [
+        "Il presidente Oler ricorre in tribunale negli anni '90 dell'Ottocento"
+      ],
+      "gold_translated": [
+        "Il presidente Oler prese posizione nel 1911",
+        "Il presidente Oler ricorre in tribunale negli anni '90 dell'Ottocento"
+      ],
+      "id": "5",
+      "question_en": "What year did President Oler take the stand in court?",
+      "question_translated": "In che anno il presidente Oler ha preso la parola in tribunale?",
+      "results": []
+    }
+  ],
+  "failed_examples": [],
+  "headline": {
+    "target_label": "Italian",
+    "target_lang": "it",
+    "top1_conflict_hit_rate": 0.2,
+    "top1_gold_hit_rate": 0.2,
+    "topk_both_hit_rate": 0.2,
+    "topk_conflict_hit_rate": 0.2,
+    "topk_gold_hit_rate": 0.2
+  },
+  "metadata": {
+    "benchmark": "wikicontradict",
+    "completed_examples": 5,
+    "failed_examples": 0,
+    "language": "it",
+    "language_label": "Italian",
+    "num_examples": 5,
+    "retriever": "translated_query_plus_it_wikipedia_search"
+  }
+}
