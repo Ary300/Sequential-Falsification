@@ -16,7 +16,7 @@ DELTA_VENV=${DELTA_VENV:-/u/adas17/venvs/tts-delta}
 source "${DELTA_VENV}/bin/activate"
 export HF_HOME=${HF_HOME:-/work/nvme/bgvi/adas17/hf_cache}
 
-DELTA_PROJECT_ROOT=${DELTA_PROJECT_ROOT:-/u/adas17/tts-falsification}
+DELTA_PROJECT_ROOT=${DELTA_PROJECT_ROOT:-/u/adas17/tts-falsification-git}
 ROWS_JSONL=${ROWS_JSONL:-/work/nvme/bgvi/adas17/tts_results/results/theorem3_tierA_r1_qwen14_seed42/theorem3_generation_rows.jsonl}
 OUTPUT_DIR=${OUTPUT_DIR:-results/theorem3_rlcr_style_lora_r1_14b_conflict}
 MODEL_NAME=${MODEL_NAME:-deepseek-ai/DeepSeek-R1-Distill-Qwen-14B}

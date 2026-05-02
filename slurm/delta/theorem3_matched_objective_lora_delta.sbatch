@@ -16,7 +16,7 @@ DELTA_VENV=${DELTA_VENV:-/u/adas17/venvs/tts-delta}
 source "${DELTA_VENV}/bin/activate"
 export HF_HOME=${HF_HOME:-/work/nvme/bgvi/adas17/hf_cache}
 
-DELTA_PROJECT_ROOT=${DELTA_PROJECT_ROOT:-/u/adas17/tts-falsification}
+DELTA_PROJECT_ROOT=${DELTA_PROJECT_ROOT:-/u/adas17/tts-falsification-git}
 DELTA_RESULTS_ROOT=${DELTA_RESULTS_ROOT:-/work/nvme/bgvi/adas17/tts_results}
 OBJECTIVE=${OBJECTIVE:-dpo}
 OUTPUT_DIR=${OUTPUT_DIR:-results/theorem3_matched_objective_qwen14_dpo}
