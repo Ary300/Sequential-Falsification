@@ -54,10 +54,13 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--max-eval-rows", type=int, default=500)
     parser.add_argument("--max-length", type=int, default=1024)
     parser.add_argument("--feature-batch-size", type=int, default=2)
+    parser.add_argument("--warmstart-epochs", type=int, default=1)
     parser.add_argument("--epochs", type=int, default=3)
     parser.add_argument("--lr", type=float, default=5e-5)
     parser.add_argument("--head-lr", type=float, default=5e-4)
     parser.add_argument("--weight-decay", type=float, default=1e-4)
+    parser.add_argument("--answer-loss-weight", type=float, default=1.0)
+    parser.add_argument("--confidence-loss-weight", type=float, default=1.0)
     parser.add_argument("--lora-rank", type=int, default=8)
     parser.add_argument("--lora-alpha", type=int, default=16)
     parser.add_argument("--lora-dropout", type=float, default=0.05)
@@ -103,6 +106,40 @@ def _row_text(row: dict[str, Any]) -> str:
     parts.append(f"Answer: {str(row.get('answer', '')).strip()}")
     parts.append(f"Reported confidence: {float(row.get('confidence', 0.5)):.2f}")
     return "\n\n".join(parts)
+
+
+def _qa_prompt(row: dict[str, Any]) -> str:
+    metadata = row.get("metadata", {}) or {}
+    question = str(row.get("question", "")).strip()
+    condition = str(row.get("condition", "unknown"))
+    aligned_context = str(metadata.get("aligned_context_text") or "").strip()
+    conflict_context = str(metadata.get("conflict_context_text") or "").strip()
+    if condition == "aligned_context":
+        context_text = aligned_context
+    elif condition == "conflict_context":
+        context_text = conflict_context
+    else:
+        context_text = ""
+    if context_text:
+        return (
+            "Answer the question using the evidence if it is reliable. "
+            "Respond with just the answer.\n\n"
+            f"Question: {question}\n\n"
+            f"Context: {context_text}\n\n"
+            "Answer:"
+        )
+    return f"Answer the question with just the answer.\n\nQuestion: {question}\n\nAnswer:"
+
+
+def _target_answer(row: dict[str, Any]) -> str:
+    gold_answers = row.get("gold_answers") or row.get("answers") or []
+    if isinstance(gold_answers, str):
+        gold_answers = [gold_answers]
+    for answer in gold_answers:
+        candidate = str(answer).strip()
+        if candidate:
+            return candidate
+    return str(row.get("answer", "")).strip()
 
 
 def _split_rows(
@@ -211,6 +248,41 @@ def _make_batches(rows: list[dict[str, Any]], batch_size: int) -> list[list[dict
     return [rows[i : i + batch_size] for i in range(0, len(rows), batch_size)]
 
 
+def _answer_ce_loss(wrapper: ConfidenceHeadWrapper, tokenizer: Any, rows: list[dict[str, Any]], max_length: int):
+    import torch
+    import torch.nn.functional as F
+
+    device = wrapper.model.device if hasattr(wrapper.model, "device") else next(wrapper.model.parameters()).device
+    prompts = [_qa_prompt(row) for row in rows]
+    targets = [_target_answer(row) for row in rows]
+    losses = []
+    for prompt, target in zip(prompts, targets):
+        prompt_ids = tokenizer.encode(prompt, add_special_tokens=False, truncation=True, max_length=max_length)
+        target_ids = tokenizer.encode(" " + target, add_special_tokens=False)
+        if not target_ids:
+            continue
+        full_ids = prompt_ids + target_ids
+        input_ids = torch.tensor([full_ids], dtype=torch.long, device=device)
+        attention_mask = torch.ones_like(input_ids)
+        outputs = wrapper.model(input_ids=input_ids, attention_mask=attention_mask, use_cache=False)
+        logits = outputs.logits[:, :-1, :]
+        labels = input_ids[:, 1:]
+        token_losses = F.cross_entropy(
+            logits.reshape(-1, logits.shape[-1]),
+            labels.reshape(-1),
+            reduction="none",
+        ).reshape_as(labels)
+        target_mask = torch.zeros_like(labels, dtype=torch.float32)
+        prompt_boundary = max(len(prompt_ids) - 1, 0)
+        if prompt_boundary < target_mask.shape[1]:
+            target_mask[:, prompt_boundary:] = 1.0
+        denom = target_mask.sum().clamp_min(1.0)
+        losses.append((token_losses * target_mask).sum() / denom)
+    if not losses:
+        return torch.tensor(0.0, device=device)
+    return torch.stack(losses).mean()
+
+
 def _forward_batch(wrapper: ConfidenceHeadWrapper, tokenizer: Any, rows: list[dict[str, Any]], max_length: int):
     import torch
 
@@ -244,10 +316,13 @@ def _train(
     *,
     max_length: int,
     batch_size: int,
+    warmstart_epochs: int,
     epochs: int,
     lr: float,
     head_lr: float,
     weight_decay: float,
+    answer_loss_weight: float,
+    confidence_loss_weight: float,
     seed: int,
 ) -> list[dict[str, float]]:
     import torch
@@ -271,6 +346,32 @@ def _train(
     best_state = None
     best_val = float("inf")
     history = []
+    for epoch in range(1, warmstart_epochs + 1):
+        wrapper.model.train()
+        wrapper.head.train()
+        train_losses = []
+        for batch_rows in _make_batches(train_rows, batch_size):
+            optimizer.zero_grad(set_to_none=True)
+            answer_loss = _answer_ce_loss(wrapper, tokenizer, batch_rows, max_length)
+            answer_loss.backward()
+            optimizer.step()
+            train_losses.append(float(answer_loss.item()))
+
+        wrapper.model.eval()
+        wrapper.head.eval()
+        with torch.no_grad():
+            val_losses = []
+            for batch_rows in _make_batches(val_rows, batch_size):
+                val_losses.append(float(_answer_ce_loss(wrapper, tokenizer, batch_rows, max_length).item()))
+        train_loss = sum(train_losses) / max(1, len(train_losses))
+        val_loss = sum(val_losses) / max(1, len(val_losses))
+        history.append({"stage": "warmstart_answer", "epoch": epoch, "train_loss": round(train_loss, 6), "val_loss": round(val_loss, 6)})
+        if val_loss < best_val:
+            best_val = val_loss
+            best_state = {
+                "model": {k: v.detach().cpu().clone() for k, v in wrapper.model.state_dict().items()},
+                "head": {k: v.detach().cpu().clone() for k, v in wrapper.head.state_dict().items()},
+            }
     for epoch in range(1, epochs + 1):
         wrapper.model.train()
         wrapper.head.train()
@@ -278,7 +379,9 @@ def _train(
         for batch_rows in _make_batches(train_rows, batch_size):
             optimizer.zero_grad(set_to_none=True)
             probs, targets = _forward_batch(wrapper, tokenizer, batch_rows, max_length)
-            loss = torch.mean((probs - targets) ** 2)
+            confidence_loss = torch.mean((probs - targets) ** 2)
+            answer_loss = _answer_ce_loss(wrapper, tokenizer, batch_rows, max_length)
+            loss = (confidence_loss_weight * confidence_loss) + (answer_loss_weight * answer_loss)
             loss.backward()
             optimizer.step()
             train_losses.append(float(loss.item()))
@@ -292,7 +395,7 @@ def _train(
                 val_losses.append(float(torch.mean((probs - targets) ** 2).item()))
         train_loss = sum(train_losses) / max(1, len(train_losses))
         val_loss = sum(val_losses) / max(1, len(val_losses))
-        history.append({"epoch": epoch, "train_brier": round(train_loss, 6), "val_brier": round(val_loss, 6)})
+        history.append({"stage": "joint_rlcr", "epoch": epoch, "train_brier": round(train_loss, 6), "val_brier": round(val_loss, 6)})
         if val_loss < best_val:
             best_val = val_loss
             best_state = {
@@ -395,10 +498,13 @@ def main() -> None:
         val_rows,
         max_length=args.max_length,
         batch_size=args.feature_batch_size,
+        warmstart_epochs=args.warmstart_epochs,
         epochs=args.epochs,
         lr=args.lr,
         head_lr=args.head_lr,
         weight_decay=args.weight_decay,
+        answer_loss_weight=args.answer_loss_weight,
+        confidence_loss_weight=args.confidence_loss_weight,
         seed=args.seed,
     )
     outcomes = [int(row.get("outcome", 0)) for row in eval_rows]
@@ -420,10 +526,13 @@ def main() -> None:
             "eval_cot_length": args.eval_cot_length,
             "max_length": args.max_length,
             "feature_batch_size": args.feature_batch_size,
+            "warmstart_epochs": args.warmstart_epochs,
             "epochs": args.epochs,
             "lr": args.lr,
             "head_lr": args.head_lr,
             "weight_decay": args.weight_decay,
+            "answer_loss_weight": args.answer_loss_weight,
+            "confidence_loss_weight": args.confidence_loss_weight,
             "lora_rank": args.lora_rank,
             "lora_alpha": args.lora_alpha,
             "lora_dropout": args.lora_dropout,

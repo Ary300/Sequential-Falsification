@@ -30,16 +30,27 @@ MAX_VAL_ROWS=${MAX_VAL_ROWS:-200}
 MAX_EVAL_ROWS=${MAX_EVAL_ROWS:-500}
 MAX_LENGTH=${MAX_LENGTH:-1024}
 FEATURE_BATCH_SIZE=${FEATURE_BATCH_SIZE:-2}
+WARMSTART_EPOCHS=${WARMSTART_EPOCHS:-1}
 EPOCHS=${EPOCHS:-3}
 LR=${LR:-0.00005}
 HEAD_LR=${HEAD_LR:-0.0005}
 WEIGHT_DECAY=${WEIGHT_DECAY:-0.0001}
+ANSWER_LOSS_WEIGHT=${ANSWER_LOSS_WEIGHT:-1.0}
+CONFIDENCE_LOSS_WEIGHT=${CONFIDENCE_LOSS_WEIGHT:-1.0}
 LORA_RANK=${LORA_RANK:-8}
 LORA_ALPHA=${LORA_ALPHA:-16}
 LORA_DROPOUT=${LORA_DROPOUT:-0.05}
 SEED=${SEED:-42}
 TORCH_DTYPE=${TORCH_DTYPE:-bfloat16}
 DELTA_RESULTS_ROOT=${DELTA_RESULTS_ROOT:-/work/nvme/bgvi/adas17/tts_results}
+RUN_THEOREM3_EVAL=${RUN_THEOREM3_EVAL:-1}
+EVAL_OUTPUT_DIR=${EVAL_OUTPUT_DIR:-}
+EVAL_BENCHMARKS=${EVAL_BENCHMARKS:-wikicontradict,conflictbank}
+EVAL_CONDITIONS=${EVAL_CONDITIONS:-aligned_context,conflict_context}
+EVAL_COT_LENGTHS=${EVAL_COT_LENGTHS:-0,128,1024}
+EVAL_WIKICONTRADICT_MAX=${EVAL_WIKICONTRADICT_MAX:-96}
+EVAL_CONFLICTBANK_MAX=${EVAL_CONFLICTBANK_MAX:-128}
+EVAL_TRIVIAQA_MAX=${EVAL_TRIVIAQA_MAX:-0}
 
 cd "${DELTA_PROJECT_ROOT}"
 nvidia-smi -L || true
@@ -65,12 +76,69 @@ python scripts/run_theorem3_rlcr_style_lora.py \
   --max-eval-rows "${MAX_EVAL_ROWS}" \
   --max-length "${MAX_LENGTH}" \
   --feature-batch-size "${FEATURE_BATCH_SIZE}" \
+  --warmstart-epochs "${WARMSTART_EPOCHS}" \
   --epochs "${EPOCHS}" \
   --lr "${LR}" \
   --head-lr "${HEAD_LR}" \
   --weight-decay "${WEIGHT_DECAY}" \
+  --answer-loss-weight "${ANSWER_LOSS_WEIGHT}" \
+  --confidence-loss-weight "${CONFIDENCE_LOSS_WEIGHT}" \
   --lora-rank "${LORA_RANK}" \
   --lora-alpha "${LORA_ALPHA}" \
   --lora-dropout "${LORA_DROPOUT}" \
   --seed "${SEED}" \
   --torch-dtype "${TORCH_DTYPE}"
+
+if [[ "${RUN_THEOREM3_EVAL}" == "1" ]]; then
+  API_PORT=$((20000 + (${SLURM_JOB_ID:-0} % 20000)))
+  MERGED_MODEL_DIR="${RUN_OUTPUT_DIR}/merged_model"
+  if [[ -z "${EVAL_OUTPUT_DIR}" ]]; then
+    RUN_EVAL_OUTPUT_DIR="${RUN_OUTPUT_DIR}/theorem3_eval"
+  elif [[ "${EVAL_OUTPUT_DIR}" = /* ]]; then
+    RUN_EVAL_OUTPUT_DIR="${EVAL_OUTPUT_DIR}"
+  else
+    RUN_EVAL_OUTPUT_DIR="${DELTA_RESULTS_ROOT%/}/${EVAL_OUTPUT_DIR}"
+  fi
+  mkdir -p "${RUN_EVAL_OUTPUT_DIR}"
+  python -m vllm.entrypoints.openai.api_server \
+    --model "${MERGED_MODEL_DIR}" \
+    --generation-config vllm \
+    --tensor-parallel-size 1 \
+    --port "${API_PORT}" \
+    --max-model-len 12288 \
+    --gpu-memory-utilization 0.9 \
+    > logs/vllm_rlcr_${SLURM_JOB_ID}.log 2>&1 &
+  VLLM_PID=$!
+  trap 'kill ${VLLM_PID} >/dev/null 2>&1 || true' EXIT
+
+  for _ in $(seq 1 60); do
+    python - <<'PY' >/dev/null 2>&1 && break
+from openai import OpenAI
+import os
+client = OpenAI(base_url=f"http://127.0.0.1:{os.environ['API_PORT']}/v1", api_key="none")
+client.models.list()
+PY
+    sleep 5
+  done
+
+  python scripts/run_theorem3_real_generation.py \
+    --output-dir "${RUN_EVAL_OUTPUT_DIR}" \
+    --backend openai \
+    --model "${MERGED_MODEL_DIR}" \
+    --api-base "http://127.0.0.1:${API_PORT}/v1" \
+    --api-key none \
+    --request-timeout 600 \
+    --temperature 0.0 \
+    --top-p 1.0 \
+    --seed "${SEED}" \
+    --benchmarks "${EVAL_BENCHMARKS}" \
+    --conditions "${EVAL_CONDITIONS}" \
+    --wikicontradict-max "${EVAL_WIKICONTRADICT_MAX}" \
+    --conflictbank-max "${EVAL_CONFLICTBANK_MAX}" \
+    --triviaqa-max "${EVAL_TRIVIAQA_MAX}" \
+    --cot-lengths "${EVAL_COT_LENGTHS}"
+
+  python scripts/report_theorem3_real_generation.py \
+    --results-file "${RUN_EVAL_OUTPUT_DIR}/theorem3_real_generation_results.json" \
+    --output-dir "${RUN_EVAL_OUTPUT_DIR}/theorem3_report"
+fi
