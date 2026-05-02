@@ -30,6 +30,22 @@ Read:
 - `RLCR` helps materially on no-conflict slices.
 - `RLCR` does not remove the hardest controlled-conflict failure mode.
 
+### Joint pilot: `RLCR + eta-tempering`
+
+- Slice: `ConflictBank / conflict_context / cot=1024`
+- Baseline `eta=1.0`
+  - Accuracy: `0.0625`
+  - ECE: `0.903553`
+  - Brier: `0.886175`
+- Selected `eta=0.0`
+  - Accuracy: `0.53125`
+  - ECE: `0.431058`
+  - Brier: `0.414764`
+
+Read:
+- The joint intervention is now directly measured, not just predicted.
+- On the hardest headline slice, the composition helps a lot: accuracy jumps and both ECE and Brier are roughly halved.
+
 ### Clean non-RL control: `Mistral-7B`
 
 - Mean conflict ECE delta: `+0.0162`

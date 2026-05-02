@@ -27,14 +27,31 @@ Concretely:
 - RLCR theorem-3 rows:
   `/work/nvme/bgvi/adas17/tts_results/results/theorem3_rlcr_style_lora_r1_14b_conflict_1gpu_v2a/theorem3_eval_full_v3/theorem3_generation_rows.jsonl`
 
-## Submitted Delta Job
+## Measured Result
 
-- Job id: `2230787`
-- Job name: `rlcr_eta_joint`
-- State at submission check: `PENDING`
-- Reason: `Priority`
-- Time limit: `08:00:00`
-- Requested resources: `1 GPU`, `16 CPU`, `191592M` RAM
+The corrected rerun completed as:
+
+- Job id: `2231030`
+- Job name: `rlcr_eta_j2`
+- State: `COMPLETED`
+
+Evaluation headline on `ConflictBank / conflict_context / cot=1024`:
+
+- Baseline `eta=1.0`
+  - Accuracy: `0.0625`
+  - ECE: `0.903553`
+  - Brier: `0.886175`
+  - Overconfidence gap: `0.903553`
+- Selected `eta=0.0`
+  - Accuracy: `0.53125`
+  - ECE: `0.431058`
+  - Brier: `0.414764`
+  - Overconfidence gap: `0.431058`
+
+Read:
+- the joint intervention materially improves this hardest headline slice
+- accuracy increases by `+0.46875`
+- ECE and Brier are each cut by about half
 
 ## Why This Closes The Measurement Gap
 
@@ -46,5 +63,5 @@ This is the direct joint pilot reviewers ask for:
 
 ## Honest Status
 
-The pilot is now defined and queued against the exact finished RLCR artifacts.
-The remaining blocker is scheduler time, not missing code or experiment design.
+The original queued pilot was followed by a corrected rerun after fixing an
+evaluation-split bug. The result is now measured, not just predicted.
