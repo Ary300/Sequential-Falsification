@@ -33,6 +33,19 @@ from knowledge_arbitration.loaders import load_arbitration_dataset  # noqa: E402
 from utils.io import dump_json  # noqa: E402
 
 
+def _ensure_chat_template(tokenizer: Any) -> None:
+    current = getattr(tokenizer, "chat_template", None)
+    if current:
+        return
+    tokenizer.chat_template = (
+        "{% for message in messages %}"
+        "{{ message['role'] }}:\n"
+        "{{ message['content'] }}\n"
+        "{% endfor %}"
+        "{% if add_generation_prompt %}assistant:\n{% endif %}"
+    )
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Run a matched-base DPO or GRPO-style LoRA comparison.")
     parser.add_argument("--objective", required=True, choices=["dpo", "grpo"])
@@ -139,6 +152,7 @@ def _load_model_and_tokenizer(args: argparse.Namespace):
     if tokenizer.pad_token_id is None:
         tokenizer.pad_token = tokenizer.eos_token
     tokenizer.padding_side = "left"
+    _ensure_chat_template(tokenizer)
 
     model = AutoModelForCausalLM.from_pretrained(
         args.model_name,
@@ -421,6 +435,7 @@ def main() -> None:
     adapter_dir.mkdir(parents=True, exist_ok=True)
     merged_dir.mkdir(parents=True, exist_ok=True)
     model.save_pretrained(adapter_dir)
+    _ensure_chat_template(tokenizer)
     tokenizer.save_pretrained(adapter_dir)
 
     merged_model = model.merge_and_unload() if hasattr(model, "merge_and_unload") else model

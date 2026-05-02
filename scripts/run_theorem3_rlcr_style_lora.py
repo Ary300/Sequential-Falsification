@@ -26,6 +26,19 @@ from utils.io import dump_json  # noqa: E402
 from utils.metrics import accuracy, brier_score, expected_calibration_error, roc_auc_binary  # noqa: E402
 
 
+def _ensure_chat_template(tokenizer: Any) -> None:
+    current = getattr(tokenizer, "chat_template", None)
+    if current:
+        return
+    tokenizer.chat_template = (
+        "{% for message in messages %}"
+        "{{ message['role'] }}:\n"
+        "{{ message['content'] }}\n"
+        "{% endfor %}"
+        "{% if add_generation_prompt %}assistant:\n{% endif %}"
+    )
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Run RLCR-style LoRA calibration fine-tune.")
     parser.add_argument("--rows-jsonl", required=True, help="Comma-separated theorem-3 row files.")
@@ -153,6 +166,7 @@ def _load_model_and_tokenizer(args: argparse.Namespace):
     tokenizer = AutoTokenizer.from_pretrained(args.model_name, trust_remote_code=True)
     if tokenizer.pad_token_id is None and tokenizer.eos_token_id is not None:
         tokenizer.pad_token = tokenizer.eos_token
+    _ensure_chat_template(tokenizer)
 
     load_kwargs: dict[str, Any] = {"torch_dtype": dtype_map[args.torch_dtype], "trust_remote_code": True}
     if torch.cuda.is_available() and importlib.util.find_spec("accelerate") is not None:
@@ -214,9 +228,11 @@ def _forward_batch(wrapper: ConfidenceHeadWrapper, tokenizer: Any, rows: list[di
     hidden = outputs.hidden_states[-1]
     last_positions = encoded["attention_mask"].sum(dim=1) - 1
     pooled = hidden[torch.arange(hidden.shape[0], device=device), last_positions]
-    logits = wrapper.head.to(device)(pooled).squeeze(-1)
+    wrapper.head = wrapper.head.to(device=device, dtype=torch.float32)
+    pooled = pooled.to(dtype=torch.float32)
+    logits = wrapper.head(pooled).squeeze(-1)
     probs = torch.sigmoid(logits)
-    targets = torch.tensor([float(row.get("outcome", 0)) for row in rows], dtype=torch.float32, device=device)
+    targets = torch.tensor([float(row.get("outcome", 0)) for row in rows], dtype=probs.dtype, device=device)
     return probs, targets
 
 
@@ -241,7 +257,7 @@ def _train(
         torch.cuda.manual_seed_all(seed)
 
     device = wrapper.model.device if hasattr(wrapper.model, "device") else next(wrapper.model.parameters()).device
-    wrapper.head = wrapper.head.to(device)
+    wrapper.head = wrapper.head.to(device=device, dtype=torch.float32)
     head_params = list(wrapper.head.parameters())
     model_params = [param for param in wrapper.model.parameters() if param.requires_grad]
     optimizer = torch.optim.AdamW(
@@ -444,6 +460,7 @@ def main() -> None:
     adapter_dir.mkdir(parents=True, exist_ok=True)
     merged_dir.mkdir(parents=True, exist_ok=True)
     wrapper.model.save_pretrained(adapter_dir)
+    _ensure_chat_template(tokenizer)
     tokenizer.save_pretrained(adapter_dir)
     merged_model = wrapper.model.merge_and_unload() if hasattr(wrapper.model, "merge_and_unload") else wrapper.model
     merged_model.save_pretrained(merged_dir)
