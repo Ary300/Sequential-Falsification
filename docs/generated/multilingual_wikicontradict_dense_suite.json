@@ -1,0 +1,533 @@
+{
+  "headline": {
+    "languages_run": 2,
+    "languages_with_any_conflict_hit": 0,
+    "languages_with_any_gold_hit": 1,
+    "mean_topk_conflict_hit_rate": 0.0,
+    "mean_topk_gold_hit_rate": 0.0625
+  },
+  "metadata": {
+    "encoder_model": "intfloat/multilingual-e5-small",
+    "languages": [
+      "fr",
+      "pt"
+    ],
+    "max_examples_per_language": 10,
+    "search_limit": 12,
+    "top_k": 5
+  },
+  "payloads": {
+    "fr": {
+      "examples": [
+        {
+          "conflict_answers_translated": [
+            "Aporphine"
+          ],
+          "gold_answers_translated": [
+            "Apomorphine",
+            "Aporphine"
+          ],
+          "id": "1",
+          "question_en": "Which of the following are present in Nymphaea nouchali var. caerulea: apomorphine, aporphine, or neither?",
+          "question_translated": "Parmi les \u00e9l\u00e9ments suivants, lesquels sont pr\u00e9sents dans Nymphaea nouchali var. caerulea : apomorphine, aporphine, ou ni l'un ni l'autre ?",
+          "retrieved": [],
+          "retriever": "translated_query_plus_fr_wikipedia_search_plus_dense_rerank"
+        },
+        {
+          "conflict_answers_translated": [
+            "Oui."
+          ],
+          "gold_answers_translated": [
+            "Non.",
+            "Oui."
+          ],
+          "id": "2",
+          "question_en": "Are there any other missiles besides the P-500 Bazalt that influenced the design of P-700 Granit missile?",
+          "question_translated": "Existe-t-il d'autres missiles que le P-500 Bazalt qui ont influenc\u00e9 la conception du missile P-700 Granit ?",
+          "retrieved": [],
+          "retriever": "translated_query_plus_fr_wikipedia_search_plus_dense_rerank"
+        },
+        {
+          "conflict_answers_translated": [
+            "Oui."
+          ],
+          "gold_answers_translated": [
+            "Non.",
+            "Oui."
+          ],
+          "id": "3",
+          "question_en": "Did the formation of the grooves on Phobos occur as a single event?",
+          "question_translated": "La formation des sillons sur Phobos s\u2019est-elle produite comme un seul \u00e9v\u00e9nement ?",
+          "retrieved": [
+            {
+              "conflict_hit": false,
+              "dense_score": 0.830662,
+              "extract": "Martian Moons Exploration (abr\u00e9g\u00e9 MMX) est une mission spatiale japonaise en cours de d\u00e9veloppement dont l'objectif principal est de ramener sur Terre un \u00e9chantillon de sol de Phobos, un des deux satellites naturels de Mars. Au cours de la mission, la sonde spatiale doit effectuer une \u00e9tude d\u00e9taill\u00e9e de cette lune et D\u00e9imos \u00e0 la fois \u00e0 distance et in situ (pour Phobos uniquement). La mission doit \u00eatre lanc\u00e9e en octobre 2026 et ramener les \u00e9chantillons de sol sur Terre vers 2031.\nSi la plupart des missions pr\u00e9c\u00e9dentes n'ont fait que survoler les lunes martiennes MMX n'est pas la premi\u00e8re \u00e0 tenter d'effectuer une \u00e9tude d\u00e9taill\u00e9e et de ramener un \u00e9chantillon de celles-ci sur Terre. Mais les deux missions ayant eu cet objectif , les missions sovi\u00e9tico-russes Phobos et Phobos-Grunt, ont \u00e9t\u00e9 victimes d'anomalies de fonctionnement avant d'atteindre leur but. Le principal objectif scientifique de la mission japonaise est de d\u00e9terminer si les lunes martiennes sont des ast\u00e9ro\u00efdes captur\u00e9s par Mars ou s'ils se sont form\u00e9s par agr\u00e9gation de mat\u00e9riaux \u00e9ject\u00e9s par la plan\u00e8te \u00e0 la suite d'un impact g\u00e9ant dans le cadre d'un processus analogue \u00e0 celui ayant abouti \u00e0 la formation de notre Lune. Les donn\u00e9es collect\u00e9es pour r\u00e9pondre \u00e0 cette question permettront par ailleurs d'affiner le sc\u00e9nario de formation des plan\u00e8tes telluriques du syst\u00e8me solaire.\nPour accomplir sa mission, MMX comprend un module d'atterrissage emportant un syst\u00e8me de pr\u00e9l\u00e8vement d'\u00e9chantillon du sol et un petit astromobile fourni par les agences spatiales fran\u00e7aise et allemande. La sonde spatiale, dont la masse au lancement d\u00e9passe les quatre tonnes, dispose d'une dizaine d'instruments dont plusieurs cam\u00e9ras, un lidar, un spectrom\u00e8tre gamma, un imageur hyperspectral fonctionnant en proche infrarouge et un spectrom\u00e8tre Raman.",
+              "gold_hit": false,
+              "snippet": "ramener <span class=\"searchmatch\">un</span> \u00e9chantillon de celles-ci <span class=\"searchmatch\">sur</span> Terre. Mais les deux missions ayant eu cet objectif , les missions sovi\u00e9tico-russes <span class=\"searchmatch\">Phobos</span> et <span class=\"searchmatch\">Phobos</span>-Grunt, ont",
+              "title": "Martian Moons Exploration"
+            },
+            {
+              "conflict_hit": false,
+              "dense_score": 0.805461,
+              "extract": "Cette page concerne l'ann\u00e9e 2018 du calendrier gr\u00e9gorien dans le domaine de l'astronomie.",
+              "gold_hit": false,
+              "snippet": "de l'observation, gr\u00e2ce \u00e0 ALMA, de trois <span class=\"searchmatch\">sillons</span> dans le disque protoplan\u00e9taire entourant CI Tauri, <span class=\"searchmatch\">sillons</span> suspect\u00e9s d'\u00eatre dus \u00e0 autant de plan\u00e8tes",
+              "title": "2018 en astronomie"
+            },
+            {
+              "conflict_hit": false,
+              "dense_score": 0.797302,
+              "extract": "Mars (prononc\u00e9 en fran\u00e7ais : /ma\u0281s/) est la quatri\u00e8me plan\u00e8te du Syst\u00e8me solaire par ordre croissant de la distance au Soleil et la deuxi\u00e8me par ordre croissant de la taille et de la masse. Son \u00e9loignement au Soleil est compris entre 1,381 et 1,666 au (206,6 \u00e0 249,2 millions de kilom\u00e8tres), elle a une p\u00e9riode orbitale de 669,58 jours martiens (686,71 jours ou 1,88 ann\u00e9e terrestre).\nC\u2019est une plan\u00e8te tellurique, comme le sont Mercure, V\u00e9nus et la Terre. Elle est environ dix fois moins massive que la Terre, mais dix fois plus massive que la Lune. Sa topographie pr\u00e9sente des analogies aussi bien avec la Lune, \u00e0 travers ses crat\u00e8res et ses bassins d'impact, qu'avec la Terre, par ses formations d'origine tectonique et climatique telles que des volcans, des rifts, des vall\u00e9es, des mesas, des champs de dunes et des calottes polaires. Le plus haut volcan du Syst\u00e8me solaire, Olympus Mons (qui est un volcan bouclier), et le plus grand canyon, Valles Marineris, se trouvent sur Mars.\nMars a aujourd'hui perdu la presque totalit\u00e9 de son activit\u00e9 g\u00e9ologique interne, et seuls des \u00e9v\u00e9nements mineurs surviendraient encore \u00e9pisodiquement \u00e0 sa surface, tels que des glissements de terrain, sans doute des geysers de dioxyde de carbone dans les r\u00e9gions polaires, peut-\u00eatre des s\u00e9ismes, voire de rares \u00e9ruptions volcaniques sous forme de petites coul\u00e9es de lave.\nLa p\u00e9riode de rotation de Mars est du m\u00eame ordre que celle de la Terre et son obliquit\u00e9 lui conf\u00e8re un cycle des saisons similaire \u00e0 celui que nous connaissons ; ces saisons sont toutefois marqu\u00e9es par une excentricit\u00e9 orbitale cinq fois et demie plus \u00e9lev\u00e9e que celle de la Terre, d'o\u00f9 une asym\u00e9trie saisonni\u00e8re sensiblement plus prononc\u00e9e entre les deux h\u00e9misph\u00e8res.\nMars peut \u00eatre observ\u00e9e \u00e0 l\u2019\u0153il nu, par son \u00e9clat bien plus faible que celui de V\u00e9nus mais qui peut, lors d'oppositions rapproch\u00e9es, d\u00e9passer l'\u00e9clat maximum de Jupiter, atteignant une magnitude apparente de -2,91, tandis que son diam\u00e8tre apparent varie de 25,1 \u00e0 3,5 secondes d'arc selon que sa distance \u00e0 la Terre varie de 55,7 \u00e0 401,3 millions de kilom\u00e8tres. Mars a toujours \u00e9t\u00e9 caract\u00e9ris\u00e9e visuellement par sa couleur rouge, due \u00e0 l'abondance de l'h\u00e9matite amorphe \u2014 oxyde de fer(III) \u2014 \u00e0 sa surface. C'est ce qui l'a fait associer \u00e0 la guerre depuis l'Antiquit\u00e9, d'o\u00f9 son nom en Occident d'apr\u00e8s le dieu de la guerre dans la mythologie romaine, Mars, assimil\u00e9 au dieu Ar\u00e8s de la mythologie grecque. En fran\u00e7ais, Mars est souvent surnomm\u00e9e \u00ab la plan\u00e8te rouge \u00bb en raison de cette couleur particuli\u00e8re.\nAvant le survol de Mars par Mariner 4 en 1965, on pense qu'il s'y trouve de l'eau liquide en surface et que des formes de vie similaires \u00e0 celles existant sur Terre peuvent s'y \u00eatre d\u00e9velopp\u00e9es, th\u00e8me tr\u00e8s f\u00e9cond en science-fiction. Les variations saisonni\u00e8res d'alb\u00e9do \u00e0 la surface de la plan\u00e8te sont attribu\u00e9es \u00e0 de la v\u00e9g\u00e9tation, tandis que des formations rectilignes per\u00e7ues dans les lunettes astronomiques et les t\u00e9lescopes de l'\u00e9poque sont interpr\u00e9t\u00e9es, notamment par l'astronome amateur am\u00e9ricain Percival Lowell, comme des canaux d'irrigation traversant des \u00e9tendues d\u00e9sertiques avec de l'eau issue des calottes polaires. Toutes ces sp\u00e9culations sont balay\u00e9es par les sondes spatiales qui \u00e9tudient Mars : d\u00e8s 1965, Mariner 4 permet de d\u00e9couvrir une plan\u00e8te d\u00e9pourvue de champ magn\u00e9tique global, \u00e0 la surface crat\u00e9ris\u00e9e rappelant celle de la Lune, et une atmosph\u00e8re t\u00e9nue.\nDepuis lors, Mars fait l'objet de programmes d'exploration plus ambitieux que pour tout autre objet du Syst\u00e8me solaire : de tous les astres que nous connaissons, c'est en effet celui qui pr\u00e9sente l'environnement ayant le plus de similitudes avec celui de notre plan\u00e8te. Cette exploration intensive nous a apport\u00e9 une bien meilleure compr\u00e9hension de l'histoire g\u00e9ologique martienne, r\u00e9v\u00e9lant notamment l'existence d'une \u00e9poque recul\u00e9e \u2014 le Noachien \u2014 o\u00f9 les conditions en surface devaient \u00eatre assez similaires \u00e0 celles de la Terre \u00e0 la m\u00eame \u00e9poque, avec la pr\u00e9sence de grandes quantit\u00e9s d'eau liquide ; la sonde Phoenix a ainsi d\u00e9couvert \u00e0 l'\u00e9t\u00e9 2008 de la glace d'eau \u00e0 une faible profondeur dans le sol de Vastitas Borealis.\nMars poss\u00e8de deux petits satellites naturels, Phobos et D\u00e9imos.",
+              "gold_hit": true,
+              "snippet": "crat\u00e8res et <span class=\"searchmatch\">sur</span> le bord <span class=\"searchmatch\">des</span> ar\u00eates. Les catenae formant les <span class=\"searchmatch\">sillons</span> caract\u00e9ristiques de <span class=\"searchmatch\">la</span> surface de <span class=\"searchmatch\">Phobos</span> n'ont pas \u00e9t\u00e9 observ\u00e9es <span class=\"searchmatch\">sur</span> D\u00e9imos. Les deux",
+              "title": "Mars (plan\u00e8te)"
+            },
+            {
+              "conflict_hit": false,
+              "dense_score": 0.796863,
+              "extract": "Miranda, \u00e9galement connue sous le nom d'Uranus V, est un satellite naturel d'Uranus. Cette lune fut d\u00e9couverte en 1948 par Gerard Kuiper. Elle porte le nom de Miranda, la fille du magicien Prospero qui appara\u00eet dans la tragi-com\u00e9die La Temp\u00eate de William Shakespeare. Miranda n'a \u00e9t\u00e9 approch\u00e9e qu'une seule fois, par la sonde Voyager 2 en janvier 1986. De tous les satellites naturels d'Uranus, Miranda est celui dont la sonde a fait les meilleures images. N\u00e9anmoins, durant le survol de la sonde, l'h\u00e9misph\u00e8re nord \u00e9tait plong\u00e9 dans la nuit ; les observations se sont donc limit\u00e9es \u00e0 l'h\u00e9misph\u00e8re sud.\nMiranda est la plus petite des cinq principales lunes en orbite autour d'Uranus. Elle est aussi la plus proche de cette plan\u00e8te, \u00e0 seulement 129 900 km et la moins dense. Sa surface semble compos\u00e9e de glace d'eau m\u00eal\u00e9e \u00e0 des compos\u00e9s de silicates et de carbonates ainsi qu'\u00e0 de l'ammoniac. \u00c0 l'instar des autres lunes d'Uranus, son orbite est inscrite dans un plan perpendiculaire \u00e0 l'orbite de la plan\u00e8te autour du Soleil, ce qui provoque des variations saisonni\u00e8res extr\u00eames en surface. En cela, elle suit la rotation atypique de la plan\u00e8te qui tourne selon un axe quasiment parall\u00e8le au plan de son orbite autour du Soleil. Comme les autres lunes d'Uranus, Miranda s'est tr\u00e8s probablement form\u00e9e \u00e0 partir d'un disque d'accr\u00e9tion, appel\u00e9 sous-n\u00e9buleuse, qui entourait la plan\u00e8te peu apr\u00e8s sa formation, ou apr\u00e8s l\u2019\u00e9v\u00e9nement catastrophique qui lui a donn\u00e9 son inclinaison. Cependant, Miranda pr\u00e9sente une inclinaison de 4,338\u00b0 par rapport au plan de l\u2019\u00e9quateur uranien, inclinaison qui est la plus marqu\u00e9e parmi celles des lunes majeures. Cette petite lune, qui aurait pu n'\u00eatre qu'un corps glac\u00e9 et inerte couvert de crat\u00e8res d'impacts, est en fait un surprenant, et unique, patchwork de zones tr\u00e8s vari\u00e9es. La surface de Miranda comprend de vastes plaines vallonn\u00e9es piqu\u00e9es de crat\u00e8res et travers\u00e9es par un r\u00e9seau de failles escarp\u00e9es et de rupes. Cette surface pr\u00e9sente surtout trois impressionnantes couronnes, aussi appel\u00e9es \u00ab coronae \u00bb, dont les diam\u00e8tres d\u00e9passent les 200 km. Ces formations g\u00e9ologiques ainsi que l\u2019inclinaison anormale de l'orbite signent une activit\u00e9 g\u00e9ologique et une histoire complexe. Miranda aurait \u00e9t\u00e9 marqu\u00e9e par des forces de mar\u00e9e, des m\u00e9canismes de r\u00e9sonances orbitales, un processus de diff\u00e9renciation plan\u00e9taire partielle ainsi que par des mouvements de convection, d\u2019expansion de son manteau et des \u00e9pisodes de cryovolcanisme.",
+              "gold_hit": false,
+              "snippet": "d'Uranus. <span class=\"searchmatch\">Elle</span> est aussi <span class=\"searchmatch\">la</span> plus proche de cette plan\u00e8te, \u00e0 <span class=\"searchmatch\">seulement</span> 129\u00a0900\u00a0km et <span class=\"searchmatch\">la</span> moins dense. Sa surface semble compos\u00e9e de glace d'eau m\u00eal\u00e9e \u00e0 <span class=\"searchmatch\">des</span> compos\u00e9s",
+              "title": "Miranda (lune)"
+            },
+            {
+              "conflict_hit": false,
+              "dense_score": 0.787881,
+              "extract": "Europe, ou Jupiter II, est un satellite naturel de Jupiter. Elle est la plus petite lune galil\u00e9enne et la sixi\u00e8me lune la plus proche de la plan\u00e8te parmi les 97 connues de Jupiter. Son demi-grand axe est de 671 100 km et sa p\u00e9riode de r\u00e9volution d\u2019environ 85 heures. Par ailleurs, elle est la sixi\u00e8me plus grande lune du Syst\u00e8me solaire avec un diam\u00e8tre de 3 122 km.\nL\u00e9g\u00e8rement plus petite que la Lune, Europe est principalement constitu\u00e9e de roches silicat\u00e9es et d'une cro\u00fbte de glace d'eau, ainsi que probablement d'un noyau de fer et de nickel. Elle poss\u00e8de une tr\u00e8s mince atmosph\u00e8re, compos\u00e9e principalement d'oxyg\u00e8ne. Sa surface pr\u00e9sente notamment des stries et des fissures dans la glace appel\u00e9es lineae, mais peu de crat\u00e8res d'impact.\nEurope poss\u00e8de la surface la plus lisse de tous les objets c\u00e9lestes connus du Syst\u00e8me solaire. Cette surface jeune \u2014 d'un \u00e2ge estim\u00e9 \u00e0 100 millions d'ann\u00e9es \u2014 et sans relief, associ\u00e9e \u00e0 la pr\u00e9sence d'un champ magn\u00e9tique induit, conduit \u00e0 l'hypoth\u00e8se que, malgr\u00e9 une temp\u00e9rature de surface moyenne de 90 K (\u2212183 \u00b0C), elle poss\u00e9derait un oc\u00e9an d'eau souterrain d'une profondeur de l'ordre de 100 km qui pourrait \u00e9ventuellement abriter une vie extraterrestre. Le mod\u00e8le pr\u00e9dominant sugg\u00e8re que le r\u00e9chauffement par effet de mar\u00e9e d\u00fb \u00e0 son orbite l\u00e9g\u00e8rement excentrique \u2014 maintenue par sa r\u00e9sonance orbitale avec Io et Ganym\u00e8de \u2014 permet \u00e0 l'oc\u00e9an de rester liquide et entra\u00eenerait un mouvement de glace similaire \u00e0 la tectonique des plaques, la premi\u00e8re activit\u00e9 de ce type constat\u00e9e sur un autre objet que la Terre. Du sel observ\u00e9 sur certaines caract\u00e9ristiques g\u00e9ologiques sugg\u00e8re que l'oc\u00e9an interagit avec la cro\u00fbte, et fournit une source d'indices pour d\u00e9terminer si Europe pourrait \u00eatre habitable. En outre, le t\u00e9lescope spatial Hubble a d\u00e9tect\u00e9 l'\u00e9mission de panaches de vapeur d'eau similaires \u00e0 ceux observ\u00e9s sur Encelade, une lune de Saturne, qui seraient caus\u00e9s par des geysers en \u00e9ruption et qui permettraient \u00e9ventuellement de d\u00e9tecter des traces de vie sans avoir \u00e0 utiliser d'atterrisseur \u2014 aucune sonde n'ayant jamais atterri sur cette lune.\nObserv\u00e9e pour la premi\u00e8re fois en janvier 1610 par Galil\u00e9e avec les autres satellites galil\u00e9ens, elle a \u00e9t\u00e9 nomm\u00e9e ainsi par l'astronome Simon Marius \u2014 celui-ci affirmant par ailleurs avoir d\u00e9couvert l'astre en premier \u2014 d'apr\u00e8s le personnage de la mythologie grecque Europe, m\u00e8re ph\u00e9nicienne du roi Minos de Cr\u00e8te et amante de Zeus (Jupiter dans la mythologie romaine). En plus des observations t\u00e9lescopiques terrestres, cette lune est \u00e9tudi\u00e9e \u00e0 partir des ann\u00e9es 1970 par une succession de survols de sondes spatiales, des programmes Pioneer puis Voyager jusqu'\u00e0 la mission Galileo, lanc\u00e9e en 1989 et achev\u00e9e en 2003, qui fournit l'essentiel des donn\u00e9es actuelles sur Europe. Deux nouvelles missions sont pr\u00e9vues : Jupiter Icy Moons Explorer (JUICE) de l\u2019Agence spatiale europ\u00e9enne, lanc\u00e9e en avril 2023 et destin\u00e9e \u00e0 l'\u00e9tude de Ganym\u00e8de, mais qui comprendra deux survols d'Europe, et une mission de la NASA destin\u00e9e \u00e0 l'\u00e9tude d'Europe, Europa Clipper, lanc\u00e9e en octobre 2024.",
+              "gold_hit": false,
+              "snippet": "d'un vaste r\u00e9seau de fractures, foss\u00e9s ou <span class=\"searchmatch\">sillons</span> entrem\u00eal\u00e9s, en p\u00e9riph\u00e9rie desquelles s'accumulent parfois <span class=\"searchmatch\">des</span> sulfates hydrat\u00e9s de magn\u00e9sium et de sodium",
+              "title": "Europe (lune)"
+            }
+          ],
+          "retriever": "translated_query_plus_fr_wikipedia_search_plus_dense_rerank"
+        },
+        {
+          "conflict_answers_translated": [
+            "Non"
+          ],
+          "gold_answers_translated": [
+            "Oui",
+            "Non"
+          ],
+          "id": "4",
+          "question_en": "Did Bishop Heber meet D\u2019Oyly in the 1840s in Patna ?",
+          "question_translated": "Mgr Heber a-t-il rencontr\u00e9 D\u2019Oyly dans les ann\u00e9es 1840 \u00e0 Patna ?",
+          "retrieved": [],
+          "retriever": "translated_query_plus_fr_wikipedia_search_plus_dense_rerank"
+        },
+        {
+          "conflict_answers_translated": [
+            "Le pr\u00e9sident Oler a comparu devant le tribunal dans les ann\u00e9es 1890"
+          ],
+          "gold_answers_translated": [
+            "Le pr\u00e9sident Oler a pris la parole en 1911",
+            "Le pr\u00e9sident Oler a comparu devant le tribunal dans les ann\u00e9es 1890"
+          ],
+          "id": "5",
+          "question_en": "What year did President Oler take the stand in court?",
+          "question_translated": "En quelle ann\u00e9e le pr\u00e9sident Oler a-t-il comparu devant le tribunal ?",
+          "retrieved": [],
+          "retriever": "translated_query_plus_fr_wikipedia_search_plus_dense_rerank"
+        },
+        {
+          "conflict_answers_translated": [
+            "Informatique, m\u00e9decine, ing\u00e9nierie, commerce"
+          ],
+          "gold_answers_translated": [
+            "P\u00eache",
+            "Informatique, m\u00e9decine, ing\u00e9nierie, commerce"
+          ],
+          "id": "6",
+          "question_en": "What is the most common occupation for the residents of Kodimunai?",
+          "question_translated": "Quelle est l\u2019occupation la plus courante des habitants de Kodimunai ?",
+          "retrieved": [],
+          "retriever": "translated_query_plus_fr_wikipedia_search_plus_dense_rerank"
+        },
+        {
+          "conflict_answers_translated": [
+            "La salinit\u00e9 du lac Maracibo est comprise entre 0,2% et 0,3%"
+          ],
+          "gold_answers_translated": [
+            "La salinit\u00e9 du lac Maracaibo est comprise entre 1,5% et 3,8%",
+            "La salinit\u00e9 du lac Maracibo est comprise entre 0,2% et 0,3%"
+          ],
+          "id": "7",
+          "question_en": "What is the salinity of Lake Maracaibo?",
+          "question_translated": "Quelle est la salinit\u00e9 du lac Maracaibo ?",
+          "retrieved": [
+            {
+              "conflict_hit": false,
+              "dense_score": 0.763007,
+              "extract": "Cet article est une liste de lacs par superficie. Ils sont class\u00e9s par superficie d\u00e9croissante (sur l'ensemble des continents).",
+              "gold_hit": false,
+              "snippet": "du Nord. En dehors de la particularit\u00e9 d'avoir une <span class=\"searchmatch\">salinit\u00e9</span> variable, les mers ferm\u00e9es sont des <span class=\"searchmatch\">lacs</span> d'un point de vue g\u00e9ographique et juridique. Elles",
+              "title": "Liste de lacs par superficie"
+            }
+          ],
+          "retriever": "translated_query_plus_fr_wikipedia_search_plus_dense_rerank"
+        },
+        {
+          "conflict_answers_translated": [
+            "La Gazette Hoover"
+          ],
+          "gold_answers_translated": [
+            "Le travailleur quotidien",
+            "La Gazette Hoover"
+          ],
+          "id": "8",
+          "question_en": "What are examples of defunct newspapers in the United States?",
+          "question_translated": "Quels sont les exemples de journaux disparus aux \u00c9tats-Unis ?",
+          "retrieved": [
+            {
+              "conflict_hit": false,
+              "dense_score": 0.829821,
+              "extract": "Lost : Les Disparus (Lost) \u2014 ou Perdus au Qu\u00e9bec \u2014 est un feuilleton t\u00e9l\u00e9vis\u00e9 dramatique am\u00e9ricain diffus\u00e9 du 22 septembre 2004 au 23 mai 2010 sur le r\u00e9seau ABC. Cr\u00e9\u00e9 par J. J. Abrams, Damon Lindelof et Jeffrey Lieber ; il s'\u00e9tend sur six saisons, comprenant un total de 121 \u00e9pisodes (ainsi qu'un \u00e9pilogue de 12 minutes). La s\u00e9rie contient des \u00e9l\u00e9ments surnaturels et de science-fiction, et suit les survivants de l'accident a\u00e9rien du vol 815 de la compagnie a\u00e9rienne Oceanic Airlines, entre Sydney (Australie) et Los Angeles (\u00c9tats-Unis), apr\u00e8s que l'avion s'est \u00e9cras\u00e9 sur une \u00eele myst\u00e9rieuse dans l'oc\u00e9an Pacifique Sud. Les \u00e9pisodes pr\u00e9sentent g\u00e9n\u00e9ralement un sc\u00e9nario principal se d\u00e9roulant sur l'\u00eele, compl\u00e9t\u00e9 par des s\u00e9quences de flashback (\u00ab retour en arri\u00e8re \u00bb) ou de flashforward (\u00ab saut en avant \u00bb) qui fournissent des informations suppl\u00e9mentaires sur les personnages. La derni\u00e8re saison pr\u00e9sente \u00e9galement des flashsideways (une sorte de r\u00e9alit\u00e9 alternative).\nL'\u00e9criture de la s\u00e9rie a \u00e9t\u00e9 salu\u00e9e par la critique pour la qualit\u00e9 et la complexit\u00e9 de sa narration, ses tr\u00e8s nombreux rebondissements et pour aborder, dans une deuxi\u00e8me lecture, des th\u00e8mes plus ambitieux comme le sens de la vie, la religion et la science, le libre arbitre et le destin, etc., ce qui la distingue de la plupart des s\u00e9ries de divertissement.\nEn raison de sa nombreuse distribution et du co\u00fbt du tournage principalement sur l'\u00eele d'Oahu, \u00e0 Hawaii, la s\u00e9rie constitue \u00e0 l'\u00e9poque l'une des plus ch\u00e8res \u00e0 la t\u00e9l\u00e9vision, le pilote \u00e0 lui seul co\u00fbtant entre dix et quatorze millions de dollars. En termes d'audience, la premi\u00e8re saison attire une moyenne de seize millions de t\u00e9l\u00e9spectateurs par \u00e9pisode aux \u00c9tats-Unis sur ABC et, au cours de sa sixi\u00e8me et derni\u00e8re saison, elle attire en moyenne plus de onze millions de t\u00e9l\u00e9spectateurs am\u00e9ricains par \u00e9pisode. Lost est r\u00e9guli\u00e8rement class\u00e9e par la critique comme l'une des plus grandes s\u00e9ries t\u00e9l\u00e9vis\u00e9es de tous les temps.\nTout au long de sa diffusion, Lost re\u00e7oit des centaines de nominations aux prix de l'industrie cin\u00e9matographique et remporte de nombreux prix, dont un Emmy Award de la meilleure s\u00e9rie dramatique en 2005, le prix de la meilleure s\u00e9rie t\u00e9l\u00e9vis\u00e9e am\u00e9ricaine aux British Academy Television Awards en 2005, un Golden Globe Award de la meilleure s\u00e9rie dramatique en 2006, et un Screen Actors Guild Award de la meilleure distribution pour une s\u00e9rie t\u00e9l\u00e9vis\u00e9e dramatique en 2006.\nLa version fran\u00e7aise du feuilleton est diffus\u00e9e au Canada  du 17 mars 2005 au 12 ao\u00fbt 2010 sur Radio-Canada, en Belgique du 2 mai 2005 au 18 juin 2010 sur RTL TVI, en Suisse du 14 juin 2005 au 19 juin 2010 sur TSR1, et en France du 25 juin 2005 au 23 juin 2010 sur TF1, puis rediffus\u00e9e entre le 16 mars 2013 et le 11 f\u00e9vrier 2014 sur France \u00d4. Elle est disponible en int\u00e9gralit\u00e9 en DVD et Blu-ray (six coffrets pour les six saisons) ainsi que sur la plateforme Disney+, et parfois sur Netflix (sans l'\u00e9pisode \u00e9pilogue de Lost).",
+              "gold_hit": false,
+              "snippet": "sortie en 2019. Lost <span class=\"searchmatch\">Les</span> <span class=\"searchmatch\">Disparus</span> Logotype du g\u00e9n\u00e9rique <span class=\"searchmatch\">de</span> la s\u00e9rie. modifier - modifier le code - voir Wikidata (aide) Lost\u00a0: <span class=\"searchmatch\">Les</span> <span class=\"searchmatch\">Disparus</span> (Lost) \u2014\u00a0ou Perdus",
+              "title": "Lost : Les Disparus"
+            },
+            {
+              "conflict_hit": false,
+              "dense_score": 0.818056,
+              "extract": "L'architecture aux \u00c9tats-Unis est diverse selon les p\u00e9riodes et les r\u00e9gions et s'est construite dans un premier temps gr\u00e2ce aux apports ext\u00e9rieurs, essentiellement europ\u00e9ens, avant de connaitre une forte modernisation et d'influencer le monde entier au XXe si\u00e8cle, dont l'Europe en retour. Cette architecture est marqu\u00e9e par l'\u00e9clectisme, car elle puise ses sources principalement dans les diff\u00e9rents styles historiques de l'architecture europ\u00e9enne, mais aussi par un gigantisme nouveau, symbole de la puissance \u00e9conomique atteinte par le pays, ainsi que par une certaine avance technologique relativement \u00e0 son \u00e9poque.\nLes \u00c9tats-Unis ont une histoire assez r\u00e9cente et les Am\u00e9rindiens n'y ont pas laiss\u00e9 de b\u00e2timents aussi spectaculaires que dans d'autres pays du continent. C'est pourquoi l'architecture am\u00e9ricaine est marqu\u00e9e par la modernit\u00e9 et l'on pense spontan\u00e9ment aux gratte-ciel comme symboles culturels du pays.",
+              "gold_hit": false,
+              "snippet": "pense spontan\u00e9ment <span class=\"searchmatch\">aux</span> gratte-ciel comme symboles culturels du pays. <span class=\"searchmatch\">Les</span> <span class=\"searchmatch\">exemples</span> d'architecture <span class=\"searchmatch\">les</span> plus anciens <span class=\"searchmatch\">aux</span> <span class=\"searchmatch\">\u00c9tats</span>-<span class=\"searchmatch\">Unis</span> se r\u00e9partissent en deux",
+              "title": "Architecture aux \u00c9tats-Unis"
+            },
+            {
+              "conflict_hit": false,
+              "dense_score": 0.807079,
+              "extract": "La guerre d'ind\u00e9pendance des \u00c9tats-Unis (en anglais : American War of Independence), \u00e9galement d\u00e9sign\u00e9e aux \u00c9tats-Unis comme la guerre de la r\u00e9volution am\u00e9ricaine (American Revolutionary War), qui oppose les Treize Colonies, un groupe de colonies frontali\u00e8res d'Am\u00e9rique du Nord, au royaume de Grande-Bretagne, de 1775 \u00e0 1783, est l'un des processus de la r\u00e9volution am\u00e9ricaine qui voit les \u00c9tats-Unis s'\u00e9manciper de l'Empire britannique et acc\u00e9der \u00e0 l'ind\u00e9pendance en fondant une r\u00e9publique f\u00e9d\u00e9rale.\nApr\u00e8s sa victoire \u00e0 la guerre de Sept Ans, le Royaume-Uni s'est impos\u00e9 comme la premi\u00e8re puissance coloniale mondiale. N\u00e9anmoins, sa situation financi\u00e8re est catastrophique. Afin d'y rem\u00e9dier, George III met en place des taxes visant les Treize Colonies comme le Stamp Act en 1765, finalement abrog\u00e9es en 1766 \u00e0 cause de la col\u00e8re engendr\u00e9e dans les colonies. En effet, de plus en plus de colons am\u00e9ricains commencent tout juste \u00e0 refuser d'ob\u00e9ir \u00e0 ce gouvernement lointain qui leur impose des taxes, jug\u00e9es injustes. De plus, les Treize Colonies ne sont pas repr\u00e9sent\u00e9es au Parlement britannique, d'o\u00f9 la c\u00e9l\u00e8bre phrase \u00ab no taxation without representation \u00bb (\u00ab pas de taxation sans repr\u00e9sentation \u00bb). En outre, les Am\u00e9ricains souhaitent une plus grande autonomie politique et commerciale. Le massacre de Boston (1770) et la Boston Tea Party (1773) cristallisent les tensions. Finalement, le Royaume-Uni, craignant une insurrection arm\u00e9e, organise une saisie d'armes dans les colonies. Celle-ci d\u00e9rape dans le Massachusetts, ce qui conduit aux batailles de Lexington et Concord en 1775. La guerre d'ind\u00e9pendance est d\u00e9clar\u00e9e. Le 4 juillet de l'ann\u00e9e suivante, \u00e0 Philadelphie, les Am\u00e9ricains proclament leur ind\u00e9pendance sous le nom d'\u00ab \u00c9tats-Unis d'Am\u00e9rique \u00bb.\n\u00c0 la suite de la bataille de Saratoga (1777), d'autres puissances europ\u00e9ennes rejoignent le peuple am\u00e9ricain, notamment la France. Celle-ci fournit des soldats, du mat\u00e9riel, des dons et des pr\u00eats aux insurg\u00e9s. Elle s'engage ensuite officiellement en 1778. L'aide fran\u00e7aise navale et terrestre et le soutien de ses alli\u00e9s contribuent \u00e0 la victoire am\u00e9ricaine, notamment \u00e0 la bataille de Yorktown qui poussa les Britanniques \u00e0 rendre les armes et \u00e0 accepter l'ind\u00e9pendance des \u00c9tats-Unis avec le trait\u00e9 de Paris de 1783.\nEn 1789, George Washington, commandant de l'arm\u00e9e continentale durant le conflit, devient le premier pr\u00e9sident des \u00c9tats-Unis d'Am\u00e9rique. Le principal fondement de la nouvelle nation am\u00e9ricaine est alors le principe de libert\u00e9 des individus. En r\u00e9alit\u00e9, les femmes, les esclaves, les Noirs libres et les Indiens sont les grands exclus de la D\u00e9claration des droits et demeurent les oubli\u00e9s de la r\u00e9volution am\u00e9ricaine.",
+              "gold_hit": false,
+              "snippet": "d'ind\u00e9pendance des <span class=\"searchmatch\">\u00c9tats</span>-<span class=\"searchmatch\">Unis</span> Depuis le coin sup\u00e9rieur, dans le sens des aiguilles d'une montre (montage no\u00a01)\u00a0: bataille <span class=\"searchmatch\">de</span> Yorktown (1781) bataille <span class=\"searchmatch\">de</span> Trenton",
+              "title": "Guerre d'ind\u00e9pendance des \u00c9tats-Unis"
+            },
+            {
+              "conflict_hit": false,
+              "dense_score": 0.802094,
+              "extract": "Les Am\u00e9rindiens aux \u00c9tats-Unis (en anglais : Native Americans) sont les premiers occupants du continent am\u00e9ricain vivant sur le territoire des \u00c9tats-Unis d'Am\u00e9rique et reconnus par le bureau du recensement des \u00c9tats-Unis comme l'un des peuples autochtones des \u00c9tats-Unis (en anglais : Native Americans ou Indigenous Americans), qui comprend aussi les Inuits de l'Alaska et les Oc\u00e9ano-Am\u00e9ricains de Hawa\u00ef, des \u00eeles Mariannes et des Samoa.\nSelon le recensement de 2020, environ 9,7 millions d\u2019Am\u00e9rindiens vivent aux \u00c9tats-Unis.\nL'arriv\u00e9e des Europ\u00e9ens en Am\u00e9rique du Nord \u00e0 partir du XVIe si\u00e8cle provoqua d'importantes cons\u00e9quences sur les Am\u00e9rindiens : leur nombre s'effondra \u00e0 cause des maladies, des guerres et des mauvais traitements. Leur mode de vie et leur culture subirent des mutations. Avec l'avanc\u00e9e de la \u00ab Fronti\u00e8re \u00bb et la colonisation, ils perdirent la majorit\u00e9 de leur territoire, furent contraints d'int\u00e9grer des r\u00e9serves. Leur situation d\u00e9mographique, sociale et \u00e9conomique ne cessa de se d\u00e9grader. Depuis les ann\u00e9es 1970, la communaut\u00e9 am\u00e9rindienne conna\u00eet un certain renouveau : sa population augmente, la pauvret\u00e9 recule lentement, les traditions revivent. N\u00e9anmoins, bien que les Am\u00e9rindiens soient reconnus par l'Indian Citizenship Act de 1924 comme des citoyens \u00e0 part enti\u00e8re, ils restent en marge du d\u00e9veloppement am\u00e9ricain.",
+              "gold_hit": false,
+              "snippet": "<span class=\"searchmatch\">Les</span> Am\u00e9rindiens <span class=\"searchmatch\">aux</span> <span class=\"searchmatch\">\u00c9tats</span>-<span class=\"searchmatch\">Unis</span> (en anglais\u00a0: Native Americans) <span class=\"searchmatch\">sont</span> <span class=\"searchmatch\">les</span> premiers occupants du continent am\u00e9ricain vivant sur le territoire des <span class=\"searchmatch\">\u00c9tats</span>-Unis",
+              "title": "Am\u00e9rindiens aux \u00c9tats-Unis"
+            },
+            {
+              "conflict_hit": false,
+              "dense_score": 0.79881,
+              "extract": "L'avortement aux \u00c9tats-Unis fait l'objet de nombreux d\u00e9bats de part et d'autre du champ politique.\nUn arr\u00eat dit Roe v. Wade de la Cour supr\u00eame, en 1973, a d\u00e9p\u00e9nalis\u00e9 l'avortement et fait que la justice am\u00e9ricaine f\u00e9d\u00e9rale a consid\u00e9r\u00e9 que le droit d'une femme \u00e0 l'avortement rel\u00e8ve du droit \u00e0 la vie priv\u00e9e prot\u00e9g\u00e9 par le IVe amendement de la constitution, autorisant donc l'avortement au niveau f\u00e9d\u00e9ral, au titre du respect de la constitution.\n50 ans plus tard, en 2022, cet arr\u00eat est abrog\u00e9 (arr\u00eat Dobbs v. JWHO), par la cour supr\u00eame (o\u00f9 six des neuf juges sont des conservateurs nomm\u00e9s par des pr\u00e9sidents r\u00e9publicains, dont deux r\u00e9cemment nomm\u00e9s par Donald Trump), qui fait alors porter le choix du droit \u00e0 l'avortement ou de son interdiction (plus ou moins compl\u00e8te) sur la l\u00e9gislation de chacun des \u00c9tats. Une vingtaine d'entre eux a pr\u00e9vu ou pr\u00e9voit de l'interdire, avec souvent une forte p\u00e9nalisation et l'absence d'exception y compris en cas de viol, inceste ou raison de sant\u00e9.\nLes statistiques et \u00e9tudes m\u00e9dicales montrent que dans les deux ans qui ont suivi la d\u00e9cision de la cour supr\u00eame, la large restriction du droit \u00e0 l'IVG impos\u00e9e aux femmes et aux couples par quatorze \u00c9tats au motif de prot\u00e9ger la vie, a dans les faits provoqu\u00e9 une hausse de la mortalit\u00e9 infantile et des malformations cong\u00e9nitales, avec potentiellement \u00ab d'importantes cons\u00e9quences impr\u00e9vues en termes de traumatisme pour les familles et de co\u00fbts m\u00e9dicaux en raison de l'augmentation de la mortalit\u00e9 infantile \u00bb.",
+              "gold_hit": false,
+              "snippet": "L'avortement <span class=\"searchmatch\">aux</span> <span class=\"searchmatch\">\u00c9tats</span>-<span class=\"searchmatch\">Unis</span> fait l'objet <span class=\"searchmatch\">de</span> nombreux d\u00e9bats <span class=\"searchmatch\">de</span> part et d'autre du champ politique. Un arr\u00eat dit Roe v. Wade <span class=\"searchmatch\">de</span> la Cour supr\u00eame, en 1973",
+              "title": "Avortement aux \u00c9tats-Unis"
+            }
+          ],
+          "retriever": "translated_query_plus_fr_wikipedia_search_plus_dense_rerank"
+        }
+      ],
+      "failed_examples": [
+        {
+          "error": "429 Client Error: Too Many Requests for url: https://fr.wikipedia.org/w/api.php?action=query&format=json&list=search&srsearch=Quand+la+base+Little+America+II+a-t-elle+%C3%A9t%C3%A9+cr%C3%A9%C3%A9e+%3F&srlimit=12&utf8=1",
+          "error_type": "HTTPError",
+          "id": "9",
+          "question_en": "When was Little America II base established?"
+        },
+        {
+          "error": "429 Client Error: Too Many Requests for url: https://fr.wikipedia.org/w/api.php?action=query&format=json&list=search&srsearch=La+moxonidine+est-elle+un+agoniste+s%C3%A9lectif+ou+non+s%C3%A9lectif%C2%A0%3F&srlimit=12&utf8=1",
+          "error_type": "HTTPError",
+          "id": "10",
+          "question_en": "Is Moxonidine selective or non-selective Agonist?"
+        }
+      ],
+      "headline": {
+        "target_label": "French",
+        "target_lang": "fr",
+        "top1_conflict_hit_rate": 0.0,
+        "top1_gold_hit_rate": 0.0,
+        "topk_both_hit_rate": 0.0,
+        "topk_conflict_hit_rate": 0.0,
+        "topk_gold_hit_rate": 0.125
+      },
+      "metadata": {
+        "completed_examples": 8,
+        "encoder_model": "intfloat/multilingual-e5-small",
+        "failed_examples": 2,
+        "max_examples": 10,
+        "search_limit": 12,
+        "target_label": "French",
+        "target_lang": "fr",
+        "top_k": 5
+      }
+    },
+    "pt": {
+      "examples": [
+        {
+          "conflict_answers_translated": [
+            "N\u00e3o"
+          ],
+          "gold_answers_translated": [
+            "Sim",
+            "N\u00e3o"
+          ],
+          "id": "4",
+          "question_en": "Did Bishop Heber meet D\u2019Oyly in the 1840s in Patna ?",
+          "question_translated": "O bispo Heber conheceu D'Oyly na d\u00e9cada de 1840 em Patna?",
+          "retrieved": [],
+          "retriever": "translated_query_plus_pt_wikipedia_search_plus_dense_rerank"
+        },
+        {
+          "conflict_answers_translated": [
+            "O presidente Oler compareceu ao tribunal na d\u00e9cada de 1890"
+          ],
+          "gold_answers_translated": [
+            "O presidente Oler tomou posi\u00e7\u00e3o em 1911",
+            "O presidente Oler compareceu ao tribunal na d\u00e9cada de 1890"
+          ],
+          "id": "5",
+          "question_en": "What year did President Oler take the stand in court?",
+          "question_translated": "Em que ano o presidente Oler tomou posi\u00e7\u00e3o no tribunal?",
+          "retrieved": [],
+          "retriever": "translated_query_plus_pt_wikipedia_search_plus_dense_rerank"
+        },
+        {
+          "conflict_answers_translated": [
+            "TI, medicina, engenharia, com\u00e9rcio"
+          ],
+          "gold_answers_translated": [
+            "Pesca",
+            "TI, medicina, engenharia, com\u00e9rcio"
+          ],
+          "id": "6",
+          "question_en": "What is the most common occupation for the residents of Kodimunai?",
+          "question_translated": "Qual \u00e9 a ocupa\u00e7\u00e3o mais comum dos moradores de Kodimunai?",
+          "retrieved": [],
+          "retriever": "translated_query_plus_pt_wikipedia_search_plus_dense_rerank"
+        },
+        {
+          "conflict_answers_translated": [
+            "A salinidade do Lago Maracibo est\u00e1 entre 0,2% e 0,3%"
+          ],
+          "gold_answers_translated": [
+            "A salinidade do Lago Maracaibo est\u00e1 entre 1,5% e 3,8%",
+            "A salinidade do Lago Maracibo est\u00e1 entre 0,2% e 0,3%"
+          ],
+          "id": "7",
+          "question_en": "What is the salinity of Lake Maracaibo?",
+          "question_translated": "Qual \u00e9 a salinidade do Lago Maracaibo?",
+          "retrieved": [
+            {
+              "conflict_hit": false,
+              "dense_score": 0.828851,
+              "extract": "O mar do Caribe (portugu\u00eas brasileiro e portugu\u00eas europeu[carece de fontes?]) ou mar das Cara\u00edbas (apenas em portugu\u00eas europeu) \u00e9 um mar semiaberto tropical do oceano Atl\u00e2ntico, com uma \u00e1rea de cerca de 2 754 000 km\u00b2, situado a leste da Am\u00e9rica Central, a norte da Am\u00e9rica do Sul e a sul da Am\u00e9rica do Norte, cobrindo a superf\u00edcie da placa do Caribe (placa das Cara\u00edbas). \u00c9 tamb\u00e9m designado mar das Antilhas por se situar a sudoeste do arco das Antilhas. \u00c9 limitado a norte pelas Grandes Antilhas e a leste pelas Pequenas Antilhas.\nO ponto mais profundo do mar \u00e9 a fossa das ilhas Caim\u00e3o, a 7 686 m abaixo do n\u00edvel do mar. O mar das Cara\u00edbas comunica com o oceano Pac\u00edfico atrav\u00e9s do canal do Panam\u00e1.",
+              "gold_hit": false,
+              "snippet": "claras <span class=\"searchmatch\">e</span> menos f\u00e9rteis que as de qualquer estu\u00e1rio. Tamb\u00e9m se destaca o <span class=\"searchmatch\">Lago</span> de <span class=\"searchmatch\">Maracaibo</span>, que se liga \u00e0s Cara\u00edbas atrav\u00e9s <span class=\"searchmatch\">do</span> golfo da Venezuela, <span class=\"searchmatch\">e</span> que,",
+              "title": "Mar do Caribe"
+            },
+            {
+              "conflict_hit": false,
+              "dense_score": 0.821444,
+              "extract": "A etimologia de Venezuela historicamente \u00e9 atribu\u00edda ao diminutivo Venezziola da palavra Venezia (Veneza em italiano). A vers\u00e3o mais conhecida afirma que, em 1499, Alonso de Ojeda, acompanhado por Am\u00e9rico Vesp\u00facio, navegou pela costa setentrional da Am\u00e9rica do Sul. Ao chegar ao que hoje se chama Golfo da Venezuela (entrada mar\u00edtima do Lago de Maracaibo), deparou-se com etnias nativas cujas habita\u00e7\u00f5es eram constru\u00eddas sobre estacas de madeira salientes da \u00e1gua (palafitas). Vesp\u00facio as assemelhou \u00e0 cidade de Veneza, e diz\u2010se que nomeou aquela regi\u00e3o de \u201cPequena Veneza\u201d ou Venezziola, posteriormente hispanizada para Venezuela, termo que se estenderia a toda a na\u00e7\u00e3o.",
+              "gold_hit": false,
+              "snippet": "costa setentrional da Am\u00e9rica <span class=\"searchmatch\">do</span> Sul. Ao chegar ao que hoje se chama Golfo da Venezuela (entrada mar\u00edtima <span class=\"searchmatch\">do</span> <span class=\"searchmatch\">Lago</span> de <span class=\"searchmatch\">Maracaibo</span>), deparou-se com etnias nativas",
+              "title": "Etimologia de Venezuela"
+            },
+            {
+              "conflict_hit": false,
+              "dense_score": 0.809667,
+              "extract": "Caribe (portugu\u00eas brasileiro e portugu\u00eas europeu), tamb\u00e9m chamado Cara\u00edbas (apenas em portugu\u00eas europeu) e Am\u00e9rica Caribenha, \u00e9 uma regi\u00e3o do continente americano formada pelo mar do Caribe, suas ilhas e Estados insulares. Tamb\u00e9m \u00e9 chamado de Antilhas ou \u00cdndias Ocidentais, nome originado pela cren\u00e7a inicial europeia de que o continente americano fosse a \u00cdndia (o termo \"ocidentais\" foi, posteriormente, adicionado para distingui-las da regi\u00e3o da \u00cdndia \"verdadeira\"). Os nascidos nas ilhas do Caribe s\u00e3o denominados caribenhos.\nO Caribe est\u00e1 localizado na placa tect\u00f3nica do mesmo nome \u2014 a placa do Caribe \u2014, que engloba tamb\u00e9m a parte sul da Am\u00e9rica Central. Na fronteira desta placa com a placa Sul-Americana, a leste, junto ao oceano Atl\u00e2ntico, existe uma zona de subduc\u00e7\u00e3o vulcanicamente ativa, que originou as Pequenas Antilhas.",
+              "gold_hit": false,
+              "snippet": "claras <span class=\"searchmatch\">e</span> menos f\u00e9rteis que as de qualquer estu\u00e1rio. Tamb\u00e9m se destaca o <span class=\"searchmatch\">Lago</span> de <span class=\"searchmatch\">Maracaibo</span>, que se liga \u00e0s Cara\u00edbas atrav\u00e9s <span class=\"searchmatch\">do</span> golfo da Venezuela, <span class=\"searchmatch\">e</span> que,",
+              "title": "Caribe"
+            },
+            {
+              "conflict_hit": false,
+              "dense_score": 0.800076,
+              "extract": "Esta \u00e9 uma lista de lagos com \u00e1rea superior a 4,000 km\u00b2. A \u00e1rea de alguns lagos pode variar sazonalmente, ou de ano para ano, em especial com lagos salgados em climas \u00e1ridos.",
+              "gold_hit": false,
+              "snippet": "climas \u00e1ridos. Denotar <span class=\"searchmatch\">a</span> <span class=\"searchmatch\">salinidade</span> <span class=\"searchmatch\">do</span> <span class=\"searchmatch\">lago</span> O Michigan <span class=\"searchmatch\">e</span> o Huron formam uma unidade hidrol\u00f3gica O Baikal <span class=\"searchmatch\">\u00e9</span> o mais fundo <span class=\"searchmatch\">do</span> mundo <span class=\"searchmatch\">e</span> o de maior volume de",
+              "title": "Lista de lagos por \u00e1rea"
+            }
+          ],
+          "retriever": "translated_query_plus_pt_wikipedia_search_plus_dense_rerank"
+        },
+        {
+          "conflict_answers_translated": [
+            "A Gazeta Hoover"
+          ],
+          "gold_answers_translated": [
+            "O trabalhador di\u00e1rio",
+            "A Gazeta Hoover"
+          ],
+          "id": "8",
+          "question_en": "What are examples of defunct newspapers in the United States?",
+          "question_translated": "Quais s\u00e3o os exemplos de jornais extintos nos Estados Unidos?",
+          "retrieved": [
+            {
+              "conflict_hit": false,
+              "dense_score": 0.813871,
+              "extract": "Nos Estados Unidos, o genoc\u00eddio de negros \u00e9 um quadro historiogr\u00e1fico e um termo ret\u00f3rico utilizado para analisar o impacto passado e presente do racismo sist\u00eamico sobre os afro-americanos, tanto pelo governo dos Estados Unidos como pelos americanos brancos. As d\u00e9cadas de linchamentos e a discrimina\u00e7\u00e3o racial a longo prazo foram descritas formalmente como genoc\u00eddio pela primeira vez por uma organiza\u00e7\u00e3o atualmente extinta, o Congresso dos Direitos Civis [en], numa peti\u00e7\u00e3o que apresentou \u00e0s Na\u00e7\u00f5es Unidas em 1951. Na d\u00e9cada de 1960, Malcolm X acusou o Governo dos Estados Unidos de cometer viola\u00e7\u00f5es dos direitos humanos, incluindo genoc\u00eddio, contra os negros, citando a injusti\u00e7a, a crueldade e a viol\u00eancia de longa data dos brancos contra os negros.\nA analogia do genoc\u00eddio de negros tem sido historicamente aplicada \u00e0 guerra contra as drogas, \u00e0 guerra contra o crime e \u00e0  guerra contra a pobreza por seus efeitos prejudiciais \u00e0 comunidade negra. Durante a Guerra do Vietn\u00e3, o uso crescente de soldados negros foi criticado como uma express\u00e3o de genoc\u00eddio de negros. Nas \u00faltimas d\u00e9cadas, a popula\u00e7\u00e3o carcer\u00e1ria negra desproporcionalmente alta tamb\u00e9m foi descrita como genoc\u00eddio de negros.\nOs cr\u00edticos da teoria do genoc\u00eddio de negros a descrevem como uma teoria da conspira\u00e7\u00e3o, enquanto seus defensores argumentam que ela \u00e9 uma estrutura \u00fatil para analisar o racismo sist\u00eamico. Os argumentos contra o controle de natalidade, em particular, foram criticados como conspirat\u00f3rios ou exagerados, embora as tentativas de controle da popula\u00e7\u00e3o negra e a esteriliza\u00e7\u00e3o compuls\u00f3ria patrocinada pelo governo tenham ocorrido ainda no s\u00e9culo XX.",
+              "gold_hit": false,
+              "snippet": "<span class=\"searchmatch\">Nos</span> <span class=\"searchmatch\">Estados</span> <span class=\"searchmatch\">Unidos</span>, o genoc\u00eddio <span class=\"searchmatch\">de</span> negros \u00e9 um quadro historiogr\u00e1fico e um termo ret\u00f3rico utilizado para analisar o impacto passado e presente do racismo",
+              "title": "Genoc\u00eddio de negros nos Estados Unidos"
+            },
+            {
+              "conflict_hit": false,
+              "dense_score": 0.813179,
+              "extract": "As rela\u00e7\u00f5es entre os Estados Unidos e a Uni\u00e3o Sovi\u00e9tica foram plenamente estabelecidas em 1933 como os la\u00e7os bilaterais sucessivos aos entre o Imp\u00e9rio Russo e os Estados Unidos, que duraram de 1776 at\u00e9 1917; foram tamb\u00e9m os antecessores dos atuais la\u00e7os bilaterais entre a Estados Unidos e Federa\u00e7\u00e3o Russa, que come\u00e7aram em 1992, ap\u00f3s o fim da Guerra Fria. A rela\u00e7\u00e3o entre a Uni\u00e3o Sovi\u00e9tica e os Estados Unidos foi em grande parte definida pela desconfian\u00e7a e pela hostilidade tensa. A invas\u00e3o da Uni\u00e3o Sovi\u00e9tica pela Alemanha Nazista, bem como o ataque \u00e0 Frota do Pac\u00edfico dos EUA em Pearl Harbor pelo Imp\u00e9rio do Jap\u00e3o marcaram as entradas sovi\u00e9tica e americana na Segunda Guerra Mundial ao lado dos Aliados em junho e dezembro de 1941, respectivamente. \u00c0 medida que a alian\u00e7a sovi\u00e9tico-americana contra o Eixo chegou ao fim ap\u00f3s a vit\u00f3ria dos Aliados em 1945, os primeiros sinais de desconfian\u00e7a e hostilidade do p\u00f3s-guerra come\u00e7aram a aparecer imediatamente entre os dois pa\u00edses, \u00e0 medida que a Uni\u00e3o Sovi\u00e9tica ocupava militarmente os pa\u00edses da Europa do Leste e se transformava em transformando-os em estados sat\u00e9lites, formando o Bloco Oriental. Estas tens\u00f5es bilaterais evolu\u00edram para a Guerra Fria, um per\u00edodo de d\u00e9cadas de tensas rela\u00e7\u00f5es hostis com curtas fases de d\u00e9tente que terminou ap\u00f3s o colapso da Uni\u00e3o Sovi\u00e9tica e o surgimento da atual Federa\u00e7\u00e3o Russa no final de 1991.",
+              "gold_hit": false,
+              "snippet": "Russo e os <span class=\"searchmatch\">Estados</span> <span class=\"searchmatch\">Unidos</span>, que duraram <span class=\"searchmatch\">de</span> 1776 at\u00e9 1917; foram tamb\u00e9m <span class=\"searchmatch\">os</span> antecessores dos atuais la\u00e7os bilaterais entre a <span class=\"searchmatch\">Estados</span> <span class=\"searchmatch\">Unidos</span> e Federa\u00e7\u00e3o",
+              "title": "Rela\u00e7\u00f5es entre Estados Unidos e Uni\u00e3o Sovi\u00e9tica"
+            },
+            {
+              "conflict_hit": false,
+              "dense_score": 0.807608,
+              "extract": "Rio de Janeiro (portugu\u00eas: [\u02c8\u0281i.u d(\u0292i) \u0292\u0250\u02c8ne(j)\u027eu] () \u00e9 uma das 27 unidades federativas do Brasil. Encontra-se situado ao sudeste do pa\u00eds. E possui divisas, ao norte e noroeste, com Minas Gerais; ao nordeste, com o Esp\u00edrito Santo; ao leste e ao sul, com o Oceano Atl\u00e2ntico e a sudoeste, com S\u00e3o Paulo. Tem uma superf\u00edcie de 43 750,425 km\u00b2, equivalente \u00e0 da Dinamarca, e abriga uma popula\u00e7\u00e3o de mais de 16 milh\u00f5es de pessoas, correspondente \u00e0 do Camboja. Os naturais do estado do Rio de Janeiro s\u00e3o chamados de fluminenses (do latim flumen, textualmente, \"rio\"). A cidade do Rio de Janeiro \u00e9 sua capital.\nConta com 92 munic\u00edpios. Rio de Janeiro, S\u00e3o Gon\u00e7alo, Duque de Caxias, Nova Igua\u00e7u, Niter\u00f3i, Belford Roxo, S\u00e3o Jo\u00e3o de Meriti, Petr\u00f3polis, Resende, Volta Redonda, Angra dos Reis, Cabo Frio, Maca\u00e9 e Campos dos Goytacazes s\u00e3o as principais cidades. O estado \u00e9 constitu\u00eddo por duas regi\u00f5es geomorfologicamente diferentes: a baixada e o planalto, que se prolongam, como cintur\u00f5es horizontais, da costa para o interior. Os rios mais importantes s\u00e3o o Para\u00edba do Sul, o Maca\u00e9, o Guandu, o Pira\u00ed e o Muria\u00e9. Tem um clima tropical. Sua economia est\u00e1 alicer\u00e7ada na ind\u00fastria (metalurgia, siderurgia, qu\u00edmica, mineral, alimentar, mec\u00e2nica, editorial, gr\u00e1fica, papeleira) e no turismo.\nO estado surgiu a partir de por\u00e7\u00f5es das capitanias coloniais de S\u00e3o Tom\u00e9 e S\u00e3o Vicente. De 1555 a 1567, os franceses invadiram o territ\u00f3rio. Em 1565, foi criada a cidade hom\u00f4nima. No s\u00e9culo XVII, a pecu\u00e1ria e a cana-de-a\u00e7\u00facar estimularam o desenvolvimento. Este estava decisivamente garantido no momento em que o porto passou a escoar as riquezas de Minas Gerais, no s\u00e9culo XVIII. Em 1763, come\u00e7ou a ser capital do vice-reino. Com a transfer\u00eancia da corte portuguesa para o Brasil, em 1808, a regi\u00e3o recebeu grandes benef\u00edcios como sede do reino. Em 1834, a cidade do Rio de Janeiro foi elevada a munic\u00edpio, ficando como capital do pa\u00eds. A capitania da qual este deixou de fazer parte se tornou prov\u00edncia, com sede em Niter\u00f3i. Em 1889, a cidade foi promovida a capital da Rep\u00fablica, e a prov\u00edncia, a estado. Com a transfer\u00eancia da capital para Bras\u00edlia, em 1960, o munic\u00edpio do Rio de Janeiro foi elevado a Estado da Guanabara. Em 1975, reunificaram-se os estados da Guanabara e o Rio de Janeiro, com a denomina\u00e7\u00e3o de Estado do Rio de Janeiro. Este come\u00e7ou a compreender a cidade do Rio de Janeiro como capital.\nA cidade com a maior popula\u00e7\u00e3o \u00e9 sua capital hom\u00f4nima, n\u00facleo da segunda maior metr\u00f3pole do Brasil. Embora seja, em condi\u00e7\u00f5es de territ\u00f3rio, o terceiro estado brasileiro menos extenso (\u00e0 frente somente de Alagoas e Sergipe), centraliza 7,9% da popula\u00e7\u00e3o do pa\u00eds, sendo o estado com a segunda maior densidade populacional do Brasil. Conforme dados do Censo 2022, o estado constitui o terceiro com a maior popula\u00e7\u00e3o do Brasil, com cerca de 16 milh\u00f5es de moradores, atr\u00e1s somente de S\u00e3o Paulo e Minas Gerais. O produto interno bruto (PIB) do estado \u00e9 o segundo mais relevante do pa\u00eds, atr\u00e1s do de S\u00e3o Paulo, \u00e0 medida que o IDH fluminense \u00e9 o oitavo mais alto do Brasil. Al\u00e9m disso, o Rio de Janeiro possui o terceiro maior \u00edndice de literacia do pa\u00eds, apenas atr\u00e1s de Santa Catarina e Distrito Federal. O estado \u00e9 sede da maior e mais completa biblioteca p\u00fablica do Brasil e da Am\u00e9rica Latina, a Biblioteca Nacional, criada em 1810; do Arquivo Nacional, do BNDES e de algumas das maiores empresas do pa\u00eds, como Petrobras, Grupo Globo, Vale, Americanas e Gol.",
+              "gold_hit": false,
+              "snippet": "Friburgo), <span class=\"searchmatch\">Jornal</span> Dia-a-Dia (<span class=\"searchmatch\">S\u00e3o</span> Jo\u00e3o <span class=\"searchmatch\">de</span> Meriti), <span class=\"searchmatch\">Jornal</span> Atual, <span class=\"searchmatch\">Jornal</span> Impacto (Itagua\u00ed), entre outros. Dois dos mais influentes <span class=\"searchmatch\">jornais</span> do pa\u00eds, O Globo",
+              "title": "Rio de Janeiro (estado)"
+            },
+            {
+              "conflict_hit": false,
+              "dense_score": 0.80611,
+              "extract": "Os Estados Unidos t\u00eam o ingl\u00eas (especificamente, o ingl\u00eas americano) como a l\u00edngua oficial do pa\u00eds. \u00c9 tamb\u00e9m o idioma falado em casa pela maioria da popula\u00e7\u00e3o do pa\u00eds (aproximadamente 78,5%). Muitos outros idiomas tamb\u00e9m s\u00e3o falados em casa, especialmente o espanhol (13,2% da popula\u00e7\u00e3o), de acordo com a American Community Survey (ACS) do U.S. Census Bureau. Esses idiomas incluem as l\u00ednguas ind\u00edgenas originalmente faladas pelos povos nativos dos EUA, do Alasca, do Hava\u00ed e povos dos territ\u00f3rios n\u00e3o incorporados dos Estados Unidos, idiomas trazidos em diferentes \u00e9pocas para as regi\u00f5es que hoje comp\u00f5em os EUA por pessoas da Europa, \u00c1frica, \u00c1sia e outras partes do mundo bem como v\u00e1rios dialetos: l\u00ednguas crioulas, l\u00ednguas pidgin e l\u00ednguas de sinais origin\u00e1rias do que hoje s\u00e3o hoje a intel\u00edngua, uma l\u00edngua auxiliar criada nos Estados Unidos.\nA maioria dos falantes de idiomas estrangeiros nos EUA \u00e9 bil\u00edngue ou multil\u00edngue e geralmente fala ingl\u00eas. Embora 21,5% dos residentes dos EUA relatem que falam um idioma diferente do ingl\u00eas em casa, apenas 8,2% falam ingl\u00eas menos do que \"muito bem\". Aproximadamente 430 idiomas s\u00e3o falados ou assinados pela popula\u00e7\u00e3o, dos quais 177 s\u00e3o nativos dos EUA ou de seus territ\u00f3rios.",
+              "gold_hit": false,
+              "snippet": "e l\u00ednguas <span class=\"searchmatch\">de</span> sinais origin\u00e1rias do que hoje <span class=\"searchmatch\">s\u00e3o</span> hoje a intel\u00edngua, uma l\u00edngua auxiliar criada <span class=\"searchmatch\">nos</span> <span class=\"searchmatch\">Estados</span> <span class=\"searchmatch\">Unidos</span>. A maioria dos falantes <span class=\"searchmatch\">de</span> idiomas estrangeiros",
+              "title": "L\u00ednguas dos Estados Unidos"
+            },
+            {
+              "conflict_hit": false,
+              "dense_score": 0.80465,
+              "extract": "O espanhol \u00e9 a segunda l\u00edngua mais falada nos Estados Unidos, onde 41 milh\u00f5es de pessoas com cinco anos ou mais falam espanhol em casa. Tamb\u00e9m \u00e9 a l\u00edngua estrangeira mais estudada nos Estados Unidos, com cerca de seis milh\u00f5es de estudantes. Com mais de 50 milh\u00f5es de falantes nativos, falantes da L\u00edngua de heran\u00e7a e falantes de segunda l\u00edngua, os Estados Unidos t\u00eam agora a segunda maior popula\u00e7\u00e3o de l\u00edngua espanhola do mundo depois do M\u00e9xico, embora n\u00e3o seja uma l\u00edngua oficial do pa\u00eds. Cerca de metade de todos os falantes de espanhol americano tamb\u00e9m se avaliaram como falantes \"muito bons\" de ingl\u00eas no Censo dos EUA de 2000. Esse percentual aumentou para 57% no Levantamento da Comunidade Americana 2013-2017. Os Estados Unidos est\u00e3o entre os pa\u00edses de l\u00edngua espanhola que t\u00eam sua pr\u00f3pria Academia da L\u00edngua Espanhola.\nH\u00e1 mais falantes de espanhol nos Estados Unidos do que falantes de franc\u00eas, alem\u00e3o, italiano, portugu\u00eas, havaiano, e variedades de idiomas chineses e l\u00ednguas ind\u00edgenas da Am\u00e9rica juntos. De acordo com o American Community Survey, realizado pelo Departamento do Censo dos Estados Unidos, em 2012 o espanhol era falado em casa por 38,3 milh\u00f5es de pessoas com cinco anos ou mais, mais que o dobro do que em 1990.\nA l\u00edngua espanhola est\u00e1 presente no que hoje s\u00e3o os Estados Unidos desde o s\u00e9culo XV, com a chegada da coloniza\u00e7\u00e3o espanhola na Am\u00e9rica do Norte. Os colonizadores se estabeleceram em \u00e1reas que mais tarde se tornariam nos estados da Fl\u00f3rida, Texas, Colorado, Novo M\u00e9xico, Arizona, Nevada e Calif\u00f3rnia, bem como na Comunidade de Porto Rico. Os exploradores espanh\u00f3is exploraram \u00e1reas de 42 futuros estados dos EUA, deixando para tr\u00e1s uma variedade variada de legado hisp\u00e2nico no continente norte-americano. Regi\u00f5es ocidentais do Territ\u00f3rio da Louisiana tamb\u00e9m estavam sob o dom\u00ednio espanhol entre 1763 e 1800, ap\u00f3s a Guerra Franco-Ind\u00edgena, estendendo ainda mais a influ\u00eancia espanhola em todo o moderno Estados Unidos da Am\u00e9rica.\nAp\u00f3s a incorpora\u00e7\u00e3o dessas \u00e1reas nos Estados Unidos na primeira metade do s\u00e9culo XIX, a l\u00edngua espanhola foi posteriormente refor\u00e7ada no pa\u00eds pela aquisi\u00e7\u00e3o de Porto Rico em 1898. Ondas posteriores de emigra\u00e7\u00e3o do M\u00e9xico, Cuba, Venezuela, El Salvador, Col\u00f4mbia, e no resto da Am\u00e9rica Hisp\u00e2nica para os Estados Unidos a partir da segunda metade do s\u00e9culo XIX at\u00e9 o presente t\u00eam fortalecido o papel da l\u00edngua espanhola no pa\u00eds. Hoje, os hisp\u00e2nicos s\u00e3o um dos grupos \u00e9tnicos que mais crescem nos Estados Unidos, aumentando assim o uso e a import\u00e2ncia do espanhol americano nos Estados Unidos.",
+              "gold_hit": false,
+              "snippet": "<span class=\"searchmatch\">nos</span> <span class=\"searchmatch\">Estados</span> <span class=\"searchmatch\">Unidos</span>, onde 41 milh\u00f5es <span class=\"searchmatch\">de</span> pessoas com cinco anos ou mais falam espanhol em casa. Tamb\u00e9m \u00e9 a l\u00edngua estrangeira mais estudada <span class=\"searchmatch\">nos</span> <span class=\"searchmatch\">Estados</span>",
+              "title": "L\u00edngua espanhola nos Estados Unidos"
+            }
+          ],
+          "retriever": "translated_query_plus_pt_wikipedia_search_plus_dense_rerank"
+        },
+        {
+          "conflict_answers_translated": [
+            "1933"
+          ],
+          "gold_answers_translated": [
+            "1934",
+            "1933"
+          ],
+          "id": "9",
+          "question_en": "When was Little America II base established?",
+          "question_translated": "Quando foi estabelecida a base Little America II?",
+          "retrieved": [
+            {
+              "conflict_hit": false,
+              "dense_score": 0.81867,
+              "extract": "Base A\u00e9rea de Little Rock (IATA: LRF, ICAO: KLRF, FAA LID: LRF) \u00e9 uma base da For\u00e7a A\u00e9rea dos Estados Unidos localizada a aproximadamente a 27 km (17 mi) a nordeste de Little Rock, Arkansas.\nLittle Rock AFB \u00e9 a principal base de treinamento C-130 Hercules para o Departamento de Defesa, treinando pilotos C-130, navegadores, engenheiros de v\u00f4o e loadmasters de todos os ramos das for\u00e7as armadas dos EUA em transporte a\u00e9reo t\u00e1tico e entrega a\u00e9rea. \u00c9 o lar das aeronaves C-130H e C-130J, bem como do Centro de Excel\u00eancia C-130 (ou seja, escolas para tripula\u00e7\u00f5es C-130H e C-130J).\nA unidade anfitri\u00e3 em Little Rock AFB \u00e9 a 19\u00aa Ala de Transporte A\u00e9reo (19 AW), designada para a 18\u00aa For\u00e7a A\u00e9rea do Comando de Mobilidade A\u00e9rea. A ala fornece ao Departamento de Defesa a maior frota de transporte C-130 Hercules do mundo, fornecendo transporte a\u00e9reo humanit\u00e1rio para v\u00edtimas de desastres, bem como entregando suprimentos e tropas no centro de opera\u00e7\u00f5es de conting\u00eancia em \u00e1reas hostis.\nOutras organiza\u00e7\u00f5es em Little Rock AFB incluem a 189\u00aa Ala de Transporte A\u00e9reo da Guarda A\u00e9rea Nacional de Arkansas e a divis\u00e3o C-130 da Escola de Armas da For\u00e7a A\u00e9rea dos EUA. Todas essas organiza\u00e7\u00f5es voam no C-130 Hercules.\nA Little Rock Air Force Base \u00e9 o quarto maior empregador no estado de Arkansas, com um impacto econ\u00f4mico local de US$ 813,6 milh\u00f5es.",
+              "gold_hit": false,
+              "snippet": "localizada a aproximadamente a 27\u00a0km (17\u00a0mi) <span class=\"searchmatch\">a</span> nordeste de <span class=\"searchmatch\">Little</span> Rock, Arkansas. <span class=\"searchmatch\">Little</span> Rock AFB \u00e9 <span class=\"searchmatch\">a</span> principal <span class=\"searchmatch\">base</span> de treinamento C-130 Hercules para o Departamento",
+              "title": "Base A\u00e9rea Little Rock"
+            },
+            {
+              "conflict_hit": false,
+              "dense_score": 0.815778,
+              "extract": "O McDonnell Douglas F-4 Phantom II \u00e9 um ca\u00e7a-bombardeiro supers\u00f4nico de longo alcance, bimotor e de dois assentos, desenvolvido originalmente pela McDonnell Aircraft para a Marinha dos Estados Unidos. Demonstrando alta adaptabilidade, ele entrou em servi\u00e7o com a Marinha em 1961, antes de ser adotado pelo Corpo de Fuzileiros Navais dos Estados Unidos e pela For\u00e7a A\u00e9rea dos Estados Unidos, tornando-se uma parte importante de suas for\u00e7as a\u00e9reas at\u00e9 meados da d\u00e9cada de 1960. A produ\u00e7\u00e3o do Phantom ocorreu entre 1958 e 1981, com um total de 5 195 aeronaves constru\u00eddas, tornando-o a aeronave militar supers\u00f4nica americana mais produzida da hist\u00f3ria e consolidando sua posi\u00e7\u00e3o como uma aeronave de combate emblem\u00e1tica da Guerra Fria.\nO Phantom \u00e9 um ca\u00e7a de grande porte com uma velocidade m\u00e1xima superior a Mach 2.2. Ele pode transportar mais de 8,4 mil kg de armamentos em nove pontos de suporte externos, incluindo m\u00edsseis ar-ar, m\u00edsseis ar-terra e v\u00e1rias bombas. O F-4, assim como outros interceptadores da \u00e9poca, foi inicialmente projetado sem um canh\u00e3o interno. Modelos posteriores incorporaram um canh\u00e3o rotativo M61 Vulcan. A partir de 1959, a aeronave estabeleceu 15 recordes mundiais em voo, incluindo um recorde de velocidade e um de altitude absoluta.\nO F-4 foi amplamente utilizado durante a Guerra do Vietn\u00e3. Ele serviu como o principal ca\u00e7a de superioridade a\u00e9rea para a For\u00e7a A\u00e9rea dos Estados Unidos, Marinha e Corpo de Fuzileiros Navais, e se tornou importante nos pap\u00e9is de ataque terrestre e reconhecimento a\u00e9reo no final da guerra. Durante a Guerra do Vietn\u00e3, um piloto da For\u00e7a A\u00e9rea dos Estados Unidos, dois oficiais de sistemas de armas (WSO), um piloto da Marinha dos Estados Unidos e um oficial de intercepta\u00e7\u00e3o de radar (RIO) se tornaram \"ases\" ao alcan\u00e7ar cinco vit\u00f3rias a\u00e9reas contra aeronaves inimigas. O F-4 continuou a ser uma parte significativa do poder a\u00e9reo militar dos Estados Unidos ao longo das d\u00e9cadas de 1970 e 1980, sendo gradualmente substitu\u00eddo por aeronaves mais modernas, como o F-15 Eagle e o F-16 Fighting Falcon na For\u00e7a A\u00e9rea dos Estados Unidos, o F-14 Tomcat na Marinha dos Estados Unidos, e o F/A-18 Hornet na Marinha dos Estados Unidos e no Corpo de Fuzileiros Navais.\nO F-4 Phantom II permaneceu em uso pelos Estados Unidos nos pap\u00e9is de reconhecimento e Wild Weasel (Supress\u00e3o das Defesas A\u00e9reas Inimigas) durante a Guerra do Golfo, sendo finalmente retirado de servi\u00e7o em 1996. Ele foi tamb\u00e9m a \u00fanica aeronave utilizada pelas duas equipes de demonstra\u00e7\u00e3o de voo dos Estados Unidos: os Thunderbirds da For\u00e7a A\u00e9rea dos Estados Unidos (F-4E) e os Blue Angels da Marinha dos Estados Unidos (F-4J). O F-4 tamb\u00e9m foi operado pelas for\u00e7as armadas de outras 11 na\u00e7\u00f5es. Os Phantoms israelenses participaram intensamente em v\u00e1rios conflitos \u00e1rabe-israelenses, enquanto o Ir\u00e3 utilizou sua grande frota de Phantoms, adquirida antes da queda do X\u00e1, na Guerra Ir\u00e3-Iraque. Em 2021, 63 anos ap\u00f3s seu primeiro voo, o F-4 continua em servi\u00e7o ativo nas for\u00e7as a\u00e9reas do Ir\u00e3, Coreia do Sul, Gr\u00e9cia e Turquia. A aeronave foi recentemente empregada no combate ao grupo Estado Isl\u00e2mico no Oriente M\u00e9dio.",
+              "gold_hit": false,
+              "snippet": "Avia\u00e7\u00e3o. Para outros significados, veja Rolls-Royce Phantom <span class=\"searchmatch\">II</span>. O McDonnell Douglas F-4 Phantom <span class=\"searchmatch\">II</span> \u00e9 um ca\u00e7a-bombardeiro supers\u00f4nico de longo alcance, bimotor",
+              "title": "McDonnell Douglas F-4 Phantom II"
+            },
+            {
+              "conflict_hit": false,
+              "dense_score": 0.80488,
+              "extract": "A Guerra de Independ\u00eancia dos Estados Unidos, Guerra Revolucion\u00e1ria Americana, Guerra Americana da Independ\u00eancia, Guerra da Revolu\u00e7\u00e3o Americana, ou simplesmente Guerra Revolucion\u00e1ria nos Estados Unidos, foi um conflito armado entre o Reino da Gr\u00e3-Bretanha e as Treze Col\u00f4nias na Am\u00e9rica do Norte, que haviam declarado sua independ\u00eancia como os Estados Unidos da Am\u00e9rica. Logo ap\u00f3s a Guerra dos Sete Anos, come\u00e7ou a crescer nas col\u00f4nias brit\u00e2nicas na Am\u00e9rica um sentimento de descontentamento com a metr\u00f3pole, baseado em diferen\u00e7as filos\u00f3ficas e pol\u00edticas exacerbadas com o azedamento dos la\u00e7os entre a Coroa e os povos da col\u00f4nia. Ap\u00f3s a introdu\u00e7\u00e3o da Lei do selo de 1765, os Patriotas (como se chamavam os americanos pr\u00f3-independ\u00eancia) protestaram contra a ideia de \"tributa\u00e7\u00e3o sem representatividade\" e iniciaram boicotes contra os ingleses; um grupo conhecido como \"Filhos da Liberdade\" acabou destruindo um carregamento de ch\u00e1 no ancoradouro de Boston. O governo brit\u00e2nico respondeu fechando os portos da cidade e passou medidas punitivas contra Massachusetts. Os colonos, por sua vez, institu\u00edram as \"Resolu\u00e7\u00f5es de Suffolk\", estabelecendo um governo paralelo para tentar tirar dos ingleses o controle das \u00e1reas fora da cidade de Boston. Representantes das col\u00f4nias americanas estabeleceram ent\u00e3o o Congresso Continental para coordenar os esfor\u00e7os de resist\u00eancia e estabelecer comit\u00eas e conven\u00e7\u00f5es para efetivamente tomar o poder.\nEm abril de 1775, os brit\u00e2nicos tentaram desarmar as mil\u00edcias rebeldes que tomaram a zona rural de Massachusetts, precipitando o primeiro confronto armado da guerra. Os milicianos americanos ent\u00e3o cercaram Boston e, finalmente, em mar\u00e7o de 1776, for\u00e7aram os ingleses a evacuar. Ao mesmo tempo, os revolucion\u00e1rios tentaram invadir Quebec para tentar trazer os canadenses ao conflito, mas falharam. A 2 de julho de 1776, com a escalada da viol\u00eancia por todas as Treze Col\u00f4nias, o Congresso Continental votou por independ\u00eancia, proclamando-a dois dias depois, em 4 de julho. Sir William Howe, comandante do ex\u00e9rcito brit\u00e2nico nas Col\u00f4nias estadunidenses, ordenou um contra-ataque e suas for\u00e7as lan\u00e7aram uma invas\u00e3o ao norte, conquistando a cidade de Nova Iorque e partes de Nova J\u00e9rsei, abalando a moral dos revolucion\u00e1rios americanos. Contudo, vit\u00f3rias rebeldes em Trenton e Princeton restauraram a confian\u00e7a na causa americana. Em 1777, os brit\u00e2nicos, sob comando do general John Burgoyne, lan\u00e7aram uma grande campanha para limpar de rebeldes os estados de Nova Iorque e Vermont, isolando a regi\u00e3o da Nova Inglaterra. O comando ingl\u00eas, por\u00e9m, n\u00e3o agiu de forma coesa, com o general Howe preferindo realizar uma campanha pr\u00f3pria, capturando a Filad\u00e9lfia. Sem apoio, Burgoyne acabou sendo derrotado na decisiva Batalha de Saratoga, em outubro de 1777.\nO resultado da campanha de Saratoga foi importante, pois convenceu a Fran\u00e7a (rival da Inglaterra) a entrar no conflito ao lado dos americanos em 1778. No ano seguinte, a Espanha, atrav\u00e9s do Pacte de Famille, se aliou aos franceses e aos americanos. Os brit\u00e2nicos tiveram de mudar de estrat\u00e9gia, com o general Charles Cornwallis movendo tropas para uma ampla campanha no sul, onde a presen\u00e7a lealista era mais forte, por\u00e9m isto n\u00e3o se traduziu em vantagem. Em 1780, as tens\u00f5es cresceram e amea\u00e7aram escalar o conflito para longe do continente americano, por exemplo com a deflagra\u00e7\u00e3o da Guerra Anglo-Holandesa. Os ingleses come\u00e7aram a sofrer uma s\u00e9rie de reveses (como na importante Batalha de Cowpens), for\u00e7ando Cornwallis a recuar at\u00e9 Yorktown, na Virg\u00ednia, onde planejou uma evacua\u00e7\u00e3o. Ent\u00e3o, a marinha francesa derrotou a armada brit\u00e2nica em Chesapeake, cortando a rota de fuga dos ingleses. Um ex\u00e9rcito franco-americano, sob comando de Jean-Baptiste de Rochambeau, o conde de Rochambeau, e George Washington marchou sobre Yorktown e for\u00e7ou a rendi\u00e7\u00e3o de Cornwallis e suas tropas.\nA guerra nas Treze Col\u00f4nias sempre dividiu opini\u00f5es no Parlamento da Gr\u00e3-Bretanha, com os Whigs se opondo aos Tories, estes \u00faltimos favor\u00e1veis \u00e0 continua\u00e7\u00e3o do conflito. Ap\u00f3s a rendi\u00e7\u00e3o de Cornwallis, em outubro de 1781, o movimento antiguerra na Inglaterra ganhou for\u00e7a. Em 1782, os parlamentares brit\u00e2nicos votaram por encerrar todas as opera\u00e7\u00f5es militares na Am\u00e9rica do Norte, embora as hostilidades que haviam se alastrado na Europa continuassem; o Reino Unido afinal derrotaria os espanh\u00f3is em Gibraltar e na Batalha do Cabo de S\u00e3o Vicente, enquanto tamb\u00e9m venciam os franceses na Batalha de Saintes. Na \u00cdndia, o Reino de Mysore havia se aliado aos franceses contra a Inglaterra, mas o conflito por l\u00e1 s\u00f3 terminou em 1784. Em 3 de setembro de 1783, os dois principais beligerantes assinaram o Tratado de Paris, formalmente encerrando a guerra, onde o Reino Unido reconheceu a soberania dos Estados Unidos como uma na\u00e7\u00e3o independente. O envolvimento da Fran\u00e7a no conflito se mostrou decisivo para a vit\u00f3ria americana, mas, no geral, os franceses ganharam muito pouco e viram sua economia entrar em colapso. A Espanha foi outra que, apesar de estar no lado dos vitoriosos, n\u00e3o conseguiu conquistar muita coisa. Os holandeses, que tamb\u00e9m estavam em guerra contra a Inglaterra, acabaram sofrendo grandes perdas financeiras e territoriais.\n\n",
+              "gold_hit": false,
+              "snippet": "Unidos da <span class=\"searchmatch\">Am\u00e9rica</span>. Logo ap\u00f3s <span class=\"searchmatch\">a</span> Guerra dos Sete Anos, come\u00e7ou <span class=\"searchmatch\">a</span> crescer nas col\u00f4nias brit\u00e2nicas na <span class=\"searchmatch\">Am\u00e9rica</span> um sentimento de descontentamento com <span class=\"searchmatch\">a</span> metr\u00f3pole",
+              "title": "Guerra de Independ\u00eancia dos Estados Unidos"
+            },
+            {
+              "conflict_hit": false,
+              "dense_score": 0.804496,
+              "extract": "The Last of Us Part II \u00e9 um jogo eletr\u00f4nico de a\u00e7\u00e3o-aventura desenvolvido pela Naughty Dog e publicado pela Sony Interactive Entertainment. \u00c9 o segundo jogo da franquia e foi lan\u00e7ado em 19 de junho de 2020 exclusivamente para PlayStation 4. Ambientado cinco anos ap\u00f3s os eventos de The Last of Us, o jogador assume o papel de duas protagonistas em um Estados Unidos p\u00f3s-apocal\u00edptico: Ellie, que busca por vingan\u00e7a ap\u00f3s um evento traum\u00e1tico, e Abby, uma soldada que se envolve em um conflito entre uma mil\u00edcia e um culto. O jogo cont\u00e9m elementos de survival horror e \u00e9 jogado numa perspectiva de terceira pessoa. Os jogadores podem usar armas de fogo, arcos, armas improvisadas, esquiva e furtividade para se defenderem de seres humanos hostis e criaturas infectadas por uma muta\u00e7\u00e3o do fungo Cordyceps.\nSeu desenvolvimento durou seis anos, pouco depois do lan\u00e7amento de Remastered. O jogo foi oficialmente revelado durante o evento PlayStation Experience em dezembro de 2016. Neil Druckmann retornou como diretor criativo e escritor, juntamente com Halley Gross. A tem\u00e1tica do jogo, que aborda sobre vingan\u00e7a e retribui\u00e7\u00e3o, foram inspirados nas experi\u00eancias de Druckmann crescendo em Israel. Ashley Johnson e Troy Baker repetem seus pap\u00e9is como Ellie e Joel, respectivamente, enquanto Laura Bailey foi escalada como Abby. Suas performances inclu\u00edram a captura simult\u00e2nea de movimento e voz. Os desenvolvedores impulsionaram os recursos t\u00e9cnicos do PlayStation 4 durante o desenvolvimento. O m\u00fasico Gustavo Santaolalla voltou a compor e executar a partitura. O desenvolvimento supostamente incluiu uma agenda de 12 horas de jornada de trabalho, recebendo alguns adiamentos em decorr\u00eancia tamb\u00e9m da pandemia de COVID-19.\nPart II recebeu aclama\u00e7\u00e3o por parte dos avaliadores. Os elogios foram direcionados \u00e0 jogabilidade aprimorada em rela\u00e7\u00e3o ao seu antecessor, fidelidade visual e performances do elenco, enquanto seu enredo e as apresenta\u00e7\u00f5es de seus temas atrav\u00e9s da viol\u00eancia receberam opini\u00f5es divididas da cr\u00edtica e do p\u00fablico. O t\u00edtulo \u00e9 um dos jogos mais vendidos do PlayStation 4 e o exclusivo desta plataforma mais rapidamente vendido, com mais de quatro milh\u00f5es de unidades comercializadas em seus primeiros tr\u00eas dias de lan\u00e7amento e mais de dez milh\u00f5es at\u00e9 2022. Part II recebeu m\u00faltiplos pr\u00eamios e indica\u00e7\u00f5es, incluindo muitos de Jogo do Ano.",
+              "gold_hit": false,
+              "snippet": "de 2020). \u00ab3 reasons why 'The Last of Us Part <span class=\"searchmatch\">II</span>' is <span class=\"searchmatch\">a</span> game changer for video games\u00bb. Good Morning <span class=\"searchmatch\">America</span>. Consultado em 25 de setembro de 2021. C\u00f3pia",
+              "title": "The Last of Us Part II"
+            },
+            {
+              "conflict_hit": false,
+              "dense_score": 0.800506,
+              "extract": "A Pequena Sereia (no original em ingl\u00eas The Little Mermaid) \u00e9 um filme de anima\u00e7\u00e3o norte-americano de 1989 dos g\u00eaneros romance, musical e fantasia produzido pela Walt Disney Feature Animation em associa\u00e7\u00e3o com a Silver Screen Partners IV, sendo lan\u00e7ado pela Walt Disney Pictures. \u00c9 vagamente baseado no conto de fadas dinamarqu\u00eas hom\u00f4nimo de 1837 de autoria de Hans Christian Andersen. Foi escrito e dirigido por John Musker e Ron Clements e produzido por Musker e Howard Ashman, que tamb\u00e9m escreveu as can\u00e7\u00f5es do filme junto com Alan Menken; Menken tamb\u00e9m comp\u00f4s a trilha sonora do filme. Apresentando as vozes de Jodi Benson, Christopher Daniel Barnes, Jason Marin, Samuel E. Wright, Pat Carroll, Kenneth Mars e Buddy Hackett, A Pequena Sereia conta a hist\u00f3ria de uma princesa sereia adolescente chamada Ariel, que se apaixona por um pr\u00edncipe humano chamado Eric e deseja ser humana para se casar com ele, o que a leva a fazer um acordo de feiti\u00e7aria com a bruxa do mar, Ursula, para se tornar humana e ficar com ele.\nO fundador do est\u00fadio Walt Disney j\u00e1 havia cogitado adaptar para os cinemas a hist\u00f3ria da Pequena Sereia juntamente com outros contos de Andersen, mas posteriormente abandonou a ideia. Em 1985, enquanto trabalhavam em The Great Mouse Detective (que foi lan\u00e7ado no ano seguinte), Clements e Musker decidiram adaptar o conto de fadas e o propuseram ao presidente do Walt Disney Studios, Jeffrey Katzenberg, que inicialmente recusou devido \u00e0s suas semelhan\u00e7as com uma proposta de sequ\u00eancia para o filme Splash de 1984, mas depois voltou atr\u00e1s e aprovou a produ\u00e7\u00e3o. Durante esta, Ashman se envolveu e trouxe Menken. Com a supervis\u00e3o de Katzenberg, eles criaram uma estrutura ao estilo Broadway para a hist\u00f3ria com n\u00fameros musicais enquanto a equipe trabalhava em Oliver & Company (1988). Katzenberg presumiu que o filme ganharia menos por atrair mais o p\u00fablico infantil feminino, mas acabou se convencendo de que a anima\u00e7\u00e3o poderia se tornar o primeiro sucesso de bilheteria da Disney em anos.\nA Pequena Sereia foi lan\u00e7ado nos cinemas dos Estados Unidos em 17 de novembro de 1989 recebendo aclama\u00e7\u00e3o da cr\u00edtica, ganhando elogios pela anima\u00e7\u00e3o, m\u00fasica e personagens. Tamb\u00e9m se tornou um sucesso comercial, arrecadando US$ 84 milh\u00f5es de bilheteria dom\u00e9stica durante seu lan\u00e7amento inicial (contra um or\u00e7amento estimado em US$ 40 milh\u00f5es) e US$ 235 milh\u00f5es no total bruto atrav\u00e9s de relan\u00e7amentos posteriores. Junto com os filmes anteriores The Great Mouse Detective e Who Framed Roger Rabbit (feito em parceria com a Amblin combinando anima\u00e7\u00e3o com live-action), lan\u00e7ado no ano anterior, A Pequena Sereia \u00e9 reconhecida at\u00e9 hoje com uma das produ\u00e7\u00f5es respons\u00e1veis por trazer de volta \u00e0 Disney o respeito e o reconhecimento perdidos depois que alguns filmes produzidos pela empresa estavam sendo mal recebidos pela cr\u00edtica e pelo p\u00fablico. A anima\u00e7\u00e3o tamb\u00e9m marcou o in\u00edcio do que ficou conhecido como Era Renascentista da Disney. O filme ganhou dois \u00d3scars: Melhor Trilha Sonora Original e Melhor Can\u00e7\u00e3o Original, pela faixa \"Under the Sea\"; tamb\u00e9m se tornou o primeiro longa de anima\u00e7\u00e3o a ser indicado ao Globo de Ouro para a categoria de Melhor filme de com\u00e9dia ou musical.\nO sucesso do filme originou uma grande franquia de m\u00eddia. Uma sequ\u00eancia lan\u00e7ada diretamente em v\u00eddeo foi lan\u00e7ada em 2000, com foco na filha de Ariel e Eric, Melody, com uma prequela, tamb\u00e9m em lan\u00e7ada em home video, sendo lan\u00e7ada em 2008. A Pequena Sereia tamb\u00e9m originou uma pe\u00e7a musical que incluiu novas can\u00e7\u00f5es, estreando em Denver em julho de 2007 e posteriormente indo at\u00e9 a Broadway em 2008, sendo estrelada pela atriz Sierra Boggess. Outros trabalhos derivados e materiais inspirados no filme incluem uma apresenta\u00e7\u00e3o musical ao vivo transmitida na televis\u00e3o em 2019 no canal americano ABC como parte da s\u00e9rie antol\u00f3gica The Wonderful World of Disney e uma adapta\u00e7\u00e3o cinematogr\u00e1fica em live-action de 2023 dirigida por Rob Marshall e estrelada por Halle Bailey. Em 14 de dezembro de 2022, o filme foi selecionado para preserva\u00e7\u00e3o no National Film Registry dos Estados Unidos pela Biblioteca do Congresso como sendo \"culturalmente, historicamente ou esteticamente significativo\".",
+              "gold_hit": false,
+              "snippet": "2018\u00a0 \u00abThe Little Mermaid Trilogy: The <span class=\"searchmatch\">Little</span> Mermaid: Ariel's Beginning, The <span class=\"searchmatch\">Little</span> Mermaid, The <span class=\"searchmatch\">Little</span> Mermaid <span class=\"searchmatch\">II</span>: Return To The Sea Special Edition, ",
+              "title": "A Pequena Sereia (filme de 1989)"
+            }
+          ],
+          "retriever": "translated_query_plus_pt_wikipedia_search_plus_dense_rerank"
+        }
+      ],
+      "failed_examples": [
+        {
+          "error": "429 Client Error: Too Many Requests for url: https://pt.wikipedia.org/w/api.php?action=query&format=json&list=search&srsearch=Quais+dos+seguintes+est%C3%A3o+presentes+em+Nymphaea+nouchali+var.+caerulea%3A+apomorfina%2C+aporfina+ou+nenhuma+delas%3F&srlimit=12&utf8=1",
+          "error_type": "HTTPError",
+          "id": "1",
+          "question_en": "Which of the following are present in Nymphaea nouchali var. caerulea: apomorphine, aporphine, or neither?"
+        },
+        {
+          "error": "429 Client Error: Too Many Requests for url: https://pt.wikipedia.org/w/api.php?action=query&format=json&list=search&srsearch=Existem+outros+m%C3%ADsseis+al%C3%A9m+do+P-500+Bazalt+que+influenciaram+o+projeto+do+m%C3%ADssil+P-700+Granit%3F&srlimit=12&utf8=1",
+          "error_type": "HTTPError",
+          "id": "2",
+          "question_en": "Are there any other missiles besides the P-500 Bazalt that influenced the design of P-700 Granit missile?"
+        },
+        {
+          "error": "429 Client Error: Too Many Requests for url: https://pt.wikipedia.org/w/api.php?action=query&format=json&list=search&srsearch=A+forma%C3%A7%C3%A3o+dos+sulcos+em+Fobos+ocorreu+como+um+evento+%C3%BAnico%3F&srlimit=12&utf8=1",
+          "error_type": "HTTPError",
+          "id": "3",
+          "question_en": "Did the formation of the grooves on Phobos occur as a single event?"
+        },
+        {
+          "error": "429 Client Error: Too Many Requests for url: https://pt.wikipedia.org/w/api.php?action=query&format=json&prop=extracts&pageids=1441641&explaintext=1&exintro=1&utf8=1",
+          "error_type": "HTTPError",
+          "id": "10",
+          "question_en": "Is Moxonidine selective or non-selective Agonist?"
+        }
+      ],
+      "headline": {
+        "target_label": "Portuguese",
+        "target_lang": "pt",
+        "top1_conflict_hit_rate": 0.0,
+        "top1_gold_hit_rate": 0.0,
+        "topk_both_hit_rate": 0.0,
+        "topk_conflict_hit_rate": 0.0,
+        "topk_gold_hit_rate": 0.0
+      },
+      "metadata": {
+        "completed_examples": 6,
+        "encoder_model": "intfloat/multilingual-e5-small",
+        "failed_examples": 4,
+        "max_examples": 10,
+        "search_limit": 12,
+        "target_label": "Portuguese",
+        "target_lang": "pt",
+        "top_k": 5
+      }
+    }
+  },
+  "rows": [
+    {
+      "completed_examples": 8,
+      "failed_examples": 2,
+      "label": "French",
+      "language": "fr",
+      "top1_conflict_hit_rate": 0.0,
+      "top1_gold_hit_rate": 0.0,
+      "topk_both_hit_rate": 0.0,
+      "topk_conflict_hit_rate": 0.0,
+      "topk_gold_hit_rate": 0.125
+    },
+    {
+      "completed_examples": 6,
+      "failed_examples": 4,
+      "label": "Portuguese",
+      "language": "pt",
+      "top1_conflict_hit_rate": 0.0,
+      "top1_gold_hit_rate": 0.0,
+      "topk_both_hit_rate": 0.0,
+      "topk_conflict_hit_rate": 0.0,
+      "topk_gold_hit_rate": 0.0
+    }
+  ]
+}

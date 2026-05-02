@@ -15,7 +15,7 @@ GENERATED = ROOT / "docs/generated"
 
 EXTENDED_WAVE = ROOT / "results/delta_knowledge_arbitration_extended_wave"
 SEEDS = [42, 43, 44]
-BASELINES = ["cocoa", "astute_rag", "self_rag"]
+BASELINES = ["adacad", "cocoa", "astute_rag", "self_rag"]
 
 
 def sign_pvalue(num_positive: int, n: int) -> float:
@@ -180,8 +180,8 @@ def build_markdown(payload: dict) -> str:
             "## Read",
             "",
             "- This is the powered version of the comparator story: it replaces the fragile 25-series paragraph with 210 seeded series per baseline.",
-            "- On this expanded matrix, the Bayes rule is decisively ahead of CoCoA and Astute RAG overall, and it is also ahead of Self-RAG overall despite the known PopQA reversal.",
-            "- The PopQA caveat remains real for Self-RAG, but it is now visibly a benchmark-specific exception rather than a reason to doubt the aggregate head-to-head claim.",
+            "- On this expanded matrix, the Bayes rule is decisively ahead of AdaCAD, CoCoA, and Astute RAG overall.",
+            "- Self-RAG remains the closest baseline overall; the PopQA caveat is real, but it is now visibly a benchmark-specific exception rather than a reason to doubt the aggregate head-to-head claim.",
         ]
     )
     return "\n".join(lines) + "\n"

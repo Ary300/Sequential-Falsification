@@ -10,6 +10,38 @@ The resulting comparison has 7 benchmarks x 10 models x 3 seeds = 210 seeded ser
 - Models per seed: `10`
 - Series per baseline after seeding: `210`
 
+## adacad
+
+- Overall mean Bayes-vs-adacad regret gap: `0.0639`
+- 95% bootstrap CI: `[0.0598, 0.0677]`
+- Positive seeded cells: `201/210`
+- One-sided sign `p`: `0.0`
+
+| Benchmark | Mean gap | 95% CI | Wins | One-sided sign p |
+|---|---:|---:|---:|---:|
+| conflictbank | 0.0819 | [0.0818, 0.0821] | 30/30 | 0.000000 |
+| faitheval | 0.0760 | [0.0745, 0.0773] | 30/30 | 0.000000 |
+| hotpotqa | 0.0709 | [0.0689, 0.0728] | 30/30 | 0.000000 |
+| nq_swap | 0.0757 | [0.0742, 0.0770] | 30/30 | 0.000000 |
+| popqa | 0.0115 | [-0.0063, 0.0284] | 21/30 | 0.021387 |
+| tabmwp | 0.0752 | [0.0737, 0.0767] | 30/30 | 0.000000 |
+| triviaqa | 0.0564 | [0.0552, 0.0576] | 30/30 | 0.000000 |
+
+Model-level read:
+
+| Model | Mean gap | 95% CI | Wins |
+|---|---:|---:|---:|
+| Qwen/Qwen2.5-14B-Instruct | 0.0650 | [0.0558, 0.0727] | 21/21 |
+| Qwen/Qwen2.5-32B-Instruct | 0.0487 | [0.0266, 0.0667] | 18/21 |
+| Qwen/Qwen2.5-7B-Instruct | 0.0714 | [0.0660, 0.0761] | 21/21 |
+| deepseek-ai/DeepSeek-R1-Distill-Llama-70B | 0.0487 | [0.0267, 0.0673] | 18/21 |
+| deepseek-ai/DeepSeek-R1-Distill-Qwen-7B | 0.0714 | [0.0660, 0.0762] | 21/21 |
+| google/gemma-2-27b-it | 0.0714 | [0.0660, 0.0759] | 21/21 |
+| google/gemma-2-9b-it | 0.0714 | [0.0663, 0.0761] | 21/21 |
+| meta-llama/Llama-3.1-70B-Instruct | 0.0487 | [0.0280, 0.0670] | 18/21 |
+| meta-llama/Llama-3.1-8B-Instruct | 0.0714 | [0.0659, 0.0761] | 21/21 |
+| mistralai/Mistral-7B-Instruct-v0.3 | 0.0714 | [0.0662, 0.0762] | 21/21 |
+
 ## cocoa
 
 - Overall mean Bayes-vs-cocoa regret gap: `0.0426`
@@ -109,5 +141,5 @@ Model-level read:
 ## Read
 
 - This is the powered version of the comparator story: it replaces the fragile 25-series paragraph with 210 seeded series per baseline.
-- On this expanded matrix, the Bayes rule is decisively ahead of CoCoA and Astute RAG overall, and it is also ahead of Self-RAG overall despite the known PopQA reversal.
-- The PopQA caveat remains real for Self-RAG, but it is now visibly a benchmark-specific exception rather than a reason to doubt the aggregate head-to-head claim.
+- On this expanded matrix, the Bayes rule is decisively ahead of AdaCAD, CoCoA, and Astute RAG overall.
+- Self-RAG remains the closest baseline overall; the PopQA caveat is real, but it is now visibly a benchmark-specific exception rather than a reason to doubt the aggregate head-to-head claim.

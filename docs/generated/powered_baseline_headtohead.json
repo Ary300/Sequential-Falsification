@@ -10,6 +10,163 @@
     "total_series_per_baseline": 210
   },
   "baselines": {
+    "adacad": {
+      "overall": {
+        "num_cells": 210,
+        "positive_cells": 201,
+        "mean_gap": 0.0639,
+        "ci_lower": 0.0598,
+        "ci_upper": 0.0677,
+        "one_sided_sign_p": 0.0
+      },
+      "benchmarks": [
+        {
+          "benchmark": "conflictbank",
+          "num_cells": 30,
+          "positive_cells": 30,
+          "mean_gap": 0.0819,
+          "ci_lower": 0.0818,
+          "ci_upper": 0.0821,
+          "one_sided_sign_p": 0.0
+        },
+        {
+          "benchmark": "faitheval",
+          "num_cells": 30,
+          "positive_cells": 30,
+          "mean_gap": 0.076,
+          "ci_lower": 0.0745,
+          "ci_upper": 0.0773,
+          "one_sided_sign_p": 0.0
+        },
+        {
+          "benchmark": "hotpotqa",
+          "num_cells": 30,
+          "positive_cells": 30,
+          "mean_gap": 0.0709,
+          "ci_lower": 0.0689,
+          "ci_upper": 0.0728,
+          "one_sided_sign_p": 0.0
+        },
+        {
+          "benchmark": "nq_swap",
+          "num_cells": 30,
+          "positive_cells": 30,
+          "mean_gap": 0.0757,
+          "ci_lower": 0.0742,
+          "ci_upper": 0.077,
+          "one_sided_sign_p": 0.0
+        },
+        {
+          "benchmark": "popqa",
+          "num_cells": 30,
+          "positive_cells": 21,
+          "mean_gap": 0.0115,
+          "ci_lower": -0.0063,
+          "ci_upper": 0.0284,
+          "one_sided_sign_p": 0.021387
+        },
+        {
+          "benchmark": "tabmwp",
+          "num_cells": 30,
+          "positive_cells": 30,
+          "mean_gap": 0.0752,
+          "ci_lower": 0.0737,
+          "ci_upper": 0.0767,
+          "one_sided_sign_p": 0.0
+        },
+        {
+          "benchmark": "triviaqa",
+          "num_cells": 30,
+          "positive_cells": 30,
+          "mean_gap": 0.0564,
+          "ci_lower": 0.0552,
+          "ci_upper": 0.0576,
+          "one_sided_sign_p": 0.0
+        }
+      ],
+      "models": [
+        {
+          "model": "Qwen/Qwen2.5-14B-Instruct",
+          "num_cells": 21,
+          "positive_cells": 21,
+          "mean_gap": 0.065,
+          "ci_lower": 0.0558,
+          "ci_upper": 0.0727
+        },
+        {
+          "model": "Qwen/Qwen2.5-32B-Instruct",
+          "num_cells": 21,
+          "positive_cells": 18,
+          "mean_gap": 0.0487,
+          "ci_lower": 0.0266,
+          "ci_upper": 0.0667
+        },
+        {
+          "model": "Qwen/Qwen2.5-7B-Instruct",
+          "num_cells": 21,
+          "positive_cells": 21,
+          "mean_gap": 0.0714,
+          "ci_lower": 0.066,
+          "ci_upper": 0.0761
+        },
+        {
+          "model": "deepseek-ai/DeepSeek-R1-Distill-Llama-70B",
+          "num_cells": 21,
+          "positive_cells": 18,
+          "mean_gap": 0.0487,
+          "ci_lower": 0.0267,
+          "ci_upper": 0.0673
+        },
+        {
+          "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+          "num_cells": 21,
+          "positive_cells": 21,
+          "mean_gap": 0.0714,
+          "ci_lower": 0.066,
+          "ci_upper": 0.0762
+        },
+        {
+          "model": "google/gemma-2-27b-it",
+          "num_cells": 21,
+          "positive_cells": 21,
+          "mean_gap": 0.0714,
+          "ci_lower": 0.066,
+          "ci_upper": 0.0759
+        },
+        {
+          "model": "google/gemma-2-9b-it",
+          "num_cells": 21,
+          "positive_cells": 21,
+          "mean_gap": 0.0714,
+          "ci_lower": 0.0663,
+          "ci_upper": 0.0761
+        },
+        {
+          "model": "meta-llama/Llama-3.1-70B-Instruct",
+          "num_cells": 21,
+          "positive_cells": 18,
+          "mean_gap": 0.0487,
+          "ci_lower": 0.028,
+          "ci_upper": 0.067
+        },
+        {
+          "model": "meta-llama/Llama-3.1-8B-Instruct",
+          "num_cells": 21,
+          "positive_cells": 21,
+          "mean_gap": 0.0714,
+          "ci_lower": 0.0659,
+          "ci_upper": 0.0761
+        },
+        {
+          "model": "mistralai/Mistral-7B-Instruct-v0.3",
+          "num_cells": 21,
+          "positive_cells": 21,
+          "mean_gap": 0.0714,
+          "ci_lower": 0.0662,
+          "ci_upper": 0.0762
+        }
+      ]
+    },
     "cocoa": {
       "overall": {
         "num_cells": 210,
