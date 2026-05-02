@@ -1,0 +1,25 @@
+{
+  "headline": {
+    "mean_conflict_ece_delta": 0.0012,
+    "mean_no_conflict_ece_delta": 0.0014,
+    "conflict_minus_no_conflict_ece_delta": -0.0002,
+    "mean_conflict_overconfidence_gap_delta": 0.0012,
+    "mean_no_conflict_overconfidence_gap_delta": 0.0014,
+    "mean_conflict_reasoning_word_delta": 21.86
+  },
+  "coverage": {
+    "benchmarks": [
+      "wikicontradict_de",
+      "wikicontradict_es",
+      "wikicontradict_fr",
+      "wikicontradict_it",
+      "wikicontradict_pt"
+    ],
+    "num_rows": 300,
+    "num_groups": 30
+  },
+  "metadata": {
+    "model": "mistralai/Mistral-7B-Instruct-v0.3",
+    "screening": {}
+  }
+}

@@ -1,16 +1,30 @@
 {
   "headline": {
-    "mean_conflict_ece_delta": null,
-    "mean_conflict_minus_no_conflict_ece_delta": null,
-    "mean_no_conflict_ece_delta": null,
-    "runs_ready": 0,
+    "mean_conflict_ece_delta": 0.0012,
+    "mean_conflict_minus_no_conflict_ece_delta": -0.0002,
+    "mean_no_conflict_ece_delta": 0.0014,
+    "runs_ready": 1,
     "runs_total": 6
   },
   "runs": [
     {
+      "benchmarks": [
+        "wikicontradict_de",
+        "wikicontradict_es",
+        "wikicontradict_fr",
+        "wikicontradict_it",
+        "wikicontradict_pt"
+      ],
+      "conflict_minus_no_conflict_ece_delta": -0.0002,
       "label": "mistral_5lang",
-      "status": "missing",
-      "summary_path": "results/mistral7b_theorem3_multilingual_v1/theorem3_report/theorem3_summary.json"
+      "mean_conflict_ece_delta": 0.0012,
+      "mean_conflict_overconfidence_gap_delta": 0.0012,
+      "mean_no_conflict_ece_delta": 0.0014,
+      "mean_no_conflict_overconfidence_gap_delta": 0.0014,
+      "num_rows": 300,
+      "screening_keys": [],
+      "status": "ready",
+      "summary_path": "docs/generated/mistral_multilingual_theorem3_result.json"
     },
     {
       "label": "gemma9_5lang",

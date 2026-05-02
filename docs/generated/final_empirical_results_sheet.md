@@ -213,6 +213,25 @@ Headline:
 - Mean retrieval latency: `3.3208s`
 - Throughput: `0.3001 q/s`
 
+### Stronger production retrieval rerun
+
+Source:
+- [production_rag_eval_e5.md](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/production_rag_eval_e5.md)
+
+Headline:
+- Top-1 gold hit: `0.15`
+- Top-1 conflict hit: `0.05`
+- Top-5 both-hit: `0.1`
+- Mean retrieval latency: `2.7830s`
+- Mean rerank latency: `5.4811s`
+- Throughput: `0.121 q/s`
+
+Read:
+- The stronger multilingual-E5 rerank stack improves top-1 gold retrieval over
+  the earlier `0.10` live production probe.
+- This is still not a “deployment solved” result, but it is a real retrieval
+  improvement rather than a pure framing change.
+
 ### Open Wikipedia probe
 
 Source:
@@ -224,6 +243,27 @@ Headline:
 - Top-5 both-hit: `0.1`
 
 ## Multilingual Transfer
+
+### Model-side multilingual theorem-3 transfer
+
+Source:
+- [mistral_multilingual_theorem3_note.md](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/mistral_multilingual_theorem3_note.md)
+- [multilingual_theorem3_results_bundle.md](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/multilingual_theorem3_results_bundle.md)
+
+Headline:
+- Model: `Mistral-7B`
+- Languages: `de, es, fr, it, pt`
+- Rows: `300`
+- Mean conflict ECE delta: `+0.0012`
+- Mean no-conflict ECE delta: `+0.0014`
+- Conflict-minus-no-conflict ECE delta: `-0.0002`
+
+Read:
+- This is the first true multilingual theorem-3 transfer result in the repo.
+- Across five languages, long CoT is basically flat rather than a
+  conflict-specific multilingual blow-up.
+- That materially strengthens the empirical answer to the “English-only” scope
+  objection beyond retrieval-only probes.
 
 Source:
 - [multilingual_wikicontradict_suite.md](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/multilingual_wikicontradict_suite.md)
@@ -252,6 +292,8 @@ Read:
 - Strongest mitigation headline: `RLCR` improves no-conflict calibration but does not solve controlled conflict
 - Cleanest non-RL support: `Mistral`, `Gemma-9B`, `Gemma-27B`
 - `Qwen`: fixed, finished, and mixed
-- Multilingual limitation: materially reduced with a five-language transfer suite
+- Multilingual limitation: materially reduced with both a five-language
+  retrieval-transfer suite and a finished five-language model-side theorem-3
+  transfer result on `Mistral-7B`
 
 The empirical package is effectively complete.

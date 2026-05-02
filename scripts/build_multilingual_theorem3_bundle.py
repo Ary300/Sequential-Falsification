@@ -19,7 +19,7 @@ from utils.io import dump_json  # noqa: E402
 
 DEFAULT_RUNS = ",".join(
     [
-        "mistral_5lang=results/mistral7b_theorem3_multilingual_v1/theorem3_report/theorem3_summary.json",
+        "mistral_5lang=docs/generated/mistral_multilingual_theorem3_result.json",
         "gemma9_5lang=results/gemma9b_theorem3_multilingual_v1/theorem3_report/theorem3_summary.json",
         "mistral_ja=results/mistral7b_theorem3_multilingual_ja_v1/theorem3_report/theorem3_summary.json",
         "mistral_ar=results/mistral7b_theorem3_multilingual_ar_v1/theorem3_report/theorem3_summary.json",
