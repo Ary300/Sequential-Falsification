@@ -37,9 +37,12 @@ def _prompt_style_for_cot_length(cot_length: int) -> PromptStyle:
         return PromptStyle(
             label="no_cot",
             cot_length=0,
-            max_tokens=192,
+            max_tokens=64,
             system_prompt=(
                 "Answer the question immediately. Do not include reasoning, explanation, or analysis. "
+                "Do not repeat the question, context, or any instructions. "
+                "If context is present, use it only as evidence and do not quote or summarize it. "
+                "Output only the required XML tags and nothing else. "
                 "Respond using exactly this format:\n"
                 "<answer>your answer</answer>\n"
                 "<confidence>0.00 to 1.00</confidence>"
@@ -60,13 +63,16 @@ def _prompt_style_for_cot_length(cot_length: int) -> PromptStyle:
             "Think step by step very carefully, consider conflicting evidence explicitly, and then answer."
         )
 
-    max_tokens = min(max(cot_length + 256, 512), 8192)
+    max_tokens = min(max(cot_length + 128, 256), 4096)
     return PromptStyle(
         label=f"cot_{cot_length}",
         cot_length=cot_length,
         max_tokens=max_tokens,
         system_prompt=(
             f"{instruction} Aim for roughly {cot_length} reasoning tokens before the final answer when needed. "
+            "Do not repeat the question, context, or any instructions. "
+            "If context is present, use it only as evidence and do not quote or summarize it. "
+            "Output only the required XML tags and nothing else. "
             "Respond using exactly this format:\n"
             f"<think>{descriptor}</think>\n"
             "<answer>your answer</answer>\n"
@@ -152,8 +158,7 @@ def _question_block(example: dict[str, Any], condition: str) -> str:
     return (
         f"Question: {question}\n\n"
         "Context:\n"
-        f"{context_text.strip()}\n\n"
-        "Use the context if it is reliable, but answer the question rather than summarizing the passage."
+        f"{context_text.strip()}"
     )
 
 
