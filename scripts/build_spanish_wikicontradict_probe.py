@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build a small Spanish transfer probe for WikiContradict retrieval."""
+"""Build a small multilingual transfer probe for WikiContradict retrieval."""
 
 from __future__ import annotations
 
@@ -23,17 +23,18 @@ from utils.io import dump_json  # noqa: E402
 
 
 TRANSLATE_URL = "https://api.mymemory.translated.net/get"
-SEARCH_URL = "https://es.wikipedia.org/w/api.php"
 TOKEN_RE = re.compile(r"[A-Za-z0-9ÁÉÍÓÚÜÑáéíóúüñ]+")
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Build a Spanish Wikipedia retrieval transfer probe.")
+    parser = argparse.ArgumentParser(description="Build a multilingual Wikipedia retrieval transfer probe.")
     parser.add_argument("--max-examples", type=int, default=20)
     parser.add_argument("--top-k", type=int, default=3)
     parser.add_argument("--search-limit", type=int, default=5)
     parser.add_argument("--sleep-seconds", type=float, default=1.0)
     parser.add_argument("--max-retries", type=int, default=5)
+    parser.add_argument("--target-lang", default="es")
+    parser.add_argument("--target-label", default="Spanish")
     parser.add_argument(
         "--cache-file",
         default=str(ROOT / "docs/generated/spanish_wikicontradict_probe_cache.json"),
@@ -78,8 +79,9 @@ def _translate(
     cache: dict[str, Any],
     sleep_seconds: float,
     max_retries: int,
+    target_lang: str,
 ) -> str:
-    key = f"translate::{text}"
+    key = f"translate::{target_lang}::{text}"
     cached = cache.get(key)
     if isinstance(cached, str):
         return cached
@@ -87,7 +89,7 @@ def _translate(
     for retry in range(max_retries):
         response = session.get(
             TRANSLATE_URL,
-            params={"q": text, "langpair": "en|es"},
+            params={"q": text, "langpair": f"en|{target_lang}"},
             timeout=30,
         )
         if response.status_code != 429:
@@ -103,17 +105,19 @@ def _translate(
     return translated
 
 
-def _search_spanish_wikipedia(
+def _search_target_wikipedia(
     session: requests.Session,
-    question_es: str,
+    question_translated: str,
     cache: dict[str, Any],
     *,
+    target_lang: str,
     search_limit: int,
     top_k: int,
     sleep_seconds: float,
     max_retries: int,
 ) -> list[dict[str, Any]]:
-    key = f"search::{question_es}"
+    search_url = f"https://{target_lang}.wikipedia.org/w/api.php"
+    key = f"search::{target_lang}::{question_translated}"
     cached = cache.get(key)
     if isinstance(cached, list):
         return cached
@@ -121,12 +125,12 @@ def _search_spanish_wikipedia(
     response = None
     for retry in range(max_retries):
         response = session.get(
-            SEARCH_URL,
+            search_url,
             params={
                 "action": "query",
                 "format": "json",
                 "list": "search",
-                "srsearch": question_es,
+                "srsearch": question_translated,
                 "srlimit": search_limit,
                 "utf8": 1,
             },
@@ -136,7 +140,7 @@ def _search_spanish_wikipedia(
             break
         time.sleep(sleep_seconds * (2 ** retry))
     if response is None:
-        raise RuntimeError("No response returned from Spanish Wikipedia search.")
+        raise RuntimeError("No response returned from target-language Wikipedia search.")
     response.raise_for_status()
     search_rows = response.json().get("query", {}).get("search", [])
     page_ids = [str(row.get("pageid")) for row in search_rows[:top_k] if row.get("pageid") is not None]
@@ -145,7 +149,7 @@ def _search_spanish_wikipedia(
         detail = None
         for retry in range(max_retries):
             detail = session.get(
-                SEARCH_URL,
+                search_url,
                 params={
                     "action": "query",
                     "format": "json",
@@ -161,7 +165,7 @@ def _search_spanish_wikipedia(
                 break
             time.sleep(sleep_seconds * (2 ** retry))
         if detail is None:
-            raise RuntimeError("No response returned from Spanish Wikipedia detail fetch.")
+            raise RuntimeError("No response returned from target-language Wikipedia detail fetch.")
         detail.raise_for_status()
         pages = detail.json().get("query", {}).get("pages", {})
         for page_id, page in pages.items():
@@ -195,24 +199,27 @@ def build_payload(args: argparse.Namespace) -> dict[str, Any]:
     topk_conflict = 0
     topk_both = 0
     examples = []
+    target_lang = str(args.target_lang).strip().lower()
+    target_label = str(args.target_label).strip() or target_lang
 
     for row in rows:
         metadata = row.get("metadata", {}) or {}
-        question_es = _translate(session, str(row["question"]), cache, args.sleep_seconds, args.max_retries)
-        gold_es = [
-            _translate(session, item, cache, args.sleep_seconds, args.max_retries)
+        question_translated = _translate(session, str(row["question"]), cache, args.sleep_seconds, args.max_retries, target_lang)
+        gold_translated = [
+            _translate(session, item, cache, args.sleep_seconds, args.max_retries, target_lang)
             for item in list(row.get("answers") or [])[:2]
             if isinstance(item, str) and item.strip()
         ]
-        conflict_es = [
-            _translate(session, item, cache, args.sleep_seconds, args.max_retries)
+        conflict_translated = [
+            _translate(session, item, cache, args.sleep_seconds, args.max_retries, target_lang)
             for item in list(metadata.get("conflict_context_answers") or [])[:2]
             if isinstance(item, str) and item.strip()
         ]
-        results = _search_spanish_wikipedia(
+        results = _search_target_wikipedia(
             session,
-            question_es,
+            question_translated,
             cache,
+            target_lang=target_lang,
             search_limit=args.search_limit,
             top_k=args.top_k,
             sleep_seconds=args.sleep_seconds,
@@ -224,8 +231,8 @@ def build_payload(args: argparse.Namespace) -> dict[str, Any]:
             scored.append(
                 {
                     **result,
-                    "gold_hit": _contains_any(text, gold_es),
-                    "conflict_hit": _contains_any(text, conflict_es),
+                    "gold_hit": _contains_any(text, gold_translated),
+                    "conflict_hit": _contains_any(text, conflict_translated),
                 }
             )
         if scored:
@@ -247,9 +254,9 @@ def build_payload(args: argparse.Namespace) -> dict[str, Any]:
                 {
                     "id": row["id"],
                     "question_en": row["question"],
-                    "question_es": question_es,
-                    "gold_es": gold_es,
-                    "conflict_es": conflict_es,
+                    "question_translated": question_translated,
+                    "gold_translated": gold_translated,
+                    "conflict_translated": conflict_translated,
                     "results": scored,
                 }
             )
@@ -258,11 +265,14 @@ def build_payload(args: argparse.Namespace) -> dict[str, Any]:
     return {
         "metadata": {
             "benchmark": "wikicontradict",
-            "language": "es",
+            "language": target_lang,
+            "language_label": target_label,
             "num_examples": len(rows),
-            "retriever": "translated_query_plus_spanish_wikipedia_search",
+            "retriever": f"translated_query_plus_{target_lang}_wikipedia_search",
         },
         "headline": {
+            "target_lang": target_lang,
+            "target_label": target_label,
             "top1_gold_hit_rate": round(top1_gold / total, 6),
             "top1_conflict_hit_rate": round(top1_conflict / total, 6),
             "topk_gold_hit_rate": round(topk_gold / total, 6),
@@ -275,10 +285,11 @@ def build_payload(args: argparse.Namespace) -> dict[str, Any]:
 
 def build_markdown(payload: dict[str, Any]) -> str:
     top_k = 3
+    target_label = payload["headline"].get("target_label", "Multilingual")
     lines = [
-        "# Spanish WikiContradict Transfer Probe",
+        f"# {target_label} WikiContradict Transfer Probe",
         "",
-        "This is a small multilingual transfer probe: English WikiContradict questions and answers are translated to Spanish, then searched against Spanish Wikipedia.",
+        f"This is a small multilingual transfer probe: English WikiContradict questions and answers are translated to {target_label}, then searched against {target_label} Wikipedia.",
         "",
         "## Headline",
         "",
@@ -293,9 +304,9 @@ def build_markdown(payload: dict[str, Any]) -> str:
         lines.append(f"### {example['id']}")
         lines.append("")
         lines.append(f"- English question: {example['question_en']}")
-        lines.append(f"- Spanish question: {example['question_es']}")
-        lines.append(f"- Spanish gold answers: `{example['gold_es']}`")
-        lines.append(f"- Spanish conflict answers: `{example['conflict_es']}`")
+        lines.append(f"- Translated question: {example['question_translated']}")
+        lines.append(f"- Translated gold answers: `{example['gold_translated']}`")
+        lines.append(f"- Translated conflict answers: `{example['conflict_translated']}`")
         for result in example["results"]:
             snippet = (result.get("extract") or result.get("snippet") or "").replace("\n", " ").strip()
             if len(snippet) > 160:
