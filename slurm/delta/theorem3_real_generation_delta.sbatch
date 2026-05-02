@@ -13,6 +13,18 @@ set -euo pipefail
 
 module load python/anaconda3/2.10.0
 DELTA_VENV=${DELTA_VENV:-/u/adas17/venvs/tts-delta}
+if [[ ! -f "${DELTA_VENV}/bin/activate" ]]; then
+  for candidate in "/u/${USER}/venvs/tts-delta" "/u/${USER}/.venvs/tts-delta"; do
+    if [[ -f "${candidate}/bin/activate" ]]; then
+      DELTA_VENV="${candidate}"
+      break
+    fi
+  done
+fi
+if [[ ! -f "${DELTA_VENV}/bin/activate" ]]; then
+  echo "Delta venv not found: ${DELTA_VENV}" >&2
+  exit 1
+fi
 source "${DELTA_VENV}/bin/activate"
 export HF_HOME=${HF_HOME:-/work/nvme/bgvi/adas17/hf_cache}
 
@@ -38,7 +50,7 @@ BENCHMARK_MAXIMA=${BENCHMARK_MAXIMA:-}
 CONFLICTBANK_SCREENING_POOL=${CONFLICTBANK_SCREENING_POOL:-1200}
 AMBIGUITY_LOW=${AMBIGUITY_LOW:-0.2}
 AMBIGUITY_HIGH=${AMBIGUITY_HIGH:-0.8}
-DELTA_PROJECT_ROOT=${DELTA_PROJECT_ROOT:-/u/adas17/tts-falsification}
+DELTA_PROJECT_ROOT=${DELTA_PROJECT_ROOT:-/u/adas17/tts-falsification-git}
 
 cd "${DELTA_PROJECT_ROOT}"
 nvidia-smi -L || true
