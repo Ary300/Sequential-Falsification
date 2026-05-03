@@ -1,0 +1,81 @@
+{
+  "metadata": {
+    "model": "DeepSeek-R1-Distill-Llama-8B",
+    "decode_mode": "sequence_mixture",
+    "retrieval_mode": "v2_full_extract",
+    "max_examples": 8,
+    "datasets": [
+      "asqa",
+      "nq_open",
+      "triviaqa_open"
+    ]
+  },
+  "summary": {
+    "asqa": {
+      "bayes_proxy": {
+        "count": 8,
+        "em": 0.125,
+        "rouge_l": 0.306319
+      },
+      "adacad": {
+        "count": 8,
+        "em": 0.25,
+        "rouge_l": 0.392857
+      },
+      "cad": {
+        "count": 8,
+        "em": 0.125,
+        "rouge_l": 0.243819
+      },
+      "closed_book": {
+        "count": 8,
+        "em": 0.0,
+        "rouge_l": 0.308333
+      }
+    },
+    "nq_open": {
+      "bayes_proxy": {
+        "count": 8,
+        "em": 0.125,
+        "rouge_l": 0.19837
+      },
+      "adacad": {
+        "count": 8,
+        "em": 0.125,
+        "rouge_l": 0.2
+      },
+      "cad": {
+        "count": 8,
+        "em": 0.125,
+        "rouge_l": 0.141684
+      },
+      "closed_book": {
+        "count": 8,
+        "em": 0.25,
+        "rouge_l": 0.3125
+      }
+    },
+    "triviaqa_open": {
+      "bayes_proxy": {
+        "count": 8,
+        "em": 0.0,
+        "rouge_l": 0.041667
+      },
+      "adacad": {
+        "count": 8,
+        "em": 0.0,
+        "rouge_l": 0.069444
+      },
+      "cad": {
+        "count": 8,
+        "em": 0.0,
+        "rouge_l": 0.030556
+      },
+      "closed_book": {
+        "count": 8,
+        "em": 0.0,
+        "rouge_l": 0.068056
+      }
+    }
+  }
+}
