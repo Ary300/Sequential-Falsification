@@ -162,6 +162,18 @@ Read:
 - It does not match the full magnitude of `Llama-8B GRPO`, but it preserves the
   same directional story: conflict stays bad while no-conflict improves a lot.
 
+### Plain-scale control: `Llama-3.1-70B-Instruct`
+
+- Mean conflict ECE delta: `-0.0219`
+- Mean no-conflict ECE delta: `+0.0198`
+- Conflict minus no-conflict ECE delta: `-0.0418`
+
+Read:
+- Plain instruct `Llama` stays flat-to-negative even at `70B`.
+- This strengthens the claim that scale alone does not recover the
+  conflict-conditioned theorem-3 effect; the stronger signal lives in the
+  RL/reasoning-conditioned Llama lineage instead.
+
 ## Theorem 3 Assumption Audits
 
 ### Proposition 1 audit bridge

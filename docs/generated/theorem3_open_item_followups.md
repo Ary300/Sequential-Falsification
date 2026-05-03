@@ -174,10 +174,18 @@ disclaimer about needing a second matched-base RL family.
 
 ## 70B Follow-Ups
 
-The large Llama-lineage follow-ups are still in flight:
+`Llama-3.1-70B-Instruct` has now finished and came back basically flat:
+
+- conflict ECE delta: `-0.0219`
+- no-conflict ECE delta: `+0.0198`
+- conflict-minus-no-conflict: `-0.0418`
+
+That is useful because it strengthens the negative claim that scale alone does
+not recover the theorem-3 effect for plain instruct `Llama`.
+
+The one remaining large Llama-lineage follow-up is still running:
 
 - `2235376` `r1l70t3` = `DeepSeek-R1-Distill-Llama-70B`
-- `2235377` `l3170t3` = `Llama-3.1-70B-Instruct`
 
-These are informative, but the paper no longer needs to be gated on them to
-support the main small-model causal story.
+So the informative open 70B run is now only the `DeepSeek-Llama-70B` lineage
+check, not the plain instruct control.
