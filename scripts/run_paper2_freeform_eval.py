@@ -24,6 +24,7 @@ from knowledge_arbitration.posterior import ArbitrationFeatures, bayes_arbitrati
 
 SEARCH_URL = "https://en.wikipedia.org/w/api.php"
 TOKEN_RE = re.compile(r"[A-Za-z0-9]+")
+MAX_WIKI_ATTEMPTS = 5
 
 
 def parse_args() -> argparse.Namespace:
@@ -113,18 +114,33 @@ def _wiki_search(
 
     session = requests.Session()
     session.headers.update({"User-Agent": "SequentialFalsification/1.0 (paper2 freeform eval)"})
-    search_response = session.get(
-        SEARCH_URL,
-        params={
-            "action": "query",
-            "format": "json",
-            "list": "search",
-            "srsearch": question,
-            "srlimit": search_limit,
-            "utf8": 1,
-        },
-        timeout=30,
-    )
+    search_response = None
+    for attempt in range(MAX_WIKI_ATTEMPTS):
+        response = session.get(
+            SEARCH_URL,
+            params={
+                "action": "query",
+                "format": "json",
+                "list": "search",
+                "srsearch": question,
+                "srlimit": search_limit,
+                "utf8": 1,
+            },
+            timeout=30,
+        )
+        if response.status_code != 429:
+            search_response = response
+            break
+        retry_after = response.headers.get("Retry-After")
+        if retry_after and retry_after.isdigit():
+            sleep_seconds = max(1.0, float(retry_after))
+        else:
+            sleep_seconds = 1.5 * (attempt + 1)
+        time.sleep(sleep_seconds)
+    if search_response is None:
+        cache[key] = []
+        _save_cache(cache_path, cache)
+        return []
     search_response.raise_for_status()
     search_rows = search_response.json().get("query", {}).get("search", [])
     page_ids = [str(row.get("pageid")) for row in search_rows if row.get("pageid") is not None]
@@ -161,7 +177,7 @@ def _wiki_search(
             snippets.append(text)
     cache[key] = snippets
     _save_cache(cache_path, cache)
-    time.sleep(0.2)
+    time.sleep(0.6)
     return snippets
 
 
