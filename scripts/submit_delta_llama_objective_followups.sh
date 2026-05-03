@@ -11,7 +11,7 @@ DELTA_VENV=${DELTA_VENV:-/u/adas17/venvs/tts-delta}
 cd "${PROJECT_ROOT}"
 mkdir -p logs
 
-sbatch <<'EOF'
+sbatch <<EOF
 #!/bin/bash
 #SBATCH -A bgvi-dtai-gh
 #SBATCH --partition=ghx4
