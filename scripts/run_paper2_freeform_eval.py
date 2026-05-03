@@ -319,10 +319,11 @@ def _load_examples(dataset_name: str, max_examples: int) -> list[dict[str, Any]]
     raise ValueError(f"Unsupported dataset: {dataset_name}")
 
 
-def _clean_answer_text(text: str) -> str:
+def _clean_answer_text(text: str, question: str = "") -> str:
     cleaned = (text or "").strip()
     if not cleaned:
         return ""
+    question_lower = (question or "").strip().lower()
     if "</think>" in cleaned:
         cleaned = cleaned.split("</think>")[-1].strip()
     cleaned = re.sub(r"<[^>]+>", " ", cleaned)
@@ -330,6 +331,7 @@ def _clean_answer_text(text: str) -> str:
     if lines:
         cleaned = lines[-1]
     cleaned = re.sub(r"^(answer|final answer)\s*:\s*", "", cleaned, flags=re.IGNORECASE).strip()
+    cleaned = re.sub(r"^(wait[, ]+but|however|in summary|overall|so)\s+", "", cleaned, flags=re.IGNORECASE).strip()
     cleaned = re.sub(r"^[\"'“”]+|[\"'“”]+$", "", cleaned).strip()
     sentence_match = re.split(r"(?<=[.!?])\s+", cleaned, maxsplit=1)
     if sentence_match:
@@ -340,6 +342,22 @@ def _clean_answer_text(text: str) -> str:
         cleaned,
         flags=re.IGNORECASE,
     ).strip()
+    if question_lower.startswith(("how many", "how much", "what year", "when")):
+        number_match = re.search(
+            r"\b(\d{1,4}(?:,\d{3})*(?:\.\d+)?(?:\s+(?:million|billion|thousand|hundred))?)\b",
+            cleaned,
+        )
+        if number_match:
+            cleaned = number_match.group(1).strip()
+    elif question_lower.startswith(("who", "which", "where", "what", "name")):
+        clause_match = re.match(
+            r"^([A-Z0-9][^,.;:!?]{0,80}?)\s+\b(is|was|are|were)\b\s+.+$",
+            cleaned,
+        )
+        if clause_match:
+            prefix = clause_match.group(1).strip()
+            if prefix.lower() not in {"there", "it", "he", "she", "they", "the question"}:
+                cleaned = prefix
     cleaned = cleaned.rstrip(". ").strip()
     return cleaned
 
@@ -362,6 +380,7 @@ def _generate_answer(
     tokenizer: Any,
     *,
     prompt: str,
+    question: str,
     max_new_tokens: int,
 ) -> str:
     import torch
@@ -376,7 +395,7 @@ def _generate_answer(
             pad_token_id=tokenizer.eos_token_id,
         )
     completion = tokenizer.decode(generated[0][encoded["input_ids"].shape[1] :], skip_special_tokens=True)
-    return _clean_answer_text(completion)
+    return _clean_answer_text(completion, question=question)
 
 
 def _candidate_suffix(answer: str) -> str:
@@ -522,8 +541,20 @@ def run_eval(args: argparse.Namespace) -> dict[str, Any]:
                 continue
             closed_prompt = _build_closed_book_prompt(example["question"])
             context_prompt = _build_context_prompt(example["question"], contexts)
-            closed_answer = _generate_answer(model, tokenizer, prompt=closed_prompt, max_new_tokens=args.max_new_tokens)
-            context_answer = _generate_answer(model, tokenizer, prompt=context_prompt, max_new_tokens=args.max_new_tokens)
+            closed_answer = _generate_answer(
+                model,
+                tokenizer,
+                prompt=closed_prompt,
+                question=example["question"],
+                max_new_tokens=args.max_new_tokens,
+            )
+            context_answer = _generate_answer(
+                model,
+                tokenizer,
+                prompt=context_prompt,
+                question=example["question"],
+                max_new_tokens=args.max_new_tokens,
+            )
             candidates = []
             for candidate in [closed_answer, context_answer]:
                 if candidate and candidate not in candidates:
@@ -535,6 +566,7 @@ def run_eval(args: argparse.Namespace) -> dict[str, Any]:
                         model,
                         tokenizer,
                         prompt=single_context_prompt,
+                        question=example["question"],
                         max_new_tokens=args.max_new_tokens,
                     )
                     if candidate and candidate not in candidates:
