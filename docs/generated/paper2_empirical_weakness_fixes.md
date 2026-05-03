@@ -10,6 +10,7 @@ This note consolidates the empirical follow-ups that can be landed immediately w
 - Closed-model slice is now broken down per benchmark/model and explicitly labeled as a proxy scaffold rather than a direct API-logprob experiment.
 - The do-no-harm `eta=0` case is now diagnosed directly: baseline accuracy `0.036667` improves to `0.44` while Brier drops from `0.903275` to `0.504515`.
 - Free-form latency/cost is now explicit: measured Delta runs fit about `4.3791` s per kept query after a `38.9527` s fixed load overhead, and the current sequence-mixture harness uses `4` model passes/query versus `1` for a single-pass decoder.
+- A stable-distribution cache demo is now on disk: precomputing the arbitration weight offline reduces the online path from `4` model passes to about `1.5–2` effective passes, with projected latency in the `~1.1–2.2 s/query` range on the measured free-form timing.
 - Free-form open-QA check is now real, not just planned (source: `paper2_freeform_sequence_mixture_smoke_v2.json`):
   - `triviaqa_open` (`n=8`): Bayes EM / ROUGE-L `0.0000` / `0.0417` vs `CAD` `0.0000` / `0.0306` and `AdaCAD` `0.0000` / `0.0694`.
   - `nq_open` (`n=8`): Bayes EM / ROUGE-L `0.1250` / `0.1984` vs `CAD` `0.1250` / `0.1417` and `AdaCAD` `0.1250` / `0.2000`.

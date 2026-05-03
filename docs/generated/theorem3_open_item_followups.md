@@ -151,26 +151,47 @@ Read:
 
 ## Llama Matched-Headline Seed Variance
 
-The original headline only had one finished matched `Llama-8B GRPO` seed. Two
-additional seeds are now queued to close that objection:
+The original headline no longer stands on a single seed: two additional matched
+`Llama-8B GRPO` seeds have now finished.
 
-- `2235551` `l8g_s43`
-- `2235552` `l8g_s44`
+- seed `42` (original headline): `+0.3436`
+- seed `43`: `+0.0424`
+- seed `44`: `-0.0647`
 
-These use the same matched-objective launcher and theorem-3 eval recipe as the
-finished headline seed.
+Read:
+
+- The original `Llama-8B GRPO` seed remains the strongest single matched-base
+  theorem-3 result in the repo.
+- But the multi-seed picture is clearly weaker and more variable than the
+  single-seed headline suggested.
+- So the cleanest paper framing should treat `Llama-8B` as a strong
+  seed-available discovery result, not as a solved low-variance estimate.
 
 ## Second Matched-Base Family Replication
 
-The earlier `DeepSeek-Llama-8B` result was only a real-generation lineage
-check, not a matched `DPO/GRPO` pair. The actual second-family replication is
-now queued:
+The second matched-base family is now substantially farther along than before.
 
-- `2235553` `r1l8_dpo`
-- `2235554` `r1l8_grpo`
+Finished:
 
-If this pair lands cleanly, it removes the strongest remaining Paper-2
-disclaimer about needing a second matched-base RL family.
+- `DeepSeek-Llama-8B` matched `DPO`: `+0.0258`
+- `Phi-3` matched `DPO`: `+0.0030`
+- `Phi-3` matched `GRPO`: `+0.2088`
+
+Pending:
+
+- `2237021` `r1l8_grev` = `DeepSeek-Llama-8B` matched `GRPO` eval recovery
+- `2237020` `e1_p3_sft` = `Phi-3` matched `SFT` control
+
+Read:
+
+- `Phi-3` is already a real matched-base `DPO/GRPO` family, and the last thing
+  missing there is the matched `SFT` control.
+- `DeepSeek-Llama-8B` already has the matched `DPO` side in hand; the only
+  missing piece is the `GRPO` theorem-3 recovery after the earlier disk-quota
+  crash.
+- The most likely clean second-family replication path is now:
+  `Phi-3 GRPO > Phi-3 SFT` plus `DeepSeek GRPO > DeepSeek DPO` if the recovery
+  comes back positive.
 
 ## 70B Follow-Ups
 

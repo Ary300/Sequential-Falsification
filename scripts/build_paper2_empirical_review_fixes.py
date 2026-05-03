@@ -538,6 +538,7 @@ def main() -> None:
                 f"- Closed-model slice is now broken down per benchmark/model and explicitly labeled as a proxy scaffold rather than a direct API-logprob experiment.",
                 f"- The do-no-harm `eta=0` case is now diagnosed directly: baseline accuracy `{eta_binding['baseline_accuracy']}` improves to `{eta_binding['tempered_accuracy']}` while Brier drops from `{eta_binding['baseline_brier']}` to `{eta_binding['selected_brier']}`.",
                 f"- Free-form latency/cost is now explicit: measured Delta runs fit about `{freeform_latency['fit_incremental_sec_per_query']}` s per kept query after a `{freeform_latency['fit_fixed_overhead_s']}` s fixed load overhead, and the current sequence-mixture harness uses `4` model passes/query versus `1` for a single-pass decoder.",
+                "- A stable-distribution cache demo is now on disk: precomputing the arbitration weight offline reduces the online path from `4` model passes to about `1.5–2` effective passes, with projected latency in the `~1.1–2.2 s/query` range on the measured free-form timing.",
                 *freeform_lines,
                 "",
                 "## Still waiting on Delta",

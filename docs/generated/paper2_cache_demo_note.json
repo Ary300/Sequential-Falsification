@@ -1,0 +1,14 @@
+{
+  "cache_hit_rate": 1.0,
+  "dataset_mean_weights": {
+    "asqa": 0.5,
+    "nq_open": 0.5,
+    "triviaqa_open": 0.5
+  },
+  "estimated_sec_per_pass": 1.0948,
+  "lookup_ms_per_query": 2.3e-05,
+  "measured_incremental_sec_per_query_4pass": 4.3791,
+  "num_queries": 91,
+  "projected_sec_per_query_one_pass_plus_cache": 1.0948,
+  "projected_sec_per_query_two_pass_plus_cache": 2.1896
+}
