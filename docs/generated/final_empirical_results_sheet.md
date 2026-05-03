@@ -89,7 +89,7 @@ Read:
 - `Qwen` remains mixed and family-specific.
 - It is supporting evidence, not the strongest headline family.
 
-### Third-family tie-break: `Phi-3`
+### Third-family tie-break: `Phi-3` and `OLMo-2`
 
 Pooled `Phi-3 DPO`:
 - Mean conflict ECE delta: `-0.0507`
@@ -105,6 +105,21 @@ Important benchmark-level note:
 - the pooled `Phi-3` summary hides a much sharper `ConflictBank` split
 - on `ConflictBank`, `Phi-3 GRPO` worsens the `conflict` split while strongly improving `no_conflict`
 - see [phi3_conflictbank_tiebreak_note.md](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/phi3_conflictbank_tiebreak_note.md)
+
+Pooled `OLMo-2 DPO`:
+- Mean conflict ECE delta: `+0.0952`
+- Mean no-conflict ECE delta: `+0.0469`
+- Conflict minus no-conflict ECE delta: `+0.0483`
+
+Pooled `OLMo-2 GRPO`:
+- Mean conflict ECE delta: `+0.0027`
+- Mean no-conflict ECE delta: `-0.0226`
+- Conflict minus no-conflict ECE delta: `+0.0254`
+
+Read:
+- `OLMo-2` is weaker and less decisive than `Phi-3`.
+- It does not give the same sharp benchmark-level replication signal that
+  `Phi-3 GRPO` gives on `ConflictBank`.
 
 ## Theorem 3 Assumption Audits
 
