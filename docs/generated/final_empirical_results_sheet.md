@@ -121,6 +121,24 @@ Read:
 - It does not give the same sharp benchmark-level replication signal that
   `Phi-3 GRPO` gives on `ConflictBank`.
 
+### Llama-lineage replication: `DeepSeek-R1-Distill-Llama-8B`
+
+- Mean conflict ECE delta: `+0.0080`
+- Mean no-conflict ECE delta: `-0.0696`
+- Conflict minus no-conflict ECE delta: `+0.0776`
+- Mean conflict overconfidence-gap delta: `+0.0007`
+- Mean no-conflict overconfidence-gap delta: `-0.0242`
+
+Important benchmark-level note:
+- on `ConflictBank`, the split is very clean
+- `conflict`: ECE `0.9353 -> 0.9663`
+- `no_conflict`: ECE `0.1412 -> 0.0264`
+
+Read:
+- This is a useful Llama-lineage replication.
+- It does not match the full magnitude of `Llama-8B GRPO`, but it preserves the
+  same directional story: conflict stays bad while no-conflict improves a lot.
+
 ## Theorem 3 Assumption Audits
 
 ### Proposition 1 audit bridge
