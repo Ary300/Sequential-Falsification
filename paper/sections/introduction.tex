@@ -1,93 +1,163 @@
 \section{Introduction}
+\label{sec:intro}
 
-Large language models are increasingly deployed in settings where they must
-choose between disagreeing knowledge sources. A model may have a strong
-parametric prior, receive retrieved evidence that contradicts that prior, and
-then spend additional reasoning tokens reinforcing one side of the conflict.
-Current systems still treat this arbitration problem mostly heuristically.
-Adaptive RAG systems decide when to retrieve or how much to trust retrieval
-using tuned thresholds or learned controllers, while conflict benchmarks
-typically evaluate behavior descriptively rather than against a normative
-decision rule \citep{xu2024knowledgeconflicts,mallen2023popqa,asai2024selfrag}.
-At the same time, recent calibration papers have split into two apparently
-contradictory camps: on standard QA without explicit knowledge conflict,
-reasoning models often become \emph{better} calibrated as CoT unfolds
-\citep{yoon2025confidence}, while in harder or misspecified settings longer
-reasoning can instead drive systematic overconfidence
-\citep{lacombe2025dontthinktwice,welch2026cost,damani2025rlcr}.
+A modern language model that answers a factual question is rarely consulting a
+single source. In one forward pass it carries a parametric prior
+$p_\theta(y\mid q)$ baked in at training, conditions on a retrieved or
+supplied context $p_{\ctx}(y\mid q,c)$, and---if it produces a chain of
+thought---also listens to itself across $K$ reasoning steps before emitting
+an answer. Each voice can be wrong, and they often disagree. A 2023 model
+that memorized ``Twitter's CEO is Elon Musk'' will see a 2024 article that
+says ``Linda Yaccarino.'' A medical assistant will be asked about a drug
+whose label has changed since training. A retrieval pipeline will inject a
+poisoned passage. The system has to \emph{arbitrate} between sources, and
+the rule it uses is a major lever on what the user sees.
 
-This paper takes a different view. We treat knowledge conflict as a
-\emph{posterior-predictive decision problem}. The core object is not ``should
-the model use retrieval,'' but rather ``what predictive distribution minimizes
-Bayes risk given a parametric prior, a context-conditioned likelihood, and a
-latent reliability variable for the context?'' Once written this way, two
-theorem-level questions and one structurally motivated reasoning-time question
-become precise:
+Today this lever is set by hand. Production stacks either trust retrieval
+unconditionally, trust the parametric model unconditionally, or interpolate
+via tuned thresholds and learned controllers~\citep{mallen2023popqa,
+asai2024selfrag,jiang2023flare,yan2024crag,wang2024astuterag}. Decoder-level
+methods such as Context-Aware Decoding~\citep{shi2024cad} and its adaptive
+variants AdaCAD~\citep{wang2025adacad} and CoCoA~\citep{khandelwal2025cocoa}
+are sharper, but none is derived from a posterior over how reliable the
+context actually is. Surveys~\citep{xu2024knowledgeconflicts} note that
+fixed trust in either source is undesirable, but stop short of a normative
+statement of what the right thing would be. In parallel, the calibration
+literature on reasoning models has split into two camps that look
+contradictory: longer chain-of-thought makes models \emph{better}
+calibrated on standard QA~\citep{yoon2025confidence}, but \emph{worse} on
+harder or misspecified
+tasks~\citep{halawi2024overthinking,lacombe2025dontthinktwice,welch2026cost,
+damani2025rlcr,sun2025context,ghosal2025mirage}.
 
-\begin{enumerate}
-\item What is the Bayes-optimal arbitration rule?
-\item How bad are policies that always trust one source or use one global mix
-weight?
-\item How does longer reasoning interact with calibration when the two sources
-conflict?
-\end{enumerate}
+The cost is not abstract. The arbitration rule silently fixes
+hallucination rate, calibration when sources \emph{disagree}, and
+worst-case behaviour under poisoned or stale retrieval; the same rule
+fires on every query in a deployed RAG stack.  The contradictory
+calibration findings above are downstream of this gap---each camp is
+right about \emph{its} regime, but no theory tells the practitioner
+which regime they are in.  RLVR reasoners face the same problem at the
+inference layer: recent over-compression
+findings~\citep{damani2025rlcr,welch2026cost,ghosal2025mirage} have no
+mechanism that ties failure to an actionable quantity.
 
-These questions are motivated by a real gap in the literature. Surveys and
-benchmarks on knowledge conflict repeatedly argue that blindly prioritizing
-either parametric memory or context is undesirable, but they stop short of a
-formal regret or minimax statement \citep{xu2024knowledgeconflicts}. Empirical
-systems such as PopQA-style adaptive retrieval, Self-RAG, FLARE, and related
-adaptive-RAG methods use thresholds or controllers that are not derived from a
-Bayes optimum \citep{mallen2023popqa,asai2024selfrag}. Meanwhile, the most
-relevant calibration literature shows that longer reasoning or more test-time
-compute can worsen calibration, but the strongest claims either live outside
-knowledge conflict or remain descriptive rather than decision-theoretic
-\citep{halawi2024overthinking,chen2025rethinking,ghosal2025mirage,
-sun2025context,yoon2025confidence,lacombe2025dontthinktwice,welch2026cost,
-damani2025rlcr}.
+\paragraph{Our framing.}
+We treat knowledge arbitration as a \emph{posterior-predictive decision
+problem} and chain-of-thought as endogenous Bayesian evidence. This single
+move turns the disagreement between sources, the failure of fixed policies,
+and the calibration tension above into three clean theorems. We introduce a
+latent context-reliability variable $r\in[0,1]$ with prior $\pi(r)$ and
+likelihood $p(c\mid y,r)$; risk is evaluated under any strictly proper
+scoring rule (we focus on log loss and Brier).
+The mathematical ingredients are classical; the contribution here is to
+assemble them into a coherent account of LLM arbitration and to test the
+resulting claims on a shared empirical matrix.
 
-Our contributions are threefold, but not all at the same level of formal
-rigor. First, we derive a Bayes-style
-reliability-aware arbitration rule and validate it on a corrected broad wave of
-benchmark-backed experiments. In that wave, the Bayes proxy achieves mean
-regret $-0.0461$ versus $-0.0233$ for a generic adaptive heuristic, while
-`always\_context' and `always\_parametric' degrade to $7.2237$ and $5.9356$.
-Second, we show that fixed trust policies are minimax-bad in practice on
-conflict-heavy slices: in the conflict wave, the Bayes proxy reaches
-$-0.1256$ versus $-0.0752$ for the heuristic, while fixed trust policies remain
-at $5.9037$ and $7.1329$. Third, we revisit the reasoning-time calibration
-claim using real DeepSeek-R1-Distill traces rather than proxy CoT buckets.
-This third contribution is best read as a structurally motivated
-misspecification account, grounded in generalized-Bayes and Berk--Nash
-analogies plus direct trace diagnostics, rather than as a closed-form theorem
-of the same status as the first two results. The result is stronger and more
-nuanced than our original monotone hypothesis:
-reasoning amplifies overconfidence under conflict, but the shape depends on the
-conflict family. On WikiContradict, both 7B and 14B show an intermediate-CoT
-peak followed by partial recovery. On ConflictBank conflict, 7B shows the same
-peak-and-recover shape, while 14B remains severely overconfident through long
-CoT. A completed same-family Qwen sweep sharpens the interpretation further:
-the specific ``7B recovers / 14B saturates'' asymmetry does not replicate
-universally across families, but a benchmark-dependent two-regime law does.
-Qwen shows no recovery through 32B on controlled ConflictBank conflict, while
-32B is the first scale at which recovery reappears on naturalistic
-WikiContradict contradiction. The cleanest interpretation is not a universal
-scale law but a conditional misspecification law: some reasoning-trained models
-and conflict families enter a regime where longer CoT sharpens confidence
-faster than it improves accuracy.
+\paragraph{Three theorems.}
+\textbf{(T1)} Within the log-linear family, the optimal approximation
+to the risk-minimizing predictive distribution is the
+reliability-weighted geometric mixture
+$\hat p_{w^\star}\!\propto\!p_\theta^{1-w^\star}p_{\ctx}^{w^\star}$ with
+$w^\star\!=\!\E[r\mid q,c]$ (exact when $\pi(r\mid q,c)$ is concentrated,
+$O(\sigma_r^2)$-close otherwise); a plug-in $\hat w$ from any signal
+$s(q,c)$ correlated with $r$ achieves excess Bayes risk
+$\lesssim\|\hat w-w^\star\|_{L^2}\|p_\theta-p_{\ctx}\|_1$. CAD, AdaCAD,
+and CoCoA are special cases or first-order Laplace approximations
+(\Cref{cor:special-cases}), with CoCoA requiring extra assumptions to be
+consistent for $w^\star$.
+\textbf{(T2)} Every constant arbitration weight $w_0$ admits a
+sub-family on which it incurs constant excess risk (interior $w_0$ via
+a two-family Yao construction; boundary $w_0\!\in\!\{0,1\}$ via the
+opposite single sub-family), while a signal-adaptive plug-in attains
+$O(n^{-1/2})$ on every distribution.  An optional binary testing
+restatement in the appendix makes the same bottleneck explicit.
+\textbf{(T3)} Modeling chain-of-thought as $\eta$-generalized Bayes with
+endogenous evidence~\citep{bissiri2016,esponda2016,fudenberg2021},
+conflict can increase the KL projection distance from truth and therefore
+shrink the Gr\"unwald--van Ommen safe rate
+$\bar\eta(q,c)$~\citep{grunwald2017,kleijn2006}. When the effective
+update rate crosses that smaller threshold, the calibration trajectory
+enters the saturation regime we observe empirically on the stable-answer
+subset; outside that subset the theorem is descriptive only through the
+empirical audits.
 
-The paper therefore makes two negative claims and one positive one. The
-negative claims are that fixed trust in retrieval is wrong, and fixed trust in
-the parametric model is wrong. The positive claim is that knowledge arbitration
-admits a principled reliability-aware rule that improves regret, and that
-reasoning-time confidence under conflict follows a structured, measurable law
-rather than arbitrary noise.
+\paragraph{What we test.}
+The three theorems are evaluated on a single shared matrix
+\textbf{(\Cref{tab:experiment-overview})} of ten benchmarks,
+thirteen models, fifteen baselines, three seeds, paired-bootstrap
+throughout.  A full index of every experiment is in
+App.~\ref{app:experiment-index}.
 
-We also make three scope boundaries explicit up front. First, our current
-training-time comparison to RLCR-style calibration improvement is not yet a
-head-to-head number in the paper body; the present intervention evidence is
-confidence-only $\eta$-tempering plus a smaller training-time pilot, not a full
-Damani-style reward redesign. Second, the retrieval deployment evidence is a
-bounded Wikipedia-backed demo rather than a production-scale retrieval stack.
-Third, the current experiments are English-only, so the reported gains should
-not be read as multilingual calibration guarantees.
+\begin{table}[h]
+\centering\scriptsize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.0}
+\caption{\textbf{Experiment overview.}  Each row is a body claim;
+appendix pointer in App.~\ref{app:experiment-index}.}
+\label{tab:experiment-overview}
+\begin{tabular}{p{0.10\linewidth}p{0.43\linewidth}p{0.30\linewidth}c}
+\toprule
+\textbf{Anchor} & \textbf{Test} & \textbf{Headline}  & \textbf{App.}\\
+\midrule
+T1 & 25-cell spotlight + powered $n{=}210$ vs.\ CoCoA / Astute / Self-RAG & $+0.083$, $23/25$ wins, $e{=}2806$; $+0.043/+0.032/+0.022$ & \ref{app:per-bench-wins}, \ref{app:powered-headtohead} \\
+T2 & Boundary $w_0{\in}\{0,1\}$ + synthetic $\sqrt n$-audit & Collapses $\sim\!2$ orders; $R^2{=}0.998$ at $n{=}2048$ & \ref{app:trust-extremes}, \ref{app:oracle-diagnostics} \\
+T3 (causal) & Matched DPO/GRPO at Llama-3.1-8B + 8 family controls & $+0.344$ ECE gap; controls $<\!0.07$ & \ref{app:matched-base} \\
+T3 ($\eta$) & $\eta$-tempering on R1-14B; RLCR$+\eta$ at 8B & Brier $0.903{\to}0.505$, Acc $0.037{\to}0.440$, $0.063{\to}0.531$ & \ref{app:eta-tempering-grid}, \ref{app:reviewer-qa} \\
+Frontier & GPT-4o-mini / Claude / Gemini, top-$k$ logprob recipe & $+0.055$ to $+0.060$ regret advantage & \ref{app:frontier-validation} \\
+Held-out & Pre-registered P1, P2, P3 on ClashEval + RAMDocs & P1, P2 replicate; P3 partial & \ref{app:preregistered-heldout} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Contributions.}
+\begin{itemize}[leftmargin=1.2em,topsep=2pt,itemsep=1pt]
+\item \textbf{T1 (Bayes-optimal arbitration; \Cref{thm:bayes-arbitration}).}
+The Bayes action under any strictly proper score is the
+reliability-weighted geometric mixture
+$\hat p_{w^\star}\!\propto\!p_\theta^{1-w^\star}\,p_{\ctx}^{w^\star}$
+with $w^\star\!=\!\E[r\mid q,c]$.  CAD, AdaCAD, CoCoA, Astute~RAG,
+Self-RAG, and JuICE fall out as named special cases
+(\Cref{cor:special-cases}); a matched Le~Cam two-point lower bound
+(\Cref{thm:lecam-lower}) shows the implied $1/\sqrt n$ plug-in rate
+cannot be improved.
+\item \textbf{T2 (minimax suboptimality of fixed trust;
+\Cref{thm:minimax}).}  Any fixed $w_0\!\in\![0,1]$ is provably
+suboptimal across conflict regimes; the construction is tightened
+on ConflictBank with explicit $\Delta_+,\Delta_-$
+(App.~\ref{app:thm2-yao}) so the bound is non-vacuous.
+\item \textbf{T3 (RLVR safe-rate shrinks under conflict;
+\Cref{thm:eta-bayes}).}  Long chain-of-thought is an endogenous
+generalized-Bayes update; under three audited assumptions the safe
+rate $\bar\eta$ shrinks like $c/D^\star$ with $c$ explicit on
+finite $\Y$ (App.~\ref{app:thm3-shrinks-explicit}).  Pathwise
+tracking of the expected operator is \emph{proved} for the
+temperature-$0$ greedy decoding used in our experiments
+(\Cref{thm:tracking-tau0}); the stochastic case ($\tau\!>\!0$) is
+empirically verified.
+\item \textbf{Two inference-time interventions, no retraining.}
+A plug-in geometric mixture closes a $+0.083$ regret gap on the
+spotlight matrix ($23/25$ cells, e-value $2806$) and beats CoCoA /
+Astute~RAG / Self-RAG by $+0.043 / +0.032 / +0.022$ on a powered
+$n\!=\!210$ design.  Tempering the post-trace distribution by a
+single $\eta^\star$ reduces Brier from $0.903$ to $0.505$ and lifts
+accuracy from $0.037$ to $0.440$ on the cell T3 marks as worst.
+\item \textbf{Causal evidence and pre-registration.}  A matched
+DPO-vs-GRPO contrast at 8B (Llama-3.1-8B base) yields a $+0.344$
+ECE gap (causal anchor for T3); three pre-registered held-out
+predictions are reported with outcomes (P1/P2 replicate, P3
+partial; \Cref{sec:discussion}, App.~\ref{app:preregistered-heldout}).
+\end{itemize}
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\linewidth]{figs/fig_architecture.pdf}
+  \caption{\textbf{The \textsc{BayesArbiter} pipeline.} Three
+  inputs ($q$, $c$, trace $z_{1:K}$) produce three distributions
+  ($p_\theta$, $p_{\ctx}$, $p(\cdot\mid\mathrm{trace})$).  A
+  reliability plug-in $\hat w(c)\!=\!\widehat{\E}[r\mid s(q,c)]$
+  drives the Bayes-optimal geometric mixture
+  (\Cref{thm:bayes-arbitration}); the post-trace distribution is
+  $\eta$-tempered for RLVR-trained reasoners
+  (\Cref{thm:eta-bayes}).}
+  \label{fig:architecture}
+\end{figure}

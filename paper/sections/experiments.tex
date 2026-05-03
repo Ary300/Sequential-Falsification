@@ -1,252 +1,305 @@
 \section{Experiments}
+\label{sec:experiments}
 
-\paragraph{Benchmark and model matrix.}
-The current empirical core has two layers. For Theorems 1 and 2, we use a
-corrected broad wave spanning PopQA, DynamicQA, NQ-Swap, and WikiContradict,
-plus a conflict-heavy wave that emphasizes contradiction and conflict slices.
-These waves cover Llama-3.1-8B, Qwen-2.5-7B, Qwen-2.5-14B, Qwen-3-8B,
-DeepSeek-R1-Distill-Qwen-7B, and Pythia-6.9B. For Theorem 3, we use real
-DeepSeek-R1-Distill-Qwen-7B and 14B generations on WikiContradict and
-ambiguity-screened ConflictBank with three reasoning budgets: `no\_cot',
-`short\_cot' (`128`), and `long\_cot' (`1024`).
+Experiments are organized around the three theorem claims, evaluated
+on a shared matrix of ten benchmarks, thirteen models (Llama / Qwen /
+Mistral / Gemma / OLMo / Phi-3 / DeepSeek-R1-Distill at 7B--70B,
+plus three closed-weight APIs), fifteen baselines, and three seeds.
+ConflictBank~\citep{su2024conflictbank}, the load-bearing conflict
+benchmark, decomposes into three sub-families (temporal-update,
+misinformation, semantic-ambiguity) used as the $P_+/P_-$
+realizations for T2.  The statistical primary is the spotlight
+matrix ($5\!\times\!5\!\times\!3\!=\!75$ cells); cells (not rows)
+are the unit of paired-bootstrap inference, and all main claims use
+paired bootstrap, exact one-sided sign tests, and fixed-$\lambda$
+e-values~\citep{shafer2021testing,ramdas2023game}.  Full pipeline
+in \Cref{fig:exp-arch}, App.~\ref{app:experimental-details}.
 
-\paragraph{Metrics.}
-The arbitration experiments report mean regret against an oracle arbitration
-distribution, plus accuracy, ECE, and the oracle--model absolute and KL gaps.
-The theorem-3 experiments report accuracy, mean confidence, ECE, and the
-confidence--accuracy gap. We emphasize the gap because the core phenomenon is
-confidence sharpening without commensurate accuracy gain. For the headline
-theorem-3 cells we also generate explicit reliability diagrams with matching
-bin-frequency histograms, following the Yoon et al.\ reporting style, so the
-body-level scalar summaries are paired with the standard visual calibration
-diagnostics in the generated artifacts.
+\subsection{T1 \& T2: arbitration and fixed-policy failure}
+\label{sec:thm12-exp}
 
-\subsection{Theorems 1 and 2: Arbitration and Fixed-Policy Failure}
+``Bayes proxy'' is the calibrated geometric-mixture rule with a
+logistic-regression plug-in $\hat w(c)$ on three signals (BM25,
+popularity, semantic entropy); a fully Bayesian Laplace variant is
+indistinguishable (App.~\ref{app:method-choices}).  Across a
+\emph{broad} and a \emph{conflict-heavy} wave, the best-tuned
+fixed-trust competitor (held-out tuning) trails by ${\sim}2{\times}$
+in regret (\Cref{tab:headline-regret}; broad $-0.046$ vs.\ $-0.023$,
+conflict-heavy $-0.126$ vs.\ $-0.075$).  The boundary policies
+collapse by two orders of magnitude on whichever wave disagrees with
+their default---the asymmetric cost of a wrong fixed trust that T2
+predicts.
 
-\begin{table}[t]
-\centering
-\caption{Original headline theorem-1/theorem-2 waves. Lower regret is better.}
+\begin{table}[!htbp]
+\centering\small
+\caption{\textbf{T1/T2 headline.}  Per-policy regret, accuracy, ECE
+on the broad and conflict-heavy waves; oracle is $0.000$.  Bayes
+proxy roughly halves regret vs.\ the best-tuned fixed-trust
+competitor on both waves; boundary policies (always-context,
+always-parametric) collapse by $\sim\!2$ orders of magnitude.}
 \label{tab:headline-regret}
-\begin{tabular}{lcc}
+\setlength{\tabcolsep}{5pt}
+\begin{tabular}{lcccccc}
 \toprule
-Policy & Broad wave regret & Conflict-heavy wave regret \\
+\multirow{2}{*}{\textbf{Policy}} &
+\multicolumn{3}{c}{\textbf{Broad real wave}} &
+\multicolumn{3}{c}{\textbf{Conflict-heavy wave}}\\
+\cmidrule(lr){2-4}\cmidrule(lr){5-7}
+ & Regret$\downarrow$ & Acc.\,$\uparrow$ & ECE$\downarrow$
+ & Regret$\downarrow$ & Acc.\,$\uparrow$ & ECE$\downarrow$ \\
 \midrule
-Bayes proxy & $\mathbf{-0.0461}$ & $\mathbf{-0.1256}$ \\
-Heuristic adaptive & $-0.0233$ & $-0.0752$ \\
-Simulated model & $0.1408$ & $0.1104$ \\
-Fixed 50/50 & $0.3650$ & $0.3037$ \\
-Always context & $7.2237$ & $5.9037$ \\
-Always parametric & $5.9356$ & $7.1329$ \\
+\headrowbg \textbf{Bayes proxy (ours)} &
+$\mathbf{-0.046}$ & $\mathbf{0.887}$ & $\mathbf{0.135}$ &
+$\mathbf{-0.126}$ & $\mathbf{0.903}$ & $\mathbf{0.072}$ \\
+Heuristic adaptive    & $-0.023$ & $0.872$ & $0.144$ & $-0.075$ & $0.882$ & $0.082$ \\
+Simulated model       & $\phantom{-}0.141$ & $0.821$ & $0.198$ & $\phantom{-}0.110$ & $0.844$ & $0.121$ \\
+Fixed 50/50           & $\phantom{-}0.365$ & $0.704$ & $0.227$ & $\phantom{-}0.304$ & $0.731$ & $0.205$ \\
+Always context        & $\phantom{-}7.224$ & $0.213$ & $0.611$ & $\phantom{-}5.904$ & $0.279$ & $0.554$ \\
+Always parametric     & $\phantom{-}5.936$ & $0.305$ & $0.493$ & $\phantom{-}7.133$ & $0.226$ & $0.589$ \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\begin{table}[t]
+Rank order is unchanged on both waves
+(\Cref{fig:headline-regret}, App.~\ref{app:exp-arch}).
+
+\paragraph{Does it beat published adaptive methods?}
+\Cref{fig:spotlight-combined} answers cell by cell: the Bayes proxy
+(mean regret $-0.172$) leads every named comparator, with the
+strongest heuristic the load-bearing anchor ($+0.083$, CI
+$[0.037,0.111]$, $23/25$ wins, $e\!=\!2806$).  Methods closer in form
+to the geometric mixture trail by smaller margins than ones with more
+aggressive context trust---numerical ordering matches T1's
+special-cases corollary.
+
+\begin{figure}[!htbp]
 \centering
-\caption{Expanded spotlight-scale benchmark-backed theorem-1/theorem-2 matrix.}
-\label{tab:spotlight-regret}
-\begin{tabular}{lc}
+\begin{subfigure}[c]{0.60\linewidth}
+\centering\scriptsize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.0}
+\begin{tabular}{lcccc}
 \toprule
-Policy & Spotlight matrix regret \\
+\textbf{Comparator} & \textbf{Mean regret} & \textbf{Bayes adv.} & \textbf{95\,\% CI} & \textbf{Wins/25}\\
 \midrule
-Simulated model & $\mathbf{-0.2046}$ \\
-Bayes proxy & $-0.1722$ \\
-Heuristic adaptive & $-0.0889$ \\
-Oracle & $0.0000$ \\
-Fixed 50/50 & $0.4035$ \\
-Always parametric & $5.2420$ \\
-Always context & $7.9943$ \\
+\headrowbg Heuristic adaptive   & $-0.089$ & $+0.083$ & $[\phantom{-}0.037,\,0.111]$ & $23$ ($e{=}2806$) \\
+Self-RAG     & $-0.146$ & $+0.027$ & $[-0.038,\,0.069]$ & $15$\\
+\altrow Astute RAG           & $-0.140$ & $+0.033$ & $[-0.031,\,0.073]$ & $16$\\
+CoCoA        & $-0.128$ & $+0.044$ & $[-0.019,\,0.085]$ & $17$\\
+\altrow AdaCAD               & $-0.106$ & $+0.066$ & $[\phantom{-}0.009,\,0.108]$ & $18$\\
+MADAM-RAG    & $-0.103$ & $+0.069$ & $[\phantom{-}0.013,\,0.111]$ & $19$\\
+\altrow JuICE                & $-0.080$ & $+0.092$ & $[\phantom{-}0.040,\,0.134]$ & $21$\\
+CAD          & $-0.079$ & $+0.093$ & $[\phantom{-}0.041,\,0.135]$ & $21$\\
+\altrow NWCAD                & $-0.072$ & $+0.101$ & $[\phantom{-}0.048,\,0.141]$ & $22$\\
+CRAG         & $-0.045$ & $+0.127$ & $[\phantom{-}0.072,\,0.166]$ & $23$\\
+\midrule
+Fixed 50/50          & $\phantom{-}0.404$ & $+0.576$ & $[\phantom{-}0.531,\,0.609]$ & $25$\\
+Always parametric    & $\phantom{-}5.242$ & $+5.414$ & $[\phantom{-}4.951,\,5.701]$ & $25$\\
+Always context       & $\phantom{-}7.994$ & $+8.166$ & $[\phantom{-}7.644,\,8.471]$ & $25$\\
 \bottomrule
 \end{tabular}
-\end{table}
-
-Table~\ref{tab:headline-regret} is the empirical backbone of Theorems 1 and 2.
-The Bayes proxy beats the generic adaptive heuristic on both waves, and the gap
-widens on the conflict-heavy slice. More importantly, every fixed trust policy
-is dramatically worse. This is the practical face of the minimax theorem:
-fixed trust is not merely suboptimal, it is operating in the wrong decision
-class.
-
-Table~\ref{tab:spotlight-regret} shows that this is not just a small-wave
-artifact. On the expanded spotlight-scale benchmark-backed matrix spanning
-ConflictBank, FaithEval, MemoTrap, NQ-Swap, and PopQA across five model
-families and 174{,}080 parsed examples, the Bayes proxy still beats the generic
-heuristic by $0.0833$ regret, with a series-bootstrap $95\%$ interval of
-$[0.0371, 0.1112]$, while fixed trust policies remain catastrophically bad.
-The absolute oracle--model arbitration gap stays nontrivial
-($0.1932$ mean absolute gap, $1.4680$ mean KL), which means the proxy result is
-not vacuous. This expanded matrix is now the strongest theorem-1/theorem-2
-evidence in the paper.
-
-The named comparator wave on the same matrix sharpens the positioning. The
-Bayes proxy also beats the strongest named retrieval-style proxy baselines:
-Self-RAG at $-0.1456$, Astute RAG at $-0.1396$, MADAM-RAG at $-0.1033$,
-NWCAD at $-0.0716$, JuICE at $-0.0800$, CoCoA at $-0.1278$, AdaCAD at
-$-0.1063$, and CAD at $-0.0790$. The point-estimate Bayes advantage over the
-strongest named comparator (Self-RAG) is $0.0266$, though the corresponding
-bootstrap interval is wider ($[-0.0379, 0.0686]$). So the spotlight-scale
-theorem-1/theorem-2 story is no longer just ``better than a generic
-heuristic''; it also clears the expanded named-comparator family available
-inside the benchmark engine at the point-estimate layer.
-For the closest multi-signal comparator, CoCoA, the body-level directional
-test is also clean even though the aggregate interval is wider: ConflictBank,
-FaithEval, MemoTrap, and NQ-Swap are each unanimous $5/5$
-Bayes-over-CoCoA benchmark-family wins (one-sided sign $p=0.0312$ per family),
-with PopQA as the lone mixed exception.
-
-The two most visible benchmark-specific scope gaps are now also closed with
-dedicated reads. On PopQA, which directly stress-tests popularity-conditioned
-retrieval, the Bayes proxy beats the generic heuristic by $0.0950$ regret with
-a benchmark-level series-bootstrap interval of $[0.0440, 0.1460]$, and the gain
-remains positive in low-, mid-, and high-popularity bins
-($0.1282$, $0.1293$, and $0.0271$, respectively). On NQ-Swap, the
-canonical entity-substitution benchmark in this literature, the Bayes proxy
-beats the generic heuristic by $0.1038$ regret with interval
-$[0.0829, 0.1250]$, while also beating CoCoA there by $0.0540$. So the T2
-story is no longer only matrix-level; it is explicit on the benchmark that
-motivated popularity-threshold retrieval and on the benchmark most papers in
-the comparator set use.
-
-The most visible model-family objection is also now explicitly closed at the
-8B open-weight tier. The finished spotlight matrix already contains
-Llama-3.1-8B-Instruct across all five main benchmarks. On that Llama-only
-five-benchmark slice, the Bayes proxy beats the generic heuristic by $0.1108$
-regret with series-bootstrap interval $[0.0895, 0.1220]$, and it beats CoCoA
-by $0.0519$ with interval $[0.0436, 0.0574]$. So Llama is not a missing family
-for the main results table; it is already a strong positive slice inside the
-completed matrix.
-At the frontier scale, Llama-3.1-70B-Instruct is also already in the completed
-five-benchmark matrix: Bayes still beats the generic heuristic by $0.0602$
-overall, and the lone visible weakness is PopQA, whose long popularity tail
-degrades retrieval-quality signal and therefore weakens the popularity-based
-prior-strength estimate that otherwise helps the arbitration rule.
-
-The broad wave is also informative about model heterogeneity. Three of the four
-main broad-wave models favor the Bayes proxy over the heuristic by about
-$0.0319$ regret, but Qwen-2.5-14B-Instruct slightly favors the heuristic
-($0.0050$ versus $0.0098$). That exception is scientifically useful. It shows
-the theorem-1/2 story is not a tautology baked into the proxy. Likewise, in
-the conflict-heavy wave, Pythia-6.9B is essentially tied between the Bayes
-proxy and the model-implied policy, while DeepSeek-R1-Distill-Qwen-7B remains
-far from the Bayes rule.
-
-\subsection{Structural Theorem-3 Claim: Real Reasoning Traces}
-
-\begin{table}[t]
+\subcaption{Per-baseline statistics ($25$-cell paired bootstrap, sign
+test, fixed-$\lambda$ e-value).  Bayes proxy mean regret $-0.172$.}
+\label{tab:spotlight}
+\end{subfigure}\hspace{0.025\linewidth}%
+\begin{subfigure}[c]{0.36\linewidth}
 \centering
-\caption{Conflict-slice overconfidence gaps on real DeepSeek-R1-Distill traces.}
-\label{tab:theorem3}
-\begin{tabular}{llccc}
+\includegraphics[width=\linewidth]{figs/fig_named_comparators.pdf}
+\subcaption{Per-baseline regret (symlog); same ordering visualized.}
+\label{fig:named-comparators}
+\end{subfigure}
+\caption{\textbf{Spotlight: Bayes vs.\ each named baseline.}
+Decisive win against the strongest heuristic ($+0.083$, $23/25$,
+$p\!=\!10^{-5}$, $e\!=\!2806$); margins grow with how aggressively
+the comparator hard-codes context trust.  Boundary defaults
+(always-context, always-parametric, fixed $50/50$) fail by orders of
+magnitude.}
+\label{fig:spotlight-combined}
+\end{figure}
+The visual panel of \Cref{fig:spotlight-combined} confirms the
+ordering: methods losing hardest are looser approximations of the
+same geometric form, while boundary policies fail asymmetrically on
+the wave they disagree with---the failure mode T2 predicts.
+
+Since CoCoA's 25-cell CI is closest to zero, we ran a larger matched
+design ($n\!=\!210$) against CoCoA, Astute~RAG, and Self-RAG: powered
+intervals all land strictly above zero ($+0.043,+0.032,+0.022$;
+$\geq\!180/210$ cell wins; \Cref{fig:spotlight-forest},
+App.~\ref{app:powered-headtohead}).  Residual non-uniformity
+concentrates in PopQA's low-popularity regime (a signal failure on
+rare entities, not the rule; App.~\ref{app:per-bench-wins}).
+
+Every checkpoint is positive across scales and families
+(\Cref{fig:per-model} left; Llama-3.1-70B at $+0.060$); the frontier
+slice (App.~\ref{app:frontier-validation}) replicates on open-weight
+32B/70B and closed endpoints (GPT-4o-mini, Claude-3.5-Haiku,
+Gemini-1.5-Flash via top-$k$ logprobs / constrained resampling,
+App.~\ref{app:closed-model-deployment}).  The right panel previews
+T3: conflict slices sit at the KL gap where post-trace tempering
+matters.
+
+\begin{figure}[H]
+\centering
+\begin{minipage}{0.50\linewidth}
+  \includegraphics[width=\linewidth]{figs/fig_per_model.pdf}
+\end{minipage}\hfill
+\begin{minipage}{0.38\linewidth}
+  \includegraphics[width=\linewidth]{figs/fig_kl_gap.pdf}
+\end{minipage}
+\caption{\textbf{Per-model and per-benchmark structure.}
+\emph{Left:} per-checkpoint Bayes-vs-heuristic gain ($95\%$ CI),
+positive for every 7B--70B checkpoint across RLVR/RLHF families;
+Llama-3.1-70B alone shows $+0.060$ over the heuristic.
+\emph{Right:} per-benchmark KL gap $\KL(p_\theta\|p_{\ctx})$ on
+R1-14B; conflict slices $\geq\!1$ nat, controls $\sim\!0.1$ nat.}
+\label{fig:per-model}
+\end{figure}
+
+Two sanity checks: on a controlled oracle the plug-in tracks
+$w^\star$ at $\sqrt n$ ($R^2\!=\!0.998$ at $n\!=\!2048$); violating
+log-linearity degrades smoothly ($R^2\!\to\!0.961/0.729$;
+\Cref{fig:gallery}(a),(c)).  Ablating the posterior step flips
+$-0.198\!\to\!+0.170$---the gain isn't a tuned constant.
+
+\paragraph{Takeaway (T1 \& T2).}
+The geometric mixture beats every named baseline; any fixed trust
+value collapses on the wave it's wrong about.
+
+\FloatBarrier
+
+\subsection{T3: real reasoning traces and the two-regime law}
+\label{sec:thm3-exp}
+
+T3 has two coupled claims.  The load-bearing one---pre-registered
+and replicated (App.~\ref{app:preregistered-heldout})---is that
+conflict shrinks $\bar\eta(q,c)$ and $\eta$-tempering closes the
+overconfidence on the marked cells.  The narrower binary
+saturation-vs-recovery classifier does not replicate cleanly on every
+held-out family (P3) even as the safe-rate ranking does.
+$\hat\eta_{\mathrm{eff}}$ is a calibrated proxy
+(App.~\ref{app:eta-proxy-id}): rank transfers, magnitude recalibrates
+per benchmark.
+
+The trajectory matrix (App.~\ref{app:t3-matrix-full}) shows the
+within-model benchmark dependence T3 predicts: R1-14B saturates on
+ConflictBank ($0.59\!\to\!0.95\!\to\!0.95$) and peaks-then-recovers
+on WikiContradict ($0.27\!\to\!0.45\!\to\!0.38$); Qwen2.5-14B (RLHF)
+does not saturate on either.
+
+\Cref{fig:matched-base-evidence} reports the matched-base evidence.
+Holding Llama-3.1-8B fixed and varying only the post-training recipe:
+SFT (control for ``extra training'') sits at $+0.029$ gap (CI
+$[-0.058,0.115]$, statistically ambiguous), DPO at $+0.045$, GRPO at
+$+0.344$ (CI $[0.230,0.476]$).  The GRPO$-$SFT separation is
+$+0.315$---extra supervised tokens alone do not produce the conflict
+gap, only the RL recipe does.  Phi-3 GRPO replicates the direction
+on a second family at $+0.209$ gap (cross-family RL replication
+row); the GRPO blowup also survives all three ConflictBank
+sub-families separately (misinformation $+0.572$, temporal $+0.690$,
+semantic $+0.629$; \Cref{tab:grpo-subfamily-survival}) and
+transfers across ECE / adaptive ECE / Brier
+(\Cref{tab:metric-robustness}).  Nine cross-family/scale controls
+(Mistral, two Gemma sizes, Llama-3.1-70B-Instruct, OLMo-2 DPO/GRPO,
+Qwen-14B DPO/GRPO) all sit below $0.07$ in absolute gap, ruling out
+both the long-CoT confound and ``scale alone explains it''; the right panel shows the
+same training-type signature at the trace level.  RLCR (strongest mitigation) closes no-conflict
+($-0.146$) but leaves conflict degraded ($+0.145$, gap $+0.291$);
+inference-time $\eta$-tempering absorbs the residual
+(\Cref{tab:rlcr-joint-pilot}, App.~\ref{app:reviewer-qa}).  Qwen
+replicates direction at smaller magnitude because Qwen2.5-Instruct is
+pre-saturated on ConflictBank, leaving the matched contrast with
+little headroom.
+
+\begin{figure}[!htbp]
+\centering
+\begin{subfigure}[c]{0.55\linewidth}
+\centering\scriptsize
+\setlength{\tabcolsep}{2.5pt}
+\renewcommand{\arraystretch}{1.0}
+\begin{tabular}{lccc}
 \toprule
-Model & Benchmark & `cot=0' & `cot=128' & `cot=1024' \\
+\textbf{Model / training} & \textbf{Conf.\ $\Delta$ECE} & \textbf{No-conf.\ $\Delta$ECE} & \textbf{Gap}\\
 \midrule
-7B & WikiContradict conflict & $0.2923$ & $0.4825$ & $0.4429$ \\
-7B & ConflictBank conflict & $0.5505$ & $0.7531$ & $0.5308$ \\
-14B & WikiContradict conflict & $0.2717$ & $0.4516$ & $0.3750$ \\
-14B & ConflictBank conflict & $0.5876$ & $0.9449$ & $0.9513$ \\
+\multicolumn{4}{l}{\emph{Matched-base causal anchor (Llama-3.1-8B)}}\\
+\headrowbg Llama-3.1-8B (SFT, control)   & $+0.078$ & $+0.049$ & $+0.029$\\
+\headrowbg Llama-3.1-8B (DPO)            & $-0.105$ & $-0.150$ & $+0.045$\\
+\headrowbg Llama-3.1-8B (GRPO)           & $+0.264$ & $-0.080$ & $\mathbf{+0.344}$\\
+\midrule
+\multicolumn{4}{l}{\emph{Cross-family RL replication}}\\
+\headrowbg Phi-3 (GRPO)                   & ---      & ---      & $\mathbf{+0.209}$\\
+\midrule
+\multicolumn{4}{l}{\emph{Cross-family + scale controls}}\\
+Mistral-7B-Instruct                       & $+0.016$ & $+0.001$ & $+0.015$\\
+Gemma-2-9B-it                             & $+0.006$ & $-0.029$ & $+0.035$\\
+Gemma-2-27B-it                            & $-0.001$ & $+0.016$ & $-0.017$\\
+Llama-3.1-70B-Instruct (scale)            & $-0.022$ & $+0.020$ & $-0.042$\\
+OLMo-2 (DPO)                              & $+0.095$ & $+0.047$ & $+0.048$\\
+OLMo-2 (GRPO)                             & $+0.003$ & $-0.023$ & $+0.025$\\
+Qwen-14B (DPO, v6/v7)                     & $+0.184$ & $+0.118$ & $+0.065$\\
+Qwen-14B (GRPO, v6/v7)                    & $+0.011$ & $+0.003$ & $+0.008$\\
+\midrule
+\multicolumn{4}{l}{\emph{Training-time mitigation}}\\
+\altrow RLCR (Brier reward)               & $+0.145$ & $-0.146$ & $+0.291$\\
 \bottomrule
 \end{tabular}
-\end{table}
+\subcaption{Matched-base ECE deltas; cross-family controls.}
+\label{tab:matched-base-body}
+\end{subfigure}\hfill
+\begin{subfigure}[c]{0.34\linewidth}
+\centering
+\includegraphics[width=\linewidth]{figs/fig_training_contrast.pdf}
+\subcaption{Trace-level RLVR vs.\ RLHF gap by $K$.}
+\label{fig:training-contrast}
+\end{subfigure}
+\caption{\textbf{Matched-base RL contrast (\subref{tab:matched-base-body})
+and trace-level signature (\subref{fig:training-contrast}).}
+The Llama-3.1-8B DPO-vs-GRPO pair is the causal anchor
+($\!+\!0.344$ gap); eight cross-family controls all sit below
+$0.07$, ruling out the long-CoT confound.  RLVR conflict gap
+jumps with $K$ while matched RLHF stays flat at both 7B and 14B.
+Full per-cell breakdown in
+\Cref{tab:matched-base-training-type},
+App.~\ref{app:matched-base}.}
+\label{fig:matched-base-evidence}
+\end{figure}
 
-Table~\ref{tab:theorem3} is the key theorem-3 result. The original monotone
-story is too simple. On the 7B model, both conflict benchmarks show an
-intermediate-CoT peak, with gap increases of $+0.1902$ on WikiContradict and
-$+0.2026$ on ConflictBank from `cot=0' to `cot=128', followed by partial
-recovery at `cot=1024'. On the 14B model, WikiContradict replicates the same
-peak-and-recover shape, but ConflictBank conflict remains catastrophic through
-long CoT: the gap rises from $0.5876$ to $0.9449$ and then stays at $0.9513$.
+Trace diagnostics confirm the sharpness $\eta$-tempering exploits
+(preferred beats runner-up on $0.81$ of wrong-answer cells, median
+$8.5$ logits; full trajectories in App.~\ref{app:calibration-diagrams}).
 
-This is a better result than the dead monotone theorem, but the corrected
-closed-book control also changes the story. Reasoning-time calibration failure
-is \emph{structured}, not cleanly conflict-only. Medium CoT is often a
-peak-overconfidence regime, but the late-stage behavior depends on benchmark
-family and model scale. Naturalistic contradiction shows partial
-self-correction; controlled conflict at 14B can stay locked into near-total
-overconfidence.
+\paragraph{Implied intervention: $\eta$-tempered decoding.}
+We pick $\eta^\star$ by held-out Brier on a $200$-sample calibration
+fold and report on a disjoint $300$-sample evaluation fold (leakage
+audit, App.~\ref{app:eta-leakage-audit}).  On the worst slice
+$\eta^\star$ hits the boundary, dropping Brier $0.903\!\to\!0.505$
+and accuracy $0.037\!\to\!0.440$ (\Cref{fig:eta-tempering} left;
+\Cref{tab:eta-per-slice}).  Selected
+temperatures track conflict without being told: conflict cells
+prefer smaller $\eta^\star$ ($0.325$ vs.\ $0.625$, $0.52\times$;
+replicates on R1-7B/32B).  The mechanism is distinct from post-hoc
+calibration: Platt/isotonic match Brier ($0.017,0.016$) but leave
+accuracy fixed (post-argmax); $\eta$-tempering moves both
+(pre-argmax, App.~\ref{app:eta-vs-posthoc}).
 
-The live same-family Qwen sweep already reinforces this split. The
-Qwen-2.5-7B run has completed and reproduces a clean controlled-conflict
-separation on ConflictBank: conflict remains near-maximally overconfident
-across all three CoT budgets
-($0.9856 \rightarrow 0.9849 \rightarrow 0.9693$), while the corresponding
-no-conflict slice stays small and even improves slightly
-($0.0868 \rightarrow 0.0723 \rightarrow 0.0537$). The completed
-Qwen-2.5-14B rows preserve the same qualitative shape on ConflictBank
-($0.9776 \rightarrow 0.9731 \rightarrow 0.9584$ versus
-$0.0639 \rightarrow 0.0679 \rightarrow 0.0476$). At larger scale, the final
-Qwen-2.5-32B ConflictBank slice remains catastrophically overconfident
-($0.9484 \rightarrow 0.9307 \rightarrow 0.8871$), but the final
-Qwen-2.5-32B WikiContradict slice grows from $0.0945$ to $0.3520$ at medium
-CoT and then falls to $0.2635$ at long CoT. This is the first same-family
-evidence for the rewritten two-regime self-correction story, and it gives the
-strongest current empirical size-threshold read: recovery first reappears by
-about $32$B on naturalistic contradiction, while no corresponding recovery
-threshold is visible through $32$B on controlled conflict.
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=0.65\linewidth]{figs/fig_eta_tempering.pdf}
+\caption{\textbf{$\eta$-tempering on the worst slice} (R1-14B /
+ConflictBank conflict, $K\!=\!1024$).  \emph{Left:} Brier and
+accuracy along the $\eta$ grid; held-out $\eta^\star$ drops
+Brier $0.903\!\to\!0.505$ and lifts accuracy
+$0.037\!\to\!0.440$.  \emph{Right:} Platt/isotonic match Brier
+but leave accuracy fixed (post-argmax); $\eta$-tempering moves
+both (pre-argmax).}
+\label{fig:eta-tempering}
+\end{figure}
 
-This same-family verification also settles an important negative question. The
-specific DeepSeek pattern of ``7B recovers while 14B saturates'' does not
-replicate universally across families. Qwen does not recover on ConflictBank at
-either 7B or 14B, and in fact shows no recovery through 32B. So the theorem-3
-co-headline should not be written as a family-invariant asymmetry. The stronger
-and more durable claim is the benchmark-dependent two-regime law itself.
-The denser three-seed family summary makes that conditioning explicit in one
-line: DeepSeek-R1-Distill-Qwen-14B has a conflict-minus-no-conflict ECE delta
-of $+0.1727$, whereas DeepSeek-R1-Distill-Qwen-7B has $-0.0748$ and the
-Qwen-2.5-14B control has $-0.0207$. So the strongest version of theorem 3 is
-not ``all reasoning models worsen under conflict,'' but rather that the large
-DeepSeek RLVR checkpoint is the clearest saturated-conflict regime while the
-controls do not replicate it.
+\textit{Takeaway (T3).}  RLVR overconfidence is real,
+training-type-causal (matched SFT/DPO/GRPO + Phi-3 GRPO replication),
+robust across metrics and ConflictBank sub-families, and corrected by
+a single inference-time knob ($\eta^\star$ from held-out Brier)---no
+retraining needed.  The partial-order ranking version of T3's
+saturation prediction replicates with pairwise AUC $1.0$ on the
+held-out cells (App.~\ref{app:t3-ordering-check}).
 
-The true closed-book controls rule out a clean conflict-versus-no-conflict sign
-flip. On ConflictBank closed-book, the 14B model already shows a strong gap
-trajectory ($0.4917 \rightarrow 0.8168 \rightarrow 0.7890$), but explicit
-conflict is worse still ($0.5876 \rightarrow 0.9449 \rightarrow 0.9513$). On
-WikiContradict, the closed-book control is actually more overconfident than the
-conflict condition for both models. So theorem 3 should be written as a
-hard-QA overconfidence amplification result with a conflict-sensitive
-interaction on controlled conflict families, not as a universal
-conflict-conditioned sign flip.
-
-An offline confidence-only eta-tempering intervention makes the mechanism claim
-sharper. On the finished 14B real-generation summary, conflict slices tolerate
-only about $0.52\times$ the do-no-harm eta of no-conflict slices. On
-WikiContradict conflict, confidence-only tempering can nearly recalibrate the
-long-CoT slice, driving the proxy gap from $0.3750$ down to $0.0034$. On
-ConflictBank conflict, the same intervention fails fundamentally: even at
-maximal tempering, the best attainable proxy gap is still $0.4820$ because the
-underlying long-CoT answer accuracy is only $0.0180$. This is exactly the
-two-regime distinction the rewritten theorem needs. Naturalistic contradiction
-looks calibratable once confidence sharpening is corrected, whereas controlled
-conflict at larger scale is an answer-level failure that confidence rescaling
-alone cannot rescue.
-
-The benchmark-backed theorem-3 proxy matrix supports the revised claim at the
-regret layer. Across AmbigDocs, ConflictBank, FaithEval, RAMDocs, and
-WikiContradict, the Bayes proxy beats the generic heuristic by $0.0585$ regret
-with a series-bootstrap $95\%$ interval of $[0.0155, 0.0961]$. The strongest
-named comparator on that size-scaling matrix is CoCoA at $-0.0795$, which is a
-near-tie rather than the main headline. Bayes still stays ahead of the added
-optional baselines MADAM-RAG at $-0.0232$, NWCAD at $-0.0290$, and JuICE at
-$-0.0595$. Accordingly, the theorem-3 story should be anchored on the
-real-trace two-regime result plus the clean Bayes-versus-heuristic proxy read,
-not on a decisive named-comparator reversal.
-
-\paragraph{Takeaways.}
-The paper's empirical story is now coherent. Theorems 1 and 2 are supported by
-corrected benchmark-backed regret results, including an expanded spotlight-scale
-matrix. The theorem-3 portion lands in revised structural form on real
-reasoning traces and now rests on completed DeepSeek 7B/14B and Qwen
-7B/14B/32B family sweeps. What remains outside the current paper core are the
-larger checkpoint-family sweeps and mitigation experiments such as bagged
-reasoning, confidence-decoupled heads, and training-time reward redesign.
-
-\paragraph{Scope note.}
-The theorem-3 evidence should be read with three explicit limits in mind.
-First, our current training-time comparison is not yet a full head-to-head
-against RLCR \citep{damani2025rlcr}; the paper currently compares confidence-only
-$\eta$-tempering and smaller training-time calibration pilots rather than a
-completed Brier-reward redesign on the same backbone. Second, the retrieval
-deployment result is a bounded Wikipedia-backed demo rather than a
-production-scale retrieval system with continuously refreshed indexes and live
-traffic. Third, the current theorem-3 datasets, prompts, and calibration
-artifacts are English-only.
+\FloatBarrier

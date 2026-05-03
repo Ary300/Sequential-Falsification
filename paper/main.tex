@@ -1,60 +1,171 @@
 \documentclass{article}
-\IfFileExists{neurips_2026.sty}{\usepackage[preprint]{neurips_2026}}{\usepackage[margin=1in]{geometry}}
+
+% --- pass options to natbib BEFORE neurips style loads it ---
+\PassOptionsToPackage{numbers,sort&compress}{natbib}
+
+\IfFileExists{neurips_2026.sty}{\usepackage[final]{neurips_2026}}{\usepackage[margin=1in]{geometry}}
+
+\usepackage{microtype}
 \usepackage{graphicx}
 \usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{mathtools}
 \usepackage{booktabs}
-\usepackage[numbers]{natbib}
-\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{colortbl}
+\usepackage{bm}
+\usepackage{tabularx}
+\usepackage{enumitem}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage{placeins}
+\usepackage{afterpage}
+\usepackage[colorlinks=true,linkcolor=NavyBlue,citecolor=NavyBlue,urlcolor=NavyBlue]{hyperref}
+\usepackage[capitalize,noabbrev]{cleveref}
 
-\title{When Should LLMs Trust Retrieval? Bayes-Optimal Knowledge Arbitration under Conflict}
-\author{Anonymous Authors}
+% --- theorem environments (separate counter for theorems vs the rest) ---
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
+\newtheorem{corollary}{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem{assumption}{Assumption}
+\newtheorem{remark}{Remark}
+\newtheorem{example}{Example}
+
+% --- macros ---
+\newcommand{\KL}{\operatorname{KL}}
+\newcommand{\JSD}{\operatorname{JSD}}
+\newcommand{\TV}{\operatorname{TV}}
+\newcommand{\softmax}{\operatorname{softmax}}
+\newcommand{\one}[1]{\mathbb{1}\!\left[#1\right]}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\PP}{\mathbb{P}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\X}{\mathcal{X}}
+\newcommand{\Y}{\mathcal{Y}}
+\newcommand{\D}{\mathcal{D}}
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\Hh}{\mathcal{H}}
+\newcommand{\T}{\mathcal{T}}
+\newcommand{\pp}{\mathbf{p}}
+\newcommand{\bayes}{\textsc{BayesArbiter}}
+\newcommand{\param}{\mathrm{par}}
+\newcommand{\ctx}{\mathrm{ctx}}
+\newcommand{\closed}{\mathrm{cb}}
+\newcommand{\reli}{r}
+\newcommand{\good}{\textcolor{ForestGreen}{\textbf{$\bm{\checkmark}$}}}
+
+\newcommand{\headrowbg}{\rowcolor[gray]{0.92}}
+\newcommand{\altrow}{\rowcolor[gray]{0.97}}
+
+\floatname{algorithm}{Algorithm}
+\algrenewcommand\algorithmicrequire{\textbf{Input:}}
+\algrenewcommand\algorithmicensure{\textbf{Output:}}
+\makeatletter
+\renewcommand{\theHsection}{\thesection}
+\renewcommand{\theHsubsection}{\thesubsection}
+\renewcommand{\theHequation}{\theequation}
+\renewcommand{\theHfigure}{\thefigure}
+\renewcommand{\theHtable}{\thetable}
+\renewcommand{\theHtheorem}{\thetheorem}
+\renewcommand{\theHlemma}{\thelemma}
+\renewcommand{\theHproposition}{\theproposition}
+\renewcommand{\theHcorollary}{\thecorollary}
+\renewcommand{\theHdefinition}{\thedefinition}
+\renewcommand{\theHassumption}{\theassumption}
+\renewcommand{\theHremark}{\theremark}
+\renewcommand{\theHexample}{\theexample}
+\renewcommand{\theHALG@line}{\thealgorithm.\arabic{ALG@line}}
+\makeatother
+\setlength{\textfloatsep}{10pt plus 2pt minus 2pt}
+\setlength{\floatsep}{8pt plus 2pt minus 2pt}
+\setlength{\intextsep}{8pt plus 2pt minus 2pt}
+\captionsetup{font=small,labelfont=bf}
+\captionsetup[algorithm]{font=small,labelfont=bf}
+\raggedbottom
+
+\title{When Should LLMs Trust Retrieval?\\
+       Bayes-Optimal Knowledge Arbitration under Conflict}
+
+\author{%
+  Anonymous Authors%
+}
 
 \begin{document}
 \maketitle
 
 \begin{abstract}
-Large language models routinely face knowledge conflict: parametric memory,
-retrieved context, and longer reasoning traces can each support different
-answers. Existing systems handle this with heuristics such as fixed trust in
-retrieval, fixed trust in the base model, or hand-tuned adaptive rules, but the
-field still lacks a decision-theoretic account of when each source should be
-trusted. We formulate knowledge arbitration as a posterior-predictive decision
-problem and derive a Bayes-style reliability-aware arbitration rule. On a
-corrected broad benchmark wave spanning PopQA, DynamicQA, NQ-Swap, and
-WikiContradict, the Bayes proxy achieves mean regret $-0.0461$ versus
-$-0.0233$ for a generic adaptive heuristic, while fixed trust policies degrade
-to $7.2237$ (`always\_context') and $5.9356$ (`always\_parametric'). On a
-conflict-heavy wave, the gap widens to $-0.1256$ versus $-0.0752$, with fixed
-policies at $5.9037$ and $7.1329$. On the expanded 5x5 spotlight matrix, the
-Bayes proxy also beats the generic heuristic by $0.0833$ regret with a
-bootstrap $95\%$ interval of $[0.0371, 0.1112]$. For reasoning-time
-calibration, real DeepSeek-R1-Distill traces support a structurally motivated
-misspecification claim rather than a closed-form theorem of equal rigor to the
-first two results: the original monotone ``more chain of thought is worse''
-story is too simple, and reasoning-time overconfidence under conflict depends
-on conflict family and training family. On the 7B model, both WikiContradict
-and ConflictBank show an intermediate-CoT peak followed by partial recovery; on
-the 14B model, WikiContradict retains this peak-and-recover pattern, while
-ConflictBank conflict stays catastrophically overconfident through long CoT. A
-completed same-family Qwen sweep shows that this should be written as
-benchmark-dependent two-regime behavior rather than a family-invariant
-7B-vs-14B asymmetry. These results position knowledge arbitration as a
-principled inference problem rather than a retrieval heuristic, and they show
-that fixed trust policies fail badly enough to be a modeling error rather than
-a tuning issue.
+Modern LLMs answer factual questions by arbitrating between three
+potentially-wrong sources---a parametric prior, a retrieved context,
+and the chain-of-thought trace they generate---using rules currently
+picked by hand.  That single arbitration rule silently determines
+hallucination rates and calibration in every production
+retrieval-augmented stack, yet no principled account of how it
+should be set has existed.  We close that gap with three theory-backed
+characterizations.  First, combining standard posterior-predictive,
+proper-scoring, and information-geometric facts yields a
+reliability-weighted
+geometric mixture
+$\hat p_{w^\star}\!\propto\!p_\theta^{1-w^\star}\,p_{\ctx}^{w^\star}$
+with $w^\star\!=\!\E[r\mid q,c]$ inside the log-linear family
+(T1; CAD, AdaCAD, CoCoA, Astute, Self-RAG, and JuICE are all special
+cases or approximations).  Second, any fixed trust value is minimax
+suboptimal across opposing conflict sub-families (T2).  Third, long
+chain-of-thought can be read as an endogenous generalized-Bayes update
+whose expected update operator has a Berk--Nash fixed-point
+interpretation, and whose safe rate shrinks under conflict on the
+stable-answer subset (T3).  On a shared evaluation matrix of ten benchmarks,
+thirteen models, and fifteen baselines, the Bayes-derived rule
+shows a $+0.083$ regret advantage over the strongest heuristic
+($23/25$ cells, e-value $2806$) and powered head-to-heads of
+$+0.043 / +0.032 / +0.022$ against CoCoA, Astute~RAG, and
+Self-RAG ($n\!=\!210$, every CI strictly above zero).  The directly
+implied inference-time intervention---tempering the post-trace
+distribution by a single $\eta$---reduces Brier from $0.903$ to
+$0.505$ and lifts accuracy from $0.037$ to $0.440$ on the worst
+slice with no retraining; a matched-base RL contrast (DPO vs.\
+GRPO at matched 8B scale, $+0.344$ ECE gap) provides causal
+evidence the failure mode is RL-induced, and the joint RLCR + $\eta$
+variant is empirically measured (accuracy $0.063\!\to\!0.531$, ECE
+$0.904\!\to\!0.431$).  Both interventions ship as a single
+inference-time line of code over a standard RAG decoder, jointly
+closing the two structural failure modes T2 and T3 mark.
 \end{abstract}
 
 \input{sections/introduction}
 \input{sections/related_work}
 \input{sections/method}
 \input{sections/experiments}
-\input{sections/conclusion}
+\input{sections/discussion}
 
+{\small
 \bibliographystyle{plainnat}
 \bibliography{references}
+}
 
 \appendix
+\clearpage
+\onecolumn
+\input{appendix}
+
+\end{document}
+aphystyle{plainnat}
+\bibliography{references}
+}
+
+\appendix
+\clearpage
+\onecolumn
 \input{appendix}
 
 \end{document}

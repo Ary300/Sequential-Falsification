@@ -1,80 +1,62 @@
 \section{Related Work}
+\label{sec:related}
 
-\paragraph{Knowledge conflict benchmarks and analyses.}
-Recent work has mapped the space of knowledge conflicts in LLMs into
-context-memory, inter-context, and intra-memory forms
-\citep{xu2024knowledgeconflicts}. ConflictQA and related studies show that
-models are highly sensitive to coherent counter-memory and can exhibit
-confirmation bias under multi-evidence conflict \citep{xie2024conflictqa}.
-Large benchmark efforts such as ConflictBank, WikiContradict, and DynamicQA
-provide the empirical substrate for studying controlled and naturalistic
-conflicts \citep{su2024conflictbank,hou2024wikicontradict,marjanovic2024dynamicqa}.
-These papers give the task surface, but not a Bayes-optimal or minimax account
-of how arbitration should work.
+\paragraph{Knowledge conflict in LLMs.}
+Surveys carve up knowledge conflict into context-memory, inter-context, and
+intra-memory sub-types~\citep{xu2024knowledgeconflicts,xie2024conflictqa}.
+Benchmarks span synthetic counter-memory across $7$k entities and three
+conflict types~\citep{su2024conflictbank}, real Wikipedia
+contradictions~\citep{hou2024wikicontradict}, temporal
+drift~\citep{marjanovic2024dynamicqa}, popularity
+stratification~\citep{mallen2023popqa}, and entity
+substitution~\citep{xie2024conflictqa}. These efforts diagnose the problem;
+we ask what the optimal arbitration rule looks like and identify
+(\Cref{thm:bayes-arbitration}) the relevant posterior-predictive object
+inside the log-linear family used by decoder-side methods.
 
-\paragraph{Adaptive retrieval is mostly heuristic.}
-PopQA-style adaptive retrieval uses popularity as a practical signal for when
-retrieval helps, but the resulting policy is threshold-based rather than
-decision-theoretically optimal \citep{mallen2023popqa}. Self-RAG and related
-adaptive-RAG systems similarly learn or tune retrieval decisions without
-deriving them from a posterior-predictive optimum \citep{asai2024selfrag}. Our
-Theorems 1 and 2 aim at exactly this gap: a reliability-aware arbitration rule
-and a formal statement that fixed trust policies are structurally dominated on
-conflict families.
+\paragraph{Adaptive RAG and decoder-level arbitration.}
+PopQA-style retrieval thresholds on
+popularity~\citep{mallen2023popqa}; Self-RAG learns when to
+retrieve~\citep{asai2024selfrag}; FLARE retrieves on
+demand~\citep{jiang2023flare}; CRAG corrects retrieval
+errors~\citep{yan2024crag}; Astute~RAG and MADAM-RAG
+debate conflicting documents~\citep{wang2024astuterag,wang2024madamrag}.
+At the decoder level, CAD~\citep{shi2024cad}, AdaCAD~\citep{wang2025adacad},
+CoCoA~\citep{khandelwal2025cocoa}, NWCAD~\citep{khandelwal2024nwcad}, and
+JuICE~\citep{cohen2024juice} reweight contextual logits with hand-crafted
+signals. \Cref{cor:special-cases} shows where each sits relative to the
+Bayes optimum: CAD is $w\!=\!2$ (over-amplification); AdaCAD's JSD weight
+is the first-order Laplace approximation of $\E[r\mid c]$ under a Beta
+prior with Hellinger-affinity likelihood
+(\Cref{lem:adacad-laplace} in App.~\ref{app:thm1}); CoCoA is a
+non-Bayesian ensemble of three reliability proxies that need not converge
+to $w^\star$ without additional calibration assumptions.
 
-Closer decoder-level cousins such as CAD, AdaCAD, and CoCoA are also adaptive
-but remain heuristic from our perspective. They implement context-sensitive
-reweighting rules that are empirically strong, yet they do not derive the
-weight from a posterior over source reliability. This is precisely where our
-positioning matters. AdaCAD's token-level JSD weight can be read as a
-first-order approximation to a Bayes-optimal arbitration weight
-\citep{wang2025adacad}, while CoCoA combines entropy gap, contextual
-peakedness, and divergence proxies into an effective retrieval-trust score
-\citep{khandelwal2025cocoa}. In that sense, these baselines are not
-counterexamples to our framing; they are evidence that the field has been
-engineering approximations to the same object without writing down the
-decision-theoretic target explicitly.
-
-\paragraph{Mechanistic and calibration views of overthinking.}
-Recent work shows that longer reasoning can hurt accuracy or calibration.
-``Overthinking the Truth'' identifies a depth-wise failure mode in which models
-move from correct intermediate beliefs to incorrect final ones under misleading
-context \citep{halawi2024overthinking}. Chen et al.\ show that training-time
-cross-entropy sharpening can harm pass@$N$, while Ghosal et al.\ document
-non-monotone accuracy under large reasoning budgets \citep{chen2025rethinking,
-ghosal2025mirage}. Sun et al.\ report that rationales and context reiteration
-increase context reliance, especially on tasks where parametric knowledge
-matters \citep{sun2025context}. Our calibration result is adjacent to this
-literature but differs in two ways: it is conditioned on knowledge conflict,
-and it is framed as a posterior misspecification phenomenon rather than a
-purely empirical observation.
-
-The closest empirical tension comes from recent calibration papers on reasoning
-models. Yoon et al.\ find that reasoning models often express their confidence
-more accurately on standard QA without explicit knowledge conflict
-\citep{yoon2025confidence}. Lacombe et al.\ find the opposite trend on
-knowledge-intensive confidence-assessment tasks, where larger reasoning budgets
-hurt calibration \citep{lacombe2025dontthinktwice}. Welch et al.\ isolate
-``implicit answer conditioning'' as a mechanism for CoT-induced overconfidence
-in VLMs \citep{welch2026cost}, while Damani et al.\ show that binary reward
-reasoning objectives can directly degrade calibration and that Brier-style
-rewards repair it \citep{damani2025rlcr}. Our theorem-3 read is designed to
-reconcile these observations: calibration can improve in well-specified or
-low-conflict regimes and degrade in misspecified, endogenous-evidence regimes.
+\paragraph{Reasoning-time calibration.}
+The recent literature is mutually contradictory at first glance.
+\citet{yoon2025confidence} report that reasoning models express confidence
+\emph{better} than chat models on standard QA;
+\citet{halawi2024overthinking} document depth-wise overthinking;
+\citet{lacombe2025dontthinktwice} find more reasoning hurts calibration on
+knowledge-intensive tasks; \citet{welch2026cost} isolate ``implicit answer
+conditioning'' in VLMs; \citet{damani2025rlcr} show that binary-reward RL
+(GRPO~\citep{shao2024grpo}, of which DeepSeek-R1~\citep{deepseek2025r1} is
+the canonical instance) degrades calibration and that Brier-style rewards
+repair it; \citet{bereket2025grpo} document GRPO-induced overconfidence;
+\citet{sun2025context} show rationales shift weight onto context.
+\Cref{thm:eta-bayes} reconciles this literature: in the well-specified or
+low-conflict regime ($\eta\!<\!\bar\eta$) reasoning helps; when conflict
+reduces the safe rate enough, the same update can cross into an
+overshoot-driven saturation regime.
 
 \paragraph{Misspecified Bayes as a template.}
-The theorem-3 mechanism is best understood through classical results on
-misspecified Bayesian updating. Berk established that under misspecification the
-posterior concentrates on a KL projection rather than the truth
-\citep{berk1966}, while Kleijn and van der Vaart made that concentration
-picture explicit for misspecified posteriors \citep{kleijn2006}. Generalized
-Bayes gives the right formal language for reasoning-time updates with an
-effective learning rate $\eta$ \citep{bissiri2016}, and Grünwald--van Ommen
-show how too-aggressive updates can produce hypercompression and
-overconfidence-like failures under misspecification \citep{grunwald2017}. We
-then need an endogenous-evidence account, because CoT traces are produced by
-the same model whose beliefs are being updated; Berk--Nash style results supply
-that bridge \citep{esponda2016,fudenberg2021}. Our contribution is not to
-reprove those results, but to transport them into a reasoning-time arbitration
-setting where the evidence is endogenous and the effective update rate differs
-across conflict families.
+The mechanism rests on classical results: Berk's KL-projection
+concentration~\citep{berk1966}; Kleijn--van der Vaart's nonparametric
+extension~\citep{kleijn2006}; Bissiri--Holmes--Walker's coherent
+generalized-Bayes updates with learning rate
+$\eta$~\citep{bissiri2016}; Gr\"unwald--van Ommen's safe rate
+$\bar\eta$~\citep{grunwald2017}; and the endogenous-evidence Berk--Nash
+results of \citet{esponda2016,fudenberg2021}. We do not reprove these or
+claim the Berk--Nash machinery as novel; we transport it to the LLM CoT
+setting where the trace is generated by the very model whose belief is
+being updated.

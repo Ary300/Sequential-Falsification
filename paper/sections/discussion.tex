@@ -1,0 +1,88 @@
+\section{Discussion}
+\label{sec:discussion}
+
+This work develops a three-theorem account of when an LLM should
+rely on retrieval over its parametric prior.  T1 identifies the
+relevant posterior-predictive/log-linear rule as a
+reliability-weighted geometric mixture
+($w^\star\!=\!\E[r\mid q,c]$); the plug-in shows $+0.083$ regret
+advantage over the strongest heuristic and $+0.043/+0.032/+0.022$
+in powered head-to-heads ($n\!=\!210$).  T2 makes any single
+trust value minimax-suboptimal.  T3 frames RLVR-induced
+overconfidence as a generalized-Bayes overshoot; $\eta$-tempering
+drops Brier $0.903\!\to\!0.505$ and lifts accuracy
+$0.037\!\to\!0.440$ on the worst slice, and the joint RLCR +
+$\eta$ variant is measured ($0.063\!\to\!0.531$ acc;
+\Cref{tab:rlcr-joint-pilot}).
+
+\paragraph{Relation to prior work and future directions.}
+T1's special-cases corollary positions decoder-side methods
+within the geometric-mixture family, with spotlight ordering
+monotone in that position.  T3 reconciles long-CoT calibration
+findings as opposite sides of a regime boundary at
+$\KL(p_\theta\|p_{\ctx})$; the Berk--Nash reading
+(\Cref{prop:berk-nash-reduction}) is literal for the expected update
+operator, with the realized-trajectory bridge left as a tracking
+hypothesis. Follow-ups: estimate sub-family-specific $\Delta_+,\Delta_-$
+on ConflictBank directly; extend \Cref{thm:t1-sufficient} with a Le~Cam
+lower bound; relax T2 to drifting $s(q,c)$; test T3's tracking account
+via online RL.  Closed-model deployment needs top-$k$
+logprobs or constrained resampling
+(App.~\ref{app:closed-model-deployment}).
+
+\paragraph{Pre-registered held-out outcomes (P1, P2, P3).}
+We pre-registered three predictions on two held-out families
+(ClashEval, RAMDocs; full protocol in
+App.~\ref{app:preregistered-heldout}).  \textbf{P1} (T1: the
+geometric-mixture plug-in beats the strongest fixed-trust
+competitor under matched calibration) replicates: $+0.061$ regret
+advantage on the held-out cells with CI strictly above zero.
+\textbf{P2} (T2: every fixed $w_0$ collapses on at least one
+sub-family) replicates: boundary policies fail by
+$\geq\!2$ orders of magnitude on the wave they disagree with.
+\textbf{P3} (T3: binary saturation-vs-recovery classification
+transfers across families) does \emph{not} fully replicate as a
+binary classifier---it disagrees with the held-out reference on
+$2/8$ marked cells---but the partial-order/ranking restatement
+does: high-regime vs.\ control-regime mean separation $+0.2302$
+vs.\ $+0.0179$, pairwise AUC $1.0$
+(App.~\ref{app:t3-ordering-check}).  We report this as a real
+limit on T3's binary classifier and an unconditional pass on the
+ranking version, not a refutation of the safe-rate mechanism.
+
+\paragraph{Closed-model and multilingual portability.}
+The Bayes proxy retains its ordering on closed-weight production
+endpoints---GPT-4o-mini, Claude-3.5-Haiku, and Gemini-1.5-Flash
+all show $+0.055$ to $+0.060$ regret advantage with the geometric
+mixture computed from top-$k$ logprobs or constrained resampling
+(App.~\ref{app:closed-model-deployment}).  Six multilingual T3
+runs across five languages (Spanish, French, German, Hindi,
+Japanese) on WikiContradict show a mean conflict-gap of $+0.001$,
+matching the English-only matched-base RL contrast and ruling out
+a multilingual-generation alternative explanation
+(App.~\ref{app:multilingual}).
+
+\paragraph{Limitations.}
+T1's geometric-mixture optimality is \emph{within the log-linear
+family} (\Cref{app:assumption-loglinear}); the Pinsker step in the
+excess-risk bound is now constant-tight up to a factor of $2$ from
+the matched Le~Cam lower bound (App.~\ref{app:pinsker-detail},
+\Cref{thm:lecam-lower}); T2's $\Delta_+,\Delta_-$ are estimated
+per sub-family on ConflictBank with the Yao bound matching realized
+fixed-$w_0$ regret within $\pm 0.05$ on every sub-family
+(\Cref{tab:per-subfamily-delta}).  T3's safe-rate
+conclusion is a conditional statement on the stable-answer subset
+($\sim\!8\%$ of conflict cells at $K\!=\!1024$, $\sim\!36\%$ across
+the last two checkpoints; App.~\ref{app:t3-empirical-audits});
+the realized-trajectory tracking of the expected operator
+$\Phi_\eta$ is now \emph{proved} for temperature-$0$ greedy decoding
+(\Cref{thm:tracking-tau0}, the regime all matched-base RL
+experiments use); for $\tau\!>\!0$ we prove expected and
+high-probability tracking at rate $O(\sqrt{V_t})$ on the
+stable-answer subset (\Cref{thm:tracking-tau-pos}), with only
+almost-sure pathwise tracking remaining open.  The matched-base RL contrast sits on Llama-3.1-8B; Qwen-14B v6/v7
+and three non-RL families control the long-CoT confound, the
+within-Llama SFT row controls for ``extra training tokens''
+(GRPO$-$SFT separation $+0.315$, SFT gap CI crosses zero), and a
+second matched-base RL pair on a different family is currently
+running on DeepSeek-R1-Distill-Llama-8B.

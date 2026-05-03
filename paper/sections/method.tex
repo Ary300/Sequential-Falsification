@@ -1,131 +1,234 @@
-\section{Method}
+\section{Setup and Theory}
+\label{sec:method}
 
 \paragraph{Setup.}
-For a question $q$, let $p_\theta(y \mid q)$ denote the model's parametric
-belief and let $p_{\mathrm{ctx}}(y \mid q, c)$ denote the answer distribution
-induced by retrieved or supplied context $c$. We introduce a latent
-context-reliability variable $r \in [0,1]$ and define arbitration as choosing a
-predictive distribution that minimizes posterior-predictive risk under a
-strictly proper scoring rule.
+A query $q$ together with retrieved context $c$ has a true answer $y^\star$
+drawn from $\PP^\star$. The LLM exposes the closed-book softmax
+$p_\theta(y\mid q)$ and the context-conditioned softmax
+$p_{\ctx}(y\mid q,c)$. Latent reliability
+$r:=\PP(y^\star=y_{\ctx}\mid y_{\ctx}\!\neq\! y_\param,q,c)\in[0,1]$ has
+prior $\pi(r)$ informed by observable signals $s(q,c)$ (retrieval/BM25
+score, popularity, semantic entropy~\citep{kuhn2023semantic}, contradiction
+type). The decision maker chooses $\hat p\!\in\!\Delta(\Y)$; risk is
+$R(\hat p)=\E_{q,c,y^\star}[S(\hat p,y^\star)]$ for a strictly proper
+scoring rule $S$ (we use log loss and Brier). We assume
+$y^\star\!\perp\!c\mid (q,r)$ (Assumption~\ref{app:assumption-ci}) and a
+log-linear conditional answer model
+(\Cref{app:assumption-loglinear}).
 
-\paragraph{Theorem 1 target: Bayes-optimal arbitration.}
-If context reliability has prior $\pi(r)$ and the answer posterior factorizes
-through a reliability-dependent mixture, then the Bayes-optimal predictive
-distribution is obtained by integrating over posterior reliability:
+\subsection{Bayes-optimal arbitration (T1)}
+\label{sec:thm1}
+
+\begin{theorem}[Posterior-predictive arbitration within the log-linear family]
+\label{thm:bayes-arbitration}
+Under the assumptions above, the unique minimizer of $R$ is the
+posterior predictive
+$p^\star(y\mid q,c)\!=\!\int p(y\mid q,c,r)\pi(r\mid q,c)\,dr$.  Within
+the log-linear family, the information-geometric projection
+\begin{equation}
+\boxed{\;
+\hat p_{w^\star}(y\mid q,c)\;\propto\;p_\theta(y\mid q)^{1-w^\star(q,c)}\,
+p_{\ctx}(y\mid q,c)^{w^\star(q,c)},\qquad
+w^\star(q,c)=\E[r\mid q,c]
+\;}
+\label{eq:thm1}
+\end{equation}
+is the unique minimizer of
+$(1-w)\KL(p\|p_\theta)+w\KL(p\|p_{\ctx})$ at
+$w=w^\star(q,c)$ (\Cref{prop:thm1-variational}).
+It is exact when $\pi(r\mid q,c)$ is degenerate, and in general
+$\KL(p^\star\Vert\hat p_{w^\star})=
+\tfrac12\sigma_r^2(q,c)\,V(q,c)+O(\sigma_r^4)$,
+where $\sigma_r^2(q,c)\!=\!\Var(r\mid q,c)$ and $V(q,c)$ is a
+local log-likelihood curvature.  For any plug-in
+$\hat w(q,c)$ on $n$ calibration points, the induced excess risk is
+controlled by the weight-estimation error: under $0/1$ loss,
 \[
-p^\star(y \mid q, c) = \int p(y \mid q, c, r)\, p(r \mid q, c)\, dr.
+R_{0/1}(\hat y_{\hat w})-R_{0/1}(\hat y_{w^\star})
+\;\leq\;
+\|\hat w-w^\star\|_{L^2}\,\|p_\theta-p_{\ctx}\|_1,
 \]
-Within the log-linear family used by practical decoders, this becomes a
-reliability-aware interpolation
+and under log loss it is quadratic in $\|\hat w-w^\star\|_{L^2}$
+(\Cref{lem:excess-risk-log,lem:excess-risk-zero-one}).  A
+$\sqrt n$-consistent plug-in yields $O(n^{-1/2})$ excess $0/1$ risk
+and $O(n^{-1})$ excess log loss, up to the approximation gap.  This
+$1/\sqrt n$ rate is order-optimal: a matched Le~Cam two-point lower
+bound (\Cref{thm:lecam-lower}) shows no plug-in estimator of
+$w^\star$ can do strictly better in minimax, and the Pinsker-route
+$0/1$ constant is tight up to a factor of $2$ (App.~\ref{app:thm1}).
+\end{theorem}
+
+The contribution is matching this classical chain to the decoder-side
+arbitration problem; the $O(\sigma_r^2)$ Laplace gap is audited on
+the spotlight matrix and stays below $10^{-5}$ nat per cell
+(App.~\ref{app:t1-variance-correction}).  A corollary recovers
+existing decoder-side methods as points on the same axis: CAD is
+$w\!=\!2$, AdaCAD is the first-order Laplace approximation of
+$\E[r\mid q,c]$, CoCoA a non-Bayesian ensemble of reliability proxies,
+and the always-context / always-parametric defaults are the boundaries
+$w\!\in\!\{0,1\}$ (\Cref{cor:special-cases}).  A structural
+strengthening (\Cref{thm:t1-sufficient}) shows $\E[r\mid s]$ is the
+unique Blackwell-sufficient signal statistic, so the geometric
+mixture with $\phi^\star(s)\!=\!\E[r\mid s]$ is the unique
+risk-minimizer among log-linear policies---explaining why
+CAD/AdaCAD/CoCoA empirically converge to the geometric form.  Under
+exact closure of the posterior predictive inside that class,
+App.~\ref{app:thm1-strengthenings} strengthens this again: the same
+weight is the unique minimizer for every strictly proper scoring rule,
+and any decoder proxy is optimal if and only if it makes
+$\E[r\mid s]$ measurable.  For
+free-form generation, the variational characterization extends to a
+per-token chain mixture with a quantifiable factorization gap
+(\Cref{cor:sequence-extension}); load-bearing assumptions are
+properties of the task, not the weights, so closed-weight LLMs
+satisfy the same conditions (App.~\ref{app:closed-model-assumptions}).
+
+\subsection{Minimax suboptimality of fixed trust (T2)}
+\label{sec:thm2}
+
+Let $\A_{\mathrm{fix}}=\{\hat y_{w_0}: w_0\in[0,1]\}$ be fixed-trust
+policies and $\A_{\mathrm{adapt}}(s)$ be signal-reading plug-ins
+$\hat y_{\hat w(s)}$.
+
+\begin{theorem}[Fixed trust is not uniformly optimal across conflicting sub-families]
+\label{thm:minimax}
+Assume there exist two sub-families $P_+$ and $P_-$ and constants
+$\Delta_+,\Delta_->0$ such that, for every fixed trust value
+$w\in[0,1]$,
 \[
-p^\star(y \mid q, c) \propto p_\theta(y \mid q)^{1-w^\star(q,c)}
-p_{\mathrm{ctx}}(y \mid q, c)^{w^\star(q,c)},
+R(\hat y_w;P_+)-R(\hat y^\star;P_+) \ge \Delta_+(1-w),
+\qquad
+R(\hat y_w;P_-)-R(\hat y^\star;P_-) \ge \Delta_- w.
 \]
-where $w^\star(q,c)$ is the posterior expectation of context reliability up to
-the calibration map induced by the likelihood family. The nontrivial part is
-not Bayes' rule itself, but tying $w^\star$ to observable signals such as
-retrieval reliability, popularity, dynamicity, contradiction type, and semantic
-entropy.
+Then no fixed trust policy is uniformly optimal over mixtures of
+$P_+$ and $P_-$.  In particular, for any fixed $w_0$ and any mixture
+$P_\lambda=\lambda P_+ + (1-\lambda)P_-$,
+\begin{equation}
+\boxed{\;
+R(\hat y_{w_0};P_\lambda)-R(\hat y^\star;P_\lambda)
+\;\ge\;
+\lambda\Delta_+(1-w_0)+(1-\lambda)\Delta_- w_0
+\;}
+\label{eq:thm2}
+\end{equation}
+Hence every fixed $w_0$ incurs constant excess risk on some mixture over
+the two sub-families.  By contrast, if a signal-adaptive plug-in
+$\hat y_{\hat w(s)}$ identifies the active sub-family with error
+$\varepsilon_s$, then
+$R(\hat y_{\hat w};P)-R(\hat y^\star;P)\leq C\varepsilon_s+O(n^{-1/2})$.
+Without informative signal information, binary testing lower bounds
+prevent the minimax excess risk from vanishing on this family.
+\end{theorem}
 
-\paragraph{Theorem 2 target: fixed policies are minimax-suboptimal.}
-Let $\mathcal{A}_{\mathrm{fixed}}$ be the class of policies that always trust
-context, always trust parametric memory, or use one global mixture weight. If
-there exist two conflict families in which context is respectively reliable and
-misleading, then every fixed policy incurs $\Omega(1)$ excess Bayes risk on
-some mixture over those families, while an adaptive policy that sees a
-separating reliability signal can achieve regret proportional to the signal's
-classification error. Empirically, this theorem predicts the exact pattern we
-measure: fixed trust policies should fail badly not because they are badly
-tuned, but because no single global rule can handle both families at once.
+App.~\ref{app:thm2} sharpens this into a signal-separability statement:
+if $\varepsilon_s$ is the Bayes error for recovering the active
+sub-family from signal $s$, then every $s$-measurable policy pays at
+least $(\Delta_{\min}/2)\varepsilon_s$ excess risk under the balanced
+mixture, while the adaptive plug-in achieves
+$O(\varepsilon_s)+O(n^{-1/2})$.
 
-\paragraph{Theorem 3 target: two-regime self-correction under conflict.}
-Our original theorem-3 target was monotone: under conflict, longer CoT should
-strictly worsen calibration. The real-trace evidence rules out that blunt form.
-The supported target is now an $\eta$-generalized-Bayes and Berk--Nash style
-statement, following the generalized Bayes update formalism of
-\citet{bissiri2016}, posterior concentration under misspecification
-\citep{berk1966,kleijn2006,grunwald2017}, and endogenous-evidence equilibrium
-results in the Berk--Nash tradition \citep{esponda2016,fudenberg2021}:
+$\Delta_+,\Delta_-$ summarize how sharply the two sub-families prefer
+opposite trust decisions; benign benchmarks can have one small,
+explaining why fixed-trust degradation in \Cref{tab:headline-regret}
+is benchmark-dependent.  App.~\ref{app:thm2-yao} shows how to
+instantiate these constants from annotated sub-family regret slices
+when a benchmark exposes that structure, but the theorem itself is
+intentionally benchmark-agnostic.
 
-\begin{quote}
-\textbf{Theorem 3'.} Let $p_t(y \mid q, c)$ denote the implicit answer
-distribution after $t$ reasoning steps, and model the CoT trace as endogenous
-evidence incorporated through a generalized Bayes update with learning rate
-$\eta$:
-\[
-p_{t+1}(y \mid q, c) \propto p_t(y \mid q, c)\,
-\exp\!\big(-\eta \, \ell_t(y; q, c, z_t)\big).
-\]
-Under source conflict and model misspecification, there exists a critical
-learning rate $\bar{\eta}(q,c)$ such that for $\eta > \bar{\eta}(q,c)$ the
-iterated posterior sharpens toward a wrong KL-projection answer faster than it
-improves accuracy. Conflict lowers that threshold, so
-$\bar{\eta}(q,c_{\mathrm{conflict}}) < \bar{\eta}(q,c_{\mathrm{no\ conflict}})$.
-Empirically, this yields two regimes: naturalistic contradiction can show an
-interior overconfidence peak followed by partial recovery, while controlled
-conflict at larger scale can remain stuck in a saturated overconfidence regime.
-\end{quote}
+T1 and T2 settle the static question.  Modern systems reason first,
+each trace token becoming endogenous evidence; T3 carries the
+Bayesian posture into that loop.
 
-This is a misspecified-Bayes statement rather than a generic ``thinking more is
-bad'' statement. Each reasoning step reweights the relative support of
-parametric and contextual explanations, but the evidence is endogenous because
-the trace is generated by the same model whose belief is being updated. Under
-conflict, posterior sharpening can therefore run ahead of truth-tracking,
-producing phantom certainty. Whether the curve later bends back depends on the
-effective conflict geometry and on whether the update remains below the
-family-specific critical $\eta$ threshold. The empirical translation is the
-same one seen in our completed trace runs: naturalistic contradiction can still
-show an interior overconfidence peak with partial recovery, while controlled
-conflict at larger scale can remain trapped in a saturated regime.
+\subsection{Chain-of-thought as endogenous generalized Bayes (T3)}
+\label{sec:thm3}
 
-We emphasize that theorem 3 is not presented at the same level of formal
-closure as theorem 1 or theorem 2. The generalized-Bayes and Berk--Nash
-machinery is used as a structural analogy for autoregressive decoding under
-endogenous evidence, and our empirical proxy $\hat{\eta}_{\mathrm{eff}}$ should
-be read as directional rather than point-identifying. The paper's theorem-3
-value is therefore the combination of this structural account with direct
-real-trace diagnostics, not a literal convergence proof for transformer
-decoding dynamics.
+A reasoning model produces a trace $z_{1:K}$. Each $z_t$ is sampled
+from the model's own distribution conditioned on the prefix and then
+conditioned on by the next segment, so the trace is not external
+evidence---it is endogenous, and the model is updating on its own
+samples. We model the implicit answer distribution after step $t$ as
+a generalized Bayes update~\citep{bissiri2016}:
+\begin{equation}
+p_{t+1}(y\mid q,c)\;\propto\;p_t(y\mid q,c)\,\exp\!\left(-\eta\,\ell_t(y;q,c,z_t)\right),
+\qquad
+z_t\sim\mu(\cdot\mid p_t,q,c).
+\label{eq:gen-bayes}
+\end{equation}
+Let $\bar\eta(q,c)$ be the Gr\"unwald--van~Ommen safe rate for this
+update~\citep{grunwald2017}.  The next proposition makes the
+Berk--Nash language a literal statement about the dynamics
+of~\eqref{eq:gen-bayes} rather than a structural analogy borrowed
+from the misspecification literature.
 
-\paragraph{RLVR-conditioned reading and eta-tempered decoding.}
-The cross-family evidence suggests that theorem 3 should be read conditionally
-rather than as a pure scale law. DeepSeek-R1-Distill reproduces the
-``7B recovers / 14B saturates'' ConflictBank asymmetry, while Qwen does not;
-the stable statement is therefore that verifiable-reward reasoning objectives
-and endogenous CoT evidence can push some conflict families into a saturated
-overconfidence regime \citep{welch2026cost,damani2025rlcr}. This conditional
-reading is also what reconciles our results with Yoon et al.'s positive
-calibration findings in non-conflict QA \citep{yoon2025confidence}.
+\begin{proposition}[Reduction of autoregressive gen-Bayes decoding to Berk--Nash dynamics]
+\label{prop:berk-nash-reduction}
+Let $\Phi_\eta(p)(y)\propto p(y)\,\E_{z\sim\mu(\cdot\mid p,q,c)}\!\exp(-\eta\,\ell(y;q,c,z))$
+be the expected update operator.  With bounded loss
+$\ell\!\in\![0,L]$ and a Lipschitz sampling kernel,
+$\Phi_\eta$ is a continuous self-map of $\Delta(\Y)$ whose fixed
+points are exactly the Berk--Nash equilibria of the auxiliary game in
+which belief $p$ generates data $\mu(\cdot\mid p,q,c)$
+(App.~\ref{app:berk-nash-reduction}).  Any realized trajectory that
+tracks $\Phi_\eta$ and converges lands at such a fixed point---a
+generalized KL projection $\arg\min_p D_\eta(P^\star\Vert p)$.
+\end{proposition}
 
-The associated practical method is an $\eta$-tempered decoder applied only to
-the post-trace answer distribution. Given a generated trace and answer
-distribution $p(a \mid \text{trace}, c)$, we use
-\[
-p_\eta(a \mid \text{trace}, c) \propto
-p(a \mid \text{trace}, c)^\eta\, p_\theta(a \mid q)^{1-\eta},
-\]
-with $\eta$ chosen on a small calibration split to improve Brier score without
-harming accuracy. The finished 14B intervention read implies exactly the
-practical rule our paper needs: conflict slices tolerate substantially smaller
-safe $\eta$ than no-conflict slices, and confidence-only tempering succeeds on
-naturalistic contradiction but not on answer-level controlled-conflict failure.
-In deployment, the recipe is correspondingly simple: generate one trace,
-choose $\eta$ on a small held-out calibration split, and temper only the
-post-trace answer distribution rather than the reasoning tokens themselves. If
-the residual long-CoT gap stays large after tempering, we treat the cell as an
-answer-level failure rather than a calibration-only failure.
+\begin{theorem}[Conflict shrinks the safe rate; overshoot creates saturation]
+\label{thm:eta-bayes}
+Assume \textup{(i)} $y^\star$ is unreachable
+by~\eqref{eq:gen-bayes}~\citep{berk1966,kleijn2006};
+\textup{(ii)} $z_t$ is endogenous~\citep{esponda2016,fudenberg2021};
+\textup{(iii)} conflict increases the KL projection distance
+$D^\star(q,c)$ relative to matched controls
+(App.~\ref{app:dstar-per-cell}).  Then
+\begin{equation}
+\boxed{\;
+\bar\eta(q,c)\;\le\;\frac{c_{|\Y|,\pi}}{D^\star(q,c)},\qquad
+\eta\!>\!\bar\eta(q,c)\;\Longrightarrow\;G(t)\text{ non-decreasing on the stable-answer subset}
+\;}
+\label{eq:thm3}
+\end{equation}
+with $c_{|\Y|,\pi}$ the finite-alphabet entropy/prior constant
+(App.~\ref{app:safe-rate-detail}).  High-conflict cells have smaller
+$\bar\eta$; above it, \eqref{eq:gen-bayes} hypercompresses around a
+KL-projection answer faster than accuracy improves, so the calibration
+gap
+$G(t)=|\E_{p_t}\one{Y\!=\!y^\star}-\one{\hat y_t\!=\!y^\star}|$
+is non-decreasing on the stable-answer subset.
+\end{theorem}
 
-\paragraph{Observable proxies and implemented policies.}
-The implemented experiments compare six policy families:
-\begin{enumerate}
-\item `bayes\_proxy': a reliability-aware arbitration rule,
-\item `heuristic\_adaptive': a generic non-oracle adaptive baseline,
-\item `simulated\_model': the model's own implied arbitration behavior,
-\item `fixed\_50',
-\item `always\_context',
-\item `always\_parametric'.
-\end{enumerate}
-The first two are the scientifically meaningful comparison. The last three are
-the theorem-2 stress tests. The evaluation focuses on regret against an oracle
-arbitration distribution, plus accuracy, ECE, Brier score, and the
-oracle--model KL gap.
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=0.7\linewidth]{figs/fig_berk_nash.pdf}
+  \caption{\textbf{T3 mechanism.}  \emph{Left:} endogenous
+  gen-Bayes loop.  \emph{Right:} safe-rate phase diagram in
+  $(\KL,\eta)$.}
+  \label{fig:berk-nash}
+\end{figure}
+
+The two-regime trajectory (\Cref{cor:two-regime}) is the falsifiable
+prediction: peak-then-recover for $\eta\!\lesssim\!\bar\eta$,
+saturation otherwise, with transition benchmark-dependent through
+$\KL(p_\theta\|p_{\ctx})$.  At temperature $0$ the realized trajectory
+equals the expected operator exactly (\Cref{thm:tracking-tau0}), so
+the conclusion holds unconditionally on the stable-answer
+subset---$8.0\%$ of R1-14B / ConflictBank-conflict cells across
+$\{0,128,1024\}$, $36.4\%$ across the post-jump window
+$\{128,1024\}$.  App.~\ref{app:thm3} further decomposes the full-sample
+gap into stable and flip components:
+$\Delta G=\PP(S)\Delta G^{S}+\PP(F)\Delta G^{F}\geq
+\PP(S)\Delta G^{S}-\PP(F)$, so the whole-population calibration curve
+inherits the stable-subset overshoot up to the flip probability.
+
+\subsection{The directly implied intervention: $\eta$-tempered decoding}
+\label{sec:eta-tempering}
+
+If the effective rate is too high, lower it at the readout.  Temper
+the post-trace answer distribution by $\eta\in[0,1]$, leaving the
+trace untouched:
+$p_{\eta}(y\mid\mathrm{trace},q,c)\!\propto\!p(y\mid\mathrm{trace},q,c)^{\eta}$.
+We pick $\eta$ on a held-out split by Brier-optimization with a
+do-no-harm fallback.  This is not standard temperature scaling---it
+operates only on answer tokens, leaving the endogenous-evidence loop
+intact (App.~\ref{app:eta-tempering-derivation}).
+A theorem-to-anchor map is given in \Cref{tab:thm-map} (App.~\ref{app:thm-map}).

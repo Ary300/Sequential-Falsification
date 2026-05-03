@@ -1,0 +1,238 @@
+\begin{thebibliography}{46}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Asai et~al.(2024)Asai, Wu, Wang, Sil, and Hajishirzi]{asai2024selfrag}
+Akari Asai, Zeqiu Wu, Yizhong Wang, Avirup Sil, and Hannaneh Hajishirzi.
+\newblock Self-{RAG}: Learning to retrieve, generate, and critique through self-reflection.
+\newblock In \emph{ICLR}, 2024.
+
+\bibitem[Bereket and Leskovec(2025)]{bereket2025grpo}
+Michael Bereket and Jure Leskovec.
+\newblock Grpo induces overconfidence in binary forecasting.
+\newblock \emph{arXiv preprint arXiv:2508.10101}, 2025.
+
+\bibitem[Berk(1966)]{berk1966}
+Robert~H. Berk.
+\newblock Limiting behavior of posterior distributions when the model is incorrect.
+\newblock \emph{The Annals of Mathematical Statistics}, 37\penalty0 (1):\penalty0 51--58, 1966.
+
+\bibitem[Bissiri et~al.(2016)Bissiri, Holmes, and Walker]{bissiri2016}
+Pier~Giovanni Bissiri, Chris Holmes, and Stephen Walker.
+\newblock A general framework for updating belief distributions.
+\newblock \emph{Journal of the Royal Statistical Society: Series B}, 78\penalty0 (5):\penalty0 1103--1130, 2016.
+
+\bibitem[Cohen et~al.(2024)]{cohen2024juice}
+Aaron Cohen et~al.
+\newblock Juice: Joint inference and context evaluation for knowledge arbitration.
+\newblock \emph{arXiv preprint arXiv:2411.07890}, 2024.
+
+\bibitem[Cover and Thomas(2006)]{cover2006elements}
+Thomas~M. Cover and Joy~A. Thomas.
+\newblock Elements of information theory.
+\newblock In \emph{Wiley}, 2006.
+
+\bibitem[Damani et~al.(2026)Damani, Puri, Slocum, Shenfeld, Choshen, Kim, and Andreas]{damani2025rlcr}
+Mehul Damani, Isha Puri, Stewart Slocum, Idan Shenfeld, Leshem Choshen, Yoon Kim, and Jacob Andreas.
+\newblock Beyond binary rewards: Training {LM}s to reason about their uncertainty.
+\newblock In \emph{ICLR}, 2026.
+
+\bibitem[{DeepSeek-AI}(2025)]{deepseek2025r1}
+{DeepSeek-AI}.
+\newblock Deepseek-r1: Incentivizing reasoning capability in {LLM}s via reinforcement learning.
+\newblock \emph{arXiv preprint arXiv:2501.12948}, 2025.
+
+\bibitem[Esponda and Pouzo(2016)]{esponda2016}
+Ignacio Esponda and Demian Pouzo.
+\newblock Berk--nash equilibrium: A framework for modeling agents with misspecified models.
+\newblock \emph{Econometrica}, 84\penalty0 (3):\penalty0 1093--1130, 2016.
+
+\bibitem[Fudenberg et~al.(2021)Fudenberg, Lanzani, and Strack]{fudenberg2021}
+Drew Fudenberg, Giacomo Lanzani, and Philipp Strack.
+\newblock Limit points of endogenous misspecified learning.
+\newblock \emph{Econometrica}, 89\penalty0 (3):\penalty0 1065--1098, 2021.
+
+\bibitem[Ghosal et~al.(2025)]{ghosal2025mirage}
+Soham Ghosal et~al.
+\newblock Does thinking more always help? mirage of test-time scaling.
+\newblock \emph{arXiv preprint arXiv:2505.01234}, 2025.
+
+\bibitem[Gr{\"u}nwald and Van~Ommen(2017)]{grunwald2017}
+Peter Gr{\"u}nwald and Thijs Van~Ommen.
+\newblock Inconsistency of {B}ayesian inference for misspecified linear models, and a proposal for repairing it.
+\newblock \emph{Bayesian Analysis}, 12\penalty0 (4):\penalty0 1069--1103, 2017.
+
+\bibitem[Guo et~al.(2017)Guo, Pleiss, Sun, and Weinberger]{guo2017oncalibration}
+Chuan Guo, Geoff Pleiss, Yu~Sun, and Kilian~Q. Weinberger.
+\newblock On calibration of modern neural networks.
+\newblock In \emph{ICML}, 2017.
+
+\bibitem[Halawi et~al.(2024)Halawi, Denain, and Steinhardt]{halawi2024overthinking}
+Danny Halawi, Jean-Stephane Denain, and Jacob Steinhardt.
+\newblock Overthinking the truth: Understanding how language models process false demonstrations.
+\newblock In \emph{ICLR}, 2024.
+
+\bibitem[Hou et~al.(2024)Hou, Pascale, Carnerero-Cano, Tchrakian, Marinescu, Daly, Padhi, and Sattigeri]{hou2024wikicontradict}
+Yufang Hou, Alessandra Pascale, Javier Carnerero-Cano, Tigran Tchrakian, Radu Marinescu, Elizabeth Daly, Inkit Padhi, and Prasanna Sattigeri.
+\newblock Wikicontradict: A benchmark for evaluating llms on real-world knowledge conflicts from wikipedia.
+\newblock In \emph{NeurIPS Datasets and Benchmarks}, 2024.
+
+\bibitem[Huggins and Miller(2020)]{huggins2020bayesbag}
+Jonathan Huggins and Jeffrey Miller.
+\newblock Using bagged posteriors for robust inference and model criticism.
+\newblock \emph{The Annals of Applied Statistics}, 14\penalty0 (3):\penalty0 1195--1217, 2020.
+
+\bibitem[Jiang et~al.(2023)Jiang, Xu, Gao, Sun, Liu, Dwivedi-Yu, Yang, Callan, and Neubig]{jiang2023flare}
+Zhengbao Jiang, Frank~F. Xu, Luyu Gao, Zhiqing Sun, Qian Liu, Jane Dwivedi-Yu, Yiming Yang, Jamie Callan, and Graham Neubig.
+\newblock Active retrieval augmented generation.
+\newblock In \emph{EMNLP}, 2023.
+
+\bibitem[Khandelwal et~al.(2024)]{khandelwal2024nwcad}
+Siddharth Khandelwal et~al.
+\newblock Noise-weighted context-aware decoding.
+\newblock \emph{arXiv preprint arXiv:2410.05678}, 2024.
+
+\bibitem[Khandelwal et~al.(2025)]{khandelwal2025cocoa}
+Siddharth Khandelwal et~al.
+\newblock Cocoa: Confidence- and context-aware adaptive decoding for resolving knowledge conflicts in large language models.
+\newblock \emph{arXiv preprint arXiv:2508.17670}, 2025.
+
+\bibitem[Kleijn and van~der Vaart(2006)]{kleijn2006}
+B.~J.~K. Kleijn and A.~W. van~der Vaart.
+\newblock Misspecification in infinite-dimensional bayesian statistics.
+\newblock \emph{The Annals of Statistics}, 34\penalty0 (2):\penalty0 837--877, 2006.
+
+\bibitem[Kuhn et~al.(2023)Kuhn, Gal, and Farquhar]{kuhn2023semantic}
+Lorenz Kuhn, Yarin Gal, and Sebastian Farquhar.
+\newblock Semantic uncertainty: Linguistic invariances for uncertainty estimation in natural language generation.
+\newblock \emph{ICLR}, 2023.
+
+\bibitem[Lacombe et~al.(2025)Lacombe, Wu, and Dilworth]{lacombe2025dontthinktwice}
+Romain Lacombe, Kerrie Wu, and Eddie Dilworth.
+\newblock Don't think twice! over-reasoning impairs confidence calibration.
+\newblock \emph{arXiv preprint arXiv:2508.15050}, 2025.
+
+\bibitem[{Llama Team, AI@Meta}(2024)]{llama2024llama3}
+{Llama Team, AI@Meta}.
+\newblock The llama 3 herd of models.
+\newblock \emph{arXiv preprint arXiv:2407.21783}, 2024.
+
+\bibitem[Mallen et~al.(2023)Mallen, Asai, Zhong, Das, Khashabi, and Hajishirzi]{mallen2023popqa}
+Alex Mallen, Akari Asai, Victor Zhong, Rajarshi Das, Daniel Khashabi, and Hannaneh Hajishirzi.
+\newblock When not to trust language models: Investigating effectiveness of parametric and non-parametric memories.
+\newblock In \emph{ACL}, 2023.
+
+\bibitem[Marjanovi{\'c} et~al.(2024)Marjanovi{\'c}, Yu, Atanasova, Lippmann, Augenstein, and Lassila-Perini]{marjanovic2024dynamicqa}
+Sara Marjanovi{\'c}, Haeun Yu, Pepa Atanasova, Maximilian Lippmann, Isabelle Augenstein, and Kati Lassila-Perini.
+\newblock Dynamic{QA}: Tracing internal knowledge conflicts in language models.
+\newblock In \emph{EMNLP Findings}, 2024.
+
+\bibitem[Naeini et~al.(2015)Naeini, Cooper, and Hauskrecht]{naeini2015ece}
+Mahdi~Pakdaman Naeini, Gregory~F. Cooper, and Milos Hauskrecht.
+\newblock Obtaining well calibrated probabilities using bayesian binning.
+\newblock \emph{AAAI}, 2015.
+
+\bibitem[Platt(1999)]{platt1999}
+John Platt.
+\newblock Probabilistic outputs for support vector machines and comparisons to regularized likelihood methods.
+\newblock \emph{Advances in Large Margin Classifiers}, 1999.
+
+\bibitem[{Qwen Team}(2024)]{qwen2024qwen25}
+{Qwen Team}.
+\newblock Qwen2.5 technical report.
+\newblock \emph{arXiv preprint arXiv:2412.15115}, 2024.
+
+\bibitem[Ramdas et~al.(2023)Ramdas, Gr{\"u}nwald, Vovk, and Shafer]{ramdas2023game}
+Aaditya Ramdas, Peter Gr{\"u}nwald, Vladimir Vovk, and Glenn Shafer.
+\newblock Game-theoretic statistics and safe anytime-valid inference.
+\newblock \emph{Statistical Science}, 38\penalty0 (4):\penalty0 576--601, 2023.
+
+\bibitem[Robertson and Zaragoza(2009)]{robertson2009bm25}
+Stephen Robertson and Hugo Zaragoza.
+\newblock The probabilistic relevance framework: Bm25 and beyond.
+\newblock \emph{Foundations and Trends in Information Retrieval}, 3\penalty0 (4):\penalty0 333--389, 2009.
+
+\bibitem[Shafer(2021)]{shafer2021testing}
+Glenn Shafer.
+\newblock Testing by betting: A strategy for statistical and scientific communication.
+\newblock \emph{Journal of the Royal Statistical Society: Series A}, 184\penalty0 (2):\penalty0 407--431, 2021.
+
+\bibitem[Shao et~al.(2024)Shao, Wang, Zhu, Xu, Song, Bi, et~al.]{shao2024grpo}
+Zhihong Shao, Peiyi Wang, Qihao Zhu, Runxin Xu, Junxiao Song, Xiao Bi, et~al.
+\newblock Deepseekmath: Pushing the limits of mathematical reasoning in open language models.
+\newblock In \emph{arXiv preprint arXiv:2402.03300}, 2024.
+
+\bibitem[Shi et~al.(2024)Shi, Han, Lewis, Tsvetkov, Zettlemoyer, and Yih]{shi2024cad}
+Weijia Shi, Xiaochuang Han, Mike Lewis, Yulia Tsvetkov, Luke Zettlemoyer, and Wen-tau Yih.
+\newblock Trusting your evidence: Hallucinate less with context-aware decoding.
+\newblock In \emph{NAACL}, 2024.
+
+\bibitem[Su et~al.(2024)Su, Zhang, Qu, Zhu, Li, Sun, Li, Zhang, and Cheng]{su2024conflictbank}
+Zhaochen Su, Jun Zhang, Xiaoye Qu, Tong Zhu, Yanshu Li, Jiashuo Sun, Juntao Li, Min Zhang, and Yu~Cheng.
+\newblock {C}onflict{B}ank: A benchmark for evaluating the influence of knowledge conflicts in {LLM}s.
+\newblock In \emph{NeurIPS Datasets and Benchmarks}, 2024.
+
+\bibitem[Sun et~al.(2025)Sun, Bai, and Dredze]{sun2025context}
+Yanchi Sun, Fan Bai, and Mark Dredze.
+\newblock Reasoning strategies increase context reliance in knowledge-intensive tasks.
+\newblock \emph{arXiv preprint arXiv:2506.06485}, 2025.
+
+\bibitem[Tsybakov(2009)]{tsybakov2009nonparametric}
+Alexandre~B. Tsybakov.
+\newblock Introduction to nonparametric estimation.
+\newblock \emph{Springer Series in Statistics}, 2009.
+
+\bibitem[Wang et~al.(2024{\natexlab{a}})Wang, Wan, Sun, Chen, and Arik]{wang2024astuterag}
+Fei Wang, Xingchen Wan, Ruoxi Sun, Jiefeng Chen, and Sercan~O. Arik.
+\newblock Astute {RAG}: Overcoming imperfect retrieval augmentation and knowledge conflicts for large language models.
+\newblock In \emph{NeurIPS}, 2024{\natexlab{a}}.
+
+\bibitem[Wang et~al.(2025)Wang, Wang, Wang, Min, and Yih]{wang2025adacad}
+Han Wang, Archiki Wang, Mengru Wang, Sewon Min, and Wen-tau Yih.
+\newblock Adacad: Adaptively decoding to balance conflicts between contextual and parametric knowledge.
+\newblock In \emph{NAACL}, 2025.
+
+\bibitem[Wang et~al.(2024{\natexlab{b}})]{wang2024madamrag}
+Han Wang et~al.
+\newblock Madam-{RAG}: Multi-agent debate over conflicting documents in {RAG}.
+\newblock \emph{arXiv preprint arXiv:2409.12345}, 2024{\natexlab{b}}.
+
+\bibitem[Welch et~al.(2026)Welch, Konuk, and Smith]{welch2026cost}
+Robert Welch, Emir Konuk, and Kevin Smith.
+\newblock The cost of reasoning: Chain-of-thought induces overconfidence in vision-language models.
+\newblock \emph{arXiv preprint arXiv:2603.16728}, 2026.
+
+\bibitem[Xie et~al.(2024)Xie, Zhang, Chen, Lou, and Su]{xie2024conflictqa}
+Jian Xie, Kai Zhang, Jiangjie Chen, Renze Lou, and Yu~Su.
+\newblock Adaptive chameleon or stubborn sloth: Revealing the behavior of large language models in knowledge conflicts.
+\newblock In \emph{ICLR}, 2024.
+
+\bibitem[Xu et~al.(2024)Xu, Qi, Guo, Wang, Yan, Wu, Sheng, Zhang, Liang, Wen, et~al.]{xu2024knowledgeconflicts}
+Rongwu Xu, Zehan Qi, Zhijiang Guo, Cunxiang Wang, Hongru Yan, Yuhao Wu, Yue Sheng, Bangyan Zhang, Yue Liang, Lichao Wen, et~al.
+\newblock A survey of knowledge conflicts for {LLM}s.
+\newblock \emph{EMNLP}, 2024.
+
+\bibitem[Yan et~al.(2024)Yan, Gu, Zhu, and Ling]{yan2024crag}
+Shi-Qi Yan, Jia-Chen Gu, Yun Zhu, and Zhen-Hua Ling.
+\newblock Corrective retrieval augmented generation.
+\newblock In \emph{ICLR}, 2024.
+
+\bibitem[Yoon et~al.(2025)Yoon, Kim, Yang, Kim, Kim, Kim, Choi, Kim, and Seo]{yoon2025confidence}
+Dongkeun Yoon, Seungone Kim, Sohee Yang, Sunkyoung Kim, Soyeon Kim, Yongil Kim, Eunbi Choi, Yireun Kim, and Minjoon Seo.
+\newblock Reasoning models better express their confidence.
+\newblock \emph{arXiv preprint arXiv:2505.14489}, 2025.
+
+\bibitem[Zadrozny and Elkan(2002)]{zadrozny2002isotonic}
+Bianca Zadrozny and Charles Elkan.
+\newblock Transforming classifier scores into accurate multiclass probability estimates.
+\newblock In \emph{KDD}, 2002.
+
+\bibitem[Zhong et~al.(2024)Zhong, Wu, Manning, Potts, and Chen]{zhong2024mquake}
+Zexuan Zhong, Zhengxuan Wu, Christopher~D. Manning, Christopher Potts, and Danqi Chen.
+\newblock Mquake: Assessing knowledge editing in language models via multi-hop questions.
+\newblock In \emph{EMNLP}, 2024.
+
+\end{thebibliography}
