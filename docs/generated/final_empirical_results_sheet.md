@@ -6,6 +6,7 @@ This is the compact one-file summary of the current empirical package for the kn
 
 Bootstrap-over-prompt confidence intervals are now materialized in:
 - [theorem3_review_followups.md](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/theorem3_review_followups.md)
+- [theorem3_open_item_followups.md](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/theorem3_open_item_followups.md)
 
 The practical read is:
 - strong positive conflict-conditioned separations that clearly survive the bootstrap:
