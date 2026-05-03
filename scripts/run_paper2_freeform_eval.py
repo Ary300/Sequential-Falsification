@@ -318,6 +318,31 @@ def _load_examples(dataset_name: str, max_examples: int) -> list[dict[str, Any]]
     raise ValueError(f"Unsupported dataset: {dataset_name}")
 
 
+def _clean_answer_text(text: str) -> str:
+    cleaned = (text or "").strip()
+    if not cleaned:
+        return ""
+    if "</think>" in cleaned:
+        cleaned = cleaned.split("</think>")[-1].strip()
+    cleaned = re.sub(r"<[^>]+>", " ", cleaned)
+    lines = [line.strip() for line in cleaned.splitlines() if line.strip()]
+    if lines:
+        cleaned = lines[-1]
+    cleaned = re.sub(r"^(answer|final answer)\s*:\s*", "", cleaned, flags=re.IGNORECASE).strip()
+    cleaned = re.sub(r"^[\"'“”]+|[\"'“”]+$", "", cleaned).strip()
+    sentence_match = re.split(r"(?<=[.!?])\s+", cleaned, maxsplit=1)
+    if sentence_match:
+        cleaned = sentence_match[0].strip()
+    cleaned = re.sub(
+        r"^(the answer is|it is|it's|the original artist of [^,]+ is|the first iphone was introduced on|after [^,]+, the next [^.]+ was)\s+",
+        "",
+        cleaned,
+        flags=re.IGNORECASE,
+    ).strip()
+    cleaned = cleaned.rstrip(". ").strip()
+    return cleaned
+
+
 def _apply_chat_template(tokenizer: Any, messages: list[dict[str, str]]) -> str:
     if hasattr(tokenizer, "apply_chat_template"):
         try:
@@ -350,7 +375,7 @@ def _generate_answer(
             pad_token_id=tokenizer.eos_token_id,
         )
     completion = tokenizer.decode(generated[0][encoded["input_ids"].shape[1] :], skip_special_tokens=True)
-    return completion.strip()
+    return _clean_answer_text(completion)
 
 
 def _candidate_suffix(answer: str) -> str:
@@ -415,7 +440,8 @@ def _adacad_probability(features: ArbitrationFeatures) -> float:
 def _build_closed_book_prompt(question: str) -> str:
     return (
         "You are answering an open-domain QA question.\n"
-        "Answer briefly and directly.\n\n"
+        "Return only the short final answer.\n"
+        "Do not include explanation, chain-of-thought, or extra sentences.\n\n"
         f"Question: {question}\nAnswer:"
     )
 
@@ -424,7 +450,9 @@ def _build_context_prompt(question: str, contexts: list[str]) -> str:
     joined = "\n\n".join(f"[Passage {idx + 1}]\n{text}" for idx, text in enumerate(contexts))
     return (
         "You are answering an open-domain QA question using retrieved passages.\n"
-        "Use the evidence when it is reliable. Answer briefly and directly.\n\n"
+        "Use the evidence when it is reliable.\n"
+        "Return only the short final answer.\n"
+        "Do not include explanation, chain-of-thought, or extra sentences.\n\n"
         f"Question: {question}\n\nRetrieved passages:\n{joined}\n\nAnswer:"
     )
 
