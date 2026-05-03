@@ -25,6 +25,7 @@ from knowledge_arbitration.posterior import ArbitrationFeatures, bayes_arbitrati
 SEARCH_URL = "https://en.wikipedia.org/w/api.php"
 TOKEN_RE = re.compile(r"[A-Za-z0-9]+")
 MAX_WIKI_ATTEMPTS = 5
+WIKI_CACHE_VERSION = "v2_full_extract"
 
 
 def parse_args() -> argparse.Namespace:
@@ -113,7 +114,7 @@ def _wiki_search(
     cache_path: Path,
     cache: dict[str, Any],
 ) -> list[str]:
-    key = f"wiki::{question}::{search_limit}"
+    key = f"wiki::{WIKI_CACHE_VERSION}::{question}::{search_limit}"
     cached = cache.get(key)
     if isinstance(cached, list):
         return [str(item) for item in cached]
@@ -162,7 +163,7 @@ def _wiki_search(
                     "prop": "extracts",
                     "pageids": "|".join(page_ids),
                     "explaintext": 1,
-                    "exintro": 1,
+                    "exchars": 2400,
                     "utf8": 1,
                 },
                 timeout=30,

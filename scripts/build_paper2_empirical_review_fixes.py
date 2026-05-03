@@ -214,8 +214,12 @@ def build_eta_binding_note() -> dict[str, object]:
 
 
 def load_freeform_results() -> dict[str, object] | None:
-    path = ROOT / "docs/generated/paper2_freeform_eval.json"
-    if not path.exists():
+    candidates = [
+        ROOT / "docs/generated/paper2_freeform_eval_fix.json",
+        ROOT / "docs/generated/paper2_freeform_eval.json",
+    ]
+    path = next((candidate for candidate in candidates if candidate.exists()), None)
+    if path is None:
         return None
     payload = json.loads(path.read_text(encoding="utf-8"))
     summary = payload.get("summary", {}) or {}
@@ -243,7 +247,7 @@ def load_freeform_results() -> dict[str, object] | None:
     return {"path": str(path), "headline_rows": headline_rows, "metadata": payload.get("metadata", {})}
 
 
-def build_freeform_latency_cost_note() -> dict[str, object]:
+def build_freeform_latency_cost_note(freeform: dict[str, object] | None) -> dict[str, object]:
     completed_runs = [
         {"name": "tiny", "job_id": "2235943", "queries": 12, "elapsed_s": 89.0},
         {"name": "smoke", "job_id": "2235810", "queries": 24, "elapsed_s": 147.0},
@@ -260,7 +264,7 @@ def build_freeform_latency_cost_note() -> dict[str, object]:
     for row in completed_runs:
         row["qps"] = round(row["queries"] / row["elapsed_s"], 4)
         row["sec_per_query"] = round(row["elapsed_s"] / row["queries"], 4)
-    return {
+    payload = {
         "completed_runs": completed_runs,
         "fit_fixed_overhead_s": round(intercept, 4),
         "fit_incremental_sec_per_query": round(slope, 4),
@@ -269,6 +273,33 @@ def build_freeform_latency_cost_note() -> dict[str, object]:
             "paper2_sequence_mixture": {"generation_passes": 2, "scoring_passes": 2, "total_model_passes": 4},
         },
     }
+    if freeform and freeform.get("headline_rows"):
+        matched_rows = []
+        for row in freeform["headline_rows"]:
+            methods = {
+                "bayes_proxy": {"em": row["bayes_em"], "rouge_l": row["bayes_rouge_l"], "passes": 4},
+                "cad": {"em": row["cad_em"], "rouge_l": row["cad_rouge_l"], "passes": 1},
+                "adacad": {"em": row["adacad_em"], "rouge_l": row["adacad_rouge_l"], "passes": 4},
+            }
+            best_em_method = max(methods.items(), key=lambda item: (item[1]["em"], item[1]["rouge_l"]))[0]
+            best_rouge_method = max(methods.items(), key=lambda item: (item[1]["rouge_l"], item[1]["em"]))[0]
+            payload_row = {
+                "dataset": row["dataset"],
+                "count": row["count"],
+                "best_em_method": best_em_method,
+                "best_em": methods[best_em_method]["em"],
+                "best_rouge_method": best_rouge_method,
+                "best_rouge_l": methods[best_rouge_method]["rouge_l"],
+                "bayes_em": row["bayes_em"],
+                "bayes_rouge_l": row["bayes_rouge_l"],
+                "cad_em": row["cad_em"],
+                "cad_rouge_l": row["cad_rouge_l"],
+                "adacad_em": row["adacad_em"],
+                "adacad_rouge_l": row["adacad_rouge_l"],
+            }
+            matched_rows.append(payload_row)
+        payload["matched_accuracy_rows"] = matched_rows
+    return payload
 
 
 def _write_markdown(path: Path, text: str) -> None:
@@ -287,7 +318,7 @@ def main() -> None:
     closed_model = build_closed_model_note()
     eta_binding = build_eta_binding_note()
     freeform = load_freeform_results()
-    freeform_latency = build_freeform_latency_cost_note()
+    freeform_latency = build_freeform_latency_cost_note(freeform)
 
     out_dir = ROOT / "docs/generated"
     _write_json(out_dir / "conditional_independence_diagnostic.json", conditional)
