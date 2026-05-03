@@ -183,9 +183,19 @@ disclaimer about needing a second matched-base RL family.
 That is useful because it strengthens the negative claim that scale alone does
 not recover the theorem-3 effect for plain instruct `Llama`.
 
-The one remaining large Llama-lineage follow-up is still running:
+`DeepSeek-R1-Distill-Llama-70B` is now also finished, and the full theorem-3
+matrix came back strong after rebuilding the missing report artifact from the
+completed generation JSON:
 
-- `2235376` `r1l70t3` = `DeepSeek-R1-Distill-Llama-70B`
+- conflict ECE delta: `-0.0111`
+- no-conflict ECE delta: `-0.3992`
+- conflict-minus-no-conflict: `+0.3881`
 
-So the informative open 70B run is now only the `DeepSeek-Llama-70B` lineage
-check, not the plain instruct control.
+Read:
+
+- This is a strong large-model Llama-lineage replication.
+- The effect is driven primarily by very large no-conflict calibration gains
+  while conflict stays roughly flat, which is still exactly the
+  conflict-conditioned separation the paper cares about.
+- So the 70B picture is now clean: plain instruct `Llama` stays flat, while the
+  reasoning-distilled `DeepSeek-Llama` lineage stays strongly positive.

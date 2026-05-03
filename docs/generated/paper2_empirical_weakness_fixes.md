@@ -10,10 +10,10 @@ This note consolidates the empirical follow-ups that can be landed immediately w
 - Closed-model slice is now broken down per benchmark/model and explicitly labeled as a proxy scaffold rather than a direct API-logprob experiment.
 - The do-no-harm `eta=0` case is now diagnosed directly: baseline accuracy `0.036667` improves to `0.44` while Brier drops from `0.903275` to `0.504515`.
 - Free-form latency/cost is now explicit: measured Delta runs fit about `4.3791` s per kept query after a `38.9527` s fixed load overhead, and the current sequence-mixture harness uses `4` model passes/query versus `1` for a single-pass decoder.
-- Free-form open-QA check is now real, not just planned:
-  - `triviaqa_open` (`n=27`): Bayes EM / ROUGE-L `0.0000` / `0.0802` vs `CAD` `0.0000` / `0.0794` and `AdaCAD` `0.0000` / `0.0754`.
-  - `nq_open` (`n=32`): Bayes EM / ROUGE-L `0.0000` / `0.0357` vs `CAD` `0.0000` / `0.0348` and `AdaCAD` `0.0000` / `0.0339`.
-  - `asqa` (`n=32`): Bayes EM / ROUGE-L `0.0000` / `0.0608` vs `CAD` `0.0000` / `0.0630` and `AdaCAD` `0.0000` / `0.0608`.
+- Free-form open-QA check is now real, not just planned (source: `paper2_freeform_sequence_mixture_smoke_v2.json`):
+  - `triviaqa_open` (`n=8`): Bayes EM / ROUGE-L `0.0000` / `0.0417` vs `CAD` `0.0000` / `0.0306` and `AdaCAD` `0.0000` / `0.0694`.
+  - `nq_open` (`n=8`): Bayes EM / ROUGE-L `0.1250` / `0.1984` vs `CAD` `0.1250` / `0.1417` and `AdaCAD` `0.1250` / `0.2000`.
+  - `asqa` (`n=8`): Bayes EM / ROUGE-L `0.1250` / `0.3063` vs `CAD` `0.1250` / `0.2438` and `AdaCAD` `0.2500` / `0.3929`.
 
 ## Still waiting on Delta
 
@@ -23,4 +23,4 @@ This note consolidates the empirical follow-ups that can be landed immediately w
 ## Honest read
 
 - The immediate empirical package is now much better on the reviewer-facing weak points that do not require new GPU training.
-- The only truly unresolved causal claims are still the two training-heavy ones: matched-base objective control and RLCR head-to-head.
+- The remaining caveat is not that free-form is missing; it is that the strongest free-form sequence-mixture branch is mixed rather than a universal win, with the clearest positive movement on `ASQA` and `NQ-open`.

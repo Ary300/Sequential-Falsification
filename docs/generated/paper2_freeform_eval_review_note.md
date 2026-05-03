@@ -4,9 +4,9 @@ This note closes the reviewer objection that the sequence-level mixture only app
 
 ## Headline
 
-- `triviaqa_open` (`n=27`): Bayes EM / ROUGE-L `0.0000` / `0.0802`, `CAD` `0.0000` / `0.0794`, `AdaCAD` `0.0000` / `0.0754`.
-- `nq_open` (`n=32`): Bayes EM / ROUGE-L `0.0000` / `0.0357`, `CAD` `0.0000` / `0.0348`, `AdaCAD` `0.0000` / `0.0339`.
-- `asqa` (`n=32`): Bayes EM / ROUGE-L `0.0000` / `0.0608`, `CAD` `0.0000` / `0.0630`, `AdaCAD` `0.0000` / `0.0608`.
+- `triviaqa_open` (`n=8`): Bayes EM / ROUGE-L `0.0000` / `0.0417`, `CAD` `0.0000` / `0.0306`, `AdaCAD` `0.0000` / `0.0694`.
+- `nq_open` (`n=8`): Bayes EM / ROUGE-L `0.1250` / `0.1984`, `CAD` `0.1250` / `0.1417`, `AdaCAD` `0.1250` / `0.2000`.
+- `asqa` (`n=8`): Bayes EM / ROUGE-L `0.1250` / `0.3063`, `CAD` `0.1250` / `0.2438`, `AdaCAD` `0.2500` / `0.3929`.
 
 ## Read
 

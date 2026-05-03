@@ -162,6 +162,28 @@ Read:
 - It does not match the full magnitude of `Llama-8B GRPO`, but it preserves the
   same directional story: conflict stays bad while no-conflict improves a lot.
 
+### Large Llama-lineage replication: `DeepSeek-R1-Distill-Llama-70B`
+
+- Mean conflict ECE delta: `-0.0111`
+- Mean no-conflict ECE delta: `-0.3992`
+- Conflict minus no-conflict ECE delta: `+0.3881`
+- Mean conflict overconfidence-gap delta: `-0.0163`
+- Mean no-conflict overconfidence-gap delta: `-0.4000`
+
+Important benchmark-level note:
+- this full theorem-3 matrix covers `1344` rows across `ConflictBank` and
+  `WikiContradict`
+- the separation is driven mainly by very large no-conflict improvement while
+  conflict stays near-flat
+
+Read:
+- This is a strong large-model Llama-lineage replication.
+- It is actually larger than the original `Llama-8B GRPO` separation on the
+  pooled theorem-3 headline metric.
+- The clean high-level story now is that plain instruct `Llama` stays flat even
+  at `70B`, while the reasoning-distilled `DeepSeek-Llama` lineage stays
+  strongly positive.
+
 ### Plain-scale control: `Llama-3.1-70B-Instruct`
 
 - Mean conflict ECE delta: `-0.0219`

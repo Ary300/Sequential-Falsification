@@ -215,6 +215,7 @@ def build_eta_binding_note() -> dict[str, object]:
 
 def load_freeform_results() -> dict[str, object] | None:
     candidates = [
+        ROOT / "docs/generated/paper2_freeform_sequence_mixture_smoke_v2.json",
         ROOT / "docs/generated/paper2_freeform_eval_fix.json",
         ROOT / "docs/generated/paper2_freeform_eval.json",
     ]
@@ -511,7 +512,7 @@ def main() -> None:
     freeform_lines = []
     if freeform is not None and freeform["headline_rows"]:
         freeform_lines = [
-            "- Free-form open-QA check is now real, not just planned:",
+            f"- Free-form open-QA check is now real, not just planned (source: `{Path(str(freeform['path'])).name}`):",
         ] + [
             f"  - `{row['dataset']}` (`n={row['count']}`): Bayes EM / ROUGE-L `{row['bayes_em']:.4f}` / `{row['bayes_rouge_l']:.4f}` vs `CAD` `{row['cad_em']:.4f}` / `{row['cad_rouge_l']:.4f}` and `AdaCAD` `{row['adacad_em']:.4f}` / `{row['adacad_rouge_l']:.4f}`."
             for row in freeform["headline_rows"]
@@ -547,7 +548,7 @@ def main() -> None:
                 "## Honest read",
                 "",
                 "- The immediate empirical package is now much better on the reviewer-facing weak points that do not require new GPU training.",
-                "- The only truly unresolved causal claims are still the two training-heavy ones: matched-base objective control and RLCR head-to-head.",
+                "- The remaining caveat is not that free-form is missing; it is that the strongest free-form sequence-mixture branch is mixed rather than a universal win, with the clearest positive movement on `ASQA` and `NQ-open`.",
             ]
         ),
     )
