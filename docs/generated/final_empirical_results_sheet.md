@@ -2,6 +2,27 @@
 
 This is the compact one-file summary of the current empirical package for the knowledge-arbitration paper.
 
+## Review-Facing Uncertainty Note
+
+Bootstrap-over-prompt confidence intervals are now materialized in:
+- [theorem3_review_followups.md](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/theorem3_review_followups.md)
+
+The practical read is:
+- strong positive conflict-conditioned separations that clearly survive the bootstrap:
+  - `Llama-8B GRPO`: `+0.3436`, 95% CI `[0.2297, 0.4757]`
+  - `RLCR`: `+0.2910`, 95% CI `[0.1999, 0.3827]`
+  - `Phi-3 GRPO`: `+0.2088`, 95% CI `[0.1208, 0.3051]`
+  - `DeepSeek-Llama-8B`: `+0.0775`, 95% CI `[0.0147, 0.1435]`
+- weak / ambiguous small-family separations that should not be over-ordered:
+  - `Mistral-7B`: `+0.0150`, CI crosses `0`
+  - `Gemma-27B`: `-0.0168`, CI crosses `0`
+  - `Qwen GRPO`: `+0.0082`, CI crosses `0`
+  - `OLMo-2 DPO/GRPO`: both separation CIs cross `0`
+
+Read:
+- the paper should present the small control-family deltas as mostly flat or weak rather than pretending that their exact ranking is meaningful.
+- the sharp positive theorem-3 separations survive on the families that matter most for the main story.
+
 ## Headline Theorem 3 Results
 
 ### Matched-base objective split: `Llama-8B`
@@ -45,6 +66,7 @@ Read:
 Read:
 - The joint intervention is now directly measured, not just predicted.
 - On the hardest headline slice, the composition helps a lot: accuracy jumps and both ECE and Brier are roughly halved.
+- In the full benchmark breakdown, the gain is mostly a `ConflictBank` story rather than a uniform everywhere-improvement story.
 
 ### Clean non-RL control: `Mistral-7B`
 
@@ -218,6 +240,28 @@ Artifacts:
 
 Read:
 - Explicit Yoon-style reliability diagrams and matching bin-frequency histograms are part of the theorem-3 reporting path.
+
+### RLCR + eta per-benchmark breakdown
+
+Source:
+- [theorem3_review_followups.md](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/theorem3_review_followups.md)
+
+Headline:
+- `ConflictBank`
+  - mean accuracy delta: `+0.3125`
+  - mean ECE delta: `-0.3325`
+  - mean Brier delta: `-0.3201`
+  - aligned-context accuracy delta: `0.0000`
+- `WikiContradict`
+  - mean accuracy delta: `+0.0260`
+  - mean ECE delta: `+0.0051`
+  - mean Brier delta: `-0.0237`
+  - aligned-context accuracy delta: `0.0312`
+
+Read:
+- the global `RLCR + eta` gain is driven mainly by `ConflictBank`, especially the conflict slices.
+- it does not appear to hurt aligned-context accuracy on `ConflictBank`.
+- on `WikiContradict`, the effect is much smaller and ECE is roughly neutral.
 
 ## Theorem 1 / 2 Support
 
