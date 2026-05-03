@@ -9,6 +9,7 @@ DATASETS="${DATASETS:-triviaqa_open,nq_open,asqa}"
 MAX_EXAMPLES="${MAX_EXAMPLES:-32}"
 SEARCH_LIMIT="${SEARCH_LIMIT:-6}"
 TOP_K_CONTEXTS="${TOP_K_CONTEXTS:-3}"
+INDIVIDUAL_CONTEXT_CANDIDATES="${INDIVIDUAL_CONTEXT_CANDIDATES:-0}"
 MAX_NEW_TOKENS="${MAX_NEW_TOKENS:-96}"
 BATCH_SIZE="${BATCH_SIZE:-4}"
 TORCH_DTYPE="${TORCH_DTYPE:-bfloat16}"
@@ -38,7 +39,7 @@ sbatch --parsable \
   --time="${WALLTIME}" \
   --job-name="${JOB_NAME}" \
   --output="logs/${JOB_NAME}.%j.out" \
-  --wrap='cd ${DELTA_PROJECT_ROOT} && mkdir -p logs docs/generated "${HF_DATASETS_ROOT}/datasets" "${HF_DATASETS_ROOT}/hub" && export HF_TOKEN="${HF_TOKEN:-}" HUGGING_FACE_HUB_TOKEN="${HF_TOKEN:-}" HF_HOME="${HF_DATASETS_ROOT}" HF_DATASETS_CACHE="${HF_DATASETS_ROOT}/datasets" HUGGINGFACE_HUB_CACHE="${HF_DATASETS_ROOT}/hub" && PYTHONPATH=src ${DELTA_VENV}/bin/python scripts/run_paper2_freeform_eval.py --model "${MODEL}" --datasets "${DATASETS}" --max-examples "${MAX_EXAMPLES}" --search-limit "${SEARCH_LIMIT}" --top-k-contexts "${TOP_K_CONTEXTS}" --max-new-tokens "${MAX_NEW_TOKENS}" --batch-size "${BATCH_SIZE}" --torch-dtype "${TORCH_DTYPE}" --cache-file "${RETRIEVAL_CACHE_FILE}" --output-prefix "${OUTPUT_PREFIX}"'
+  --wrap='cd ${DELTA_PROJECT_ROOT} && mkdir -p logs docs/generated "${HF_DATASETS_ROOT}/datasets" "${HF_DATASETS_ROOT}/hub" && export HF_TOKEN="${HF_TOKEN:-}" HUGGING_FACE_HUB_TOKEN="${HF_TOKEN:-}" HF_HOME="${HF_DATASETS_ROOT}" HF_DATASETS_CACHE="${HF_DATASETS_ROOT}/datasets" HUGGINGFACE_HUB_CACHE="${HF_DATASETS_ROOT}/hub" && PYTHONPATH=src ${DELTA_VENV}/bin/python scripts/run_paper2_freeform_eval.py --model "${MODEL}" --datasets "${DATASETS}" --max-examples "${MAX_EXAMPLES}" --search-limit "${SEARCH_LIMIT}" --top-k-contexts "${TOP_K_CONTEXTS}" --individual-context-candidates "${INDIVIDUAL_CONTEXT_CANDIDATES}" --max-new-tokens "${MAX_NEW_TOKENS}" --batch-size "${BATCH_SIZE}" --torch-dtype "${TORCH_DTYPE}" --cache-file "${RETRIEVAL_CACHE_FILE}" --output-prefix "${OUTPUT_PREFIX}"'
 EOF
 )
 

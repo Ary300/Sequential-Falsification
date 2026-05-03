@@ -34,6 +34,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--max-examples", type=int, default=32)
     parser.add_argument("--search-limit", type=int, default=6)
     parser.add_argument("--top-k-contexts", type=int, default=3)
+    parser.add_argument("--individual-context-candidates", type=int, default=0)
     parser.add_argument("--max-new-tokens", type=int, default=96)
     parser.add_argument("--batch-size", type=int, default=4)
     parser.add_argument("--torch-dtype", default="bfloat16", choices=["auto", "bfloat16", "float16", "float32"])
@@ -527,6 +528,17 @@ def run_eval(args: argparse.Namespace) -> dict[str, Any]:
             for candidate in [closed_answer, context_answer]:
                 if candidate and candidate not in candidates:
                     candidates.append(candidate)
+            if args.individual_context_candidates > 0:
+                for context in contexts[: args.individual_context_candidates]:
+                    single_context_prompt = _build_context_prompt(example["question"], [context])
+                    candidate = _generate_answer(
+                        model,
+                        tokenizer,
+                        prompt=single_context_prompt,
+                        max_new_tokens=args.max_new_tokens,
+                    )
+                    if candidate and candidate not in candidates:
+                        candidates.append(candidate)
             if not candidates:
                 continue
             prior_scores = _score_candidates(model, tokenizer, prompt=closed_prompt, candidates=candidates, batch_size=args.batch_size)
@@ -601,6 +613,7 @@ def run_eval(args: argparse.Namespace) -> dict[str, Any]:
             "max_examples": args.max_examples,
             "search_limit": args.search_limit,
             "top_k_contexts": args.top_k_contexts,
+            "individual_context_candidates": args.individual_context_candidates,
         },
         "summary": summary,
         "rows": per_dataset,
