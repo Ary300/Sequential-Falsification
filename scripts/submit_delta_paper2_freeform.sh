@@ -21,7 +21,7 @@ MEM="${MEM:-80G}"
 GPUS="${GPUS:-1}"
 JOB_NAME="${JOB_NAME:-p2free}"
 
-REMOTE_CMD=$(
+SBATCH_CMD=$(
   cat <<EOF
 cd ${DELTA_PROJECT_ROOT} && \
 unset SBATCH_ACCOUNT SBATCH_PARTITION SBATCH_QOS && \
@@ -42,4 +42,8 @@ sbatch --parsable \
 EOF
 )
 
-delta_ssh_base "$REMOTE_CMD"
+if hostname 2>/dev/null | grep -q "gh-login\\|dtai-login\\|gh0"; then
+  bash -lc "$SBATCH_CMD"
+else
+  delta_ssh_base "$SBATCH_CMD"
+fi

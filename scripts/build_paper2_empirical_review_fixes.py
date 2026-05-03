@@ -213,6 +213,36 @@ def build_eta_binding_note() -> dict[str, object]:
     }
 
 
+def load_freeform_results() -> dict[str, object] | None:
+    path = ROOT / "docs/generated/paper2_freeform_eval.json"
+    if not path.exists():
+        return None
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    summary = payload.get("summary", {}) or {}
+    dataset_priority = ["triviaqa_open", "nq_open", "asqa"]
+    headline_rows = []
+    for dataset_name in dataset_priority:
+        method_map = summary.get(dataset_name, {}) or {}
+        if not method_map:
+            continue
+        bayes = method_map.get("bayes_proxy", {}) or {}
+        cad = method_map.get("cad", {}) or {}
+        adacad = method_map.get("adacad", {}) or {}
+        headline_rows.append(
+            {
+                "dataset": dataset_name,
+                "bayes_em": float(bayes.get("em", 0.0)),
+                "bayes_rouge_l": float(bayes.get("rouge_l", 0.0)),
+                "cad_em": float(cad.get("em", 0.0)),
+                "cad_rouge_l": float(cad.get("rouge_l", 0.0)),
+                "adacad_em": float(adacad.get("em", 0.0)),
+                "adacad_rouge_l": float(adacad.get("rouge_l", 0.0)),
+                "count": int(bayes.get("count", 0)),
+            }
+        )
+    return {"path": str(path), "headline_rows": headline_rows, "metadata": payload.get("metadata", {})}
+
+
 def _write_markdown(path: Path, text: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(text, encoding="utf-8")
@@ -228,6 +258,7 @@ def main() -> None:
     comparators = build_comparator_note()
     closed_model = build_closed_model_note()
     eta_binding = build_eta_binding_note()
+    freeform = load_freeform_results()
 
     out_dir = ROOT / "docs/generated"
     _write_json(out_dir / "conditional_independence_diagnostic.json", conditional)
@@ -347,6 +378,47 @@ def main() -> None:
         ),
     )
 
+    if freeform is not None:
+        _write_markdown(
+            out_dir / "paper2_freeform_eval_review_note.md",
+            "\n".join(
+                [
+                    "# Paper 2 Free-Form Open-QA Note",
+                    "",
+                    "This note closes the reviewer objection that the sequence-level mixture only appears in multiple-choice-style evaluations.",
+                    "",
+                    "## Headline",
+                    "",
+                ]
+                + [
+                    f"- `{row['dataset']}` (`n={row['count']}`): Bayes EM / ROUGE-L `{row['bayes_em']:.4f}` / `{row['bayes_rouge_l']:.4f}`, "
+                    f"`CAD` `{row['cad_em']:.4f}` / `{row['cad_rouge_l']:.4f}`, "
+                    f"`AdaCAD` `{row['adacad_em']:.4f}` / `{row['adacad_rouge_l']:.4f}`."
+                    for row in freeform["headline_rows"]
+                ]
+                + [
+                    "",
+                    "## Read",
+                    "",
+                    "- These numbers are the direct free-form sequence-level check on `TriviaQA-open`, `NQ-open`, and `ASQA`.",
+                    "- This note should be cited alongside the proxy follow-up note when describing how Paper 2 now leaves the multiple-choice-only regime.",
+                ]
+            ),
+        )
+
+    freeform_lines = []
+    if freeform is not None and freeform["headline_rows"]:
+        freeform_lines = [
+            "- Free-form open-QA check is now real, not just planned:",
+        ] + [
+            f"  - `{row['dataset']}` (`n={row['count']}`): Bayes EM / ROUGE-L `{row['bayes_em']:.4f}` / `{row['bayes_rouge_l']:.4f}` vs `CAD` `{row['cad_em']:.4f}` / `{row['cad_rouge_l']:.4f}` and `AdaCAD` `{row['adacad_em']:.4f}` / `{row['adacad_rouge_l']:.4f}`."
+            for row in freeform["headline_rows"]
+        ]
+    elif freeform is None:
+        freeform_lines = [
+            "- Free-form open-QA runner is wired but no completed `paper2_freeform_eval.json` is available yet, so the multiple-choice-only objection is still only partially closed."
+        ]
+
     _write_markdown(
         out_dir / "paper2_empirical_weakness_fixes.md",
         "\n".join(
@@ -362,6 +434,7 @@ def main() -> None:
                 f"- Conditional-independence diagnostic now has numbers: sampled `WikiContradict` conflict passages contain the gold answer verbatim at rate `{conditional['datasets']['wikicontradict']['gold_verbatim_rate']}`, while sampled `ConflictBank` conflict passages contain the conflicting answer verbatim at rate `{conditional['datasets']['conflictbank']['conflict_verbatim_rate']}` and the gold answer only `{conditional['datasets']['conflictbank']['gold_verbatim_rate']}`.",
                 f"- Closed-model slice is now broken down per benchmark/model and explicitly labeled as a proxy scaffold rather than a direct API-logprob experiment.",
                 f"- The do-no-harm `eta=0` case is now diagnosed directly: baseline accuracy `{eta_binding['baseline_accuracy']}` improves to `{eta_binding['tempered_accuracy']}` while Brier drops from `{eta_binding['baseline_brier']}` to `{eta_binding['selected_brier']}`.",
+                *freeform_lines,
                 "",
                 "## Still waiting on Delta",
                 "",
@@ -383,6 +456,7 @@ def main() -> None:
                 "comparators": str(out_dir / "spotlight_comparator_strength_note.md"),
                 "closed_model": str(out_dir / "closed_model_api_breakdown.md"),
                 "eta_binding": str(out_dir / "eta_do_no_harm_binding_note.md"),
+                "freeform": str(out_dir / "paper2_freeform_eval_review_note.md"),
                 "summary": str(out_dir / "paper2_empirical_weakness_fixes.md"),
             },
             indent=2,
