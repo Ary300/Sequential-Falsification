@@ -461,6 +461,34 @@ def _answer_set(values: Any) -> set[str]:
     return {str(values).strip().lower()} if str(values).strip() else set()
 
 
+def _metadata_value_for_condition(
+    metadata: dict[str, Any],
+    key: str,
+    condition: str,
+) -> Any:
+    by_condition = metadata.get(f"{key}_by_condition")
+    if isinstance(by_condition, dict):
+        if condition in by_condition:
+            return by_condition[condition]
+        if "default" in by_condition:
+            return by_condition["default"]
+    return metadata.get(key)
+
+
+def _metadata_float_for_condition(
+    metadata: dict[str, Any],
+    key: str,
+    condition: str,
+) -> float | None:
+    value = _metadata_value_for_condition(metadata, key, condition)
+    if value is None or value == "":
+        return None
+    try:
+        return float(value)
+    except (TypeError, ValueError):
+        return None
+
+
 def _derive_real_features(example: dict[str, Any], model_name: str, condition: str) -> tuple[ArbitrationFeatures, float, int, dict[str, Any]] | None:
     metadata = example.get("metadata", {})
     supports_conditions = set(metadata.get("supports_conditions", []))
@@ -491,6 +519,14 @@ def _derive_real_features(example: dict[str, Any], model_name: str, condition: s
     else:
         return None
 
+    context_reliability_override = _metadata_float_for_condition(metadata, "context_reliability", condition)
+    if context_reliability_override is not None:
+        context_reliability = _clip(context_reliability_override)
+
+    oracle_probability_override = _metadata_float_for_condition(metadata, "oracle_probability", condition)
+    if oracle_probability_override is not None:
+        oracle_probability = _clip(oracle_probability_override)
+
     context_correct = bool(context_answers & gold_answers)
     parametric_correct = bool(parametric_answers & gold_answers)
     label = 1 if context_correct else 0
@@ -506,15 +542,45 @@ def _derive_real_features(example: dict[str, Any], model_name: str, condition: s
     benchmark = str(metadata.get("benchmark", "unknown"))
     benchmark_profile = _benchmark_profile(benchmark)
     model_profile = _model_profile(model_name)
-    popularity_score = _normalize_scale(metadata.get("popularity_score"), transform="log")
-    dynamicity_score = _normalize_scale(metadata.get("dynamicity_score"), transform="linear")
-    conflict_strength = _clip(float(metadata.get("conflict_strength", benchmark_profile["conflict"])))
+    popularity_override = _metadata_float_for_condition(metadata, "popularity_score", condition)
+    dynamicity_override = _metadata_float_for_condition(metadata, "dynamicity_score", condition)
+    conflict_strength_override = _metadata_float_for_condition(metadata, "conflict_strength", condition)
+    popularity_score = _clip(
+        popularity_override
+        if popularity_override is not None
+        else _normalize_scale(metadata.get("popularity_score"), transform="log")
+    )
+    dynamicity_score = _clip(
+        dynamicity_override
+        if dynamicity_override is not None
+        else _normalize_scale(metadata.get("dynamicity_score"), transform="linear")
+    )
+    conflict_strength = _clip(
+        conflict_strength_override
+        if conflict_strength_override is not None
+        else float(metadata.get("conflict_strength", benchmark_profile["conflict"]))
+    )
     condition_adjustment = _condition_adjustment(condition)
 
     parametric_reliability = _clip(model_profile["knowledge"] + 0.28 * popularity_score - 0.35 * dynamicity_score)
+    parametric_reliability_override = _metadata_float_for_condition(metadata, "parametric_reliability", condition)
+    if parametric_reliability_override is not None:
+        parametric_reliability = _clip(parametric_reliability_override)
+
     parametric_score = _clip(parametric_reliability + 0.12 * popularity_score - 0.08 * conflict_strength)
+    parametric_score_override = _metadata_float_for_condition(metadata, "parametric_score", condition)
+    if parametric_score_override is not None:
+        parametric_score = _clip(parametric_score_override)
+
     contextual_score = _clip(context_reliability + 0.10 * benchmark_profile["context"] - 0.06 * popularity_score)
+    contextual_score_override = _metadata_float_for_condition(metadata, "contextual_score", condition)
+    if contextual_score_override is not None:
+        contextual_score = _clip(contextual_score_override)
+
     conflict_magnitude = _clip(conflict_strength + condition_adjustment["conflict"] + 0.25 * dynamicity_score)
+    conflict_magnitude_override = _metadata_float_for_condition(metadata, "conflict_magnitude", condition)
+    if conflict_magnitude_override is not None:
+        conflict_magnitude = _clip(conflict_magnitude_override)
 
     features = ArbitrationFeatures(
         parametric_score=parametric_score,
