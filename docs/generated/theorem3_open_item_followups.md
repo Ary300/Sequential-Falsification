@@ -174,24 +174,24 @@ The second matched-base family is now substantially farther along than before.
 Finished:
 
 - `DeepSeek-Llama-8B` matched `DPO`: `+0.0258`
+- `DeepSeek-Llama-8B` matched `GRPO`: `-0.1239`
+- `Phi-3` matched `SFT`: `+0.2069`
 - `Phi-3` matched `DPO`: `+0.0030`
 - `Phi-3` matched `GRPO`: `+0.2088`
 
-Pending:
-
-- `2237021` `r1l8_grev` = `DeepSeek-Llama-8B` matched `GRPO` eval recovery
-- `2237020` `e1_p3_sft` = `Phi-3` matched `SFT` control
-
 Read:
 
-- `Phi-3` is already a real matched-base `DPO/GRPO` family, and the last thing
-  missing there is the matched `SFT` control.
-- `DeepSeek-Llama-8B` already has the matched `DPO` side in hand; the only
-  missing piece is the `GRPO` theorem-3 recovery after the earlier disk-quota
-  crash.
-- The most likely clean second-family replication path is now:
-  `Phi-3 GRPO > Phi-3 SFT` plus `DeepSeek GRPO > DeepSeek DPO` if the recovery
-  comes back positive.
+- `Phi-3` is now a fully materialized matched family, but it does **not**
+  close the clean `GRPO > SFT` replication complaint by itself:
+  the matched `SFT` control (`+0.2069`) is effectively tied with matched
+  `GRPO` (`+0.2088`).
+- `DeepSeek-Llama-8B` is now fully closed as a matched `DPO/GRPO` family, and
+  it also does **not** supply the clean second matched-family replication:
+  matched `GRPO` is negative (`-0.1239`) while matched `DPO` is mildly
+  positive (`+0.0258`).
+- So the clean reviewer complaint about "only one matched-base RL family"
+  remains unresolved at `8B`, even though the larger Llama-lineage
+  `DeepSeek-70B` result remains strongly positive.
 
 ## 70B Follow-Ups
 

@@ -27,3 +27,21 @@ This note freezes two new prospective predictions before the remaining matched-f
 
 - This is not meant to erase the earlier post-hoc `P3` stain.
 - It is meant to add a clean prospective timestamped prediction tied to runs that are not yet resolved at commit time.
+
+## Resolution Update
+
+`P5` has now resolved **false**:
+
+- matched `Phi-3 SFT`: `+0.2069`
+- matched `Phi-3 GRPO`: `+0.2088`
+
+So `Phi-3` closes the missing-cell complaint, but not the stronger
+family-ordering prediction `GRPO > SFT`.
+
+`P4` has also now resolved **false**:
+
+- matched `DeepSeek-Llama-8B DPO`: `+0.0258`
+- matched `DeepSeek-Llama-8B GRPO`: `-0.1239`
+
+So the predicted clean second matched-base RL replication on
+`DeepSeek-Llama-8B` did not land.

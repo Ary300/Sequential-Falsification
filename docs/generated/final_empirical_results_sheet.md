@@ -148,22 +148,26 @@ Read:
 
 Matched-base family status right now:
 
+- `Phi-3 SFT`: `+0.2069`
 - `Phi-3 DPO`: `+0.0030`
 - `Phi-3 GRPO`: `+0.2088`
 - `DeepSeek-Llama-8B DPO`: `+0.0258`
-
-Still pending:
-
-- `Phi-3` matched `SFT` control (`2237020`)
-- `DeepSeek-Llama-8B` matched `GRPO` eval recovery (`2237021`)
+- `DeepSeek-Llama-8B GRPO`: `-0.1239`
 
 Read:
-- `Phi-3` already gives a real matched `DPO/GRPO` family with the right
-  direction; the remaining question there is how flat the matched `SFT` control
-  comes back.
-- `DeepSeek-Llama-8B` already has the matched `DPO` side in hand; the only
-  missing piece is the recovered `GRPO` theorem-3 run after the earlier
-  disk-quota crash.
+- `Phi-3` no longer leaves a missing-cell objection, but it also does **not**
+  give the clean `GRPO > SFT` family-level replication we wanted:
+  matched `SFT` (`+0.2069`) is effectively tied with matched `GRPO`
+  (`+0.2088`).
+- `DeepSeek-Llama-8B` is now fully materialized as a matched `DPO/GRPO` pair,
+  and it does **not** replicate the `Llama-8B` matched-base story:
+  matched `GRPO` comes back negative (`-0.1239`) against matched `DPO`
+  (`+0.0258`).
+- So the clean second matched-family replication complaint remains unresolved
+  at `8B`.
+- The strongest remaining support for the broader story now comes from:
+  `Phi-3` benchmark-level replication on `ConflictBank`, `DeepSeek-Llama-70B`
+  lineage replication, and the plain-`Llama` scale-only negative controls.
 
 ### Llama-lineage replication: `DeepSeek-R1-Distill-Llama-8B`
 
