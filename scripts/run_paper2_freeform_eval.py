@@ -38,6 +38,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--max-new-tokens", type=int, default=96)
     parser.add_argument("--batch-size", type=int, default=4)
     parser.add_argument("--torch-dtype", default="bfloat16", choices=["auto", "bfloat16", "float16", "float32"])
+    parser.add_argument(
+        "--decode-mode",
+        default="candidate_rescore",
+        choices=["candidate_rescore", "sequence_mixture"],
+    )
     parser.add_argument("--cache-file", default=str(ROOT / "docs" / "generated" / "paper2_freeform_retrieval_cache.json"))
     parser.add_argument("--output-prefix", default=str(ROOT / "docs" / "generated" / "paper2_freeform_eval"))
     return parser.parse_args()
@@ -398,6 +403,68 @@ def _generate_answer(
     return _clean_answer_text(completion, question=question)
 
 
+def _generate_mixture_answer(
+    model: Any,
+    tokenizer: Any,
+    *,
+    closed_prompt: str,
+    context_prompt: str,
+    question: str,
+    context_weight: float,
+    max_new_tokens: int,
+) -> str:
+    import torch
+
+    if context_weight <= 0.0:
+        return _generate_answer(
+            model,
+            tokenizer,
+            prompt=closed_prompt,
+            question=question,
+            max_new_tokens=max_new_tokens,
+        )
+    if context_weight >= 1.0:
+        return _generate_answer(
+            model,
+            tokenizer,
+            prompt=context_prompt,
+            question=question,
+            max_new_tokens=max_new_tokens,
+        )
+
+    encoded_closed = tokenizer(closed_prompt, return_tensors="pt", add_special_tokens=False)
+    encoded_context = tokenizer(context_prompt, return_tensors="pt", add_special_tokens=False)
+    encoded_closed = {key: value.to(model.device) for key, value in encoded_closed.items()}
+    encoded_context = {key: value.to(model.device) for key, value in encoded_context.items()}
+    eos_token_id = tokenizer.eos_token_id
+    generated_tokens: list[int] = []
+
+    with torch.no_grad():
+        closed_outputs = model(**encoded_closed, use_cache=True)
+        context_outputs = model(**encoded_context, use_cache=True)
+        closed_past = closed_outputs.past_key_values
+        context_past = context_outputs.past_key_values
+        closed_logits = closed_outputs.logits[:, -1, :]
+        context_logits = context_outputs.logits[:, -1, :]
+        for _ in range(max_new_tokens):
+            mixed_log_probs = (1.0 - context_weight) * closed_logits.log_softmax(dim=-1) + context_weight * context_logits.log_softmax(dim=-1)
+            next_token = mixed_log_probs.argmax(dim=-1)
+            token_id = int(next_token.item())
+            if eos_token_id is not None and token_id == eos_token_id:
+                break
+            generated_tokens.append(token_id)
+            step_input = next_token.unsqueeze(-1)
+            closed_outputs = model(input_ids=step_input, past_key_values=closed_past, use_cache=True)
+            context_outputs = model(input_ids=step_input, past_key_values=context_past, use_cache=True)
+            closed_past = closed_outputs.past_key_values
+            context_past = context_outputs.past_key_values
+            closed_logits = closed_outputs.logits[:, -1, :]
+            context_logits = context_outputs.logits[:, -1, :]
+
+    completion = tokenizer.decode(generated_tokens, skip_special_tokens=True)
+    return _clean_answer_text(completion, question=question)
+
+
 def _candidate_suffix(answer: str) -> str:
     return f"{answer.strip()}\n"
 
@@ -588,12 +655,36 @@ def run_eval(args: argparse.Namespace) -> dict[str, Any]:
             )
             bayes_weight = bayes_arbitration_probability(features)
             adacad_weight = _adacad_probability(features)
-            predictions = {
-                "closed_book": closed_answer,
-                "cad": _pick_by_weight(candidates, prior_scores, post_scores, 1.0),
-                "adacad": _pick_by_weight(candidates, prior_scores, post_scores, adacad_weight),
-                "bayes_proxy": _pick_by_weight(candidates, prior_scores, post_scores, bayes_weight),
-            }
+            if args.decode_mode == "sequence_mixture":
+                predictions = {
+                    "closed_book": closed_answer,
+                    "cad": context_answer,
+                    "adacad": _generate_mixture_answer(
+                        model,
+                        tokenizer,
+                        closed_prompt=closed_prompt,
+                        context_prompt=context_prompt,
+                        question=example["question"],
+                        context_weight=adacad_weight,
+                        max_new_tokens=args.max_new_tokens,
+                    ),
+                    "bayes_proxy": _generate_mixture_answer(
+                        model,
+                        tokenizer,
+                        closed_prompt=closed_prompt,
+                        context_prompt=context_prompt,
+                        question=example["question"],
+                        context_weight=bayes_weight,
+                        max_new_tokens=args.max_new_tokens,
+                    ),
+                }
+            else:
+                predictions = {
+                    "closed_book": closed_answer,
+                    "cad": _pick_by_weight(candidates, prior_scores, post_scores, 1.0),
+                    "adacad": _pick_by_weight(candidates, prior_scores, post_scores, adacad_weight),
+                    "bayes_proxy": _pick_by_weight(candidates, prior_scores, post_scores, bayes_weight),
+                }
             row = {
                 "id": example["id"],
                 "dataset": dataset_name,
@@ -646,6 +737,7 @@ def run_eval(args: argparse.Namespace) -> dict[str, Any]:
             "search_limit": args.search_limit,
             "top_k_contexts": args.top_k_contexts,
             "individual_context_candidates": args.individual_context_candidates,
+            "decode_mode": args.decode_mode,
         },
         "summary": summary,
         "rows": per_dataset,
