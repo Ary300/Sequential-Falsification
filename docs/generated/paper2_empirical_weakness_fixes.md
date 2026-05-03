@@ -9,7 +9,11 @@ This note consolidates the empirical follow-ups that can be landed immediately w
 - Conditional-independence diagnostic now has numbers: sampled `WikiContradict` conflict passages contain the gold answer verbatim at rate `0.5336`, while sampled `ConflictBank` conflict passages contain the conflicting answer verbatim at rate `0.9466` and the gold answer only `0.0391`.
 - Closed-model slice is now broken down per benchmark/model and explicitly labeled as a proxy scaffold rather than a direct API-logprob experiment.
 - The do-no-harm `eta=0` case is now diagnosed directly: baseline accuracy `0.036667` improves to `0.44` while Brier drops from `0.903275` to `0.504515`.
-- Free-form open-QA runner is wired but no completed `paper2_freeform_eval.json` is available yet, so the multiple-choice-only objection is still only partially closed.
+- Free-form latency/cost is now explicit: measured Delta runs fit about `4.3791` s per kept query after a `38.9527` s fixed load overhead, and the current sequence-mixture harness uses `4` model passes/query versus `1` for a single-pass decoder.
+- Free-form open-QA check is now real, not just planned:
+  - `triviaqa_open` (`n=27`): Bayes EM / ROUGE-L `0.0000` / `0.0802` vs `CAD` `0.0000` / `0.0794` and `AdaCAD` `0.0000` / `0.0754`.
+  - `nq_open` (`n=32`): Bayes EM / ROUGE-L `0.0000` / `0.0357` vs `CAD` `0.0000` / `0.0348` and `AdaCAD` `0.0000` / `0.0339`.
+  - `asqa` (`n=32`): Bayes EM / ROUGE-L `0.0000` / `0.0608` vs `CAD` `0.0000` / `0.0630` and `AdaCAD` `0.0000` / `0.0608`.
 
 ## Still waiting on Delta
 

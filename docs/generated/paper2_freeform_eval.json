@@ -1,0 +1,81 @@
+{
+  "metadata": {
+    "datasets": [
+      "triviaqa_open",
+      "nq_open",
+      "asqa"
+    ],
+    "max_examples": 32,
+    "model": "/work/nvme/bgvi/adas17/hf_cache/hub/models--deepseek-ai--DeepSeek-R1-Distill-Llama-8B/snapshots/6a6f4aa4197940add57724a7707d069478df56b1",
+    "search_limit": 6,
+    "top_k_contexts": 3
+  },
+  "summary": {
+    "asqa": {
+      "adacad": {
+        "count": 32,
+        "em": 0.0,
+        "rouge_l": 0.060777
+      },
+      "bayes_proxy": {
+        "count": 32,
+        "em": 0.0,
+        "rouge_l": 0.060777
+      },
+      "cad": {
+        "count": 32,
+        "em": 0.0,
+        "rouge_l": 0.062985
+      },
+      "closed_book": {
+        "count": 32,
+        "em": 0.0,
+        "rouge_l": 0.067214
+      }
+    },
+    "nq_open": {
+      "adacad": {
+        "count": 32,
+        "em": 0.0,
+        "rouge_l": 0.033911
+      },
+      "bayes_proxy": {
+        "count": 32,
+        "em": 0.0,
+        "rouge_l": 0.035749
+      },
+      "cad": {
+        "count": 32,
+        "em": 0.0,
+        "rouge_l": 0.034792
+      },
+      "closed_book": {
+        "count": 32,
+        "em": 0.0,
+        "rouge_l": 0.046292
+      }
+    },
+    "triviaqa_open": {
+      "adacad": {
+        "count": 27,
+        "em": 0.0,
+        "rouge_l": 0.075398
+      },
+      "bayes_proxy": {
+        "count": 27,
+        "em": 0.0,
+        "rouge_l": 0.080177
+      },
+      "cad": {
+        "count": 27,
+        "em": 0.0,
+        "rouge_l": 0.079421
+      },
+      "closed_book": {
+        "count": 27,
+        "em": 0.0,
+        "rouge_l": 0.113189
+      }
+    }
+  }
+}

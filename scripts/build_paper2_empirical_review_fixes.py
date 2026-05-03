@@ -243,6 +243,34 @@ def load_freeform_results() -> dict[str, object] | None:
     return {"path": str(path), "headline_rows": headline_rows, "metadata": payload.get("metadata", {})}
 
 
+def build_freeform_latency_cost_note() -> dict[str, object]:
+    completed_runs = [
+        {"name": "tiny", "job_id": "2235943", "queries": 12, "elapsed_s": 89.0},
+        {"name": "smoke", "job_id": "2235810", "queries": 24, "elapsed_s": 147.0},
+        {"name": "full", "job_id": "2235753", "queries": 91, "elapsed_s": 437.0},
+    ]
+    query_counts = [row["queries"] for row in completed_runs]
+    elapsed = [row["elapsed_s"] for row in completed_runs]
+    mean_q = statistics.mean(query_counts)
+    mean_t = statistics.mean(elapsed)
+    slope = sum((q - mean_q) * (t - mean_t) for q, t in zip(query_counts, elapsed)) / sum(
+        (q - mean_q) ** 2 for q in query_counts
+    )
+    intercept = mean_t - slope * mean_q
+    for row in completed_runs:
+        row["qps"] = round(row["queries"] / row["elapsed_s"], 4)
+        row["sec_per_query"] = round(row["elapsed_s"] / row["queries"], 4)
+    return {
+        "completed_runs": completed_runs,
+        "fit_fixed_overhead_s": round(intercept, 4),
+        "fit_incremental_sec_per_query": round(slope, 4),
+        "pass_geometry": {
+            "single_pass_decoder": {"generation_passes": 1, "scoring_passes": 0, "total_model_passes": 1},
+            "paper2_sequence_mixture": {"generation_passes": 2, "scoring_passes": 2, "total_model_passes": 4},
+        },
+    }
+
+
 def _write_markdown(path: Path, text: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(text, encoding="utf-8")
@@ -259,6 +287,7 @@ def main() -> None:
     closed_model = build_closed_model_note()
     eta_binding = build_eta_binding_note()
     freeform = load_freeform_results()
+    freeform_latency = build_freeform_latency_cost_note()
 
     out_dir = ROOT / "docs/generated"
     _write_json(out_dir / "conditional_independence_diagnostic.json", conditional)
@@ -406,6 +435,48 @@ def main() -> None:
             ),
         )
 
+    _write_markdown(
+        out_dir / "paper2_latency_cost_note.md",
+        "\n".join(
+            [
+                "# Paper 2 Latency and Cost Note",
+                "",
+                "This note answers the reviewer objection that the geometric-mixture free-form pipeline adds non-trivial inference cost relative to a single-pass decoder baseline.",
+                "",
+                "## Measured Delta wall-clock",
+                "",
+            ]
+            + [
+                f"- `{row['name']}` run (`job {row['job_id']}`): `{row['queries']}` kept queries in `{row['elapsed_s']:.1f}` s, "
+                f"`{row['sec_per_query']:.2f}` s/query, `{row['qps']:.3f}` q/s."
+                for row in freeform_latency["completed_runs"]
+            ]
+            + [
+                "",
+                "## Simple scaling fit",
+                "",
+                f"- Fixed overhead: `{freeform_latency['fit_fixed_overhead_s']}` s",
+                f"- Incremental cost per kept query: `{freeform_latency['fit_incremental_sec_per_query']}` s/query",
+                "",
+                "## Pass geometry",
+                "",
+                f"- Single-pass decoder baseline (`CAD`/`CoCoA`-style direct context decode): "
+                f"`{freeform_latency['pass_geometry']['single_pass_decoder']['generation_passes']}` generation pass, "
+                f"`{freeform_latency['pass_geometry']['single_pass_decoder']['scoring_passes']}` extra scoring passes.",
+                f"- Sequence-level Paper 2 mixture in the current free-form harness: "
+                f"`{freeform_latency['pass_geometry']['paper2_sequence_mixture']['generation_passes']}` generation passes "
+                f"+ `{freeform_latency['pass_geometry']['paper2_sequence_mixture']['scoring_passes']}` scoring forwards "
+                f"= `{freeform_latency['pass_geometry']['paper2_sequence_mixture']['total_model_passes']}` model passes/query.",
+                "",
+                "## Read",
+                "",
+                "- The adoption concern is real: in the current implementation, the sequence-level mixture is materially more expensive than a single-pass context decoder.",
+                "- The cleanest honest phrasing is that the free-form mixture is a capability/robustness evaluation path, not yet a cheap serving path.",
+                "- Because the first free-form run is not yet a strong accuracy headline, this cost should be disclosed plainly rather than spun away.",
+            ]
+        ),
+    )
+
     freeform_lines = []
     if freeform is not None and freeform["headline_rows"]:
         freeform_lines = [
@@ -434,6 +505,7 @@ def main() -> None:
                 f"- Conditional-independence diagnostic now has numbers: sampled `WikiContradict` conflict passages contain the gold answer verbatim at rate `{conditional['datasets']['wikicontradict']['gold_verbatim_rate']}`, while sampled `ConflictBank` conflict passages contain the conflicting answer verbatim at rate `{conditional['datasets']['conflictbank']['conflict_verbatim_rate']}` and the gold answer only `{conditional['datasets']['conflictbank']['gold_verbatim_rate']}`.",
                 f"- Closed-model slice is now broken down per benchmark/model and explicitly labeled as a proxy scaffold rather than a direct API-logprob experiment.",
                 f"- The do-no-harm `eta=0` case is now diagnosed directly: baseline accuracy `{eta_binding['baseline_accuracy']}` improves to `{eta_binding['tempered_accuracy']}` while Brier drops from `{eta_binding['baseline_brier']}` to `{eta_binding['selected_brier']}`.",
+                f"- Free-form latency/cost is now explicit: measured Delta runs fit about `{freeform_latency['fit_incremental_sec_per_query']}` s per kept query after a `{freeform_latency['fit_fixed_overhead_s']}` s fixed load overhead, and the current sequence-mixture harness uses `4` model passes/query versus `1` for a single-pass decoder.",
                 *freeform_lines,
                 "",
                 "## Still waiting on Delta",
@@ -457,6 +529,7 @@ def main() -> None:
                 "closed_model": str(out_dir / "closed_model_api_breakdown.md"),
                 "eta_binding": str(out_dir / "eta_do_no_harm_binding_note.md"),
                 "freeform": str(out_dir / "paper2_freeform_eval_review_note.md"),
+                "latency_cost": str(out_dir / "paper2_latency_cost_note.md"),
                 "summary": str(out_dir / "paper2_empirical_weakness_fixes.md"),
             },
             indent=2,
