@@ -146,21 +146,32 @@ def _wiki_search(
     page_ids = [str(row.get("pageid")) for row in search_rows if row.get("pageid") is not None]
     pages: dict[str, dict[str, Any]] = {}
     if page_ids:
-        detail_response = session.get(
-            SEARCH_URL,
-            params={
-                "action": "query",
-                "format": "json",
-                "prop": "extracts",
-                "pageids": "|".join(page_ids),
-                "explaintext": 1,
-                "exintro": 1,
-                "utf8": 1,
-            },
-            timeout=30,
-        )
-        detail_response.raise_for_status()
-        pages = detail_response.json().get("query", {}).get("pages", {})
+        detail_response = None
+        for attempt in range(MAX_WIKI_ATTEMPTS):
+            response = session.get(
+                SEARCH_URL,
+                params={
+                    "action": "query",
+                    "format": "json",
+                    "prop": "extracts",
+                    "pageids": "|".join(page_ids),
+                    "explaintext": 1,
+                    "exintro": 1,
+                    "utf8": 1,
+                },
+                timeout=30,
+            )
+            if response.status_code != 429:
+                detail_response = response
+                break
+            retry_after = response.headers.get("Retry-After")
+            if retry_after and retry_after.isdigit():
+                sleep_seconds = max(1.0, float(retry_after))
+            else:
+                sleep_seconds = 1.5 * (attempt + 1)
+            time.sleep(sleep_seconds)
+        if detail_response is not None and detail_response.ok:
+            pages = detail_response.json().get("query", {}).get("pages", {})
     snippets: list[str] = []
     for row in search_rows:
         detail = pages.get(str(row.get("pageid")), {})
