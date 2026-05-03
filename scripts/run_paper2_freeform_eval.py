@@ -26,6 +26,22 @@ SEARCH_URL = "https://en.wikipedia.org/w/api.php"
 TOKEN_RE = re.compile(r"[A-Za-z0-9]+")
 MAX_WIKI_ATTEMPTS = 5
 WIKI_CACHE_VERSION = "v2_full_extract"
+MONTH_PATTERN = r"(?:January|February|March|April|May|June|July|August|September|October|November|December)"
+WORD_NUMBER_MAP = {
+    "zero": "0",
+    "one": "1",
+    "two": "2",
+    "three": "3",
+    "four": "4",
+    "five": "5",
+    "six": "6",
+    "seven": "7",
+    "eight": "8",
+    "nine": "9",
+    "ten": "10",
+    "eleven": "11",
+    "twelve": "12",
+}
 
 
 def parse_args() -> argparse.Namespace:
@@ -338,6 +354,10 @@ def _clean_answer_text(text: str, question: str = "") -> str:
         cleaned = lines[-1]
     cleaned = re.sub(r"^(answer|final answer)\s*:\s*", "", cleaned, flags=re.IGNORECASE).strip()
     cleaned = re.sub(r"^(wait[, ]+but|however|in summary|overall|so)\s+", "", cleaned, flags=re.IGNORECASE).strip()
+    cleaned = re.sub(r"^(first|second|third)[,:\s]+", "", cleaned, flags=re.IGNORECASE).strip()
+    cleaned = re.sub(r"^(the question is (asking|about)\s+)", "", cleaned, flags=re.IGNORECASE).strip()
+    cleaned = re.sub(r"^(according to [^,]+[,:\s]+|in the passages[,:\s]+it says that\s+)", "", cleaned, flags=re.IGNORECASE).strip()
+    cleaned = re.sub(r"^(i think the answer is|i think the answer|the answer appears to be)\s+", "", cleaned, flags=re.IGNORECASE).strip()
     cleaned = re.sub(r"^[\"'“”]+|[\"'“”]+$", "", cleaned).strip()
     sentence_match = re.split(r"(?<=[.!?])\s+", cleaned, maxsplit=1)
     if sentence_match:
@@ -349,6 +369,13 @@ def _clean_answer_text(text: str, question: str = "") -> str:
         flags=re.IGNORECASE,
     ).strip()
     if question_lower.startswith(("how many", "how much", "what year", "when")):
+        month_match = re.search(rf"\b({MONTH_PATTERN}\s+\d{{1,2}},?\s+\d{{4}}|{MONTH_PATTERN}\s+\d{{4}}|\d{{1,2}}\s+{MONTH_PATTERN}\s+\d{{4}}|\d{{4}})\b", cleaned)
+        if month_match:
+            cleaned = month_match.group(1).strip()
+        else:
+            word_number_match = re.search(r"\b(" + "|".join(WORD_NUMBER_MAP.keys()) + r")\b", cleaned, flags=re.IGNORECASE)
+            if word_number_match:
+                cleaned = WORD_NUMBER_MAP[word_number_match.group(1).lower()]
         number_match = re.search(
             r"\b(\d{1,4}(?:,\d{3})*(?:\.\d+)?(?:\s+(?:million|billion|thousand|hundred))?)\b",
             cleaned,
@@ -356,6 +383,9 @@ def _clean_answer_text(text: str, question: str = "") -> str:
         if number_match:
             cleaned = number_match.group(1).strip()
     elif question_lower.startswith(("who", "which", "where", "what", "name")):
+        quoted_match = re.search(r"[\"“]([^\"”]+)[\"”]", cleaned)
+        if quoted_match:
+            cleaned = quoted_match.group(1).strip()
         clause_match = re.match(
             r"^([A-Z0-9][^,.;:!?]{0,80}?)\s+\b(is|was|are|were)\b\s+.+$",
             cleaned,
@@ -364,6 +394,15 @@ def _clean_answer_text(text: str, question: str = "") -> str:
             prefix = clause_match.group(1).strip()
             if prefix.lower() not in {"there", "it", "he", "she", "they", "the question"}:
                 cleaned = prefix
+        else:
+            entity_match = re.match(
+                r"^(?:The\s+)?([A-Z0-9][A-Za-z0-9&'./-]*(?:\s+[A-Z0-9][A-Za-z0-9&'./-]*){0,6})\s+\b("
+                r"is|was|are|were|won|wrote|played|premiered|had|made|scored|passed|died|created|authored"
+                r")\b.*$",
+                cleaned,
+            )
+            if entity_match:
+                cleaned = entity_match.group(1).strip()
     cleaned = cleaned.rstrip(". ").strip()
     return cleaned
 
