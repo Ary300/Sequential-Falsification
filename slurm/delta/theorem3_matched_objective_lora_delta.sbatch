@@ -48,6 +48,7 @@ MAX_EVAL_ROWS=${MAX_EVAL_ROWS:-120}
 MAX_PROMPT_LENGTH=${MAX_PROMPT_LENGTH:-768}
 MAX_ANSWER_LENGTH=${MAX_ANSWER_LENGTH:-24}
 EPOCHS=${EPOCHS:-1}
+WARMSTART_EPOCHS=${WARMSTART_EPOCHS:-1}
 LR=${LR:-0.00005}
 WEIGHT_DECAY=${WEIGHT_DECAY:-0.0001}
 BETA=${BETA:-0.1}
@@ -92,6 +93,7 @@ python scripts/run_theorem3_matched_objective_lora.py \
   --max-prompt-length "${MAX_PROMPT_LENGTH}" \
   --max-answer-length "${MAX_ANSWER_LENGTH}" \
   --epochs "${EPOCHS}" \
+  --warmstart-epochs "${WARMSTART_EPOCHS}" \
   --lr "${LR}" \
   --weight-decay "${WEIGHT_DECAY}" \
   --beta "${BETA}" \
