@@ -168,7 +168,7 @@ def _wiki_search(
 def _load_triviaqa_open(max_examples: int) -> list[dict[str, Any]]:
     from datasets import load_dataset
 
-    dataset = load_dataset("trivia_qa", "rc.nocontext")["validation"]
+    dataset = load_dataset("trivia_qa", "rc.nocontext", split="validation", streaming=True)
     rows: list[dict[str, Any]] = []
     for row in dataset:
         answer = row.get("answer", {}) or {}
@@ -193,14 +193,14 @@ def _load_nq_open(max_examples: int) -> list[dict[str, Any]]:
     from datasets import load_dataset
 
     candidates = [
+        ("nq_open", "nq_open", "validation"),
         ("nq_open", None, "validation"),
-        ("nq_open", None, "dev"),
         ("google-research-datasets/nq_open", None, "validation"),
     ]
     last_error: Exception | None = None
     for dataset_name, config_name, split in candidates:
         try:
-            dataset = load_dataset(dataset_name, config_name, split=split)
+            dataset = load_dataset(dataset_name, config_name, split=split, streaming=True)
             rows: list[dict[str, Any]] = []
             for row in dataset:
                 answers = row.get("answer") or row.get("answers") or []
@@ -228,14 +228,15 @@ def _load_asqa(max_examples: int) -> list[dict[str, Any]]:
     from datasets import load_dataset
 
     candidates = [
+        ("din0s/asqa", "default", "dev"),
+        ("din0s/asqa", "default", "train"),
         ("din0s/asqa", None, "dev"),
-        ("din0s/asqa", None, "train"),
         ("asqa", None, "dev"),
     ]
     last_error: Exception | None = None
     for dataset_name, config_name, split in candidates:
         try:
-            dataset = load_dataset(dataset_name, config_name, split=split)
+            dataset = load_dataset(dataset_name, config_name, split=split, streaming=True)
             rows: list[dict[str, Any]] = []
             for row in dataset:
                 answers: list[str] = []
