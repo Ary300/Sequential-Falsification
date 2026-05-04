@@ -175,3 +175,47 @@ $p = 0.0312$, which becomes Holm-adjusted $p = 0.1560$ across the five
 benchmark families; `PopQA' remains the lone mixed exception. The full table is
 generated directly from the completed spotlight report so the multiple-testing
 correction is explicit rather than implicit.
+
+\subsection{Reproducibility Checklist}
+
+The submission package is organized so that the main claims can be re-executed
+from scripts rather than reconstructed from prose:
+\begin{itemize}
+\item benchmark construction, evaluation, and report builders live in
+`scripts/';
+\item theorem-3 real-generation evaluation is separated from postprocessing,
+with dedicated reporting scripts for the headline tables and notes;
+\item the matched-objective training path now records training history and, when
+requested, per-epoch adapter checkpoints for curriculum diagnostics;
+\item the camera-ready empirical summaries in the body are backed by generated
+artifacts in `docs/generated/' rather than handwritten tables;
+\item seed-specific results used in the paper are kept explicit in the
+generated notes instead of being silently merged.
+\end{itemize}
+The remaining reproducibility limitation is cluster access: some long-running
+Delta jobs are required for the large-model and dense-trajectory artifacts, so
+the code path is fully specified but not every expensive rerun is local.
+
+\subsection{Anonymization Sweep}
+
+The manuscript is currently anonymized at the author line and avoids naming any
+institutional affiliation in the body. We also keep the main text free of
+private cluster paths, personal URLs, or acknowledgments that would identify
+the authors. The remaining sweep before submission should therefore focus on
+artifact metadata rather than prose: PDF properties, repository remotes in the
+release bundle, and any generated filenames that encode local usernames or
+cluster account names.
+
+\subsection{Broader Impact}
+
+The positive use case for this work is straightforward: if a system can better
+separate trustworthy retrieval from misleading retrieval, it should reduce
+confident factual error in real QA and RAG deployments. The main risk is that
+the same calibration and arbitration tools could be used to make a system sound
+more convincing without improving its underlying truth-tracking. We therefore
+frame $\eta$-tempering and related interventions as calibration tools, not as
+license to deploy weaker answer models under adversarial retrieval. A second
+risk is overfitting to English conflict benchmarks; the paper's current
+English-only scope means any deployment claims outside that regime should be
+treated as unsupported until multilingual and domain-shifted evaluations are in
+place.

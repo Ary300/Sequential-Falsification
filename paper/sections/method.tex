@@ -115,6 +115,24 @@ post-trace answer distribution rather than the reasoning tokens themselves. If
 the residual long-CoT gap stays large after tempering, we treat the cell as an
 answer-level failure rather than a calibration-only failure.
 
+\begin{figure}[t]
+\centering
+\fbox{%
+\parbox{0.95\linewidth}{%
+\textbf{Arbitration pipeline with $\eta$-tempering.}
+Question $q$ and retrieved context $c$ produce two answer views:
+$p_\theta(y \mid q)$ and $p_{\mathrm{ctx}}(y \mid q,c)$. A reliability module
+maps observable signals to $w^\star(q,c)$, yielding the arbitration decoder
+$p_{w^\star}(y \mid q,c)$. For theorem-3 cells we then add one extra box after
+reasoning: generate a trace, form the post-trace answer distribution, and
+apply confidence-only $\eta$-tempering before the final prediction. The
+intervention changes answer confidence, not the reasoning tokens themselves.}}
+\caption{Conceptual pipeline used throughout the paper. The main architecture
+now explicitly includes the post-trace $\eta$-tempering box rather than showing
+only arbitration.}
+\label{fig:architecture-eta}
+\end{figure}
+
 \paragraph{Observable proxies and implemented policies.}
 The implemented experiments compare six policy families:
 \begin{enumerate}

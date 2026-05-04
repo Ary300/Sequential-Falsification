@@ -24,19 +24,16 @@ reasoning-time confidence can improve in low-conflict regimes and collapse in
 controlled conflict regimes where endogenous evidence keeps sharpening the wrong
 answer.
 
-The immediate next steps are now straightforward. The theory side needs full
-proof writeups for the Bayes-optimal rule and the fixed-policy minimax lower
-bound, while the theorem-3 side should continue to be written as a structural
-misspecification account rather than as a theorem of equal formal status. The
-empirical side still needs direct training-time comparisons to RLCR-style
-reward redesign, broader checkpoint-family sweeps, and mitigation experiments
-such as bagged reasoning and confidence decoupling. But the main paper arc is
-no longer speculative: fixed trust policies are wrong, a reliability-aware
-rule does better, and real reasoning traces reveal a structured calibration
-pathology under knowledge conflict. The associated method story is now concrete
-too: confidence-only $\eta$-tempering is enough to nearly recalibrate
-naturalistic contradiction, but not enough to rescue answer-level
-controlled-conflict failures.
+The next steps are clearer now than the original version suggested. The theory
+side still needs fuller writeups for the Bayes-optimal rule and the fixed-policy
+minimax lower bound, and the theorem-3 side should continue to be written as a
+structural misspecification account rather than a theorem of equal formal
+status. Empirically, the remaining high-value gaps are direct RLCR-style
+training comparisons, broader checkpoint-family sweeps, and mitigation
+experiments such as bagged reasoning and confidence decoupling. But the main
+paper arc is no longer speculative: fixed trust policies are wrong, a
+reliability-aware rule does better, and real reasoning traces reveal a
+structured calibration pathology under knowledge conflict.
 
 \paragraph{Scope and limitations.}
 Three practical boundaries matter for interpretation. First, the current paper

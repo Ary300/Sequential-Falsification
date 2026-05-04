@@ -231,6 +231,21 @@ $-0.0595$. Accordingly, the theorem-3 story should be anchored on the
 real-trace two-regime result plus the clean Bayes-versus-heuristic proxy read,
 not on a decisive named-comparator reversal.
 
+\paragraph{Matched-base objective controls.}
+The training-time objective comparison should also be read narrowly and
+honestly. Our cleanest matched-base anchor remains the Llama-8B family: a
+small continued-SFT control is weak, while the matched GRPO-style run gives
+the sharpest conflict-conditioned separation. Where we refer to DPO controls,
+we mean the standard pairwise objective of \citet{rafailov2024dpo}; the GRPO
+branch in this repo is a verifiable-reward group-relative surrogate rather than
+a byte-for-byte replay of any proprietary RLVR stack. The completed
+DeepSeek-Llama-8B matched pair does \emph{not} replicate the Llama result
+cleanly, while the finished DeepSeek-Llama-70B theorem-3 matrix remains
+strongly positive. The right claim is therefore not ``all matched-base RL
+families replicate,'' but ``the Llama anchor is real, the negative control is
+weak, and the large-model Llama-lineage replication survives even though the
+second 8B family is mixed.''
+
 \paragraph{Takeaways.}
 The paper's empirical story is now coherent. Theorems 1 and 2 are supported by
 corrected benchmark-backed regret results, including an expanded spotlight-scale
