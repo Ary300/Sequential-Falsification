@@ -105,6 +105,7 @@ class GenerationConfig:
     top_p: float = 1.0
     seed: int = 42
     request_format: str = "chat"
+    prompt_protocol: str = "generic"
 
 
 def _normalize_answer_text(text: Any) -> str:
@@ -444,6 +445,55 @@ def _completion_prompt(example: dict[str, Any], *, style: PromptStyle, condition
     )
 
 
+def _deepseek_native_completion_prompt(example: dict[str, Any], *, style: PromptStyle, condition: str) -> str:
+    base_block = _question_block(example, condition)
+    if style.cot_length == 0:
+        return (
+            "Answer the question directly.\n"
+            "Do not use a system prompt.\n"
+            "Do not repeat the question or context.\n"
+            "Use exactly this format:\n"
+            "<answer>short answer</answer>\n"
+            "<confidence>0.00 to 1.00</confidence>\n\n"
+            f"{base_block}\n\n"
+            "<answer>"
+        )
+    return (
+        "Please reason step by step.\n"
+        "Start your response with <think> and close it with </think> before the final answer.\n"
+        "Do not use a system prompt.\n"
+        "Do not repeat the question or context.\n"
+        "Use exactly this format:\n"
+        "<think>step by step reasoning</think>\n"
+        "<answer>short answer</answer>\n"
+        "<confidence>0.00 to 1.00</confidence>\n\n"
+        f"{base_block}\n\n"
+        "<think>"
+    )
+
+
+def _deepseek_native_user_prompt(example: dict[str, Any], *, style: PromptStyle, condition: str) -> str:
+    base_block = _question_block(example, condition)
+    if style.cot_length == 0:
+        return (
+            "Answer the question directly.\n"
+            "Do not repeat the question or context.\n"
+            "Use exactly this format:\n"
+            "<answer>short answer</answer>\n"
+            "<confidence>0.00 to 1.00</confidence>\n\n"
+            f"{base_block}"
+        )
+    return (
+        "Please reason step by step and start your response with <think>.\n"
+        "Do not repeat the question or context.\n"
+        "Use exactly this format:\n"
+        "<think>step by step reasoning</think>\n"
+        "<answer>short answer</answer>\n"
+        "<confidence>0.00 to 1.00</confidence>\n\n"
+        f"{base_block}"
+    )
+
+
 def _openai_completion(example: dict[str, Any], *, style: PromptStyle, condition: str, config: GenerationConfig) -> tuple[str, dict[str, Any]]:
     from openai import OpenAI  # type: ignore
 
@@ -453,7 +503,10 @@ def _openai_completion(example: dict[str, Any], *, style: PromptStyle, condition
         timeout=config.request_timeout,
         max_retries=1,
     )
-    prompt = _completion_prompt(example, style=style, condition=condition)
+    if config.prompt_protocol == "deepseek_native":
+        prompt = _deepseek_native_completion_prompt(example, style=style, condition=condition)
+    else:
+        prompt = _completion_prompt(example, style=style, condition=condition)
     response = client.completions.create(
         model=config.model,
         prompt=prompt,
@@ -521,10 +574,13 @@ def _generate_response(example: dict[str, Any], *, style: PromptStyle, condition
         raise ValueError(f"Unsupported theorem-3 real-generation backend: {config.backend}")
     if config.request_format == "completion":
         return _openai_completion(example, style=style, condition=condition, config=config)
-    messages = [
-        {"role": "system", "content": style.system_prompt},
-        {"role": "user", "content": _question_block(example, condition)},
-    ]
+    if config.prompt_protocol == "deepseek_native":
+        messages = [{"role": "user", "content": _deepseek_native_user_prompt(example, style=style, condition=condition)}]
+    else:
+        messages = [
+            {"role": "system", "content": style.system_prompt},
+            {"role": "user", "content": _question_block(example, condition)},
+        ]
     return _openai_chat(messages, style=style, config=config)
 
 

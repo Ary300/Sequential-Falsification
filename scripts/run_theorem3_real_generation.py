@@ -29,6 +29,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--top-p", type=float, default=1.0)
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--request-format", default="chat", choices=["chat", "completion"])
+    parser.add_argument("--prompt-protocol", default="generic", choices=["generic", "deepseek_native"])
     parser.add_argument("--benchmarks", default="wikicontradict,conflictbank")
     parser.add_argument("--conditions", default="aligned_context,conflict_context")
     parser.add_argument("--wikicontradict-max", type=int, default=200)
@@ -57,6 +58,7 @@ def main() -> None:
         "top_p": args.top_p,
         "seed": args.seed,
         "request_format": args.request_format,
+        "prompt_protocol": args.prompt_protocol,
     }
     config = GenerationConfig(**{key: value for key, value in config_kwargs.items() if key in supported_fields})
     benchmark_maxima: dict[str, int] = {}
