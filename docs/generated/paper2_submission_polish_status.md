@@ -17,8 +17,8 @@ locally while the remaining Delta jobs are still blocked on cluster access.
   [paper/references.bib](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/paper/references.bib)
   - `rafailov2024dpo`
 
-- Updated the architecture presentation to include the post-trace
-  `\eta`-tempering box:
+- Updated the architecture presentation to include a real post-trace
+  `\eta`-tempering flow figure:
   [paper/sections/method.tex](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/paper/sections/method.tex)
 
 - Added explicit appendix sections for:
@@ -29,6 +29,10 @@ locally while the remaining Delta jobs are still blocked on cluster access.
 
 - Tightened the conclusion slightly to reduce repeated forward-work prose:
   [paper/sections/conclusion.tex](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/paper/sections/conclusion.tex)
+
+- Trimmed repeated theorem-3 appendix prose and fixed the appendix compile
+  issue caused by a raw `\rightarrow` outside math mode:
+  [paper/appendix.tex](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/paper/appendix.tex)
 
 ## Already closed outside the manuscript
 
@@ -54,4 +58,4 @@ locally while the remaining Delta jobs are still blocked on cluster access.
 
 The paper-facing polish work is no longer the bottleneck. The remaining gaps
 are the live compute items, not missing citations, missing appendix sections,
-or unclear manuscript framing.
+placeholder figures, or unclear manuscript framing.

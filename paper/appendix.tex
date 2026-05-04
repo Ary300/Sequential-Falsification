@@ -18,18 +18,13 @@ identifiability lemma tying posterior reliability to observable signals.
 
 Theorem 1 is exact inside the log-linear family, so we also ran an
 11-point synthetic misspecification sweep that perturbs the oracle away from
-that family with an explicit nonlinear term while keeping the same
-calibration-fit procedure. At calibration size `2048', the fitted rule still
-recovers the exact-family oracle nearly perfectly at zero violation (mean
-held-out $R^2 = 0.9988$, mean excess Brier $= 0.000154$). More importantly,
-degradation is smooth rather than catastrophic under controlled
-misspecification: at measured violation strengths `0.3', `0.5', and `0.7' the
-held-out $R^2$ remains `0.9891', `0.9609', and `0.8858', respectively, and
-even the maximal sweep point only falls to `0.7290'. The
-intended empirical interpretation is therefore not that real LLM logits must be
-exactly log-linear, but that the implemented Bayes-style rule tracks the
-oracle family very closely when the family is approximately right and degrades
-gracefully as violations grow.
+that family while preserving the same calibration-fit procedure. The fitted
+rule remains near-perfect at zero violation (mean held-out $R^2 = 0.9988$) and
+degrades smoothly rather than catastrophically as the nonlinear perturbation
+grows. The key empirical takeaway is not that real LLM logits are exactly
+log-linear, but that the implemented Bayes-style rule tracks the oracle closely
+when the family is approximately right and degrades gracefully as violations
+grow. Full sweep artifacts live in the code release.
 
 \subsection{Proof Sketch for Theorem 2}
 
@@ -47,21 +42,6 @@ For the conflict slices considered here, the gap is the cleanest expression of
 the phenomenon of interest: confidence can rise sharply even when accuracy is
 flat or falling. We still report ECE in the generated artifacts, and in some
 slices the two are numerically very close.
-
-\subsection{Current 14B Scaling Snapshot}
-
-The finished DeepSeek-R1-Distill-Qwen-14B run contains `4200` rows. Its
-headline conflict-slice numbers are:
-
-\begin{itemize}
-\item WikiContradict conflict: $0.2717 \rightarrow 0.4516 \rightarrow 0.3750$
-\item ConflictBank conflict: $0.5876 \rightarrow 0.9449 \rightarrow 0.9513$
-\end{itemize}
-
-The first row reinforces the intermediate-CoT peak. The second shows that some
-conflict regimes remain catastrophically overconfident even at long CoT. This
-is why the final theorem-3 statement is family-dependent rather than uniformly
-non-monotone.
 
 \subsection{Answer-Stability Diagnostic for Theorem 3(a)}
 
@@ -83,22 +63,8 @@ stable subset rather than as a universal per-example claim. Importantly, the
 stable pre-saturation subset still exhibits the predicted confidence-gap growth:
 among `ConflictBank' conflict examples whose answer is unchanged from `cot=0'
 to `cot=128', the mean gap increase is $+0.0908$ with zero mean accuracy
-change. On the fully stable `0 \rightarrow 1024' subset, the mean gap increase
+change. On the fully stable `$0 \rightarrow 1024$' subset, the mean gap increase
 remains $+0.1025$ with zero mean accuracy change.
-
-\subsection{Benchmark-Dependent Separation Remark}
-
-The theorem-3 threshold should be understood as benchmark-dependent through the
-effective self-confirming separation parameter $\delta_c(s)$ rather than as a
-single model-only constant. Empirically, `WikiContradict' and `ConflictBank'
-fall into different regimes at the same model scale: on the finished 14B run,
-`WikiContradict' conflict shows partial long-CoT recovery
-($0.2717 \rightarrow 0.4516 \rightarrow 0.3750$), while `ConflictBank'
-conflict remains saturated
-($0.5876 \rightarrow 0.9449 \rightarrow 0.9513$). The cleanest interpretation
-is that controlled entity-swap conflicts induce a larger effective
-self-confirming separation than naturalistic contradiction, so the same model
-can lie on opposite sides of the safe-update boundary on the two benchmarks.
 
 \subsection{Scope Note on Theorem-3 Rigor}
 
@@ -114,21 +80,10 @@ proof. Likewise, the empirical proxy $\hat{\eta}_{\mathrm{eff}}$ is intended as
 a directional indicator of safe-versus-unsafe update strength rather than as a
 point-identifying estimator of the underlying generalized-Bayes learning rate.
 
-This distinction matters for the cross-family interpretation as well. The
-DeepSeek-R1-Distill family gives the clearest saturated-conflict read, but the
-same 7B-to-14B asymmetry does not replicate cleanly in Qwen through 32B. That
-is why the paper's final theorem-3 statement is benchmark-dependent and
-training-family-conditioned rather than a universal scale law. It is also why
-we avoid overselling the result as a clean GRPO-versus-DPO causal isolation:
-R1-Distill is a distillation product rather than a from-scratch GRPO checkpoint
-matched to a DPO baseline.
-
-Three additional scope limits follow from this reading. First, the current
-paper does not yet contain a completed head-to-head number against
-RLCR-style reward redesign \citep{damani2025rlcr}; the present training-time
-evidence is lighter-weight. Second, the retrieval deployment demo is bounded
-rather than production-scale. Third, the current theorem-3 evidence is
-English-only.
+This distinction matters for the cross-family interpretation as well. The paper
+therefore treats theorem 3 as benchmark-dependent and training-family
+conditioned rather than as a universal scale law, and it avoids overselling the
+current matched-objective evidence as clean GRPO-versus-DPO causal isolation.
 
 \subsection{Eta-Tempered Decoding Recipe}
 
@@ -144,11 +99,10 @@ accuracy on the calibration split;
 \item treat large residual gaps after tempering as answer-level failures rather
 than calibration-only failures.
 \end{enumerate}
-
-The finished 14B intervention read gives the operational headline directly:
-conflict slices tolerate only about $0.52\times$ the do-no-harm $\eta$ of
-no-conflict slices. WikiContradict conflict is almost fully recalibratable by
-confidence-only tempering, while ConflictBank conflict is not.
+The operational headline in the finished 14B read is simple: conflict slices
+tolerate a substantially smaller safe $\eta$ than no-conflict slices, and
+confidence-only tempering helps naturalistic contradiction much more than
+controlled-conflict answer failures.
 
 \subsection{Benchmark-Family Consistency Read}
 
@@ -173,28 +127,21 @@ families `ConflictBank', `FaithEval', `MemoTrap', and `NQ-Swap' are all
 unanimous $5/5$ Bayes-over-CoCoA wins with nominal one-sided sign
 $p = 0.0312$, which becomes Holm-adjusted $p = 0.1560$ across the five
 benchmark families; `PopQA' remains the lone mixed exception. The full table is
-generated directly from the completed spotlight report so the multiple-testing
-correction is explicit rather than implicit.
+generated directly from the completed spotlight report in the code release, so
+the multiple-testing correction is explicit rather than implicit.
 
 \subsection{Reproducibility Checklist}
 
-The submission package is organized so that the main claims can be re-executed
-from scripts rather than reconstructed from prose:
 \begin{itemize}
-\item benchmark construction, evaluation, and report builders live in
-`scripts/';
-\item theorem-3 real-generation evaluation is separated from postprocessing,
-with dedicated reporting scripts for the headline tables and notes;
-\item the matched-objective training path now records training history and, when
-requested, per-epoch adapter checkpoints for curriculum diagnostics;
-\item the camera-ready empirical summaries in the body are backed by generated
-artifacts in `docs/generated/' rather than handwritten tables;
-\item seed-specific results used in the paper are kept explicit in the
-generated notes instead of being silently merged.
+\item benchmark construction, evaluation, and reporting are script-backed;
+\item theorem-3 generation is separated from postprocessing;
+\item matched-objective runs record training history and can save per-epoch
+adapter checkpoints for curriculum diagnostics;
+\item body tables are backed by generated artifacts rather than handwritten
+summaries.
 \end{itemize}
-The remaining reproducibility limitation is cluster access: some long-running
-Delta jobs are required for the large-model and dense-trajectory artifacts, so
-the code path is fully specified but not every expensive rerun is local.
+The main remaining reproducibility limitation is cluster access: some
+large-model and dense-trajectory artifacts require long-running Delta jobs.
 
 \subsection{Anonymization Sweep}
 
@@ -208,14 +155,9 @@ cluster account names.
 
 \subsection{Broader Impact}
 
-The positive use case for this work is straightforward: if a system can better
-separate trustworthy retrieval from misleading retrieval, it should reduce
-confident factual error in real QA and RAG deployments. The main risk is that
-the same calibration and arbitration tools could be used to make a system sound
-more convincing without improving its underlying truth-tracking. We therefore
-frame $\eta$-tempering and related interventions as calibration tools, not as
-license to deploy weaker answer models under adversarial retrieval. A second
-risk is overfitting to English conflict benchmarks; the paper's current
-English-only scope means any deployment claims outside that regime should be
-treated as unsupported until multilingual and domain-shifted evaluations are in
-place.
+The positive use case is reduced confident factual error under misleading
+retrieval. The main risk is that the same calibration tools could make systems
+sound more convincing without improving truth-tracking. We therefore frame
+$\eta$-tempering as a calibration intervention, not a substitute for better
+answer models, and we treat deployment claims outside the current English-only
+benchmark regime as unsupported.

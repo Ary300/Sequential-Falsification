@@ -117,19 +117,37 @@ answer-level failure rather than a calibration-only failure.
 
 \begin{figure}[t]
 \centering
-\fbox{%
-\parbox{0.95\linewidth}{%
-\textbf{Arbitration pipeline with $\eta$-tempering.}
-Question $q$ and retrieved context $c$ produce two answer views:
-$p_\theta(y \mid q)$ and $p_{\mathrm{ctx}}(y \mid q,c)$. A reliability module
-maps observable signals to $w^\star(q,c)$, yielding the arbitration decoder
-$p_{w^\star}(y \mid q,c)$. For theorem-3 cells we then add one extra box after
-reasoning: generate a trace, form the post-trace answer distribution, and
-apply confidence-only $\eta$-tempering before the final prediction. The
-intervention changes answer confidence, not the reasoning tokens themselves.}}
+\begin{tikzpicture}[
+    node distance=7mm and 6mm,
+    box/.style={draw, rounded corners, align=center, minimum height=8mm, inner sep=3pt},
+    io/.style={box, fill=gray!10},
+    proc/.style={box, fill=blue!6},
+    calib/.style={box, fill=green!8},
+    arrow/.style={-Latex, thick}
+]
+\node[io] (q) {$q$};
+\node[io, right=of q] (c) {$c$};
+\node[proc, below=of q] (ptheta) {$p_\theta(y \mid q)$};
+\node[proc, below=of c] (pctx) {$p_{\mathrm{ctx}}(y \mid q,c)$};
+\node[calib, below=11mm of $(q)!0.5!(c)$] (wstar) {reliability signals\\$\to\ w^\star(q,c)$};
+\node[proc, below=of wstar] (arb) {arbitration decoder\\$p_{w^\star}(y \mid q,c)$};
+\node[proc, below=of arb] (trace) {reasoning trace\\and answer distribution};
+\node[calib, below=of trace] (eta) {$\eta$-tempering\\post-trace only};
+\node[io, below=of eta] (final) {final answer};
+
+\draw[arrow] (q) -- (ptheta);
+\draw[arrow] (c) -- (pctx);
+\draw[arrow] (ptheta) -- (wstar);
+\draw[arrow] (pctx) -- (wstar);
+\draw[arrow] (wstar) -- (arb);
+\draw[arrow] (arb) -- (trace);
+\draw[arrow] (trace) -- (eta);
+\draw[arrow] (eta) -- (final);
+\end{tikzpicture}
 \caption{Conceptual pipeline used throughout the paper. The main architecture
-now explicitly includes the post-trace $\eta$-tempering box rather than showing
-only arbitration.}
+now explicitly includes the post-trace $\eta$-tempering stage rather than
+showing only arbitration. The intervention changes answer confidence after
+reasoning, not the reasoning tokens themselves.}
 \label{fig:architecture-eta}
 \end{figure}
 
