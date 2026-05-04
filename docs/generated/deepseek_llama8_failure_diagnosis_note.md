@@ -111,22 +111,21 @@ Read:
 
 ### Intermediate-checkpoint curriculum analysis
 
-The current matched-objective training script saves:
+This is now instrumented properly.
 
-- final adapter checkpoint
-- final merged model
-- `training_history`
+The matched-objective training script now supports per-epoch adapter
+checkpoints when `--save-intermediate-checkpoints` is enabled, and the Delta
+submit path forwards the corresponding environment flag.
 
-but it does **not** save intermediate checkpoints for a true curriculum sweep.
+Status / launcher:
 
-Code:
-
-- [run_theorem3_matched_objective_lora.py](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Confidence/scripts/run_theorem3_matched_objective_lora.py#L514)
+- [deepseek_llama8_curriculum_audit_status.md](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/deepseek_llama8_curriculum_audit_status.md)
+- [submit_delta_theorem3_deepseek_llama8_curriculum_audit.sh](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Confidence/scripts/submit_delta_theorem3_deepseek_llama8_curriculum_audit.sh)
 
 Read:
 
-- a real “intermediate checkpoint” diagnosis still requires rerunning with
-  checkpoint persistence turned on.
+- the missing piece is no longer code support
+- it is now only a compute / Delta-access issue
 
 ## Remediation now wired
 

@@ -88,6 +88,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--top-p", type=float, default=0.95)
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--torch-dtype", default="bfloat16", choices=["auto", "bfloat16", "float16", "float32"])
+    parser.add_argument(
+        "--save-intermediate-checkpoints",
+        action="store_true",
+        help="Persist adapter checkpoints after each warmstart / objective epoch for curriculum diagnostics.",
+    )
     return parser.parse_args()
 
 
@@ -431,34 +436,69 @@ def _grpo_epoch(model: Any, tokenizer: Any, train_rows: list[dict[str, Any]], ar
     return float(sum(running) / max(1, len(running)))
 
 
-def _train(model: Any, tokenizer: Any, train_rows: list[dict[str, Any]], val_rows: list[dict[str, Any]], args: argparse.Namespace) -> list[dict[str, float]]:
+def _save_adapter_snapshot(model: Any, tokenizer: Any, checkpoint_dir: Path, metadata: dict[str, Any]) -> dict[str, Any]:
+    checkpoint_dir.mkdir(parents=True, exist_ok=True)
+    model.save_pretrained(checkpoint_dir)
+    _ensure_chat_template(tokenizer)
+    tokenizer.save_pretrained(checkpoint_dir)
+    dump_json(metadata, checkpoint_dir / "checkpoint_metadata.json")
+    return {
+        "checkpoint_dir": str(checkpoint_dir),
+        "metadata_file": str(checkpoint_dir / "checkpoint_metadata.json"),
+    }
+
+
+def _train(
+    model: Any,
+    tokenizer: Any,
+    train_rows: list[dict[str, Any]],
+    val_rows: list[dict[str, Any]],
+    args: argparse.Namespace,
+    *,
+    checkpoints_root: Path | None,
+) -> tuple[list[dict[str, float]], list[dict[str, Any]]]:
     history = []
+    checkpoints: list[dict[str, Any]] = []
     for epoch in range(1, args.warmstart_epochs + 1):
         train_loss = _sft_epoch(model, tokenizer, train_rows, args)
         val_metrics = _evaluate_model(model, tokenizer, val_rows, args, adapters_enabled=True)
-        history.append(
-            {
-                "stage": "warmstart_sft",
-                "epoch": epoch,
-                "train_loss": round(train_loss, 6),
-                "val_accuracy": round(float(val_metrics["accuracy"]), 6),
-            }
-        )
+        entry = {
+            "stage": "warmstart_sft",
+            "epoch": epoch,
+            "train_loss": round(train_loss, 6),
+            "val_accuracy": round(float(val_metrics["accuracy"]), 6),
+        }
+        history.append(entry)
+        if checkpoints_root is not None:
+            checkpoint = _save_adapter_snapshot(
+                model,
+                tokenizer,
+                checkpoints_root / f"warmstart_sft_epoch_{epoch:02d}",
+                entry,
+            )
+            checkpoints.append({**entry, **checkpoint})
     for epoch in range(1, args.epochs + 1):
         if args.objective == "dpo":
             train_loss = _dpo_epoch(model, tokenizer, train_rows, args)
         else:
             train_loss = _grpo_epoch(model, tokenizer, train_rows, args)
         val_metrics = _evaluate_model(model, tokenizer, val_rows, args, adapters_enabled=True)
-        history.append(
-            {
-                "stage": args.objective,
-                "epoch": epoch,
-                "train_loss": round(train_loss, 6),
-                "val_accuracy": round(float(val_metrics["accuracy"]), 6),
-            }
-        )
-    return history
+        entry = {
+            "stage": args.objective,
+            "epoch": epoch,
+            "train_loss": round(train_loss, 6),
+            "val_accuracy": round(float(val_metrics["accuracy"]), 6),
+        }
+        history.append(entry)
+        if checkpoints_root is not None:
+            checkpoint = _save_adapter_snapshot(
+                model,
+                tokenizer,
+                checkpoints_root / f"{args.objective}_epoch_{epoch:02d}",
+                entry,
+            )
+            checkpoints.append({**entry, **checkpoint})
+    return history, checkpoints
 
 
 def _build_markdown(payload: dict[str, Any]) -> str:
@@ -474,6 +514,7 @@ def _build_markdown(payload: dict[str, Any]) -> str:
         f"- Model: `{payload['metadata']['model_name']}`",
         f"- Benchmark: `{payload['metadata']['benchmark']}`",
         f"- Train / val / eval rows: `{payload['metadata']['num_train_rows']}` / `{payload['metadata']['num_val_rows']}` / `{payload['metadata']['num_eval_rows']}`",
+        f"- Intermediate checkpoints saved: `{payload['metadata']['save_intermediate_checkpoints']}`",
         "",
         "## Eval",
         "",
@@ -508,7 +549,15 @@ def main() -> None:
 
     tokenizer, model = _load_model_and_tokenizer(args)
     base_eval = _evaluate_model(model, tokenizer, eval_rows, args, adapters_enabled=False)
-    history = _train(model, tokenizer, train_rows, val_rows, args)
+    checkpoints_root = output_dir / "intermediate_checkpoints" if args.save_intermediate_checkpoints else None
+    history, intermediate_checkpoints = _train(
+        model,
+        tokenizer,
+        train_rows,
+        val_rows,
+        args,
+        checkpoints_root=checkpoints_root,
+    )
     tuned_eval = _evaluate_model(model, tokenizer, eval_rows, args, adapters_enabled=True)
 
     adapter_dir = output_dir / "adapter"
@@ -544,10 +593,12 @@ def main() -> None:
             "lora_alpha": args.lora_alpha,
             "lora_dropout": args.lora_dropout,
             "seed": args.seed,
+            "save_intermediate_checkpoints": bool(args.save_intermediate_checkpoints),
         },
         "base_eval": base_eval,
         "tuned_eval": tuned_eval,
         "training_history": history,
+        "intermediate_checkpoints": intermediate_checkpoints,
         "output_paths": {
             "adapter_dir": str(adapter_dir),
             "merged_model_dir": str(merged_dir),

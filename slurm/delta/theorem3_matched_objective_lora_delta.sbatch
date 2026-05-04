@@ -60,6 +60,7 @@ LORA_ALPHA=${LORA_ALPHA:-16}
 LORA_DROPOUT=${LORA_DROPOUT:-0.05}
 SEED=${SEED:-42}
 TORCH_DTYPE=${TORCH_DTYPE:-bfloat16}
+SAVE_INTERMEDIATE_CHECKPOINTS=${SAVE_INTERMEDIATE_CHECKPOINTS:-0}
 RUN_THEOREM3_EVAL=${RUN_THEOREM3_EVAL:-1}
 EVAL_OUTPUT_DIR=${EVAL_OUTPUT_DIR:-}
 EVAL_BENCHMARKS=${EVAL_BENCHMARKS:-wikicontradict,conflictbank}
@@ -104,7 +105,8 @@ python scripts/run_theorem3_matched_objective_lora.py \
   --lora-alpha "${LORA_ALPHA}" \
   --lora-dropout "${LORA_DROPOUT}" \
   --seed "${SEED}" \
-  --torch-dtype "${TORCH_DTYPE}"
+  --torch-dtype "${TORCH_DTYPE}" \
+  $(if [[ "${SAVE_INTERMEDIATE_CHECKPOINTS}" == "1" ]]; then printf '%s' "--save-intermediate-checkpoints"; fi)
 
 if [[ "${RUN_THEOREM3_EVAL}" == "1" ]]; then
   API_PORT=$((20000 + (${SLURM_JOB_ID:-0} % 20000)))

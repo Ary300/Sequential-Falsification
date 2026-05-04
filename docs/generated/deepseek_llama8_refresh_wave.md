@@ -78,3 +78,9 @@ Pair B:
   [submit_delta_deepseek_llama8_objective_followups.sh](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Confidence/scripts/submit_delta_deepseek_llama8_objective_followups.sh)
   launches the same token-level answer-margin / entropy probe used for the
   matched `Llama-8B` mechanism note, but on the DeepSeek pair.
+- The intermediate-checkpoint curriculum path is also wired now:
+  [deepseek_llama8_curriculum_audit_status.md](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Confidence/docs/generated/deepseek_llama8_curriculum_audit_status.md)
+  and
+  [submit_delta_theorem3_deepseek_llama8_curriculum_audit.sh](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Confidence/scripts/submit_delta_theorem3_deepseek_llama8_curriculum_audit.sh)
+  let us inspect whether the failure shows up during warmstart or only after
+  the objective stage.
