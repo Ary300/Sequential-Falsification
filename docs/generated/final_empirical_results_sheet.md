@@ -456,6 +456,22 @@ Read:
 - This is still a transfer suite rather than a full multilingual theorem-3 benchmark.
 - But the empirical package is no longer English-only in any simple sense.
 
+## Paper 2 Closeout
+
+Source:
+- [paper2_checklist_closeout.md](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/paper2_checklist_closeout.md)
+
+Current read:
+- Closed: matched `DeepSeek-Llama-8B DPO/GRPO`, inference-cache demo, matched
+  `Phi-3 SFT/DPO/GRPO`, `DeepSeek-Llama-70B` theorem-3 matrix, and extra
+  `Llama-8B GRPO` seeds.
+- In progress on Delta: dense `R1-14B` tail-rate run for real
+  `\hat{\rho}^\star` / polynomial-tail fits, plus two `n=200` free-form
+  open-QA runs.
+- Strongest finished Paper 2 empirical wins remain the poisoned-context
+  safety story, the reliability ablation, the multi-document conflict scaling,
+  and the cache-backed deployment cost reduction.
+
 ## Final Practical Read
 
 - Strongest theorem-3 headline: `Llama-8B DPO vs GRPO`
