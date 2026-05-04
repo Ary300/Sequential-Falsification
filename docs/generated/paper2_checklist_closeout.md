@@ -44,9 +44,9 @@ Live jobs:
 
 - `2237713` `r1_14b_tail`
   - dense `R1-14B` theorem-3 trajectory run
-- `2237720` `bn14b_ana`
-  - dependent analysis job that will build the rate note from the finished
-    rows
+- `2237950` `bn14b_ana`
+  - corrected dependent analysis job that will build the rate note from the
+    finished rows
 
 Current coarse sanity check on the old `3`-point artifact:
 
@@ -60,8 +60,11 @@ Read:
 
 - The missing thing was not “bad numbers”; it was missing dense trajectory
   instrumentation.
+- A submission-path bug in the first dependent analysis job was fixed before
+  tail completion; the live follow-up now uses the correct `--json-out` /
+  `--md-out` flags expected by the analyzer.
 - This item is now on the right path and should resolve as soon as
-  `2237713 -> 2237720` completes.
+  `2237713 -> 2237950` completes.
 
 ## 3. Inference-cache demo for `\hat w`
 
@@ -180,7 +183,7 @@ What is already done:
 Live jobs:
 
 - `2237713` `r1_14b_tail`
-- `2237720` `bn14b_ana`
+- `2237950` `bn14b_ana`
 
 Read:
 
