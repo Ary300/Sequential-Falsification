@@ -1,0 +1,315 @@
+{
+  "head_to_head_positive_subset": {
+    "cocoa": {
+      "total_cells": 210,
+      "positive_cells": 201,
+      "mean_gap_all": 0.0426,
+      "mean_gap_positive_subset": 0.045,
+      "mean_positive_part": 0.0431,
+      "max_gap": 0.0567,
+      "min_gap": -0.0112
+    },
+    "astute_rag": {
+      "total_cells": 210,
+      "positive_cells": 201,
+      "mean_gap_all": 0.0318,
+      "mean_gap_positive_subset": 0.0341,
+      "mean_positive_part": 0.0326,
+      "max_gap": 0.0426,
+      "min_gap": -0.0175
+    },
+    "self_rag": {
+      "total_cells": 210,
+      "positive_cells": 180,
+      "mean_gap_all": 0.0219,
+      "mean_gap_positive_subset": 0.0598,
+      "mean_positive_part": 0.0512,
+      "max_gap": 0.1231,
+      "min_gap": -0.6223
+    }
+  },
+  "eta_tempering_distribution_summary": {
+    "num_slices_available": 3,
+    "metrics": {
+      "accuracy_delta": {
+        "median": 0.4033,
+        "iqr_low": 0.2117,
+        "iqr_high": 0.4033,
+        "max": 0.4033,
+        "min": 0.02
+      },
+      "ece_delta": {
+        "median": -0.4082,
+        "iqr_low": -0.4082,
+        "iqr_high": -0.2234,
+        "max": -0.0386,
+        "min": -0.4082
+      },
+      "brier_delta": {
+        "median": -0.3898,
+        "iqr_low": -0.3898,
+        "iqr_high": -0.2062,
+        "max": -0.0226,
+        "min": -0.3898
+      },
+      "confidence_delta": {
+        "median": -0.0134,
+        "iqr_low": -0.0134,
+        "iqr_high": -0.0017,
+        "max": 0.0099,
+        "min": -0.0134
+      },
+      "gap_delta": {
+        "median": -0.4167,
+        "iqr_low": -0.4167,
+        "iqr_high": -0.2134,
+        "max": -0.0101,
+        "min": -0.4167
+      },
+      "selected_eta": {
+        "median": 0.0,
+        "iqr_low": 0.0,
+        "iqr_high": 0.15,
+        "max": 0.3,
+        "min": 0.0
+      }
+    },
+    "slice_rows": [
+      {
+        "source_file": "theorem3_eta_tempered_method_result.json",
+        "benchmark": "conflictbank",
+        "condition": "conflict_context",
+        "cot_length": 1024,
+        "selected_eta": 0.0,
+        "accuracy_delta": 0.403333,
+        "ece_delta": -0.408188,
+        "brier_delta": -0.38983599999999996,
+        "confidence_delta": -0.013396999999999992,
+        "gap_delta": -0.4167310000000001
+      },
+      {
+        "source_file": "theorem3_eta_tempered_conflictbank_full.json",
+        "benchmark": "conflictbank",
+        "condition": "conflict_context",
+        "cot_length": 1024,
+        "selected_eta": 0.0,
+        "accuracy_delta": 0.403333,
+        "ece_delta": -0.408188,
+        "brier_delta": -0.38983599999999996,
+        "confidence_delta": -0.013396999999999992,
+        "gap_delta": -0.4167310000000001
+      },
+      {
+        "source_file": "theorem3_eta_tempered_wikicontradict_full.json",
+        "benchmark": "wikicontradict",
+        "condition": "conflict_context",
+        "cot_length": 1024,
+        "selected_eta": 0.3,
+        "accuracy_delta": 0.020000000000000018,
+        "ece_delta": -0.03858499999999998,
+        "brier_delta": -0.02264900000000003,
+        "confidence_delta": 0.009911000000000003,
+        "gap_delta": -0.010088999999999959
+      }
+    ]
+  },
+  "c_rob_shift_curvature_proxy": {
+    "num_estimates": 27,
+    "median": -0.1125,
+    "iqr_low": -0.2488,
+    "iqr_high": 0.0562,
+    "max": 0.8443,
+    "min": -2.8641,
+    "rows": [
+      {
+        "source_file": "theorem3_eta_tempered_method_result.json",
+        "benchmark": "conflictbank",
+        "condition": "conflict_context",
+        "eta_center": 0.1,
+        "brier_second_derivative": 0.2241000000000159
+      },
+      {
+        "source_file": "theorem3_eta_tempered_method_result.json",
+        "benchmark": "conflictbank",
+        "condition": "conflict_context",
+        "eta_center": 0.2,
+        "brier_second_derivative": -0.2297000000000104
+      },
+      {
+        "source_file": "theorem3_eta_tempered_method_result.json",
+        "benchmark": "conflictbank",
+        "condition": "conflict_context",
+        "eta_center": 0.3,
+        "brier_second_derivative": 0.14420000000000552
+      },
+      {
+        "source_file": "theorem3_eta_tempered_method_result.json",
+        "benchmark": "conflictbank",
+        "condition": "conflict_context",
+        "eta_center": 0.4,
+        "brier_second_derivative": -0.27060000000000956
+      },
+      {
+        "source_file": "theorem3_eta_tempered_method_result.json",
+        "benchmark": "conflictbank",
+        "condition": "conflict_context",
+        "eta_center": 0.5,
+        "brier_second_derivative": -0.09269999999999005
+      },
+      {
+        "source_file": "theorem3_eta_tempered_method_result.json",
+        "benchmark": "conflictbank",
+        "condition": "conflict_context",
+        "eta_center": 0.6,
+        "brier_second_derivative": -0.8979999999999992
+      },
+      {
+        "source_file": "theorem3_eta_tempered_method_result.json",
+        "benchmark": "conflictbank",
+        "condition": "conflict_context",
+        "eta_center": 0.7,
+        "brier_second_derivative": -2.864100000000004
+      },
+      {
+        "source_file": "theorem3_eta_tempered_method_result.json",
+        "benchmark": "conflictbank",
+        "condition": "conflict_context",
+        "eta_center": 0.8,
+        "brier_second_derivative": -0.24439999999999976
+      },
+      {
+        "source_file": "theorem3_eta_tempered_method_result.json",
+        "benchmark": "conflictbank",
+        "condition": "conflict_context",
+        "eta_center": 0.9,
+        "brier_second_derivative": 0.10850000000000032
+      },
+      {
+        "source_file": "theorem3_eta_tempered_conflictbank_full.json",
+        "benchmark": "conflictbank",
+        "condition": "conflict_context",
+        "eta_center": 0.1,
+        "brier_second_derivative": 0.2241000000000159
+      },
+      {
+        "source_file": "theorem3_eta_tempered_conflictbank_full.json",
+        "benchmark": "conflictbank",
+        "condition": "conflict_context",
+        "eta_center": 0.2,
+        "brier_second_derivative": -0.2297000000000104
+      },
+      {
+        "source_file": "theorem3_eta_tempered_conflictbank_full.json",
+        "benchmark": "conflictbank",
+        "condition": "conflict_context",
+        "eta_center": 0.3,
+        "brier_second_derivative": 0.14420000000000552
+      },
+      {
+        "source_file": "theorem3_eta_tempered_conflictbank_full.json",
+        "benchmark": "conflictbank",
+        "condition": "conflict_context",
+        "eta_center": 0.4,
+        "brier_second_derivative": -0.27060000000000956
+      },
+      {
+        "source_file": "theorem3_eta_tempered_conflictbank_full.json",
+        "benchmark": "conflictbank",
+        "condition": "conflict_context",
+        "eta_center": 0.5,
+        "brier_second_derivative": -0.09269999999999005
+      },
+      {
+        "source_file": "theorem3_eta_tempered_conflictbank_full.json",
+        "benchmark": "conflictbank",
+        "condition": "conflict_context",
+        "eta_center": 0.6,
+        "brier_second_derivative": -0.8979999999999992
+      },
+      {
+        "source_file": "theorem3_eta_tempered_conflictbank_full.json",
+        "benchmark": "conflictbank",
+        "condition": "conflict_context",
+        "eta_center": 0.7,
+        "brier_second_derivative": -2.864100000000004
+      },
+      {
+        "source_file": "theorem3_eta_tempered_conflictbank_full.json",
+        "benchmark": "conflictbank",
+        "condition": "conflict_context",
+        "eta_center": 0.8,
+        "brier_second_derivative": -0.24439999999999976
+      },
+      {
+        "source_file": "theorem3_eta_tempered_conflictbank_full.json",
+        "benchmark": "conflictbank",
+        "condition": "conflict_context",
+        "eta_center": 0.9,
+        "brier_second_derivative": 0.10850000000000032
+      },
+      {
+        "source_file": "theorem3_eta_tempered_wikicontradict_full.json",
+        "benchmark": "wikicontradict",
+        "condition": "conflict_context",
+        "eta_center": 0.1,
+        "brier_second_derivative": 0.003999999999992897
+      },
+      {
+        "source_file": "theorem3_eta_tempered_wikicontradict_full.json",
+        "benchmark": "wikicontradict",
+        "condition": "conflict_context",
+        "eta_center": 0.2,
+        "brier_second_derivative": -0.25319999999999226
+      },
+      {
+        "source_file": "theorem3_eta_tempered_wikicontradict_full.json",
+        "benchmark": "wikicontradict",
+        "condition": "conflict_context",
+        "eta_center": 0.3,
+        "brier_second_derivative": 0.8442999999999927
+      },
+      {
+        "source_file": "theorem3_eta_tempered_wikicontradict_full.json",
+        "benchmark": "wikicontradict",
+        "condition": "conflict_context",
+        "eta_center": 0.4,
+        "brier_second_derivative": -0.2269999999999937
+      },
+      {
+        "source_file": "theorem3_eta_tempered_wikicontradict_full.json",
+        "benchmark": "wikicontradict",
+        "condition": "conflict_context",
+        "eta_center": 0.5,
+        "brier_second_derivative": -0.17560000000000361
+      },
+      {
+        "source_file": "theorem3_eta_tempered_wikicontradict_full.json",
+        "benchmark": "wikicontradict",
+        "condition": "conflict_context",
+        "eta_center": 0.6,
+        "brier_second_derivative": -0.0022000000000022015
+      },
+      {
+        "source_file": "theorem3_eta_tempered_wikicontradict_full.json",
+        "benchmark": "wikicontradict",
+        "condition": "conflict_context",
+        "eta_center": 0.7,
+        "brier_second_derivative": -0.10549999999999732
+      },
+      {
+        "source_file": "theorem3_eta_tempered_wikicontradict_full.json",
+        "benchmark": "wikicontradict",
+        "condition": "conflict_context",
+        "eta_center": 0.8,
+        "brier_second_derivative": -0.05909999999999516
+      },
+      {
+        "source_file": "theorem3_eta_tempered_wikicontradict_full.json",
+        "benchmark": "wikicontradict",
+        "condition": "conflict_context",
+        "eta_center": 0.9,
+        "brier_second_derivative": -0.11250000000000432
+      }
+    ]
+  }
+}

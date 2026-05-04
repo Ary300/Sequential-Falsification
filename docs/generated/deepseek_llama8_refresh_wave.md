@@ -74,3 +74,7 @@ Pair B:
 - It is the strongest honest attempt to recover a cleaner `DeepSeek-Llama-8B`
   matched-family story without pretending the first negative run did not
   happen.
+- The paired reviewer-facing diagnosis path is now wired too:
+  [submit_delta_deepseek_llama8_objective_followups.sh](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Confidence/scripts/submit_delta_deepseek_llama8_objective_followups.sh)
+  launches the same token-level answer-margin / entropy probe used for the
+  matched `Llama-8B` mechanism note, but on the DeepSeek pair.

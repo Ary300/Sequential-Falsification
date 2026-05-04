@@ -7,7 +7,7 @@ Status date: `2026-05-03`
 
 ## 1. `DeepSeek-R1-Distill-Llama-8B` matched `DPO/GRPO` pair
 
-Status: `done`
+Status: `done`, with diagnostic rerun wave active
 
 Finished matched-base results:
 
@@ -28,6 +28,11 @@ Read:
 - The result is still useful because it rules out the stronger claim that the
   matched-base `GRPO` effect simply reproduces across every Llama-lineage `8B`
   family.
+- The active follow-up is now diagnostic rather than rhetorical:
+  - DeepSeek refresh wave:
+    [deepseek_llama8_refresh_wave.md](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/deepseek_llama8_refresh_wave.md)
+  - DeepSeek mechanism launcher:
+    [submit_delta_deepseek_llama8_objective_followups.sh](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Confidence/scripts/submit_delta_deepseek_llama8_objective_followups.sh)
 
 ## 2. Real `\hat{\rho}^\star` values for the Berk-Nash empirical table
 
@@ -211,6 +216,14 @@ Already closed and good:
   - `DeepSeek-Llama-70B` conflict-minus-no-conflict `+0.3881`
 
 ## Bottom Line
+
+New low-compute camera-ready reaggregation note:
+
+- [paper2_camera_ready_reaggregations.md](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Confidence/docs/generated/paper2_camera_ready_reaggregations.md)
+  - powered `Δ̂_+` positive-subset summaries for `CoCoA`, `Astute RAG`, and
+    `Self-RAG`
+  - current local eta-tempering distribution summary
+  - empirical finite-difference curvature proxy for the `C_rob` shift story
 
 Closed now:
 
