@@ -176,9 +176,12 @@ Read:
   replication.”
 - The next live recovery path is the corrected cache-backed `Gemma-2-9B`
   trio:
-  - `2246040` `e1_g9_sft`
-  - `2246041` `e1_g9_dpo`
-  - `2246042` `e1_g9_grpo`
+  - first cache-backed trio (`2246040`–`2246042`) finished training but the
+    theorem-3 eval failed uniformly with `System role not supported`
+  - eval-only completion-mode salvage jobs are now queued:
+    - `2246218` `g9sfix`
+    - `2246219` `g9dfix`
+    - `2246220` `g9gfix`
 
 ## 6. `Llama-3.1-8B GRPO` seeds `43, 44`
 
@@ -198,7 +201,8 @@ Read:
   suggested.
 - The expanded corrected multiseed block is now live on Delta using cached
   local model snapshots instead of gated online pulls:
-  - `2246043`–`2246069` for seeds `45–71`
+  - `2246043`–`2246054` are actively running
+  - `2246055`–`2246069` remain queued behind them
 
 ## 7. Free-form open-QA larger sample (`n=8 -> n=200+`)
 

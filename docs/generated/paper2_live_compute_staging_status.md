@@ -127,25 +127,30 @@ Current live read:
     - final separations:
       - `DPO` curriculum audit: `-0.0699`
       - `GRPO` curriculum audit: `-0.0795`
+  - `2246040`, `2246041`, `2246042`
+    - initial cache-backed `Gemma-2-9B` trio finished training but the theorem-3
+      eval path produced `1344` generation errors per run
+    - root cause: local VLLM/OpenAI chat path rejected `system` role messages
+      (`400: System role not supported`)
 - running:
   - `2245553`
     - Qwen-14B dense tail on HDD
     - latest verified row count: `2888`
     - live partial early/tail preview already keeps `rho*` near `1.0` on the
       two currently analyzable `WikiContradict` cells
-  - `2246040`
-    - corrected `Gemma-2-9B` `SFT` rerun using local HF cache
-  - `2246041`
-    - corrected `Gemma-2-9B` `DPO` rerun using local HF cache
-  - `2246042`
-    - corrected `Gemma-2-9B` `GRPO` rerun using local HF cache
+  - `2246043`–`2246054`
+    - corrected cache-backed `Llama-8B GRPO` seeds `45–56`
+    - these are genuinely running now, not failing on gated model access
 - pending:
   - `2245591`
     - HDD Berk–Nash dependent analysis, correctly held on dependency
   - `2246039`
     - corrected `Llama-3.1-70B-Instruct` dense-tail rerun
-  - `2246043`–`2246069`
-    - corrected cache-backed `Llama-8B GRPO` seeds `45–71`
+  - `2246055`–`2246069`
+    - remaining corrected cache-backed `Llama-8B GRPO` seeds `57–71`
+  - `2246218`, `2246219`, `2246220`
+    - `Gemma-2-9B` theorem-3 eval-only recovery jobs using `request_format=completion`
+    - these are the real salvage path after the initial chat-format failure
 - corrected after launch-path diagnosis:
   - `2245557` completed, but it was **not** the intended fourth-family run
   - root cause: the wrapper exported `TAIL_*` names while the downstream submit
@@ -158,6 +163,11 @@ Current live read:
     gated Hugging Face fetches
   - both launchers now resolve cached local snapshot paths from
     `~/.cache/huggingface/hub` before falling back to repo IDs
+- corrected after backend-format diagnosis:
+  - matched-objective theorem-3 evals can now choose `EVAL_REQUEST_FORMAT` and
+    `EVAL_PROMPT_PROTOCOL`
+  - the `Gemma-2-9B` suite now defaults to completion-mode eval to avoid the
+    unsupported `system`-role chat path
 
 ## Bottleneck
 
