@@ -50,6 +50,8 @@ submit_job() {
     TOP_P="0.95" \
     VLLM_MAX_MODEL_LEN="4096" \
     RUN_THEOREM3_EVAL="1" \
+    EVAL_REQUEST_FORMAT="completion" \
+    EVAL_PROMPT_PROTOCOL="generic" \
     EVAL_WIKICONTRADICT_MAX="96" \
     EVAL_CONFLICTBANK_MAX="128" \
     bash "${SCRIPT_DIR}/submit_delta_theorem3_matched_objective_lora.sh" "${EXTRA_ARGS[@]}"
@@ -69,6 +71,8 @@ submit_job() {
     TOP_P="0.95" \
     VLLM_MAX_MODEL_LEN="4096" \
     RUN_THEOREM3_EVAL="1" \
+    EVAL_REQUEST_FORMAT="completion" \
+    EVAL_PROMPT_PROTOCOL="generic" \
     EVAL_WIKICONTRADICT_MAX="96" \
     EVAL_CONFLICTBANK_MAX="128" \
     bash "${SCRIPT_DIR}/submit_delta_theorem3_matched_objective_lora.sh"

@@ -44,6 +44,8 @@ EVAL_COT_LENGTHS="${EVAL_COT_LENGTHS:-0,128,1024}"
 EVAL_WIKICONTRADICT_MAX="${EVAL_WIKICONTRADICT_MAX:-96}"
 EVAL_CONFLICTBANK_MAX="${EVAL_CONFLICTBANK_MAX:-128}"
 EVAL_TRIVIAQA_MAX="${EVAL_TRIVIAQA_MAX:-0}"
+EVAL_REQUEST_FORMAT="${EVAL_REQUEST_FORMAT:-chat}"
+EVAL_PROMPT_PROTOCOL="${EVAL_PROMPT_PROTOCOL:-generic}"
 WALL="${WALL:-18:00:00}"
 GPUS="${GPUS:-1}"
 CPUS="${CPUS:-16}"
@@ -137,6 +139,8 @@ export EVAL_COT_LENGTHS=$(shell_quote "${EVAL_COT_LENGTHS}") && \
 export EVAL_WIKICONTRADICT_MAX=$(shell_quote "${EVAL_WIKICONTRADICT_MAX}") && \
 export EVAL_CONFLICTBANK_MAX=$(shell_quote "${EVAL_CONFLICTBANK_MAX}") && \
 export EVAL_TRIVIAQA_MAX=$(shell_quote "${EVAL_TRIVIAQA_MAX}") && \
+export EVAL_REQUEST_FORMAT=$(shell_quote "${EVAL_REQUEST_FORMAT}") && \
+export EVAL_PROMPT_PROTOCOL=$(shell_quote "${EVAL_PROMPT_PROTOCOL}") && \
 sbatch --parsable --account=$(shell_quote "${GPU_ACCOUNT}") --partition=$(shell_quote "${GPU_PARTITION}") --qos=$(shell_quote "${GPU_QOS}") \
   --gpus-per-node=$(shell_quote "${GPUS}") --cpus-per-task=$(shell_quote "${CPUS}") --time=$(shell_quote "${WALL}") --job-name=$(shell_quote "${JOB_NAME}") \
   --export=ALL slurm/delta/theorem3_matched_objective_lora_delta.sbatch
