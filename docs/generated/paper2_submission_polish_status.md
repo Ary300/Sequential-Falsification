@@ -1,6 +1,6 @@
 # Paper 2 Submission Polish Status
 
-Status date: `2026-05-05`
+Status date: `2026-05-05` (late)
 
 This note tracks the non-compute submission-polish items that can be closed
 locally while the remaining Delta jobs are still blocked on cluster access.
@@ -64,17 +64,20 @@ Read:
 ## Still compute-blocked
 
 - third independent matched-base RL pair beyond Llama lineage:
-  `Mistral-7B` trio is launched but needs live Delta results
+  `Mistral-7B` HDD trio is now actively running; `Gemma-2-9B` is additionally
+  staged but blocked by gated-model access on Delta
 - early-`t` `\hat{\rho}^\star` / polynomial-tail diagnostics:
-  dense tail jobs are staged but not harvested
+  partial dense-window read is already recovered from the failed NVMe run, and
+  the corrected HDD tail rerun is now actively running
 - DeepSeek native rerun, mechanism probe, and curriculum audit:
-  all launchers exist, but live Delta access still requires a working NCSA
-  Kerberos password followed by Duo; local SSH keys do not authenticate
+  all are now live or queued on HDD-backed outputs
 - larger-sample free-form `n=200` runs:
-  staged and previously submitted, but final results still depend on Delta
+  completed, with Bayes tying `AdaCAD` on EM across `TriviaQA-open`,
+  `NQ-open`, and `ASQA` while clearly beating plain `CAD`
 
 ## Bottom line
 
 The paper-facing polish work is no longer the bottleneck. The remaining gaps
-are the live compute items, not missing citations, missing appendix sections,
-placeholder figures, or unclear manuscript framing.
+are the live compute completions and model-access constraints, not missing
+citations, missing appendix sections, placeholder figures, or unclear
+manuscript framing.

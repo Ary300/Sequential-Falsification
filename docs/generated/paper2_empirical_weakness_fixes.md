@@ -1,6 +1,7 @@
 # Paper 2 Empirical Weakness Fixes
 
-This note consolidates the empirical follow-ups that can be landed immediately while the matched-base GRPO/DPO and RLCR jobs remain queued.
+This note consolidates the empirical follow-ups that can be landed immediately
+while the remaining matched-base reruns and dense-trajectory jobs are queued.
 
 ## New empirical answers
 
@@ -11,17 +12,49 @@ This note consolidates the empirical follow-ups that can be landed immediately w
 - The do-no-harm `eta=0` case is now diagnosed directly: baseline accuracy `0.036667` improves to `0.44` while Brier drops from `0.903275` to `0.504515`.
 - Free-form latency/cost is now explicit: measured Delta runs fit about `4.3791` s per kept query after a `38.9527` s fixed load overhead, and the current sequence-mixture harness uses `4` model passes/query versus `1` for a single-pass decoder.
 - A stable-distribution cache demo is now on disk: precomputing the arbitration weight offline reduces the online path from `4` model passes to about `1.5–2` effective passes, with projected latency in the `~1.1–2.2 s/query` range on the measured free-form timing.
-- Free-form open-QA check is now real, not just planned (source: `paper2_freeform_sequence_mixture_smoke_v2.json`):
-  - `triviaqa_open` (`n=8`): Bayes EM / ROUGE-L `0.0000` / `0.0417` vs `CAD` `0.0000` / `0.0306` and `AdaCAD` `0.0000` / `0.0694`.
-  - `nq_open` (`n=8`): Bayes EM / ROUGE-L `0.1250` / `0.1984` vs `CAD` `0.1250` / `0.1417` and `AdaCAD` `0.1250` / `0.2000`.
-  - `asqa` (`n=8`): Bayes EM / ROUGE-L `0.1250` / `0.3063` vs `CAD` `0.1250` / `0.2438` and `AdaCAD` `0.2500` / `0.3929`.
+- Larger-sample free-form open-QA is now landed at `n≈200`, not just `n=8`:
+  - strongest run: `paper2_freeform_eval_n200_seqmix_ctx.json`
+  - `triviaqa_open` (`185` kept): Bayes EM / ROUGE-L `0.1405` / `0.2871`
+    vs `CAD` `0.0865` / `0.2047`, `AdaCAD` `0.1405` / `0.2808`,
+    closed-book `0.1405` / `0.2641`
+  - `nq_open` (`197` kept): Bayes EM / ROUGE-L `0.0863` / `0.1858`
+    vs `CAD` `0.0609` / `0.1292`, `AdaCAD` `0.0863` / `0.1863`,
+    closed-book `0.0609` / `0.1758`
+  - `asqa` (`199` kept): Bayes EM / ROUGE-L `0.0905` / `0.1860`
+    vs `CAD` `0.0754` / `0.1781`, `AdaCAD` `0.0905` / `0.1898`,
+    closed-book `0.0854` / `0.1958`
+- Partial early/tail `\hat{\rho}^\star` recovery is now on disk from the failed
+  Qwen-14B dense run rather than waiting on a fresh completion:
+  - tail-window `wikicontradict conflict`: spectral radius `0.6780`, `rho*`
+    `1.0046`
+  - tail-window `wikicontradict no_conflict`: spectral radius `0.0148`, `rho*`
+    `0.9970`
+  - early-window `wikicontradict conflict`: spectral radius `0.3438`, `rho*`
+    `0.9983`
+  - early-window `wikicontradict no_conflict`: spectral radius `0.4285`,
+    `rho*` `0.9965`
 
 ## Still waiting on Delta
 
-- Matched-base `GRPO` vs `DPO` (`E1`): still pending.
-- RLCR head-to-head (`E6`): still pending.
+- HDD-backed matched-base reruns:
+  - `Mistral-7B` `SFT/DPO/GRPO`
+  - `Gemma-2-9B` `SFT/DPO/GRPO`
+- HDD-backed DeepSeek diagnosis reruns:
+  - native eval
+  - mechanism probe
+  - curriculum-audit pair
+- HDD-backed dense trajectory reruns:
+  - Qwen-14B tail
+  - Llama-70B tail
+- expanded Llama-8B GRPO multiseed block (`45–71`)
 
 ## Honest read
 
-- The immediate empirical package is now much better on the reviewer-facing weak points that do not require new GPU training.
-- The remaining caveat is not that free-form is missing; it is that the strongest free-form sequence-mixture branch is mixed rather than a universal win, with the clearest positive movement on `ASQA` and `NQ-open`.
+- The immediate empirical package is now much better on the reviewer-facing weak
+  points that do not require new training.
+- The free-form story improved materially with the larger sample: Bayes now
+  ties `AdaCAD` on EM across the three open-QA datasets and consistently beats
+  plain `CAD`, which is a much stronger result than the earlier `n=8` probe.
+- The honest remaining caveat is that closed-book remains competitive, and the
+  partial early/tail `\hat{\rho}^\star` recovery is informative but still not
+  the final dense-table answer.

@@ -3,7 +3,7 @@
 This note maps the reviewer-style Paper 2 checklist directly onto the finished
 artifacts and live Delta jobs.
 
-Status date: `2026-05-04`
+Status date: `2026-05-05`
 
 ## 1. `DeepSeek-R1-Distill-Llama-8B` matched `DPO/GRPO` pair
 
@@ -46,7 +46,7 @@ Read:
 
 ## 2. Real `\hat{\rho}^\star` values for the Berk-Nash empirical table
 
-Status: `in progress`
+Status: `in progress`, with partial dense-window read already recovered
 
 What is already done:
 
@@ -61,31 +61,35 @@ What is already done:
 - Early-window readiness note:
   [berk_nash_early_window_status.md](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Confidence/docs/generated/berk_nash_early_window_status.md)
 
-Live jobs:
+Recovered partial dense-window read from the failed NVMe run:
 
-- `2237713` `r1_14b_tail`
-  - dense `R1-14B` theorem-3 trajectory run
-- `2237950` `bn14b_ana`
-  - corrected dependent analysis job that will build the rate note from the
-    finished rows
+- source rows:
+  `/work/nvme/bgvi/adas17/tts_results/results/theorem3_r1_14b_tail_trajectory_v1/theorem3_generation_rows.jsonl`
+- partial rows already on disk: `1812`
+- cells analyzable from that partial dump: `2`
+- tail-window partial note:
+  - `wikicontradict conflict`: spectral radius `0.6780`, `rho*` `1.0046`
+  - `wikicontradict no_conflict`: spectral radius `0.0148`, `rho*` `0.9970`
+- early-window partial note:
+  - `wikicontradict conflict`: spectral radius `0.3438`, `rho*` `0.9983`
+  - `wikicontradict no_conflict`: spectral radius `0.4285`, `rho*` `0.9965`
 
-Current coarse sanity check on the old `3`-point artifact:
+Current rerun status:
 
-- source rows: `/work/nvme/bgvi/adas17/tts_results/theorem3_real_generation_r1_14b_v3/theorem3_generation_rows.jsonl`
-- cells analyzed: `4`
-- tail steps available: only `3`, so the current coarse pass can estimate a
-  local spectral radius but not the requested `W=100` log-TV or polynomial
-  tail cleanly
+- the original NVMe-backed dense job failed because `/work/nvme/bgvi` was over
+  allocation quota, not because the diagnostic itself was invalid
+- corrected HDD-backed rerun submitted:
+  - `2245553` `r1_14b_hdd`
 
 Read:
 
-- The missing thing was not “bad numbers”; it was missing dense trajectory
-  instrumentation.
-- A submission-path bug in the first dependent analysis job was fixed before
-  tail completion; the live follow-up now uses the correct `--json-out` /
-  `--md-out` flags expected by the analyzer.
-- This item is now on the right path and should resolve as soon as
-  `2237713 -> 2237950` completes.
+- The missing thing was not “bad numbers”; it was dense trajectory completion
+  under a quota-safe output path.
+- Even the recovered partial dump is already informative:
+  early-window `rho*` stays very close to `1.0` on the two available
+  `WikiContradict` cells rather than collapsing immediately away from the tail.
+- The final `W=100` table still needs the HDD-backed rerun to finish, but this
+  item is no longer blocked on missing code or missing instrumentation.
 
 ## 3. Inference-cache demo for `\hat w`
 
@@ -161,7 +165,7 @@ Read:
 
 ## 7. Free-form open-QA larger sample (`n=8 -> n=200+`)
 
-Status: `in progress`
+Status: `done`
 
 What is already done:
 
@@ -170,28 +174,45 @@ What is already done:
 - smaller sequence-mixture runs are already on disk:
   [paper2_freeform_sequence_mixture_smoke_v2.md](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/paper2_freeform_sequence_mixture_smoke_v2.md)
 
-Live jobs:
+Completed larger-sample runs:
 
 - `2237724` `p2f200a`
-  - `n=200`, current best sequence-mixture config
+  - sequence mixture baseline context build
 - `2237725` `p2f200b`
-  - `n=200`, richer retrieval/context variant
+  - richer retrieval/context variant
 
-Current small-sample read:
+Best `n=200` read (`p2f200b`, richer context):
 
-- `ASQA`: mixed but positive for Bayes vs `CAD`
-- `NQ-open`: improved from the earlier zero-EM branch
-- `TriviaQA-open`: still weak
+- `triviaqa_open` (`185` kept)
+  - `Bayes`: EM `0.1405`, ROUGE-L `0.2871`
+  - `AdaCAD`: EM `0.1405`, ROUGE-L `0.2808`
+  - `CAD`: EM `0.0865`, ROUGE-L `0.2047`
+  - `closed_book`: EM `0.1405`, ROUGE-L `0.2641`
+- `nq_open` (`197` kept)
+  - `Bayes`: EM `0.0863`, ROUGE-L `0.1858`
+  - `AdaCAD`: EM `0.0863`, ROUGE-L `0.1863`
+  - `CAD`: EM `0.0609`, ROUGE-L `0.1292`
+  - `closed_book`: EM `0.0609`, ROUGE-L `0.1758`
+- `asqa` (`199` kept)
+  - `Bayes`: EM `0.0905`, ROUGE-L `0.1860`
+  - `AdaCAD`: EM `0.0905`, ROUGE-L `0.1898`
+  - `CAD`: EM `0.0754`, ROUGE-L `0.1781`
+  - `closed_book`: EM `0.0854`, ROUGE-L `0.1958`
 
 Read:
 
-- The free-form objection is no longer “missing experiment.”
-- The remaining question is whether the larger sample cleans up the mixed
-  small-sample direction strongly enough for a headline claim.
+- The free-form objection is no longer “missing experiment,” and it is no
+  longer an `n=8` anecdote either.
+- On the larger sample, Bayes ties `AdaCAD` on EM across all three datasets,
+  beats plain `CAD` across the board, and is clearly stronger than the earlier
+  tiny-sample picture suggested.
+- The honest remaining caveat is that closed-book remains competitive, so this
+  is a strong “Bayes is viable and competitive in free-form” result rather
+  than a universal “Bayes dominates every comparator on every metric” claim.
 
 ## 8. Polynomial-rate empirical check (Lemma E.21)
 
-Status: `in progress`
+Status: `in progress`, with partial read already recovered
 
 This is coupled to item `2`.
 
@@ -201,17 +222,15 @@ What is already done:
   - a log-linear `TV(p_t, p_K)` cross-check for `\hat{\rho}^\star`
   - a polynomial tail of the form `C / (q_1 + t)`
 
-Live jobs:
-
-- `2237713` `r1_14b_tail`
-- `2237950` `bn14b_ana`
-
 Read:
 
-- Once the dense-tail rows land, the polynomial-rate check will be computed in
-  the same analysis pass as the Berk-Nash table.
-- So items `2` and `8` are now blocked by the same queued trajectory artifact,
-  not by missing code.
+- The partial dense dump already shows that the polynomial fit is much weaker
+  than the `rho*` cross-check on the currently available `WikiContradict`
+  cells, so this is shaping up as a nuanced empirical story rather than an
+  automatic win.
+- The final answer still needs the HDD-backed dense rerun, but this item is
+  now in “interpret the completed artifact” territory rather than “build the
+  tooling first.”
 
 ## Strongest Finished Paper 2 Results
 
@@ -247,11 +266,23 @@ Closed now:
 
 Actively resolving now on Delta:
 
-- `2`, `7`, `8`
+- `1` diagnostic reruns on HDD:
+  - `2245586` DeepSeek native eval
+  - `2245587` DeepSeek mechanism probe
+  - `2245588`, `2245589` DeepSeek curriculum-audit pair
+- third-family reruns on HDD:
+  - `2245550`, `2245551`, `2245552` Mistral `SFT/DPO/GRPO`
+  - `2245554`, `2245555`, `2245556` Gemma `SFT/DPO/GRPO`
+- dense/window reruns on HDD:
+  - `2245553` Qwen-14B dense tail
+  - `2245557` Llama-70B dense tail
+- multiseed expansion:
+  - `2245558`–`2245584` Llama-8B GRPO seeds `45–71`
 
 The only remaining blockers on this exact checklist are therefore:
 
-- dense `R1-14B` tail trajectories finishing
-- the larger `n=200` free-form runs finishing
+- the HDD-backed matched-base reruns finishing
+- the HDD-backed dense trajectory reruns finishing
+- the full multiseed block finishing
 
 That means the remaining work is compute-bound rather than implementation-bound.

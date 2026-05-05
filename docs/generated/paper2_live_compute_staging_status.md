@@ -1,6 +1,6 @@
 # Paper 2 Live Compute Staging Status
 
-Status date: `2026-05-05`
+Status date: `2026-05-05` (late)
 
 This note records the remaining live-compute Paper 2 items in a single place so
 the bottleneck is explicit: launcher readiness versus cluster access.
@@ -74,18 +74,57 @@ the bottleneck is explicit: launcher readiness versus cluster access.
 - full dense-tail `W=100` `\hat\rho^\star` table
 - fourth-family spectral-envelope output
 - 30-seed Llama-8B GRPO aggregate CI
-- larger-sample free-form `n=200` verdict
+- larger-sample free-form `n=200` verdict is now in hand; the remaining free-form
+  work is only if we want broader-domain expansion beyond `ASQA / NQ-open /
+  TriviaQA-open`
+
+## New live HDD-backed rerun wave
+
+The original NVMe-backed reruns were being killed by allocation-quota writes on
+`/work/nvme/bgvi`, not by model-side failures. The active recovery wave now
+targets `/work/hdd/bgvi/adas17/tts_results` instead.
+
+Submitted `2026-05-05`:
+
+- `2245550`, `2245551`, `2245552`
+  - `Mistral-7B` `SFT/DPO/GRPO` matched trio on HDD
+- `2245553`
+  - Qwen-14B dense tail rerun on HDD
+- `2245554`, `2245555`, `2245556`
+  - `Gemma-2-9B` `SFT/DPO/GRPO` matched trio on HDD
+- `2245557`
+  - `Llama-3.1-70B-Instruct` dense tail rerun on HDD
+- `2245558`–`2245584`
+  - `Llama-8B GRPO` seeds `45–71` on HDD
+- `2245586`
+  - DeepSeek native theorem-3 eval on HDD
+- `2245587`
+  - DeepSeek mechanism probe on HDD
+- `2245588`, `2245589`
+  - DeepSeek curriculum-audit pair on HDD
+
+Current live read:
+
+- running:
+  - `2245550`, `2245551`, `2245552` (`Mistral-7B` HDD trio)
+  - `2245553` (Qwen-14B dense tail on HDD)
+  - `2245557` (`Llama-3.1-70B-Instruct` dense tail on HDD)
+  - `2245587` (DeepSeek mechanism probe on HDD)
+- pending:
+  - `2245586` (DeepSeek native eval)
+  - `2245588`, `2245589` (DeepSeek curriculum-audit pair)
+  - `2245591` (HDD Berk–Nash dependent analysis, correctly held on dependency)
+  - `2245558`–`2245584` (Llama-8B GRPO seeds `45–71`)
+- blocked by model access rather than experiment logic:
+  - `Gemma-2-9B` HDD trio hit gated Hugging Face access on Delta
+  - so `Mistral-7B` is currently the active third-family recovery path
 
 ## Bottleneck
 
-The missing ingredient is no longer code. It is live Delta access.
+The missing ingredient is no longer code or Delta access.
 
-Current verified auth state:
+Current verified bottlenecks:
 
-- the local SSH client can reach the Delta login banner
-- default SSH behavior was hitting `Too many authentication failures`
-- forcing a single identity with `IdentitiesOnly=yes` fixes that local issue
-- after that, Delta still rejects local key auth and requires
-  `gssapi-with-mic,password`
-- so the remaining blocker is a working NCSA Kerberos password followed by Duo,
-  not missing launchers or a broken SSH config
+- cluster queue time for the new HDD-backed rerun wave
+- the over-quota NVMe allocation, which is why outputs were rerouted to HDD
+- gated-model access for `google/gemma-2-9b-it` on Delta
