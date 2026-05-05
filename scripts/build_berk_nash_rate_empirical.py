@@ -146,11 +146,30 @@ def _fit_polynomial(tv_values: np.ndarray, steps: np.ndarray) -> dict[str, Any]:
     return payload
 
 
+def _select_analysis_window(
+    steps: np.ndarray,
+    states: np.ndarray,
+    tv_values: np.ndarray,
+    *,
+    analysis_mode: str,
+    window_size: int,
+) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+    if len(steps) <= window_size:
+        return steps, states, tv_values
+    if analysis_mode == "early":
+        window_slice = slice(0, window_size)
+    else:
+        window_slice = slice(-window_size, None)
+    return steps[window_slice], states[window_slice], tv_values[window_slice]
+
+
 def _analyze_cell(
     benchmark: str,
     split: str,
     rows_by_cot: dict[int, list[dict[str, Any]]],
-    tail_window: int,
+    *,
+    analysis_mode: str,
+    window_size: int,
 ) -> dict[str, Any]:
     steps = np.asarray(sorted(rows_by_cot), dtype=int)
     states = np.asarray(
@@ -162,25 +181,38 @@ def _analyze_cell(
     )
     final_state = states[-1]
     tv_values = np.asarray([_tv_distance(state, final_state) for state in states], dtype=float)
-    if len(steps) > tail_window:
-        tail_steps = steps[-tail_window:]
-        tail_states = states[-tail_window:]
-        tail_tv = tv_values[-tail_window:]
-    else:
-        tail_steps = steps
-        tail_states = states
-        tail_tv = tv_values
+    window_steps, window_states, window_tv = _select_analysis_window(
+        steps,
+        states,
+        tv_values,
+        analysis_mode=analysis_mode,
+        window_size=window_size,
+    )
 
-    jacobian = _fit_local_jacobian(tail_states, tail_steps)
-    exponential = _fit_exponential(tail_tv[:-1], tail_steps[:-1]) if len(tail_tv) > 1 else {}
-    polynomial = _fit_polynomial(tail_tv[:-1], tail_steps[:-1]) if len(tail_tv) > 1 else {}
+    jacobian = _fit_local_jacobian(window_states, window_steps)
+
+    fit_steps = window_steps
+    fit_tv = window_tv
+    # In tail mode the final point is the fixed point itself, so its TV is exactly zero.
+    if analysis_mode == "tail" and len(window_tv) > 1 and int(window_steps[-1]) == int(steps[-1]):
+        fit_steps = window_steps[:-1]
+        fit_tv = window_tv[:-1]
+
+    exponential = _fit_exponential(fit_tv, fit_steps) if len(fit_tv) > 1 else {}
+    polynomial = _fit_polynomial(fit_tv, fit_steps) if len(fit_tv) > 1 else {}
 
     return {
         "benchmark": benchmark,
         "split": split,
         "num_cot_points": int(len(steps)),
-        "tail_window_used": int(len(tail_steps)),
-        "tail_steps": [int(step) for step in tail_steps.tolist()],
+        "analysis_mode": analysis_mode,
+        "analysis_window_target": int(window_size),
+        "analysis_window_used": int(len(window_steps)),
+        "analysis_steps": [int(step) for step in window_steps.tolist()],
+        "analysis_start_cot": int(window_steps[0]),
+        "analysis_end_cot": int(window_steps[-1]),
+        "tail_window_used": int(len(window_steps)),
+        "tail_steps": [int(step) for step in window_steps.tolist()],
         "mean_state_final": {
             "parametric": round(float(final_state[0]), 6),
             "context": round(float(final_state[1]), 6),
@@ -196,18 +228,33 @@ def _analyze_cell(
     }
 
 
-def build_payload(rows: list[dict[str, Any]], *, tail_window: int) -> dict[str, Any]:
+def build_payload(
+    rows: list[dict[str, Any]],
+    *,
+    analysis_mode: str,
+    window_size: int,
+) -> dict[str, Any]:
     grouped = _group_cell(rows)
     cells = []
     for (benchmark, split), rows_by_cot in sorted(grouped.items()):
         if len(rows_by_cot) < 3:
             continue
-        cells.append(_analyze_cell(benchmark, split, rows_by_cot, tail_window))
+        cells.append(
+            _analyze_cell(
+                benchmark,
+                split,
+                rows_by_cot,
+                analysis_mode=analysis_mode,
+                window_size=window_size,
+            )
+        )
     return {
         "headline": {
             "num_rows": len(rows),
             "num_cells": len(cells),
-            "tail_window": tail_window,
+            "analysis_mode": analysis_mode,
+            "window_size": window_size,
+            "tail_window": window_size,
         },
         "cells": cells,
     }
@@ -215,10 +262,12 @@ def build_payload(rows: list[dict[str, Any]], *, tail_window: int) -> dict[str, 
 
 def build_markdown(payload: dict[str, Any], *, source_path: Path, model_filter: str | None) -> str:
     headline = payload["headline"]
+    analysis_mode = headline.get("analysis_mode", "tail")
+    mode_label = "tail" if analysis_mode == "tail" else "early/non-asymptotic"
     lines = [
         "# Berk-Nash Rate Empirical Note",
         "",
-        "This note computes the empirical tail-rate diagnostics requested for the theorem-3 Berk--Nash appendix using dense CoT-budget trajectories.",
+        "This note computes the empirical Berk--Nash rate diagnostics requested for the theorem-3 appendix using dense CoT-budget trajectories.",
         "The state is the coarse answer-state simplex implied by each row: probability mass on the parametric answer state, the context-backed answer state, and residual mass on all other answers.",
         "",
         "## Source",
@@ -227,19 +276,21 @@ def build_markdown(payload: dict[str, Any], *, source_path: Path, model_filter: 
         f"- Model filter: `{model_filter or 'none'}`",
         f"- Rows loaded: `{headline['num_rows']}`",
         f"- Cells analyzed: `{headline['num_cells']}`",
-        f"- Tail window target: `{headline['tail_window']}`",
+        f"- Analysis mode: `{analysis_mode}` ({mode_label})",
+        f"- Analysis window target: `{headline['window_size']}`",
         "",
         "## Per-cell rates",
         "",
-        "| Benchmark | Split | Tail steps | Spectral radius | `rho*` from log-TV | log-TV R² | Polynomial TV R² | `q1` |",
-        "|---|---|---:|---:|---:|---:|---:|---:|",
+        "| Benchmark | Split | Window | Spectral radius | `rho*` from log-TV | log-TV R² | Polynomial TV R² | `q1` |",
+        "|---|---|---|---:|---:|---:|---:|---:|",
     ]
     for cell in payload["cells"]:
         jac = cell.get("local_jacobian") or {}
         exp_fit = cell.get("log_linear_crosscheck") or {}
         poly_fit = cell.get("polynomial_tail_fit") or {}
+        window_label = f"{cell['analysis_start_cot']}→{cell['analysis_end_cot']} ({cell['analysis_window_used']})"
         lines.append(
-            f"| {cell['benchmark']} | {cell['split']} | {cell['tail_window_used']} | "
+            f"| {cell['benchmark']} | {cell['split']} | {window_label} | "
             f"{jac.get('spectral_radius', 'NA')} | {exp_fit.get('rho_star', 'NA')} | "
             f"{exp_fit.get('r2_log_tv', 'NA')} | {poly_fit.get('r2_tv', 'NA')} | {poly_fit.get('q1', 'NA')} |"
         )
@@ -249,10 +300,12 @@ def build_markdown(payload: dict[str, Any], *, source_path: Path, model_filter: 
             "",
             "## Read",
             "",
-            "- `Spectral radius` comes from a least-squares local Jacobian fit on the last `W` CoT-budget steps.",
-            "- `rho* from log-TV` is the cross-check implied by fitting `log TV(p_t, p_K)` linearly in `t` on the same tail.",
-            "- The polynomial fit reports the `C / (q1 + t)` tail approximation from the inverse-TV regression; higher TV-space `R²` means the slow-tail story is quantitatively more plausible.",
-            "- If a cell has fewer than `W` dense steps, the script uses the full available tail and reports that directly.",
+            "- `Spectral radius` comes from a least-squares local Jacobian fit on the selected analysis window.",
+            "- `rho* from log-TV` is the cross-check implied by fitting `log TV(p_t, p_K)` linearly in `t` on the same window.",
+            "- The polynomial fit reports the `C / (q1 + t)` approximation from the inverse-TV regression; higher TV-space `R²` means the slow-tail story is quantitatively more plausible on that window.",
+            "- In `tail` mode, the script uses the last `W` CoT-budget steps and drops the exact fixed-point endpoint from the log-TV and polynomial fits.",
+            "- In `early` mode, the script uses the first `W` CoT-budget steps so the same diagnostics can be evaluated before the tail regime.",
+            "- If a cell has fewer than `W` dense steps, the script uses the full available window and reports that directly.",
             "",
             "## JSON",
             "",
@@ -266,7 +319,9 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Build empirical Berk-Nash tail-rate diagnostics.")
     parser.add_argument("--rows-jsonl", required=True)
     parser.add_argument("--model", default="")
+    parser.add_argument("--analysis-mode", choices=("tail", "early"), default="tail")
     parser.add_argument("--tail-window", type=int, default=100)
+    parser.add_argument("--window-size", type=int, default=None)
     parser.add_argument("--json-out", default=str(GENERATED / "berk_nash_rate_empirical.json"))
     parser.add_argument("--md-out", default=str(GENERATED / "berk_nash_rate_empirical.md"))
     return parser.parse_args()
@@ -276,7 +331,8 @@ def main() -> None:
     args = parse_args()
     rows_path = Path(args.rows_jsonl)
     rows = _load_rows(rows_path, args.model or None)
-    payload = build_payload(rows, tail_window=args.tail_window)
+    window_size = args.window_size if args.window_size is not None else args.tail_window
+    payload = build_payload(rows, analysis_mode=args.analysis_mode, window_size=window_size)
 
     json_out = Path(args.json_out)
     md_out = Path(args.md_out)

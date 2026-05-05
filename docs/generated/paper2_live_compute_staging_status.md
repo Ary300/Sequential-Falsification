@@ -15,6 +15,10 @@ the bottleneck is explicit: launcher readiness versus cluster access.
   [submit_delta_deepseek_llama8_objective_followups.sh](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Confidence/scripts/submit_delta_deepseek_llama8_objective_followups.sh)
 - checkpointed curriculum audit:
   [submit_delta_theorem3_deepseek_llama8_curriculum_audit.sh](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Confidence/scripts/submit_delta_theorem3_deepseek_llama8_curriculum_audit.sh)
+- local tokenizer / context sanity checker:
+  [check_deepseek_llama8_tokenizer_context_sanity.py](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/scripts/check_deepseek_llama8_tokenizer_context_sanity.py)
+- tokenizer / context note:
+  [deepseek_llama8_tokenizer_context_sanity_check_note.md](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Confidence/docs/generated/deepseek_llama8_tokenizer_context_sanity_check_note.md)
 
 ### Third independent matched-base RL pair beyond Llama lineage
 
@@ -22,6 +26,10 @@ the bottleneck is explicit: launcher readiness versus cluster access.
   [submit_delta_theorem3_e1_mistral7_suite.sh](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Confidence/scripts/submit_delta_theorem3_e1_mistral7_suite.sh)
 - status note:
   [mistral7_matched_base_trio_status.md](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Confidence/docs/generated/mistral7_matched_base_trio_status.md)
+- `Gemma-2-9B` matched `SFT/DPO/GRPO` trio:
+  [submit_delta_theorem3_e1_gemma9_suite.sh](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Confidence/scripts/submit_delta_theorem3_e1_gemma9_suite.sh)
+- status note:
+  [gemma9_matched_base_trio_status.md](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Confidence/docs/generated/gemma9_matched_base_trio_status.md)
 
 ### Early-`t` `\hat\rho^\star` and polynomial-tail checks
 
@@ -29,6 +37,10 @@ the bottleneck is explicit: launcher readiness versus cluster access.
   [submit_delta_theorem3_berk_nash_tail.sh](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Confidence/scripts/submit_delta_theorem3_berk_nash_tail.sh)
 - corrected dependent analysis:
   [submit_delta_berk_nash_rate_analysis.sh](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Confidence/scripts/submit_delta_berk_nash_rate_analysis.sh)
+- analyzer now supports both `tail` and `early` windows:
+  [build_berk_nash_rate_empirical.py](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Confidence/scripts/build_berk_nash_rate_empirical.py)
+- early-window readiness note:
+  [berk_nash_early_window_status.md](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Confidence/docs/generated/berk_nash_early_window_status.md)
 
 ### Fourth-family spectral envelope
 

@@ -3,7 +3,7 @@
 This note maps the reviewer-style Paper 2 checklist directly onto the finished
 artifacts and live Delta jobs.
 
-Status date: `2026-05-03`
+Status date: `2026-05-04`
 
 ## 1. `DeepSeek-R1-Distill-Llama-8B` matched `DPO/GRPO` pair
 
@@ -33,6 +33,8 @@ Read:
     [deepseek_llama8_refresh_wave.md](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/deepseek_llama8_refresh_wave.md)
   - DeepSeek diagnosis note:
     [deepseek_llama8_failure_diagnosis_note.md](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Confidence/docs/generated/deepseek_llama8_failure_diagnosis_note.md)
+  - DeepSeek tokenizer / context sanity note:
+    [deepseek_llama8_tokenizer_context_sanity_check_note.md](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Confidence/docs/generated/deepseek_llama8_tokenizer_context_sanity_check_note.md)
   - DeepSeek curriculum-audit status:
     [deepseek_llama8_curriculum_audit_status.md](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Confidence/docs/generated/deepseek_llama8_curriculum_audit_status.md)
   - DeepSeek mechanism launcher:
@@ -52,6 +54,12 @@ What is already done:
   [build_berk_nash_rate_empirical.py](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/scripts/build_berk_nash_rate_empirical.py)
 - Dense-tail launcher added:
   [submit_delta_theorem3_berk_nash_tail.sh](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/scripts/submit_delta_theorem3_berk_nash_tail.sh)
+- The analyzer now supports both:
+  - tail-window fitting on the last `W` dense steps
+  - early-window fitting on the first `W` dense steps for the requested
+    non-asymptotic `\hat{\rho}^\star` check
+- Early-window readiness note:
+  [berk_nash_early_window_status.md](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Confidence/docs/generated/berk_nash_early_window_status.md)
 
 Live jobs:
 
