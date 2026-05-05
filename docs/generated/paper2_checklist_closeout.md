@@ -77,14 +77,14 @@ Recovered partial dense-window read from the running HDD rerun:
 
 - source rows:
   `/work/hdd/bgvi/adas17/tts_results/results/theorem3_r1_14b_tail_trajectory_hdd_v1/theorem3_generation_rows.jsonl`
-- latest regenerated partial now uses `7161` rows
+- latest regenerated partial now uses `7275` rows
 - cells analyzable from that live partial dump: `2`
 - tail-window partial note:
-  - `wikicontradict conflict`: spectral radius `0.1162`, `rho*` `0.9979`
-  - `wikicontradict no_conflict`: spectral radius `0.0216`, `rho*` `1.0071`
+  - `wikicontradict conflict`: spectral radius `0.1158`, `rho*` `1.0011`
+  - `wikicontradict no_conflict`: spectral radius `0.0347`, `rho*` `1.0059`
 - early-window partial note:
-  - `wikicontradict conflict`: spectral radius `0.7848`, `rho*` `0.9973`
-  - `wikicontradict no_conflict`: spectral radius `0.2911`, `rho*` `0.9972`
+  - `wikicontradict conflict`: spectral radius `0.7441`, `rho*` `0.9971`
+  - `wikicontradict no_conflict`: spectral radius `0.3021`, `rho*` `0.9973`
 
 Current rerun status:
 
@@ -210,13 +210,15 @@ Read:
   - this rerun has now started successfully
   - live Delta reads now show both screening rows and theorem-3 generation
     rows on disk, plus repeated `200 OK` chat completions from VLLM
-  - first theorem-3 partial is now on disk from `2891` rows on
+  - latest theorem-3 partial is now on disk from `2982` rows on
     `WikiContradict`:
-    - conflict-minus-no-conflict `-0.0354`
+    - conflict-minus-no-conflict `-0.0021`
 - shorter-wall companion theorem-3 run submitted:
   - `2246377` `l3170t3`
+  - this run has now completed with a real fourth-family headline:
+    - conflict-minus-no-conflict `-0.0648`
   - purpose: get a fourth-family headline sooner while the dense-tail run
-    continues
+    continues, even if the result is currently negative
 
 ## 6. `Llama-3.1-8B GRPO` seeds `43, 44`
 

@@ -135,7 +135,7 @@ Current live read:
 - running:
   - `2245553`
     - Qwen-14B dense tail on HDD
-    - latest regenerated partial summary now uses `7161` rows
+    - latest regenerated partial summary now uses `7275` rows
     - early-window `rho*` still stays very close to `1.0`, and the
       conflict-cell early log-linear fit is stronger than the no-conflict one
     - tail-window `rho*` remains close to `1.0`, though the current partial
@@ -145,9 +145,9 @@ Current live read:
     - current state is now running
     - it is already writing screening and theorem-3 generation rows on HDD
     - direct VLLM log read shows repeated `POST /v1/chat/completions 200 OK`
-    - first live partial theorem-3 summary is now on disk from `2891` rows on
+    - latest live partial theorem-3 summary is now on disk from `2982` rows on
       `WikiContradict`:
-      conflict-minus-no-conflict `-0.0354`
+      conflict-minus-no-conflict `-0.0021`
 - completed:
   - `2246218`
     - `Gemma-2-9B SFT` completion-mode theorem-3 recovery job finished
@@ -164,10 +164,14 @@ Current live read:
 - pending:
   - `2245591`
     - HDD Berk–Nash dependent analysis, correctly held on dependency
+- completed:
   - `2246377`
     - shorter-wall `Llama-3.1-70B-Instruct` standard theorem-3 companion run
-    - submitted to get a fourth-family headline sooner while the dense-tail
-      run continues
+    - finished with a real fourth-family headline:
+      conflict-minus-no-conflict `-0.0648`
+    - read:
+      this closes the quicker fourth-family path numerically, but the result is
+      currently negative rather than headline-strength positive
 - deliberately deprioritized to free billing budget for higher-leverage jobs:
   - `2246047`–`2246054`
     - running `Llama-8B` seeds `49–56` were cancelled

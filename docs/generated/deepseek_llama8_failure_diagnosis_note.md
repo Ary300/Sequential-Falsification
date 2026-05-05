@@ -1,6 +1,6 @@
 # DeepSeek-Llama-8B Failure Diagnosis Note
 
-Status date: `2026-05-03`
+Status date: `2026-05-05`
 
 This note summarizes what we can already diagnose about the weak / negative
 matched-base `DeepSeek-R1-Distill-Llama-8B` result without pretending the
@@ -12,6 +12,9 @@ Finished matched-family numbers:
 
 - matched `DPO`: `+0.0258`
 - matched `GRPO`: `-0.1239`
+- DeepSeek-native theorem-3 rerun: `+0.0760`
+- curriculum-audit `DPO`: `-0.0699`
+- curriculum-audit `GRPO`: `-0.0795`
 
 So the clean second matched-base `8B` replication did **not** land.
 
@@ -91,6 +94,10 @@ Read:
 - this is a plausible, concrete explanation for why the `DeepSeek-Llama-8B`
   result under our generic theorem harness diverged from the clean `Llama-8B`
   matched-base story.
+- the completed DeepSeek-native rerun supports that diagnosis:
+  conflict-minus-no-conflict `+0.0760` is modestly positive instead of
+  strongly negative, which means some of the original failure really was
+  protocol-sensitive.
 
 ### 2. Objective-surrogate mismatch
 
@@ -107,25 +114,41 @@ Read:
 - even if the rerun stays weak, the repo should distinguish “the theorem fails”
   from “our local surrogate did not reproduce a family-specific effect.”
 
-## What we still cannot claim yet
+## What the completed diagnostics now say
 
-### Intermediate-checkpoint curriculum analysis
+### Intermediate-checkpoint / curriculum audit
 
-This is now instrumented properly.
+This is no longer a staged-only path; the curriculum audits completed.
 
-The matched-objective training script now supports per-epoch adapter
-checkpoints when `--save-intermediate-checkpoints` is enabled, and the Delta
-submit path forwards the corresponding environment flag.
+Results:
+
+- curriculum-audit `DPO`: conflict-minus-no-conflict `-0.0699`
+- curriculum-audit `GRPO`: conflict-minus-no-conflict `-0.0795`
+
+Read:
+
+- the audit does not rescue the matched-base `8B` claim
+- it strengthens the case that the weak DeepSeek `8B` story is a real
+  family-specific failure mode rather than just one unlucky headline number
 
 Status / launcher:
 
 - [deepseek_llama8_curriculum_audit_status.md](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/deepseek_llama8_curriculum_audit_status.md)
 - [submit_delta_theorem3_deepseek_llama8_curriculum_audit.sh](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Confidence/scripts/submit_delta_theorem3_deepseek_llama8_curriculum_audit.sh)
 
+### Mechanism probe
+
+The answer-margin mechanism probe also completed.
+
+Result:
+
+- answer-margin diff-in-diff: `-14.6593`
+
 Read:
 
-- the missing piece is no longer code support
-- it is now only a compute / Delta-access issue
+- this is consistent with a margin-reallocation failure mode
+- it is not the kind of clean positive mechanism story we would need to call
+  DeepSeek `8B` a strong replication
 
 ## Remediation now wired
 
@@ -152,6 +175,10 @@ The strongest current diagnosis is:
 - probably a combination of:
   - generic theorem-harness prompting that is not DeepSeek-native
   - objective-surrogate mismatch at `8B`
+- with the completed reruns now adding:
+  - a modestly positive DeepSeek-native rerun (`+0.0760`)
+  - a still-negative curriculum path (`-0.0699`, `-0.0795`)
+  - a negative answer-margin mechanism signal (`-14.6593`)
 
 That is a much cleaner and more actionable failure story than just saying
 “DeepSeek didn’t replicate.”
