@@ -143,13 +143,17 @@ Current live read:
     - `Gemma-2-9B SFT` completion-mode theorem-3 recovery job is live
     - direct VLLM log read shows repeated successful `POST /v1/completions 200`
       responses, confirming the backend mismatch is fixed
-  - `2246219`, `2246220`
-    - `Gemma-2-9B DPO/GRPO` completion-mode recovery jobs are now running
-    - live row dumps are now appearing on disk, so this is past the
-      “scheduler-only” stage
+  - `2246219`
+    - `Gemma-2-9B DPO` completion-mode recovery job is running
+    - at the latest check it had not yet written theorem-3 generation rows
   - `2246249`
     - lighter `2`-GPU / `TP=2` corrected `Llama-3.1-70B-Instruct` dense-tail
       rerun is now running
+- completed:
+  - `2246220`
+    - `Gemma-2-9B GRPO` completion-mode recovery job finished
+    - theorem-3 headline is now materially real, not just partial:
+      conflict-minus-no-conflict `-0.0680`
 - pending:
   - `2245591`
     - HDD Berk–Nash dependent analysis, correctly held on dependency
@@ -184,9 +188,11 @@ Current live read:
   - the `Gemma-2-9B` suite now defaults to completion-mode eval to avoid the
     unsupported `system`-role chat path
   - early partial theorem-3 reads are now available from the recovery rows:
-    - `SFT` partial (`437` rows): conflict-minus-no-conflict `+0.0773`
-    - `GRPO` partial (`987` rows): conflict-minus-no-conflict `-0.0864`
-    - `DPO` has started but had not yet written generation rows at the latest
+    - `SFT` partial (`706` analyzed rows, `877+` raw rows on disk):
+      conflict-minus-no-conflict `+0.1265`
+    - `GRPO` recovery is now complete (`1344` rows):
+      conflict-minus-no-conflict `-0.0680`
+    - `DPO` is running but had not yet written generation rows at the latest
       check
 - corrected after queue-shape diagnosis:
   - the original `4`-GPU `Llama-3.1-70B-Instruct` rerun was cancelled

@@ -182,14 +182,16 @@ Read:
   - eval-only completion-mode salvage jobs are now running:
     - `2246218` `g9sfix`
     - `2246219` `g9dfix`
-    - `2246220` `g9gfix`
+    - `2246220` `g9gfix` has now completed
   - direct VLLM log read now shows repeated successful completion requests,
     confirming the backend mismatch is fixed
-  - first live partial theorem-3 reads are already on disk:
-    - `SFT` partial (`437` rows): conflict-minus-no-conflict `+0.0773`
-    - `GRPO` partial (`987` rows): conflict-minus-no-conflict `-0.0864`
-    - `DPO` had started but had not yet written generation rows at the latest
-      check
+  - the recovery path is now producing real theorem-3 output:
+    - `SFT` partial (`706` analyzed rows, `877+` raw rows on disk):
+      conflict-minus-no-conflict `+0.1265`
+    - `GRPO` completion-mode recovery is fully finished (`1344` rows):
+      conflict-minus-no-conflict `-0.0680`
+    - `DPO` is still running and had not yet written generation rows at the
+      latest check
   - to give those higher-leverage `Gemma` and corrected `70B` jobs room to
     start, the expanded `Llama-8B` multiseed block was deliberately
     deprioritized by cancelling seeds `45–71` mid-queue
