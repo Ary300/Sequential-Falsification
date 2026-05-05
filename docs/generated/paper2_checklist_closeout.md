@@ -209,6 +209,8 @@ Read:
 - clean cache-fixed rerun submitted:
   - `2246302` `l3170h4`
   - this rerun has now started successfully
+  - live Delta reads now show both screening rows and theorem-3 generation
+    rows on disk, plus repeated `200 OK` chat completions from VLLM
 - shorter-wall companion theorem-3 run submitted:
   - `2246377` `l3170t3`
   - purpose: get a fourth-family headline sooner while the dense-tail run

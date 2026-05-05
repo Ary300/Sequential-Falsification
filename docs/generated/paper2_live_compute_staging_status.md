@@ -142,6 +142,8 @@ Current live read:
   - `2246302`
     - fresh `Llama-3.1-70B-Instruct` dense-tail rerun after cache-root fix
     - current state is now running
+    - it is already writing screening and theorem-3 generation rows on HDD
+    - direct VLLM log read shows repeated `POST /v1/chat/completions 200 OK`
 - completed:
   - `2246218`
     - `Gemma-2-9B SFT` completion-mode theorem-3 recovery job finished
@@ -209,6 +211,8 @@ Current live read:
     `TORCHINDUCTOR_CACHE_DIR`, and `TRITON_CACHE_DIR` under
     `DELTA_RESULTS_ROOT/runtime_cache`
   - clean cache-fixed rerun submitted as `2246302` and is now running
+  - live log evidence confirms the server is healthy rather than silently
+    failing at startup
   - shorter-wall companion theorem-3 run submitted as `2246377`
 
 ## Bottleneck
