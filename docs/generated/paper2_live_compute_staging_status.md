@@ -69,14 +69,15 @@ the bottleneck is explicit: launcher readiness versus cluster access.
 
 ## Still missing as substantive results
 
-- live results for the staged DeepSeek diagnostic reruns
-- live results for the Mistral matched-base trio
 - full dense-tail `W=100` `\hat\rho^\star` table
-- fourth-family spectral-envelope output
+- corrected fourth-family spectral-envelope output for the intended
+  `Llama-3.1-70B-Instruct` tail run
 - 30-seed Llama-8B GRPO aggregate CI
-- larger-sample free-form `n=200` verdict is now in hand; the remaining free-form
-  work is only if we want broader-domain expansion beyond `ASQA / NQ-open /
-  TriviaQA-open`
+- a clean third matched-base RL-family replication with the same direction as
+  `Llama-8B`
+- larger-sample free-form `n=200` verdict is already in hand; the remaining
+  free-form work is only if we want broader-domain expansion beyond
+  `ASQA / NQ-open / TriviaQA-open`
 
 ## New live HDD-backed rerun wave
 
@@ -105,19 +106,53 @@ Submitted `2026-05-05`:
 
 Current live read:
 
+- completed:
+  - `2245550`, `2245551`, `2245552`
+    - `Mistral-7B` HDD trio is finished
+    - headline separations:
+      - `SFT`: `+0.1638`
+      - `DPO`: `-0.0316`
+      - `GRPO`: `-0.0324`
+    - read: this closes the third-family cell numerically, but it is **not**
+      the hoped-for clean `GRPO` replication
+  - `2245586`
+    - DeepSeek native theorem-3 eval finished at `+0.0760`
+  - `2245587`
+    - DeepSeek mechanism probe finished
+    - answer-margin diff-in-diff: `-14.6593`
+    - read: this is again a margin-reallocation story, not an entropy-collapse
+      story
+  - `2245588`, `2245589`
+    - DeepSeek curriculum-audit pair finished
+    - final separations:
+      - `DPO` curriculum audit: `-0.0699`
+      - `GRPO` curriculum audit: `-0.0795`
 - running:
-  - `2245550`, `2245551`, `2245552` (`Mistral-7B` HDD trio)
-  - `2245553` (Qwen-14B dense tail on HDD)
-  - `2245557` (`Llama-3.1-70B-Instruct` dense tail on HDD)
-  - `2245587` (DeepSeek mechanism probe on HDD)
+  - `2245553`
+    - Qwen-14B dense tail on HDD
+  - `2246040`
+    - corrected `Gemma-2-9B` `SFT` rerun using local HF cache
 - pending:
-  - `2245586` (DeepSeek native eval)
-  - `2245588`, `2245589` (DeepSeek curriculum-audit pair)
-  - `2245591` (HDD Berk–Nash dependent analysis, correctly held on dependency)
-  - `2245558`–`2245584` (Llama-8B GRPO seeds `45–71`)
-- blocked by model access rather than experiment logic:
-  - `Gemma-2-9B` HDD trio hit gated Hugging Face access on Delta
-  - so `Mistral-7B` is currently the active third-family recovery path
+  - `2245591`
+    - HDD Berk–Nash dependent analysis, correctly held on dependency
+  - `2246039`
+    - corrected `Llama-3.1-70B-Instruct` dense-tail rerun
+  - `2246041`, `2246042`
+    - corrected `Gemma-2-9B` `DPO/GRPO` reruns using local HF cache
+  - `2246043`–`2246069`
+    - corrected cache-backed `Llama-8B GRPO` seeds `45–71`
+- corrected after launch-path diagnosis:
+  - `2245557` completed, but it was **not** the intended fourth-family run
+  - root cause: the wrapper exported `TAIL_*` names while the downstream submit
+    script only read `MODEL/OUTPUT_DIR/...`, so the job silently fell back to
+    the default `DeepSeek-R1-Distill-Qwen-7B` real-generation path
+  - fixed locally and on GitHub in
+    [submit_delta_theorem3_llama70b_tail.sh](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/scripts/submit_delta_theorem3_llama70b_tail.sh)
+- corrected after model-access diagnosis:
+  - `Gemma-2-9B` and the expanded `Llama-8B` seed jobs originally failed on
+    gated Hugging Face fetches
+  - both launchers now resolve cached local snapshot paths from
+    `~/.cache/huggingface/hub` before falling back to repo IDs
 
 ## Bottleneck
 
@@ -127,4 +162,7 @@ Current verified bottlenecks:
 
 - cluster queue time for the new HDD-backed rerun wave
 - the over-quota NVMe allocation, which is why outputs were rerouted to HDD
-- gated-model access for `google/gemma-2-9b-it` on Delta
+- completion time for the corrected cache-backed `Gemma` and multiseed `Llama`
+  reruns
+- completion of the Qwen dense tail so the dependent Berk–Nash analysis can
+  fire automatically

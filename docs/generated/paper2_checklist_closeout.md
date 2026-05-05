@@ -29,6 +29,18 @@ Read:
   matched-base `GRPO` effect simply reproduces across every Llama-lineage `8B`
   family.
 - The active follow-up is now diagnostic rather than rhetorical:
+- The diagnostic wave now has real outputs, not just staging:
+  - DeepSeek-native theorem-3 eval: conflict-minus-no-conflict `+0.0760`
+  - DeepSeek mechanism probe: answer-margin diff-in-diff `-14.6593`
+  - DeepSeek curriculum audits:
+    - `DPO`: `-0.0699`
+    - `GRPO`: `-0.0795`
+- Updated read:
+  - the earlier negative `GRPO` headline was partly protocol-sensitive
+  - the DeepSeek-native prompt path recovers a modest positive separation
+  - but it still does **not** rise to the clean `Llama-8B`-scale replication
+    we were hoping for
+- The active follow-up is now diagnostic rather than rhetorical:
   - DeepSeek refresh wave:
     [deepseek_llama8_refresh_wave.md](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/deepseek_llama8_refresh_wave.md)
   - DeepSeek diagnosis note:
@@ -146,6 +158,27 @@ Read:
 - It strengthens the “reasoning/RL-conditioned Llama lineage” story even
   though the `8B` matched-family replication did not land cleanly.
 
+## 5b. Third independent matched-base RL pair beyond Llama lineage
+
+Status: `partially closed`
+
+Finished `Mistral-7B` matched-base trio:
+
+- `SFT`: `+0.1638`
+- `DPO`: `-0.0316`
+- `GRPO`: `-0.0324`
+
+Read:
+
+- This closes the missing third-family cells numerically.
+- It does **not** provide the desired “third clean matched-base RL
+  replication.”
+- The next live recovery path is the corrected cache-backed `Gemma-2-9B`
+  trio:
+  - `2246040` `e1_g9_sft`
+  - `2246041` `e1_g9_dpo`
+  - `2246042` `e1_g9_grpo`
+
 ## 6. `Llama-3.1-8B GRPO` seeds `43, 44`
 
 Status: `done`
@@ -162,6 +195,9 @@ Read:
 - The honest consequence is that the original seed is a strong discovery
   result, but the low-variance claim is weaker than the one-seed table
   suggested.
+- The expanded corrected multiseed block is now live on Delta using cached
+  local model snapshots instead of gated online pulls:
+  - `2246043`–`2246069` for seeds `45–71`
 
 ## 7. Free-form open-QA larger sample (`n=8 -> n=200+`)
 
@@ -217,6 +253,19 @@ Status: `in progress`, with partial read already recovered
 This is coupled to item `2`.
 
 What is already done:
+
+- the Qwen dense tail is now rerunning quota-safely on HDD:
+  - `2245553` `r1_14b_hdd`
+- corrected dependent analysis is queued behind it:
+  - `2245591` `bn14hdd`
+- the partial early/tail notes already recovered from the failed NVMe run are
+  still the right preview of the expected final table:
+  - tail:
+    - `wikicontradict conflict`: spectral radius `0.6780`, `rho*` `1.0046`
+    - `wikicontradict no_conflict`: spectral radius `0.0148`, `rho*` `0.9970`
+  - early:
+    - `wikicontradict conflict`: spectral radius `0.3438`, `rho*` `0.9983`
+    - `wikicontradict no_conflict`: spectral radius `0.4285`, `rho*` `0.9965`
 
 - the new rate script fits both:
   - a log-linear `TV(p_t, p_K)` cross-check for `\hat{\rho}^\star`
