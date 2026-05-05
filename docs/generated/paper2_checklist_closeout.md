@@ -77,14 +77,14 @@ Recovered partial dense-window read from the running HDD rerun:
 
 - source rows:
   `/work/hdd/bgvi/adas17/tts_results/results/theorem3_r1_14b_tail_trajectory_hdd_v1/theorem3_generation_rows.jsonl`
-- partial rows already on disk at latest check: `2888`
+- partial rows already on disk at latest check: `3598`
 - cells analyzable from that live partial dump: `2`
 - tail-window partial note:
-  - `wikicontradict conflict`: spectral radius `0.5929`, `rho*` `0.9974`
-  - `wikicontradict no_conflict`: spectral radius `0.0432`, `rho*` `1.0064`
+  - `wikicontradict conflict`: spectral radius `0.3781`, `rho*` `1.0013`
+  - `wikicontradict no_conflict`: spectral radius `0.2679`, `rho*` `1.0006`
 - early-window partial note:
-  - `wikicontradict conflict`: spectral radius `0.7854`, `rho*` `0.9982`
-  - `wikicontradict no_conflict`: spectral radius `0.4356`, `rho*` `0.9955`
+  - `wikicontradict conflict`: spectral radius `0.7865`, `rho*` `0.9981`
+  - `wikicontradict no_conflict`: spectral radius `0.4052`, `rho*` `0.9970`
 
 Current rerun status:
 
@@ -178,14 +178,15 @@ Read:
   trio:
   - first cache-backed trio (`2246040`–`2246042`) finished training but the
     theorem-3 eval failed uniformly with `System role not supported`
-  - eval-only completion-mode salvage jobs are now queued:
-    - `2246218` `g9sfix` is now running and serving successful completion-mode
-      requests on Delta
+  - eval-only completion-mode salvage jobs are now running:
+    - `2246218` `g9sfix`
     - `2246219` `g9dfix`
     - `2246220` `g9gfix`
+  - direct VLLM log read now shows repeated successful completion requests,
+    confirming the backend mismatch is fixed
   - to give those higher-leverage `Gemma` and corrected `70B` jobs room to
     start, the expanded `Llama-8B` multiseed block was deliberately
-    deprioritized by cancelling seeds `45–56` mid-queue
+    deprioritized by cancelling seeds `45–71` mid-queue
 
 ## 6. `Llama-3.1-8B GRPO` seeds `43, 44`
 
@@ -205,8 +206,10 @@ Read:
   suggested.
 - The expanded corrected multiseed block is now live on Delta using cached
   local model snapshots instead of gated online pulls:
-  - `2246043`–`2246054` are actively running
-  - `2246055`–`2246069` remain queued behind them
+  - the sweep was confirmed to start cleanly on Delta
+  - it was then intentionally paused by cancelling seeds `45–71` so the
+    higher-leverage `Gemma` and corrected `70B` runs could start under the
+    available billing budget
 
 ## 7. Free-form open-QA larger sample (`n=8 -> n=200+`)
 

@@ -135,34 +135,30 @@ Current live read:
 - running:
   - `2245553`
     - Qwen-14B dense tail on HDD
-    - latest verified row count: `2888`
-    - live partial early/tail preview already keeps `rho*` near `1.0` on the
-      two currently analyzable `WikiContradict` cells
-  - `2246043`–`2246054`
-    - corrected cache-backed `Llama-8B GRPO` seeds `45–56`
-    - these are genuinely running now, not failing on gated model access
-- pending:
-  - `2245591`
-    - HDD Berk–Nash dependent analysis, correctly held on dependency
-  - `2246039`
-    - corrected `Llama-3.1-70B-Instruct` dense-tail rerun
-  - `2246055`–`2246069`
-    - remaining corrected cache-backed `Llama-8B GRPO` seeds `57–71`
-  - `2246219`, `2246220`
-    - remaining `Gemma-2-9B` theorem-3 eval-only recovery jobs using
-      `request_format=completion`
-    - these are the real salvage path after the initial chat-format failure
-- running after queue rebalance:
+    - latest verified row count: `3598`
+    - updated live partial still keeps `rho*` near `1.0` on the two currently
+      analyzable `WikiContradict` cells
   - `2246218`
     - `Gemma-2-9B SFT` completion-mode theorem-3 recovery job is live
     - direct VLLM log read shows repeated successful `POST /v1/completions 200`
       responses, confirming the backend mismatch is fixed
+  - `2246219`, `2246220`
+    - `Gemma-2-9B DPO/GRPO` completion-mode recovery jobs are now running
+  - `2246249`
+    - lighter `2`-GPU / `TP=2` corrected `Llama-3.1-70B-Instruct` dense-tail
+      rerun is now running
+- pending:
+  - `2245591`
+    - HDD Berk–Nash dependent analysis, correctly held on dependency
 - deliberately deprioritized to free billing budget for higher-leverage jobs:
   - `2246047`–`2246054`
     - running `Llama-8B` seeds `49–56` were cancelled
   - `2246043`–`2246046`
     - running `Llama-8B` seeds `45–48` were also cancelled once it was clear
       they were blocking the `Gemma`/`70B` recovery queue
+  - `2246055`–`2246069`
+    - remaining queued `Llama-8B` seeds `57–71` were cancelled as well so the
+      corrected `Gemma` and lighter `70B` jobs could start immediately
   - read:
     - this was a conscious queue tradeoff, not a failure of the seed path
     - the goal was to let the third-family and fourth-family closeout jobs
@@ -184,6 +180,10 @@ Current live read:
     `EVAL_PROMPT_PROTOCOL`
   - the `Gemma-2-9B` suite now defaults to completion-mode eval to avoid the
     unsupported `system`-role chat path
+- corrected after queue-shape diagnosis:
+  - the original `4`-GPU `Llama-3.1-70B-Instruct` rerun was cancelled
+  - it was replaced with a lighter `2`-GPU / `TP=2` variant so the
+    fourth-family job could start sooner under the Delta billing budget
 
 ## Bottleneck
 
