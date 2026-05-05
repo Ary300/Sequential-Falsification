@@ -1,6 +1,6 @@
 # Paper 2 Submission Polish Status
 
-Status date: `2026-05-04`
+Status date: `2026-05-05`
 
 This note tracks the non-compute submission-polish items that can be closed
 locally while the remaining Delta jobs are still blocked on cluster access.
@@ -33,6 +33,24 @@ locally while the remaining Delta jobs are still blocked on cluster access.
 - Trimmed repeated theorem-3 appendix prose and fixed the appendix compile
   issue caused by a raw `\rightarrow` outside math mode:
   [paper/appendix.tex](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/paper/appendix.tex)
+- Fixed the local TikZ compile path by adding the missing `calc` library in
+  [paper/main.tex](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/paper/main.tex)
+
+## Local compile status
+
+- local compile now succeeds with `tectonic`
+- total PDF pages: `13`
+- page layout from the local compile log:
+  - main body sections occupy pages `1–8`
+  - references occupy pages `9–10`
+  - appendix occupies pages `11–13`
+
+Read:
+
+- This means the current paper is no longer failing to compile locally.
+- It also means the body itself is not spilling deep into the appendix; the
+  remaining page-budget question is about venue policy on whether references
+  count toward the strict cap, not about a broken manuscript build.
 
 ## Already closed outside the manuscript
 
@@ -50,7 +68,8 @@ locally while the remaining Delta jobs are still blocked on cluster access.
 - early-`t` `\hat{\rho}^\star` / polynomial-tail diagnostics:
   dense tail jobs are staged but not harvested
 - DeepSeek native rerun, mechanism probe, and curriculum audit:
-  all launchers exist, but cluster access is still blocked by Delta login
+  all launchers exist, but live Delta access still requires a working NCSA
+  Kerberos password followed by Duo; local SSH keys do not authenticate
 - larger-sample free-form `n=200` runs:
   staged and previously submitted, but final results still depend on Delta
 

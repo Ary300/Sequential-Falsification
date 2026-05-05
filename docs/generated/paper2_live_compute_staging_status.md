@@ -1,6 +1,6 @@
 # Paper 2 Live Compute Staging Status
 
-Status date: `2026-05-04`
+Status date: `2026-05-05`
 
 This note records the remaining live-compute Paper 2 items in a single place so
 the bottleneck is explicit: launcher readiness versus cluster access.
@@ -78,6 +78,14 @@ the bottleneck is explicit: launcher readiness versus cluster access.
 
 ## Bottleneck
 
-The missing ingredient is no longer code. It is live Delta access: the current
-cluster blocker is authentication failing before Duo, so the compute cannot be
-polled or resubmitted from this shell until login succeeds.
+The missing ingredient is no longer code. It is live Delta access.
+
+Current verified auth state:
+
+- the local SSH client can reach the Delta login banner
+- default SSH behavior was hitting `Too many authentication failures`
+- forcing a single identity with `IdentitiesOnly=yes` fixes that local issue
+- after that, Delta still rejects local key auth and requires
+  `gssapi-with-mic,password`
+- so the remaining blocker is a working NCSA Kerberos password followed by Duo,
+  not missing launchers or a broken SSH config
