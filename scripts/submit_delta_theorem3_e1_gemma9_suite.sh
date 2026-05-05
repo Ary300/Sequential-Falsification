@@ -4,6 +4,29 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 EXTRA_ARGS=("$@")
 
+resolve_hf_snapshot() {
+  local repo_id="$1"
+  local cache_root="${HF_HOME:-$HOME/.cache/huggingface}/hub/models--${repo_id//\//--}"
+  local snapshot=""
+  if [[ -f "${cache_root}/refs/main" ]]; then
+    local rev
+    rev="$(<"${cache_root}/refs/main")"
+    if [[ -d "${cache_root}/snapshots/${rev}" ]]; then
+      snapshot="${cache_root}/snapshots/${rev}"
+    fi
+  fi
+  if [[ -z "${snapshot}" && -d "${cache_root}/snapshots" ]]; then
+    snapshot="$(find "${cache_root}/snapshots" -mindepth 1 -maxdepth 1 -type d | head -n 1 || true)"
+  fi
+  if [[ -n "${snapshot}" ]]; then
+    printf '%s\n' "${snapshot}"
+  else
+    printf '%s\n' "${repo_id}"
+  fi
+}
+
+GEMMA9_MODEL="${GEMMA9_MODEL:-$(resolve_hf_snapshot "google/gemma-2-9b-it")}"
+
 submit_job() {
   local objective="$1"
   local output_dir="$2"
@@ -13,7 +36,7 @@ submit_job() {
 
   if [[ ${#EXTRA_ARGS[@]} -gt 0 ]]; then
     OBJECTIVE="${objective}" \
-    MODEL_NAME="google/gemma-2-9b-it" \
+    MODEL_NAME="${GEMMA9_MODEL}" \
     OUTPUT_DIR="${output_dir}" \
     JOB_NAME="${job_name}" \
     WALL="12:00:00" \
@@ -32,7 +55,7 @@ submit_job() {
     bash "${SCRIPT_DIR}/submit_delta_theorem3_matched_objective_lora.sh" "${EXTRA_ARGS[@]}"
   else
     OBJECTIVE="${objective}" \
-    MODEL_NAME="google/gemma-2-9b-it" \
+    MODEL_NAME="${GEMMA9_MODEL}" \
     OUTPUT_DIR="${output_dir}" \
     JOB_NAME="${job_name}" \
     WALL="12:00:00" \
