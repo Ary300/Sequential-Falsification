@@ -135,15 +135,19 @@ Current live read:
 - running:
   - `2245553`
     - Qwen-14B dense tail on HDD
-    - latest raw row count has already passed `3754`
-    - latest regenerated partial summary used `3762` rows and still
-      keeps `rho*` near `1.0` on the two currently analyzable
-      `WikiContradict` cells
+    - latest regenerated partial summary now uses `7161` rows
+    - early-window `rho*` still stays very close to `1.0`, and the
+      conflict-cell early log-linear fit is stronger than the no-conflict one
+    - tail-window `rho*` remains close to `1.0`, though the current partial
+      still only covers the two analyzable `WikiContradict` cells
   - `2246302`
     - fresh `Llama-3.1-70B-Instruct` dense-tail rerun after cache-root fix
     - current state is now running
     - it is already writing screening and theorem-3 generation rows on HDD
     - direct VLLM log read shows repeated `POST /v1/chat/completions 200 OK`
+    - first live partial theorem-3 summary is now on disk from `2891` rows on
+      `WikiContradict`:
+      conflict-minus-no-conflict `-0.0354`
 - completed:
   - `2246218`
     - `Gemma-2-9B SFT` completion-mode theorem-3 recovery job finished
