@@ -26,11 +26,16 @@ if [[ ! -f "${DELTA_VENV}/bin/activate" ]]; then
   exit 1
 fi
 source "${DELTA_VENV}/bin/activate"
-export HF_HOME=${HF_HOME:-/work/nvme/bgvi/adas17/hf_cache}
-export XDG_CACHE_HOME=${XDG_CACHE_HOME:-/work/nvme/bgvi/adas17/.cache}
-export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-/work/nvme/bgvi/adas17/.config}
+
+DELTA_RESULTS_ROOT=${DELTA_RESULTS_ROOT:-/work/nvme/bgvi/adas17/tts_results}
+DELTA_CACHE_ROOT=${DELTA_CACHE_ROOT:-${DELTA_RESULTS_ROOT%/}/runtime_cache}
+export HF_HOME=${HF_HOME:-${DELTA_CACHE_ROOT}/hf_home}
+export XDG_CACHE_HOME=${XDG_CACHE_HOME:-${DELTA_CACHE_ROOT}/xdg_cache}
+export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-${DELTA_CACHE_ROOT}/xdg_config}
 export VLLM_CACHE_ROOT=${VLLM_CACHE_ROOT:-${XDG_CACHE_HOME}/vllm}
 export VLLM_CONFIG_ROOT=${VLLM_CONFIG_ROOT:-${XDG_CONFIG_HOME}/vllm}
+export TORCHINDUCTOR_CACHE_DIR=${TORCHINDUCTOR_CACHE_DIR:-${XDG_CACHE_HOME}/torchinductor}
+export TRITON_CACHE_DIR=${TRITON_CACHE_DIR:-${XDG_CACHE_HOME}/triton}
 export VLLM_NO_USAGE_STATS=${VLLM_NO_USAGE_STATS:-1}
 export VLLM_DO_NOT_TRACK=${VLLM_DO_NOT_TRACK:-1}
 export DO_NOT_TRACK=${DO_NOT_TRACK:-1}
@@ -51,7 +56,6 @@ MAX_MODEL_LEN=${MAX_MODEL_LEN:-16384}
 GPU_MEMORY_UTILIZATION=${GPU_MEMORY_UTILIZATION:-0.90}
 TP_SIZE=${TP_SIZE:-1}
 OUTPUT_DIR=${OUTPUT_DIR:-results/theorem3_real_generation_r1_7b}
-DELTA_RESULTS_ROOT=${DELTA_RESULTS_ROOT:-/work/nvme/bgvi/adas17/tts_results}
 WIKICONTRADICT_MAX=${WIKICONTRADICT_MAX:-200}
 CONFLICTBANK_MAX=${CONFLICTBANK_MAX:-500}
 TRIVIAQA_MAX=${TRIVIAQA_MAX:-200}
@@ -66,6 +70,7 @@ DELTA_PROJECT_ROOT=${DELTA_PROJECT_ROOT:-/u/adas17/tts-falsification-git}
 cd "${DELTA_PROJECT_ROOT}"
 nvidia-smi -L || true
 mkdir -p "${HF_HOME}" "${XDG_CACHE_HOME}" "${XDG_CONFIG_HOME}" "${VLLM_CACHE_ROOT}" "${VLLM_CONFIG_ROOT}"
+mkdir -p "${TORCHINDUCTOR_CACHE_DIR}" "${TRITON_CACHE_DIR}"
 
 if [[ "${OUTPUT_DIR}" = /* ]]; then
   RUN_OUTPUT_DIR="${OUTPUT_DIR}"
