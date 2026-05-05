@@ -139,17 +139,18 @@ Current live read:
     - latest regenerated partial summary used `3762` rows and still
       keeps `rho*` near `1.0` on the two currently analyzable
       `WikiContradict` cells
-  - `2246219`
-    - `Gemma-2-9B DPO` completion-mode recovery job is running
-    - it is now writing real theorem-3 rows and a positive partial summary
   - `2246302`
     - fresh `Llama-3.1-70B-Instruct` dense-tail rerun after cache-root fix
-    - current state is pending in the queue
+    - current state is pending in the queue with `Reason=Priority`
 - completed:
   - `2246218`
     - `Gemma-2-9B SFT` completion-mode theorem-3 recovery job finished
     - theorem-3 headline is now real:
       conflict-minus-no-conflict `+0.1035`
+  - `2246219`
+    - `Gemma-2-9B DPO` completion-mode recovery job finished
+    - theorem-3 headline is now real:
+      conflict-minus-no-conflict `+0.0143`
   - `2246220`
     - `Gemma-2-9B GRPO` completion-mode recovery job finished
     - theorem-3 headline is now materially real, not just partial:
@@ -190,10 +191,10 @@ Current live read:
   - the recovery path is now producing stable theorem-3 output:
     - `SFT` final (`1344` rows):
       conflict-minus-no-conflict `+0.1035`
+    - `DPO` final (`1344` rows):
+      conflict-minus-no-conflict `+0.0143`
     - `GRPO` recovery is now complete (`1344` rows):
       conflict-minus-no-conflict `-0.0680`
-    - `DPO` live partial (`919` rows):
-      conflict-minus-no-conflict `+0.0699`
 - corrected after queue-shape diagnosis:
   - the original `4`-GPU `Llama-3.1-70B-Instruct` rerun was cancelled
   - it was replaced with a lighter `2`-GPU / `TP=2` variant so the

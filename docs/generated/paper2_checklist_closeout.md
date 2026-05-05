@@ -181,17 +181,17 @@ Read:
     theorem-3 eval failed uniformly with `System role not supported`
   - eval-only completion-mode salvage jobs are now live:
     - `2246218` `g9sfix` has now completed
-    - `2246219` `g9dfix`
+    - `2246219` `g9dfix` has now completed
     - `2246220` `g9gfix` has now completed
   - direct VLLM log read now shows repeated successful completion requests,
     confirming the backend mismatch is fixed
   - the recovery path is now producing real theorem-3 output:
     - `SFT` final (`1344` rows):
       conflict-minus-no-conflict `+0.1035`
+    - `DPO` final (`1344` rows):
+      conflict-minus-no-conflict `+0.0143`
     - `GRPO` completion-mode recovery is fully finished (`1344` rows):
       conflict-minus-no-conflict `-0.0680`
-    - `DPO` live partial (`919` rows):
-      conflict-minus-no-conflict `+0.0699`
   - to give those higher-leverage `Gemma` and corrected `70B` jobs room to
     start, the expanded `Llama-8B` multiseed block was deliberately
     deprioritized by cancelling seeds `45–71` mid-queue
@@ -208,6 +208,7 @@ Read:
   roots follow `DELTA_RESULTS_ROOT/runtime_cache`
 - clean cache-fixed rerun submitted:
   - `2246302` `l3170h4`
+  - current scheduler read shows `Reason=Priority`
 
 ## 6. `Llama-3.1-8B GRPO` seeds `43, 44`
 
