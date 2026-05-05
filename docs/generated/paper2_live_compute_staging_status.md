@@ -141,7 +141,7 @@ Current live read:
       `WikiContradict` cells
   - `2246302`
     - fresh `Llama-3.1-70B-Instruct` dense-tail rerun after cache-root fix
-    - current state is pending in the queue with `Reason=Priority`
+    - current state is now running
 - completed:
   - `2246218`
     - `Gemma-2-9B SFT` completion-mode theorem-3 recovery job finished
@@ -158,6 +158,10 @@ Current live read:
 - pending:
   - `2245591`
     - HDD Berk–Nash dependent analysis, correctly held on dependency
+  - `2246377`
+    - shorter-wall `Llama-3.1-70B-Instruct` standard theorem-3 companion run
+    - submitted to get a fourth-family headline sooner while the dense-tail
+      run continues
 - deliberately deprioritized to free billing budget for higher-leverage jobs:
   - `2246047`–`2246054`
     - running `Llama-8B` seeds `49–56` were cancelled
@@ -204,7 +208,8 @@ Current live read:
   - the shared real-generation sbatch now routes `HF_HOME`, `XDG_CACHE_HOME`,
     `TORCHINDUCTOR_CACHE_DIR`, and `TRITON_CACHE_DIR` under
     `DELTA_RESULTS_ROOT/runtime_cache`
-  - clean cache-fixed rerun submitted as `2246302`
+  - clean cache-fixed rerun submitted as `2246302` and is now running
+  - shorter-wall companion theorem-3 run submitted as `2246377`
 
 ## Bottleneck
 

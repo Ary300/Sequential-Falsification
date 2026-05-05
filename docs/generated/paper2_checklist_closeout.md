@@ -208,7 +208,11 @@ Read:
   roots follow `DELTA_RESULTS_ROOT/runtime_cache`
 - clean cache-fixed rerun submitted:
   - `2246302` `l3170h4`
-  - current scheduler read shows `Reason=Priority`
+  - this rerun has now started successfully
+- shorter-wall companion theorem-3 run submitted:
+  - `2246377` `l3170t3`
+  - purpose: get a fourth-family headline sooner while the dense-tail run
+    continues
 
 ## 6. `Llama-3.1-8B GRPO` seeds `43, 44`
 

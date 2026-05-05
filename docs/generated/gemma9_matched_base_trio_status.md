@@ -1,6 +1,6 @@
 # Gemma-2-9B Matched-Base Trio Status
 
-Status date: `2026-05-04`
+Status date: `2026-05-05`
 
 This note defines the dedicated Paper 2 matched-base `SFT/DPO/GRPO` launcher
 for `Gemma-2-9B`, mirroring the existing `Mistral-7B` trio structure so we can
@@ -55,6 +55,26 @@ Expected job names:
 - `e1_g9_sft`
 - `e1_g9_dpo`
 - `e1_g9_grpo`
+
+## Recovery outcome
+
+The initial cache-backed theorem-3 eval path failed uniformly because the local
+VLLM / OpenAI compatibility layer rejected `system` role messages.
+
+The recovery path switched Gemma theorem-3 eval to completion-mode requests and
+then reran evaluation on Delta. Final recovered theorem-3 headlines:
+
+- `SFT`: conflict-minus-no-conflict `+0.1035`
+- `DPO`: conflict-minus-no-conflict `+0.0143`
+- `GRPO`: conflict-minus-no-conflict `-0.0680`
+
+Read:
+
+- this closes the `Gemma-2-9B` matched-base family with real theorem-3 numbers
+- the family is mixed rather than giving the clean `GRPO > SFT` replication we
+  wanted
+- it still materially improves the Paper 2 “third independent family”
+  evidence because the cells are now closed rather than pending
 
 ## Read
 
