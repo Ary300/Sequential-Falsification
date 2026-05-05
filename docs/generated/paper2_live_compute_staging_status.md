@@ -130,15 +130,20 @@ Current live read:
 - running:
   - `2245553`
     - Qwen-14B dense tail on HDD
+    - latest verified row count: `2888`
+    - live partial early/tail preview already keeps `rho*` near `1.0` on the
+      two currently analyzable `WikiContradict` cells
   - `2246040`
     - corrected `Gemma-2-9B` `SFT` rerun using local HF cache
+  - `2246041`
+    - corrected `Gemma-2-9B` `DPO` rerun using local HF cache
+  - `2246042`
+    - corrected `Gemma-2-9B` `GRPO` rerun using local HF cache
 - pending:
   - `2245591`
     - HDD Berk–Nash dependent analysis, correctly held on dependency
   - `2246039`
     - corrected `Llama-3.1-70B-Instruct` dense-tail rerun
-  - `2246041`, `2246042`
-    - corrected `Gemma-2-9B` `DPO/GRPO` reruns using local HF cache
   - `2246043`–`2246069`
     - corrected cache-backed `Llama-8B GRPO` seeds `45–71`
 - corrected after launch-path diagnosis:

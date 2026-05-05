@@ -73,18 +73,18 @@ What is already done:
 - Early-window readiness note:
   [berk_nash_early_window_status.md](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Confidence/docs/generated/berk_nash_early_window_status.md)
 
-Recovered partial dense-window read from the failed NVMe run:
+Recovered partial dense-window read from the running HDD rerun:
 
 - source rows:
-  `/work/nvme/bgvi/adas17/tts_results/results/theorem3_r1_14b_tail_trajectory_v1/theorem3_generation_rows.jsonl`
-- partial rows already on disk: `1812`
-- cells analyzable from that partial dump: `2`
+  `/work/hdd/bgvi/adas17/tts_results/results/theorem3_r1_14b_tail_trajectory_hdd_v1/theorem3_generation_rows.jsonl`
+- partial rows already on disk at latest check: `2888`
+- cells analyzable from that live partial dump: `2`
 - tail-window partial note:
-  - `wikicontradict conflict`: spectral radius `0.6780`, `rho*` `1.0046`
-  - `wikicontradict no_conflict`: spectral radius `0.0148`, `rho*` `0.9970`
+  - `wikicontradict conflict`: spectral radius `0.5929`, `rho*` `0.9974`
+  - `wikicontradict no_conflict`: spectral radius `0.0432`, `rho*` `1.0064`
 - early-window partial note:
-  - `wikicontradict conflict`: spectral radius `0.3438`, `rho*` `0.9983`
-  - `wikicontradict no_conflict`: spectral radius `0.4285`, `rho*` `0.9965`
+  - `wikicontradict conflict`: spectral radius `0.7854`, `rho*` `0.9982`
+  - `wikicontradict no_conflict`: spectral radius `0.4356`, `rho*` `0.9955`
 
 Current rerun status:
 
@@ -97,9 +97,10 @@ Read:
 
 - The missing thing was not “bad numbers”; it was dense trajectory completion
   under a quota-safe output path.
-- Even the recovered partial dump is already informative:
+- Even the recovered live partial dump is already informative:
   early-window `rho*` stays very close to `1.0` on the two available
-  `WikiContradict` cells rather than collapsing immediately away from the tail.
+  `WikiContradict` cells rather than collapsing immediately away from the
+  tail, which is exactly the non-asymptotic direction we were hoping to see.
 - The final `W=100` table still needs the HDD-backed rerun to finish, but this
   item is no longer blocked on missing code or missing instrumentation.
 
@@ -258,14 +259,14 @@ What is already done:
   - `2245553` `r1_14b_hdd`
 - corrected dependent analysis is queued behind it:
   - `2245591` `bn14hdd`
-- the partial early/tail notes already recovered from the failed NVMe run are
-  still the right preview of the expected final table:
+- the partial early/tail notes already recovered from the running HDD rerun are
+  already a stronger preview of the expected final table:
   - tail:
-    - `wikicontradict conflict`: spectral radius `0.6780`, `rho*` `1.0046`
-    - `wikicontradict no_conflict`: spectral radius `0.0148`, `rho*` `0.9970`
+    - `wikicontradict conflict`: spectral radius `0.5929`, `rho*` `0.9974`
+    - `wikicontradict no_conflict`: spectral radius `0.0432`, `rho*` `1.0064`
   - early:
-    - `wikicontradict conflict`: spectral radius `0.3438`, `rho*` `0.9983`
-    - `wikicontradict no_conflict`: spectral radius `0.4285`, `rho*` `0.9965`
+    - `wikicontradict conflict`: spectral radius `0.7854`, `rho*` `0.9982`
+    - `wikicontradict no_conflict`: spectral radius `0.4356`, `rho*` `0.9955`
 
 - the new rate script fits both:
   - a log-linear `TV(p_t, p_K)` cross-check for `\hat{\rho}^\star`
