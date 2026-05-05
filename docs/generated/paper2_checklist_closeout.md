@@ -77,7 +77,8 @@ Recovered partial dense-window read from the running HDD rerun:
 
 - source rows:
   `/work/hdd/bgvi/adas17/tts_results/results/theorem3_r1_14b_tail_trajectory_hdd_v1/theorem3_generation_rows.jsonl`
-- partial rows already on disk at latest check: `3598`
+- latest regenerated partial used `3598` rows, and the live dump has already
+  grown past `3642` rows
 - cells analyzable from that live partial dump: `2`
 - tail-window partial note:
   - `wikicontradict conflict`: spectral radius `0.3781`, `rho*` `1.0013`
@@ -184,6 +185,11 @@ Read:
     - `2246220` `g9gfix`
   - direct VLLM log read now shows repeated successful completion requests,
     confirming the backend mismatch is fixed
+  - first live partial theorem-3 reads are already on disk:
+    - `SFT` partial (`437` rows): conflict-minus-no-conflict `+0.0773`
+    - `GRPO` partial (`987` rows): conflict-minus-no-conflict `-0.0864`
+    - `DPO` had started but had not yet written generation rows at the latest
+      check
   - to give those higher-leverage `Gemma` and corrected `70B` jobs room to
     start, the expanded `Llama-8B` multiseed block was deliberately
     deprioritized by cancelling seeds `45–71` mid-queue

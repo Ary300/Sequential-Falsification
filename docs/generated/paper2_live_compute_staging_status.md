@@ -135,15 +135,18 @@ Current live read:
 - running:
   - `2245553`
     - Qwen-14B dense tail on HDD
-    - latest verified row count: `3598`
-    - updated live partial still keeps `rho*` near `1.0` on the two currently
-      analyzable `WikiContradict` cells
+    - latest raw row count has already passed `3642`
+    - latest regenerated partial summary used the first `3598` rows and still
+      keeps `rho*` near `1.0` on the two currently analyzable
+      `WikiContradict` cells
   - `2246218`
     - `Gemma-2-9B SFT` completion-mode theorem-3 recovery job is live
     - direct VLLM log read shows repeated successful `POST /v1/completions 200`
       responses, confirming the backend mismatch is fixed
   - `2246219`, `2246220`
     - `Gemma-2-9B DPO/GRPO` completion-mode recovery jobs are now running
+    - live row dumps are now appearing on disk, so this is past the
+      “scheduler-only” stage
   - `2246249`
     - lighter `2`-GPU / `TP=2` corrected `Llama-3.1-70B-Instruct` dense-tail
       rerun is now running
@@ -180,6 +183,11 @@ Current live read:
     `EVAL_PROMPT_PROTOCOL`
   - the `Gemma-2-9B` suite now defaults to completion-mode eval to avoid the
     unsupported `system`-role chat path
+  - early partial theorem-3 reads are now available from the recovery rows:
+    - `SFT` partial (`437` rows): conflict-minus-no-conflict `+0.0773`
+    - `GRPO` partial (`987` rows): conflict-minus-no-conflict `-0.0864`
+    - `DPO` has started but had not yet written generation rows at the latest
+      check
 - corrected after queue-shape diagnosis:
   - the original `4`-GPU `Llama-3.1-70B-Instruct` rerun was cancelled
   - it was replaced with a lighter `2`-GPU / `TP=2` variant so the
