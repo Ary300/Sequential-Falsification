@@ -77,14 +77,14 @@ Recovered partial dense-window read from the running HDD rerun:
 
 - source rows:
   `/work/hdd/bgvi/adas17/tts_results/results/theorem3_r1_14b_tail_trajectory_hdd_v1/theorem3_generation_rows.jsonl`
-- latest regenerated partial used `3598` rows, and the live dump has already
-  grown past `3642` rows
+- latest regenerated partial used `3762` rows, and the live dump has already
+  grown past `3754` rows
 - cells analyzable from that live partial dump: `2`
 - tail-window partial note:
-  - `wikicontradict conflict`: spectral radius `0.3781`, `rho*` `1.0013`
+  - `wikicontradict conflict`: spectral radius `0.6728`, `rho*` `0.9959`
   - `wikicontradict no_conflict`: spectral radius `0.2679`, `rho*` `1.0006`
 - early-window partial note:
-  - `wikicontradict conflict`: spectral radius `0.7865`, `rho*` `0.9981`
+  - `wikicontradict conflict`: spectral radius `0.7466`, `rho*` `0.9982`
   - `wikicontradict no_conflict`: spectral radius `0.4052`, `rho*` `0.9970`
 
 Current rerun status:
@@ -179,22 +179,35 @@ Read:
   trio:
   - first cache-backed trio (`2246040`–`2246042`) finished training but the
     theorem-3 eval failed uniformly with `System role not supported`
-  - eval-only completion-mode salvage jobs are now running:
-    - `2246218` `g9sfix`
+  - eval-only completion-mode salvage jobs are now live:
+    - `2246218` `g9sfix` has now completed
     - `2246219` `g9dfix`
     - `2246220` `g9gfix` has now completed
   - direct VLLM log read now shows repeated successful completion requests,
     confirming the backend mismatch is fixed
   - the recovery path is now producing real theorem-3 output:
-    - `SFT` partial (`706` analyzed rows, `877+` raw rows on disk):
-      conflict-minus-no-conflict `+0.1265`
+    - `SFT` final (`1344` rows):
+      conflict-minus-no-conflict `+0.1035`
     - `GRPO` completion-mode recovery is fully finished (`1344` rows):
       conflict-minus-no-conflict `-0.0680`
-    - `DPO` is still running and had not yet written generation rows at the
-      latest check
+    - `DPO` live partial (`919` rows):
+      conflict-minus-no-conflict `+0.0699`
   - to give those higher-leverage `Gemma` and corrected `70B` jobs room to
     start, the expanded `Llama-8B` multiseed block was deliberately
     deprioritized by cancelling seeds `45–71` mid-queue
+
+`Llama-3.1-70B-Instruct` fourth-family follow-up:
+
+- the first lighter `2`-GPU rerun (`2246249`) still failed at startup, but the
+  failure was infrastructural, not a model result:
+  - VLLM / Torch compilation caches were still landing on quota-constrained
+    space and triggered `[Errno 122] Disk quota exceeded`
+  - that failure then surfaced in theorem-3 as `APIConnectionError:
+    Connection refused`
+- the shared real-generation Delta sbatch is now patched so heavyweight cache
+  roots follow `DELTA_RESULTS_ROOT/runtime_cache`
+- clean cache-fixed rerun submitted:
+  - `2246302` `l3170h4`
 
 ## 6. `Llama-3.1-8B GRPO` seeds `43, 44`
 

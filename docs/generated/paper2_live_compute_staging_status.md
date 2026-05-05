@@ -135,21 +135,21 @@ Current live read:
 - running:
   - `2245553`
     - Qwen-14B dense tail on HDD
-    - latest raw row count has already passed `3642`
-    - latest regenerated partial summary used the first `3598` rows and still
+    - latest raw row count has already passed `3754`
+    - latest regenerated partial summary used `3762` rows and still
       keeps `rho*` near `1.0` on the two currently analyzable
       `WikiContradict` cells
-  - `2246218`
-    - `Gemma-2-9B SFT` completion-mode theorem-3 recovery job is live
-    - direct VLLM log read shows repeated successful `POST /v1/completions 200`
-      responses, confirming the backend mismatch is fixed
   - `2246219`
     - `Gemma-2-9B DPO` completion-mode recovery job is running
-    - at the latest check it had not yet written theorem-3 generation rows
-  - `2246249`
-    - lighter `2`-GPU / `TP=2` corrected `Llama-3.1-70B-Instruct` dense-tail
-      rerun is now running
+    - it is now writing real theorem-3 rows and a positive partial summary
+  - `2246302`
+    - fresh `Llama-3.1-70B-Instruct` dense-tail rerun after cache-root fix
+    - current state is pending in the queue
 - completed:
+  - `2246218`
+    - `Gemma-2-9B SFT` completion-mode theorem-3 recovery job finished
+    - theorem-3 headline is now real:
+      conflict-minus-no-conflict `+0.1035`
   - `2246220`
     - `Gemma-2-9B GRPO` completion-mode recovery job finished
     - theorem-3 headline is now materially real, not just partial:
@@ -187,17 +187,23 @@ Current live read:
     `EVAL_PROMPT_PROTOCOL`
   - the `Gemma-2-9B` suite now defaults to completion-mode eval to avoid the
     unsupported `system`-role chat path
-  - early partial theorem-3 reads are now available from the recovery rows:
-    - `SFT` partial (`706` analyzed rows, `877+` raw rows on disk):
-      conflict-minus-no-conflict `+0.1265`
+  - the recovery path is now producing stable theorem-3 output:
+    - `SFT` final (`1344` rows):
+      conflict-minus-no-conflict `+0.1035`
     - `GRPO` recovery is now complete (`1344` rows):
       conflict-minus-no-conflict `-0.0680`
-    - `DPO` is running but had not yet written generation rows at the latest
-      check
+    - `DPO` live partial (`919` rows):
+      conflict-minus-no-conflict `+0.0699`
 - corrected after queue-shape diagnosis:
   - the original `4`-GPU `Llama-3.1-70B-Instruct` rerun was cancelled
   - it was replaced with a lighter `2`-GPU / `TP=2` variant so the
     fourth-family job could start sooner under the Delta billing budget
+  - the first lighter rerun (`2246249`) still failed at startup because VLLM /
+    Torch compilation caches were defaulting to quota-constrained space
+  - the shared real-generation sbatch now routes `HF_HOME`, `XDG_CACHE_HOME`,
+    `TORCHINDUCTOR_CACHE_DIR`, and `TRITON_CACHE_DIR` under
+    `DELTA_RESULTS_ROOT/runtime_cache`
+  - clean cache-fixed rerun submitted as `2246302`
 
 ## Bottleneck
 
@@ -206,7 +212,8 @@ The missing ingredient is no longer code or Delta access.
 Current verified bottlenecks:
 
 - cluster queue time for the new HDD-backed rerun wave
-- the over-quota NVMe allocation, which is why outputs were rerouted to HDD
+- the over-quota NVMe allocation and cache roots, which is why outputs and now
+  heavyweight runtime caches were rerouted to HDD
 - completion time for the corrected cache-backed `Gemma` and multiseed `Llama`
   reruns
 - completion of the Qwen dense tail so the dependent Berk–Nash analysis can
