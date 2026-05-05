@@ -179,9 +179,13 @@ Read:
   - first cache-backed trio (`2246040`–`2246042`) finished training but the
     theorem-3 eval failed uniformly with `System role not supported`
   - eval-only completion-mode salvage jobs are now queued:
-    - `2246218` `g9sfix`
+    - `2246218` `g9sfix` is now running and serving successful completion-mode
+      requests on Delta
     - `2246219` `g9dfix`
     - `2246220` `g9gfix`
+  - to give those higher-leverage `Gemma` and corrected `70B` jobs room to
+    start, the expanded `Llama-8B` multiseed block was deliberately
+    deprioritized by cancelling seeds `45–56` mid-queue
 
 ## 6. `Llama-3.1-8B GRPO` seeds `43, 44`
 

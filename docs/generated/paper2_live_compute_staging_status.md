@@ -148,9 +148,25 @@ Current live read:
     - corrected `Llama-3.1-70B-Instruct` dense-tail rerun
   - `2246055`–`2246069`
     - remaining corrected cache-backed `Llama-8B GRPO` seeds `57–71`
-  - `2246218`, `2246219`, `2246220`
-    - `Gemma-2-9B` theorem-3 eval-only recovery jobs using `request_format=completion`
+  - `2246219`, `2246220`
+    - remaining `Gemma-2-9B` theorem-3 eval-only recovery jobs using
+      `request_format=completion`
     - these are the real salvage path after the initial chat-format failure
+- running after queue rebalance:
+  - `2246218`
+    - `Gemma-2-9B SFT` completion-mode theorem-3 recovery job is live
+    - direct VLLM log read shows repeated successful `POST /v1/completions 200`
+      responses, confirming the backend mismatch is fixed
+- deliberately deprioritized to free billing budget for higher-leverage jobs:
+  - `2246047`–`2246054`
+    - running `Llama-8B` seeds `49–56` were cancelled
+  - `2246043`–`2246046`
+    - running `Llama-8B` seeds `45–48` were also cancelled once it was clear
+      they were blocking the `Gemma`/`70B` recovery queue
+  - read:
+    - this was a conscious queue tradeoff, not a failure of the seed path
+    - the goal was to let the third-family and fourth-family closeout jobs
+      actually start instead of sitting behind the 30-seed block
 - corrected after launch-path diagnosis:
   - `2245557` completed, but it was **not** the intended fourth-family run
   - root cause: the wrapper exported `TAIL_*` names while the downstream submit
