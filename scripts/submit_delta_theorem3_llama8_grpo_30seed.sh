@@ -56,7 +56,7 @@ for seed in $(seq "${SEED_START}" "${SEED_END}"); do
     MODEL_NAME="${LLAMA8_MODEL}" \
     OUTPUT_DIR="results/e1_llama8b_grpo_s${seed}" \
     JOB_NAME="l8g_s${seed}" \
-    WALL="14:00:00" \
+    WALL="${WALL:-04:00:00}" \
     DELTA_RESULTS_ROOT="${HDD_RESULTS_ROOT}" \
     USE_NODE_LOCAL_STAGING="1" \
     SYNC_BACK_ROOT="${U_RESULTS_ROOT}" \
@@ -81,7 +81,7 @@ for seed in $(seq "${SEED_START}" "${SEED_END}"); do
     MODEL_NAME="${LLAMA8_MODEL}" \
     OUTPUT_DIR="results/e1_llama8b_grpo_s${seed}" \
     JOB_NAME="l8g_s${seed}" \
-    WALL="14:00:00" \
+    WALL="${WALL:-04:00:00}" \
     DELTA_RESULTS_ROOT="${HDD_RESULTS_ROOT}" \
     USE_NODE_LOCAL_STAGING="1" \
     SYNC_BACK_ROOT="${U_RESULTS_ROOT}" \
