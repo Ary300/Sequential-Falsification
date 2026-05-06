@@ -186,23 +186,25 @@ Current live read:
       with one mildly positive `GRPO` configuration, but it still does **not**
       become a clean `Llama-8B`-scale replication
 - pending:
-  - `2251775`
+  - initial rescue IDs `2251775`–`2251779`
+    - cancelled before start after the launcher-hardening pass landed
+  - `2251792`
     - `r1l8dr_nativefix_b002g8w2`
     - corrected `DPO` rerun of the best prior native pocket with the intended
       `warmstart=2` now actually forwarded
-  - `2251776`
+  - `2251793`
     - `r1l8gr_nativefix_b002g8w2`
     - corrected `GRPO` rerun of the best prior native pocket with the intended
       `warmstart=2` now actually forwarded
-  - `2251777`
+  - `2251794`
     - `r1l8dr_nativerescue_b001g12w3`
     - softer-regularization `DPO` rescue leg with larger group budget and
       `warmstart=3`
-  - `2251778`
+  - `2251798`
     - `r1l8gr_nativerescue_b001g12w3`
     - softer-regularization `GRPO` rescue leg with larger group budget and
       `warmstart=3`
-  - `2251779`
+  - `2251799`
     - `r1l8gr_nativerescue_b001g16t06w3s43`
     - exploratory cooler-sampling `GRPO` rescue leg with a fresh seed
   - read:

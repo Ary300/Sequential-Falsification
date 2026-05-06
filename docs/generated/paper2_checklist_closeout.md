@@ -60,11 +60,14 @@ Read:
   - that means the weak native matched sweep is still informative, but it did
     not faithfully test the stronger warmstart settings it claimed to test
   - corrected rescue wave is now submitted:
-    - `2251775` `r1l8dr_nativefix_b002g8w2`
-    - `2251776` `r1l8gr_nativefix_b002g8w2`
-    - `2251777` `r1l8dr_nativerescue_b001g12w3`
-    - `2251778` `r1l8gr_nativerescue_b001g12w3`
-    - `2251779` `r1l8gr_nativerescue_b001g16t06w3s43`
+    - initial IDs `2251775`–`2251779` were cancelled before start after the
+      launcher-hardening pass landed
+    - live corrected IDs are now:
+      - `2251792` `r1l8dr_nativefix_b002g8w2`
+      - `2251793` `r1l8gr_nativefix_b002g8w2`
+      - `2251794` `r1l8dr_nativerescue_b001g12w3`
+      - `2251798` `r1l8gr_nativerescue_b001g12w3`
+      - `2251799` `r1l8gr_nativerescue_b001g16t06w3s43`
   - read:
     this is the strongest remaining honest attempt to repair the weak
     `DeepSeek-Llama-8B` matched-family story without changing the objective

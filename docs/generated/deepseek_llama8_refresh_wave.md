@@ -121,20 +121,23 @@ Corrected rescue launcher:
 
 Submitted `2026-05-06`:
 
-- `2251775` `r1l8dr_nativefix_b002g8w2`
+- initial rescue jobs `2251775`–`2251779` were cancelled before start after the
+  launcher hardening landed, so the live queue now uses the corrected rerun IDs
+- live corrected rescue jobs:
+- `2251792` `r1l8dr_nativefix_b002g8w2`
   - `DPO`
   - reruns the previously best native pocket with the intended
-    `warmstart=2` now actually forwarded
-- `2251776` `r1l8gr_nativefix_b002g8w2`
+  `warmstart=2` now actually forwarded
+- `2251793` `r1l8gr_nativefix_b002g8w2`
   - `GRPO`
   - same corrected `warmstart=2` rerun
-- `2251777` `r1l8dr_nativerescue_b001g12w3`
+- `2251794` `r1l8dr_nativerescue_b001g12w3`
   - `DPO`
   - softer regularization, larger group, `warmstart=3`
-- `2251778` `r1l8gr_nativerescue_b001g12w3`
+- `2251798` `r1l8gr_nativerescue_b001g12w3`
   - `GRPO`
   - softer regularization, larger group, `warmstart=3`
-- `2251779` `r1l8gr_nativerescue_b001g16t06w3s43`
+- `2251799` `r1l8gr_nativerescue_b001g16t06w3s43`
   - `GRPO`
   - exploratory cooler-sampling leg with a fresh seed
 
