@@ -37,6 +37,11 @@ Read:
     - `GRPO`: `-0.0795`
 - A final protocol-aligned matched-pair redo is now also wired:
   - [submit_delta_theorem3_deepseek_llama8_native_matched_sweep.sh](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/scripts/submit_delta_theorem3_deepseek_llama8_native_matched_sweep.sh)
+  - submitted on Delta as:
+    - `2248710` `r1l8dn_native_b005g8w2`
+    - `2248711` `r1l8gn_native_b005g8w2`
+    - `2248712` `r1l8dn_native_b002g8w2`
+    - `2248713` `r1l8gn_native_b002g8w2`
   - read:
     this keeps the matched-objective training setup but swaps theorem-3 eval to
     DeepSeek-native completion-mode prompting, which is the cleanest remaining
@@ -85,14 +90,18 @@ Recovered partial dense-window read from the running HDD rerun:
 
 - source rows:
   `/work/hdd/bgvi/adas17/tts_results/results/theorem3_r1_14b_tail_trajectory_hdd_v1/theorem3_generation_rows.jsonl`
-- latest regenerated partial now uses `7275` rows
-- cells analyzable from that live partial dump: `2`
+- latest regenerated partial now uses `11868` rows
+- cells analyzable from that live partial dump: `4`
 - tail-window partial note:
-  - `wikicontradict conflict`: spectral radius `0.1158`, `rho*` `1.0011`
-  - `wikicontradict no_conflict`: spectral radius `0.0347`, `rho*` `1.0059`
+  - `conflictbank conflict`: spectral radius `0.5825`, `rho*` `1.0076`
+  - `conflictbank no_conflict`: spectral radius `0.0156`, `rho*` `0.9995`
+  - `wikicontradict conflict`: spectral radius `0.3877`, `rho*` `0.9981`
+  - `wikicontradict no_conflict`: spectral radius `0.4839`, `rho*` `1.0024`
 - early-window partial note:
-  - `wikicontradict conflict`: spectral radius `0.7441`, `rho*` `0.9971`
-  - `wikicontradict no_conflict`: spectral radius `0.3021`, `rho*` `0.9973`
+  - `conflictbank conflict`: spectral radius `0.2496`, `rho*` `0.9970`
+  - `conflictbank no_conflict`: spectral radius `0.0253`, `rho*` `0.9979`
+  - `wikicontradict conflict`: spectral radius `0.8157`, `rho*` `0.9979`
+  - `wikicontradict no_conflict`: spectral radius `0.3590`, `rho*` `0.9972`
 
 Current rerun status:
 
@@ -106,8 +115,8 @@ Read:
 - The missing thing was not “bad numbers”; it was dense trajectory completion
   under a quota-safe output path.
 - Even the recovered live partial dump is already informative:
-  early-window `rho*` stays very close to `1.0` on the two available
-  `WikiContradict` cells rather than collapsing immediately away from the
+  early-window `rho*` stays very close to `1.0` across all four currently
+  analyzable cells rather than collapsing immediately away from the
   tail, which is exactly the non-asymptotic direction we were hoping to see.
 - The final `W=100` table still needs the HDD-backed rerun to finish, but this
   item is no longer blocked on missing code or missing instrumentation.
@@ -218,9 +227,9 @@ Read:
   - this rerun has now started successfully
   - live Delta reads now show both screening rows and theorem-3 generation
     rows on disk, plus repeated `200 OK` chat completions from VLLM
-  - latest theorem-3 partial is now on disk from `2982` rows on
+  - latest theorem-3 partial is now on disk from `9042` rows on
     `WikiContradict`:
-    - conflict-minus-no-conflict `-0.0021`
+    - conflict-minus-no-conflict `-0.1092`
 - shorter-wall companion theorem-3 run submitted:
   - `2246377` `l3170t3`
   - this run has now completed with a real fourth-family headline:
@@ -246,10 +255,11 @@ Read:
   suggested.
 - The expanded corrected multiseed block is now live on Delta using cached
   local model snapshots instead of gated online pulls:
-  - the sweep was confirmed to start cleanly on Delta
-  - it was then intentionally paused by cancelling seeds `45–71` so the
-    higher-leverage `Gemma` and corrected `70B` runs could start under the
+  - the earlier sweep was intentionally paused by cancelling seeds `45–71` so
+    the higher-leverage `Gemma` and corrected `70B` runs could start under the
     available billing budget
+  - the full seed block has now been re-armed on Delta as `2248714`–`2248743`
+    so the 30-seed CI can close once queue priority allows it
 
 ## 7. Free-form open-QA larger sample (`n=8 -> n=200+`)
 

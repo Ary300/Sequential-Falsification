@@ -137,19 +137,20 @@ Current live read:
 - running:
   - `2245553`
     - Qwen-14B dense tail on HDD
-    - latest regenerated partial summary now uses `7275` rows
-    - early-window `rho*` still stays very close to `1.0`, and the
-      conflict-cell early log-linear fit is stronger than the no-conflict one
-    - tail-window `rho*` remains close to `1.0`, though the current partial
-      still only covers the two analyzable `WikiContradict` cells
+    - latest regenerated partial summary now uses `11868` rows
+    - the live partial now covers `4` analyzable cells across
+      `ConflictBank` and `WikiContradict`
+    - early-window `rho*` still stays very close to `1.0` on all four cells
+    - tail-window `rho*` also remains close to `1.0`, though the current
+      log-linear fits are still noisy
   - `2246302`
     - fresh `Llama-3.1-70B-Instruct` dense-tail rerun after cache-root fix
     - current state is now running
     - it is already writing screening and theorem-3 generation rows on HDD
     - direct VLLM log read shows repeated `POST /v1/chat/completions 200 OK`
-    - latest live partial theorem-3 summary is now on disk from `2982` rows on
+    - latest live partial theorem-3 summary is now on disk from `9042` rows on
       `WikiContradict`:
-      conflict-minus-no-conflict `-0.0021`
+      conflict-minus-no-conflict `-0.1092`
 - completed:
   - `2246218`
     - `Gemma-2-9B SFT` completion-mode theorem-3 recovery job finished
@@ -166,6 +167,21 @@ Current live read:
 - pending:
   - `2245591`
     - HDD Berk–Nash dependent analysis, correctly held on dependency
+  - `2248710`–`2248713`
+    - DeepSeek-native matched `DPO/GRPO` redo pair
+    - `2248710` `r1l8dn_native_b005g8w2`
+    - `2248711` `r1l8gn_native_b005g8w2`
+    - `2248712` `r1l8dn_native_b002g8w2`
+    - `2248713` `r1l8gn_native_b002g8w2`
+    - read:
+      this is the cleanest remaining attempt to improve the weak
+      `DeepSeek-Llama-8B` matched-family story without changing the training
+      objective itself
+  - `2248714`–`2248743`
+    - re-armed `Llama-8B GRPO` seed block covering seeds `42–71`
+    - read:
+      the earlier queue cancellations were tactical; this block is now back in
+      the queue so the 30-seed anchor CI can close once cluster priority allows
 - completed:
   - `2246377`
     - shorter-wall `Llama-3.1-70B-Instruct` standard theorem-3 companion run
