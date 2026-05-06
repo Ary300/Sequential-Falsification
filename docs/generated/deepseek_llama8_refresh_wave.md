@@ -116,6 +116,8 @@ covered.
 Corrected rescue launcher:
 
 - [submit_delta_theorem3_deepseek_llama8_native_rescue_sweep.sh](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/scripts/submit_delta_theorem3_deepseek_llama8_native_rescue_sweep.sh)
+- eval-only checkpoint launcher for any promising intermediate rescue snapshot:
+  [submit_delta_theorem3_deepseek_llama8_checkpoint_eval.sh](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/scripts/submit_delta_theorem3_deepseek_llama8_checkpoint_eval.sh)
 
 Submitted `2026-05-06`:
 
@@ -135,6 +137,17 @@ Submitted `2026-05-06`:
 - `2251779` `r1l8gr_nativerescue_b001g16t06w3s43`
   - `GRPO`
   - exploratory cooler-sampling leg with a fresh seed
+
+Checkpoint read:
+
+- the older curriculum-audit runs do exist on HDD, but they did **not** save
+  usable `intermediate_checkpoints/` directories
+- that means there is no cheap “retroactive checkpoint salvage” from the old
+  audit jobs
+- the new rescue wave is therefore the first DeepSeek path where we have both:
+  - corrected warmstart forwarding
+  - a ready eval-only launcher for any intermediate checkpoint that looks
+    better than the final merged adapter
 
 Read:
 
