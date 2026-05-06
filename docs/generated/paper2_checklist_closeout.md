@@ -330,8 +330,14 @@ Read:
   - the launcher is now fixed to resolve the existing local
     `Llama-3.1-8B` snapshot on Delta
   - corrected live seed block is now `2253785`–`2253814`
-  - seeds `42`, `43`, and `44` are already running; the remaining seeds are
-    queued at `Priority`
+  - seeds `42`, `43`, `44`, `45`, and `46` are now running
+  - unrelated `q72e0`–`q72e4` prompt-compression jobs were cancelled to free
+    billing minutes for this block, but the remaining seeds are still queued
+    at `QOSGrpBillingMinutes`
+  - multiseed aggregation is now pre-wired via:
+    [build_theorem3_multiseed_ci.py](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/scripts/build_theorem3_multiseed_ci.py)
+    so the final `30`-seed CI can be emitted immediately once the staged
+    theorem-3 summaries appear
 
 ## 7. Free-form open-QA larger sample (`n=8 -> n=200+`)
 

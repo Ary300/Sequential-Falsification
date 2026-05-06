@@ -59,6 +59,8 @@ the bottleneck is explicit: launcher readiness versus cluster access.
 
 - multiseed launcher:
   [submit_delta_theorem3_llama8_grpo_30seed.sh](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Confidence/scripts/submit_delta_theorem3_llama8_grpo_30seed.sh)
+- multiseed CI builder:
+  [build_theorem3_multiseed_ci.py](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/scripts/build_theorem3_multiseed_ci.py)
 
 ### Larger-sample free-form open QA
 
@@ -276,8 +278,11 @@ Current live read:
       Delta and uses the same node-local staging path as the DeepSeek rescue
       jobs
     - current state:
-      seeds `42`, `43`, and `44` are already running; the remaining seeds are
-      queued at `Priority`
+      seeds `42`, `43`, `44`, `45`, and `46` are now running
+    - queue note:
+      unrelated `q72e0`–`q72e4` prompt-compression jobs in `pst_delta_repo`
+      were cancelled to free billing minutes, but the remaining seeds are
+      still queued at `QOSGrpBillingMinutes`
 - completed:
   - `2246377`
     - shorter-wall `Llama-3.1-70B-Instruct` standard theorem-3 companion run
