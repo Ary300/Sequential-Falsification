@@ -1326,7 +1326,8 @@ $\widehat{\eta}_{\mathrm{eff}} > \bar\eta$ predicts saturation; the column
 ``predicted'' is the resulting trajectory; the column ``observed'' confirms
 the prediction on every cell.}
 \label{tab:eta-bar}
-\setlength{\tabcolsep}{4pt}
+\setlength{\tabcolsep}{1.5pt}
+\scriptsize
 \begin{tabular}{llcccc}
 \toprule
 \textbf{Model} & \textbf{Slice} & $\widehat{\eta}_{\mathrm{eff}}$ & $\bar\eta$ & \textbf{Predicted} & \textbf{Observed}\\
@@ -1338,11 +1339,8 @@ R1-7B  & WikiContradict conflict & $0.79$ & $0.96$ & recover     & recover  \\
 Qwen2.5-32B & ConflictBank conflict & $0.51$ & $0.80$ & recover & saturate$^{*}$\\
 Qwen2.5-32B & WikiContradict conflict & $0.50$ & $0.95$ & recover & recover\\
 \bottomrule
-\multicolumn{6}{l}{\footnotesize $^{*}$ The Qwen-32B/ConflictBank cell is the one slice where
-the simple $\widehat{\eta}_{\mathrm{eff}}$/$\bar\eta$ ordering does not predict the observed}\\
-\multicolumn{6}{l}{\footnotesize behavior; we attribute this to a separate effect (extreme
-absolute confidence floor; see App.~\ref{app:limitations}).}\\
-\end{tabular}
+\end{tabular}\\[2pt]
+{\footnotesize $^{*}$ The Qwen-32B / ConflictBank cell is the one slice where the simple $\widehat{\eta}_{\mathrm{eff}} / \bar\eta$ ordering does not predict the observed behavior; we attribute this to a separate effect (extreme absolute-confidence floor; see App.~\ref{app:limitations}).}
 \end{table}
 
 \paragraph{Stable-answer subset.}
@@ -2654,9 +2652,9 @@ with explicit leading constant
 \begin{equation}
 C_{\mathrm{rob}}
 \;=\;
-\frac{\mathrm{sign}(\partial_w R|_{w=\E_{\pi_0}[r]})\;\cdot\;\Vert \log(p_\ctx/p_\theta)\Vert_\infty}{\partial^{2}_{ww}R|_{w=\E_{\pi_0}[r]}},
-\qquad
-\partial^{2}_{ww}R\;=\;2\,\E\bigl[\Var_{p^\star_{w}}(\bm{1}\{Y\!=\!y^\star\})\!\cdot\!(\log p_\ctx/p_\theta)^{2}\bigr]
+\frac{\mathrm{sign}(\partial_w R|_{w=\E_{\pi_0}[r]})\,\Vert \log(p_\ctx/p_\theta)\Vert_\infty}{\partial^{2}_{ww}R|_{w=\E_{\pi_0}[r]}},
+\quad
+\partial^{2}_{ww}R\!=\!2\E\bigl[\Var_{p^\star_{w}}(\bm{1}\{Y\!=\!y^\star\})(\log p_\ctx/p_\theta)^{2}\bigr]
 \label{eq:robust-leading-constant}
 \end{equation}
 where the Hessian $\partial^{2}_{ww}R$ is the Brier curvature of
@@ -3191,15 +3189,15 @@ three conditions
 Extraction regexes \texttt{<answer>...</answer>} and
 \texttt{<confidence>...</confidence>}.
 
-\medskip\noindent\textbf{System prompts (per $K$).}\\[2pt]
-\fbox{\begin{minipage}{0.94\linewidth}\ttfamily\small
+\medskip\noindent\textbf{System prompts (per $K$).}\par\smallskip
+\noindent\fbox{\begin{minipage}{0.88\linewidth}\ttfamily\footnotesize\raggedright
 $K\!=\!0$: ``Answer immediately, no reasoning. Format:
-<answer>...</answer> <confidence>...</confidence>''.\\
+<answer>...</answer> <confidence>...</confidence>''.\\[2pt]
 $K\!\le\!128$: ``Think briefly ($\sim\!K$ tokens), then
-<think>brief</think><answer>...</answer><confidence>...</confidence>''.\\
+<think>brief</think><answer>...</answer><confidence>...</confidence>''.\\[2pt]
 $128\!<\!K\!\le\!512$: ``Think step-by-step, call out conflicts
 between memorised knowledge and provided evidence, $\sim\!K$
-tokens.''\\
+tokens.''\\[2pt]
 $K\!>\!512$: ``Think very carefully, consider conflicting evidence
 explicitly, $\sim\!K$ tokens.''
 \end{minipage}}
@@ -3209,10 +3207,15 @@ Closed-book: ``Question: \{question\}''.  Aligned/conflict: appends
 ``Context: \{context\_text\}\textbackslash n Use the context if
 it is reliable, but answer the question.''
 
-\medskip\noindent\textbf{$\eta$-tempered decoding.}
-\fbox{\begin{minipage}{0.94\linewidth}\ttfamily\small
-post-trace: chat\_template(\{aligned|conflict\}, long\_cot=True)<think>\{reasoning\}</think><answer>\\
-prior: chat\_template(closed\_book, long\_cot=False)<answer>
+\medskip\noindent\textbf{$\eta$-tempered decoding.}\par\smallskip
+\noindent\fbox{\begin{minipage}{0.88\linewidth}\ttfamily\scriptsize\raggedright
+post-trace: chat\_template with\\
+\hspace*{1em}\{aligned, conflict\} role and long\_cot=True;\\
+\hspace*{1em}emit <think>\{reasoning\}</think>\\
+\hspace*{1em}then <answer>\\[2pt]
+prior: chat\_template with\\
+\hspace*{1em}closed\_book role and long\_cot=False;\\
+\hspace*{1em}emit <answer>
 \end{minipage}}
 Geometric mixture in log-prob space, exponentiated by $\eta$.
 
@@ -3519,7 +3522,8 @@ gain.}  Conflict slices systematically prefer smaller $\eta^\star$ than
 no-conflict slices, with mean shrink factor $0.52\times$.  The shrink factor
 is the load-bearing prediction of Theorem~\ref{thm:eta-bayes}.}
 \label{tab:eta-per-slice}
-\setlength{\tabcolsep}{4pt}
+\setlength{\tabcolsep}{2.5pt}
+\small
 \begin{tabular}{llccccc}
 \toprule
 \textbf{Model} & \textbf{Slice} & $\eta^\star$ & \textbf{Brier before} & \textbf{Brier after} & \textbf{Acc.\ before} & \textbf{Acc.\ after}\\
@@ -3564,7 +3568,8 @@ GRPO$-$SFT $+0.315$ rules out ``extra tokens'').  Non-RL controls
 $|\cdot|\!<\!0.04$ confirm RL-specific.  RLCR closes no-conflict
 ECE but leaves a residual $+0.291$ on conflict.}
 \label{tab:matched-base-training-type}
-\setlength{\tabcolsep}{4pt}
+\setlength{\tabcolsep}{2pt}
+\scriptsize
 \begin{tabular}{lccc}
 \toprule
 \textbf{Model / training} & \textbf{Conflict $\Delta$ECE} & \textbf{No-conflict $\Delta$ECE} & \textbf{Gap}\\
@@ -3755,7 +3760,8 @@ only method that lifts accuracy on these cells.  This is the
 mechanistic separation the body claims; the joint Brier+accuracy
 view is the load-bearing comparison.}
 \label{tab:posthoc-cal-app}
-\setlength{\tabcolsep}{3.5pt}
+\setlength{\tabcolsep}{1.5pt}
+\scriptsize
 \begin{tabular}{l|ccccc|ccccc}
 \toprule
 & \multicolumn{5}{c|}{\textbf{Brier $\downarrow$}} & \multicolumn{5}{c}{\textbf{Accuracy $\uparrow$}}\\
@@ -4197,7 +4203,8 @@ independent proofs of the same Gibbs form; \textbf{III} matching
 lower bounds on $\min\mathcal{F}$; \textbf{IV} perturbation
 responses of $\mathcal{F}$.}
 \label{tab:thm-map}
-\setlength{\tabcolsep}{3pt}
+\setlength{\tabcolsep}{1.5pt}
+\tiny
 \begin{tabular}{llllll}
 \toprule
 \textbf{Core} & \textbf{Cls} & \textbf{Item} & \textbf{Independent machinery} & \textbf{Prediction} & \textbf{Tested by}\\
