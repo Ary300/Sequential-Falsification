@@ -209,6 +209,13 @@ Current live read:
   - `2251799`
     - `r1l8gr_nativerescue_b001g16t06w3s43`
     - exploratory cooler-sampling `GRPO` rescue leg with a fresh seed
+  - `2251805`–`2251809`
+    - dependent checkpoint-eval sweep jobs for the five live DeepSeek rescue
+      runs
+    - purpose:
+      if a saved warmstart or early-objective checkpoint is better than the
+      final merged adapter, the eval-only DeepSeek-native sweep will still
+      catch it automatically after training completion
   - read:
     these jobs exist because a real submit-path bug was found:
     `WARMSTART_EPOCHS` was not being exported through the generic

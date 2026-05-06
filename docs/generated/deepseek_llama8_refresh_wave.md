@@ -143,6 +143,20 @@ Submitted `2026-05-06`:
   - `GRPO`
   - exploratory cooler-sampling leg with a fresh seed
 
+Dependent checkpoint-eval sweep jobs also queued:
+
+- `2251805` `r1l8ckfixd_dep`
+- `2251806` `r1l8ckfixg_dep`
+- `2251807` `r1l8ckrescued_dep`
+- `2251808` `r1l8ckrescueg_dep`
+- `2251809` `r1l8ckrescueg2_dep`
+
+Read:
+
+- each dependency job waits for its paired rescue run to finish cleanly
+- then it scans `intermediate_checkpoints/` and submits DeepSeek-native
+  theorem-3 eval jobs for every saved checkpoint automatically
+
 Checkpoint read:
 
 - the older curriculum-audit runs do exist on HDD, but they did **not** save
