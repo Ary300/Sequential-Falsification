@@ -2,6 +2,39 @@
 
 This is the compact one-file summary of the current empirical package for the knowledge-arbitration paper.
 
+## May 6 Refresh
+
+The repo has moved materially since the original version of this sheet.
+
+Current Paper 2 live-compute headline:
+- completed `Llama-8B GRPO` multiseed checkpoint through seeds `42–46`:
+  - mean conflict-minus-no-conflict ECE delta: `+0.0149`
+  - bootstrap `95% CI`: `[-0.0363, +0.0661]`
+  - source:
+    [llama8_grpo_5seed_theorem3_ci.md](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/llama8_grpo_5seed_theorem3_ci.md)
+- still running on Delta:
+  - seeds `47–55`
+- still pending on Delta:
+  - seeds `56–71`
+
+Current strongest closed family-level reads relevant to Paper 2:
+- `DeepSeek-Llama-70B`: `+0.3881`
+- best repaired `DeepSeek-Llama-8B` final rescue: `+0.0532`
+- `Gemma-2-9B` matched trio:
+  - `SFT +0.1035`
+  - `DPO +0.0143`
+  - `GRPO -0.0680`
+- dense `Llama-3.1-70B-Instruct` fourth-family rerun:
+  - final headline `-0.0856`
+
+Read:
+- the remaining real empirical uncertainty is now concentrated in the live
+  `Llama-8B` multiseed block rather than launcher bugs or missing diagnostics
+- the current `5`-seed checkpoint is mildly positive but still not a decisive
+  headline result
+- anything below that still describing the `Llama-8B` result as a single-seed
+  estimate should be read as historical context rather than the newest state
+
 ## Review-Facing Uncertainty Note
 
 Bootstrap-over-prompt confidence intervals are now materialized in:
@@ -39,6 +72,10 @@ Read:
 Read:
 - This is the strongest clean causal theorem-3 result in the package.
 - On the same base family, `DPO` improves or stabilizes calibration, while `GRPO` sharply worsens conflict long-CoT calibration.
+- The active multiseed rerun tempers the certainty of the single-seed picture:
+  the newest completed `5`-seed checkpoint is only `+0.0149` with CI crossing
+  zero, so the right current framing is “strong anchor seed, multiseed rerun
+  still unresolved.”
 
 ### Training-time mitigation: `RLCR`
 

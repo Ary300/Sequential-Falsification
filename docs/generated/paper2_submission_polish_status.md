@@ -1,6 +1,6 @@
 # Paper 2 Submission Polish Status
 
-Status date: `2026-05-05` (late)
+Status date: `2026-05-06`
 
 This note tracks the non-compute submission-polish items that can be closed
 locally while the remaining Delta jobs are still blocked on cluster access.
@@ -63,21 +63,34 @@ Read:
 
 ## Still compute-blocked
 
-- third independent matched-base RL pair beyond Llama lineage:
-  `Mistral-7B` HDD trio is now actively running; `Gemma-2-9B` is additionally
-  staged but blocked by gated-model access on Delta
+- `Llama-8B GRPO` multiseed aggregate:
+  - completed checkpoint through seeds `42–46` is now on disk:
+    - mean conflict-minus-no-conflict ECE delta `+0.0149`
+    - bootstrap `95% CI [-0.0363, +0.0661]`
+  - running: seeds `47–55`
+  - pending: seeds `56–71`
+  - this is now the main unresolved empirical item
 - early-`t` `\hat{\rho}^\star` / polynomial-tail diagnostics:
-  partial dense-window read is already recovered from the failed NVMe run, and
-  the corrected HDD tail rerun is now actively running
+  - strong recovered partial table is already on disk
+  - final direct Berk–Nash follow-up jobs still need to finish cleanly
+
+## Closed compute items since the previous draft
+
+- third independent matched-base RL pair beyond plain Llama:
+  - `Mistral-7B` HDD trio finished
+  - `Gemma-2-9B` HDD trio finished
 - DeepSeek native rerun, mechanism probe, and curriculum audit:
-  all are now live or queued on HDD-backed outputs
+  - all finished
+  - best repaired `DeepSeek-8B` final rescue is now `+0.0532`
 - larger-sample free-form `n=200` runs:
-  completed, with Bayes tying `AdaCAD` on EM across `TriviaQA-open`,
-  `NQ-open`, and `ASQA` while clearly beating plain `CAD`
+  - completed, with Bayes tying `AdaCAD` on EM across `TriviaQA-open`,
+    `NQ-open`, and `ASQA` while clearly beating plain `CAD`
+- dense `Llama-3.1-70B-Instruct` fourth-family rerun:
+  - finished at `-0.0856`
 
 ## Bottom line
 
-The paper-facing polish work is no longer the bottleneck. The remaining gaps
-are the live compute completions and model-access constraints, not missing
-citations, missing appendix sections, placeholder figures, or unclear
-manuscript framing.
+The paper-facing polish work is no longer the bottleneck. The remaining gap is
+mostly the live `Llama-8B` multiseed compute tail plus the final direct
+`\\hat{\\rho}^\\star` analyses, not missing citations, missing appendix
+sections, placeholder figures, or unclear manuscript framing.
