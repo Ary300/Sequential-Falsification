@@ -64,18 +64,24 @@ Read:
       launcher-hardening pass landed
     - second IDs `2251792`–`2251799` were then cancelled too once `/work`
       was confirmed to be full, which left cache/output writes unsafe
-    - live corrected IDs are now:
+  - live corrected IDs are now:
       - `2251840` `r1l8dr_nativefix_b002g8w2`
       - `2251841` `r1l8gr_nativefix_b002g8w2`
       - `2251842` `r1l8dr_nativerescue_b001g12w3`
       - `2251843` `r1l8gr_nativerescue_b001g12w3`
       - `2251844` `r1l8gr_nativerescue_b001g16t06w3s43`
+    - completed rescue headlines already in hand:
+      - `2251840` final `DPO`: `-0.0629`
+      - `2251842` final `DPO`: `-0.2074`
+      - `2251844` final `GRPO`: `-0.0330`
     - dependent checkpoint-eval handoff jobs are now:
       - `2251847` `r1l8ckfixd_dep2`
       - `2251848` `r1l8ckfixg_dep2`
       - `2251849` `r1l8ckrescued_dep2`
       - `2251850` `r1l8ckrescueg_dep2`
       - `2251851` `r1l8ckrescueg2_dep2`
+    - best completed checkpoint read so far:
+      - `2251844` `grpo_epoch_01`: `+0.0124`
   - read:
     this is the strongest remaining honest attempt to repair the weak
     `DeepSeek-Llama-8B` matched-family story without changing the objective
@@ -85,6 +91,13 @@ Read:
     - compact sync-back to `/u/adas17/tts_results_staging`
     - checkpoint eval that merges PEFT adapters into standalone local models
       before theorem-3 evaluation
+  - additional May 6 continuation wave queued:
+    - `2252260` `r1l8gc_nativeplus_b002g8w3`
+    - `2252261` `r1l8gc_nativeplus_b002g8w3e2`
+    - `2252262` `r1l8gc_nativeplus_b001g8w3`
+  - read:
+    this keeps pressure on the only DeepSeek-8B branch that has shown any
+    positive signal, namely GRPO near the native `b002/g8` pocket
 - The active follow-up is now diagnostic rather than rhetorical:
   - DeepSeek refresh wave:
     [deepseek_llama8_refresh_wave.md](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/deepseek_llama8_refresh_wave.md)

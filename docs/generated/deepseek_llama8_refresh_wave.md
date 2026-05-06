@@ -148,6 +148,13 @@ Submitted `2026-05-06`:
 - `2251844` `r1l8gr_nativerescue_b001g16t06w3s43`
   - `GRPO`
   - exploratory cooler-sampling leg with a fresh seed
+- completed headlines so far from the staged rescue wave:
+  - `2251840` final `DPO`: `-0.0629`
+  - `2251842` final `DPO`: `-0.2074`
+  - `2251844` final `GRPO`: `-0.0330`
+- best completed checkpoint reads so far:
+  - `2251840` `warmstart_sft_epoch_01`: `-0.0085`
+  - `2251844` `grpo_epoch_01`: `+0.0124`
 
 Dependent checkpoint-eval sweep jobs also queued:
 
@@ -192,6 +199,11 @@ Read:
   checkpoint eval jobs no longer point vLLM directly at adapter-only
   directories; they first merge the PEFT adapter into a standalone local model
   before theorem-3 evaluation
+- active GRPO continuation sweep also queued around the best surviving native
+  pocket:
+  - `2252260` `r1l8gc_nativeplus_b002g8w3`
+  - `2252261` `r1l8gc_nativeplus_b002g8w3e2`
+  - `2252262` `r1l8gc_nativeplus_b001g8w3`
 
 ## Read
 

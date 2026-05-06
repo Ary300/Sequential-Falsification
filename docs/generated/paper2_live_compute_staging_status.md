@@ -153,13 +153,12 @@ Current live read:
       log-linear fits are still noisy
   - `2246302`
     - fresh `Llama-3.1-70B-Instruct` dense-tail rerun after cache-root fix
-    - current state is now running
-    - it is already writing screening and theorem-3 generation rows on HDD
-    - direct VLLM log read shows repeated `POST /v1/chat/completions 200 OK`
-    - current rows on disk: `19535`
-    - latest live partial theorem-3 summary is now on disk from the refreshed
-      dense dump on `WikiContradict`:
-      conflict-minus-no-conflict `-0.0880`
+    - final scheduler state: `COMPLETED`
+    - final dense-tail theorem-3 headline now in hand:
+      conflict-minus-no-conflict `-0.0856`
+    - read:
+      this closes the intended dense fourth-family rerun numerically, but the
+      result remains negative rather than headline-strength positive
 - completed:
   - `2246218`
     - `Gemma-2-9B SFT` completion-mode theorem-3 recovery job finished
@@ -200,6 +199,7 @@ Current live read:
       `warmstart=2` now actually forwarded
     - launched with node-local `/tmp` staging and compact sync-back to
       `/u/adas17/tts_results_staging`
+    - current final theorem-3 headline: `-0.0629`
   - `2251841`
     - `r1l8gr_nativefix_b002g8w2`
     - corrected `GRPO` rerun of the best prior native pocket with the intended
@@ -210,6 +210,7 @@ Current live read:
     - `r1l8dr_nativerescue_b001g12w3`
     - softer-regularization `DPO` rescue leg with larger group budget and
       `warmstart=3`
+    - current final theorem-3 headline: `-0.2074`
   - `2251843`
     - `r1l8gr_nativerescue_b001g12w3`
     - softer-regularization `GRPO` rescue leg with larger group budget and
@@ -217,6 +218,7 @@ Current live read:
   - `2251844`
     - `r1l8gr_nativerescue_b001g16t06w3s43`
     - exploratory cooler-sampling `GRPO` rescue leg with a fresh seed
+    - current final theorem-3 headline: `-0.0330`
   - `2251847`–`2251851`
     - dependent checkpoint-eval sweep jobs for the five live DeepSeek rescue
       runs
@@ -237,6 +239,14 @@ Current live read:
     the shared `/work` filesystem was full, so the current live rescue wave now
     stages training/eval on node-local scratch and syncs compact outputs back
     to `/u`
+    - current checkpoint read:
+      the best completed rescue checkpoint so far is
+      `2251844` `grpo_epoch_01` at `+0.0124`
+  - `2252260`–`2252262`
+    - new GRPO-only continuation sweep around the best surviving native pocket
+    - purpose:
+      continue exploring the only branch that has shown any positive signal
+      rather than waiting on the current running GRPO wave alone
 - pending:
   - `2251744`
     - direct HDD Berk–Nash tail analysis rerun after the dense generator
