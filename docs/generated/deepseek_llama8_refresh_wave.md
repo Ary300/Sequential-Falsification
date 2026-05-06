@@ -1,6 +1,6 @@
 # DeepSeek-Llama-8B Refresh Wave
 
-Status date: `2026-05-05`
+Status date: `2026-05-06`
 
 This note tracks the redo wave for the matched-base `DeepSeek-R1-Distill-Llama-8B`
 family after the first finished `DPO/GRPO` pair came back weak / negative.
@@ -83,12 +83,31 @@ Dedicated launcher:
 
 - [submit_delta_theorem3_deepseek_llama8_native_matched_sweep.sh](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/scripts/submit_delta_theorem3_deepseek_llama8_native_matched_sweep.sh)
 
+Completed native matched-pair redo:
+
+- `2248710` `r1l8dn_native_b005g8w2`
+  - matched `DPO`, Pair A
+  - conflict-minus-no-conflict: `-0.0870`
+- `2248711` `r1l8gn_native_b005g8w2`
+  - matched `GRPO`, Pair A
+  - conflict-minus-no-conflict: `-0.0229`
+- `2248712` `r1l8dn_native_b002g8w2`
+  - matched `DPO`, Pair B
+  - conflict-minus-no-conflict: `-0.0405`
+- `2248713` `r1l8gn_native_b002g8w2`
+  - matched `GRPO`, Pair B
+  - conflict-minus-no-conflict: `+0.0716`
+
 Read:
 
 - this is the cleanest remaining attempt to improve the `DeepSeek-Llama-8B`
   matched-base story without changing the training objective itself
-- if the result still stays weak after this path, the right conclusion is that
-  `DeepSeek-Llama-8B` is genuinely mixed rather than merely protocol-mismatched
+- the completed native sweep does improve the family from uniformly weak to
+  mixed
+- the strongest native matched result is `GRPO` Pair B at `+0.0716`
+- even after that improvement, the right conclusion is still that
+  `DeepSeek-Llama-8B` is genuinely mixed rather than merely
+  protocol-mismatched
 
 ## Read
 
@@ -97,6 +116,10 @@ Read:
 - It is the strongest honest attempt to recover a cleaner `DeepSeek-Llama-8B`
   matched-family story without pretending the first negative run did not
   happen.
+- The result is now numerically closed:
+  - the family is no longer purely negative under native eval
+  - but it still does **not** become a clean second `8B` matched-base
+    replication of the `Llama-8B` effect
 - The paired reviewer-facing diagnosis path is now wired too:
   [submit_delta_deepseek_llama8_objective_followups.sh](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Confidence/scripts/submit_delta_deepseek_llama8_objective_followups.sh)
   launches the same token-level answer-margin / entropy probe used for the

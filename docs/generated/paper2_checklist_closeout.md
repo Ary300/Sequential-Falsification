@@ -3,11 +3,11 @@
 This note maps the reviewer-style Paper 2 checklist directly onto the finished
 artifacts and live Delta jobs.
 
-Status date: `2026-05-05`
+Status date: `2026-05-06`
 
 ## 1. `DeepSeek-R1-Distill-Llama-8B` matched `DPO/GRPO` pair
 
-Status: `done`, with diagnostic rerun wave active
+Status: `done`, with diagnostic rerun wave finished and native matched refresh closed
 
 Finished matched-base results:
 
@@ -35,20 +35,21 @@ Read:
   - DeepSeek curriculum audits:
     - `DPO`: `-0.0699`
     - `GRPO`: `-0.0795`
-- A final protocol-aligned matched-pair redo is now also wired:
+- A final protocol-aligned matched-pair redo was also launched:
   - [submit_delta_theorem3_deepseek_llama8_native_matched_sweep.sh](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/scripts/submit_delta_theorem3_deepseek_llama8_native_matched_sweep.sh)
-  - submitted on Delta as:
-    - `2248710` `r1l8dn_native_b005g8w2`
-    - `2248711` `r1l8gn_native_b005g8w2`
-    - `2248712` `r1l8dn_native_b002g8w2`
-    - `2248713` `r1l8gn_native_b002g8w2`
+  - completed on Delta as:
+    - `2248710` `r1l8dn_native_b005g8w2`: `DPO` `-0.0870`
+    - `2248711` `r1l8gn_native_b005g8w2`: `GRPO` `-0.0229`
+    - `2248712` `r1l8dn_native_b002g8w2`: `DPO` `-0.0405`
+    - `2248713` `r1l8gn_native_b002g8w2`: `GRPO` `+0.0716`
   - read:
     this keeps the matched-objective training setup but swaps theorem-3 eval to
     DeepSeek-native completion-mode prompting, which is the cleanest remaining
     attempt to improve the `8B` story without changing the objective itself
 - Updated read:
   - the earlier negative `GRPO` headline was partly protocol-sensitive
-  - the DeepSeek-native prompt path recovers a modest positive separation
+  - the DeepSeek-native matched sweep recovers a modest positive separation in
+    one configuration (`GRPO` Pair B, `+0.0716`)
   - but it still does **not** rise to the clean `Llama-8B`-scale replication
     we were hoping for
 - The active follow-up is now diagnostic rather than rhetorical:
@@ -71,7 +72,7 @@ Read:
 
 ## 2. Real `\hat{\rho}^\star` values for the Berk-Nash empirical table
 
-Status: `in progress`, with partial dense-window read already recovered
+Status: `in progress`, with updated dense-window read already recovered from the timed-out HDD dump
 
 What is already done:
 
@@ -86,20 +87,20 @@ What is already done:
 - Early-window readiness note:
   [berk_nash_early_window_status.md](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Confidence/docs/generated/berk_nash_early_window_status.md)
 
-Recovered partial dense-window read from the running HDD rerun:
+Recovered dense-window read from the HDD rerun:
 
 - source rows:
   `/work/hdd/bgvi/adas17/tts_results/results/theorem3_r1_14b_tail_trajectory_hdd_v1/theorem3_generation_rows.jsonl`
-- latest regenerated partial now uses `11868` rows
+- latest regenerated analysis now uses `16186` rows
 - cells analyzable from that live partial dump: `4`
 - tail-window partial note:
-  - `conflictbank conflict`: spectral radius `0.5825`, `rho*` `1.0076`
-  - `conflictbank no_conflict`: spectral radius `0.0156`, `rho*` `0.9995`
+  - `conflictbank conflict`: spectral radius `0.1396`, `rho*` `0.9996`
+  - `conflictbank no_conflict`: spectral radius `0.1172`, `rho*` `0.9975`
   - `wikicontradict conflict`: spectral radius `0.3877`, `rho*` `0.9981`
   - `wikicontradict no_conflict`: spectral radius `0.4839`, `rho*` `1.0024`
 - early-window partial note:
-  - `conflictbank conflict`: spectral radius `0.2496`, `rho*` `0.9970`
-  - `conflictbank no_conflict`: spectral radius `0.0253`, `rho*` `0.9979`
+  - `conflictbank conflict`: spectral radius `0.3300`, `rho*` `0.9962`
+  - `conflictbank no_conflict`: spectral radius `0.2465`, `rho*` `0.9965`
   - `wikicontradict conflict`: spectral radius `0.8157`, `rho*` `0.9979`
   - `wikicontradict no_conflict`: spectral radius `0.3590`, `rho*` `0.9972`
 
@@ -109,6 +110,10 @@ Current rerun status:
   allocation quota, not because the diagnostic itself was invalid
 - corrected HDD-backed rerun submitted:
   - `2245553` `r1_14b_hdd`
+  - scheduler end state: `TIMEOUT`
+- direct analysis reruns submitted against the materialized HDD dump:
+  - `2251744` `bn14htail`
+  - `2251745` `bn14hearly`
 
 Read:
 
@@ -118,8 +123,9 @@ Read:
   early-window `rho*` stays very close to `1.0` across all four currently
   analyzable cells rather than collapsing immediately away from the
   tail, which is exactly the non-asymptotic direction we were hoping to see.
-- The final `W=100` table still needs the HDD-backed rerun to finish, but this
-  item is no longer blocked on missing code or missing instrumentation.
+- The final `W=100` table still needs the direct analysis jobs to finish
+  cleanly on Delta, but this item is no longer blocked on missing code or
+  missing instrumentation.
 
 ## 3. Inference-cache demo for `\hat w`
 
@@ -227,9 +233,10 @@ Read:
   - this rerun has now started successfully
   - live Delta reads now show both screening rows and theorem-3 generation
     rows on disk, plus repeated `200 OK` chat completions from VLLM
-  - latest theorem-3 partial is now on disk from `9042` rows on
+  - current dense rows on disk: `19535`
+  - latest theorem-3 partial is now on disk from the refreshed dense dump on
     `WikiContradict`:
-    - conflict-minus-no-conflict `-0.1092`
+    - conflict-minus-no-conflict `-0.0880`
 - shorter-wall companion theorem-3 run submitted:
   - `2246377` `l3170t3`
   - this run has now completed with a real fourth-family headline:
@@ -318,16 +325,21 @@ What is already done:
 
 - the Qwen dense tail is now rerunning quota-safely on HDD:
   - `2245553` `r1_14b_hdd`
-- corrected dependent analysis is queued behind it:
-  - `2245591` `bn14hdd`
-- the partial early/tail notes already recovered from the running HDD rerun are
-  already a stronger preview of the expected final table:
+- direct follow-on analysis jobs are now submitted after the generator timeout:
+  - `2251744` `bn14htail`
+  - `2251745` `bn14hearly`
+- the partial early/tail notes recovered from the materialized HDD dump are
+  now a stronger preview than before because they cover `4` analyzable cells:
   - tail:
-    - `wikicontradict conflict`: spectral radius `0.5929`, `rho*` `0.9974`
-    - `wikicontradict no_conflict`: spectral radius `0.0432`, `rho*` `1.0064`
+    - `conflictbank conflict`: spectral radius `0.1396`, `rho*` `0.9996`
+    - `conflictbank no_conflict`: spectral radius `0.1172`, `rho*` `0.9975`
+    - `wikicontradict conflict`: spectral radius `0.3877`, `rho*` `0.9981`
+    - `wikicontradict no_conflict`: spectral radius `0.4839`, `rho*` `1.0024`
   - early:
-    - `wikicontradict conflict`: spectral radius `0.7854`, `rho*` `0.9982`
-    - `wikicontradict no_conflict`: spectral radius `0.4356`, `rho*` `0.9955`
+    - `conflictbank conflict`: spectral radius `0.3300`, `rho*` `0.9962`
+    - `conflictbank no_conflict`: spectral radius `0.2465`, `rho*` `0.9965`
+    - `wikicontradict conflict`: spectral radius `0.8157`, `rho*` `0.9979`
+    - `wikicontradict no_conflict`: spectral radius `0.3590`, `rho*` `0.9972`
 
 - the new rate script fits both:
   - a log-linear `TV(p_t, p_K)` cross-check for `\hat{\rho}^\star`
@@ -377,18 +389,17 @@ Closed now:
 
 Actively resolving now on Delta:
 
-- `1` diagnostic reruns on HDD:
-  - `2245586` DeepSeek native eval
-  - `2245587` DeepSeek mechanism probe
-  - `2245588`, `2245589` DeepSeek curriculum-audit pair
+- `1` protocol-followup is now closed too:
+  - `2248710`–`2248713` DeepSeek-native matched refresh sweep
 - third-family reruns on HDD:
   - `2245550`, `2245551`, `2245552` Mistral `SFT/DPO/GRPO`
   - `2245554`, `2245555`, `2245556` Gemma `SFT/DPO/GRPO`
 - dense/window reruns on HDD:
-  - `2245553` Qwen-14B dense tail
-  - `2245557` Llama-70B dense tail
+  - `2245553` Qwen-14B dense tail materialized and then timed out
+  - `2251744`, `2251745` follow-on Berk–Nash tail/early analyses
+  - `2246302` corrected Llama-70B dense tail still running
 - multiseed expansion:
-  - `2245558`–`2245584` Llama-8B GRPO seeds `45–71`
+  - `2248714`–`2248743` Llama-8B GRPO seeds `42–71`
 
 The only remaining blockers on this exact checklist are therefore:
 

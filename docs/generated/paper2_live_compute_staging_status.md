@@ -1,6 +1,6 @@
 # Paper 2 Live Compute Staging Status
 
-Status date: `2026-05-05` (late)
+Status date: `2026-05-06`
 
 This note records the remaining live-compute Paper 2 items in a single place so
 the bottleneck is explicit: launcher readiness versus cluster access.
@@ -134,13 +134,15 @@ Current live read:
       eval path produced `1344` generation errors per run
     - root cause: local VLLM/OpenAI chat path rejected `system` role messages
       (`400: System role not supported`)
-- running:
+- completed:
   - `2245553`
     - Qwen-14B dense tail on HDD
-    - latest regenerated partial summary now uses `11868` rows
-    - the live partial now covers `4` analyzable cells across
-      `ConflictBank` and `WikiContradict`
-    - early-window `rho*` still stays very close to `1.0` on all four cells
+    - final scheduler state: `TIMEOUT` after `18:00:09`
+    - the important point is that the run still materialized a much larger
+      dense dump before timing out
+    - current regenerated analysis uses `16186` rows across `4` analyzable
+      cells
+    - early-window `rho*` remains very close to `1.0` on all four cells
     - tail-window `rho*` also remains close to `1.0`, though the current
       log-linear fits are still noisy
   - `2246302`
@@ -148,9 +150,10 @@ Current live read:
     - current state is now running
     - it is already writing screening and theorem-3 generation rows on HDD
     - direct VLLM log read shows repeated `POST /v1/chat/completions 200 OK`
-    - latest live partial theorem-3 summary is now on disk from `9042` rows on
-      `WikiContradict`:
-      conflict-minus-no-conflict `-0.1092`
+    - current rows on disk: `19535`
+    - latest live partial theorem-3 summary is now on disk from the refreshed
+      dense dump on `WikiContradict`:
+      conflict-minus-no-conflict `-0.0880`
 - completed:
   - `2246218`
     - `Gemma-2-9B SFT` completion-mode theorem-3 recovery job finished
@@ -164,19 +167,27 @@ Current live read:
     - `Gemma-2-9B GRPO` completion-mode recovery job finished
     - theorem-3 headline is now materially real, not just partial:
       conflict-minus-no-conflict `-0.0680`
-- pending:
-  - `2245591`
-    - HDD Berk–Nash dependent analysis, correctly held on dependency
+- completed:
   - `2248710`–`2248713`
     - DeepSeek-native matched `DPO/GRPO` redo pair
-    - `2248710` `r1l8dn_native_b005g8w2`
-    - `2248711` `r1l8gn_native_b005g8w2`
-    - `2248712` `r1l8dn_native_b002g8w2`
-    - `2248713` `r1l8gn_native_b002g8w2`
+    - `2248710` `r1l8dn_native_b005g8w2`: `DPO` `-0.0870`
+    - `2248711` `r1l8gn_native_b005g8w2`: `GRPO` `-0.0229`
+    - `2248712` `r1l8dn_native_b002g8w2`: `DPO` `-0.0405`
+    - `2248713` `r1l8gn_native_b002g8w2`: `GRPO` `+0.0716`
     - read:
-      this is the cleanest remaining attempt to improve the weak
-      `DeepSeek-Llama-8B` matched-family story without changing the training
-      objective itself
+      this was the cleanest remaining protocol-aligned attempt to rescue the
+      weak `DeepSeek-Llama-8B` matched-family story
+    - outcome:
+      the native matched sweep improves the family from uniformly weak to mixed
+      with one mildly positive `GRPO` configuration, but it still does **not**
+      become a clean `Llama-8B`-scale replication
+- pending:
+  - `2251744`
+    - direct HDD Berk–Nash tail analysis rerun after the dense generator
+      timeout
+  - `2251745`
+    - direct HDD Berk–Nash early-window analysis rerun after the dense
+      generator timeout
   - `2248714`–`2248743`
     - re-armed `Llama-8B GRPO` seed block covering seeds `42–71`
     - read:
@@ -247,10 +258,8 @@ The missing ingredient is no longer code or Delta access.
 
 Current verified bottlenecks:
 
-- cluster queue time for the new HDD-backed rerun wave
-- the over-quota NVMe allocation and cache roots, which is why outputs and now
-  heavyweight runtime caches were rerouted to HDD
-- completion time for the corrected cache-backed `Gemma` and multiseed `Llama`
-  reruns
-- completion of the Qwen dense tail so the dependent Berk–Nash analysis can
-  fire automatically
+- cluster queue time for the remaining Delta jobs
+- completion time for the running dense `Llama-3.1-70B-Instruct` rerun
+- completion time for the re-armed multiseed `Llama-8B` block
+- final direct Berk–Nash tail/early analysis completion after the materialized
+  Qwen dense dump
