@@ -15,6 +15,8 @@ the bottleneck is explicit: launcher readiness versus cluster access.
   [submit_delta_deepseek_llama8_objective_followups.sh](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Confidence/scripts/submit_delta_deepseek_llama8_objective_followups.sh)
 - checkpointed curriculum audit:
   [submit_delta_theorem3_deepseek_llama8_curriculum_audit.sh](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Confidence/scripts/submit_delta_theorem3_deepseek_llama8_curriculum_audit.sh)
+- native matched `DPO/GRPO` redo with completion-mode theorem-3 eval:
+  [submit_delta_theorem3_deepseek_llama8_native_matched_sweep.sh](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/scripts/submit_delta_theorem3_deepseek_llama8_native_matched_sweep.sh)
 - local tokenizer / context sanity checker:
   [check_deepseek_llama8_tokenizer_context_sanity.py](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/scripts/check_deepseek_llama8_tokenizer_context_sanity.py)
 - tokenizer / context note:

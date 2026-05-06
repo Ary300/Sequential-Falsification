@@ -1,6 +1,6 @@
 # DeepSeek-Llama-8B Refresh Wave
 
-Status date: `2026-05-03`
+Status date: `2026-05-05`
 
 This note tracks the redo wave for the matched-base `DeepSeek-R1-Distill-Llama-8B`
 family after the first finished `DPO/GRPO` pair came back weak / negative.
@@ -22,6 +22,9 @@ So the honest redo is:
    comparison
 2. run a small paired matched `DPO/GRPO` refresh sweep with softer `GRPO`
    settings rather than treating one surrogate configuration as final
+3. rerun the matched `DPO/GRPO` sweep with the completed DeepSeek-native
+   theorem-3 eval protocol, since the standalone native rerun improved the
+   headline from negative to mildly positive
 
 ## Live jobs
 
@@ -66,6 +69,26 @@ Pair B:
 - `beta=0.02`
 - `group_size=8`
 - `temperature=0.7`
+
+## Native-eval matched-pair redo
+
+The first refresh sweep still inherited the generic theorem-3 eval defaults.
+That is now an avoidable mismatch because the matched-objective launcher can
+forward:
+
+- `EVAL_REQUEST_FORMAT=completion`
+- `EVAL_PROMPT_PROTOCOL=deepseek_native`
+
+Dedicated launcher:
+
+- [submit_delta_theorem3_deepseek_llama8_native_matched_sweep.sh](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/scripts/submit_delta_theorem3_deepseek_llama8_native_matched_sweep.sh)
+
+Read:
+
+- this is the cleanest remaining attempt to improve the `DeepSeek-Llama-8B`
+  matched-base story without changing the training objective itself
+- if the result still stays weak after this path, the right conclusion is that
+  `DeepSeek-Llama-8B` is genuinely mixed rather than merely protocol-mismatched
 
 ## Read
 

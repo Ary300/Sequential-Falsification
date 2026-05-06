@@ -35,6 +35,12 @@ Read:
   - DeepSeek curriculum audits:
     - `DPO`: `-0.0699`
     - `GRPO`: `-0.0795`
+- A final protocol-aligned matched-pair redo is now also wired:
+  - [submit_delta_theorem3_deepseek_llama8_native_matched_sweep.sh](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/scripts/submit_delta_theorem3_deepseek_llama8_native_matched_sweep.sh)
+  - read:
+    this keeps the matched-objective training setup but swaps theorem-3 eval to
+    DeepSeek-native completion-mode prompting, which is the cleanest remaining
+    attempt to improve the `8B` story without changing the objective itself
 - Updated read:
   - the earlier negative `GRPO` headline was partly protocol-sensitive
   - the DeepSeek-native prompt path recovers a modest positive separation
@@ -55,6 +61,8 @@ Read:
     [submit_delta_theorem3_deepseek_llama8_curriculum_audit.sh](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Confidence/scripts/submit_delta_theorem3_deepseek_llama8_curriculum_audit.sh)
   - DeepSeek-native theorem-3 eval rerun:
     [submit_delta_theorem3_deepseek_llama8_native_eval.sh](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Confidence/scripts/submit_delta_theorem3_deepseek_llama8_native_eval.sh)
+  - DeepSeek-native matched-pair sweep:
+    [submit_delta_theorem3_deepseek_llama8_native_matched_sweep.sh](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/scripts/submit_delta_theorem3_deepseek_llama8_native_matched_sweep.sh)
 
 ## 2. Real `\hat{\rho}^\star` values for the Berk-Nash empirical table
 
