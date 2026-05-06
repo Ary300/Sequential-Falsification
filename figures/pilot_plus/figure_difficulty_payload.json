@@ -1,0 +1,30 @@
+{
+  "title": "Difficulty Stratification",
+  "panels": [
+    {
+      "benchmark": "synthetic_demo",
+      "difficulty": {
+        "easy": {
+          "code_t": 0.5,
+          "falsification": 1.0,
+          "greedy": 1.0,
+          "majority_vote": 0.5,
+          "oracle": 1.0,
+          "prm_best_of_n": 1.0,
+          "s_star": 0.5,
+          "self_debug": 1.0
+        },
+        "medium": {
+          "code_t": 0.0,
+          "falsification": 1.0,
+          "greedy": 1.0,
+          "majority_vote": 0.0,
+          "oracle": 1.0,
+          "prm_best_of_n": 1.0,
+          "s_star": 0.0,
+          "self_debug": 1.0
+        }
+      }
+    }
+  ]
+}

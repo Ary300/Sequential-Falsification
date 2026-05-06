@@ -1,0 +1,29 @@
+{
+  "rows": [
+    {
+      "accuracy": 100.0,
+      "benchmark": "synthetic_demo",
+      "method": "falsification"
+    },
+    {
+      "accuracy": 100.0,
+      "benchmark": "synthetic_demo",
+      "method": "greedy"
+    },
+    {
+      "accuracy": 66.7,
+      "benchmark": "synthetic_demo",
+      "method": "majority_vote"
+    },
+    {
+      "accuracy": 100.0,
+      "benchmark": "synthetic_demo",
+      "method": "oracle"
+    },
+    {
+      "accuracy": 100.0,
+      "benchmark": "synthetic_demo",
+      "method": "self_debug"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "benchmark": "conflictbank",
+    "condition": "conflict_context",
+    "cot_length": 1024,
+    "calibration_size": 200
+  },
+  "headline": {
+    "best_brier_method": "isotonic",
+    "eta_brier": 0.530564,
+    "identity_brier": 0.924083,
+    "temperature_brier": 0.67548,
+    "platt_brier": 0.01666,
+    "isotonic_brier": 0.016379
+  }
+}

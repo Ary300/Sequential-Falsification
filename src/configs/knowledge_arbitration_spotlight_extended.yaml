@@ -1,0 +1,120 @@
+experiments:
+  - name: arbitration_spotlight_extended_model_wave
+    priority: highest
+    benchmarks:
+      - conflictbank
+      - popqa
+      - nq_swap
+      - faitheval
+      - triviaqa
+      - hotpotqa
+      - tabmwp
+    models:
+      - meta-llama/Llama-3.1-8B-Instruct
+      - meta-llama/Llama-3.1-70B-Instruct
+      - Qwen/Qwen2.5-7B-Instruct
+      - Qwen/Qwen2.5-14B-Instruct
+      - Qwen/Qwen2.5-32B-Instruct
+      - deepseek-ai/DeepSeek-R1-Distill-Qwen-7B
+      - deepseek-ai/DeepSeek-R1-Distill-Llama-70B
+      - mistralai/Mistral-7B-Instruct-v0.3
+      - google/gemma-2-9b-it
+      - google/gemma-2-27b-it
+    conditions:
+      - closed_book
+      - aligned_context
+      - conflict_context
+      - irrelevant_noise
+    cot_lengths: [0, 128, 512, 2048]
+    self_consistency: [1]
+    baseline_methods:
+      - bayes_proxy
+      - heuristic_adaptive
+      - always_context
+      - always_parametric
+      - fixed_50
+      - simulated_model
+      - cad
+      - adacad
+      - cocoa
+      - self_rag
+      - crag
+      - astute_rag
+      - juice
+      - nwcad
+      - madam_rag
+    grid:
+      seed: [42, 43, 44]
+    max_examples: 256
+    notes: "Extended spotlight model-and-benchmark wave with the full named baseline panel and three-seed coverage."
+
+  - name: arbitration_spotlight_extended_t3_calibration_wave
+    priority: highest
+    benchmarks:
+      - conflictbank
+      - wikicontradict
+      - faitheval
+      - gpqa
+      - climatex
+    models:
+      - Qwen/Qwen2.5-7B-Instruct
+      - Qwen/Qwen2.5-14B-Instruct
+      - Qwen/Qwen2.5-32B-Instruct
+      - deepseek-ai/DeepSeek-R1-Distill-Qwen-7B
+      - deepseek-ai/DeepSeek-R1-Distill-Llama-70B
+      - mistralai/Mistral-7B-Instruct-v0.3
+      - google/gemma-2-9b-it
+    conditions:
+      - closed_book
+      - aligned_context
+      - conflict_context
+    cot_lengths: [0, 128, 1024]
+    self_consistency: [1]
+    baseline_methods:
+      - bayes_proxy
+      - heuristic_adaptive
+      - cad
+      - adacad
+      - cocoa
+      - juice
+      - nwcad
+    ablations:
+      - eta_tempering
+      - conflict_density
+      - retrieval_quality
+      - component_drop
+      - answer_conditioning_mask
+    grid:
+      seed: [42, 43, 44]
+      eta_value: [0.25, 0.5, 0.75, 1.0]
+    max_examples: 192
+    notes: "Theorem-3 rescue wave targeting RLVR-vs-instruction families and overconfidence calibration benchmarks."
+
+  - name: arbitration_spotlight_extended_api_slice
+    priority: medium
+    benchmarks:
+      - conflictbank
+      - popqa
+      - faitheval
+      - triviaqa
+    models:
+      - openai/gpt-4o-mini
+      - anthropic/claude-3.5-haiku
+      - google/gemini-1.5-flash
+    conditions:
+      - closed_book
+      - conflict_context
+    cot_lengths: [0, 128, 1024]
+    self_consistency: [1]
+    baseline_methods:
+      - bayes_proxy
+      - heuristic_adaptive
+      - cad
+      - adacad
+      - cocoa
+      - juice
+      - nwcad
+    grid:
+      seed: [42, 43, 44]
+    max_examples: 128
+    notes: "Closed-model headline slice for reviewer-facing generalization claims when API budget is available."

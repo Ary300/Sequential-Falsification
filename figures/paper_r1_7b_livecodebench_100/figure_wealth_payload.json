@@ -1,0 +1,99 @@
+{
+  "title": "E-value Wealth Process",
+  "threshold": 20.0,
+  "traces": [
+    {
+      "benchmark": "livecodebench_v6",
+      "problem_id": "1873_A",
+      "candidate_id": "1873_A_cand_0",
+      "survived": true,
+      "wealth": [
+        0.6842105263157895,
+        0.5113573407202217
+      ]
+    },
+    {
+      "benchmark": "livecodebench_v6",
+      "problem_id": "1873_A",
+      "candidate_id": "1873_A_cand_1",
+      "survived": true,
+      "wealth": [
+        0.6842105263157895,
+        0.5113573407202217
+      ]
+    },
+    {
+      "benchmark": "livecodebench_v6",
+      "problem_id": "1873_B",
+      "candidate_id": "1873_B_cand_0",
+      "survived": false,
+      "wealth": [
+        20.0
+      ]
+    },
+    {
+      "benchmark": "livecodebench_v6",
+      "problem_id": "1873_B",
+      "candidate_id": "1873_B_cand_1",
+      "survived": true,
+      "wealth": [
+        0.6842105263157895,
+        0.5113573407202217
+      ]
+    },
+    {
+      "benchmark": "livecodebench_v6",
+      "problem_id": "1873_D",
+      "candidate_id": "1873_D_cand_0",
+      "survived": false,
+      "wealth": [
+        20.0
+      ]
+    },
+    {
+      "benchmark": "livecodebench_v6",
+      "problem_id": "1873_D",
+      "candidate_id": "1873_D_cand_1",
+      "survived": false,
+      "wealth": [
+        20.0
+      ]
+    },
+    {
+      "benchmark": "livecodebench_v6",
+      "problem_id": "1883_B",
+      "candidate_id": "1883_B_cand_0",
+      "survived": false,
+      "wealth": [
+        20.0
+      ]
+    },
+    {
+      "benchmark": "livecodebench_v6",
+      "problem_id": "1883_B",
+      "candidate_id": "1883_B_cand_1",
+      "survived": false,
+      "wealth": [
+        20.0
+      ]
+    },
+    {
+      "benchmark": "livecodebench_v6",
+      "problem_id": "1883_C",
+      "candidate_id": "1883_C_cand_0",
+      "survived": false,
+      "wealth": [
+        20.0
+      ]
+    },
+    {
+      "benchmark": "livecodebench_v6",
+      "problem_id": "1883_C",
+      "candidate_id": "1883_C_cand_1",
+      "survived": false,
+      "wealth": [
+        20.0
+      ]
+    }
+  ]
+}

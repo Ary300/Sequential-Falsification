@@ -1,0 +1,47 @@
+{
+  "headline": {
+    "full_bayes_mean_regret": -0.1984,
+    "no_prior_strength_mean_regret": -0.2226,
+    "no_reliability_mean_regret": -0.1624,
+    "no_posterior_update_mean_regret": 0.1695
+  },
+  "overall": [
+    {
+      "variant": "full_bayes",
+      "mean_regret": -0.1984,
+      "num_rows": 522240
+    },
+    {
+      "variant": "no_prior_strength",
+      "mean_regret": -0.2226,
+      "num_rows": 522240
+    },
+    {
+      "variant": "no_reliability",
+      "mean_regret": -0.1624,
+      "num_rows": 522240
+    },
+    {
+      "variant": "no_posterior_update",
+      "mean_regret": 0.1695,
+      "num_rows": 522240
+    }
+  ],
+  "degradation": {
+    "no_prior_strength": {
+      "worse_series": 111,
+      "num_series": 150,
+      "worse_rate": 0.74
+    },
+    "no_reliability": {
+      "worse_series": 141,
+      "num_series": 150,
+      "worse_rate": 0.94
+    },
+    "no_posterior_update": {
+      "worse_series": 141,
+      "num_series": 150,
+      "worse_rate": 0.94
+    }
+  }
+}

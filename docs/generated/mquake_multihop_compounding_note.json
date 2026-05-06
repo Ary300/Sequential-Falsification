@@ -1,0 +1,309 @@
+{
+  "headline": {
+    "always_context_depth_2_error": 0.0,
+    "always_parametric_depth_2_error": 1.0,
+    "bayes_depth_2_error": 0.089011,
+    "fixed50_depth_2_error": 0.75,
+    "heuristic_depth_2_error": 0.38785,
+    "reference_model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-14B"
+  },
+  "metadata": {
+    "benchmark": "mquake_remastered",
+    "condition": "aligned_context",
+    "depths": [
+      1,
+      2,
+      3
+    ],
+    "max_examples": 256,
+    "models": [
+      "deepseek-ai/DeepSeek-R1-Distill-Qwen-14B",
+      "Qwen/Qwen2.5-14B-Instruct",
+      "deepseek-ai/DeepSeek-R1-Distill-Llama-70B",
+      "meta-llama/Llama-3.1-70B-Instruct"
+    ],
+    "seed": 42
+  },
+  "per_model": [
+    {
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-14B",
+      "policies": {
+        "always_context": {
+          "chain_error": {
+            "depth_1": 0.0,
+            "depth_2": 0.0,
+            "depth_3": 0.0
+          },
+          "chain_success": {
+            "depth_1": 1.0,
+            "depth_2": 1.0,
+            "depth_3": 1.0
+          },
+          "mean_probability": 1.0
+        },
+        "always_parametric": {
+          "chain_error": {
+            "depth_1": 1.0,
+            "depth_2": 1.0,
+            "depth_3": 1.0
+          },
+          "chain_success": {
+            "depth_1": 0.0,
+            "depth_2": 0.0,
+            "depth_3": 0.0
+          },
+          "mean_probability": 0.0
+        },
+        "bayes_proxy": {
+          "chain_error": {
+            "depth_1": 0.045542,
+            "depth_2": 0.089011,
+            "depth_3": 0.130499
+          },
+          "chain_success": {
+            "depth_1": 0.954458,
+            "depth_2": 0.910989,
+            "depth_3": 0.869501
+          },
+          "mean_probability": 0.954458
+        },
+        "fixed_50": {
+          "chain_error": {
+            "depth_1": 0.5,
+            "depth_2": 0.75,
+            "depth_3": 0.875
+          },
+          "chain_success": {
+            "depth_1": 0.5,
+            "depth_2": 0.25,
+            "depth_3": 0.125
+          },
+          "mean_probability": 0.5
+        },
+        "heuristic_adaptive": {
+          "chain_error": {
+            "depth_1": 0.2176,
+            "depth_2": 0.38785,
+            "depth_3": 0.521054
+          },
+          "chain_success": {
+            "depth_1": 0.7824,
+            "depth_2": 0.61215,
+            "depth_3": 0.478946
+          },
+          "mean_probability": 0.7824
+        }
+      }
+    },
+    {
+      "model": "Qwen/Qwen2.5-14B-Instruct",
+      "policies": {
+        "always_context": {
+          "chain_error": {
+            "depth_1": 0.0,
+            "depth_2": 0.0,
+            "depth_3": 0.0
+          },
+          "chain_success": {
+            "depth_1": 1.0,
+            "depth_2": 1.0,
+            "depth_3": 1.0
+          },
+          "mean_probability": 1.0
+        },
+        "always_parametric": {
+          "chain_error": {
+            "depth_1": 1.0,
+            "depth_2": 1.0,
+            "depth_3": 1.0
+          },
+          "chain_success": {
+            "depth_1": 0.0,
+            "depth_2": 0.0,
+            "depth_3": 0.0
+          },
+          "mean_probability": 0.0
+        },
+        "bayes_proxy": {
+          "chain_error": {
+            "depth_1": 0.045542,
+            "depth_2": 0.089011,
+            "depth_3": 0.130499
+          },
+          "chain_success": {
+            "depth_1": 0.954458,
+            "depth_2": 0.910989,
+            "depth_3": 0.869501
+          },
+          "mean_probability": 0.954458
+        },
+        "fixed_50": {
+          "chain_error": {
+            "depth_1": 0.5,
+            "depth_2": 0.75,
+            "depth_3": 0.875
+          },
+          "chain_success": {
+            "depth_1": 0.5,
+            "depth_2": 0.25,
+            "depth_3": 0.125
+          },
+          "mean_probability": 0.5
+        },
+        "heuristic_adaptive": {
+          "chain_error": {
+            "depth_1": 0.2176,
+            "depth_2": 0.38785,
+            "depth_3": 0.521054
+          },
+          "chain_success": {
+            "depth_1": 0.7824,
+            "depth_2": 0.61215,
+            "depth_3": 0.478946
+          },
+          "mean_probability": 0.7824
+        }
+      }
+    },
+    {
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Llama-70B",
+      "policies": {
+        "always_context": {
+          "chain_error": {
+            "depth_1": 0.0,
+            "depth_2": 0.0,
+            "depth_3": 0.0
+          },
+          "chain_success": {
+            "depth_1": 1.0,
+            "depth_2": 1.0,
+            "depth_3": 1.0
+          },
+          "mean_probability": 1.0
+        },
+        "always_parametric": {
+          "chain_error": {
+            "depth_1": 1.0,
+            "depth_2": 1.0,
+            "depth_3": 1.0
+          },
+          "chain_success": {
+            "depth_1": 0.0,
+            "depth_2": 0.0,
+            "depth_3": 0.0
+          },
+          "mean_probability": 0.0
+        },
+        "bayes_proxy": {
+          "chain_error": {
+            "depth_1": 0.073594,
+            "depth_2": 0.141772,
+            "depth_3": 0.204932
+          },
+          "chain_success": {
+            "depth_1": 0.926406,
+            "depth_2": 0.858228,
+            "depth_3": 0.795068
+          },
+          "mean_probability": 0.926406
+        },
+        "fixed_50": {
+          "chain_error": {
+            "depth_1": 0.5,
+            "depth_2": 0.75,
+            "depth_3": 0.875
+          },
+          "chain_success": {
+            "depth_1": 0.5,
+            "depth_2": 0.25,
+            "depth_3": 0.125
+          },
+          "mean_probability": 0.5
+        },
+        "heuristic_adaptive": {
+          "chain_error": {
+            "depth_1": 0.2876,
+            "depth_2": 0.492486,
+            "depth_3": 0.638447
+          },
+          "chain_success": {
+            "depth_1": 0.7124,
+            "depth_2": 0.507514,
+            "depth_3": 0.361553
+          },
+          "mean_probability": 0.7124
+        }
+      }
+    },
+    {
+      "model": "meta-llama/Llama-3.1-70B-Instruct",
+      "policies": {
+        "always_context": {
+          "chain_error": {
+            "depth_1": 0.0,
+            "depth_2": 0.0,
+            "depth_3": 0.0
+          },
+          "chain_success": {
+            "depth_1": 1.0,
+            "depth_2": 1.0,
+            "depth_3": 1.0
+          },
+          "mean_probability": 1.0
+        },
+        "always_parametric": {
+          "chain_error": {
+            "depth_1": 1.0,
+            "depth_2": 1.0,
+            "depth_3": 1.0
+          },
+          "chain_success": {
+            "depth_1": 0.0,
+            "depth_2": 0.0,
+            "depth_3": 0.0
+          },
+          "mean_probability": 0.0
+        },
+        "bayes_proxy": {
+          "chain_error": {
+            "depth_1": 0.073594,
+            "depth_2": 0.141772,
+            "depth_3": 0.204932
+          },
+          "chain_success": {
+            "depth_1": 0.926406,
+            "depth_2": 0.858228,
+            "depth_3": 0.795068
+          },
+          "mean_probability": 0.926406
+        },
+        "fixed_50": {
+          "chain_error": {
+            "depth_1": 0.5,
+            "depth_2": 0.75,
+            "depth_3": 0.875
+          },
+          "chain_success": {
+            "depth_1": 0.5,
+            "depth_2": 0.25,
+            "depth_3": 0.125
+          },
+          "mean_probability": 0.5
+        },
+        "heuristic_adaptive": {
+          "chain_error": {
+            "depth_1": 0.2876,
+            "depth_2": 0.492486,
+            "depth_3": 0.638447
+          },
+          "chain_success": {
+            "depth_1": 0.7124,
+            "depth_2": 0.507514,
+            "depth_3": 0.361553
+          },
+          "mean_probability": 0.7124
+        }
+      }
+    }
+  ]
+}

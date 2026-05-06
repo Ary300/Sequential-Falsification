@@ -1,0 +1,90 @@
+{
+  "bayes_proxy": {
+    "mean_regret": -0.1722,
+    "num_series": 25
+  },
+  "headline": {
+    "strongest_named_comparator": "self_rag",
+    "strongest_named_comparator_regret": -0.1456,
+    "bayes_advantage_vs_strongest_named": 0.0266
+  },
+  "comparators": [
+    {
+      "policy": "madam_rag",
+      "pretty_policy": "MADAM-RAG",
+      "mean_regret": -0.1033,
+      "num_series": 25,
+      "bayes_advantage": 0.0689
+    },
+    {
+      "policy": "nwcad",
+      "pretty_policy": "NWCAD",
+      "mean_regret": -0.0716,
+      "num_series": 25,
+      "bayes_advantage": 0.1006
+    },
+    {
+      "policy": "juice",
+      "pretty_policy": "JuICE",
+      "mean_regret": -0.08,
+      "num_series": 25,
+      "bayes_advantage": 0.0922
+    },
+    {
+      "policy": "cocoa",
+      "pretty_policy": "CoCoA",
+      "mean_regret": -0.1278,
+      "num_series": 25,
+      "bayes_advantage": 0.0444
+    },
+    {
+      "policy": "adacad",
+      "pretty_policy": "AdaCAD",
+      "mean_regret": -0.1063,
+      "num_series": 25,
+      "bayes_advantage": 0.0659
+    },
+    {
+      "policy": "cad",
+      "pretty_policy": "CAD",
+      "mean_regret": -0.079,
+      "num_series": 25,
+      "bayes_advantage": 0.0932
+    },
+    {
+      "policy": "astute_rag",
+      "pretty_policy": "Astute RAG",
+      "mean_regret": -0.1396,
+      "num_series": 25,
+      "bayes_advantage": 0.0326
+    },
+    {
+      "policy": "crag",
+      "pretty_policy": "CRAG",
+      "mean_regret": -0.0449,
+      "num_series": 25,
+      "bayes_advantage": 0.1273
+    },
+    {
+      "policy": "self_rag",
+      "pretty_policy": "Self-RAG",
+      "mean_regret": -0.1456,
+      "num_series": 25,
+      "bayes_advantage": 0.0266
+    },
+    {
+      "policy": "heuristic_adaptive",
+      "pretty_policy": "Heuristic adaptive",
+      "mean_regret": -0.0889,
+      "num_series": 25,
+      "bayes_advantage": 0.0833
+    },
+    {
+      "policy": "simulated_model",
+      "pretty_policy": "Simulated model",
+      "mean_regret": -0.2046,
+      "num_series": 25,
+      "bayes_advantage": -0.0324
+    }
+  ]
+}

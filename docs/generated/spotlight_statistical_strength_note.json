@@ -1,0 +1,922 @@
+{
+  "t12_matrix": {
+    "num_series": 25,
+    "wins_vs_baseline": 23,
+    "wins_vs_comparator": 20,
+    "sign_test_p_vs_baseline": 9.715557098388672e-06,
+    "sign_test_p_vs_comparator": 0.0020386576652526855,
+    "evalue_vs_baseline": 2805.6853660047054,
+    "evalue_vs_comparator": 103.91427281498909,
+    "sequential_vs_baseline": {
+      "final_evalue": 2805.6854,
+      "crossings": {
+        "10.0": 6,
+        "20.0": 8,
+        "100.0": 12
+      },
+      "path_preview": [
+        {
+          "index": 1,
+          "series": "conflictbank::Qwen/Qwen2.5-14B-Instruct",
+          "benchmark": "conflictbank",
+          "model": "Qwen/Qwen2.5-14B-Instruct",
+          "gap": 0.1422,
+          "evalue": 1.5
+        },
+        {
+          "index": 2,
+          "series": "conflictbank::Qwen/Qwen2.5-7B-Instruct",
+          "benchmark": "conflictbank",
+          "model": "Qwen/Qwen2.5-7B-Instruct",
+          "gap": 0.127,
+          "evalue": 2.25
+        },
+        {
+          "index": 3,
+          "series": "conflictbank::deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+          "benchmark": "conflictbank",
+          "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+          "gap": 0.127,
+          "evalue": 3.375
+        },
+        {
+          "index": 4,
+          "series": "conflictbank::meta-llama/Llama-3.1-70B-Instruct",
+          "benchmark": "conflictbank",
+          "model": "meta-llama/Llama-3.1-70B-Instruct",
+          "gap": 0.1563,
+          "evalue": 5.0625
+        },
+        {
+          "index": 5,
+          "series": "conflictbank::meta-llama/Llama-3.1-8B-Instruct",
+          "benchmark": "conflictbank",
+          "model": "meta-llama/Llama-3.1-8B-Instruct",
+          "gap": 0.127,
+          "evalue": 7.5938
+        },
+        {
+          "index": 6,
+          "series": "faitheval::Qwen/Qwen2.5-14B-Instruct",
+          "benchmark": "faitheval",
+          "model": "Qwen/Qwen2.5-14B-Instruct",
+          "gap": 0.0992,
+          "evalue": 11.3906
+        },
+        {
+          "index": 7,
+          "series": "faitheval::Qwen/Qwen2.5-7B-Instruct",
+          "benchmark": "faitheval",
+          "model": "Qwen/Qwen2.5-7B-Instruct",
+          "gap": 0.1041,
+          "evalue": 17.0859
+        },
+        {
+          "index": 8,
+          "series": "faitheval::deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+          "benchmark": "faitheval",
+          "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+          "gap": 0.1041,
+          "evalue": 25.6289
+        },
+        {
+          "index": 9,
+          "series": "faitheval::meta-llama/Llama-3.1-70B-Instruct",
+          "benchmark": "faitheval",
+          "model": "meta-llama/Llama-3.1-70B-Instruct",
+          "gap": 0.1003,
+          "evalue": 38.4434
+        },
+        {
+          "index": 10,
+          "series": "faitheval::meta-llama/Llama-3.1-8B-Instruct",
+          "benchmark": "faitheval",
+          "model": "meta-llama/Llama-3.1-8B-Instruct",
+          "gap": 0.1041,
+          "evalue": 57.665
+        },
+        {
+          "index": -1,
+          "series": "...",
+          "benchmark": "...",
+          "model": "...",
+          "gap": 0.0,
+          "evalue": 0.0
+        },
+        {
+          "index": 24,
+          "series": "popqa::meta-llama/Llama-3.1-70B-Instruct",
+          "benchmark": "popqa",
+          "model": "meta-llama/Llama-3.1-70B-Instruct",
+          "gap": -0.4072,
+          "evalue": 1870.4569
+        },
+        {
+          "index": 25,
+          "series": "popqa::meta-llama/Llama-3.1-8B-Instruct",
+          "benchmark": "popqa",
+          "model": "meta-llama/Llama-3.1-8B-Instruct",
+          "gap": 0.0951,
+          "evalue": 2805.6854
+        }
+      ]
+    },
+    "sequential_vs_comparator": {
+      "final_evalue": 103.9143,
+      "crossings": {
+        "10.0": 6,
+        "20.0": 8,
+        "100.0": 12
+      },
+      "path_preview": [
+        {
+          "index": 1,
+          "series": "conflictbank::Qwen/Qwen2.5-14B-Instruct",
+          "benchmark": "conflictbank",
+          "model": "Qwen/Qwen2.5-14B-Instruct",
+          "gap": 0.1143,
+          "evalue": 1.5
+        },
+        {
+          "index": 2,
+          "series": "conflictbank::Qwen/Qwen2.5-7B-Instruct",
+          "benchmark": "conflictbank",
+          "model": "Qwen/Qwen2.5-7B-Instruct",
+          "gap": 0.0981,
+          "evalue": 2.25
+        },
+        {
+          "index": 3,
+          "series": "conflictbank::deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+          "benchmark": "conflictbank",
+          "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+          "gap": 0.0981,
+          "evalue": 3.375
+        },
+        {
+          "index": 4,
+          "series": "conflictbank::meta-llama/Llama-3.1-70B-Instruct",
+          "benchmark": "conflictbank",
+          "model": "meta-llama/Llama-3.1-70B-Instruct",
+          "gap": 0.1231,
+          "evalue": 5.0625
+        },
+        {
+          "index": 5,
+          "series": "conflictbank::meta-llama/Llama-3.1-8B-Instruct",
+          "benchmark": "conflictbank",
+          "model": "meta-llama/Llama-3.1-8B-Instruct",
+          "gap": 0.0981,
+          "evalue": 7.5938
+        },
+        {
+          "index": 6,
+          "series": "faitheval::Qwen/Qwen2.5-14B-Instruct",
+          "benchmark": "faitheval",
+          "model": "Qwen/Qwen2.5-14B-Instruct",
+          "gap": 0.0587,
+          "evalue": 11.3906
+        },
+        {
+          "index": 7,
+          "series": "faitheval::Qwen/Qwen2.5-7B-Instruct",
+          "benchmark": "faitheval",
+          "model": "Qwen/Qwen2.5-7B-Instruct",
+          "gap": 0.0462,
+          "evalue": 17.0859
+        },
+        {
+          "index": 8,
+          "series": "faitheval::deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+          "benchmark": "faitheval",
+          "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+          "gap": 0.0462,
+          "evalue": 25.6289
+        },
+        {
+          "index": 9,
+          "series": "faitheval::meta-llama/Llama-3.1-70B-Instruct",
+          "benchmark": "faitheval",
+          "model": "meta-llama/Llama-3.1-70B-Instruct",
+          "gap": 0.0652,
+          "evalue": 38.4434
+        },
+        {
+          "index": 10,
+          "series": "faitheval::meta-llama/Llama-3.1-8B-Instruct",
+          "benchmark": "faitheval",
+          "model": "meta-llama/Llama-3.1-8B-Instruct",
+          "gap": 0.0462,
+          "evalue": 57.665
+        },
+        {
+          "index": -1,
+          "series": "...",
+          "benchmark": "...",
+          "model": "...",
+          "gap": 0.0,
+          "evalue": 0.0
+        },
+        {
+          "index": 24,
+          "series": "popqa::meta-llama/Llama-3.1-70B-Instruct",
+          "benchmark": "popqa",
+          "model": "meta-llama/Llama-3.1-70B-Instruct",
+          "gap": -0.6172,
+          "evalue": 207.8285
+        },
+        {
+          "index": 25,
+          "series": "popqa::meta-llama/Llama-3.1-8B-Instruct",
+          "benchmark": "popqa",
+          "model": "meta-llama/Llama-3.1-8B-Instruct",
+          "gap": -0.0079,
+          "evalue": 103.9143
+        }
+      ]
+    },
+    "bootstrap": {
+      "num_bootstrap": 10000,
+      "seed": 42,
+      "bayes_vs_heuristic": {
+        "mean_gap": 0.0835,
+        "ci95_low": 0.0371,
+        "ci95_high": 0.1112
+      },
+      "bayes_vs_strongest_named": {
+        "baseline": "self_rag",
+        "mean_gap": 0.0268,
+        "ci95_low": -0.0379,
+        "ci95_high": 0.0686
+      }
+    }
+  },
+  "t3_matrix": {
+    "num_series": 25,
+    "wins_vs_baseline": 20,
+    "wins_vs_comparator": 20,
+    "sign_test_p_vs_baseline": 0.0020386576652526855,
+    "sign_test_p_vs_comparator": 0.0020386576652526855,
+    "evalue_vs_baseline": 103.91427281498909,
+    "evalue_vs_comparator": 103.91427281498909,
+    "sequential_vs_baseline": {
+      "final_evalue": 103.9143,
+      "crossings": {
+        "10.0": 6,
+        "20.0": 8,
+        "100.0": 12
+      },
+      "path_preview": [
+        {
+          "index": 1,
+          "series": "ambigdocs::Qwen/Qwen2.5-14B-Instruct",
+          "benchmark": "ambigdocs",
+          "model": "Qwen/Qwen2.5-14B-Instruct",
+          "gap": 0.0986,
+          "evalue": 1.5
+        },
+        {
+          "index": 2,
+          "series": "ambigdocs::Qwen/Qwen2.5-32B-Instruct",
+          "benchmark": "ambigdocs",
+          "model": "Qwen/Qwen2.5-32B-Instruct",
+          "gap": 0.1008,
+          "evalue": 2.25
+        },
+        {
+          "index": 3,
+          "series": "ambigdocs::Qwen/Qwen2.5-7B-Instruct",
+          "benchmark": "ambigdocs",
+          "model": "Qwen/Qwen2.5-7B-Instruct",
+          "gap": 0.1039,
+          "evalue": 3.375
+        },
+        {
+          "index": 4,
+          "series": "ambigdocs::deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+          "benchmark": "ambigdocs",
+          "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+          "gap": 0.1039,
+          "evalue": 5.0625
+        },
+        {
+          "index": 5,
+          "series": "ambigdocs::meta-llama/Llama-3.1-8B-Instruct",
+          "benchmark": "ambigdocs",
+          "model": "meta-llama/Llama-3.1-8B-Instruct",
+          "gap": 0.1039,
+          "evalue": 7.5938
+        },
+        {
+          "index": 6,
+          "series": "conflictbank::Qwen/Qwen2.5-14B-Instruct",
+          "benchmark": "conflictbank",
+          "model": "Qwen/Qwen2.5-14B-Instruct",
+          "gap": 0.1422,
+          "evalue": 11.3906
+        },
+        {
+          "index": 7,
+          "series": "conflictbank::Qwen/Qwen2.5-32B-Instruct",
+          "benchmark": "conflictbank",
+          "model": "Qwen/Qwen2.5-32B-Instruct",
+          "gap": 0.1563,
+          "evalue": 17.0859
+        },
+        {
+          "index": 8,
+          "series": "conflictbank::Qwen/Qwen2.5-7B-Instruct",
+          "benchmark": "conflictbank",
+          "model": "Qwen/Qwen2.5-7B-Instruct",
+          "gap": 0.127,
+          "evalue": 25.6289
+        },
+        {
+          "index": 9,
+          "series": "conflictbank::deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+          "benchmark": "conflictbank",
+          "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+          "gap": 0.127,
+          "evalue": 38.4434
+        },
+        {
+          "index": 10,
+          "series": "conflictbank::meta-llama/Llama-3.1-8B-Instruct",
+          "benchmark": "conflictbank",
+          "model": "meta-llama/Llama-3.1-8B-Instruct",
+          "gap": 0.127,
+          "evalue": 57.665
+        },
+        {
+          "index": -1,
+          "series": "...",
+          "benchmark": "...",
+          "model": "...",
+          "gap": 0.0,
+          "evalue": 0.0
+        },
+        {
+          "index": 24,
+          "series": "wikicontradict::deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+          "benchmark": "wikicontradict",
+          "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+          "gap": -0.1525,
+          "evalue": 207.8285
+        },
+        {
+          "index": 25,
+          "series": "wikicontradict::meta-llama/Llama-3.1-8B-Instruct",
+          "benchmark": "wikicontradict",
+          "model": "meta-llama/Llama-3.1-8B-Instruct",
+          "gap": -0.1525,
+          "evalue": 103.9143
+        }
+      ]
+    },
+    "sequential_vs_comparator": {
+      "final_evalue": 103.9143,
+      "crossings": {
+        "10.0": 6,
+        "20.0": 8,
+        "100.0": 12
+      },
+      "path_preview": [
+        {
+          "index": 1,
+          "series": "ambigdocs::Qwen/Qwen2.5-14B-Instruct",
+          "benchmark": "ambigdocs",
+          "model": "Qwen/Qwen2.5-14B-Instruct",
+          "gap": 0.0482,
+          "evalue": 1.5
+        },
+        {
+          "index": 2,
+          "series": "ambigdocs::Qwen/Qwen2.5-32B-Instruct",
+          "benchmark": "ambigdocs",
+          "model": "Qwen/Qwen2.5-32B-Instruct",
+          "gap": 0.0411,
+          "evalue": 2.25
+        },
+        {
+          "index": 3,
+          "series": "ambigdocs::Qwen/Qwen2.5-7B-Instruct",
+          "benchmark": "ambigdocs",
+          "model": "Qwen/Qwen2.5-7B-Instruct",
+          "gap": 0.0542,
+          "evalue": 3.375
+        },
+        {
+          "index": 4,
+          "series": "ambigdocs::deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+          "benchmark": "ambigdocs",
+          "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+          "gap": 0.0542,
+          "evalue": 5.0625
+        },
+        {
+          "index": 5,
+          "series": "ambigdocs::meta-llama/Llama-3.1-8B-Instruct",
+          "benchmark": "ambigdocs",
+          "model": "meta-llama/Llama-3.1-8B-Instruct",
+          "gap": 0.0542,
+          "evalue": 7.5938
+        },
+        {
+          "index": 6,
+          "series": "conflictbank::Qwen/Qwen2.5-14B-Instruct",
+          "benchmark": "conflictbank",
+          "model": "Qwen/Qwen2.5-14B-Instruct",
+          "gap": 0.0532,
+          "evalue": 11.3906
+        },
+        {
+          "index": 7,
+          "series": "conflictbank::Qwen/Qwen2.5-32B-Instruct",
+          "benchmark": "conflictbank",
+          "model": "Qwen/Qwen2.5-32B-Instruct",
+          "gap": 0.0486,
+          "evalue": 17.0859
+        },
+        {
+          "index": 8,
+          "series": "conflictbank::Qwen/Qwen2.5-7B-Instruct",
+          "benchmark": "conflictbank",
+          "model": "Qwen/Qwen2.5-7B-Instruct",
+          "gap": 0.0567,
+          "evalue": 25.6289
+        },
+        {
+          "index": 9,
+          "series": "conflictbank::deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+          "benchmark": "conflictbank",
+          "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+          "gap": 0.0567,
+          "evalue": 38.4434
+        },
+        {
+          "index": 10,
+          "series": "conflictbank::meta-llama/Llama-3.1-8B-Instruct",
+          "benchmark": "conflictbank",
+          "model": "meta-llama/Llama-3.1-8B-Instruct",
+          "gap": 0.0567,
+          "evalue": 57.665
+        },
+        {
+          "index": -1,
+          "series": "...",
+          "benchmark": "...",
+          "model": "...",
+          "gap": 0.0,
+          "evalue": 0.0
+        },
+        {
+          "index": 24,
+          "series": "wikicontradict::deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+          "benchmark": "wikicontradict",
+          "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+          "gap": -0.1887,
+          "evalue": 207.8285
+        },
+        {
+          "index": 25,
+          "series": "wikicontradict::meta-llama/Llama-3.1-8B-Instruct",
+          "benchmark": "wikicontradict",
+          "model": "meta-llama/Llama-3.1-8B-Instruct",
+          "gap": -0.1887,
+          "evalue": 103.9143
+        }
+      ]
+    },
+    "bootstrap": {
+      "num_bootstrap": 10000,
+      "seed": 42,
+      "bayes_vs_heuristic": {
+        "mean_gap": 0.0583,
+        "ci95_low": 0.0155,
+        "ci95_high": 0.0961
+      },
+      "bayes_vs_strongest_named": {
+        "baseline": "cocoa",
+        "mean_gap": -0.0022,
+        "ci95_low": -0.0466,
+        "ci95_high": 0.0376
+      }
+    }
+  },
+  "family_note": {
+    "t12_matrix": [
+      {
+        "benchmark": "conflictbank",
+        "num_models": 5,
+        "mean_gap_vs_baseline": 0.1359,
+        "mean_gap_vs_comparator": 0.0544,
+        "positive_models_vs_baseline": 5,
+        "positive_models_vs_comparator": 5,
+        "sign_test_p_vs_baseline": 0.0312,
+        "sign_test_p_vs_comparator": 0.0312,
+        "evalue_vs_baseline": 7.5938,
+        "evalue_vs_comparator": 7.5938,
+        "rows": [
+          {
+            "model": "Qwen/Qwen2.5-14B-Instruct",
+            "gap_vs_baseline": 0.1422,
+            "gap_vs_comparator": 0.0532
+          },
+          {
+            "model": "Qwen/Qwen2.5-7B-Instruct",
+            "gap_vs_baseline": 0.127,
+            "gap_vs_comparator": 0.0567
+          },
+          {
+            "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+            "gap_vs_baseline": 0.127,
+            "gap_vs_comparator": 0.0567
+          },
+          {
+            "model": "meta-llama/Llama-3.1-70B-Instruct",
+            "gap_vs_baseline": 0.1563,
+            "gap_vs_comparator": 0.0486
+          },
+          {
+            "model": "meta-llama/Llama-3.1-8B-Instruct",
+            "gap_vs_baseline": 0.127,
+            "gap_vs_comparator": 0.0567
+          }
+        ],
+        "sign_test_p_vs_baseline_holm": 0.156,
+        "sign_test_p_vs_comparator_holm": 0.156
+      },
+      {
+        "benchmark": "faitheval",
+        "num_models": 5,
+        "mean_gap_vs_baseline": 0.1024,
+        "mean_gap_vs_comparator": 0.051,
+        "positive_models_vs_baseline": 5,
+        "positive_models_vs_comparator": 5,
+        "sign_test_p_vs_baseline": 0.0312,
+        "sign_test_p_vs_comparator": 0.0312,
+        "evalue_vs_baseline": 7.5938,
+        "evalue_vs_comparator": 7.5938,
+        "rows": [
+          {
+            "model": "Qwen/Qwen2.5-14B-Instruct",
+            "gap_vs_baseline": 0.0992,
+            "gap_vs_comparator": 0.0489
+          },
+          {
+            "model": "Qwen/Qwen2.5-7B-Instruct",
+            "gap_vs_baseline": 0.1041,
+            "gap_vs_comparator": 0.0548
+          },
+          {
+            "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+            "gap_vs_baseline": 0.1041,
+            "gap_vs_comparator": 0.0548
+          },
+          {
+            "model": "meta-llama/Llama-3.1-70B-Instruct",
+            "gap_vs_baseline": 0.1003,
+            "gap_vs_comparator": 0.0416
+          },
+          {
+            "model": "meta-llama/Llama-3.1-8B-Instruct",
+            "gap_vs_baseline": 0.1041,
+            "gap_vs_comparator": 0.0548
+          }
+        ],
+        "sign_test_p_vs_baseline_holm": 0.156,
+        "sign_test_p_vs_comparator_holm": 0.156
+      },
+      {
+        "benchmark": "memotrap",
+        "num_models": 5,
+        "mean_gap_vs_baseline": 0.101,
+        "mean_gap_vs_comparator": 0.0495,
+        "positive_models_vs_baseline": 5,
+        "positive_models_vs_comparator": 5,
+        "sign_test_p_vs_baseline": 0.0312,
+        "sign_test_p_vs_comparator": 0.0312,
+        "evalue_vs_baseline": 7.5938,
+        "evalue_vs_comparator": 7.5938,
+        "rows": [
+          {
+            "model": "Qwen/Qwen2.5-14B-Instruct",
+            "gap_vs_baseline": 0.0974,
+            "gap_vs_comparator": 0.0473
+          },
+          {
+            "model": "Qwen/Qwen2.5-7B-Instruct",
+            "gap_vs_baseline": 0.1026,
+            "gap_vs_comparator": 0.0534
+          },
+          {
+            "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+            "gap_vs_baseline": 0.1026,
+            "gap_vs_comparator": 0.0534
+          },
+          {
+            "model": "meta-llama/Llama-3.1-70B-Instruct",
+            "gap_vs_baseline": 0.0997,
+            "gap_vs_comparator": 0.0399
+          },
+          {
+            "model": "meta-llama/Llama-3.1-8B-Instruct",
+            "gap_vs_baseline": 0.1026,
+            "gap_vs_comparator": 0.0534
+          }
+        ],
+        "sign_test_p_vs_baseline_holm": 0.156,
+        "sign_test_p_vs_comparator_holm": 0.156
+      },
+      {
+        "benchmark": "nq_swap",
+        "num_models": 5,
+        "mean_gap_vs_baseline": 0.102,
+        "mean_gap_vs_comparator": 0.0502,
+        "positive_models_vs_baseline": 5,
+        "positive_models_vs_comparator": 5,
+        "sign_test_p_vs_baseline": 0.0312,
+        "sign_test_p_vs_comparator": 0.0312,
+        "evalue_vs_baseline": 7.5938,
+        "evalue_vs_comparator": 7.5938,
+        "rows": [
+          {
+            "model": "Qwen/Qwen2.5-14B-Instruct",
+            "gap_vs_baseline": 0.0982,
+            "gap_vs_comparator": 0.0482
+          },
+          {
+            "model": "Qwen/Qwen2.5-7B-Instruct",
+            "gap_vs_baseline": 0.1038,
+            "gap_vs_comparator": 0.054
+          },
+          {
+            "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+            "gap_vs_baseline": 0.1038,
+            "gap_vs_comparator": 0.054
+          },
+          {
+            "model": "meta-llama/Llama-3.1-70B-Instruct",
+            "gap_vs_baseline": 0.1002,
+            "gap_vs_comparator": 0.041
+          },
+          {
+            "model": "meta-llama/Llama-3.1-8B-Instruct",
+            "gap_vs_baseline": 0.1038,
+            "gap_vs_comparator": 0.054
+          }
+        ],
+        "sign_test_p_vs_baseline_holm": 0.156,
+        "sign_test_p_vs_comparator_holm": 0.156
+      },
+      {
+        "benchmark": "popqa",
+        "num_models": 5,
+        "mean_gap_vs_baseline": -0.0246,
+        "mean_gap_vs_comparator": 0.0171,
+        "positive_models_vs_baseline": 3,
+        "positive_models_vs_comparator": 4,
+        "sign_test_p_vs_baseline": 0.8125,
+        "sign_test_p_vs_comparator": 0.1875,
+        "evalue_vs_baseline": 0.8438,
+        "evalue_vs_comparator": 2.5312,
+        "rows": [
+          {
+            "model": "Qwen/Qwen2.5-14B-Instruct",
+            "gap_vs_baseline": -0.0013,
+            "gap_vs_comparator": 0.0156
+          },
+          {
+            "model": "Qwen/Qwen2.5-7B-Instruct",
+            "gap_vs_baseline": 0.0951,
+            "gap_vs_comparator": 0.0275
+          },
+          {
+            "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+            "gap_vs_baseline": 0.0951,
+            "gap_vs_comparator": 0.0275
+          },
+          {
+            "model": "meta-llama/Llama-3.1-70B-Instruct",
+            "gap_vs_baseline": -0.4072,
+            "gap_vs_comparator": -0.0128
+          },
+          {
+            "model": "meta-llama/Llama-3.1-8B-Instruct",
+            "gap_vs_baseline": 0.0951,
+            "gap_vs_comparator": 0.0275
+          }
+        ],
+        "sign_test_p_vs_baseline_holm": 0.8125,
+        "sign_test_p_vs_comparator_holm": 0.1875
+      }
+    ],
+    "t3_matrix": [
+      {
+        "benchmark": "ambigdocs",
+        "num_models": 5,
+        "mean_gap_vs_baseline": 0.1022,
+        "mean_gap_vs_comparator": 0.0504,
+        "positive_models_vs_baseline": 5,
+        "positive_models_vs_comparator": 5,
+        "sign_test_p_vs_baseline": 0.0312,
+        "sign_test_p_vs_comparator": 0.0312,
+        "evalue_vs_baseline": 7.5938,
+        "evalue_vs_comparator": 7.5938,
+        "rows": [
+          {
+            "model": "Qwen/Qwen2.5-14B-Instruct",
+            "gap_vs_baseline": 0.0986,
+            "gap_vs_comparator": 0.0482
+          },
+          {
+            "model": "Qwen/Qwen2.5-32B-Instruct",
+            "gap_vs_baseline": 0.1008,
+            "gap_vs_comparator": 0.0411
+          },
+          {
+            "model": "Qwen/Qwen2.5-7B-Instruct",
+            "gap_vs_baseline": 0.1039,
+            "gap_vs_comparator": 0.0542
+          },
+          {
+            "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+            "gap_vs_baseline": 0.1039,
+            "gap_vs_comparator": 0.0542
+          },
+          {
+            "model": "meta-llama/Llama-3.1-8B-Instruct",
+            "gap_vs_baseline": 0.1039,
+            "gap_vs_comparator": 0.0542
+          }
+        ],
+        "sign_test_p_vs_baseline_holm": 0.156,
+        "sign_test_p_vs_comparator_holm": 0.156
+      },
+      {
+        "benchmark": "conflictbank",
+        "num_models": 5,
+        "mean_gap_vs_baseline": 0.1359,
+        "mean_gap_vs_comparator": 0.0544,
+        "positive_models_vs_baseline": 5,
+        "positive_models_vs_comparator": 5,
+        "sign_test_p_vs_baseline": 0.0312,
+        "sign_test_p_vs_comparator": 0.0312,
+        "evalue_vs_baseline": 7.5938,
+        "evalue_vs_comparator": 7.5938,
+        "rows": [
+          {
+            "model": "Qwen/Qwen2.5-14B-Instruct",
+            "gap_vs_baseline": 0.1422,
+            "gap_vs_comparator": 0.0532
+          },
+          {
+            "model": "Qwen/Qwen2.5-32B-Instruct",
+            "gap_vs_baseline": 0.1563,
+            "gap_vs_comparator": 0.0486
+          },
+          {
+            "model": "Qwen/Qwen2.5-7B-Instruct",
+            "gap_vs_baseline": 0.127,
+            "gap_vs_comparator": 0.0567
+          },
+          {
+            "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+            "gap_vs_baseline": 0.127,
+            "gap_vs_comparator": 0.0567
+          },
+          {
+            "model": "meta-llama/Llama-3.1-8B-Instruct",
+            "gap_vs_baseline": 0.127,
+            "gap_vs_comparator": 0.0567
+          }
+        ],
+        "sign_test_p_vs_baseline_holm": 0.156,
+        "sign_test_p_vs_comparator_holm": 0.156
+      },
+      {
+        "benchmark": "faitheval",
+        "num_models": 5,
+        "mean_gap_vs_baseline": 0.1024,
+        "mean_gap_vs_comparator": 0.051,
+        "positive_models_vs_baseline": 5,
+        "positive_models_vs_comparator": 5,
+        "sign_test_p_vs_baseline": 0.0312,
+        "sign_test_p_vs_comparator": 0.0312,
+        "evalue_vs_baseline": 7.5938,
+        "evalue_vs_comparator": 7.5938,
+        "rows": [
+          {
+            "model": "Qwen/Qwen2.5-14B-Instruct",
+            "gap_vs_baseline": 0.0992,
+            "gap_vs_comparator": 0.0489
+          },
+          {
+            "model": "Qwen/Qwen2.5-32B-Instruct",
+            "gap_vs_baseline": 0.1003,
+            "gap_vs_comparator": 0.0416
+          },
+          {
+            "model": "Qwen/Qwen2.5-7B-Instruct",
+            "gap_vs_baseline": 0.1041,
+            "gap_vs_comparator": 0.0548
+          },
+          {
+            "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+            "gap_vs_baseline": 0.1041,
+            "gap_vs_comparator": 0.0548
+          },
+          {
+            "model": "meta-llama/Llama-3.1-8B-Instruct",
+            "gap_vs_baseline": 0.1041,
+            "gap_vs_comparator": 0.0548
+          }
+        ],
+        "sign_test_p_vs_baseline_holm": 0.156,
+        "sign_test_p_vs_comparator_holm": 0.156
+      },
+      {
+        "benchmark": "ramdocs",
+        "num_models": 5,
+        "mean_gap_vs_baseline": 0.097,
+        "mean_gap_vs_comparator": 0.0461,
+        "positive_models_vs_baseline": 5,
+        "positive_models_vs_comparator": 5,
+        "sign_test_p_vs_baseline": 0.0312,
+        "sign_test_p_vs_comparator": 0.0312,
+        "evalue_vs_baseline": 7.5938,
+        "evalue_vs_comparator": 7.5938,
+        "rows": [
+          {
+            "model": "Qwen/Qwen2.5-14B-Instruct",
+            "gap_vs_baseline": 0.0936,
+            "gap_vs_comparator": 0.0438
+          },
+          {
+            "model": "Qwen/Qwen2.5-32B-Instruct",
+            "gap_vs_baseline": 0.0955,
+            "gap_vs_comparator": 0.0357
+          },
+          {
+            "model": "Qwen/Qwen2.5-7B-Instruct",
+            "gap_vs_baseline": 0.0986,
+            "gap_vs_comparator": 0.0504
+          },
+          {
+            "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+            "gap_vs_baseline": 0.0986,
+            "gap_vs_comparator": 0.0504
+          },
+          {
+            "model": "meta-llama/Llama-3.1-8B-Instruct",
+            "gap_vs_baseline": 0.0986,
+            "gap_vs_comparator": 0.0504
+          }
+        ],
+        "sign_test_p_vs_baseline_holm": 0.156,
+        "sign_test_p_vs_comparator_holm": 0.156
+      },
+      {
+        "benchmark": "wikicontradict",
+        "num_models": 5,
+        "mean_gap_vs_baseline": -0.1453,
+        "mean_gap_vs_comparator": -0.2125,
+        "positive_models_vs_baseline": 0,
+        "positive_models_vs_comparator": 0,
+        "sign_test_p_vs_baseline": 0.0312,
+        "sign_test_p_vs_comparator": 0.0312,
+        "evalue_vs_baseline": 0.0312,
+        "evalue_vs_comparator": 0.0312,
+        "rows": [
+          {
+            "model": "Qwen/Qwen2.5-14B-Instruct",
+            "gap_vs_baseline": -0.1572,
+            "gap_vs_comparator": -0.223
+          },
+          {
+            "model": "Qwen/Qwen2.5-32B-Instruct",
+            "gap_vs_baseline": -0.1119,
+            "gap_vs_comparator": -0.2733
+          },
+          {
+            "model": "Qwen/Qwen2.5-7B-Instruct",
+            "gap_vs_baseline": -0.1525,
+            "gap_vs_comparator": -0.1887
+          },
+          {
+            "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+            "gap_vs_baseline": -0.1525,
+            "gap_vs_comparator": -0.1887
+          },
+          {
+            "model": "meta-llama/Llama-3.1-8B-Instruct",
+            "gap_vs_baseline": -0.1525,
+            "gap_vs_comparator": -0.1887
+          }
+        ],
+        "sign_test_p_vs_baseline_holm": 0.156,
+        "sign_test_p_vs_comparator_holm": 0.156
+      }
+    ]
+  }
+}

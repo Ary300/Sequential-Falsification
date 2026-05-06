@@ -1,0 +1,52 @@
+[
+  {
+    "model": "EleutherAI/pythia-6.9b",
+    "num_examples": 14050,
+    "bayes_proxy_mean_regret": -0.151,
+    "heuristic_adaptive_mean_regret": -0.1193,
+    "simulated_model_mean_regret": -0.1534,
+    "fixed_50_mean_regret": 0.3037,
+    "bayes_vs_heuristic_gain": 0.0316,
+    "bayes_vs_simulated_gain": -0.0024
+  },
+  {
+    "model": "Qwen/Qwen2.5-7B-Instruct",
+    "num_examples": 14050,
+    "bayes_proxy_mean_regret": -0.1192,
+    "heuristic_adaptive_mean_regret": -0.0641,
+    "simulated_model_mean_regret": 0.0789,
+    "fixed_50_mean_regret": 0.3037,
+    "bayes_vs_heuristic_gain": 0.0551,
+    "bayes_vs_simulated_gain": 0.1981
+  },
+  {
+    "model": "Qwen/Qwen3-8B",
+    "num_examples": 14050,
+    "bayes_proxy_mean_regret": -0.1192,
+    "heuristic_adaptive_mean_regret": -0.0641,
+    "simulated_model_mean_regret": 0.0789,
+    "fixed_50_mean_regret": 0.3037,
+    "bayes_vs_heuristic_gain": 0.0551,
+    "bayes_vs_simulated_gain": 0.1981
+  },
+  {
+    "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+    "num_examples": 14050,
+    "bayes_proxy_mean_regret": -0.1192,
+    "heuristic_adaptive_mean_regret": -0.0641,
+    "simulated_model_mean_regret": 0.4686,
+    "fixed_50_mean_regret": 0.3037,
+    "bayes_vs_heuristic_gain": 0.0551,
+    "bayes_vs_simulated_gain": 0.5878
+  },
+  {
+    "model": "meta-llama/Llama-3.1-8B-Instruct",
+    "num_examples": 14050,
+    "bayes_proxy_mean_regret": -0.1192,
+    "heuristic_adaptive_mean_regret": -0.0641,
+    "simulated_model_mean_regret": 0.0789,
+    "fixed_50_mean_regret": 0.3037,
+    "bayes_vs_heuristic_gain": 0.0551,
+    "bayes_vs_simulated_gain": 0.1981
+  }
+]

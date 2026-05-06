@@ -1,0 +1,16 @@
+{
+  "title": "Difficulty Stratification",
+  "panels": [
+    {
+      "benchmark": "math500",
+      "difficulty": {
+        "level 1": {
+          "falsification": 0.32,
+          "greedy": 0.08,
+          "majority_vote": 0.2,
+          "oracle": 0.32
+        }
+      }
+    }
+  ]
+}

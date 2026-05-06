@@ -1,0 +1,11 @@
+{
+  "rows": [
+    {
+      "auroc": 0.0,
+      "benchmark": "synthetic_demo",
+      "brier": 0.001,
+      "ece": 0.026,
+      "mce": 0.026
+    }
+  ]
+}

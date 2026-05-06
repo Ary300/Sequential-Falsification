@@ -1,0 +1,132 @@
+\documentclass{article}
+
+% --- pass options to natbib BEFORE neurips style loads it ---
+\PassOptionsToPackage{numbers,sort&compress}{natbib}
+
+\IfFileExists{neurips_2026.sty}{\usepackage[final]{neurips_2026}}{\usepackage[margin=1in]{geometry}}
+
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{colortbl}
+\usepackage{bm}
+\usepackage{tabularx}
+\usepackage{enumitem}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage{placeins}
+\usepackage{afterpage}
+\usepackage[colorlinks=true,linkcolor=NavyBlue,citecolor=NavyBlue,urlcolor=NavyBlue]{hyperref}
+\usepackage[capitalize,noabbrev]{cleveref}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins,breakable}
+
+% --- thin frame for emphasized (core) theorem statements ---
+\newtcolorbox{ctbox}{enhanced,breakable,colback=white,colframe=black,boxrule=0.4pt,arc=0pt,outer arc=0pt,left=3pt,right=3pt,top=0pt,bottom=0pt,boxsep=1pt,before skip=2pt,after skip=2pt}
+
+% --- theorem environments (separate counter for theorems vs the rest) ---
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
+\newtheorem{corollary}{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem{assumption}{Assumption}
+\newtheorem{remark}{Remark}
+\newtheorem{example}{Example}
+
+% --- macros ---
+\newcommand{\KL}{\operatorname{KL}}
+\newcommand{\JSD}{\operatorname{JSD}}
+\newcommand{\TV}{\operatorname{TV}}
+\newcommand{\softmax}{\operatorname{softmax}}
+\newcommand{\one}[1]{\mathbb{1}\!\left[#1\right]}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\PP}{\mathbb{P}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\X}{\mathcal{X}}
+\newcommand{\Y}{\mathcal{Y}}
+\newcommand{\D}{\mathcal{D}}
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\Hh}{\mathcal{H}}
+\newcommand{\T}{\mathcal{T}}
+\newcommand{\pp}{\mathbf{p}}
+\newcommand{\bayes}{\textsc{BayesArbiter}}
+\newcommand{\param}{\mathrm{par}}
+\newcommand{\ctx}{\mathrm{ctx}}
+\newcommand{\closed}{\mathrm{cb}}
+\newcommand{\reli}{r}
+\newcommand{\good}{\textcolor{ForestGreen}{\textbf{$\bm{\checkmark}$}}}
+
+\newcommand{\headrowbg}{\rowcolor[gray]{0.92}}
+\newcommand{\altrow}{\rowcolor[gray]{0.97}}
+
+\floatname{algorithm}{Algorithm}
+\algrenewcommand\algorithmicrequire{\textbf{Input:}}
+\algrenewcommand\algorithmicensure{\textbf{Output:}}
+\makeatletter
+\renewcommand{\theHsection}{\thesection}
+\renewcommand{\theHsubsection}{\thesubsection}
+\renewcommand{\theHequation}{\theequation}
+\renewcommand{\theHfigure}{\thefigure}
+\renewcommand{\theHtable}{\thetable}
+\renewcommand{\theHtheorem}{\thetheorem}
+\renewcommand{\theHlemma}{\thelemma}
+\renewcommand{\theHproposition}{\theproposition}
+\renewcommand{\theHcorollary}{\thecorollary}
+\renewcommand{\theHdefinition}{\thedefinition}
+\renewcommand{\theHassumption}{\theassumption}
+\renewcommand{\theHremark}{\theremark}
+\renewcommand{\theHexample}{\theexample}
+\renewcommand{\theHALG@line}{\thealgorithm.\arabic{ALG@line}}
+\makeatother
+\setlength{\textfloatsep}{10pt plus 2pt minus 2pt}
+\setlength{\floatsep}{8pt plus 2pt minus 2pt}
+\setlength{\intextsep}{8pt plus 2pt minus 2pt}
+\captionsetup{font=small,labelfont=bf}
+\captionsetup[algorithm]{font=small,labelfont=bf}
+\raggedbottom
+
+\title{When Should LLMs Trust Retrieval?\\
+       Bayes-Optimal Knowledge Arbitration under Conflict}
+
+\author{%
+  Anonymous Authors%
+}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+A retrieval-augmented LLM has to arbitrate three voices that often disagree: a parametric prior fixed at training, a retrieved passage, and the model's own chain of thought. Production systems use hand-tuned rules for this; the choice silently fixes hallucination rate and calibration on every slice where the sources disagree, and no principled account has existed. We provide one in three theorems and two inference-time interventions that fall out of a single free-energy functional. \textbf{(CT1)} Inside the log-linear family the Bayes-optimal combiner is the reliability-weighted geometric mixture $\hat p_{w^\star}\!\propto\!p_\theta^{1-w^\star}\,p_{\ctx}^{w^\star}$ with $w^\star\!=\!\E[r\mid q,c]$. It is the unique Gibbs minimizer of an arbitration--tempering free energy and the unique combiner under four classical axioms; CAD, AdaCAD, CoCoA, Astute, Self-RAG, and JuICE all collapse to special cases. The same statement carries a TV-perturbation envelope on regret. \textbf{(CT2)} The chain of thought reads as an endogenous generalized-Bayes update on the same functional. Its rate of convergence to the Berk--Nash fixed point lives inside an $\eta$-linear sandwich, and the safe learning rate shrinks under conflict on the stable-answer subset. \textbf{(CT3)} When the post-trace distribution overshoots, the Brier improvement under $\eta$-tempering is closed-form, $\Delta\mathrm{Brier}(\eta^\star)\!=\!(1\!-\!\eta^\star)^{2}V_{\mathrm{post}}\!+\!O((1\!-\!\eta^\star)^{3})$, giving safe-Bayes an operational reading of when ordinary temperature scaling is justified. The Bayes rule beats the strongest heuristic by $+0.083$ in regret on $23/25$ cells (e-value $2806$); powered $n\!=\!210$ head-to-heads against CoCoA, Astute~RAG, and Self-RAG land at $+0.043 / +0.032 / +0.022$ regret, every CI strictly above zero. The CT2 spectral diagnostic predicts trace decay $\TV(p_t,p_K)$ within $\pm 0.07$ across $12$ cells over $3$ model families (pooled $r\!=\!0.997$). On the worst slice, $\eta$-tempering drops Brier from $0.903$ to $0.505$ and lifts accuracy from $0.037$ to $0.440$. A matched-base contrast (DPO vs.\ GRPO at $8$B, $+0.344$ ECE gap) gives causal evidence the failure mode is RL-induced. The RLCR$+\eta$ stack moves accuracy $0.063\!\to\!0.531$ and ECE $0.904\!\to\!0.431$ on the same slice. Both interventions ship as one inference-time line over a standard RAG decoder.
+\end{abstract}
+
+\input{sections/introduction}
+\input{sections/related_work}
+\input{sections/method}
+\input{sections/experiments}
+\input{sections/discussion}
+
+{\small
+\bibliographystyle{plainnat}
+\bibliography{references}
+}
+
+\appendix
+\clearpage
+\onecolumn
+\input{appendix}
+
+\end{document}

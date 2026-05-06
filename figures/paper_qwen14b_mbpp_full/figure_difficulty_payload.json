@@ -1,0 +1,17 @@
+{
+  "title": "Difficulty Stratification",
+  "panels": [
+    {
+      "benchmark": "mbpp_plus",
+      "difficulty": {
+        "unknown": {
+          "falsification": 0.7486772486772487,
+          "greedy": 0.7063492063492064,
+          "majority_vote": 0.7142857142857143,
+          "oracle": 0.8015873015873016,
+          "self_debug": 0.7486772486772487
+        }
+      }
+    }
+  ]
+}

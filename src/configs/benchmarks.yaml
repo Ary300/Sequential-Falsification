@@ -1,0 +1,49 @@
+{
+  "benchmarks": [
+    {
+      "name": "synthetic_demo",
+      "type": "mixed",
+      "primary_metric": "accuracy"
+    },
+    {
+      "name": "humaneval_plus",
+      "type": "code",
+      "primary_metric": "pass@1"
+    },
+    {
+      "name": "mbpp_plus",
+      "type": "code",
+      "primary_metric": "pass@1"
+    },
+    {
+      "name": "livecodebench_v6",
+      "type": "code",
+      "primary_metric": "pass@1"
+    },
+    {
+      "name": "math500",
+      "type": "math",
+      "primary_metric": "accuracy"
+    },
+    {
+      "name": "gsm8k",
+      "type": "math",
+      "primary_metric": "accuracy"
+    },
+    {
+      "name": "aime2024",
+      "type": "math",
+      "primary_metric": "accuracy"
+    },
+    {
+      "name": "aime2025",
+      "type": "math",
+      "primary_metric": "accuracy"
+    },
+    {
+      "name": "codecontests",
+      "type": "code",
+      "primary_metric": "pass@1"
+    }
+  ]
+}

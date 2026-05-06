@@ -1,0 +1,5 @@
+You are analyzing the result of a falsification probe.
+
+Given the problem statement, the generated probe, and the execution trace, summarize whether the trace is strong evidence that the candidate is incorrect. Focus on mismatched outputs, runtime errors, and constraint violations.
+
+Return a short JSON object with keys `detected_error`, `reason`, and `severity`.

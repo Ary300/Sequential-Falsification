@@ -1,0 +1,63 @@
+{
+  "title": "E-value Wealth Process",
+  "threshold": 20.0,
+  "traces": [
+    {
+      "benchmark": "synthetic_demo",
+      "problem_id": "sum_two",
+      "candidate_id": "sum_two_cand_0",
+      "survived": true,
+      "wealth": [
+        0.6842105263157895,
+        0.5113573407202217
+      ]
+    },
+    {
+      "benchmark": "synthetic_demo",
+      "problem_id": "sum_two",
+      "candidate_id": "sum_two_cand_1",
+      "survived": false,
+      "wealth": [
+        20.0
+      ]
+    },
+    {
+      "benchmark": "synthetic_demo",
+      "problem_id": "factorial_small",
+      "candidate_id": "factorial_small_cand_0",
+      "survived": true,
+      "wealth": [
+        0.6842105263157895,
+        0.5113573407202217
+      ]
+    },
+    {
+      "benchmark": "synthetic_demo",
+      "problem_id": "factorial_small",
+      "candidate_id": "factorial_small_cand_1",
+      "survived": false,
+      "wealth": [
+        20.0
+      ]
+    },
+    {
+      "benchmark": "synthetic_demo",
+      "problem_id": "math_boxed",
+      "candidate_id": "math_boxed_cand_0",
+      "survived": true,
+      "wealth": [
+        0.6842105263157895,
+        0.5113573407202217
+      ]
+    },
+    {
+      "benchmark": "synthetic_demo",
+      "problem_id": "math_boxed",
+      "candidate_id": "math_boxed_cand_1",
+      "survived": false,
+      "wealth": [
+        20.0
+      ]
+    }
+  ]
+}

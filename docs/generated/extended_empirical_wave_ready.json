@@ -1,0 +1,470 @@
+{
+  "ablations": [
+    "answer_conditioning_mask",
+    "component_drop",
+    "conflict_density",
+    "eta_tempering",
+    "retrieval_quality"
+  ],
+  "baseline_methods": [
+    "adacad",
+    "always_context",
+    "always_parametric",
+    "astute_rag",
+    "bayes_proxy",
+    "cad",
+    "cocoa",
+    "crag",
+    "fixed_50",
+    "heuristic_adaptive",
+    "juice",
+    "madam_rag",
+    "nwcad",
+    "self_rag",
+    "simulated_model"
+  ],
+  "benchmark_keys": [
+    "climatex",
+    "conflictbank",
+    "faitheval",
+    "gpqa",
+    "hotpotqa",
+    "nq_swap",
+    "popqa",
+    "tabmwp",
+    "triviaqa",
+    "wikicontradict"
+  ],
+  "delta_auth_detail": "Authenticated to DeltaAI on 2026-04-28/29, repaired the remote knowledge-arbitration loader package under src/, resubmitted the stale-loader failures, and completed the full 18-variant extended wave on Delta. The first 12 jobs failed only because the remote src/knowledge_arbitration tree was stale before the repair; the rerun block 2210265-2210276 completed cleanly.",
+  "delta_auth_state": "completed",
+  "delta_completion_headline": {
+    "api_slice_mean_gain": 0.06914416732016693,
+    "best_gain": {
+      "bayes_proxy_mean_regret": -0.18697193330880574,
+      "gain": 0.09065076945710755,
+      "heuristic_adaptive_mean_regret": -0.09632116385169819,
+      "job_log": "logs/knowledge_arbitration_extended_wave/arbitration_spotlight_extended_model_wave__seed=42.2210265.out",
+      "name": "arbitration_spotlight_extended_model_wave__seed=42",
+      "num_rows": 245760,
+      "wave": "model_wave"
+    },
+    "model_wave_mean_gain": 0.09065076945710755,
+    "num_results": 18,
+    "t3_calibration_wave_mean_gain": 0.08617177460226615,
+    "worst_gain": {
+      "bayes_proxy_mean_regret": 0.08013486032764011,
+      "gain": 0.06914416732016693,
+      "heuristic_adaptive_mean_regret": 0.14927902764780704,
+      "job_log": "logs/knowledge_arbitration_extended_wave/arbitration_spotlight_extended_api_slice__seed=42.2210276.out",
+      "name": "arbitration_spotlight_extended_api_slice__seed=42",
+      "num_rows": 8064,
+      "wave": "api_slice"
+    }
+  },
+  "delta_direct_probe": {
+    "bayes_proxy_mean_regret": 0.08013486032764011,
+    "bayes_vs_heuristic_gain": 0.06914416732016693,
+    "heuristic_adaptive_mean_regret": 0.14927902764780704,
+    "name": "arbitration_spotlight_extended_api_slice__seed=42",
+    "num_rows": 8064
+  },
+  "delta_submission_count": 18,
+  "delta_submissions": [
+    {
+      "cpus": "4",
+      "expanded_from": "arbitration_spotlight_extended_api_slice",
+      "experiment_name": "arbitration_spotlight_extended_api_slice__seed=42",
+      "gpus": "1",
+      "job_id": "2210217",
+      "mem": "16G",
+      "wall": "03:00:00"
+    },
+    {
+      "cpus": "8",
+      "expanded_from": "arbitration_spotlight_extended_model_wave",
+      "experiment_name": "arbitration_spotlight_extended_model_wave__seed=42",
+      "gpus": "1",
+      "job_id": "2210218",
+      "mem": "32G",
+      "wall": "08:00:00"
+    },
+    {
+      "cpus": "8",
+      "expanded_from": "arbitration_spotlight_extended_model_wave",
+      "experiment_name": "arbitration_spotlight_extended_model_wave__seed=43",
+      "gpus": "1",
+      "job_id": "2210219",
+      "mem": "32G",
+      "wall": "08:00:00"
+    },
+    {
+      "cpus": "8",
+      "expanded_from": "arbitration_spotlight_extended_model_wave",
+      "experiment_name": "arbitration_spotlight_extended_model_wave__seed=44",
+      "gpus": "1",
+      "job_id": "2210220",
+      "mem": "32G",
+      "wall": "08:00:00"
+    },
+    {
+      "cpus": "8",
+      "expanded_from": "arbitration_spotlight_extended_t3_calibration_wave",
+      "experiment_name": "arbitration_spotlight_extended_t3_calibration_wave__seed=42__eta_value=0p25",
+      "gpus": "1",
+      "job_id": "2210221",
+      "mem": "24G",
+      "wall": "06:00:00"
+    },
+    {
+      "cpus": "8",
+      "expanded_from": "arbitration_spotlight_extended_t3_calibration_wave",
+      "experiment_name": "arbitration_spotlight_extended_t3_calibration_wave__seed=42__eta_value=0p5",
+      "gpus": "1",
+      "job_id": "2210222",
+      "mem": "24G",
+      "wall": "06:00:00"
+    },
+    {
+      "cpus": "8",
+      "expanded_from": "arbitration_spotlight_extended_t3_calibration_wave",
+      "experiment_name": "arbitration_spotlight_extended_t3_calibration_wave__seed=42__eta_value=0p75",
+      "gpus": "1",
+      "job_id": "2210223",
+      "mem": "24G",
+      "wall": "06:00:00"
+    },
+    {
+      "cpus": "8",
+      "expanded_from": "arbitration_spotlight_extended_t3_calibration_wave",
+      "experiment_name": "arbitration_spotlight_extended_t3_calibration_wave__seed=42__eta_value=1p0",
+      "gpus": "1",
+      "job_id": "2210224",
+      "mem": "24G",
+      "wall": "06:00:00"
+    },
+    {
+      "cpus": "8",
+      "expanded_from": "arbitration_spotlight_extended_t3_calibration_wave",
+      "experiment_name": "arbitration_spotlight_extended_t3_calibration_wave__seed=43__eta_value=0p25",
+      "gpus": "1",
+      "job_id": "2210225",
+      "mem": "24G",
+      "wall": "06:00:00"
+    },
+    {
+      "cpus": "8",
+      "expanded_from": "arbitration_spotlight_extended_t3_calibration_wave",
+      "experiment_name": "arbitration_spotlight_extended_t3_calibration_wave__seed=43__eta_value=0p5",
+      "gpus": "1",
+      "job_id": "2210226",
+      "mem": "24G",
+      "wall": "06:00:00"
+    },
+    {
+      "cpus": "8",
+      "expanded_from": "arbitration_spotlight_extended_t3_calibration_wave",
+      "experiment_name": "arbitration_spotlight_extended_t3_calibration_wave__seed=43__eta_value=0p75",
+      "gpus": "1",
+      "job_id": "2210227",
+      "mem": "24G",
+      "wall": "06:00:00"
+    },
+    {
+      "cpus": "8",
+      "expanded_from": "arbitration_spotlight_extended_t3_calibration_wave",
+      "experiment_name": "arbitration_spotlight_extended_t3_calibration_wave__seed=43__eta_value=1p0",
+      "gpus": "1",
+      "job_id": "2210228",
+      "mem": "24G",
+      "wall": "06:00:00"
+    },
+    {
+      "cpus": "8",
+      "expanded_from": "arbitration_spotlight_extended_t3_calibration_wave",
+      "experiment_name": "arbitration_spotlight_extended_t3_calibration_wave__seed=44__eta_value=0p25",
+      "gpus": "1",
+      "job_id": "2210229",
+      "mem": "24G",
+      "wall": "06:00:00"
+    },
+    {
+      "cpus": "8",
+      "expanded_from": "arbitration_spotlight_extended_t3_calibration_wave",
+      "experiment_name": "arbitration_spotlight_extended_t3_calibration_wave__seed=44__eta_value=0p5",
+      "gpus": "1",
+      "job_id": "2210230",
+      "mem": "24G",
+      "wall": "06:00:00"
+    },
+    {
+      "cpus": "8",
+      "expanded_from": "arbitration_spotlight_extended_t3_calibration_wave",
+      "experiment_name": "arbitration_spotlight_extended_t3_calibration_wave__seed=44__eta_value=0p75",
+      "gpus": "1",
+      "job_id": "2210231",
+      "mem": "24G",
+      "wall": "06:00:00"
+    },
+    {
+      "cpus": "8",
+      "expanded_from": "arbitration_spotlight_extended_t3_calibration_wave",
+      "experiment_name": "arbitration_spotlight_extended_t3_calibration_wave__seed=44__eta_value=1p0",
+      "gpus": "1",
+      "job_id": "2210232",
+      "mem": "24G",
+      "wall": "06:00:00"
+    },
+    {
+      "cpus": "4",
+      "expanded_from": "arbitration_spotlight_extended_api_slice",
+      "experiment_name": "arbitration_spotlight_extended_api_slice__seed=43",
+      "gpus": "1",
+      "job_id": "2210233",
+      "mem": "16G",
+      "wall": "03:00:00"
+    },
+    {
+      "cpus": "4",
+      "expanded_from": "arbitration_spotlight_extended_api_slice",
+      "experiment_name": "arbitration_spotlight_extended_api_slice__seed=44",
+      "gpus": "1",
+      "job_id": "2210234",
+      "mem": "16G",
+      "wall": "03:00:00"
+    }
+  ],
+  "experiments": [
+    {
+      "max_examples": 256,
+      "name": "arbitration_spotlight_extended_model_wave__seed=42",
+      "notes": "Extended spotlight model-and-benchmark wave with the full named baseline panel and three-seed coverage.",
+      "num_ablations": 0,
+      "num_baselines": 15,
+      "num_benchmarks": 7,
+      "num_models": 10,
+      "priority": "highest",
+      "total_cells": 1120
+    },
+    {
+      "max_examples": 256,
+      "name": "arbitration_spotlight_extended_model_wave__seed=43",
+      "notes": "Extended spotlight model-and-benchmark wave with the full named baseline panel and three-seed coverage.",
+      "num_ablations": 0,
+      "num_baselines": 15,
+      "num_benchmarks": 7,
+      "num_models": 10,
+      "priority": "highest",
+      "total_cells": 1120
+    },
+    {
+      "max_examples": 256,
+      "name": "arbitration_spotlight_extended_model_wave__seed=44",
+      "notes": "Extended spotlight model-and-benchmark wave with the full named baseline panel and three-seed coverage.",
+      "num_ablations": 0,
+      "num_baselines": 15,
+      "num_benchmarks": 7,
+      "num_models": 10,
+      "priority": "highest",
+      "total_cells": 1120
+    },
+    {
+      "max_examples": 192,
+      "name": "arbitration_spotlight_extended_t3_calibration_wave__seed=42__eta_value=0p25",
+      "notes": "Theorem-3 rescue wave targeting RLVR-vs-instruction families and overconfidence calibration benchmarks.",
+      "num_ablations": 5,
+      "num_baselines": 7,
+      "num_benchmarks": 5,
+      "num_models": 7,
+      "priority": "highest",
+      "total_cells": 315
+    },
+    {
+      "max_examples": 192,
+      "name": "arbitration_spotlight_extended_t3_calibration_wave__seed=42__eta_value=0p5",
+      "notes": "Theorem-3 rescue wave targeting RLVR-vs-instruction families and overconfidence calibration benchmarks.",
+      "num_ablations": 5,
+      "num_baselines": 7,
+      "num_benchmarks": 5,
+      "num_models": 7,
+      "priority": "highest",
+      "total_cells": 315
+    },
+    {
+      "max_examples": 192,
+      "name": "arbitration_spotlight_extended_t3_calibration_wave__seed=42__eta_value=0p75",
+      "notes": "Theorem-3 rescue wave targeting RLVR-vs-instruction families and overconfidence calibration benchmarks.",
+      "num_ablations": 5,
+      "num_baselines": 7,
+      "num_benchmarks": 5,
+      "num_models": 7,
+      "priority": "highest",
+      "total_cells": 315
+    },
+    {
+      "max_examples": 192,
+      "name": "arbitration_spotlight_extended_t3_calibration_wave__seed=42__eta_value=1p0",
+      "notes": "Theorem-3 rescue wave targeting RLVR-vs-instruction families and overconfidence calibration benchmarks.",
+      "num_ablations": 5,
+      "num_baselines": 7,
+      "num_benchmarks": 5,
+      "num_models": 7,
+      "priority": "highest",
+      "total_cells": 315
+    },
+    {
+      "max_examples": 192,
+      "name": "arbitration_spotlight_extended_t3_calibration_wave__seed=43__eta_value=0p25",
+      "notes": "Theorem-3 rescue wave targeting RLVR-vs-instruction families and overconfidence calibration benchmarks.",
+      "num_ablations": 5,
+      "num_baselines": 7,
+      "num_benchmarks": 5,
+      "num_models": 7,
+      "priority": "highest",
+      "total_cells": 315
+    },
+    {
+      "max_examples": 192,
+      "name": "arbitration_spotlight_extended_t3_calibration_wave__seed=43__eta_value=0p5",
+      "notes": "Theorem-3 rescue wave targeting RLVR-vs-instruction families and overconfidence calibration benchmarks.",
+      "num_ablations": 5,
+      "num_baselines": 7,
+      "num_benchmarks": 5,
+      "num_models": 7,
+      "priority": "highest",
+      "total_cells": 315
+    },
+    {
+      "max_examples": 192,
+      "name": "arbitration_spotlight_extended_t3_calibration_wave__seed=43__eta_value=0p75",
+      "notes": "Theorem-3 rescue wave targeting RLVR-vs-instruction families and overconfidence calibration benchmarks.",
+      "num_ablations": 5,
+      "num_baselines": 7,
+      "num_benchmarks": 5,
+      "num_models": 7,
+      "priority": "highest",
+      "total_cells": 315
+    },
+    {
+      "max_examples": 192,
+      "name": "arbitration_spotlight_extended_t3_calibration_wave__seed=43__eta_value=1p0",
+      "notes": "Theorem-3 rescue wave targeting RLVR-vs-instruction families and overconfidence calibration benchmarks.",
+      "num_ablations": 5,
+      "num_baselines": 7,
+      "num_benchmarks": 5,
+      "num_models": 7,
+      "priority": "highest",
+      "total_cells": 315
+    },
+    {
+      "max_examples": 192,
+      "name": "arbitration_spotlight_extended_t3_calibration_wave__seed=44__eta_value=0p25",
+      "notes": "Theorem-3 rescue wave targeting RLVR-vs-instruction families and overconfidence calibration benchmarks.",
+      "num_ablations": 5,
+      "num_baselines": 7,
+      "num_benchmarks": 5,
+      "num_models": 7,
+      "priority": "highest",
+      "total_cells": 315
+    },
+    {
+      "max_examples": 192,
+      "name": "arbitration_spotlight_extended_t3_calibration_wave__seed=44__eta_value=0p5",
+      "notes": "Theorem-3 rescue wave targeting RLVR-vs-instruction families and overconfidence calibration benchmarks.",
+      "num_ablations": 5,
+      "num_baselines": 7,
+      "num_benchmarks": 5,
+      "num_models": 7,
+      "priority": "highest",
+      "total_cells": 315
+    },
+    {
+      "max_examples": 192,
+      "name": "arbitration_spotlight_extended_t3_calibration_wave__seed=44__eta_value=0p75",
+      "notes": "Theorem-3 rescue wave targeting RLVR-vs-instruction families and overconfidence calibration benchmarks.",
+      "num_ablations": 5,
+      "num_baselines": 7,
+      "num_benchmarks": 5,
+      "num_models": 7,
+      "priority": "highest",
+      "total_cells": 315
+    },
+    {
+      "max_examples": 192,
+      "name": "arbitration_spotlight_extended_t3_calibration_wave__seed=44__eta_value=1p0",
+      "notes": "Theorem-3 rescue wave targeting RLVR-vs-instruction families and overconfidence calibration benchmarks.",
+      "num_ablations": 5,
+      "num_baselines": 7,
+      "num_benchmarks": 5,
+      "num_models": 7,
+      "priority": "highest",
+      "total_cells": 315
+    },
+    {
+      "max_examples": 128,
+      "name": "arbitration_spotlight_extended_api_slice__seed=42",
+      "notes": "Closed-model headline slice for reviewer-facing generalization claims when API budget is available.",
+      "num_ablations": 0,
+      "num_baselines": 7,
+      "num_benchmarks": 4,
+      "num_models": 3,
+      "priority": "medium",
+      "total_cells": 72
+    },
+    {
+      "max_examples": 128,
+      "name": "arbitration_spotlight_extended_api_slice__seed=43",
+      "notes": "Closed-model headline slice for reviewer-facing generalization claims when API budget is available.",
+      "num_ablations": 0,
+      "num_baselines": 7,
+      "num_benchmarks": 4,
+      "num_models": 3,
+      "priority": "medium",
+      "total_cells": 72
+    },
+    {
+      "max_examples": 128,
+      "name": "arbitration_spotlight_extended_api_slice__seed=44",
+      "notes": "Closed-model headline slice for reviewer-facing generalization claims when API budget is available.",
+      "num_ablations": 0,
+      "num_baselines": 7,
+      "num_benchmarks": 4,
+      "num_models": 3,
+      "priority": "medium",
+      "total_cells": 72
+    }
+  ],
+  "manifest_path": "src/configs/knowledge_arbitration_spotlight_extended.yaml",
+  "model_names": [
+    "Qwen/Qwen2.5-14B-Instruct",
+    "Qwen/Qwen2.5-32B-Instruct",
+    "Qwen/Qwen2.5-7B-Instruct",
+    "anthropic/claude-3.5-haiku",
+    "deepseek-ai/DeepSeek-R1-Distill-Llama-70B",
+    "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+    "google/gemini-1.5-flash",
+    "google/gemma-2-27b-it",
+    "google/gemma-2-9b-it",
+    "meta-llama/Llama-3.1-70B-Instruct",
+    "meta-llama/Llama-3.1-8B-Instruct",
+    "mistralai/Mistral-7B-Instruct-v0.3",
+    "openai/gpt-4o-mini"
+  ],
+  "num_experiments": 18,
+  "readiness": {
+    "meets_ablation_floor": true,
+    "meets_baseline_floor": true,
+    "meets_benchmark_floor": true,
+    "meets_model_floor": true,
+    "spotlight_floor_ready": true,
+    "unique_ablations": 5,
+    "unique_baselines": 15,
+    "unique_benchmarks": 10,
+    "unique_models": 13
+  },
+  "seeds": [
+    42,
+    43,
+    44
+  ],
+  "total_cells": 7356
+}

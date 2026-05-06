@@ -1,0 +1,52 @@
+{
+  "rows": [
+    {
+      "accuracy_mean": 100.0,
+      "accuracy_stderr": 0.0,
+      "benchmark": "synthetic_demo",
+      "method": "code_t"
+    },
+    {
+      "accuracy_mean": 100.0,
+      "accuracy_stderr": 0.0,
+      "benchmark": "synthetic_demo",
+      "method": "falsification"
+    },
+    {
+      "accuracy_mean": 100.0,
+      "accuracy_stderr": 0.0,
+      "benchmark": "synthetic_demo",
+      "method": "generated_test_filter"
+    },
+    {
+      "accuracy_mean": 100.0,
+      "accuracy_stderr": 0.0,
+      "benchmark": "synthetic_demo",
+      "method": "greedy"
+    },
+    {
+      "accuracy_mean": 100.0,
+      "accuracy_stderr": 0.0,
+      "benchmark": "synthetic_demo",
+      "method": "majority_vote"
+    },
+    {
+      "accuracy_mean": 100.0,
+      "accuracy_stderr": 0.0,
+      "benchmark": "synthetic_demo",
+      "method": "oracle"
+    },
+    {
+      "accuracy_mean": 100.0,
+      "accuracy_stderr": 0.0,
+      "benchmark": "synthetic_demo",
+      "method": "s_star"
+    },
+    {
+      "accuracy_mean": 100.0,
+      "accuracy_stderr": 0.0,
+      "benchmark": "synthetic_demo",
+      "method": "self_debug"
+    }
+  ]
+}

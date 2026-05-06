@@ -1,0 +1,73 @@
+{
+  "title": "Scaling Summary",
+  "x_label": "N",
+  "y_label": "Accuracy (%)",
+  "series": [
+    {
+      "label": "synthetic_demo::falsification",
+      "x": [
+        4,
+        4
+      ],
+      "y": [
+        100.0,
+        100.0
+      ]
+    },
+    {
+      "label": "synthetic_demo::generated_test_filter",
+      "x": [
+        4,
+        4
+      ],
+      "y": [
+        100.0,
+        100.0
+      ]
+    },
+    {
+      "label": "synthetic_demo::greedy",
+      "x": [
+        4,
+        4
+      ],
+      "y": [
+        100.0,
+        100.0
+      ]
+    },
+    {
+      "label": "synthetic_demo::majority_vote",
+      "x": [
+        4,
+        4
+      ],
+      "y": [
+        50.0,
+        50.0
+      ]
+    },
+    {
+      "label": "synthetic_demo::oracle",
+      "x": [
+        4,
+        4
+      ],
+      "y": [
+        100.0,
+        100.0
+      ]
+    },
+    {
+      "label": "synthetic_demo::self_debug",
+      "x": [
+        4,
+        4
+      ],
+      "y": [
+        100.0,
+        100.0
+      ]
+    }
+  ]
+}

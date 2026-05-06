@@ -1,0 +1,85 @@
+\section{Setup and Theory}
+\label{sec:method}
+
+\paragraph{Setup.}
+A query $q$ with retrieved context $c$ has a true answer $y^\star\!\in\!\Y$ drawn from $\PP^\star$, where $\Y$ is the (closed) candidate set. The LLM exposes the closed-book softmax $p_\theta(y\!\mid\!q)$ and the context-conditioned softmax $p_\ctx(y\!\mid\!q,c)$, with top-1 modes $y_\param\!:=\!\arg\max_y p_\theta$ and $y_\ctx\!:=\!\arg\max_y p_\ctx$. Latent reliability $r\!:=\!\PP(y^\star\!=\!y_\ctx\mid q,c)\!\in\![0,1]$ has prior $\pi(r)$ informed by observable signals $s(q,c)$ (BM25, popularity, semantic entropy~\citep{kuhn2023semantic}, contradiction type). The decision maker chooses $\hat p\!\in\!\Delta(\Y)$; risk is $R(\hat p)\!=\!\E_{q,c,y^\star}[S(\hat p,y^\star)]$ for a strictly proper scoring rule $S$ (log loss and Brier). \textbf{Assumptions} (App.~\ref{app:assumption-ci},~\ref{app:assumption-loglinear}): \emph{(A1)} $y^\star\!\perp\!c\mid(q,r)$; \emph{(A2)} the conditional answer model is log-linear. All theorems operate under (A1)--(A2).
+
+\paragraph{Theory architecture.} Three theorems on the same free-energy functional $\mathcal{F}$ on $\Delta(\Y)$: \textbf{CT1} (Gibbs minimizer + perturbation envelope), \textbf{CT2} ($\eta$-linear sandwich on chain-of-thought convergence), \textbf{CT3} (closed-form Brier improvement under $\eta$-tempering). Variational free energy~\citep{jaynes1957information,wainwright2008graphical} and the geometric opinion pool~\citep{genest1986characterization,heskes1998selecting,mcconway1981marginalization} are classical; the contribution is the specific energy whose Gibbs minimizer reads $w^\star\!=\!\E[r\!\mid\!s]$ and unifies arbitration, trace-tempering, and perturbation response inside one functional.
+
+\subsection{CT1 Bayes-optimal arbitration and perturbation envelope}
+\label{sec:ct1}\label{sec:thm1}\label{sec:thm2}
+
+Let $E_{w,\eta}(y)\!:=\!-(1\!-\!w)\log p_\theta(y\!\mid\!q)\!-\!w\log p_\ctx(y\!\mid\!q,c)\!-\!\eta\log p_K(y\!\mid\!q,c,\mathrm{trace})$ and $\mathcal{F}[p;w,\eta]\!:=\!\E_p[E_{w,\eta}]\!-\!H[p]$.
+
+\begin{theorem}[CT1: Free-energy characterization]
+\label{thm:ct1-body}
+The unique Gibbs minimizer of $\mathcal{F}$ on $\Delta^\circ(\Y)$ is
+\begin{equation}
+p^\star_{w,\eta}(y)\;\propto\;p_\theta(y)^{1-w}\,p_\ctx(y)^{w}\,p_K(y)^{\eta},
+\label{eq:gibbs-min-body}
+\end{equation}
+and under (A1)--(A2), the choice $w^\star\!=\!\E[r\!\mid\!s]$ is Bayes-optimal for log loss.
+\end{theorem}
+\phantomsection\label{eq:F-master}\phantomsection\label{eq:thm1}\phantomsection\label{thm:bayes-arbitration}\phantomsection\label{thm:t1-axiomatic}\phantomsection\label{thm:minimax}\phantomsection\label{thm:t2-info}\phantomsection\label{thm:t2-separability-body}
+
+\noindent\emph{Corollary (\Cref{cor:special-cases-body}, App.~\ref{app:thm1}).} CAD, AdaCAD, CoCoA, Astute~RAG, Self-RAG, and JuICE collapse to fixed points on the exponent axis of \eqref{eq:gibbs-min-body}; every alternative is strictly suboptimal away from $w^\star\!=\!\E[r\!\mid\!s]$.\phantomsection\label{cor:special-cases-body}
+
+\begin{theorem}[CT1$'$: Perturbation envelope]
+\label{thm:ct1prime-body}
+With $\sigma_r^{2}\!:=\!\E[\Var(r\!\mid\!s)]$, $V$ the log-LR variance under $p^\star$, $V_{\max}$ its sup, $L_w$ the plug-in Lipschitz constant, $k$ the top-$k$ effective support, the geometric-mixture regret under TV-$\varepsilon$ model and TV-$\delta$ signal perturbation obeys
+\begin{equation}
+R_{\varepsilon,\delta}(\hat p_{\hat w})\!-\!R_0(\hat p^\star)
+\;\le\;
+\underbrace{\tfrac12\sigma_r^{2}V}_{\text{intrinsic}} \;+\; \underbrace{4\varepsilon\log k}_{\text{model TV}} \;+\; \underbrace{2L_w\,\delta\,V_{\max}}_{\text{signal TV}} \;+\; \underbrace{O(n^{-1/2})}_{\text{finite-$n$}}.
+\label{eq:robustness-envelope}
+\end{equation}
+The intrinsic and signal-TV terms admit matching $\Omega(\sigma_r^2 V)$ and $\Omega(\delta V_{\max})$ Le Cam lower bounds (\Cref{thm:t2-info}); the model-TV term is Pinsker-tight in $\log k$.
+\end{theorem}
+
+\subsection{CT2 trajectory envelope on $\mathcal{F}$}
+\label{sec:ct2}\label{sec:thm3}
+
+The chain-of-thought trace $z_{1:K}$ induces a generalized-Bayes update~\citep{bissiri2016} that equals mirror descent on $\mathcal{F}$ with $D_\Phi\!=\!\KL$ (\Cref{lem:gen-bayes-mirror}):
+\begin{equation}
+p_{t+1}(y\mid q,c)\;\propto\;p_t(y\mid q,c)\,\exp\!\left(-\eta\,\ell_t(y;q,c,z_t)\right),\quad z_t\sim\mu(\cdot\mid p_t,q,c).
+\label{eq:gen-bayes}
+\end{equation}
+With $D^\star\!:=\!\sup_y|\log(p_\ctx/p_\theta)|$ the conflict diameter, $\rho^\star\!:=\!\rho(I\!-\!\eta\nabla^{2}\mathcal{F}[p^\star])$ the linearized spectral radius, and the \emph{stable-answer subset} the slice with argmax-invariant CoT rollouts:
+
+\begin{theorem}[CT2: Trajectory envelope]
+\label{thm:ct2-body}
+On the stable-answer subset, the iterate~\eqref{eq:gen-bayes} converges to a hyperbolic Berk--Nash fixed point $p^\star$~\citep{esponda2016,fudenberg2021} at geometric rate $\rho^\star$ satisfying
+\begin{equation}
+\underbrace{1 - \tfrac{C_\pi\,\eta}{D^{\star\,2}\,|\Y|}}_{\text{lower}}
+\;\;\le\;\;
+\rho^\star
+\;\;\le\;\;
+\underbrace{1 - c'\,\eta\,\Var_{p^\star}(s_t)}_{\text{upper}},
+\label{eq:rho-envelope}
+\end{equation}
+both sides $\eta$-linear, with phase boundary $\eta_c\!=\!1/D^\star$ separating contractive from overshoot regimes; consequently $\TV(p_t,p^\star)\!\le\!C\rho^{\star t}$ for $t\!\ge\!T_0$.
+\end{theorem}
+\phantomsection\label{thm:berk-nash-rate}\phantomsection\label{thm:rho-concentration}\phantomsection\label{thm:eta-bayes}\phantomsection\label{thm:t3-decomposition-body}\phantomsection\label{eq:bn-rate}
+
+\noindent\emph{Corollary (\Cref{cor:phase-boundary}, App.~\ref{app:thm3}).} For $\eta\!<\!\eta_c$ the iterate is contractive; for $\eta\!>\!\eta_c$ it overshoots and $V_{\mathrm{post}}$ stays bounded away from zero, the regime CT3 corrects.\phantomsection\label{cor:phase-boundary}
+
+The rate is observable: a ridge-LS estimate $\widehat\rho^\star$ on consecutive trace distributions predicts $\TV(p_t,p_K)$ decay within $\pm 0.07$ across $12$ cells over $3$ model families (pooled $r\!=\!0.997$, held-out $\pm 0.08$; \Cref{tab:berk-nash-rate-empirical}).
+
+\subsection{CT3 closed-form $\eta$-tempering at readout}
+\label{sec:ct3}\label{sec:ct4}\label{sec:eta-tempering}
+
+\begin{theorem}[CT3: Closed-form Brier improvement under $\eta$-tempering]
+\label{thm:t3-intervention}
+Let $\hat p_\eta\!\propto\!p_K^{\eta}$ and assume the cell is non-degenerate ($p_K(y^\star)\!\ne\!1/|\Y|$). The Brier improvement at the Brier-optimal $\eta^\star\!\in\![0,1]$ is
+\begin{equation}
+\Delta\mathrm{Brier}(\eta^\star)\;=\;(1\!-\!\eta^\star)^{2}V_{\mathrm{post}}\;+\;O\!\big((1\!-\!\eta^\star)^{3}\big),
+\label{eq:brier-closed-form}
+\end{equation}
+where $V_{\mathrm{post}}\!:=\!\Var_{p_K}[\bm{1}\{Y\!=\!y^\star\}]$.
+\end{theorem}
+
+\noindent\emph{Corollary (\Cref{cor:brier-orthogonality-body}, App.~\ref{app:eta-tempering-derivation}).} The Murphy split has $\langle\nabla_\eta\mathrm{REL},\nabla_\eta\mathrm{RES}\rangle_{\mathrm{Brier}}\!=\!0$ at $\eta^\star$, so REL and RES decompose orthogonally.\phantomsection\label{cor:brier-orthogonality-body}
+
+As a procedure this is calibrated temperature scaling~\citep{guo2017oncalibration}; safe-Bayes~\citep{bissiri2016,grunwald2017} tells the practitioner \emph{when} $\eta^\star\!<\!1$ via CT2's safe-rate descent.
+
+\paragraph{Extensions.} $K$-hop multiplicative composition (\Cref{thm:t15-compositional}) and doubly-robust causal identification of $w^\star$ (\Cref{thm:t16-causal}); App.~\ref{app:thm-map}.

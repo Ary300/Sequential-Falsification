@@ -1,0 +1,13 @@
+{
+  "rows": [
+    {
+      "benchmark": "mbpp_plus",
+      "brier_mean": 0.066,
+      "brier_stderr": 0.002,
+      "ece_mean": 0.059,
+      "ece_stderr": 0.002,
+      "mce_mean": 0.145,
+      "mce_stderr": 0.002
+    }
+  ]
+}

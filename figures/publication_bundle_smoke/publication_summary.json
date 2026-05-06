@@ -1,0 +1,39 @@
+{
+  "rows": [
+    {
+      "source_file": "results/pilot/results.json",
+      "model": "unknown-model",
+      "benchmark": "synthetic_demo",
+      "method": "falsification",
+      "accuracy": 100.0
+    },
+    {
+      "source_file": "results/pilot/results.json",
+      "model": "unknown-model",
+      "benchmark": "synthetic_demo",
+      "method": "greedy",
+      "accuracy": 100.0
+    },
+    {
+      "source_file": "results/pilot/results.json",
+      "model": "unknown-model",
+      "benchmark": "synthetic_demo",
+      "method": "majority_vote",
+      "accuracy": 66.7
+    },
+    {
+      "source_file": "results/pilot/results.json",
+      "model": "unknown-model",
+      "benchmark": "synthetic_demo",
+      "method": "oracle",
+      "accuracy": 100.0
+    },
+    {
+      "source_file": "results/pilot/results.json",
+      "model": "unknown-model",
+      "benchmark": "synthetic_demo",
+      "method": "self_debug",
+      "accuracy": 100.0
+    }
+  ]
+}

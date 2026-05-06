@@ -1,0 +1,43 @@
+{
+  "title": "Falsification Round Ablation",
+  "x_label": "Rounds",
+  "y_label": "Accuracy (%)",
+  "series": [
+    {
+      "label": "synthetic_demo::falsification",
+      "x": [
+        2
+      ],
+      "y": [
+        100.0
+      ]
+    },
+    {
+      "label": "synthetic_demo::majority_vote",
+      "x": [
+        2
+      ],
+      "y": [
+        0.0
+      ]
+    },
+    {
+      "label": "synthetic_demo::oracle",
+      "x": [
+        2
+      ],
+      "y": [
+        100.0
+      ]
+    },
+    {
+      "label": "synthetic_demo::self_debug",
+      "x": [
+        2
+      ],
+      "y": [
+        100.0
+      ]
+    }
+  ]
+}

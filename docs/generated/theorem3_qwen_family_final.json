@@ -1,0 +1,138 @@
+{
+  "as_of": "2026-04-26",
+  "status": "qwen7b_final_qwen14b_final_qwen32b_final",
+  "jobs": [
+    {
+      "job_id": 2196739,
+      "model": "Qwen/Qwen2.5-7B-Instruct",
+      "state": "COMPLETED"
+    },
+    {
+      "job_id": 2196740,
+      "model": "Qwen/Qwen2.5-14B-Instruct",
+      "state": "COMPLETED"
+    },
+    {
+      "job_id": 2196741,
+      "model": "Qwen/Qwen2.5-32B-Instruct",
+      "state": "COMPLETED"
+    }
+  ],
+  "rows": [
+    {
+      "model": "Qwen/Qwen2.5-7B-Instruct",
+      "benchmark": "conflictbank",
+      "split": "conflict",
+      "gap_cot_0": 0.9856,
+      "gap_cot_128": 0.9849,
+      "gap_cot_1024": 0.9693,
+      "status": "final"
+    },
+    {
+      "model": "Qwen/Qwen2.5-7B-Instruct",
+      "benchmark": "conflictbank",
+      "split": "no_conflict",
+      "gap_cot_0": 0.0868,
+      "gap_cot_128": 0.0723,
+      "gap_cot_1024": 0.0537,
+      "status": "final"
+    },
+    {
+      "model": "Qwen/Qwen2.5-7B-Instruct",
+      "benchmark": "wikicontradict",
+      "split": "conflict",
+      "gap_cot_0": 0.1327,
+      "gap_cot_128": 0.5917,
+      "gap_cot_1024": 0.671,
+      "status": "final"
+    },
+    {
+      "model": "Qwen/Qwen2.5-7B-Instruct",
+      "benchmark": "wikicontradict",
+      "split": "no_conflict",
+      "gap_cot_0": 0.1315,
+      "gap_cot_128": 0.5612,
+      "gap_cot_1024": 0.6545,
+      "status": "final"
+    },
+    {
+      "model": "Qwen/Qwen2.5-14B-Instruct",
+      "benchmark": "conflictbank",
+      "split": "conflict",
+      "gap_cot_0": 0.9776,
+      "gap_cot_128": 0.9731,
+      "gap_cot_1024": 0.9584,
+      "status": "final"
+    },
+    {
+      "model": "Qwen/Qwen2.5-14B-Instruct",
+      "benchmark": "conflictbank",
+      "split": "no_conflict",
+      "gap_cot_0": 0.0639,
+      "gap_cot_128": 0.0679,
+      "gap_cot_1024": 0.0476,
+      "status": "final"
+    },
+    {
+      "model": "Qwen/Qwen2.5-14B-Instruct",
+      "benchmark": "wikicontradict",
+      "split": "conflict",
+      "gap_cot_0": 0.1222,
+      "gap_cot_128": 0.4182,
+      "gap_cot_1024": 0.4572,
+      "status": "final"
+    },
+    {
+      "model": "Qwen/Qwen2.5-14B-Instruct",
+      "benchmark": "wikicontradict",
+      "split": "no_conflict",
+      "gap_cot_0": 0.0952,
+      "gap_cot_128": 0.3745,
+      "gap_cot_1024": 0.466,
+      "status": "final"
+    },
+    {
+      "model": "Qwen/Qwen2.5-32B-Instruct",
+      "benchmark": "conflictbank",
+      "split": "conflict",
+      "gap_cot_0": 0.9484,
+      "gap_cot_128": 0.9307,
+      "gap_cot_1024": 0.8871,
+      "status": "final"
+    },
+    {
+      "model": "Qwen/Qwen2.5-32B-Instruct",
+      "benchmark": "conflictbank",
+      "split": "no_conflict",
+      "gap_cot_0": 0.0977,
+      "gap_cot_128": 0.0609,
+      "gap_cot_1024": 0.071,
+      "status": "final"
+    },
+    {
+      "model": "Qwen/Qwen2.5-32B-Instruct",
+      "benchmark": "wikicontradict",
+      "split": "conflict",
+      "gap_cot_0": 0.0945,
+      "gap_cot_128": 0.352,
+      "gap_cot_1024": 0.2635,
+      "status": "final"
+    },
+    {
+      "model": "Qwen/Qwen2.5-32B-Instruct",
+      "benchmark": "wikicontradict",
+      "split": "no_conflict",
+      "gap_cot_0": 0.0837,
+      "gap_cot_128": 0.3422,
+      "gap_cot_1024": 0.3232,
+      "status": "final"
+    }
+  ],
+  "headline_read": {
+    "conflictbank_same_family_separation": true,
+    "wikicontradict_hard_qa_pattern": true,
+    "qwen32b_partial_self_correction": true,
+    "conflictbank_32b_partial_rows_landed": true,
+    "qwen_family_complete": true
+  }
+}

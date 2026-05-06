@@ -1,0 +1,87 @@
+experiments:
+  - name: arbitration_theorem3_real_generation_r1_7b
+    benchmarks: ["wikicontradict", "conflictbank"]
+    models:
+      - "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B"
+    conditions: ["aligned_context", "conflict_context"]
+    cot_lengths: [0, 128, 1024]
+    self_consistency: [1]
+    max_examples: 500
+    priority: "highest"
+  - name: arbitration_theorem3_reasoning_focus
+    benchmarks: ["wikicontradict", "conflictbank", "dynamicqa"]
+    models:
+      - "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B"
+      - "Qwen/Qwen3-8B"
+    conditions: ["aligned_context", "conflict_context"]
+    cot_lengths: [0, 64, 256, 1024, 4096]
+    self_consistency: [1, 8, 32]
+    max_examples: 256
+    priority: "highest"
+  - name: arbitration_conflict_headline_wave
+    benchmarks: ["conflictbank", "wikicontradict", "dynamicqa"]
+    models:
+      - "meta-llama/Llama-3.1-8B-Instruct"
+      - "Qwen/Qwen2.5-7B-Instruct"
+      - "Qwen/Qwen3-8B"
+      - "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B"
+      - "EleutherAI/pythia-6.9b"
+    conditions: ["aligned_context", "conflict_context", "irrelevant_noise"]
+    cot_lengths: [0, 64, 256, 1024, 4096]
+    self_consistency: [1, 8]
+    max_examples: 256
+    priority: "highest"
+  - name: arbitration_real_headline_wave
+    benchmarks: ["popqa", "dynamicqa", "nq_swap", "wikicontradict"]
+    models:
+      - "meta-llama/Llama-3.1-8B-Instruct"
+      - "Qwen/Qwen2.5-7B-Instruct"
+      - "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B"
+      - "Qwen/Qwen2.5-14B-Instruct"
+    conditions: ["closed_book", "aligned_context", "conflict_context", "irrelevant_noise"]
+    cot_lengths: [0, 128, 512, 2048]
+    self_consistency: [1, 8]
+    max_examples: 256
+    priority: "highest"
+  - name: arbitration_pilot_prior_strength
+    benchmarks: ["popqa", "dynamicqa"]
+    models:
+      - "meta-llama/Llama-3.1-8B-Instruct"
+      - "Qwen/Qwen2.5-7B-Instruct"
+      - "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B"
+    conditions: ["closed_book", "aligned_context", "conflict_context"]
+    cot_lengths: [0, 128, 512]
+    self_consistency: [1, 8]
+    max_examples: 512
+    priority: "high"
+  - name: arbitration_pilot_gold_conflict
+    benchmarks: ["wikicontradict", "nq_swap"]
+    models:
+      - "meta-llama/Llama-3.1-8B-Instruct"
+      - "Qwen/Qwen2.5-7B-Instruct"
+      - "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B"
+    conditions: ["closed_book", "conflict_context", "two_context_conflict"]
+    cot_lengths: [0, 128, 512, 2048]
+    self_consistency: [1, 8]
+    max_examples: 512
+    priority: "high"
+  - name: arbitration_pilot_cot_calibration
+    benchmarks: ["dynamicqa", "conflictbank"]
+    models:
+      - "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B"
+      - "Qwen/Qwen3-8B"
+    conditions: ["aligned_context", "conflict_context", "irrelevant_noise"]
+    cot_lengths: [0, 64, 256, 1024, 4096]
+    self_consistency: [1, 8, 32]
+    max_examples: 1024
+    priority: "highest"
+  - name: arbitration_checkpoint_family
+    benchmarks: ["templama", "dynamicqa"]
+    models:
+      - "EleutherAI/pythia-6.9b"
+      - "allenai/OLMo-2-7B"
+    conditions: ["closed_book", "aligned_context", "conflict_context"]
+    cot_lengths: [0, 128]
+    self_consistency: [1]
+    max_examples: 1024
+    priority: "medium"

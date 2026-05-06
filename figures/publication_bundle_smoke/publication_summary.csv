@@ -1,0 +1,6 @@
+accuracy,benchmark,method,model,source_file
+100.0,synthetic_demo,falsification,unknown-model,results/pilot/results.json
+100.0,synthetic_demo,greedy,unknown-model,results/pilot/results.json
+66.7,synthetic_demo,majority_vote,unknown-model,results/pilot/results.json
+100.0,synthetic_demo,oracle,unknown-model,results/pilot/results.json
+100.0,synthetic_demo,self_debug,unknown-model,results/pilot/results.json

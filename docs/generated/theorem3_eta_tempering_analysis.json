@@ -1,0 +1,590 @@
+{
+  "source": "theorem3_real_14b_final",
+  "headline": {
+    "mean_conflict_do_no_harm_eta": 0.325,
+    "mean_no_conflict_do_no_harm_eta": 0.625,
+    "conflict_to_no_conflict_eta_shrink_factor": 0.52,
+    "conflictbank_conflict_gap_floor_at_eta_zero": 0.482,
+    "conflictbank_conflict_best_gap": 0.482,
+    "wikicontradict_conflict_best_gap": 0.0034,
+    "wikicontradict_conflict_best_gap_eta": 0.1
+  },
+  "slice_rows": [
+    {
+      "benchmark": "conflictbank",
+      "split": "conflict",
+      "long_accuracy": 0.018,
+      "long_confidence": 0.9693,
+      "observed_long_gap": 0.9513,
+      "no_cot_gap": 0.5876,
+      "gap_floor_at_eta_zero": 0.482,
+      "best_gap_eta": 0.0,
+      "best_gap_value": 0.482,
+      "best_brier_eta": 0.0,
+      "best_brier_value": 0.25,
+      "do_no_harm_eta": 0.1,
+      "paired_no_conf_target_gap": 0.1032,
+      "paired_no_conf_eta": null,
+      "eta_rows": [
+        {
+          "eta": 0.0,
+          "tempered_confidence": 0.5,
+          "proxy_abs_gap": 0.482,
+          "proxy_brier": 0.25
+        },
+        {
+          "eta": 0.05,
+          "tempered_confidence": 0.543,
+          "proxy_abs_gap": 0.525,
+          "proxy_brier": 0.2934
+        },
+        {
+          "eta": 0.1,
+          "tempered_confidence": 0.5855,
+          "proxy_abs_gap": 0.5675,
+          "proxy_brier": 0.3397
+        },
+        {
+          "eta": 0.15,
+          "tempered_confidence": 0.6266,
+          "proxy_abs_gap": 0.6086,
+          "proxy_brier": 0.3881
+        },
+        {
+          "eta": 0.2,
+          "tempered_confidence": 0.6661,
+          "proxy_abs_gap": 0.6481,
+          "proxy_brier": 0.4377
+        },
+        {
+          "eta": 0.25,
+          "tempered_confidence": 0.7033,
+          "proxy_abs_gap": 0.6853,
+          "proxy_brier": 0.4873
+        },
+        {
+          "eta": 0.3,
+          "tempered_confidence": 0.738,
+          "proxy_abs_gap": 0.72,
+          "proxy_brier": 0.5361
+        },
+        {
+          "eta": 0.35,
+          "tempered_confidence": 0.77,
+          "proxy_abs_gap": 0.752,
+          "proxy_brier": 0.5832
+        },
+        {
+          "eta": 0.4,
+          "tempered_confidence": 0.7991,
+          "proxy_abs_gap": 0.7811,
+          "proxy_brier": 0.6279
+        },
+        {
+          "eta": 0.45,
+          "tempered_confidence": 0.8254,
+          "proxy_abs_gap": 0.8074,
+          "proxy_brier": 0.6696
+        },
+        {
+          "eta": 0.5,
+          "tempered_confidence": 0.8489,
+          "proxy_abs_gap": 0.8309,
+          "proxy_brier": 0.7081
+        },
+        {
+          "eta": 0.55,
+          "tempered_confidence": 0.8698,
+          "proxy_abs_gap": 0.8518,
+          "proxy_brier": 0.7432
+        },
+        {
+          "eta": 0.6,
+          "tempered_confidence": 0.8881,
+          "proxy_abs_gap": 0.8701,
+          "proxy_brier": 0.7747
+        },
+        {
+          "eta": 0.65,
+          "tempered_confidence": 0.9041,
+          "proxy_abs_gap": 0.8861,
+          "proxy_brier": 0.8029
+        },
+        {
+          "eta": 0.7,
+          "tempered_confidence": 0.9181,
+          "proxy_abs_gap": 0.9001,
+          "proxy_brier": 0.8278
+        },
+        {
+          "eta": 0.75,
+          "tempered_confidence": 0.9302,
+          "proxy_abs_gap": 0.9122,
+          "proxy_brier": 0.8497
+        },
+        {
+          "eta": 0.8,
+          "tempered_confidence": 0.9406,
+          "proxy_abs_gap": 0.9226,
+          "proxy_brier": 0.8688
+        },
+        {
+          "eta": 0.85,
+          "tempered_confidence": 0.9495,
+          "proxy_abs_gap": 0.9315,
+          "proxy_brier": 0.8854
+        },
+        {
+          "eta": 0.9,
+          "tempered_confidence": 0.9572,
+          "proxy_abs_gap": 0.9392,
+          "proxy_brier": 0.8997
+        },
+        {
+          "eta": 0.95,
+          "tempered_confidence": 0.9637,
+          "proxy_abs_gap": 0.9457,
+          "proxy_brier": 0.9121
+        },
+        {
+          "eta": 1.0,
+          "tempered_confidence": 0.9693,
+          "proxy_abs_gap": 0.9513,
+          "proxy_brier": 0.9226
+        }
+      ]
+    },
+    {
+      "benchmark": "conflictbank",
+      "split": "no_conflict",
+      "long_accuracy": 0.862,
+      "long_confidence": 0.9652,
+      "observed_long_gap": 0.1032,
+      "no_cot_gap": 0.0691,
+      "gap_floor_at_eta_zero": 0.362,
+      "best_gap_eta": 0.55,
+      "best_gap_value": 0.0005,
+      "best_brier_eta": 0.55,
+      "best_brier_value": 0.119,
+      "do_no_harm_eta": 0.75,
+      "paired_no_conf_target_gap": 0.1032,
+      "paired_no_conf_eta": 1.0,
+      "eta_rows": [
+        {
+          "eta": 0.0,
+          "tempered_confidence": 0.5,
+          "proxy_abs_gap": 0.362,
+          "proxy_brier": 0.25
+        },
+        {
+          "eta": 0.05,
+          "tempered_confidence": 0.5414,
+          "proxy_abs_gap": 0.3206,
+          "proxy_brier": 0.2217
+        },
+        {
+          "eta": 0.1,
+          "tempered_confidence": 0.5823,
+          "proxy_abs_gap": 0.2797,
+          "proxy_brier": 0.1972
+        },
+        {
+          "eta": 0.15,
+          "tempered_confidence": 0.6221,
+          "proxy_abs_gap": 0.2399,
+          "proxy_brier": 0.1765
+        },
+        {
+          "eta": 0.2,
+          "tempered_confidence": 0.6603,
+          "proxy_abs_gap": 0.2017,
+          "proxy_brier": 0.1596
+        },
+        {
+          "eta": 0.25,
+          "tempered_confidence": 0.6965,
+          "proxy_abs_gap": 0.1655,
+          "proxy_brier": 0.1463
+        },
+        {
+          "eta": 0.3,
+          "tempered_confidence": 0.7304,
+          "proxy_abs_gap": 0.1316,
+          "proxy_brier": 0.1363
+        },
+        {
+          "eta": 0.35,
+          "tempered_confidence": 0.7619,
+          "proxy_abs_gap": 0.1001,
+          "proxy_brier": 0.129
+        },
+        {
+          "eta": 0.4,
+          "tempered_confidence": 0.7907,
+          "proxy_abs_gap": 0.0713,
+          "proxy_brier": 0.124
+        },
+        {
+          "eta": 0.45,
+          "tempered_confidence": 0.8169,
+          "proxy_abs_gap": 0.0451,
+          "proxy_brier": 0.121
+        },
+        {
+          "eta": 0.5,
+          "tempered_confidence": 0.8404,
+          "proxy_abs_gap": 0.0216,
+          "proxy_brier": 0.1194
+        },
+        {
+          "eta": 0.55,
+          "tempered_confidence": 0.8615,
+          "proxy_abs_gap": 0.0005,
+          "proxy_brier": 0.119
+        },
+        {
+          "eta": 0.6,
+          "tempered_confidence": 0.8801,
+          "proxy_abs_gap": 0.0181,
+          "proxy_brier": 0.1193
+        },
+        {
+          "eta": 0.65,
+          "tempered_confidence": 0.8966,
+          "proxy_abs_gap": 0.0346,
+          "proxy_brier": 0.1202
+        },
+        {
+          "eta": 0.7,
+          "tempered_confidence": 0.911,
+          "proxy_abs_gap": 0.049,
+          "proxy_brier": 0.1214
+        },
+        {
+          "eta": 0.75,
+          "tempered_confidence": 0.9236,
+          "proxy_abs_gap": 0.0616,
+          "proxy_brier": 0.1227
+        },
+        {
+          "eta": 0.8,
+          "tempered_confidence": 0.9345,
+          "proxy_abs_gap": 0.0725,
+          "proxy_brier": 0.1242
+        },
+        {
+          "eta": 0.85,
+          "tempered_confidence": 0.944,
+          "proxy_abs_gap": 0.082,
+          "proxy_brier": 0.1257
+        },
+        {
+          "eta": 0.9,
+          "tempered_confidence": 0.9521,
+          "proxy_abs_gap": 0.0901,
+          "proxy_brier": 0.1271
+        },
+        {
+          "eta": 0.95,
+          "tempered_confidence": 0.9592,
+          "proxy_abs_gap": 0.0972,
+          "proxy_brier": 0.1284
+        },
+        {
+          "eta": 1.0,
+          "tempered_confidence": 0.9652,
+          "proxy_abs_gap": 0.1032,
+          "proxy_brier": 0.1296
+        }
+      ]
+    },
+    {
+      "benchmark": "wikicontradict",
+      "split": "conflict",
+      "long_accuracy": 0.565,
+      "long_confidence": 0.94,
+      "observed_long_gap": 0.375,
+      "no_cot_gap": 0.2717,
+      "gap_floor_at_eta_zero": 0.065,
+      "best_gap_eta": 0.1,
+      "best_gap_value": 0.0034,
+      "best_brier_eta": 0.1,
+      "best_brier_value": 0.2458,
+      "do_no_harm_eta": 0.55,
+      "paired_no_conf_target_gap": 0.4164,
+      "paired_no_conf_eta": 1.0,
+      "eta_rows": [
+        {
+          "eta": 0.0,
+          "tempered_confidence": 0.5,
+          "proxy_abs_gap": 0.065,
+          "proxy_brier": 0.25
+        },
+        {
+          "eta": 0.05,
+          "tempered_confidence": 0.5343,
+          "proxy_abs_gap": 0.0307,
+          "proxy_brier": 0.2467
+        },
+        {
+          "eta": 0.1,
+          "tempered_confidence": 0.5684,
+          "proxy_abs_gap": 0.0034,
+          "proxy_brier": 0.2458
+        },
+        {
+          "eta": 0.15,
+          "tempered_confidence": 0.6017,
+          "proxy_abs_gap": 0.0367,
+          "proxy_brier": 0.2471
+        },
+        {
+          "eta": 0.2,
+          "tempered_confidence": 0.6342,
+          "proxy_abs_gap": 0.0692,
+          "proxy_brier": 0.2506
+        },
+        {
+          "eta": 0.25,
+          "tempered_confidence": 0.6655,
+          "proxy_abs_gap": 0.1005,
+          "proxy_brier": 0.2559
+        },
+        {
+          "eta": 0.3,
+          "tempered_confidence": 0.6954,
+          "proxy_abs_gap": 0.1304,
+          "proxy_brier": 0.2628
+        },
+        {
+          "eta": 0.35,
+          "tempered_confidence": 0.7237,
+          "proxy_abs_gap": 0.1587,
+          "proxy_brier": 0.271
+        },
+        {
+          "eta": 0.4,
+          "tempered_confidence": 0.7504,
+          "proxy_abs_gap": 0.1854,
+          "proxy_brier": 0.2801
+        },
+        {
+          "eta": 0.45,
+          "tempered_confidence": 0.7752,
+          "proxy_abs_gap": 0.2102,
+          "proxy_brier": 0.29
+        },
+        {
+          "eta": 0.5,
+          "tempered_confidence": 0.7983,
+          "proxy_abs_gap": 0.2333,
+          "proxy_brier": 0.3002
+        },
+        {
+          "eta": 0.55,
+          "tempered_confidence": 0.8196,
+          "proxy_abs_gap": 0.2546,
+          "proxy_brier": 0.3106
+        },
+        {
+          "eta": 0.6,
+          "tempered_confidence": 0.839,
+          "proxy_abs_gap": 0.274,
+          "proxy_brier": 0.3209
+        },
+        {
+          "eta": 0.65,
+          "tempered_confidence": 0.8567,
+          "proxy_abs_gap": 0.2917,
+          "proxy_brier": 0.3309
+        },
+        {
+          "eta": 0.7,
+          "tempered_confidence": 0.8728,
+          "proxy_abs_gap": 0.3078,
+          "proxy_brier": 0.3405
+        },
+        {
+          "eta": 0.75,
+          "tempered_confidence": 0.8873,
+          "proxy_abs_gap": 0.3223,
+          "proxy_brier": 0.3497
+        },
+        {
+          "eta": 0.8,
+          "tempered_confidence": 0.9004,
+          "proxy_abs_gap": 0.3354,
+          "proxy_brier": 0.3582
+        },
+        {
+          "eta": 0.85,
+          "tempered_confidence": 0.912,
+          "proxy_abs_gap": 0.347,
+          "proxy_brier": 0.3662
+        },
+        {
+          "eta": 0.9,
+          "tempered_confidence": 0.9225,
+          "proxy_abs_gap": 0.3575,
+          "proxy_brier": 0.3736
+        },
+        {
+          "eta": 0.95,
+          "tempered_confidence": 0.9318,
+          "proxy_abs_gap": 0.3668,
+          "proxy_brier": 0.3803
+        },
+        {
+          "eta": 1.0,
+          "tempered_confidence": 0.94,
+          "proxy_abs_gap": 0.375,
+          "proxy_brier": 0.3864
+        }
+      ]
+    },
+    {
+      "benchmark": "wikicontradict",
+      "split": "no_conflict",
+      "long_accuracy": 0.53,
+      "long_confidence": 0.9464,
+      "observed_long_gap": 0.4164,
+      "no_cot_gap": 0.2963,
+      "gap_floor_at_eta_zero": 0.03,
+      "best_gap_eta": 0.05,
+      "best_gap_value": 0.0058,
+      "best_brier_eta": 0.05,
+      "best_brier_value": 0.2491,
+      "do_no_harm_eta": 0.5,
+      "paired_no_conf_target_gap": 0.4164,
+      "paired_no_conf_eta": 1.0,
+      "eta_rows": [
+        {
+          "eta": 0.0,
+          "tempered_confidence": 0.5,
+          "proxy_abs_gap": 0.03,
+          "proxy_brier": 0.25
+        },
+        {
+          "eta": 0.05,
+          "tempered_confidence": 0.5358,
+          "proxy_abs_gap": 0.0058,
+          "proxy_brier": 0.2491
+        },
+        {
+          "eta": 0.1,
+          "tempered_confidence": 0.5713,
+          "proxy_abs_gap": 0.0413,
+          "proxy_brier": 0.2508
+        },
+        {
+          "eta": 0.15,
+          "tempered_confidence": 0.606,
+          "proxy_abs_gap": 0.076,
+          "proxy_brier": 0.2549
+        },
+        {
+          "eta": 0.2,
+          "tempered_confidence": 0.6397,
+          "proxy_abs_gap": 0.1097,
+          "proxy_brier": 0.2611
+        },
+        {
+          "eta": 0.25,
+          "tempered_confidence": 0.6721,
+          "proxy_abs_gap": 0.1421,
+          "proxy_brier": 0.2693
+        },
+        {
+          "eta": 0.3,
+          "tempered_confidence": 0.7029,
+          "proxy_abs_gap": 0.1729,
+          "proxy_brier": 0.279
+        },
+        {
+          "eta": 0.35,
+          "tempered_confidence": 0.732,
+          "proxy_abs_gap": 0.202,
+          "proxy_brier": 0.2899
+        },
+        {
+          "eta": 0.4,
+          "tempered_confidence": 0.7592,
+          "proxy_abs_gap": 0.2292,
+          "proxy_brier": 0.3016
+        },
+        {
+          "eta": 0.45,
+          "tempered_confidence": 0.7845,
+          "proxy_abs_gap": 0.2545,
+          "proxy_brier": 0.3139
+        },
+        {
+          "eta": 0.5,
+          "tempered_confidence": 0.8078,
+          "proxy_abs_gap": 0.2778,
+          "proxy_brier": 0.3263
+        },
+        {
+          "eta": 0.55,
+          "tempered_confidence": 0.8291,
+          "proxy_abs_gap": 0.2991,
+          "proxy_brier": 0.3385
+        },
+        {
+          "eta": 0.6,
+          "tempered_confidence": 0.8485,
+          "proxy_abs_gap": 0.3185,
+          "proxy_brier": 0.3505
+        },
+        {
+          "eta": 0.65,
+          "tempered_confidence": 0.866,
+          "proxy_abs_gap": 0.336,
+          "proxy_brier": 0.362
+        },
+        {
+          "eta": 0.7,
+          "tempered_confidence": 0.8818,
+          "proxy_abs_gap": 0.3518,
+          "proxy_brier": 0.3729
+        },
+        {
+          "eta": 0.75,
+          "tempered_confidence": 0.896,
+          "proxy_abs_gap": 0.366,
+          "proxy_brier": 0.383
+        },
+        {
+          "eta": 0.8,
+          "tempered_confidence": 0.9086,
+          "proxy_abs_gap": 0.3786,
+          "proxy_brier": 0.3925
+        },
+        {
+          "eta": 0.85,
+          "tempered_confidence": 0.9199,
+          "proxy_abs_gap": 0.3899,
+          "proxy_brier": 0.4011
+        },
+        {
+          "eta": 0.9,
+          "tempered_confidence": 0.9298,
+          "proxy_abs_gap": 0.3998,
+          "proxy_brier": 0.409
+        },
+        {
+          "eta": 0.95,
+          "tempered_confidence": 0.9386,
+          "proxy_abs_gap": 0.4086,
+          "proxy_brier": 0.4161
+        },
+        {
+          "eta": 1.0,
+          "tempered_confidence": 0.9464,
+          "proxy_abs_gap": 0.4164,
+          "proxy_brier": 0.4225
+        }
+      ]
+    }
+  ]
+}

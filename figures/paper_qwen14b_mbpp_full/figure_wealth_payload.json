@@ -1,0 +1,106 @@
+{
+  "title": "E-value Wealth Process",
+  "threshold": 20.0,
+  "traces": [
+    {
+      "benchmark": "mbpp_plus",
+      "problem_id": "Mbpp/100",
+      "candidate_id": "Mbpp/100_cand_0",
+      "survived": true,
+      "wealth": [
+        0.6842105263157895,
+        0.5113573407202217
+      ]
+    },
+    {
+      "benchmark": "mbpp_plus",
+      "problem_id": "Mbpp/100",
+      "candidate_id": "Mbpp/100_cand_1",
+      "survived": true,
+      "wealth": [
+        0.6842105263157895,
+        0.5113573407202217
+      ]
+    },
+    {
+      "benchmark": "mbpp_plus",
+      "problem_id": "Mbpp/101",
+      "candidate_id": "Mbpp/101_cand_0",
+      "survived": true,
+      "wealth": [
+        0.6842105263157895,
+        0.5113573407202217
+      ]
+    },
+    {
+      "benchmark": "mbpp_plus",
+      "problem_id": "Mbpp/101",
+      "candidate_id": "Mbpp/101_cand_1",
+      "survived": true,
+      "wealth": [
+        0.6842105263157895,
+        0.5113573407202217
+      ]
+    },
+    {
+      "benchmark": "mbpp_plus",
+      "problem_id": "Mbpp/102",
+      "candidate_id": "Mbpp/102_cand_0",
+      "survived": true,
+      "wealth": [
+        0.6842105263157895,
+        0.5113573407202217
+      ]
+    },
+    {
+      "benchmark": "mbpp_plus",
+      "problem_id": "Mbpp/102",
+      "candidate_id": "Mbpp/102_cand_1",
+      "survived": true,
+      "wealth": [
+        0.6842105263157895,
+        0.5113573407202217
+      ]
+    },
+    {
+      "benchmark": "mbpp_plus",
+      "problem_id": "Mbpp/103",
+      "candidate_id": "Mbpp/103_cand_0",
+      "survived": true,
+      "wealth": [
+        0.6842105263157895,
+        0.5113573407202217
+      ]
+    },
+    {
+      "benchmark": "mbpp_plus",
+      "problem_id": "Mbpp/103",
+      "candidate_id": "Mbpp/103_cand_1",
+      "survived": true,
+      "wealth": [
+        0.6842105263157895,
+        0.5113573407202217
+      ]
+    },
+    {
+      "benchmark": "mbpp_plus",
+      "problem_id": "Mbpp/104",
+      "candidate_id": "Mbpp/104_cand_0",
+      "survived": true,
+      "wealth": [
+        0.6842105263157895,
+        0.5113573407202217
+      ]
+    },
+    {
+      "benchmark": "mbpp_plus",
+      "problem_id": "Mbpp/104",
+      "candidate_id": "Mbpp/104_cand_1",
+      "survived": true,
+      "wealth": [
+        0.6842105263157895,
+        0.5113573407202217
+      ]
+    }
+  ]
+}

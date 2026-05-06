@@ -1,0 +1,46 @@
+{
+  "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-14B",
+  "num_rows": 600,
+  "condition_rows": [
+    {
+      "benchmark": "triviaqa",
+      "condition": "closed_book",
+      "cot_length": 0,
+      "count": 200,
+      "accuracy": 0.395,
+      "mean_confidence": 0.6462,
+      "gap": 0.2512
+    },
+    {
+      "benchmark": "triviaqa",
+      "condition": "closed_book",
+      "cot_length": 128,
+      "count": 200,
+      "accuracy": 0.45,
+      "mean_confidence": 0.9444,
+      "gap": 0.4944
+    },
+    {
+      "benchmark": "triviaqa",
+      "condition": "closed_book",
+      "cot_length": 1024,
+      "count": 200,
+      "accuracy": 0.45,
+      "mean_confidence": 0.933,
+      "gap": 0.483
+    }
+  ],
+  "trajectories": [
+    {
+      "benchmark": "triviaqa",
+      "closed_book": {
+        "gap_cot_0": 0.2512,
+        "gap_cot_128": 0.4944,
+        "gap_cot_1024": 0.483,
+        "delta_0_128": 0.2432,
+        "delta_128_1024": -0.0114,
+        "delta_0_1024": 0.2318
+      }
+    }
+  ]
+}

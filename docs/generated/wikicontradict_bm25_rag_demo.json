@@ -1,0 +1,230 @@
+{
+  "examples": [
+    {
+      "conflict_answers": [
+        "Aporphine"
+      ],
+      "gold_answers": [
+        "Apomorphine",
+        "Aporphine"
+      ],
+      "id": "1",
+      "question": "Which of the following are present in Nymphaea nouchali var. caerulea: apomorphine, aporphine, or neither?",
+      "top_docs": [
+        {
+          "id": "48",
+          "kind": "aligned",
+          "score": 47.812438,
+          "text": "The underwater rhizomes of nymphaea nouchali var. caerulea are edible. Like other species in the genus, nymphaea nouchali var. caerulea contains the psychoactive alkaloid aporphine (not to be confused with apomorphine, a metabolic product of aporphine)."
+        },
+        {
+          "id": "48",
+          "kind": "conflict",
+          "score": 40.742639,
+          "text": "Apomorphine is said to be main psychoactive compound present in nymphaea nouchali var. caerulea. Other compounds include nuciferine."
+        },
+        {
+          "id": "1",
+          "kind": "conflict",
+          "score": 40.640995,
+          "text": "Like other species in the genus, Nymphaea nouchali var. caerulea contains the psychoactive alkaloid aporphine (not to be confused with apomorphine, a metabolic product of aporphine)."
+        },
+        {
+          "id": "1",
+          "kind": "aligned",
+          "score": 14.73376,
+          "text": "Apomorphine is said to be main psychoactive compound present."
+        },
+        {
+          "id": "191",
+          "kind": "aligned",
+          "score": 12.31311,
+          "text": "Other methods of bleeding control in surgery include the use of blood substitutes, which at present do not carry oxygen but expand the volume of the blood to prevent shock. Blood substitutes which do carry oxygen, such as PolyHeme, are also under development."
+        }
+      ]
+    },
+    {
+      "conflict_answers": [
+        "Yes."
+      ],
+      "gold_answers": [
+        "No.",
+        "Yes."
+      ],
+      "id": "2",
+      "question": "Are there any other missiles besides the P-500 Bazalt that influenced the design of P-700 Granit missile?",
+      "top_docs": [
+        {
+          "id": "2",
+          "kind": "aligned",
+          "score": 49.732795,
+          "text": "The P-700 was derived from the P-500 Bazalt missile with a turbojet."
+        },
+        {
+          "id": "2",
+          "kind": "conflict",
+          "score": 39.990148,
+          "text": "The missile was partially derived from the P-500 Bazalt."
+        },
+        {
+          "id": "15",
+          "kind": "conflict",
+          "score": 10.539327,
+          "text": "Alonso del Castillo Maldonado (died after 1547) was an early Spanish explorer in the Americas. He was one of the last four survivors of the P\u00e1nfilo de Narv\u00e1ez expedition, along with \u00c1lvar N\u00fa\u00f1ez Cabeza de Vaca, Andr\u00e9s Dorantes de Carranza and his African slave Estevanico. "
+        },
+        {
+          "id": "15",
+          "kind": "aligned",
+          "score": 10.372646,
+          "text": "In the spring of 1528, during the P\u00e1nfilo de Narv\u00e1ez's 1527 expedition, thirteen of the fifteen survivors decided to leave the Galveston island, abandoning Cabeza de Vaca (because he was sick and unable to travel) and two other members of the expedition. In April 1529, this group, led by Dorantes and Castillo, reached the coast and landed at Matagorda Bay. However, most of the members of this expedition were killed by Native Americans. Only three survived: Dorantes de Carranza, Castillo and Estevanico."
+        },
+        {
+          "id": "165",
+          "kind": "aligned",
+          "score": 9.58606,
+          "text": "Eastern Orthodox Church reject as incompatible with the Orthodox faith any such use of the \"two lungs\" expression to imply that the Eastern Orthodox and Roman Catholic churches are two parts of a single church and \"that Orthodoxy is only for Easterners, and that Catholicism is only for Westerners\", according to Archpriest Andrew Phillips. Patriarch Bartholomew I of Constantinople (spiritual leader of the Eastern Orthodox Christians worldwide) \"rejects the opinion\" that \"there would be an 'incompatibility between Orthodox tradition and the European cultural way', which would be antinomic\" and points out that idea \"is against the principle of equality and respect of peoples and cultural traditions on our continent.\""
+        }
+      ]
+    },
+    {
+      "conflict_answers": [
+        "Yes."
+      ],
+      "gold_answers": [
+        "No.",
+        "Yes."
+      ],
+      "id": "3",
+      "question": "Did the formation of the grooves on Phobos occur as a single event?",
+      "top_docs": [
+        {
+          "id": "3",
+          "kind": "conflict",
+          "score": 15.83311,
+          "text": "In November 2018, following further computational probability analysis, astronomers concluded that the many grooves on Phobos were caused by boulders, ejected from the asteroid impact that created Stickney crater. These boulders rolled in a predictable pattern on the surface of the moon."
+        },
+        {
+          "id": "3",
+          "kind": "aligned",
+          "score": 10.353819,
+          "text": "The model designed in 2015 supported the discovery that some of the grooves are younger than others, implying that the process that produces the grooves is ongoing."
+        },
+        {
+          "id": "245",
+          "kind": "conflict",
+          "score": 8.032582,
+          "text": "Amanieu d'Albret was one of the six cardinals who did not participate in the 1513 papal conclave."
+        },
+        {
+          "id": "244",
+          "kind": "conflict",
+          "score": 8.032582,
+          "text": "Amanieu d'Albret was one of the six cardinals who did not participate in the 1513 papal conclave."
+        },
+        {
+          "id": "193",
+          "kind": "aligned",
+          "score": 7.570973,
+          "text": "Bombus polaris is part of the subgenus Alpinobombus along with Bombus alpinus, Bombus balteatus, Bombus hyperboreus, and Bombus neoboreus. Alpinobombus bees occur in arctic and high alpine regions."
+        }
+      ]
+    },
+    {
+      "conflict_answers": [
+        "No"
+      ],
+      "gold_answers": [
+        "Yes",
+        "No"
+      ],
+      "id": "4",
+      "question": "Did Bishop Heber meet D\u2019Oyly in the 1840s in Patna ?",
+      "top_docs": [
+        {
+          "id": "4",
+          "kind": "aligned",
+          "score": 41.740413,
+          "text": "Bishop Heber, who visited Patna in the 1840s, described Charles D'Oyly as the \u201cbest gentleman artist I ever met\u201d."
+        },
+        {
+          "id": "245",
+          "kind": "conflict",
+          "score": 11.600597,
+          "text": "Amanieu d'Albret was one of the six cardinals who did not participate in the 1513 papal conclave."
+        },
+        {
+          "id": "244",
+          "kind": "conflict",
+          "score": 11.600597,
+          "text": "Amanieu d'Albret was one of the six cardinals who did not participate in the 1513 papal conclave."
+        },
+        {
+          "id": "4",
+          "kind": "conflict",
+          "score": 10.279184,
+          "text": "After working for the Company for forty years, Charles D'Oyly's failing health compelled him to retire and leave India in 1838"
+        },
+        {
+          "id": "85",
+          "kind": "aligned",
+          "score": 10.013759,
+          "text": "Charles D'Oyly sketched incessantly and took an active interest in the arts generally, finding these leisure pursuits to be an agreeable way to relieve the boredom associated with colonial life. He produced landscapes, scenes of Indian life, portraits, and caricatures, primarily in watercolour, and also wrote satirical verse. His work was influenced by his friend, the painter, George Chinnery, who stayed with D\u2019Oyly and his wife in Dacca in 1802\u201303."
+        }
+      ]
+    },
+    {
+      "conflict_answers": [
+        "President Oler appeard in court in the 1890s"
+      ],
+      "gold_answers": [
+        "President Oler took the stand in 1911",
+        "President Oler appeard in court in the 1890s"
+      ],
+      "id": "5",
+      "question": "What year did President Oler take the stand in court?",
+      "top_docs": [
+        {
+          "id": "5",
+          "kind": "aligned",
+          "score": 18.92788,
+          "text": "President Wesley M. Oler took the stand for the company in 1911 when detectives traveled to Rockland Lake to find the icehouses packed with ice but no workers to load the product onto barges to New York City. The lack of workers had to do with the two dollars they were getting paid when small, independent companies were paying double what bigger companies like Knickerbocker were paying their employees. Oler took to the stand to tell the court he was paying his workers properly and was even paying them extra for the work they did on Sundays, but the workers rebelled. When detectives dug deeper into the situation, they discovered Oler secretly made deals with other companies to purchase ice when they were suffering from deficiencies. Oler came up with numerous excuses why he was conducting the Knickerbocker Ice Company\u2019s business in such a way. Oler explained it was cheaper to transport ice in smaller quantities to meet the demands of clients than to purchase more rail cars and transport everything at once. Also, the 1890s was an exceptionally warm winter which was a major setback for the ice industry since there was not much ice to sell to consumers. Oler told the court he searched for skilled workers to harvest ice during the warm season but was unsuccessful, which is the why these complications occurred while he was president of the company."
+        },
+        {
+          "id": "5",
+          "kind": "conflict",
+          "score": 18.92788,
+          "text": "President Wesley M. Oler took the stand for the company in 1911 when detectives traveled to Rockland Lake to find the icehouses packed with ice but no workers to load the product onto barges to New York City. The lack of workers had to do with the two dollars they were getting paid when small, independent companies were paying double what bigger companies like Knickerbocker were paying their employees. Oler took to the stand to tell the court he was paying his workers properly and was even paying them extra for the work they did on Sundays, but the workers rebelled. When detectives dug deeper into the situation, they discovered Oler secretly made deals with other companies to purchase ice when they were suffering from deficiencies. Oler came up with numerous excuses why he was conducting the Knickerbocker Ice Company\u2019s business in such a way. Oler explained it was cheaper to transport ice in smaller quantities to meet the demands of clients than to purchase more rail cars and transport everything at once. Also, the 1890s was an exceptionally warm winter which was a major setback for the ice industry since there was not much ice to sell to consumers. Oler told the court he searched for skilled workers to harvest ice during the warm season but was unsuccessful, which is the why these complications occurred while he was president of the company."
+        },
+        {
+          "id": "245",
+          "kind": "conflict",
+          "score": 7.601481,
+          "text": "Amanieu d'Albret was one of the six cardinals who did not participate in the 1513 papal conclave."
+        },
+        {
+          "id": "244",
+          "kind": "conflict",
+          "score": 7.601481,
+          "text": "Amanieu d'Albret was one of the six cardinals who did not participate in the 1513 papal conclave."
+        },
+        {
+          "id": "61",
+          "kind": "aligned",
+          "score": 7.493734,
+          "text": "In 1969, Valgard Murray worked with Else Christensen to found the Odinist Fellowship, and served as vice president."
+        }
+      ]
+    }
+  ],
+  "headline": {
+    "top1_aligned_rate": 0.616601,
+    "top1_conflict_rate": 0.300395,
+    "top5_contains_both_rate": 0.719368
+  },
+  "metadata": {
+    "benchmark": "wikicontradict",
+    "num_corpus_docs": 506,
+    "num_examples": 253,
+    "retriever": "local_bm25_over_natural_wikicontradict_passages"
+  }
+}

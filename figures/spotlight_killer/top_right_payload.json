@@ -1,0 +1,40 @@
+{
+  "points": [
+    {
+      "bayes_proxy": -0.059780000000000014,
+      "benchmark": "popqa",
+      "conflict_density": 0.35,
+      "heuristic_adaptive": -0.08442,
+      "self_rag": -0.2173
+    },
+    {
+      "bayes_proxy": -0.1781,
+      "benchmark": "faitheval",
+      "conflict_density": 0.5,
+      "heuristic_adaptive": -0.07573999999999999,
+      "self_rag": -0.1256
+    },
+    {
+      "bayes_proxy": -0.17608,
+      "benchmark": "memotrap",
+      "conflict_density": 0.5,
+      "heuristic_adaptive": -0.0751,
+      "self_rag": -0.0977
+    },
+    {
+      "bayes_proxy": -0.17945999999999995,
+      "benchmark": "nq_swap",
+      "conflict_density": 0.77,
+      "heuristic_adaptive": -0.07749999999999999,
+      "self_rag": -0.1261
+    },
+    {
+      "bayes_proxy": -0.26764,
+      "benchmark": "conflictbank",
+      "conflict_density": 0.82,
+      "heuristic_adaptive": -0.13174,
+      "self_rag": -0.1613
+    }
+  ],
+  "title": "Conflict Density Sweep"
+}

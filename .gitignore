@@ -1,0 +1,74 @@
+# LaTeX build artifacts
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+*.toc
+*.lof
+*.lot
+*.nav
+*.snm
+*.vrb
+*.run.xml
+*-blx.bib
+texput.log
+
+# Editor / OS
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.ipynb_checkpoints/
+.pytest_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# Virtual envs
+venv/
+env/
+.venv/
+ENV/
+
+# Large generated / experiment artifacts
+results/
+logs/
+checkpoints/
+models/
+data_prepared_test/
+slurm-*.out
+
+# Stray PDFs and reference papers (not paper output)
+main-74.pdf
+paper/19216_In_Context_Learning_Stra.pdf
+
+# Screenshots committed by accident
+paper/Screenshot*.png
+
+# Style zip (extracted folder is committed instead)
+paper/neurips_styles.zip
+
+# Wandb / mlflow if present
+wandb/
+mlruns/
+
+# Local secrets (defensive)
+*.env
+.env*
+*credentials*
+*secret*
+*.key
+*.pem

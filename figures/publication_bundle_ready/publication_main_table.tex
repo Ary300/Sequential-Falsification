@@ -1,0 +1,22 @@
+\begin{tabular}{llcccc}
+\toprule
+Model & Method & humaneval_plus & livecodebench_v6 & math500 & mbpp_plus \\
+\midrule
+Qwen/Qwen2.5-Coder-14B-Instruct & greedy & 27.4 & -- & 22.7 $\\pm$ 0.33 & 70.5 $\\pm$ 0.38 \\
+Qwen/Qwen2.5-Coder-14B-Instruct & majority vote & 23.2 & -- & 24.1 $\\pm$ 0.13 & 71.6 $\\pm$ 0.32 \\
+Qwen/Qwen2.5-Coder-14B-Instruct & generated-test filter & -- & -- & 34.3 $\\pm$ 0.67 & -- \\
+Qwen/Qwen2.5-Coder-14B-Instruct & self-debug & 43.9 & -- & 34.3 $\\pm$ 0.67 & 75.2 $\\pm$ 0.35 \\
+Qwen/Qwen2.5-Coder-14B-Instruct & falsification & 43.9 & -- & 34.3 $\\pm$ 0.67 & 75.1 $\\pm$ 0.26 \\
+Qwen/Qwen2.5-Coder-14B-Instruct & oracle & 45.7 & -- & 34.3 $\\pm$ 0.67 & 80.3 $\\pm$ 0.18 \\
+deepseek-ai/DeepSeek-R1-Distill-Qwen-32B & greedy & 44.5 & -- & -- & 31.0 $\\pm$ 0.31 \\
+deepseek-ai/DeepSeek-R1-Distill-Qwen-32B & majority vote & 29.9 & -- & -- & 30.8 $\\pm$ 0.32 \\
+deepseek-ai/DeepSeek-R1-Distill-Qwen-32B & self-debug & 82.3 & -- & -- & 64.6 $\\pm$ 1.50 \\
+deepseek-ai/DeepSeek-R1-Distill-Qwen-32B & falsification & 82.9 & -- & -- & 64.4 $\\pm$ 1.63 \\
+deepseek-ai/DeepSeek-R1-Distill-Qwen-32B & oracle & 84.8 & -- & -- & 66.8 $\\pm$ 1.23 \\
+deepseek-ai/DeepSeek-R1-Distill-Qwen-7B & greedy & 34.8 & 3.0 $\\pm$ 0.00 & 11.7 $\\pm$ 2.33 & 11.2 $\\pm$ 0.35 \\
+deepseek-ai/DeepSeek-R1-Distill-Qwen-7B & majority vote & 32.9 & 3.0 $\\pm$ 0.00 & 23.0 $\\pm$ 2.08 & 10.8 $\\pm$ 0.23 \\
+deepseek-ai/DeepSeek-R1-Distill-Qwen-7B & self-debug & 72.6 & -- & -- & 33.8 $\\pm$ 1.04 \\
+deepseek-ai/DeepSeek-R1-Distill-Qwen-7B & falsification & 70.7 & 8.0 $\\pm$ 0.00 & 33.7 $\\pm$ 1.67 & 33.8 $\\pm$ 1.04 \\
+deepseek-ai/DeepSeek-R1-Distill-Qwen-7B & oracle & 74.4 & 8.0 $\\pm$ 0.00 & 33.7 $\\pm$ 1.67 & 34.8 $\\pm$ 1.28 \\
+\bottomrule
+\end{tabular}

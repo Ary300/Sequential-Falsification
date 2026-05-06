@@ -1,0 +1,10 @@
+{
+  "output_dir": "/Users/aryavdas/Downloads/Sequential Falsification with Calibrated Confidence/figures/spotlight_killer",
+  "payloads": {
+    "bottom_left": "/Users/aryavdas/Downloads/Sequential Falsification with Calibrated Confidence/figures/spotlight_killer/bottom_left_payload.json",
+    "bottom_right": "/Users/aryavdas/Downloads/Sequential Falsification with Calibrated Confidence/figures/spotlight_killer/bottom_right_payload.json",
+    "top_left": "/Users/aryavdas/Downloads/Sequential Falsification with Calibrated Confidence/figures/spotlight_killer/top_left_payload.json",
+    "top_right": "/Users/aryavdas/Downloads/Sequential Falsification with Calibrated Confidence/figures/spotlight_killer/top_right_payload.json"
+  },
+  "svg": "/Users/aryavdas/Downloads/Sequential Falsification with Calibrated Confidence/figures/spotlight_killer/spotlight_killer_figure.svg"
+}
