@@ -39,6 +39,10 @@ export TRITON_CACHE_DIR=${TRITON_CACHE_DIR:-${XDG_CACHE_HOME}/triton}
 export VLLM_NO_USAGE_STATS=${VLLM_NO_USAGE_STATS:-1}
 export VLLM_DO_NOT_TRACK=${VLLM_DO_NOT_TRACK:-1}
 export DO_NOT_TRACK=${DO_NOT_TRACK:-1}
+USE_NODE_LOCAL_STAGING=${USE_NODE_LOCAL_STAGING:-0}
+SYNC_BACK_ROOT=${SYNC_BACK_ROOT:-${DELTA_RESULTS_ROOT}}
+NODE_LOCAL_ROOT=${NODE_LOCAL_ROOT:-${TMPDIR:-/tmp}/${USER}/tts_stage_${SLURM_JOB_ID}}
+NODE_LOCAL_CACHE_ROOT=${NODE_LOCAL_CACHE_ROOT:-${NODE_LOCAL_ROOT}/runtime_cache}
 
 MODEL=${MODEL:-deepseek-ai/DeepSeek-R1-Distill-Qwen-7B}
 BACKEND=${BACKEND:-openai}
@@ -62,6 +66,7 @@ TRIVIAQA_MAX=${TRIVIAQA_MAX:-200}
 COT_LENGTHS=${COT_LENGTHS:-0,128,1024}
 BENCHMARK_MAXIMA=${BENCHMARK_MAXIMA:-}
 DATASET_PATHS=${DATASET_PATHS:-}
+MERGE_PEFT_ADAPTER_FROM=${MERGE_PEFT_ADAPTER_FROM:-}
 CONFLICTBANK_SCREENING_POOL=${CONFLICTBANK_SCREENING_POOL:-1200}
 AMBIGUITY_LOW=${AMBIGUITY_LOW:-0.2}
 AMBIGUITY_HIGH=${AMBIGUITY_HIGH:-0.8}
@@ -69,15 +74,53 @@ DELTA_PROJECT_ROOT=${DELTA_PROJECT_ROOT:-/u/adas17/tts-falsification-git}
 
 cd "${DELTA_PROJECT_ROOT}"
 nvidia-smi -L || true
-mkdir -p "${HF_HOME}" "${XDG_CACHE_HOME}" "${XDG_CONFIG_HOME}" "${VLLM_CACHE_ROOT}" "${VLLM_CONFIG_ROOT}"
-mkdir -p "${TORCHINDUCTOR_CACHE_DIR}" "${TRITON_CACHE_DIR}"
 
 if [[ "${OUTPUT_DIR}" = /* ]]; then
-  RUN_OUTPUT_DIR="${OUTPUT_DIR}"
+  PERSIST_OUTPUT_DIR="${OUTPUT_DIR}"
 else
-  RUN_OUTPUT_DIR="${DELTA_RESULTS_ROOT%/}/${OUTPUT_DIR}"
+  PERSIST_OUTPUT_DIR="${SYNC_BACK_ROOT%/}/${OUTPUT_DIR}"
 fi
-mkdir -p "${RUN_OUTPUT_DIR}"
+
+if [[ "${USE_NODE_LOCAL_STAGING}" == "1" ]]; then
+  export HF_HOME="${NODE_LOCAL_CACHE_ROOT}/hf_home"
+  export XDG_CACHE_HOME="${NODE_LOCAL_CACHE_ROOT}/xdg_cache"
+  export XDG_CONFIG_HOME="${NODE_LOCAL_CACHE_ROOT}/xdg_config"
+  export VLLM_CACHE_ROOT="${XDG_CACHE_HOME}/vllm"
+  export VLLM_CONFIG_ROOT="${XDG_CONFIG_HOME}/vllm"
+  export TORCHINDUCTOR_CACHE_DIR="${XDG_CACHE_HOME}/torchinductor"
+  export TRITON_CACHE_DIR="${XDG_CACHE_HOME}/triton"
+  RUN_OUTPUT_DIR="${NODE_LOCAL_ROOT}/run_output"
+else
+  RUN_OUTPUT_DIR="${PERSIST_OUTPUT_DIR}"
+fi
+
+VLLM_PID=""
+cleanup() {
+  local rc=$?
+  if [[ -n "${VLLM_PID}" ]]; then
+    kill "${VLLM_PID}" >/dev/null 2>&1 || true
+  fi
+  if [[ "${USE_NODE_LOCAL_STAGING}" == "1" && -d "${RUN_OUTPUT_DIR}" ]]; then
+    mkdir -p "${PERSIST_OUTPUT_DIR}"
+    rsync -a "${RUN_OUTPUT_DIR}/" "${PERSIST_OUTPUT_DIR}/"
+  fi
+  exit "${rc}"
+}
+trap cleanup EXIT
+
+mkdir -p "${HF_HOME}" "${XDG_CACHE_HOME}" "${XDG_CONFIG_HOME}" "${VLLM_CACHE_ROOT}" "${VLLM_CONFIG_ROOT}"
+mkdir -p "${TORCHINDUCTOR_CACHE_DIR}" "${TRITON_CACHE_DIR}" "${RUN_OUTPUT_DIR}"
+
+if [[ -n "${MERGE_PEFT_ADAPTER_FROM}" ]]; then
+  MERGED_LOCAL_MODEL_DIR="${NODE_LOCAL_ROOT}/merged_peft_model"
+  mkdir -p "${MERGED_LOCAL_MODEL_DIR}"
+  python scripts/merge_peft_adapter.py \
+    --base-model "${MODEL}" \
+    --adapter-dir "${MERGE_PEFT_ADAPTER_FROM}" \
+    --output-dir "${MERGED_LOCAL_MODEL_DIR}" \
+    --torch-dtype "bfloat16"
+  MODEL="${MERGED_LOCAL_MODEL_DIR}"
+fi
 
 ARGS=(
   --output-dir "${RUN_OUTPUT_DIR}" \
@@ -112,7 +155,6 @@ if [[ "${BACKEND}" == "openai" ]]; then
     --gpu-memory-utilization "${GPU_MEMORY_UTILIZATION}" \
     > logs/vllm_theorem3_${SLURM_JOB_ID}.log 2>&1 &
   VLLM_PID=$!
-  trap 'kill ${VLLM_PID} >/dev/null 2>&1 || true' EXIT
 
   for _ in $(seq 1 60); do
     python - <<'PY' >/dev/null 2>&1 && break

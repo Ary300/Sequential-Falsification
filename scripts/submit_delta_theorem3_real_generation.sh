@@ -30,6 +30,7 @@ TRIVIAQA_MAX="${TRIVIAQA_MAX:-200}"
 COT_LENGTHS="${COT_LENGTHS:-0,128,1024}"
 BENCHMARK_MAXIMA="${BENCHMARK_MAXIMA:-}"
 DATASET_PATHS="${DATASET_PATHS:-}"
+MERGE_PEFT_ADAPTER_FROM="${MERGE_PEFT_ADAPTER_FROM:-}"
 CONFLICTBANK_SCREENING_POOL="${CONFLICTBANK_SCREENING_POOL:-1200}"
 AMBIGUITY_LOW="${AMBIGUITY_LOW:-0.2}"
 AMBIGUITY_HIGH="${AMBIGUITY_HIGH:-0.8}"
@@ -39,6 +40,10 @@ WALL="${WALL:-08:00:00}"
 GPUS="${GPUS:-1}"
 CPUS="${CPUS:-16}"
 JOB_NAME="${JOB_NAME:-theorem3_real}"
+USE_NODE_LOCAL_STAGING="${USE_NODE_LOCAL_STAGING:-0}"
+SYNC_BACK_ROOT="${SYNC_BACK_ROOT:-}"
+NODE_LOCAL_ROOT="${NODE_LOCAL_ROOT:-}"
+NODE_LOCAL_CACHE_ROOT="${NODE_LOCAL_CACHE_ROOT:-}"
 
 host_name="$(hostname 2>/dev/null || true)"
 if [[ "${host_name}" == gh-login* || "${host_name}" == dtai-login* || "${PWD}" == /u/${DELTA_USER}/* ]]; then
@@ -114,11 +119,16 @@ export TRIVIAQA_MAX=$(shell_quote "${TRIVIAQA_MAX}") && \
 export COT_LENGTHS=$(shell_quote "${COT_LENGTHS}") && \
 export BENCHMARK_MAXIMA=$(shell_quote "${BENCHMARK_MAXIMA}") && \
 export DATASET_PATHS=$(shell_quote "${DATASET_PATHS}") && \
+export MERGE_PEFT_ADAPTER_FROM=$(shell_quote "${MERGE_PEFT_ADAPTER_FROM}") && \
 export CONFLICTBANK_SCREENING_POOL=$(shell_quote "${CONFLICTBANK_SCREENING_POOL}") && \
 export AMBIGUITY_LOW=$(shell_quote "${AMBIGUITY_LOW}") && \
 export AMBIGUITY_HIGH=$(shell_quote "${AMBIGUITY_HIGH}") && \
 export TP_SIZE=$(shell_quote "${TP_SIZE}") && \
 export MAX_MODEL_LEN=$(shell_quote "${MAX_MODEL_LEN}") && \
+export USE_NODE_LOCAL_STAGING=$(shell_quote "${USE_NODE_LOCAL_STAGING}") && \
+export SYNC_BACK_ROOT=$(shell_quote "${SYNC_BACK_ROOT}") && \
+export NODE_LOCAL_ROOT=$(shell_quote "${NODE_LOCAL_ROOT}") && \
+export NODE_LOCAL_CACHE_ROOT=$(shell_quote "${NODE_LOCAL_CACHE_ROOT}") && \
 sbatch --parsable --account=$(shell_quote "${GPU_ACCOUNT}") --partition=$(shell_quote "${GPU_PARTITION}") --qos=$(shell_quote "${GPU_QOS}") \
   --gpus-per-node=$(shell_quote "${GPUS}") --cpus-per-task=$(shell_quote "${CPUS}") --time=$(shell_quote "${WALL}") --job-name=$(shell_quote "${JOB_NAME}") \
   --export=ALL slurm/delta/theorem3_real_generation_delta.sbatch

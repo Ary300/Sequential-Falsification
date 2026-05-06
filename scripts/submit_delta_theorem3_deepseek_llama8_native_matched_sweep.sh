@@ -3,6 +3,9 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 EXTRA_ARGS=("$@")
+DELTA_USER=${DELTA_USER:-adas17}
+HDD_RESULTS_ROOT=${DELTA_RESULTS_ROOT:-/work/hdd/bgvi/${DELTA_USER}/tts_results}
+U_RESULTS_ROOT=${U_RESULTS_ROOT:-/u/${DELTA_USER}/tts_results_staging}
 
 submit_pair() {
   local tag="$1"
@@ -30,6 +33,9 @@ submit_pair() {
     OUTPUT_DIR="${output_dir}" \
     JOB_NAME="${job_name}" \
     WALL="12:00:00" \
+    DELTA_RESULTS_ROOT="${HDD_RESULTS_ROOT}" \
+    USE_NODE_LOCAL_STAGING="1" \
+    SYNC_BACK_ROOT="${U_RESULTS_ROOT}" \
     MAX_SOURCE_ROWS="${max_source}" \
     MAX_TRAIN_ROWS="${max_train}" \
     MAX_VAL_ROWS="${max_val}" \
@@ -53,6 +59,9 @@ submit_pair() {
     OUTPUT_DIR="${output_dir}" \
     JOB_NAME="${job_name}" \
     WALL="12:00:00" \
+    DELTA_RESULTS_ROOT="${HDD_RESULTS_ROOT}" \
+    USE_NODE_LOCAL_STAGING="1" \
+    SYNC_BACK_ROOT="${U_RESULTS_ROOT}" \
     MAX_SOURCE_ROWS="${max_source}" \
     MAX_TRAIN_ROWS="${max_train}" \
     MAX_VAL_ROWS="${max_val}" \

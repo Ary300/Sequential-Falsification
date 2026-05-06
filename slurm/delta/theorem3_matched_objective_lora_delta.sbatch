@@ -34,6 +34,10 @@ export VLLM_CONFIG_ROOT=${VLLM_CONFIG_ROOT:-${XDG_CONFIG_HOME}/vllm}
 export VLLM_NO_USAGE_STATS=${VLLM_NO_USAGE_STATS:-1}
 export VLLM_DO_NOT_TRACK=${VLLM_DO_NOT_TRACK:-1}
 export DO_NOT_TRACK=${DO_NOT_TRACK:-1}
+USE_NODE_LOCAL_STAGING=${USE_NODE_LOCAL_STAGING:-0}
+SYNC_BACK_ROOT=${SYNC_BACK_ROOT:-${DELTA_RESULTS_ROOT:-/work/nvme/bgvi/adas17/tts_results}}
+NODE_LOCAL_ROOT=${NODE_LOCAL_ROOT:-${TMPDIR:-/tmp}/${USER}/tts_stage_${SLURM_JOB_ID}}
+NODE_LOCAL_CACHE_ROOT=${NODE_LOCAL_CACHE_ROOT:-${NODE_LOCAL_ROOT}/runtime_cache}
 
 DELTA_PROJECT_ROOT=${DELTA_PROJECT_ROOT:-/u/adas17/tts-falsification-git}
 DELTA_RESULTS_ROOT=${DELTA_RESULTS_ROOT:-/work/nvme/bgvi/adas17/tts_results}
@@ -75,14 +79,44 @@ VLLM_MAX_MODEL_LEN=${VLLM_MAX_MODEL_LEN:-12288}
 
 cd "${DELTA_PROJECT_ROOT}"
 nvidia-smi -L || true
-mkdir -p "${HF_HOME}" "${XDG_CACHE_HOME}" "${XDG_CONFIG_HOME}" "${VLLM_CACHE_ROOT}" "${VLLM_CONFIG_ROOT}"
 
 if [[ "${OUTPUT_DIR}" = /* ]]; then
-  RUN_OUTPUT_DIR="${OUTPUT_DIR}"
+  PERSIST_OUTPUT_DIR="${OUTPUT_DIR}"
 else
-  RUN_OUTPUT_DIR="${DELTA_RESULTS_ROOT%/}/${OUTPUT_DIR}"
+  PERSIST_OUTPUT_DIR="${SYNC_BACK_ROOT%/}/${OUTPUT_DIR}"
 fi
-mkdir -p "${RUN_OUTPUT_DIR}"
+
+if [[ "${USE_NODE_LOCAL_STAGING}" == "1" ]]; then
+  export HF_HOME="${NODE_LOCAL_CACHE_ROOT}/hf_home"
+  export XDG_CACHE_HOME="${NODE_LOCAL_CACHE_ROOT}/xdg_cache"
+  export XDG_CONFIG_HOME="${NODE_LOCAL_CACHE_ROOT}/xdg_config"
+  export VLLM_CACHE_ROOT="${XDG_CACHE_HOME}/vllm"
+  export VLLM_CONFIG_ROOT="${XDG_CONFIG_HOME}/vllm"
+  RUN_OUTPUT_DIR="${NODE_LOCAL_ROOT}/run_output"
+else
+  RUN_OUTPUT_DIR="${PERSIST_OUTPUT_DIR}"
+fi
+
+VLLM_PID=""
+
+cleanup() {
+  local rc=$?
+  if [[ -n "${VLLM_PID}" ]]; then
+    kill "${VLLM_PID}" >/dev/null 2>&1 || true
+  fi
+  if [[ "${USE_NODE_LOCAL_STAGING}" == "1" && -d "${RUN_OUTPUT_DIR}" ]]; then
+    mkdir -p "${PERSIST_OUTPUT_DIR}"
+    [[ -f "${RUN_OUTPUT_DIR}/matched_objective_lora.json" ]] && cp "${RUN_OUTPUT_DIR}/matched_objective_lora.json" "${PERSIST_OUTPUT_DIR}/"
+    [[ -f "${RUN_OUTPUT_DIR}/matched_objective_lora.md" ]] && cp "${RUN_OUTPUT_DIR}/matched_objective_lora.md" "${PERSIST_OUTPUT_DIR}/"
+    [[ -d "${RUN_OUTPUT_DIR}/theorem3_eval" ]] && rsync -a "${RUN_OUTPUT_DIR}/theorem3_eval/" "${PERSIST_OUTPUT_DIR}/theorem3_eval/"
+    [[ -d "${RUN_OUTPUT_DIR}/intermediate_checkpoints" ]] && rsync -a "${RUN_OUTPUT_DIR}/intermediate_checkpoints/" "${PERSIST_OUTPUT_DIR}/intermediate_checkpoints/"
+    [[ -d "${RUN_OUTPUT_DIR}/adapter" ]] && rsync -a "${RUN_OUTPUT_DIR}/adapter/" "${PERSIST_OUTPUT_DIR}/adapter/"
+  fi
+  exit "${rc}"
+}
+trap cleanup EXIT
+
+mkdir -p "${HF_HOME}" "${XDG_CACHE_HOME}" "${XDG_CONFIG_HOME}" "${VLLM_CACHE_ROOT}" "${VLLM_CONFIG_ROOT}" "${RUN_OUTPUT_DIR}"
 
 python scripts/run_theorem3_matched_objective_lora.py \
   --objective "${OBJECTIVE}" \
@@ -116,6 +150,8 @@ if [[ "${RUN_THEOREM3_EVAL}" == "1" ]]; then
   MERGED_MODEL_DIR="${RUN_OUTPUT_DIR}/merged_model"
   if [[ -z "${EVAL_OUTPUT_DIR}" ]]; then
     RUN_EVAL_OUTPUT_DIR="${RUN_OUTPUT_DIR}/theorem3_eval"
+  elif [[ "${USE_NODE_LOCAL_STAGING}" == "1" ]]; then
+    RUN_EVAL_OUTPUT_DIR="${RUN_OUTPUT_DIR}/theorem3_eval"
   elif [[ "${EVAL_OUTPUT_DIR}" = /* ]]; then
     RUN_EVAL_OUTPUT_DIR="${EVAL_OUTPUT_DIR}"
   else
@@ -131,7 +167,6 @@ if [[ "${RUN_THEOREM3_EVAL}" == "1" ]]; then
     --gpu-memory-utilization 0.9 \
     > logs/vllm_matchobj_${SLURM_JOB_ID}.log 2>&1 &
   VLLM_PID=$!
-  trap 'kill ${VLLM_PID} >/dev/null 2>&1 || true' EXIT
 
   for _ in $(seq 1 60); do
     python - <<'PY' >/dev/null 2>&1 && break

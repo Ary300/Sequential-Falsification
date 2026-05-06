@@ -6,6 +6,7 @@ EXTRA_ARGS=("$@")
 DELTA_USER=${DELTA_USER:-adas17}
 HDD_RESULTS_ROOT=${DELTA_RESULTS_ROOT:-/work/hdd/bgvi/${DELTA_USER}/tts_results}
 HDD_CACHE_ROOT=${HDD_RESULTS_ROOT}/runtime_cache
+U_RESULTS_ROOT=${U_RESULTS_ROOT:-/u/${DELTA_USER}/tts_results_staging}
 
 submit_pair() {
   local tag="$1"
@@ -21,6 +22,8 @@ submit_pair() {
   if [[ ${#EXTRA_ARGS[@]} -gt 0 ]]; then
     OBJECTIVE="dpo" \
     DELTA_RESULTS_ROOT="${HDD_RESULTS_ROOT}" \
+    USE_NODE_LOCAL_STAGING="1" \
+    SYNC_BACK_ROOT="${U_RESULTS_ROOT}" \
     HF_HOME="${HDD_CACHE_ROOT}/hf_cache" \
     XDG_CACHE_HOME="${HDD_CACHE_ROOT}/xdg_cache" \
     XDG_CONFIG_HOME="${HDD_CACHE_ROOT}/xdg_config" \
@@ -48,6 +51,8 @@ submit_pair() {
   else
     OBJECTIVE="dpo" \
     DELTA_RESULTS_ROOT="${HDD_RESULTS_ROOT}" \
+    USE_NODE_LOCAL_STAGING="1" \
+    SYNC_BACK_ROOT="${U_RESULTS_ROOT}" \
     HF_HOME="${HDD_CACHE_ROOT}/hf_cache" \
     XDG_CACHE_HOME="${HDD_CACHE_ROOT}/xdg_cache" \
     XDG_CONFIG_HOME="${HDD_CACHE_ROOT}/xdg_config" \
@@ -77,6 +82,8 @@ submit_pair() {
   if [[ ${#EXTRA_ARGS[@]} -gt 0 ]]; then
     OBJECTIVE="grpo" \
     DELTA_RESULTS_ROOT="${HDD_RESULTS_ROOT}" \
+    USE_NODE_LOCAL_STAGING="1" \
+    SYNC_BACK_ROOT="${U_RESULTS_ROOT}" \
     HF_HOME="${HDD_CACHE_ROOT}/hf_cache" \
     XDG_CACHE_HOME="${HDD_CACHE_ROOT}/xdg_cache" \
     XDG_CONFIG_HOME="${HDD_CACHE_ROOT}/xdg_config" \
@@ -104,6 +111,8 @@ submit_pair() {
   else
     OBJECTIVE="grpo" \
     DELTA_RESULTS_ROOT="${HDD_RESULTS_ROOT}" \
+    USE_NODE_LOCAL_STAGING="1" \
+    SYNC_BACK_ROOT="${U_RESULTS_ROOT}" \
     HF_HOME="${HDD_CACHE_ROOT}/hf_cache" \
     XDG_CACHE_HOME="${HDD_CACHE_ROOT}/xdg_cache" \
     XDG_CONFIG_HOME="${HDD_CACHE_ROOT}/xdg_config" \
