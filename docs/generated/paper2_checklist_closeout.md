@@ -343,11 +343,21 @@ Read:
   - reason for requeue:
     those seeds had never started, so requeueing them was a safe way to make
     them inherit the new periodic sync-back logic from node-local staging
-  - dependent aggregate follow-up is now live too:
-    `2254501` `l8g_ci`
-  - purpose:
-    automatically compute the multiseed theorem-3 mean and bootstrap CI after
-    all `30` seed jobs have either completed or otherwise cleared
+  - after inspecting live progress, the pending half was requeued a second
+    time as `2254569`–`2254593` with a tighter `04:00:00` wall clock
+  - reason for the second requeue:
+    the active seeds were already deep into theorem-3 generation after roughly
+    `80` minutes, so the original `14`-hour request was clearly over-budgeting
+    billing minutes for the still-pending half
+  - current read:
+    this is the same experiment, just a better cluster request shape
+  - the aggregate CI helper exists and was tested live as `2254501`, but it is
+    not being left on the queue right now because DeltaAI requires it to
+    request a GPU, which pushes against the same billing-minute limit as the
+    seed wave itself
+  - practical closeout path:
+    let the shortened seed wave clear first, then submit the CI helper once
+    the seed jobs are mostly or fully complete
 
 ## 7. Free-form open-QA larger sample (`n=8 -> n=200+`)
 

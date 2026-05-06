@@ -289,13 +289,25 @@ Current live read:
     - requeued `Llama-8B GRPO` seeds `47–71` so the still-pending half of the
       seed block inherits the new periodic sync-back path from
       node-local staging
-    - current queue state:
-      all `25` requeued seeds are pending at `QOSGrpBillingMinutes`
-  - `2254501`
-    - dependent `l8g_ci` follow-up job
+  - `2254569`–`2254593`
+    - second requeue of seeds `47`–`71` with a tightened `04:00:00` wall clock
+      after it became clear the original `14:00:00` request was much larger
+      than the live runtime actually needed
     - purpose:
-      automatically build the `30`-seed theorem-3 aggregate CI via
-      `build_theorem3_multiseed_ci.py` after the full seed block clears
+      shrink the billing-minute footprint of the pending half of the Llama
+      wave so those seeds have a better chance of starting sooner
+    - current queue state:
+      all `25` shorter-wall requeued seeds are pending at
+      `QOSGrpBillingMinutes`
+  - helper status:
+    - the dependent `l8g_ci` CI job was tested as `2254501` and then replaced
+      once the pending seed IDs changed
+    - because DeltaAI requires even lightweight follow-up jobs to request a
+      GPU, leaving the CI job live consumed the same billing bucket as the
+      seed wave
+    - current read:
+      keep the helper script in repo, but submit the CI follow-up only once
+      the seed block is mostly clear
 - completed:
   - `2246377`
     - shorter-wall `Llama-3.1-70B-Instruct` standard theorem-3 companion run
