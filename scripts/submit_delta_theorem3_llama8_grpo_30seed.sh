@@ -3,6 +3,9 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 EXTRA_ARGS=("$@")
+DELTA_USER=${DELTA_USER:-adas17}
+HDD_RESULTS_ROOT=${DELTA_RESULTS_ROOT:-/work/hdd/bgvi/${DELTA_USER}/tts_results}
+U_RESULTS_ROOT=${U_RESULTS_ROOT:-/u/${DELTA_USER}/tts_results_staging}
 
 SEED_START="${SEED_START:-42}"
 SEED_END="${SEED_END:-71}"
@@ -13,23 +16,35 @@ MAX_EVAL_ROWS="${MAX_EVAL_ROWS:-96}"
 
 resolve_hf_snapshot() {
   local repo_id="$1"
-  local cache_root="${HF_HOME:-$HOME/.cache/huggingface}/hub/models--${repo_id//\//--}"
-  local snapshot=""
-  if [[ -f "${cache_root}/refs/main" ]]; then
-    local rev
-    rev="$(<"${cache_root}/refs/main")"
-    if [[ -d "${cache_root}/snapshots/${rev}" ]]; then
-      snapshot="${cache_root}/snapshots/${rev}"
+  local repo_cache="models--${repo_id//\//--}"
+  local -a roots=()
+  [[ -n "${HF_HOME:-}" ]] && roots+=("${HF_HOME}/hub")
+  roots+=(
+    "/work/nvme/bgvi/${DELTA_USER}/hf_cache/hub"
+    "/work/hdd/bgvi/${DELTA_USER}/tts_results/runtime_cache/hf_cache/hub"
+    "/u/${DELTA_USER}/.cache/huggingface/hub"
+  )
+
+  local root cache_root snapshot rev
+  for root in "${roots[@]}"; do
+    cache_root="${root}/${repo_cache}"
+    if [[ -f "${cache_root}/refs/main" ]]; then
+      rev="$(<"${cache_root}/refs/main")"
+      if [[ -d "${cache_root}/snapshots/${rev}" ]]; then
+        printf '%s\n' "${cache_root}/snapshots/${rev}"
+        return 0
+      fi
     fi
-  fi
-  if [[ -z "${snapshot}" && -d "${cache_root}/snapshots" ]]; then
-    snapshot="$(find "${cache_root}/snapshots" -mindepth 1 -maxdepth 1 -type d | head -n 1 || true)"
-  fi
-  if [[ -n "${snapshot}" ]]; then
-    printf '%s\n' "${snapshot}"
-  else
-    printf '%s\n' "${repo_id}"
-  fi
+    if [[ -d "${cache_root}/snapshots" ]]; then
+      snapshot="$(find "${cache_root}/snapshots" -mindepth 1 -maxdepth 1 -type d | head -n 1 || true)"
+      if [[ -n "${snapshot}" ]]; then
+        printf '%s\n' "${snapshot}"
+        return 0
+      fi
+    fi
+  done
+
+  printf '%s\n' "${repo_id}"
 }
 
 LLAMA8_MODEL="${LLAMA8_MODEL:-$(resolve_hf_snapshot "meta-llama/Llama-3.1-8B")}"
@@ -42,6 +57,9 @@ for seed in $(seq "${SEED_START}" "${SEED_END}"); do
     OUTPUT_DIR="results/e1_llama8b_grpo_s${seed}" \
     JOB_NAME="l8g_s${seed}" \
     WALL="14:00:00" \
+    DELTA_RESULTS_ROOT="${HDD_RESULTS_ROOT}" \
+    USE_NODE_LOCAL_STAGING="1" \
+    SYNC_BACK_ROOT="${U_RESULTS_ROOT}" \
     MAX_SOURCE_ROWS="${MAX_SOURCE_ROWS}" \
     MAX_TRAIN_ROWS="${MAX_TRAIN_ROWS}" \
     MAX_VAL_ROWS="${MAX_VAL_ROWS}" \
@@ -64,6 +82,9 @@ for seed in $(seq "${SEED_START}" "${SEED_END}"); do
     OUTPUT_DIR="results/e1_llama8b_grpo_s${seed}" \
     JOB_NAME="l8g_s${seed}" \
     WALL="14:00:00" \
+    DELTA_RESULTS_ROOT="${HDD_RESULTS_ROOT}" \
+    USE_NODE_LOCAL_STAGING="1" \
+    SYNC_BACK_ROOT="${U_RESULTS_ROOT}" \
     MAX_SOURCE_ROWS="${MAX_SOURCE_ROWS}" \
     MAX_TRAIN_ROWS="${MAX_TRAIN_ROWS}" \
     MAX_VAL_ROWS="${MAX_VAL_ROWS}" \
