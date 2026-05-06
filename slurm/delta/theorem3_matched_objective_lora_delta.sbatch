@@ -38,6 +38,7 @@ USE_NODE_LOCAL_STAGING=${USE_NODE_LOCAL_STAGING:-0}
 SYNC_BACK_ROOT=${SYNC_BACK_ROOT:-${DELTA_RESULTS_ROOT:-/work/nvme/bgvi/adas17/tts_results}}
 NODE_LOCAL_ROOT=${NODE_LOCAL_ROOT:-${TMPDIR:-/tmp}/${USER}/tts_stage_${SLURM_JOB_ID}}
 NODE_LOCAL_CACHE_ROOT=${NODE_LOCAL_CACHE_ROOT:-${NODE_LOCAL_ROOT}/runtime_cache}
+SYNC_INTERVAL_SECONDS=${SYNC_INTERVAL_SECONDS:-300}
 
 DELTA_PROJECT_ROOT=${DELTA_PROJECT_ROOT:-/u/adas17/tts-falsification-git}
 DELTA_RESULTS_ROOT=${DELTA_RESULTS_ROOT:-/work/nvme/bgvi/adas17/tts_results}
@@ -98,25 +99,48 @@ else
 fi
 
 VLLM_PID=""
+SYNC_PID=""
+
+sync_back_once() {
+  if [[ "${USE_NODE_LOCAL_STAGING}" != "1" || ! -d "${RUN_OUTPUT_DIR}" ]]; then
+    return 0
+  fi
+  mkdir -p "${PERSIST_OUTPUT_DIR}"
+  [[ -f "${RUN_OUTPUT_DIR}/matched_objective_lora.json" ]] && cp "${RUN_OUTPUT_DIR}/matched_objective_lora.json" "${PERSIST_OUTPUT_DIR}/"
+  [[ -f "${RUN_OUTPUT_DIR}/matched_objective_lora.md" ]] && cp "${RUN_OUTPUT_DIR}/matched_objective_lora.md" "${PERSIST_OUTPUT_DIR}/"
+  [[ -d "${RUN_OUTPUT_DIR}/theorem3_eval" ]] && rsync -a "${RUN_OUTPUT_DIR}/theorem3_eval/" "${PERSIST_OUTPUT_DIR}/theorem3_eval/"
+  [[ -d "${RUN_OUTPUT_DIR}/intermediate_checkpoints" ]] && rsync -a "${RUN_OUTPUT_DIR}/intermediate_checkpoints/" "${PERSIST_OUTPUT_DIR}/intermediate_checkpoints/"
+  [[ -d "${RUN_OUTPUT_DIR}/adapter" ]] && rsync -a "${RUN_OUTPUT_DIR}/adapter/" "${PERSIST_OUTPUT_DIR}/adapter/"
+}
+
+start_periodic_sync() {
+  if [[ "${USE_NODE_LOCAL_STAGING}" != "1" ]]; then
+    return 0
+  fi
+  (
+    while true; do
+      sleep "${SYNC_INTERVAL_SECONDS}" || exit 0
+      sync_back_once || true
+    done
+  ) &
+  SYNC_PID=$!
+}
 
 cleanup() {
   local rc=$?
+  if [[ -n "${SYNC_PID}" ]]; then
+    kill "${SYNC_PID}" >/dev/null 2>&1 || true
+  fi
   if [[ -n "${VLLM_PID}" ]]; then
     kill "${VLLM_PID}" >/dev/null 2>&1 || true
   fi
-  if [[ "${USE_NODE_LOCAL_STAGING}" == "1" && -d "${RUN_OUTPUT_DIR}" ]]; then
-    mkdir -p "${PERSIST_OUTPUT_DIR}"
-    [[ -f "${RUN_OUTPUT_DIR}/matched_objective_lora.json" ]] && cp "${RUN_OUTPUT_DIR}/matched_objective_lora.json" "${PERSIST_OUTPUT_DIR}/"
-    [[ -f "${RUN_OUTPUT_DIR}/matched_objective_lora.md" ]] && cp "${RUN_OUTPUT_DIR}/matched_objective_lora.md" "${PERSIST_OUTPUT_DIR}/"
-    [[ -d "${RUN_OUTPUT_DIR}/theorem3_eval" ]] && rsync -a "${RUN_OUTPUT_DIR}/theorem3_eval/" "${PERSIST_OUTPUT_DIR}/theorem3_eval/"
-    [[ -d "${RUN_OUTPUT_DIR}/intermediate_checkpoints" ]] && rsync -a "${RUN_OUTPUT_DIR}/intermediate_checkpoints/" "${PERSIST_OUTPUT_DIR}/intermediate_checkpoints/"
-    [[ -d "${RUN_OUTPUT_DIR}/adapter" ]] && rsync -a "${RUN_OUTPUT_DIR}/adapter/" "${PERSIST_OUTPUT_DIR}/adapter/"
-  fi
+  sync_back_once || true
   exit "${rc}"
 }
 trap cleanup EXIT
 
 mkdir -p "${HF_HOME}" "${XDG_CACHE_HOME}" "${XDG_CONFIG_HOME}" "${VLLM_CACHE_ROOT}" "${VLLM_CONFIG_ROOT}" "${RUN_OUTPUT_DIR}"
+start_periodic_sync
 
 python scripts/run_theorem3_matched_objective_lora.py \
   --objective "${OBJECTIVE}" \
