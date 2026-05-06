@@ -190,37 +190,53 @@ Current live read:
 - pending:
   - initial rescue IDs `2251775`–`2251779`
     - cancelled before start after the launcher-hardening pass landed
-  - `2251792`
+  - second rescue IDs `2251792`–`2251799`
+    - cancelled after a new infrastructure blocker was confirmed:
+      `/work` was at `100%` utilization, so even corrected jobs were still at
+      risk on cache/output writes
+  - `2251840`
     - `r1l8dr_nativefix_b002g8w2`
     - corrected `DPO` rerun of the best prior native pocket with the intended
       `warmstart=2` now actually forwarded
-  - `2251793`
+    - launched with node-local `/tmp` staging and compact sync-back to
+      `/u/adas17/tts_results_staging`
+  - `2251841`
     - `r1l8gr_nativefix_b002g8w2`
     - corrected `GRPO` rerun of the best prior native pocket with the intended
       `warmstart=2` now actually forwarded
-  - `2251794`
+    - launched with node-local `/tmp` staging and compact sync-back to
+      `/u/adas17/tts_results_staging`
+  - `2251842`
     - `r1l8dr_nativerescue_b001g12w3`
     - softer-regularization `DPO` rescue leg with larger group budget and
       `warmstart=3`
-  - `2251798`
+  - `2251843`
     - `r1l8gr_nativerescue_b001g12w3`
     - softer-regularization `GRPO` rescue leg with larger group budget and
       `warmstart=3`
-  - `2251799`
+  - `2251844`
     - `r1l8gr_nativerescue_b001g16t06w3s43`
     - exploratory cooler-sampling `GRPO` rescue leg with a fresh seed
-  - `2251805`–`2251809`
+  - `2251847`–`2251851`
     - dependent checkpoint-eval sweep jobs for the five live DeepSeek rescue
       runs
     - purpose:
       if a saved warmstart or early-objective checkpoint is better than the
       final merged adapter, the eval-only DeepSeek-native sweep will still
       catch it automatically after training completion
+    - implementation note:
+      checkpoint eval now merges adapter-only checkpoints into a standalone
+      local model before theorem-3 eval instead of pointing vLLM directly at a
+      PEFT adapter directory
   - read:
     these jobs exist because a real submit-path bug was found:
     `WARMSTART_EPOCHS` was not being exported through the generic
     matched-objective Delta wrapper, so the earlier native sweep likely ran
     under a weaker warmstart than intended
+    and then a second infrastructure bug surfaced:
+    the shared `/work` filesystem was full, so the current live rescue wave now
+    stages training/eval on node-local scratch and syncs compact outputs back
+    to `/u`
 - pending:
   - `2251744`
     - direct HDD Berk–Nash tail analysis rerun after the dense generator

@@ -125,37 +125,44 @@ Submitted `2026-05-06`:
 
 - initial rescue jobs `2251775`–`2251779` were cancelled before start after the
   launcher hardening landed, so the live queue now uses the corrected rerun IDs
+- second rescue wave `2251792`–`2251799` was then cancelled too once a new
+  infrastructure blocker was confirmed:
+  `/work` was fully saturated, so even corrected training jobs were still at
+  risk of failing on cache or output writes
+- live corrected rescue jobs now use node-local `/tmp` staging with compact
+  sync-back to `/u/adas17/tts_results_staging`
 - live corrected rescue jobs:
-- `2251792` `r1l8dr_nativefix_b002g8w2`
+- `2251840` `r1l8dr_nativefix_b002g8w2`
   - `DPO`
   - reruns the previously best native pocket with the intended
-  `warmstart=2` now actually forwarded
-- `2251793` `r1l8gr_nativefix_b002g8w2`
+    `warmstart=2` now actually forwarded
+- `2251841` `r1l8gr_nativefix_b002g8w2`
   - `GRPO`
   - same corrected `warmstart=2` rerun
-- `2251794` `r1l8dr_nativerescue_b001g12w3`
+- `2251842` `r1l8dr_nativerescue_b001g12w3`
   - `DPO`
   - softer regularization, larger group, `warmstart=3`
-- `2251798` `r1l8gr_nativerescue_b001g12w3`
+- `2251843` `r1l8gr_nativerescue_b001g12w3`
   - `GRPO`
   - softer regularization, larger group, `warmstart=3`
-- `2251799` `r1l8gr_nativerescue_b001g16t06w3s43`
+- `2251844` `r1l8gr_nativerescue_b001g16t06w3s43`
   - `GRPO`
   - exploratory cooler-sampling leg with a fresh seed
 
 Dependent checkpoint-eval sweep jobs also queued:
 
-- `2251805` `r1l8ckfixd_dep`
-- `2251806` `r1l8ckfixg_dep`
-- `2251807` `r1l8ckrescued_dep`
-- `2251808` `r1l8ckrescueg_dep`
-- `2251809` `r1l8ckrescueg2_dep`
+- `2251847` `r1l8ckfixd_dep2`
+- `2251848` `r1l8ckfixg_dep2`
+- `2251849` `r1l8ckrescued_dep2`
+- `2251850` `r1l8ckrescueg_dep2`
+- `2251851` `r1l8ckrescueg2_dep2`
 
 Read:
 
 - each dependency job waits for its paired rescue run to finish cleanly
-- then it scans `intermediate_checkpoints/` and submits DeepSeek-native
-  theorem-3 eval jobs for every saved checkpoint automatically
+- then it scans the staged `intermediate_checkpoints/` tree under
+  `/u/adas17/tts_results_staging` and submits DeepSeek-native theorem-3 eval
+  jobs for every saved checkpoint automatically
 
 Checkpoint read:
 
@@ -181,6 +188,10 @@ Read:
 - the new rescue wave is justified because it is not “rerunning the same weak
   settings”; it is correcting a real warmstart-forwarding bug and then widening
   the GRPO search pocket slightly
+- the checkpoint-eval path is now materially stronger too:
+  checkpoint eval jobs no longer point vLLM directly at adapter-only
+  directories; they first merge the PEFT adapter into a standalone local model
+  before theorem-3 evaluation
 
 ## Read
 
