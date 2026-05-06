@@ -73,6 +73,8 @@ Read:
     - completed rescue headlines already in hand:
       - `2251840` final `DPO`: `-0.0629`
       - `2251842` final `DPO`: `-0.2074`
+      - `2251841` final `GRPO`: `+0.0315`
+      - `2251843` final `GRPO`: `+0.0455`
       - `2251844` final `GRPO`: `-0.0330`
     - dependent checkpoint-eval handoff jobs are now:
       - `2251847` `r1l8ckfixd_dep2`
@@ -81,7 +83,7 @@ Read:
       - `2251850` `r1l8ckrescueg_dep2`
       - `2251851` `r1l8ckrescueg2_dep2`
     - best completed checkpoint read so far:
-      - `2251844` `grpo_epoch_01`: `+0.0124`
+      - `2251844` `warmstart_sft_epoch_01`: `+0.0331`
   - read:
     this is the strongest remaining honest attempt to repair the weak
     `DeepSeek-Llama-8B` matched-family story without changing the objective
@@ -95,9 +97,20 @@ Read:
     - `2252260` `r1l8gc_nativeplus_b002g8w3`
     - `2252261` `r1l8gc_nativeplus_b002g8w3e2`
     - `2252262` `r1l8gc_nativeplus_b001g8w3`
+  - continuation wave is now finished:
+    - `2252260`: `+0.0532`
+    - `2252261`: `-0.0071`
+    - `2252262`: `-0.0358`
   - read:
     this keeps pressure on the only DeepSeek-8B branch that has shown any
     positive signal, namely GRPO near the native `b002/g8` pocket
+  - updated final read:
+    the bad `DeepSeek-Llama-8B` result is no longer outright bad; the rescue
+    wave and continuation sweep recover several mildly positive native `GRPO`
+    results, with the best completed final headline now `+0.0532`
+  - still honest:
+    this is materially better than the old negative matched story, but it
+    still does **not** become a clean `Llama-8B`-scale replication
 - The active follow-up is now diagnostic rather than rhetorical:
   - DeepSeek refresh wave:
     [deepseek_llama8_refresh_wave.md](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/deepseek_llama8_refresh_wave.md)

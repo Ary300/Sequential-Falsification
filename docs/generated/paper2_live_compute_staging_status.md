@@ -206,6 +206,7 @@ Current live read:
       `warmstart=2` now actually forwarded
     - launched with node-local `/tmp` staging and compact sync-back to
       `/u/adas17/tts_results_staging`
+    - current final theorem-3 headline: `+0.0315`
   - `2251842`
     - `r1l8dr_nativerescue_b001g12w3`
     - softer-regularization `DPO` rescue leg with larger group budget and
@@ -215,6 +216,7 @@ Current live read:
     - `r1l8gr_nativerescue_b001g12w3`
     - softer-regularization `GRPO` rescue leg with larger group budget and
       `warmstart=3`
+    - current final theorem-3 headline: `+0.0455`
   - `2251844`
     - `r1l8gr_nativerescue_b001g16t06w3s43`
     - exploratory cooler-sampling `GRPO` rescue leg with a fresh seed
@@ -241,12 +243,20 @@ Current live read:
     to `/u`
     - current checkpoint read:
       the best completed rescue checkpoint so far is
-      `2251844` `grpo_epoch_01` at `+0.0124`
+      `2251844` `warmstart_sft_epoch_01` at `+0.0331`
   - `2252260`–`2252262`
     - new GRPO-only continuation sweep around the best surviving native pocket
     - purpose:
       continue exploring the only branch that has shown any positive signal
       rather than waiting on the current running GRPO wave alone
+    - final continuation headlines:
+      - `2252260`: `+0.0532`
+      - `2252261`: `-0.0071`
+      - `2252262`: `-0.0358`
+    - read:
+      this confirms that the best surviving DeepSeek-8B story is now mildly
+      positive under several native GRPO settings, but still far short of the
+      `Llama-8B` anchor scale
 - pending:
   - `2251744`
     - direct HDD Berk–Nash tail analysis rerun after the dense generator

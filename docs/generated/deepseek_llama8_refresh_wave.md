@@ -151,10 +151,12 @@ Submitted `2026-05-06`:
 - completed headlines so far from the staged rescue wave:
   - `2251840` final `DPO`: `-0.0629`
   - `2251842` final `DPO`: `-0.2074`
+  - `2251841` final `GRPO`: `+0.0315`
+  - `2251843` final `GRPO`: `+0.0455`
   - `2251844` final `GRPO`: `-0.0330`
 - best completed checkpoint reads so far:
   - `2251840` `warmstart_sft_epoch_01`: `-0.0085`
-  - `2251844` `grpo_epoch_01`: `+0.0124`
+  - `2251844` `warmstart_sft_epoch_01`: `+0.0331`
 
 Dependent checkpoint-eval sweep jobs also queued:
 
@@ -204,6 +206,18 @@ Read:
   - `2252260` `r1l8gc_nativeplus_b002g8w3`
   - `2252261` `r1l8gc_nativeplus_b002g8w3e2`
   - `2252262` `r1l8gc_nativeplus_b001g8w3`
+ - completed continuation headlines:
+  - `2252260` final `GRPO`: `+0.0532`
+  - `2252261` final `GRPO`: `-0.0071`
+  - `2252262` final `GRPO`: `-0.0358`
+
+Final read as of `2026-05-06`:
+
+- the rescue wave does improve the bad `DeepSeek-Llama-8B` story from mixed to
+  mildly positive on several native `GRPO` settings
+- the strongest completed final headline is now `+0.0532`
+- that is materially better than the earlier bad runs, but it still does **not**
+  become a clean `Llama-8B`-scale replication
 
 ## Read
 
