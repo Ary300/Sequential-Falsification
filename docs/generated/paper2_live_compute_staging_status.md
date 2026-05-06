@@ -73,13 +73,17 @@ the bottleneck is explicit: launcher readiness versus cluster access.
   - completed seeds `42`, `43`, `44`, `45`
   - mean conflict-minus-no-conflict ECE delta `-0.0022`
   - bootstrap `95% CI [-0.0433, +0.0619]`
+- newest completed multiseed aggregate now in repo:
+  [llama8_grpo_5seed_theorem3_ci.md](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/llama8_grpo_5seed_theorem3_ci.md)
+  - completed seeds `42`, `43`, `44`, `45`, `46`
+  - mean conflict-minus-no-conflict ECE delta `+0.0149`
+  - bootstrap `95% CI [-0.0363, +0.0661]`
 - current live state on Delta:
-  - completed: seeds `42`, `43`, `44`, `45`
-  - still running: seed `46` and the requeued block `47–55`
+  - completed: seeds `42`, `43`, `44`, `45`, `46`
+  - still running: the requeued block `47–55`
   - still pending on `QOSGrpBillingMinutes`: seeds `56–71`
 - current mid-run partials:
-  - seed `46` full theorem-3 partial on `1228` rows: conflict-minus-no-conflict
-    ECE delta `+0.0653`
+  - no fresh mid-run row snapshot has been harvested yet for seeds `47–55`
 - queue cleanup:
   - user explicitly asked that unrelated jobs stop being cancelled, so no
     further unrelated queue cleanup will be done from this point onward
