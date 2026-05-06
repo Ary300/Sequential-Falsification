@@ -89,7 +89,7 @@ On the $25$-cell spotlight (\Cref{fig:spotlight-combined}), Bayes clears zero ag
 
 \begin{figure}[!htbp]
 \centering
-\begin{subfigure}[c]{0.62\linewidth}
+\begin{subfigure}[t]{0.62\linewidth}
 \centering\scriptsize
 \setlength{\tabcolsep}{2pt}
 \renewcommand{\arraystretch}{1.0}
@@ -117,8 +117,9 @@ Always context       & $\phantom{-}7.994$ & $+8.166$ & $[\phantom{-}7.644,\,8.47
 test, fixed-$\lambda$ e-value).  Bayes proxy mean regret $-0.172$.}
 \label{tab:spotlight}
 \end{subfigure}\hspace{0.015\linewidth}%
-\begin{subfigure}[c]{0.34\linewidth}
+\begin{subfigure}[t]{0.32\linewidth}
 \centering
+\vspace{6pt}
 \includegraphics[width=\linewidth]{figs/fig_named_comparators.pdf}
 \subcaption{Per-baseline regret (symlog); same ordering visualized.}
 \label{fig:named-comparators}
@@ -223,9 +224,10 @@ Llama-70B, Qwen-14B, Mistral, Gemma & \multicolumn{3}{l}{gaps $\in[-0.042,\,+0.0
 \subcaption{Matched-base ECE deltas with cross-family and scale controls.}
 \label{tab:matched-base-body}
 \end{subfigure}\hfill
-\begin{subfigure}[c]{0.32\linewidth}
+\begin{subfigure}[t]{0.32\linewidth}
 \centering
-\includegraphics[width=\linewidth]{figs/fig_training_contrast.pdf}
+\vspace{4pt}
+\includegraphics[width=\linewidth, trim={0 0 0 26pt}, clip]{figs/fig_training_contrast.pdf}
 \subcaption{Trace-level RLVR vs.\ RLHF gap by $K$.}
 \label{fig:training-contrast}
 \end{subfigure}
