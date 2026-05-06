@@ -50,6 +50,7 @@ EVAL_CONFLICTBANK_MAX="${EVAL_CONFLICTBANK_MAX:-128}"
 EVAL_TRIVIAQA_MAX="${EVAL_TRIVIAQA_MAX:-0}"
 EVAL_REQUEST_FORMAT="${EVAL_REQUEST_FORMAT:-chat}"
 EVAL_PROMPT_PROTOCOL="${EVAL_PROMPT_PROTOCOL:-generic}"
+VLLM_MAX_MODEL_LEN="${VLLM_MAX_MODEL_LEN:-12288}"
 WALL="${WALL:-18:00:00}"
 GPUS="${GPUS:-1}"
 CPUS="${CPUS:-16}"
@@ -149,6 +150,7 @@ export EVAL_CONFLICTBANK_MAX=$(shell_quote "${EVAL_CONFLICTBANK_MAX}") && \
 export EVAL_TRIVIAQA_MAX=$(shell_quote "${EVAL_TRIVIAQA_MAX}") && \
 export EVAL_REQUEST_FORMAT=$(shell_quote "${EVAL_REQUEST_FORMAT}") && \
 export EVAL_PROMPT_PROTOCOL=$(shell_quote "${EVAL_PROMPT_PROTOCOL}") && \
+export VLLM_MAX_MODEL_LEN=$(shell_quote "${VLLM_MAX_MODEL_LEN}") && \
 sbatch --parsable --account=$(shell_quote "${GPU_ACCOUNT}") --partition=$(shell_quote "${GPU_PARTITION}") --qos=$(shell_quote "${GPU_QOS}") \
   --gpus-per-node=$(shell_quote "${GPUS}") --cpus-per-task=$(shell_quote "${CPUS}") --time=$(shell_quote "${WALL}") --job-name=$(shell_quote "${JOB_NAME}") \
   --export=ALL slurm/delta/theorem3_matched_objective_lora_delta.sbatch

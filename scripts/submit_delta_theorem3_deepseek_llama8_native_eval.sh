@@ -3,8 +3,21 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 EXTRA_ARGS=("$@")
+DELTA_RESULTS_ROOT="${DELTA_RESULTS_ROOT:-/work/hdd/bgvi/adas17/tts_results}"
 
-MODEL="/work/nvme/bgvi/adas17/tts_results/results/e1_deepseek_llama8_grpo/merged_model" \
+latest_deepseek_dir() {
+  local pattern="$1"
+  find /work/hdd/bgvi/adas17/tts_results/results /work/nvme/bgvi/adas17/tts_results/results \
+    -maxdepth 1 -type d -name "${pattern}" -print0 2>/dev/null \
+    | xargs -0 stat -c '%Y %n' 2>/dev/null \
+    | sort -nr \
+    | head -n 1 \
+    | cut -d' ' -f2-
+}
+
+DEFAULT_GRPO_DIR="$(latest_deepseek_dir 'e1_deepseek_llama8_grpo*')"
+MODEL="${MODEL:-${DEFAULT_GRPO_DIR}/merged_model}" \
+DELTA_RESULTS_ROOT="${DELTA_RESULTS_ROOT}" \
 OUTPUT_DIR="results/e1_deepseek_llama8_grpo/theorem3_eval_deepseek_native_v1" \
 BENCHMARKS="wikicontradict,conflictbank" \
 CONDITIONS="aligned_context,conflict_context" \

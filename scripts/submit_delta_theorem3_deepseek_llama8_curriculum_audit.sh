@@ -3,6 +3,9 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 EXTRA_ARGS=("$@")
+DELTA_USER=${DELTA_USER:-adas17}
+HDD_RESULTS_ROOT=${DELTA_RESULTS_ROOT:-/work/hdd/bgvi/${DELTA_USER}/tts_results}
+HDD_CACHE_ROOT=${HDD_RESULTS_ROOT}/runtime_cache
 
 submit_job() {
   local objective="$1"
@@ -13,6 +16,10 @@ submit_job() {
 
   if [[ ${#EXTRA_ARGS[@]} -gt 0 ]]; then
     OBJECTIVE="${objective}" \
+    DELTA_RESULTS_ROOT="${HDD_RESULTS_ROOT}" \
+    HF_HOME="${HDD_CACHE_ROOT}/hf_cache" \
+    XDG_CACHE_HOME="${HDD_CACHE_ROOT}/xdg_cache" \
+    XDG_CONFIG_HOME="${HDD_CACHE_ROOT}/xdg_config" \
     MODEL_NAME="deepseek-ai/DeepSeek-R1-Distill-Llama-8B" \
     OUTPUT_DIR="${output_dir}" \
     JOB_NAME="${job_name}" \
@@ -32,9 +39,15 @@ submit_job() {
     RUN_THEOREM3_EVAL="1" \
     EVAL_WIKICONTRADICT_MAX="96" \
     EVAL_CONFLICTBANK_MAX="128" \
+    EVAL_REQUEST_FORMAT="completion" \
+    EVAL_PROMPT_PROTOCOL="deepseek_native" \
     bash "${SCRIPT_DIR}/submit_delta_theorem3_matched_objective_lora.sh" "${EXTRA_ARGS[@]}"
   else
     OBJECTIVE="${objective}" \
+    DELTA_RESULTS_ROOT="${HDD_RESULTS_ROOT}" \
+    HF_HOME="${HDD_CACHE_ROOT}/hf_cache" \
+    XDG_CACHE_HOME="${HDD_CACHE_ROOT}/xdg_cache" \
+    XDG_CONFIG_HOME="${HDD_CACHE_ROOT}/xdg_config" \
     MODEL_NAME="deepseek-ai/DeepSeek-R1-Distill-Llama-8B" \
     OUTPUT_DIR="${output_dir}" \
     JOB_NAME="${job_name}" \
@@ -54,6 +67,8 @@ submit_job() {
     RUN_THEOREM3_EVAL="1" \
     EVAL_WIKICONTRADICT_MAX="96" \
     EVAL_CONFLICTBANK_MAX="128" \
+    EVAL_REQUEST_FORMAT="completion" \
+    EVAL_PROMPT_PROTOCOL="deepseek_native" \
     bash "${SCRIPT_DIR}/submit_delta_theorem3_matched_objective_lora.sh"
   fi
 }

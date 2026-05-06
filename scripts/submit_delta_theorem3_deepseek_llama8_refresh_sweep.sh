@@ -3,6 +3,9 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 EXTRA_ARGS=("$@")
+DELTA_USER=${DELTA_USER:-adas17}
+HDD_RESULTS_ROOT=${DELTA_RESULTS_ROOT:-/work/hdd/bgvi/${DELTA_USER}/tts_results}
+HDD_CACHE_ROOT=${HDD_RESULTS_ROOT}/runtime_cache
 
 submit_pair() {
   local tag="$1"
@@ -17,6 +20,10 @@ submit_pair() {
 
   if [[ ${#EXTRA_ARGS[@]} -gt 0 ]]; then
     OBJECTIVE="dpo" \
+    DELTA_RESULTS_ROOT="${HDD_RESULTS_ROOT}" \
+    HF_HOME="${HDD_CACHE_ROOT}/hf_cache" \
+    XDG_CACHE_HOME="${HDD_CACHE_ROOT}/xdg_cache" \
+    XDG_CONFIG_HOME="${HDD_CACHE_ROOT}/xdg_config" \
     MODEL_NAME="deepseek-ai/DeepSeek-R1-Distill-Llama-8B" \
     OUTPUT_DIR="results/e1_deepseek_llama8_dpo_${tag}" \
     JOB_NAME="r1l8d_${tag}" \
@@ -35,9 +42,15 @@ submit_pair() {
     RUN_THEOREM3_EVAL="1" \
     EVAL_WIKICONTRADICT_MAX="96" \
     EVAL_CONFLICTBANK_MAX="128" \
+    EVAL_REQUEST_FORMAT="completion" \
+    EVAL_PROMPT_PROTOCOL="deepseek_native" \
     bash "${SCRIPT_DIR}/submit_delta_theorem3_matched_objective_lora.sh" "${EXTRA_ARGS[@]}"
   else
     OBJECTIVE="dpo" \
+    DELTA_RESULTS_ROOT="${HDD_RESULTS_ROOT}" \
+    HF_HOME="${HDD_CACHE_ROOT}/hf_cache" \
+    XDG_CACHE_HOME="${HDD_CACHE_ROOT}/xdg_cache" \
+    XDG_CONFIG_HOME="${HDD_CACHE_ROOT}/xdg_config" \
     MODEL_NAME="deepseek-ai/DeepSeek-R1-Distill-Llama-8B" \
     OUTPUT_DIR="results/e1_deepseek_llama8_dpo_${tag}" \
     JOB_NAME="r1l8d_${tag}" \
@@ -56,11 +69,17 @@ submit_pair() {
     RUN_THEOREM3_EVAL="1" \
     EVAL_WIKICONTRADICT_MAX="96" \
     EVAL_CONFLICTBANK_MAX="128" \
+    EVAL_REQUEST_FORMAT="completion" \
+    EVAL_PROMPT_PROTOCOL="deepseek_native" \
     bash "${SCRIPT_DIR}/submit_delta_theorem3_matched_objective_lora.sh"
   fi
 
   if [[ ${#EXTRA_ARGS[@]} -gt 0 ]]; then
     OBJECTIVE="grpo" \
+    DELTA_RESULTS_ROOT="${HDD_RESULTS_ROOT}" \
+    HF_HOME="${HDD_CACHE_ROOT}/hf_cache" \
+    XDG_CACHE_HOME="${HDD_CACHE_ROOT}/xdg_cache" \
+    XDG_CONFIG_HOME="${HDD_CACHE_ROOT}/xdg_config" \
     MODEL_NAME="deepseek-ai/DeepSeek-R1-Distill-Llama-8B" \
     OUTPUT_DIR="results/e1_deepseek_llama8_grpo_${tag}" \
     JOB_NAME="r1l8g_${tag}" \
@@ -79,9 +98,15 @@ submit_pair() {
     RUN_THEOREM3_EVAL="1" \
     EVAL_WIKICONTRADICT_MAX="96" \
     EVAL_CONFLICTBANK_MAX="128" \
+    EVAL_REQUEST_FORMAT="completion" \
+    EVAL_PROMPT_PROTOCOL="deepseek_native" \
     bash "${SCRIPT_DIR}/submit_delta_theorem3_matched_objective_lora.sh" "${EXTRA_ARGS[@]}"
   else
     OBJECTIVE="grpo" \
+    DELTA_RESULTS_ROOT="${HDD_RESULTS_ROOT}" \
+    HF_HOME="${HDD_CACHE_ROOT}/hf_cache" \
+    XDG_CACHE_HOME="${HDD_CACHE_ROOT}/xdg_cache" \
+    XDG_CONFIG_HOME="${HDD_CACHE_ROOT}/xdg_config" \
     MODEL_NAME="deepseek-ai/DeepSeek-R1-Distill-Llama-8B" \
     OUTPUT_DIR="results/e1_deepseek_llama8_grpo_${tag}" \
     JOB_NAME="r1l8g_${tag}" \
@@ -100,6 +125,8 @@ submit_pair() {
     RUN_THEOREM3_EVAL="1" \
     EVAL_WIKICONTRADICT_MAX="96" \
     EVAL_CONFLICTBANK_MAX="128" \
+    EVAL_REQUEST_FORMAT="completion" \
+    EVAL_PROMPT_PROTOCOL="deepseek_native" \
     bash "${SCRIPT_DIR}/submit_delta_theorem3_matched_objective_lora.sh"
   fi
 }
