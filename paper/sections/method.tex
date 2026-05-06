@@ -24,6 +24,8 @@ and under (A1)--(A2), the choice $w^\star\!=\!\E[r\!\mid\!s]$ is Bayes-optimal f
 
 \noindent\emph{Corollary (\Cref{cor:special-cases-body}, App.~\ref{app:thm1}).} CAD, AdaCAD, CoCoA, Astute~RAG, Self-RAG, and JuICE collapse to fixed points on the exponent axis of \eqref{eq:gibbs-min-body}; every alternative is strictly suboptimal away from $w^\star\!=\!\E[r\!\mid\!s]$.\phantomsection\label{cor:special-cases-body}
 
+\textit{What is new.} CT1 supplies the first principled answer to which arbitration rule a RAG stack should use, and it does so by subsuming the existing decoder literature under one Bayes-optimal target. Six independently-published methods now share a common origin and a common improvement direction, $\widehat w \to \E[r\mid s]$.
+
 \begin{theorem}[CT1$'$: Perturbation envelope]
 \label{thm:ct1prime-body}
 With $\sigma_r^{2}\!:=\!\E[\Var(r\!\mid\!s)]$, $V$ the log-LR variance under $p^\star$, $V_{\max}$ its sup, $L_w$ the plug-in Lipschitz constant, $k$ the top-$k$ effective support, the geometric-mixture regret under TV-$\varepsilon$ model and TV-$\delta$ signal perturbation obeys
@@ -35,6 +37,8 @@ R_{\varepsilon,\delta}(\hat p_{\hat w})\!-\!R_0(\hat p^\star)
 \end{equation}
 The intrinsic and signal-TV terms admit matching $\Omega(\sigma_r^2 V)$ and $\Omega(\delta V_{\max})$ Le Cam lower bounds (\Cref{thm:t2-info}); the model-TV term is Pinsker-tight in $\log k$.
 \end{theorem}
+
+\textit{What is new.} The four perturbation channels (model error, signal noise, finite-sample variance, adversarial poisoning) have to date been studied separately or under restrictive sub-cases. CT1$'$ collapses them into one inequality with three of the four bounds matched up to constants, giving the practitioner one expression to read off worst-case regret under any combination of perturbations.
 
 \subsection{CT2 trajectory envelope on $\mathcal{F}$}
 \label{sec:ct2}\label{sec:thm3}
@@ -65,6 +69,8 @@ both sides $\eta$-linear, with phase boundary $\eta_c\!=\!1/D^\star$ separating 
 
 The rate is observable: a ridge-LS estimate $\widehat\rho^\star$ on consecutive trace distributions predicts $\TV(p_t,p_K)$ decay within $\pm 0.07$ across $12$ cells over $3$ model families (pooled $r\!=\!0.997$, held-out $\pm 0.08$; \Cref{tab:berk-nash-rate-empirical}).
 
+\textit{What is new.} $\widehat\rho^\star$ is the first observable spectral diagnostic in the misspecified-Bayes line of work. It ties trajectory-side dynamics to a per-cell scalar a practitioner can compute from logged traces alone, without re-running the model. The dimensional threshold $\eta_c\!=\!1/D^\star$ converts the ``reasoning helps vs.\ hurts calibration'' debate into a falsifiable phase boundary.
+
 \subsection{CT3 closed-form $\eta$-tempering at readout}
 \label{sec:ct3}\label{sec:ct4}\label{sec:eta-tempering}
 
@@ -81,5 +87,7 @@ where $V_{\mathrm{post}}\!:=\!\Var_{p_K}[\bm{1}\{Y\!=\!y^\star\}]$.
 \noindent\emph{Corollary (\Cref{cor:brier-orthogonality-body}, App.~\ref{app:eta-tempering-derivation}).} The Murphy split has $\langle\nabla_\eta\mathrm{REL},\nabla_\eta\mathrm{RES}\rangle_{\mathrm{Brier}}\!=\!0$ at $\eta^\star$, so REL and RES decompose orthogonally.\phantomsection\label{cor:brier-orthogonality-body}
 
 As a procedure this is calibrated temperature scaling~\citep{guo2017oncalibration}; safe-Bayes~\citep{bissiri2016,grunwald2017} tells the practitioner \emph{when} $\eta^\star\!<\!1$ via CT2's safe-rate descent.
+
+\textit{What is new.} The closed form converts a widely-used empirical recipe (temperature scaling) into a quantity the practitioner can predict from the post-trace variance alone. Combined with CT2's safe-rate condition, the result answers when $\eta^\star\!<\!1$ is the right call without requiring a held-out sweep, which is the unresolved question in the calibration literature on long chain-of-thought.
 
 \paragraph{Extensions.} $K$-hop multiplicative composition (\Cref{thm:t15-compositional}) and doubly-robust causal identification of $w^\star$ (\Cref{thm:t16-causal}); App.~\ref{app:thm-map}.
