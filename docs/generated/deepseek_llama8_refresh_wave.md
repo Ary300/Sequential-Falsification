@@ -118,6 +118,8 @@ Corrected rescue launcher:
 - [submit_delta_theorem3_deepseek_llama8_native_rescue_sweep.sh](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/scripts/submit_delta_theorem3_deepseek_llama8_native_rescue_sweep.sh)
 - eval-only checkpoint launcher for any promising intermediate rescue snapshot:
   [submit_delta_theorem3_deepseek_llama8_checkpoint_eval.sh](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/scripts/submit_delta_theorem3_deepseek_llama8_checkpoint_eval.sh)
+- multi-checkpoint sweep helper for a finished rescue run:
+  [submit_delta_theorem3_deepseek_llama8_checkpoint_eval_sweep.sh](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/scripts/submit_delta_theorem3_deepseek_llama8_checkpoint_eval_sweep.sh)
 
 Submitted `2026-05-06`:
 
