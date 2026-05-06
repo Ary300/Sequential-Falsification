@@ -267,8 +267,17 @@ Current live read:
   - `2248714`–`2248743`
     - re-armed `Llama-8B GRPO` seed block covering seeds `42–71`
     - read:
-      the earlier queue cancellations were tactical; this block is now back in
-      the queue so the 30-seed anchor CI can close once cluster priority allows
+      that first re-armed block failed immediately on gated-model auth because
+      the launcher fell back to `meta-llama/Llama-3.1-8B` instead of a cached
+      local snapshot path
+  - `2253785`–`2253814`
+    - corrected `Llama-8B GRPO` seed block covering seeds `42–71`
+    - launcher now resolves the existing local `Llama-3.1-8B` snapshot on
+      Delta and uses the same node-local staging path as the DeepSeek rescue
+      jobs
+    - current state:
+      seeds `42`, `43`, and `44` are already running; the remaining seeds are
+      queued at `Priority`
 - completed:
   - `2246377`
     - shorter-wall `Llama-3.1-70B-Instruct` standard theorem-3 companion run

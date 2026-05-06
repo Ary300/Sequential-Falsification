@@ -324,8 +324,14 @@ Read:
   - the earlier sweep was intentionally paused by cancelling seeds `45–71` so
     the higher-leverage `Gemma` and corrected `70B` runs could start under the
     available billing budget
-  - the full seed block has now been re-armed on Delta as `2248714`–`2248743`
-    so the 30-seed CI can close once queue priority allows it
+  - the first re-armed block `2248714`–`2248743` failed immediately because the
+    launcher fell back to the gated remote model ID instead of a cached local
+    snapshot path
+  - the launcher is now fixed to resolve the existing local
+    `Llama-3.1-8B` snapshot on Delta
+  - corrected live seed block is now `2253785`–`2253814`
+  - seeds `42`, `43`, and `44` are already running; the remaining seeds are
+    queued at `Priority`
 
 ## 7. Free-form open-QA larger sample (`n=8 -> n=200+`)
 
