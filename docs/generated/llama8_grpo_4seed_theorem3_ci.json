@@ -1,0 +1,76 @@
+{
+  "label": "Llama-8B GRPO theorem-3 completed seeds 42,43,44,45",
+  "num_complete_seed_runs": 4,
+  "seeds": [
+    42,
+    43,
+    44,
+    45
+  ],
+  "rows": [
+    {
+      "path": "/u/adas17/tts_results_staging/results/e1_llama8b_grpo_s42/theorem3_eval/theorem3_report/theorem3_summary.json",
+      "seed": 42,
+      "coverage_rows": 1344,
+      "conflict_minus_no_conflict_ece_delta": -0.0207,
+      "mean_conflict_ece_delta": 0.0037,
+      "mean_no_conflict_ece_delta": 0.0244
+    },
+    {
+      "path": "/u/adas17/tts_results_staging/results/e1_llama8b_grpo_s43/theorem3_eval/theorem3_report/theorem3_summary.json",
+      "seed": 43,
+      "coverage_rows": 1344,
+      "conflict_minus_no_conflict_ece_delta": -0.0294,
+      "mean_conflict_ece_delta": 0.0084,
+      "mean_no_conflict_ece_delta": 0.0378
+    },
+    {
+      "path": "/u/adas17/tts_results_staging/results/e1_llama8b_grpo_s44/theorem3_eval/theorem3_report/theorem3_summary.json",
+      "seed": 44,
+      "coverage_rows": 1344,
+      "conflict_minus_no_conflict_ece_delta": -0.0509,
+      "mean_conflict_ece_delta": -0.1042,
+      "mean_no_conflict_ece_delta": -0.0533
+    },
+    {
+      "path": "/u/adas17/tts_results_staging/results/e1_llama8b_grpo_s45/theorem3_eval/theorem3_report/theorem3_summary.json",
+      "seed": 45,
+      "coverage_rows": 1344,
+      "conflict_minus_no_conflict_ece_delta": 0.0923,
+      "mean_conflict_ece_delta": -0.0541,
+      "mean_no_conflict_ece_delta": -0.1464
+    }
+  ],
+  "metrics": {
+    "conflict_minus_no_conflict_ece_delta": {
+      "mean": -0.0022,
+      "median": -0.025,
+      "min": -0.0509,
+      "max": 0.0923,
+      "bootstrap": {
+        "ci95_low": -0.0433,
+        "ci95_high": 0.0619
+      }
+    },
+    "mean_conflict_ece_delta": {
+      "mean": -0.0365,
+      "median": -0.0252,
+      "min": -0.1042,
+      "max": 0.0084,
+      "bootstrap": {
+        "ci95_low": -0.0791,
+        "ci95_high": 0.006
+      }
+    },
+    "mean_no_conflict_ece_delta": {
+      "mean": -0.0344,
+      "median": -0.0144,
+      "min": -0.1464,
+      "max": 0.0378,
+      "bootstrap": {
+        "ci95_low": -0.1037,
+        "ci95_high": 0.0311
+      }
+    }
+  }
+}

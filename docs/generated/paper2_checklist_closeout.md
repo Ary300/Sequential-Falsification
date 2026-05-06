@@ -492,15 +492,14 @@ Actively resolving now on Delta:
 - multiseed expansion:
   - the corrected `Llama-8B GRPO` rerun is now the only major open compute
     blocker
-  - first completed aggregate for seeds `42`, `44`, `45`:
-    - mean conflict-minus-no-conflict ECE delta `+0.0069`
-    - bootstrap `95% CI [-0.0509, +0.0923]`
+  - completed aggregate for seeds `42`, `43`, `44`, `45`:
+    - mean conflict-minus-no-conflict ECE delta `-0.0022`
+    - bootstrap `95% CI [-0.0433, +0.0619]`
   - live seeds now:
-    - completed `42`, `44`, `45`
-    - running `43`, `46`, `47–55`
+    - completed `42`, `43`, `44`, `45`
+    - running `46`, `47–55`
     - pending `56–71` on `QOSGrpBillingMinutes`
   - live partials:
-    - seed `43` on `1232` rows: `-0.0628`
     - seed `46` on `1228` rows: `+0.0653`
 
 The only remaining blockers on this exact checklist are therefore:
