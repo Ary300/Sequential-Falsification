@@ -1,7 +1,7 @@
 \section{Experiments}
 \label{sec:experiments}
 
-Six published decoders sit on the CT1 exponent axis (\Cref{tab:ct1-axis}); the choice $w^\star\!=\!\E[r\!\mid\!s]$ is the only one that minimizes $\mathcal{F}$, and this choice beats every named baseline on $23/25$ cells with e-value $2806$. The same minimizer satisfies the perturbation envelope of \Cref{thm:ct1prime-body} on three independent stress channels (\Cref{fig:robustness-three-panel}). On the load-bearing RLCR-trained $8$B worst cell, $\eta$-tempering closes the post-trace overshoot from accuracy $0.063$ to $0.531$ and ECE $0.904$ to $0.431$, the operational reading of \Cref{thm:t3-intervention}.
+Six published decoders sit on the CT1 exponent axis (\Cref{tab:ct1-axis}); the choice $w^\star\!=\!\E[r\!\mid\!s]$ is the only one that minimizes $\mathcal{F}$, and the resulting Bayes mixture clears zero against $7$ of $10$ named baselines on the $25$-cell spotlight (heuristic-adaptive at $+0.083$ on $23/25$ cells, e-value $2806$). The same minimizer satisfies the perturbation envelope of \Cref{thm:ct1prime-body} on three independent stress channels (\Cref{fig:robustness-three-panel}). On the load-bearing RLCR-trained $8$B worst cell, $\eta$-tempering closes the post-trace overshoot from accuracy $0.063$ to $0.531$ and ECE $0.904$ to $0.431$, the operational reading of \Cref{thm:t3-intervention}.
 
 Experiments cover $10$ benchmarks across $13$ models (Llama, Qwen,
 Mistral, Gemma, OLMo, Phi-3, DeepSeek-R1-Distill at 7B--70B plus
