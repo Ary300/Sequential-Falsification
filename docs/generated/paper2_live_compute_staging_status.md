@@ -61,6 +61,8 @@ the bottleneck is explicit: launcher readiness versus cluster access.
   [submit_delta_theorem3_llama8_grpo_30seed.sh](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Confidence/scripts/submit_delta_theorem3_llama8_grpo_30seed.sh)
 - multiseed CI builder:
   [build_theorem3_multiseed_ci.py](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/scripts/build_theorem3_multiseed_ci.py)
+- dependent CI submit helper:
+  [submit_delta_theorem3_llama8_grpo_30seed_ci_followup.sh](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/scripts/submit_delta_theorem3_llama8_grpo_30seed_ci_followup.sh)
 
 ### Larger-sample free-form open QA
 
@@ -283,6 +285,17 @@ Current live read:
       unrelated `q72e0`–`q72e4` prompt-compression jobs in `pst_delta_repo`
       were cancelled to free billing minutes, but the remaining seeds are
       still queued at `QOSGrpBillingMinutes`
+  - `2254465`–`2254489`
+    - requeued `Llama-8B GRPO` seeds `47–71` so the still-pending half of the
+      seed block inherits the new periodic sync-back path from
+      node-local staging
+    - current queue state:
+      all `25` requeued seeds are pending at `QOSGrpBillingMinutes`
+  - `2254501`
+    - dependent `l8g_ci` follow-up job
+    - purpose:
+      automatically build the `30`-seed theorem-3 aggregate CI via
+      `build_theorem3_multiseed_ci.py` after the full seed block clears
 - completed:
   - `2246377`
     - shorter-wall `Llama-3.1-70B-Instruct` standard theorem-3 companion run

@@ -338,6 +338,16 @@ Read:
     [build_theorem3_multiseed_ci.py](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/scripts/build_theorem3_multiseed_ci.py)
     so the final `30`-seed CI can be emitted immediately once the staged
     theorem-3 summaries appear
+  - the still-pending half of the block was then requeued as:
+    `2254465`–`2254489` for seeds `47`–`71`
+  - reason for requeue:
+    those seeds had never started, so requeueing them was a safe way to make
+    them inherit the new periodic sync-back logic from node-local staging
+  - dependent aggregate follow-up is now live too:
+    `2254501` `l8g_ci`
+  - purpose:
+    automatically compute the multiseed theorem-3 mean and bootstrap CI after
+    all `30` seed jobs have either completed or otherwise cleared
 
 ## 7. Free-form open-QA larger sample (`n=8 -> n=200+`)
 

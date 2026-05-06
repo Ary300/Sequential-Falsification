@@ -35,6 +35,7 @@ if [[ "$(hostname 2>/dev/null || true)" == gh-login* || "$(pwd)" == /u/${DELTA_U
     --account="${DELTA_ACCOUNT}" \
     --partition="${DELTA_PARTITION}" \
     --qos="${DELTA_QOS}" \
+    --gpus-per-node=1 \
     --cpus-per-task=2 \
     --mem=8G \
     --time=00:30:00 \
@@ -44,5 +45,5 @@ if [[ "$(hostname 2>/dev/null || true)" == gh-login* || "$(pwd)" == /u/${DELTA_U
     --wrap "${cmd}"
 else
   ssh ${DELTA_SSH_KEY:+-i "${DELTA_SSH_KEY}"} ${DELTA_SSH_OPTS} "${DELTA_LOGIN}" \
-    "sbatch --parsable --account='${DELTA_ACCOUNT}' --partition='${DELTA_PARTITION}' --qos='${DELTA_QOS}' --cpus-per-task=2 --mem=8G --time=00:30:00 --job-name='${JOB_NAME}' --dependency='afterany:${deps}' --output='${PROJECT_ROOT}/logs/${JOB_NAME}.%j.out' --wrap $(printf '%q' "${cmd}")"
+    "sbatch --parsable --account='${DELTA_ACCOUNT}' --partition='${DELTA_PARTITION}' --qos='${DELTA_QOS}' --gpus-per-node=1 --cpus-per-task=2 --mem=8G --time=00:30:00 --job-name='${JOB_NAME}' --dependency='afterany:${deps}' --output='${PROJECT_ROOT}/logs/${JOB_NAME}.%j.out' --wrap $(printf '%q' "${cmd}")"
 fi
