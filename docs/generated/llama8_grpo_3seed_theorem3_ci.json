@@ -1,0 +1,67 @@
+{
+  "label": "Llama-8B GRPO theorem-3 completed seeds 42,44,45",
+  "num_complete_seed_runs": 3,
+  "seeds": [
+    42,
+    44,
+    45
+  ],
+  "rows": [
+    {
+      "path": "/u/adas17/tts_results_staging/results/e1_llama8b_grpo_s42/theorem3_eval/theorem3_report/theorem3_summary.json",
+      "seed": 42,
+      "coverage_rows": 1344,
+      "conflict_minus_no_conflict_ece_delta": -0.0207,
+      "mean_conflict_ece_delta": 0.0037,
+      "mean_no_conflict_ece_delta": 0.0244
+    },
+    {
+      "path": "/u/adas17/tts_results_staging/results/e1_llama8b_grpo_s44/theorem3_eval/theorem3_report/theorem3_summary.json",
+      "seed": 44,
+      "coverage_rows": 1344,
+      "conflict_minus_no_conflict_ece_delta": -0.0509,
+      "mean_conflict_ece_delta": -0.1042,
+      "mean_no_conflict_ece_delta": -0.0533
+    },
+    {
+      "path": "/u/adas17/tts_results_staging/results/e1_llama8b_grpo_s45/theorem3_eval/theorem3_report/theorem3_summary.json",
+      "seed": 45,
+      "coverage_rows": 1344,
+      "conflict_minus_no_conflict_ece_delta": 0.0923,
+      "mean_conflict_ece_delta": -0.0541,
+      "mean_no_conflict_ece_delta": -0.1464
+    }
+  ],
+  "metrics": {
+    "conflict_minus_no_conflict_ece_delta": {
+      "mean": 0.0069,
+      "median": -0.0207,
+      "min": -0.0509,
+      "max": 0.0923,
+      "bootstrap": {
+        "ci95_low": -0.0509,
+        "ci95_high": 0.0923
+      }
+    },
+    "mean_conflict_ece_delta": {
+      "mean": -0.0515,
+      "median": -0.0541,
+      "min": -0.1042,
+      "max": 0.0037,
+      "bootstrap": {
+        "ci95_low": -0.1042,
+        "ci95_high": 0.0037
+      }
+    },
+    "mean_no_conflict_ece_delta": {
+      "mean": -0.0584,
+      "median": -0.0533,
+      "min": -0.1464,
+      "max": 0.0244,
+      "bootstrap": {
+        "ci95_low": -0.1464,
+        "ci95_high": 0.0244
+      }
+    }
+  }
+}

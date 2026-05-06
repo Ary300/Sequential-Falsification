@@ -63,6 +63,24 @@ the bottleneck is explicit: launcher readiness versus cluster access.
   [build_theorem3_multiseed_ci.py](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/scripts/build_theorem3_multiseed_ci.py)
 - dependent CI submit helper:
   [submit_delta_theorem3_llama8_grpo_30seed_ci_followup.sh](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/scripts/submit_delta_theorem3_llama8_grpo_30seed_ci_followup.sh)
+- first completed multiseed aggregate now in repo:
+  [llama8_grpo_3seed_theorem3_ci.md](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/llama8_grpo_3seed_theorem3_ci.md)
+  - completed seeds `42`, `44`, `45`
+  - mean conflict-minus-no-conflict ECE delta `+0.0069`
+  - bootstrap `95% CI [-0.0509, +0.0923]`
+- current live state on Delta:
+  - completed: seeds `42`, `44`, `45`
+  - still running: seeds `43`, `46`, and the requeued block `47–55`
+  - still pending on `QOSGrpBillingMinutes`: seeds `56–71`
+- current mid-run partials:
+  - seed `43` full theorem-3 partial on `1232` rows: conflict-minus-no-conflict
+    ECE delta `-0.0628`
+  - seed `46` full theorem-3 partial on `1228` rows: conflict-minus-no-conflict
+    ECE delta `+0.0653`
+- queue cleanup:
+  - non-Paper-2 pending `k95_*`, `l38e*`, and `l3170e*` jobs owned by this
+    account were cancelled again so the remaining billing headroom stays on
+    the Llama multiseed wave
 
 ### Larger-sample free-form open QA
 
@@ -82,8 +100,6 @@ the bottleneck is explicit: launcher readiness versus cluster access.
 ## Still missing as substantive results
 
 - full dense-tail `W=100` `\hat\rho^\star` table
-- corrected fourth-family spectral-envelope output for the intended
-  `Llama-3.1-70B-Instruct` tail run
 - 30-seed Llama-8B GRPO aggregate CI
 - a clean third matched-base RL-family replication with the same direction as
   `Llama-8B`
@@ -378,3 +394,6 @@ Current verified bottlenecks:
 - completion time for the re-armed multiseed `Llama-8B` block
 - final direct Berk–Nash tail/early analysis completion after the materialized
   Qwen dense dump
+- `2246302`
+  - corrected dense `Llama-3.1-70B-Instruct` rerun is now closed
+  - final headline separation: `-0.0856`

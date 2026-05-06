@@ -488,14 +488,23 @@ Actively resolving now on Delta:
 - dense/window reruns on HDD:
   - `2245553` Qwen-14B dense tail materialized and then timed out
   - `2251744`, `2251745` follow-on Berk–Nash tail/early analyses
-  - `2246302` corrected Llama-70B dense tail still running
+  - `2246302` corrected Llama-70B dense tail is now closed at `-0.0856`
 - multiseed expansion:
-  - `2248714`–`2248743` Llama-8B GRPO seeds `42–71`
+  - the corrected `Llama-8B GRPO` rerun is now the only major open compute
+    blocker
+  - first completed aggregate for seeds `42`, `44`, `45`:
+    - mean conflict-minus-no-conflict ECE delta `+0.0069`
+    - bootstrap `95% CI [-0.0509, +0.0923]`
+  - live seeds now:
+    - completed `42`, `44`, `45`
+    - running `43`, `46`, `47–55`
+    - pending `56–71` on `QOSGrpBillingMinutes`
+  - live partials:
+    - seed `43` on `1232` rows: `-0.0628`
+    - seed `46` on `1228` rows: `+0.0653`
 
 The only remaining blockers on this exact checklist are therefore:
 
-- the HDD-backed matched-base reruns finishing
-- the HDD-backed dense trajectory reruns finishing
 - the full multiseed block finishing
 
 That means the remaining work is compute-bound rather than implementation-bound.
