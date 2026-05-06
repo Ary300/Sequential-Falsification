@@ -1,0 +1,50 @@
+{
+  "headline": {
+    "rows_loaded": 16186,
+    "cells_analyzed": 4,
+    "analysis_mode": "early",
+    "window_size": 100
+  },
+  "cells": [
+    {
+      "benchmark": "conflictbank",
+      "split": "conflict",
+      "window": "0->1018 (100)",
+      "spectral_radius": 0.329985,
+      "rho_star": 0.996233,
+      "r2_log_tv": 0.231948,
+      "r2_polynomial_tv": 0.007175,
+      "q1": 171.187962
+    },
+    {
+      "benchmark": "conflictbank",
+      "split": "no_conflict",
+      "window": "0->1018 (100)",
+      "spectral_radius": 0.24646,
+      "rho_star": 0.996508,
+      "r2_log_tv": 0.135461,
+      "r2_polynomial_tv": 0.015392,
+      "q1": 69.153099
+    },
+    {
+      "benchmark": "wikicontradict",
+      "split": "conflict",
+      "window": "0->1018 (100)",
+      "spectral_radius": 0.815676,
+      "rho_star": 0.997877,
+      "r2_log_tv": 0.210934,
+      "r2_polynomial_tv": -7728548797681.422,
+      "q1": -184.265934
+    },
+    {
+      "benchmark": "wikicontradict",
+      "split": "no_conflict",
+      "window": "0->1018 (100)",
+      "spectral_radius": 0.358969,
+      "rho_star": 0.997175,
+      "r2_log_tv": 0.158155,
+      "r2_polynomial_tv": -2972867550161.1523,
+      "q1": -74.393983
+    }
+  ]
+}

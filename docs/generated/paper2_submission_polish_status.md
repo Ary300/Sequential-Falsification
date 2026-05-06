@@ -70,9 +70,6 @@ Read:
   - running: seeds `47–55`
   - pending: seeds `56–71`
   - this is now the main unresolved empirical item
-- early-`t` `\hat{\rho}^\star` / polynomial-tail diagnostics:
-  - strong recovered partial table is already on disk
-  - final direct Berk–Nash follow-up jobs still need to finish cleanly
 
 ## Closed compute items since the previous draft
 
@@ -87,10 +84,15 @@ Read:
     `NQ-open`, and `ASQA` while clearly beating plain `CAD`
 - dense `Llama-3.1-70B-Instruct` fourth-family rerun:
   - finished at `-0.0856`
+- direct `\hat{\rho}^\star` follow-ups:
+  - tail and early finalized notes are now on disk:
+    - [berk_nash_rate_empirical_tail.md](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/berk_nash_rate_empirical_tail.md)
+    - [berk_nash_rate_empirical_early.md](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/berk_nash_rate_empirical_early.md)
+  - both use the recovered `16186`-row dense dump
+  - both keep `rho*` very close to `1.0` across all four analyzable cells
 
 ## Bottom line
 
 The paper-facing polish work is no longer the bottleneck. The remaining gap is
-mostly the live `Llama-8B` multiseed compute tail plus the final direct
-`\\hat{\\rho}^\\star` analyses, not missing citations, missing appendix
-sections, placeholder figures, or unclear manuscript framing.
+now mostly the live `Llama-8B` multiseed compute tail, not missing citations,
+missing appendix sections, placeholder figures, or unclear manuscript framing.

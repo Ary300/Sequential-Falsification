@@ -105,13 +105,21 @@ the bottleneck is explicit: launcher readiness versus cluster access.
 
 ## Still missing as substantive results
 
-- full dense-tail `W=100` `\hat\rho^\star` table
 - 30-seed Llama-8B GRPO aggregate CI
 - a clean third matched-base RL-family replication with the same direction as
   `Llama-8B`
 - larger-sample free-form `n=200` verdict is already in hand; the remaining
   free-form work is only if we want broader-domain expansion beyond
   `ASQA / NQ-open / TriviaQA-open`
+
+## Closed since the earlier draft
+
+- finalized direct `\hat\rho^\star` follow-up analyses are now materialized:
+  - [berk_nash_rate_empirical_tail.md](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/berk_nash_rate_empirical_tail.md)
+  - [berk_nash_rate_empirical_early.md](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/berk_nash_rate_empirical_early.md)
+  - both use the recovered `16186`-row dense dump
+  - tail-window `rho*` stays near `1.0` on all four analyzable cells
+  - early-window `rho*` also stays near `1.0` on all four analyzable cells
 
 ## New live HDD-backed rerun wave
 
@@ -398,8 +406,8 @@ Current verified bottlenecks:
 - cluster queue time for the remaining Delta jobs
 - completion time for the running dense `Llama-3.1-70B-Instruct` rerun
 - completion time for the re-armed multiseed `Llama-8B` block
-- final direct Berk–Nash tail/early analysis completion after the materialized
-  Qwen dense dump
+- whether the final multiseed Llama aggregate resolves to a clearly positive
+  headline instead of a weak/mixed one
 - `2246302`
   - corrected dense `Llama-3.1-70B-Instruct` rerun is now closed
   - final headline separation: `-0.0856`

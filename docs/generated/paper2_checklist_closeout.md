@@ -131,7 +131,7 @@ Read:
 
 ## 2. Real `\hat{\rho}^\star` values for the Berk-Nash empirical table
 
-Status: `in progress`, with updated dense-window read already recovered from the timed-out HDD dump
+Status: `done`
 
 What is already done:
 
@@ -163,16 +163,21 @@ Recovered dense-window read from the HDD rerun:
   - `wikicontradict conflict`: spectral radius `0.8157`, `rho*` `0.9979`
   - `wikicontradict no_conflict`: spectral radius `0.3590`, `rho*` `0.9972`
 
-Current rerun status:
+Finalized outputs:
 
+- tail-window note:
+  [berk_nash_rate_empirical_tail.md](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/berk_nash_rate_empirical_tail.md)
+- early-window note:
+  [berk_nash_rate_empirical_early.md](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/berk_nash_rate_empirical_early.md)
 - the original NVMe-backed dense job failed because `/work/nvme/bgvi` was over
   allocation quota, not because the diagnostic itself was invalid
-- corrected HDD-backed rerun submitted:
+- corrected HDD-backed rerun:
   - `2245553` `r1_14b_hdd`
   - scheduler end state: `TIMEOUT`
-- direct analysis reruns submitted against the materialized HDD dump:
+- direct analysis reruns against the materialized HDD dump:
   - `2251744` `bn14htail`
   - `2251745` `bn14hearly`
+  - both completed successfully on `2026-05-06`
 
 Read:
 
@@ -182,9 +187,14 @@ Read:
   early-window `rho*` stays very close to `1.0` across all four currently
   analyzable cells rather than collapsing immediately away from the
   tail, which is exactly the non-asymptotic direction we were hoping to see.
-- The final `W=100` table still needs the direct analysis jobs to finish
-  cleanly on Delta, but this item is no longer blocked on missing code or
-  missing instrumentation.
+- This item is now numerically closed.
+- Tail-window `rho*` stays very close to `1.0` across all four analyzable
+  cells.
+- Early-window `rho*` also stays very close to `1.0` across all four analyzable
+  cells rather than collapsing away from the tail.
+- The polynomial inverse-TV fits are weak or unstable on this dump, so the
+  reliable empirical story is the near-unit `rho*` behavior, not a strong
+  quantitative `C / (q1 + t)` law.
 
 ## 3. Inference-cache demo for `\hat w`
 
