@@ -85,7 +85,7 @@ Always parametric     & $\phantom{-}5.936$ & $0.305$ & $0.493$ & $\phantom{-}7.1
 \end{table}
 
 \paragraph{CT1, powered head-to-head against adaptive baselines.}
-On the powered $n\!=\!210$ matched design, the Bayes-proxy regret advantage over CoCoA, Astute~RAG, and Self-RAG is $+0.043$, $+0.032$, and $+0.022$ respectively, with all three confidence intervals strictly above zero and at least $180/210$ cell-wins per comparator (\Cref{fig:spotlight-forest}, App.~\ref{app:powered-headtohead}). On the smaller $25$-cell spotlight (\Cref{fig:spotlight-combined}) the same three intervals contain zero, so the powered design is the load-bearing comparison. Margins against the boundary policies (always-context, always-parametric) are roughly two orders of magnitude larger. The small advantage over the adaptive baselines is exactly what \Cref{cor:special-cases-body} predicts: CAD, AdaCAD, and CoCoA are first-order approximations of the same Gibbs minimizer, so CT1 says they should track the Bayes optimum closely while remaining strictly suboptimal away from $w^\star\!=\!\E[r\!\mid\!s]$.
+On the $25$-cell spotlight (\Cref{fig:spotlight-combined}), Bayes clears zero against $7$ of the $10$ named comparators with CIs strictly above zero, including a $+0.083$ advantage over the heuristic-adaptive primary on $23/25$ cells (e-value $2806$). The three tightest competitors (CoCoA, Astute~RAG, Self-RAG) need the powered $n\!=\!210$ matched design to clear zero, where the Bayes-proxy advantage lands at $+0.043$, $+0.032$, and $+0.022$ respectively, with all three CIs strictly above zero and at least $180/210$ cell-wins per comparator (\Cref{fig:spotlight-forest}, App.~\ref{app:powered-headtohead}). Margins against the boundary policies (always-context, always-parametric) are roughly two orders of magnitude larger. The small advantage over the adaptive baselines is exactly what \Cref{cor:special-cases-body} predicts: CAD, AdaCAD, and CoCoA are first-order approximations of the same Gibbs minimizer, so CT1 says they should track the Bayes optimum closely while remaining strictly suboptimal away from $w^\star\!=\!\E[r\!\mid\!s]$.
 
 \begin{figure}[!htbp]
 \centering
@@ -126,9 +126,7 @@ test, fixed-$\lambda$ e-value).  Bayes proxy mean regret $-0.172$.}
 \caption{\textbf{Spotlight comparison against named baselines.}
 Load-bearing comparisons against published methods (Self-RAG,
 Astute~RAG, CoCoA, AdaCAD); heuristic-adaptive is a construction
-control.  $25$-cell CIs include zero for Self-RAG/Astute/CoCoA; the
-powered $n\!=\!210$ design (\Cref{sec:thm12-exp}) excludes zero at
-$+0.043/+0.032/+0.022$.}
+control.  $25$-cell CIs clear zero against $7$ of $10$ named methods (heuristic-adaptive at $+0.083$, plus AdaCAD/MADAM-RAG/JuICE/CAD/NWCAD/CRAG); the three tightest (Self-RAG, Astute, CoCoA) clear zero on the powered $n\!=\!210$ design (\Cref{sec:thm12-exp}) at $+0.043/+0.032/+0.022$.}
 \label{fig:spotlight-combined}
 \end{figure}
 The residual non-uniformity in per-benchmark wins concentrates entirely in PopQA's low-popularity regime, which we attribute to signal failure on rare entities rather than to a failure of CT1's arbitration rule (App.~\ref{app:per-bench-wins}). The per-checkpoint gain over the heuristic baseline is positive at every scale and family in the matrix (\Cref{fig:per-model}, left), with Llama-3.1-70B alone at $+0.060$; the same advantage replicates at 32B/70B scale and on the closed-weight frontier (GPT-4o-mini, Claude, Gemini accessed via top-$k$ logprobs; App.~\ref{app:frontier-validation}). The right panel of \Cref{fig:per-model} reports the per-benchmark KL gap $\KL(p_\theta\Vert p_\ctx)$, which forecasts where the trajectory dynamics (CT2) and post-trace tempering (CT3) will matter most: conflict slices exceed $1$ nat while controls sit at roughly $0.1$ nat.
