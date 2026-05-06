@@ -98,6 +98,44 @@ Completed native matched-pair redo:
   - matched `GRPO`, Pair B
   - conflict-minus-no-conflict: `+0.0716`
 
+## May 6 rescue wave
+
+After the native matched sweep finished, we found a real submit-path bug in the
+generic matched-objective Delta launcher:
+
+- `WARMSTART_EPOCHS` was not being exported through
+  [submit_delta_theorem3_matched_objective_lora.sh](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/scripts/submit_delta_theorem3_matched_objective_lora.sh)
+- consequence:
+  the earlier tags that were meant to test stronger `warmstart=2` settings
+  almost certainly ran with the default `warmstart=1` on Delta
+
+That means the native matched sweep was still useful, but it did **not**
+faithfully test the stronger warmstart settings we thought we had already
+covered.
+
+Corrected rescue launcher:
+
+- [submit_delta_theorem3_deepseek_llama8_native_rescue_sweep.sh](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/scripts/submit_delta_theorem3_deepseek_llama8_native_rescue_sweep.sh)
+
+Submitted `2026-05-06`:
+
+- `2251775` `r1l8dr_nativefix_b002g8w2`
+  - `DPO`
+  - reruns the previously best native pocket with the intended
+    `warmstart=2` now actually forwarded
+- `2251776` `r1l8gr_nativefix_b002g8w2`
+  - `GRPO`
+  - same corrected `warmstart=2` rerun
+- `2251777` `r1l8dr_nativerescue_b001g12w3`
+  - `DPO`
+  - softer regularization, larger group, `warmstart=3`
+- `2251778` `r1l8gr_nativerescue_b001g12w3`
+  - `GRPO`
+  - softer regularization, larger group, `warmstart=3`
+- `2251779` `r1l8gr_nativerescue_b001g16t06w3s43`
+  - `GRPO`
+  - exploratory cooler-sampling leg with a fresh seed
+
 Read:
 
 - this is the cleanest remaining attempt to improve the `DeepSeek-Llama-8B`
@@ -108,6 +146,9 @@ Read:
 - even after that improvement, the right conclusion is still that
   `DeepSeek-Llama-8B` is genuinely mixed rather than merely
   protocol-mismatched
+- the new rescue wave is justified because it is not “rerunning the same weak
+  settings”; it is correcting a real warmstart-forwarding bug and then widening
+  the GRPO search pocket slightly
 
 ## Read
 

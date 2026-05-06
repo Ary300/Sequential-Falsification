@@ -7,7 +7,7 @@ Status date: `2026-05-06`
 
 ## 1. `DeepSeek-R1-Distill-Llama-8B` matched `DPO/GRPO` pair
 
-Status: `done`, with diagnostic rerun wave finished and native matched refresh closed
+Status: `done`, with diagnostic rerun wave finished, native matched refresh closed, and a corrected rescue wave now active
 
 Finished matched-base results:
 
@@ -52,6 +52,23 @@ Read:
     one configuration (`GRPO` Pair B, `+0.0716`)
   - but it still does **not** rise to the clean `Llama-8B`-scale replication
     we were hoping for
+- New May 6 update:
+  - a real submit-path bug was found in the generic matched-objective Delta
+    launcher:
+    `WARMSTART_EPOCHS` was not being exported, so the earlier “extra
+    warmstart” native sweep likely ran with `warmstart=1`
+  - that means the weak native matched sweep is still informative, but it did
+    not faithfully test the stronger warmstart settings it claimed to test
+  - corrected rescue wave is now submitted:
+    - `2251775` `r1l8dr_nativefix_b002g8w2`
+    - `2251776` `r1l8gr_nativefix_b002g8w2`
+    - `2251777` `r1l8dr_nativerescue_b001g12w3`
+    - `2251778` `r1l8gr_nativerescue_b001g12w3`
+    - `2251779` `r1l8gr_nativerescue_b001g16t06w3s43`
+  - read:
+    this is the strongest remaining honest attempt to repair the weak
+    `DeepSeek-Llama-8B` matched-family story without changing the objective
+    family itself
 - The active follow-up is now diagnostic rather than rhetorical:
   - DeepSeek refresh wave:
     [deepseek_llama8_refresh_wave.md](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/deepseek_llama8_refresh_wave.md)
