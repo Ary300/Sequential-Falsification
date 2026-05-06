@@ -1,0 +1,86 @@
+\clearpage
+\section*{NeurIPS Paper Checklist}
+
+\begin{enumerate}
+
+\item {\bf Claims}\\
+\textbf{Question:} Do the main claims made in the abstract and introduction accurately reflect the paper's contributions and scope?\\
+\textbf{Answer:} \answerYes{}\\
+\textbf{Justification:} The abstract and introduction state three theorems on a single free-energy functional (CT1, CT2, CT3) and an empirical headline (powered $n\!=\!210$ at $+0.043/+0.032/+0.022$, CT2 spectral diagnostic at $r\!=\!0.997$, worst-cell $\eta$-tempering at $0.063\!\to\!0.531$ on RLCR-trained 8B and $0.037\!\to\!0.440$ on R1-14B, matched-base $+0.344$ ECE gap). Each claim is grounded in a specific theorem statement (\Cref{thm:ct1-body,thm:ct1prime-body,thm:ct2-body,thm:t3-intervention}) and a specific empirical anchor (\Cref{tab:ct1-axis,tab:headline-regret,tab:spotlight,tab:ct2-body-summary,fig:matched-base-evidence}).
+
+\item {\bf Limitations}\\
+\textbf{Question:} Does the paper discuss the limitations of the work performed by the authors?\\
+\textbf{Answer:} \answerYes{}\\
+\textbf{Justification:} \S\ref{sec:discussion} (Limitations) names three concrete boundaries: matched-base causal claim is anchored on the Llama lineage with a Phi-3 cross-family replication; CT2 trajectory inequality is scoped to the stable-answer subset and misses on Qwen2.5-32B / ConflictBank where an absolute-confidence floor sits outside the linear-contraction regime; sequence-level $\eta$-tempering across multi-token responses is future work. Multi-source $K\!=\!3$ composition is shown on synthetic data only; all experiments are in English; the frontier validation uses top-$k$ logprobs rather than end-to-end deployment on closed-weight APIs.
+
+\item {\bf Theory assumptions and proofs}\\
+\textbf{Question:} For each theoretical result, does the paper provide the full set of assumptions and a complete (and correct) proof?\\
+\textbf{Answer:} \answerYes{}\\
+\textbf{Justification:} Assumptions (A1) conditional independence and (A2) log-linear answer model are stated in \S\ref{sec:method} and discussed in App.~\ref{app:assumption-ci},~\ref{app:assumption-loglinear}. Full proofs of CT1 in App.~\ref{app:thm1}, CT1$'$ in App.~\ref{app:thm2}, CT2 in App.~\ref{app:thm3}, CT3 in App.~\ref{app:eta-tempering-derivation}. Matching lower bounds in \Cref{thm:minimax,thm:t2-info,thm:t2-separability-body}. Concentration of $\widehat\rho^\star$ via Simchowitz / Bauer--Fike in \Cref{thm:rho-concentration}.
+
+\item {\bf Experimental result reproducibility}\\
+\textbf{Question:} Does the paper fully disclose all the information needed to reproduce the main experimental results?\\
+\textbf{Answer:} \answerYes{}\\
+\textbf{Justification:} App.~\ref{app:experimental-details} documents the full pipeline: 13 open-weight models, 10 benchmarks, 3 seeds, $5\!\times\!5\!\times\!3\!=\!75$-cell spotlight with paired bootstrap (10{,}000 resamples), exact one-sided sign tests, fixed-$\lambda$ e-values. Prompts verbatim in App.~\ref{app:prompts}. Decoding hyperparameters: \texttt{temperature=0.0}, \texttt{top\_p=1.0}, \texttt{seed=42}; $\eta$-tempering grid $\{0,0.1,\ldots,1.0\}$; Bayes-proxy logistic regression with L2 $\alpha\!=\!1.0$ (5-fold CV). Anonymized supplementary materials include the full evaluation harness.
+
+\item {\bf Open access to data and code}\\
+\textbf{Question:} Does the paper provide open access to the data and code, with sufficient instructions to faithfully reproduce the main experimental results?\\
+\textbf{Answer:} \answerYes{}\\
+\textbf{Justification:} Anonymized code release accompanies the submission with the canonical entry point at \texttt{src/knowledge\_arbitration/real\_generation.py} and the evaluation harness covering all spotlight cells. All benchmarks (ConflictBank, WikiContradict, ClashEval, RAMDocs, PopQA, NQ-open, TriviaQA-open, ASQA, DynamicQA) are publicly available; loaders are included in the release.
+
+\item {\bf Experimental setting/details}\\
+\textbf{Question:} Does the paper specify all the training and test details necessary to understand the results?\\
+\textbf{Answer:} \answerYes{}\\
+\textbf{Justification:} Model checkpoints are open-weight (Llama-3.1-8B/70B-Instruct, Qwen2.5-7B/14B/32B, Mistral-7B-Instruct, Gemma-2-9B/27B-it, Phi-3-medium, Pythia-6.9B, DeepSeek-R1-Distill-Qwen-7B/14B, DeepSeek-R1-Distill-Llama-8B/70B; closed-model APIs accessed via top-$k$ logprobs). Train / dev / test splits, $\eta$-tempering selection on held-out folds (cal=$200$, eval=$300$, disjoint), and per-cell $\eta^\star$ are documented in App.~\ref{app:eta-tempering-grid}.
+
+\item {\bf Experiment statistical significance}\\
+\textbf{Question:} Does the paper report error bars or other appropriate information about the statistical significance of the experiments?\\
+\textbf{Answer:} \answerYes{}\\
+\textbf{Justification:} Paired bootstrap 95\% CIs reported on every head-to-head comparison (\Cref{tab:spotlight}). Powered $n\!=\!210$ matched design with all CIs strictly above zero against CoCoA / Astute~RAG / Self-RAG (\Cref{fig:spotlight-forest}, App.~\ref{app:powered-headtohead}). E-values via fixed-$\lambda$~\citep{shafer2021testing,ramdas2023game}; sign-test exact $p$-values reported per comparator. CT2 envelope with held-out temporal-split MAE and cross-cell prediction (App.~\ref{app:berk-nash-rate}).
+
+\item {\bf Experiments compute resources}\\
+\textbf{Question:} For each experiment, does the paper provide sufficient information on the computer resources needed to reproduce the experiments?\\
+\textbf{Answer:} \answerYes{}\\
+\textbf{Justification:} Latency and compute profile in App.~\ref{app:latency-profile}: per-query latency $4.38$ s on a single H100 (Bayes mixture, 4 model passes), $1.21$ s for CAD baseline; cached $p_\theta$ deployment drops the cost to $1.09\!-\!2.19$ s/query. Matched-base GRPO/DPO training runs use the configurations of~\citet{rafailov2023dpo} and~\citet{shao2024grpo}; full hyperparameters in App.~\ref{app:matched-base}.
+
+\item {\bf Code of ethics}\\
+\textbf{Question:} Does the research conducted in the paper conform, in every respect, with the NeurIPS Code of Ethics?\\
+\textbf{Answer:} \answerYes{}\\
+\textbf{Justification:} The work uses publicly-available open-weight models and standard benchmarks. No human subjects, no data collected from individuals beyond what is already in public benchmarks. Adversarial / poisoned-context experiment uses synthetic perturbations of public passages. The intended deployment is calibration of retrieval-augmented LLMs to reduce confidently-wrong outputs (a defensive use case).
+
+\item {\bf Broader impacts}\\
+\textbf{Question:} Does the paper discuss both potential positive societal impacts and negative societal impacts of the work performed?\\
+\textbf{Answer:} \answerYes{}\\
+\textbf{Justification:} Positive impact: BayesArbiter reduces confidently-wrong outputs on conflict slices ($96\%\!\to\!47\%$ wrong-answer mass on the load-bearing slice; \S\ref{sec:discussion}), which directly improves safety on knowledge-intensive deployments. The matched-base RL contrast surfaces a calibration failure mode of binary-reward RLVR that practitioners can now diagnose. Negative impact: the same mechanism could in principle be inverted to amplify a chosen source's influence; the paper's adversarial-robustness envelope (CT1$'$) bounds the worst case but does not eliminate the risk.
+
+\item {\bf Safeguards}\\
+\textbf{Question:} Does the paper describe safeguards that have been put in place for responsible release of data or models that have a high risk for misuse?\\
+\textbf{Answer:} \answerNA{}\\
+\textbf{Justification:} The release contains evaluation code and a decoder-time arbitration rule, not a new model or new training data. The arbitration rule operates on existing open-weight LLMs and existing public benchmarks; misuse risk is comparable to standard RAG-system code releases.
+
+\item {\bf Licenses for existing assets}\\
+\textbf{Question:} Are the creators or original owners of assets used in the paper, properly credited and are the license and terms of use explicitly mentioned and properly respected?\\
+\textbf{Answer:} \answerYes{}\\
+\textbf{Justification:} All models are cited at first appearance with their original release papers. Benchmark licenses respected: ConflictBank (MIT), WikiContradict (CC-BY-SA), ClashEval (Apache 2.0), RAMDocs (CC-BY 4.0), PopQA (Apache 2.0), NQ-open (CC-BY-SA), TriviaQA-open (Apache 2.0), ASQA (Apache 2.0), DynamicQA (CC-BY 4.0). Open-weight model licenses (Llama Community License, Qwen License, Mistral Apache 2.0, Gemma Terms, Phi-3 MIT) respected for inference-only use.
+
+\item {\bf New assets}\\
+\textbf{Question:} Are new assets introduced in the paper well documented and is the documentation provided alongside the assets?\\
+\textbf{Answer:} \answerYes{}\\
+\textbf{Justification:} The released code is documented in the anonymized supplement. Decoding entry points, signal-extraction utilities, plug-in $\hat w(s)$ training script, $\eta$-tempering grid runner, and statistical analysis pipeline are all included with usage instructions. No new datasets are released; no new pretrained model weights are released.
+
+\item {\bf Crowdsourcing and research with human subjects}\\
+\textbf{Question:} For crowdsourcing experiments and research with human subjects, does the paper include the full text of instructions given to participants and screenshots, if applicable, as well as details about compensation (if any)?\\
+\textbf{Answer:} \answerNA{}\\
+\textbf{Justification:} No crowdsourcing or human-subjects experiments are conducted.
+
+\item {\bf Institutional Review Board (IRB) approvals or equivalent for research with human subjects}\\
+\textbf{Question:} Does the paper describe potential risks incurred by study participants, whether such risks were disclosed to the subjects, and whether Institutional Review Board (IRB) approvals (or an equivalent approval/review based on the requirements of your country or institution) were obtained?\\
+\textbf{Answer:} \answerNA{}\\
+\textbf{Justification:} No human-subjects research; IRB review is not applicable.
+
+\item {\bf Declaration of LLM usage}\\
+\textbf{Question:} Does the paper describe the usage of LLMs if it is an important, original, or non-standard component of the core methods in this research?\\
+\textbf{Answer:} \answerYes{}\\
+\textbf{Justification:} The paper studies LLMs as the system under analysis: BayesArbiter is a decoder-time arbitration rule applied to LLM outputs ($p_\theta$, $p_\ctx$, and the chain-of-thought trace). Models used as the system under study are listed in App.~\ref{app:experimental-details}. No LLMs were used to generate or write portions of the paper that are part of the core methods.
+
+\end{enumerate}
