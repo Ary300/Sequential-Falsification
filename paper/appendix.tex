@@ -3055,6 +3055,8 @@ $\hat y\gets \arg\max_{y\in\Y}\hat p(y\mid q,c)$
 \end{algorithmic}
 \end{algorithm}
 
+\paragraph{What it does.} The plug-in materialises the CT1 minimizer in three lines. Calibration restricts to the conflict slice $\D_{\mathrm{conf}}$ where $y_{\ctx}\!\neq\!y_{\param}$, because off-conflict every weight scores the same and including those rows just dilutes the logistic fit; on the conflict slice, the binary label $r_i\!=\!\one{y_i^\star\!=\!y_{\ctx,i}}$ is exactly the latent reliability $r$ that CT1 conditions on, and $\E[r\!\mid\!s]$ is the posterior the regression estimates. L2 logistic regression is the canonical consistent plug-in for $\E[r\!\mid\!s]$ under the log-linear assumption (A2), and we deliberately keep the feature vector to four signals (BM25, popularity, semantic entropy, contradiction type) so that the rule remains auditable: a deployment engineer can read off which signal moved $\hat w$ on a given query. Inference is one geometric mixture in log-space and one softmax — no extra forward passes through the LLM, no Monte Carlo, no held-out tuning beyond the regression fit. Wall-clock overhead is the cost of evaluating a four-feature sigmoid (App.~\ref{app:complexity}).
+
 \subsubsection{$\eta$-tempered decoding (Theorem~3)}
 
 \begin{algorithm}[H]
@@ -3084,6 +3086,8 @@ accuracy $\geq$ $\eta\!=\!1$ baseline if any tie
 \end{algorithmic}
 \end{algorithm}
 
+\paragraph{What it does.} The decoding stage applies the closed-form correction CT3 derives. The base model emits its post-trace distribution $p(\cdot\mid q,c,z_{1:K})$ as usual; tempering raises every probability to the power $\eta^\star\!\in\![0,1]$ and renormalises, which softens an overshooting distribution back toward the safe-Bayes optimum without touching weights or rerunning the trace. Selection happens once per (model, benchmark, condition) cell on a $200/300$ calibration/evaluation split — a held-out grid sweep over $\Gamma\!=\!\{0.05,0.1,\dots,1.0\}$ picks the $\eta$ that minimises Brier on calibration. The do-no-harm fallback exists because Brier and accuracy can disagree at the boundary: if the Brier-optimal $\eta^\star$ would drop accuracy below the $\eta\!=\!1$ baseline within tie tolerance, we walk back to the largest $\eta$ that preserves accuracy, so the procedure can hurt calibration but never hurts accuracy by more than the tie margin. This is what makes $\eta$-tempering deployable: one line at the readout, no gradient step, predictable Brier improvement of $(1\!-\!\eta^\star)^{2}V_{\mathrm{post}}$ when CT2 says the cell is overshooting and a no-op when it is not.
+
 \subsubsection{Confidence-head pilot}
 
 \begin{algorithm}[H]
@@ -3109,6 +3113,8 @@ batch $32$; no weight decay; up to $20$ epochs with early stopping on val Brier
 \State \Return $g_\phi$
 \end{algorithmic}
 \end{algorithm}
+
+\paragraph{What it does.} The confidence head is a sanity probe, not a substitute for full RLCR-style retraining. We freeze the base model, project the answer-token last-layer hidden state to a 64-dimensional feature, and fit a 2-layer MLP to predict binary correctness with Brier loss. The role of this probe in the paper is narrow: it lets us ask whether the calibration signal $\eta$-tempering depends on (post-trace variance $V_{\mathrm{post}}$) is recoverable from frozen activations alone, or whether it requires the trace to actually run. The 180/60/60 split, batch 32, Adam at $10^{-3}$, early stopping on validation Brier are the standard MLP recipe for this setting; we report the probe's per-metric numbers in App.~\ref{app:confidence-head-detail} and treat any positive result as evidence that the variance signal is already in the activations, not as a competing arbitration method.
 
 \subsection{$\eta$-proxy identification on a controlled grid}
 \label{app:eta-proxy-id}
