@@ -64,11 +64,11 @@ Read:
 ## Still compute-blocked
 
 - `Llama-8B GRPO` multiseed aggregate:
-  - completed checkpoint through seeds `42–48,51–53` is now on disk:
-    - mean conflict-minus-no-conflict ECE delta `+0.0142`
-    - bootstrap `95% CI [-0.0235, +0.0490]`
-  - running: seeds `49`, `50`, `54–63`
-  - pending: seeds `64–71`
+  - completed checkpoint through seeds `42–57,59,61` is now on disk:
+    - mean conflict-minus-no-conflict ECE delta `+0.0061`
+    - bootstrap `95% CI [-0.0221, +0.0316]`
+  - running: seeds `58`, `60`, `62–68`
+  - pending: seeds `69–71`
   - current live partial wave over `12` running seeds is mildly positive:
     - unweighted mean `+0.0275`
     - row-weighted mean `+0.0319`
