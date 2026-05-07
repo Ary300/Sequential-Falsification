@@ -1,6 +1,20 @@
 \section{Introduction}
 \label{sec:intro}
 
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\linewidth]{figs/fig_architecture.pdf}
+  \caption{\textbf{The \textsc{BayesArbiter} pipeline.} Three
+  inputs ($q$, $c$, trace $z_{1:K}$) produce three distributions
+  ($p_\theta$, $p_{\ctx}$, $p(\cdot\mid\mathrm{trace})$).  A
+  reliability plug-in $\hat w(c)\!=\!\widehat{\E}[r\mid s(q,c)]$
+  drives the geometric mixture
+  (\Cref{thm:t1-axiomatic}); the post-trace distribution is
+  $\eta$-tempered with closed-form Brier improvement
+  (\Cref{thm:t3-intervention}).}
+  \label{fig:architecture}
+\end{figure}
+
 You ask a language model trained in 2023 who runs Twitter. Its parametric prior, fixed at training, says Elon Musk. The retrieval pipeline hands back a 2024 article naming Linda Yaccarino. Two sources, two answers, and the model has to pick.
 
 Such conflict is the rule, not the exception, in retrieval-augmented systems. The model carries a parametric prior $p_\theta(y\mid q)$ from training, conditions on a retrieved context $p_{\ctx}(y\mid q,c)$, and, if it produces a chain of thought, listens to itself across $K$ reasoning steps before answering. Any of those voices can be wrong, and they often disagree. Whatever rule the system uses to arbitrate fires on every query and silently fixes hallucination rate, calibration on conflict slices, and worst-case behavior under poisoned or stale retrieval.
@@ -50,16 +64,3 @@ Held-out & ClashEval + RAMDocs replication & Both predicted directions confirmed
 
 Extensions in App.~\ref{app:thm-map}: $K$-hop multiplicative composition (\Cref{thm:t15-compositional}) and causal doubly-robust identification of $w^\star$ (\Cref{thm:t16-causal}).
 
-\begin{figure}[t]
-  \centering
-  \includegraphics[width=\linewidth]{figs/fig_architecture.pdf}
-  \caption{\textbf{The \textsc{BayesArbiter} pipeline.} Three
-  inputs ($q$, $c$, trace $z_{1:K}$) produce three distributions
-  ($p_\theta$, $p_{\ctx}$, $p(\cdot\mid\mathrm{trace})$).  A
-  reliability plug-in $\hat w(c)\!=\!\widehat{\E}[r\mid s(q,c)]$
-  drives the geometric mixture
-  (\Cref{thm:t1-axiomatic}); the post-trace distribution is
-  $\eta$-tempered with closed-form Brier improvement
-  (\Cref{thm:t3-intervention}).}
-  \label{fig:architecture}
-\end{figure}
