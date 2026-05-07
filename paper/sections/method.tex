@@ -1,10 +1,9 @@
 \section{Setup and Theory}
 \label{sec:method}
 
-\paragraph{Setup.}
 A query $q$ with retrieved context $c$ has a true answer $y^\star\!\in\!\Y$ drawn from $\PP^\star$, where $\Y$ is the (closed) candidate set. The LLM exposes the closed-book softmax $p_\theta(y\!\mid\!q)$ and the context-conditioned softmax $p_\ctx(y\!\mid\!q,c)$, with top-1 modes $y_\param\!:=\!\arg\max_y p_\theta$ and $y_\ctx\!:=\!\arg\max_y p_\ctx$. Latent reliability $r\!:=\!\PP(y^\star\!=\!y_\ctx\mid q,c)\!\in\![0,1]$ has prior $\pi(r)$ informed by observable signals $s(q,c)$ (BM25, popularity, semantic entropy~\citep{kuhn2023semantic}, contradiction type). The decision maker chooses $\hat p\!\in\!\Delta(\Y)$; risk is $R(\hat p)\!=\!\E_{q,c,y^\star}[S(\hat p,y^\star)]$ for a strictly proper scoring rule $S$ (log loss and Brier). \textbf{Assumptions} (App.~\ref{app:assumption-ci},~\ref{app:assumption-loglinear}): \emph{(A1)} $y^\star\!\perp\!c\mid(q,r)$; \emph{(A2)} the conditional answer model is log-linear. All theorems operate under (A1)--(A2).
 
-\paragraph{Theory architecture.} Three theorems on the same free-energy functional $\mathcal{F}$ on $\Delta(\Y)$: \textbf{CT1} (Gibbs minimizer + perturbation envelope), \textbf{CT2} ($\eta$-linear sandwich on chain-of-thought convergence), \textbf{CT3} (closed-form Brier improvement under $\eta$-tempering). Variational free energy~\citep{jaynes1957information,wainwright2008graphical} and the geometric opinion pool~\citep{genest1986characterization,heskes1998selecting,mcconway1981marginalization} are classical; the contribution is the specific energy whose Gibbs minimizer reads $w^\star\!=\!\E[r\!\mid\!s]$ and unifies arbitration, trace-tempering, and perturbation response inside one functional.
+Three theorems sit on the same free-energy functional $\mathcal{F}$ on $\Delta(\Y)$: \textbf{CT1} (Gibbs minimizer + perturbation envelope), \textbf{CT2} ($\eta$-linear sandwich on chain-of-thought convergence), \textbf{CT3} (closed-form Brier improvement under $\eta$-tempering). Variational free energy~\citep{jaynes1957information,wainwright2008graphical} and the geometric opinion pool~\citep{genest1986characterization,heskes1998selecting,mcconway1981marginalization} are classical; the contribution is the specific energy whose Gibbs minimizer reads $w^\star\!=\!\E[r\!\mid\!s]$ and unifies arbitration, trace-tempering, and perturbation response inside one functional.
 
 \subsection{CT1 Bayes-optimal arbitration and perturbation envelope}
 \label{sec:ct1}\label{sec:thm1}\label{sec:thm2}
@@ -90,4 +89,4 @@ As a procedure this is calibrated temperature scaling~\citep{guo2017oncalibratio
 
 \textit{What is new.} The closed form converts a widely-used empirical recipe (temperature scaling) into a quantity the practitioner can predict from the post-trace variance alone. Combined with CT2's safe-rate condition, the result answers when $\eta^\star\!<\!1$ is the right call without requiring a held-out sweep, which is the unresolved question in the calibration literature on long chain-of-thought.
 
-\paragraph{Extensions.} $K$-hop multiplicative composition (\Cref{thm:t15-compositional}) and doubly-robust causal identification of $w^\star$ (\Cref{thm:t16-causal}); App.~\ref{app:thm-map}.
+Two extensions live in App.~\ref{app:thm-map}: $K$-hop multiplicative composition (\Cref{thm:t15-compositional}) and doubly-robust causal identification of $w^\star$ (\Cref{thm:t16-causal}).

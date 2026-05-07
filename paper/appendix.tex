@@ -32,27 +32,160 @@
 
 
 \begin{tcolorbox}[colback=white,colframe=black,boxrule=0.5pt,arc=1pt,
-  title=\textbf{Appendix: organisation and reading order},
+  title=\textbf{Appendix: organisation and reading order (clickable)},
   fonttitle=\bfseries,coltitle=black,colbacktitle=white,
-  before skip=4pt,after skip=4pt]
-\textit{Proof spine (A--E).}\\
-\textbf{A.}~Notation, assumptions, glossary~~$\to$~\Cref{app:letter-A}\\
-\textbf{B.}~Related work, comparators, theoretical antecedents~~$\to$~\Cref{app:letter-B}\\
-\textbf{C.}~Theorem~1 proof: identifiability, excess risk, sequence-level extension, AdaCAD-as-Laplace, perturbation envelope~~$\to$~\Cref{app:letter-C}\\
-\textbf{D.}~Theorem~2 proof: Yao construction, binary-testing restatement, worked minimax instance~~$\to$~\Cref{app:letter-D}\\
-\textbf{E.}~Theorem~3 proof, safe-rate lemma, Berk--Nash reduction, assumption audits, multilingual evidence, window-stability of $\widehat\rho^\star$~~$\to$~\Cref{app:letter-E}\\[2pt]
-\textit{Algorithms and experimental setup (F--G).}\\
-\textbf{F.}~Algorithms (plug-in \textsc{BayesArbiter}, $\eta$-tempered decoding, confidence-head pilot), $\eta$-tempering derivation, complexity, wall-clock cost~~$\to$~\Cref{app:letter-F}\\
-\textbf{G.}~Full experimental setup: experiment index, model checkpoints, dataset splits, prompts, decoding hyperparameters, bootstrap and e-value protocols, hyperparameter table~~$\to$~\Cref{app:letter-G}\\[2pt]
-\textit{Empirical gallery (H--I).}\\
-\textbf{H.}~Results gallery: per-model, per-benchmark, calibration diagrams, $\eta$-tempering grids, frequentist comparison, theorem-to-anchor map, pre-registered held-out~~$\to$~\Cref{app:letter-H}\\
-\textbf{I.}~Ablations: prior sensitivity, signal-set ablation, L2 regularisation grid~~$\to$~\Cref{app:letter-I}\\[2pt]
-\textit{Deployment, reproducibility, and reviewer-facing material (J--N).}\\
-\textbf{J.}~Reproducibility: code snippets, hashes, compute footprint, contributions~~$\to$~\Cref{app:letter-J}\\
-\textbf{K.}~Closed-model frontier validation and $K\!=\!3$ multi-source extension~~$\to$~\Cref{app:letter-K}\\
-\textbf{L.}~Worked examples, failure modes, negative results~~$\to$~\Cref{app:letter-L}\\
-\textbf{M.}~Limitations, broader impact, threats to validity, reviewer Q\&A~~$\to$~\Cref{app:letter-M}\\
-\textbf{N.}~NeurIPS Paper Checklist~~$\to$~\Cref{app:letter-N}
+  before skip=4pt,after skip=4pt,breakable]
+{\footnotesize
+\setlength{\parskip}{2pt}
+\setlist[itemize]{leftmargin=14pt,itemsep=0pt,topsep=1pt,parsep=0pt,label={\textendash}}
+
+\textit{Proof spine.}
+
+\textbf{\hyperref[app:letter-A]{A.\ Notation, assumptions, glossary}}
+\begin{itemize}
+  \item \hyperref[app:notation]{Notation and standing assumptions}
+\end{itemize}
+
+\textbf{\hyperref[app:letter-B]{B.\ Related work, comparators, theoretical antecedents}}
+\begin{itemize}
+  \item \hyperref[app:safe-bayes-connection]{Connection to safe Bayes and the calibration literature}
+  \item \hyperref[app:baseline-deep-dive]{Source-by-source comparison with named baselines}
+  \item \hyperref[app:antecedent-comparison]{Comparison against the closest theoretical antecedents}
+  \item \hyperref[app:long-rw]{Comparators in one paragraph}
+\end{itemize}
+
+\textbf{\hyperref[app:letter-C]{C.\ Theorem~1 proof and supplementary derivations}}
+\begin{itemize}
+  \item \hyperref[app:thm1]{Proof of Theorem~1 (Bayes-optimal arbitration)}
+  \item \hyperref[app:t1-variance-correction]{Theorem-1 variance correction (empirical)}
+  \item \hyperref[app:variational-detail]{Variational characterization, detailed proof}
+  \item \hyperref[app:thm1-axiomatic]{Axiomatic uniqueness of the geometric mixture}
+  \item \hyperref[app:thm2-info]{Information-theoretic minimax floor (T2$+$)}
+  \item \hyperref[app:thm3-intervention]{Closed-form Brier improvement (T3$+$)}
+  \item \hyperref[app:pinsker-detail]{Pinsker-style excess risk}
+  \item \hyperref[app:sample-efficiency]{Sample efficiency of the plug-in}
+  \item \hyperref[app:ci-failure]{If conditional independence or log-linearity fails}
+  \item \hyperref[app:adacad-extended]{Extended AdaCAD Laplace approximation}
+  \item \hyperref[app:ci-extended]{Extended discussion of conditional independence}
+  \item \hyperref[app:pinsker-logloss]{Supplementary derivation, Pinsker for log-loss}
+\end{itemize}
+
+\textbf{\hyperref[app:letter-D]{D.\ Theorem~2 proof and the minimax construction}}
+\begin{itemize}
+  \item \hyperref[app:thm2]{Proof of Theorem~2 (minimax)}
+  \item \hyperref[app:fano-sharpening]{Supplementary derivation, Fano sharpening}
+  \item \hyperref[app:worked-minimax]{Worked example of the minimax construction}
+\end{itemize}
+
+\textbf{\hyperref[app:letter-E]{E.\ Theorem~3 proof, assumption audits, multilingual evidence}}
+\begin{itemize}
+  \item \hyperref[app:thm3]{Proof of Theorem~3 ($\eta$-Bayes)}
+  \item \hyperref[app:assumption-audit]{Assumption audit}
+  \item \hyperref[app:t3-empirical-audits]{Empirical audits of the Berk--Nash reduction}
+  \item \hyperref[app:berk-nash-rate]{Local Berk--Nash rate, proof of $\widehat\rho^\star$ estimation}
+  \item \hyperref[app:rho-concentration]{Finite-sample concentration of $\widehat\rho^\star$}
+  \item \hyperref[app:new-theorems-tables]{Backing tables for the new theorems}
+  \item \hyperref[app:three-perspectives]{Three independent characterizations of the geometric mixture}
+  \item \hyperref[app:strengthenings]{Unique strengthenings of each existing theorem}
+  \item \hyperref[app:robustness-extension]{Robustness, extension, creative results}
+  \item \hyperref[app:master-free-energy]{Master variational principle and the thermodynamic unification}
+  \item \hyperref[app:safe-rate-detail]{Safe-rate corollary and Berk--Nash convergence detail}
+  \item \hyperref[app:large-k]{What changes at very large $K$ (deep CoT)}
+  \item \hyperref[app:summary-predictions]{Summary of falsifiable predictions and outcomes}
+  \item \hyperref[app:t3-proxy-stats]{Theorem-3 proxy matrix statistics}
+  \item \hyperref[app:gap-scatter-fig]{Per-cell gap scatter across the T3 grid}
+  \item \hyperref[app:multilingual]{Multilingual T3 evidence}
+\end{itemize}
+
+\textit{Algorithms and experimental setup.}
+
+\textbf{\hyperref[app:letter-F]{F.\ Algorithms, derivations, computational complexity}}
+\begin{itemize}
+  \item \hyperref[app:eta-tempering-derivation]{Derivation of $\eta$-tempered decoding}
+  \item \hyperref[app:algorithms]{Algorithms (\textsc{BayesArbiter}, $\eta$-tempering, confidence-head pilot)}
+  \item \hyperref[app:eta-proxy-id]{$\eta$-proxy identification on a controlled grid}
+  \item \hyperref[app:additional-theory]{Additional theoretical results}
+  \item \hyperref[app:complexity]{Algorithmic complexity and wall-clock cost}
+  \item \hyperref[app:eta-variants]{Variants of $\eta$-tempering}
+  \item \hyperref[app:eta-from-logodds]{Supplementary derivation, $\eta$ from log-odds}
+\end{itemize}
+
+\textbf{\hyperref[app:letter-G]{G.\ Experimental details, prompts, hyperparameters, e-value diagnostics}}
+\begin{itemize}
+  \item \hyperref[app:experiment-index]{Experiment index}
+  \item \hyperref[app:experimental-details]{Experimental details}
+  \item \hyperref[app:exp-design-inventory]{Full experimental-design inventory}
+  \item \hyperref[app:prompts]{Prompts used}
+  \item \hyperref[app:bootstrap-evalue]{Bootstrap, e-value, and glossary}
+  \item \hyperref[app:final-hyperparam]{Final hyperparameter table}
+  \item \hyperref[app:dist-shift]{Distributional shift and methodological choices}
+  \item \hyperref[app:evalue-diagnostic]{Sequential e-value diagnostic}
+\end{itemize}
+
+\textit{Empirical gallery.}
+
+\textbf{\hyperref[app:letter-H]{H.\ Main results gallery (per-model, per-benchmark, calibration)}}
+\begin{itemize}
+  \item \hyperref[app:extended-results]{Extended results gallery}
+  \item \hyperref[app:powered-headtohead]{Powered head-to-head against published adaptive baselines}
+  \item \hyperref[app:per-bench-wins]{Per-benchmark wins, confidence-head pilot, BM25 demo}
+  \item \hyperref[app:calibration-diagrams]{Calibration diagrams and additional figures}
+  \item \hyperref[app:per-model-deep-dive]{Per-model deep-dive tables}
+  \item \hyperref[app:full-breakdown]{Full per-benchmark, per-model regret breakdown}
+  \item \hyperref[app:eta-grid]{$\eta$-tempering: full per-slice grid}
+  \item \hyperref[app:eta-r1-7b]{Per-benchmark $\eta^\star$ on R1-7B}
+  \item \hyperref[app:trust-extremes]{Always-zero / always-one trust as upper bounds}
+  \item \hyperref[app:frequentist]{Frequentist comparison: \textsc{BayesArbiter} vs.\ ML estimator}
+  \item \hyperref[app:oracle-diagnostics]{Oracle--model diagnostics for T1/T2}
+  \item \hyperref[app:eta-wiki-extended]{Extended $\eta$-tempering grid: WikiContradict}
+  \item \hyperref[app:matched-base]{Matched-base SFT/DPO/GRPO contrast}
+  \item \hyperref[app:popqa-bins-detail]{Per-popularity-bin breakdown for PopQA}
+  \item \hyperref[app:brier-vs-K]{Auxiliary diagnostic figures}
+  \item \hyperref[app:thm-map]{Theorem-to-empirical-anchor map}
+  \item \hyperref[app:preregistered-heldout]{Pre-registered held-out test}
+  \item \hyperref[app:adversarial-context]{Adversarial / poisoned context}
+  \item \hyperref[app:reliability-noise-ablation]{Reliability counterfactual sweep}
+  \item \hyperref[app:multidoc-scaling]{Multi-document conflict scaling}
+  \item \hyperref[app:mechanism-grpo-dpo]{GRPO-vs-DPO answer-margin mechanism probe}
+  \item \hyperref[app:latency-profile]{Latency and cost profile}
+  \item \hyperref[app:freeform-openqa]{Free-form open-QA evaluation}
+\end{itemize}
+
+\textbf{\hyperref[app:letter-I]{I.\ Ablations and sensitivity}}
+\begin{itemize}
+  \item \hyperref[app:prior-sensitivity]{Sensitivity to the reliability prior and signal set}
+  \item \hyperref[app:ablation-grid-fig]{Ablation grid: L2 reg.\ $\times$ signal set}
+\end{itemize}
+
+\textit{Deployment, reproducibility, reviewer-facing material.}
+
+\textbf{\hyperref[app:letter-J]{J.\ Reproducibility, hashes, compute, contributions}}
+\begin{itemize}
+  \item \hyperref[app:reproducibility]{Reproducibility, compute, contributions}
+\end{itemize}
+
+\textbf{\hyperref[app:letter-K]{K.\ Closed-model deployment and the multi-source extension}}
+\begin{itemize}
+  \item \hyperref[app:frontier-validation]{Frontier-scale validation}
+  \item \hyperref[app:multi-source-experiments]{Multi-source extension: $K\!=\!3$ sources}
+\end{itemize}
+
+\textbf{\hyperref[app:letter-L]{L.\ Worked examples, failure modes, negative results}}
+
+\textbf{\hyperref[app:letter-M]{M.\ Limitations, broader impact, threats to validity, reviewer Q\&A}}
+\begin{itemize}
+  \item \hyperref[app:limitations]{Limitations}
+  \item \hyperref[app:broader-impact]{Broader impact}
+  \item \hyperref[app:ethics-dual-use]{Ethics, dual-use, responsible release}
+  \item \hyperref[app:threats]{Threats to validity}
+  \item \hyperref[app:reviewer-qa]{Reviewer questions, briefly}
+\end{itemize}
+
+\textbf{\hyperref[app:letter-N]{N.\ NeurIPS Paper Checklist}}
+\begin{itemize}
+  \item \hyperref[app:checklist]{NeurIPS 2026 reproducibility checklist}
+\end{itemize}
+}
 \end{tcolorbox}
 
 \paragraph{Proof dependency map.}
@@ -3252,6 +3385,133 @@ e-values via fixed-$\lambda$~\citep{shafer2021testing,ramdas2023game}.
 \textsc{BayesArbiter} logistic regression: L2 $\alpha\!=\!1.0$ (5-fold CV);
 $\eta$-tempering grid $\{0,0.1,\ldots,1.0\}$.
 
+\subsection{Full experimental-design inventory}
+\label{app:exp-design-inventory}
+
+\paragraph{Spotlight matrices.}
+The CT1/CT2 spotlight (\texttt{knowledge\_arbitration\_spotlight.yaml}) is
+five benchmarks $\times$ five models $\times$ four conditions, with two
+self-consistency settings and four CoT lengths.
+Benchmarks: ConflictBank, PopQA, NQ-Swap, MemoTrap, FaithEval.
+Models: Llama-3.1-8B, Llama-3.1-70B, Qwen-2.5-7B, Qwen-2.5-14B,
+DeepSeek-R1-Distill-Qwen-7B.
+Conditions: closed\_book, aligned\_context, conflict\_context,
+irrelevant\_noise.
+CoT lengths: $\{0, 128, 512, 2048\}$.
+Self-consistency: $\{1, 8\}$ samples.
+Per-slice cap: $512$ examples.
+
+The CT3 size-scaling spotlight uses a different benchmark mix
+designed to stress the $K$-axis prediction.  Benchmarks:
+ConflictBank, WikiContradict, FaithEval, AmbigDocs, RAMDocs.
+Conditions: closed\_book, aligned\_context, conflict\_context.
+CoT lengths: $\{0, 128, 1024\}$, self-consistency $1$, per-slice
+cap $256$.
+
+\paragraph{Matched-base training defaults.}
+Runner: \texttt{run\_theorem3\_matched\_objective\_lora.py}; cluster
+launcher: \texttt{submit\_delta\_theorem3\_matched\_objective\_lora.sh}.
+Common defaults across SFT/DPO/GRPO recipes:
+
+\begin{table}[H]
+\centering\small
+\caption{\textbf{Matched-base training defaults} (LoRA fine-tuning on
+ConflictBank).  Same setting across SFT, DPO, GRPO unless overridden.}
+\label{tab:matched-base-defaults}
+\setlength{\tabcolsep}{6pt}
+\begin{tabular}{ll}
+\toprule
+\textbf{Hyperparameter} & \textbf{Value}\\
+\midrule
+training benchmark              & ConflictBank \\
+source / train / val / eval rows & $1200 / 800 / 120 / 120$ \\
+max prompt length               & $768$ tokens \\
+max answer length               & $24$ tokens \\
+objective epochs                & $1$ \\
+warmstart epochs                & $1$ \\
+learning rate                   & $5\!\times\!10^{-5}$ \\
+weight decay                    & $1\!\times\!10^{-4}$ \\
+DPO $\beta$                     & $0.1$ \\
+GRPO group size                 & $4$ \\
+sampling temperature            & $0.8$ \\
+top-$p$                         & $0.95$ \\
+LoRA rank / $\alpha$ / dropout  & $8 / 16 / 0.05$ \\
+seed                            & $42$ \\
+dtype                           & bfloat16 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Family-specific overrides keep training cost in budget while preserving
+the matched-base contrast:
+
+\begin{table}[H]
+\centering\footnotesize
+\caption{\textbf{Family-specific overrides on top of
+\Cref{tab:matched-base-defaults}.}  Row counts cite source / train /
+val / eval; wall is the SLURM time limit.}
+\label{tab:matched-base-overrides}
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.1}
+\begin{tabular}{@{}l l p{0.55\linewidth}@{}}
+\toprule
+\textbf{Family / suite} & \textbf{Row counts} & \textbf{Notes}\\
+\midrule
+Llama-3.1-8B (E1)        & $900/640/96/96$    & wall $14$\,h\\
+Qwen-2.5-14B (E1)        & $1200/800/120/120$ & wall $18$\,h\\
+Mistral-7B trio          & $800/560/80/80$    & wall $12$\,h; SFT control \texttt{warmstart=2, epochs=0}; DPO/GRPO \texttt{warmstart=1, epochs=1}; \texttt{VLLM\_MAX\_MODEL\_LEN=4096}\\
+Gemma-2-9B trio          & $800/560/80/80$    & \texttt{request\_format=completion}, \texttt{prompt\_protocol=generic}, \texttt{VLLM\_MAX\_MODEL\_LEN=4096}\\
+Phi-3-mini-4k pair       & $800/560/80/80$    & \texttt{VLLM\_MAX\_MODEL\_LEN=4096}\\
+DeepSeek-Llama-8B rescue & $900/640/96/96$    & wall $14$\,h; \texttt{request\_format=completion}, \texttt{prompt\_protocol=deepseek\_native}; explored pockets $(\beta,\text{group},\tau,\text{warmstart})\!\in\!\{(0.02,8,0.7,2),\,(0.01,12,0.7,3),\,(0.01,16,0.6,3{\,/\,}\text{seed }43)\}$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Theorem-3 evaluation defaults.}
+Runner: \texttt{run\_theorem3\_real\_generation.py}.  Backend
+\texttt{openai}; decoding $\texttt{temperature}=0.0$,
+$\texttt{top\_p}=1.0$; default request format \texttt{chat}; default
+prompt protocol \texttt{generic}.  Standard benchmarks:
+WikiContradict, ConflictBank.  Conditions: aligned\_context,
+conflict\_context.  CoT lengths $\{0, 128, 1024\}$.
+Standardised matched-objective evaluation subset:
+\texttt{wikicontradict\_max=96}, \texttt{conflictbank\_max=128},
+$1{,}344$ rows total per completed run.
+
+\paragraph{$\eta$-tempering: materialised run.}
+Launcher: \texttt{submit\_delta\_theorem3\_eta\_tempered.sh}.
+The load-bearing run reported in the body uses
+DeepSeek-R1-Distill-Qwen-14B on ConflictBank / conflict\_context
+at CoT length $1024$, with calibration size $200$ and evaluation
+size $300$ disjoint.  $\eta$ grid $\{0.0, 0.1, \ldots, 1.0\}$;
+selection rule \texttt{sample\_split\_brier\_optimal}.
+
+\paragraph{Free-form and live-retrieval evaluation.}
+Free-form runner: \texttt{run\_paper2\_freeform\_eval.py}.  Materialised
+configuration: DeepSeek-Llama-8B local snapshot; datasets
+TriviaQA-open, NQ-open, ASQA; per-dataset cap $32$; Wikipedia search
+limit $6$; top-$k$ contexts $3$; max new tokens $96$; batch size $4$;
+bfloat16.  Dense-retrieval RAG eval
+(\texttt{build\_production\_rag\_eval\_e5.py}): per-dataset cap $20$;
+search limit $12$; top-$k$ rerank $5$; encoder
+\texttt{intfloat/multilingual-e5-small}.
+
+\paragraph{Statistical pipeline.}
+Multi-seed CI builder \texttt{build\_theorem3\_multiseed\_ci.py}
+emits paired bootstrap CIs ($10{,}000$ resamples, RNG seed $42$),
+exact one-sided sign tests, fixed-$\lambda$ e-values, the
+positive-subset estimator $\widehat\Delta_+$, and per-family
+theorem-3 bootstrap tables.
+
+\paragraph{Compute footprint.}
+Primary cluster: NCSA Delta.  Matched-objective defaults:
+account/QoS \texttt{bgvi-dtai-gh}, partition \texttt{ghx4}, $1$ GPU,
+$16$ CPUs, wall $18$\,h.  RLCR runs use $4$ GPUs, $32$ CPUs, wall
+$20$\,h.  HuggingFace cache lives on \texttt{/work/nvme/.../hf\_cache};
+rescue jobs stage to node-local \texttt{/tmp} and sync back to
+persistent storage.  vLLM uses
+\texttt{gpu-memory-utilization=0.9}.
+
 \subsection{Prompts used}
 \label{app:prompts}
 
@@ -5076,3 +5336,12 @@ None.
 \paragraph{Safeguards.}
 Broader-impact statement in App.~\ref{app:broader-impact}; no model
 release; no third-party scraping.
+
+\paragraph{LLM usage during manuscript preparation.}
+LLM assistance was limited to grammar, copy-editing, and stylistic
+polishing of author-written prose.  All theorems, proofs,
+experimental design choices, code, results, and analysis are the
+work of the human authors.  LLMs are themselves the system under
+study (as $p_\theta$, $p_\ctx$, and the chain-of-thought trace);
+the checkpoints used in that role are listed in
+App.~\ref{app:experimental-details}.

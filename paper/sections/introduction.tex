@@ -1,7 +1,7 @@
 \section{Introduction}
 \label{sec:intro}
 
-You ask a language model trained in 2023 who runs Twitter. Its parametric prior, fixed at training, says Elon Musk. The retrieval pipeline hands back a 2024 article naming Linda Yaccarino. Two sources, two answers, and the model has to pick.
+A 2023-trained language model knows Elon Musk runs Twitter. But a 2024 article retrieved by RAG names Linda Yaccarino as CEO of X. How is the model supposed to choose?
 
 \begin{figure}[t]
   \centering
@@ -54,7 +54,7 @@ Held-out & ClashEval + RAMDocs replication & Both predicted directions confirmed
 \end{tabular}
 \end{table}
 
-\paragraph{Contributions.}  Three theorems on a single free-energy functional $\mathcal{F}$, with two inference-time interventions and a unification of the existing decoder literature.
+Our contribution is three theorems on a single free-energy functional $\mathcal{F}$, two inference-time interventions, and a unification of the existing decoder literature.
 
 \textbf{CT1, Bayes-optimal arbitration (\Cref{thm:ct1-body}).} The geometric mixture $p \propto p_\theta^{1-w}p_\ctx^{w}p_K^{\eta}$ with $w^\star\!=\!\E[r\!\mid\!s]$ is the unique Gibbs minimizer of $\mathcal{F}[p]\!=\!\E_p[E_{w,\eta}]\!-\!H[p]$ and the unique combiner under four classical axioms. CAD, AdaCAD, CoCoA, Astute, Self-RAG, and JuICE all collapse to special cases on this exponent axis (\Cref{cor:special-cases-body}). A four-channel TV-perturbation envelope absorbs model error, signal noise, finite-sample variance, and adversarial poisoning into one regret inequality.
 
@@ -64,5 +64,5 @@ Held-out & ClashEval + RAMDocs replication & Both predicted directions confirmed
 
 Extensions in App.~\ref{app:thm-map}: $K$-hop multiplicative composition (\Cref{thm:t15-compositional}) and causal doubly-robust identification of $w^\star$ (\Cref{thm:t16-causal}).
 
-\paragraph{Significance.}  Arbitration was the last hand-tuned step in retrieval-augmented LLM pipelines.  One functional now gives the optimal combiner, the trajectory envelope, and the closed-form deployment scalar; six published decoders collapse to special cases on its exponent axis; the interventions ship as one inference-time line over a standard RAG decoder.  On the worst conflict cell observed (RLCR-trained $8$B), $\eta$-tempering raises accuracy from $6.3\%$ to $53.1\%$ and Brier from $0.886$ to $0.415$ without a gradient step.  The matched-base GRPO-vs-DPO contrast at $+0.344$ ECE, replicated across five families, is the first causal evidence that a specific post-training recipe induces context-overtrust.
+Arbitration was the last hand-tuned step in retrieval-augmented LLM pipelines, and a single functional now gives the optimal combiner, the trajectory envelope, and the closed-form deployment scalar in one place. Six published decoders collapse to special cases on the exponent axis of that functional, and the two interventions ship as one inference-time line over a standard RAG decoder. On the worst conflict cell observed (RLCR-trained $8$B), $\eta$-tempering raises accuracy from $6.3\%$ to $53.1\%$ and Brier from $0.886$ to $0.415$ without a gradient step. The matched-base GRPO-vs-DPO contrast at $+0.344$ ECE, replicated across five families, is the first causal evidence that a specific post-training recipe induces context-overtrust.
 
