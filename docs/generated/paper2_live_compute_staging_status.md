@@ -83,8 +83,17 @@ the bottleneck is explicit: launcher readiness versus cluster access.
   - still running: seeds `47`, `49–61`
   - still pending on `QOSGrpBillingMinutes`: seeds `62–71`
 - current mid-run partials:
-  - no fresh mid-run row snapshot has been harvested yet for the currently
-    running seeds `47`, `49–61`
+  - live partial theorem-3 snapshot is now materialized:
+    [llama8_grpo_running_partial_wave_2026-05-06.md](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/llama8_grpo_running_partial_wave_2026-05-06.md)
+  - valid partial seeds with synced rows: `12`
+  - seeds covered: `47`, `49`, `50`, `51`, `52`, `53`, `54`, `55`, `56`,
+    `57`, `59`, `61`
+  - total synced rows across those partials: `7431`
+  - unweighted mean conflict-minus-no-conflict ECE delta: `+0.0275`
+  - row-weighted mean conflict-minus-no-conflict ECE delta: `+0.0319`
+  - partial positives / negatives: `6 / 6`
+  - seeds `58` and `60` were running but still had `0` synced theorem-3 rows
+    at snapshot time
 - queue cleanup:
   - user explicitly asked that unrelated jobs stop being cancelled, so no
     further unrelated queue cleanup will be done from this point onward

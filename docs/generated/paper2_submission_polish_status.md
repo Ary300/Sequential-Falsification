@@ -69,6 +69,11 @@ Read:
     - bootstrap `95% CI [-0.0222, +0.0653]`
   - running: seeds `47`, `49–61`
   - pending: seeds `62–71`
+  - current live partial wave over `12` running seeds is mildly positive:
+    - unweighted mean `+0.0275`
+    - row-weighted mean `+0.0319`
+    - source:
+      [llama8_grpo_running_partial_wave_2026-05-06.md](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/llama8_grpo_running_partial_wave_2026-05-06.md)
   - this is now the main unresolved empirical item
 
 ## Closed compute items since the previous draft

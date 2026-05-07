@@ -16,6 +16,11 @@ Current Paper 2 live-compute headline:
   - seeds `47`, `49–61`
 - still pending on Delta:
   - seeds `62–71`
+- current live partial wave over `12` running seeds:
+  - unweighted mean conflict-minus-no-conflict ECE delta: `+0.0275`
+  - row-weighted mean conflict-minus-no-conflict ECE delta: `+0.0319`
+  - source:
+    [llama8_grpo_running_partial_wave_2026-05-06.md](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/llama8_grpo_running_partial_wave_2026-05-06.md)
 
 Current strongest closed family-level reads relevant to Paper 2:
 - `DeepSeek-Llama-70B`: `+0.3881`

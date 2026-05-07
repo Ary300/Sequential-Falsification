@@ -511,6 +511,13 @@ Actively resolving now on Delta:
     - completed `42`, `43`, `44`, `45`, `46`, `48`
     - running `47`, `49–61`
     - pending `62–71` on `QOSGrpBillingMinutes`
+  - live partial wave now materialized:
+    [llama8_grpo_running_partial_wave_2026-05-06.md](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/llama8_grpo_running_partial_wave_2026-05-06.md)
+    - valid partial seeds with synced rows: `12`
+    - total synced rows: `7431`
+    - unweighted mean conflict-minus-no-conflict ECE delta `+0.0275`
+    - row-weighted mean conflict-minus-no-conflict ECE delta `+0.0319`
+    - positives / negatives: `6 / 6`
 
 The only remaining blockers on this exact checklist are therefore:
 
