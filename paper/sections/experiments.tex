@@ -137,10 +137,10 @@ The residual non-uniformity in per-benchmark wins concentrates entirely in PopQA
 \begin{minipage}[c]{0.50\linewidth}
   \centering
   \includegraphics[width=\linewidth]{figs/fig_per_model.pdf}
-\end{minipage}\hfill
-\begin{minipage}[c]{0.38\linewidth}
+\end{minipage}\hspace{0.01\linewidth}%
+\begin{minipage}[c]{0.44\linewidth}
   \centering
-  \vspace{-6pt}
+  \vspace{-12pt}
   \includegraphics[width=\linewidth]{figs/fig_kl_gap.pdf}
 \end{minipage}
 \caption{\textbf{Per-model and per-benchmark structure.}
@@ -229,7 +229,7 @@ Llama-70B, Qwen-14B, Mistral, Gemma & \multicolumn{3}{l}{gaps $\in[-0.042,\,+0.0
 \end{subfigure}\hfill
 \begin{subfigure}[t]{0.32\linewidth}
 \centering
-\vspace{-40pt}
+\vspace{-72pt}
 \includegraphics[width=\linewidth]{figs/fig_training_contrast.pdf}
 \subcaption{Trace-level RLVR vs.\ RLHF gap by $K$.}
 \label{fig:training-contrast}
