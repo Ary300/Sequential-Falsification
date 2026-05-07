@@ -3449,29 +3449,17 @@ dtype                           & bfloat16 \\
 \end{table}
 
 Family-specific overrides keep training cost in budget while preserving
-the matched-base contrast:
-
-\begin{table}[H]
-\centering\footnotesize
-\caption{\textbf{Family-specific overrides on top of
-\Cref{tab:matched-base-defaults}.}  Row counts cite source / train /
-val / eval; wall is the SLURM time limit.}
-\label{tab:matched-base-overrides}
-\setlength{\tabcolsep}{4pt}
-\renewcommand{\arraystretch}{1.1}
-\begin{tabular}{@{}l l p{0.55\linewidth}@{}}
-\toprule
-\textbf{Family / suite} & \textbf{Row counts} & \textbf{Notes}\\
-\midrule
-Llama-3.1-8B (E1)        & $900/640/96/96$    & wall $14$\,h\\
-Qwen-2.5-14B (E1)        & $1200/800/120/120$ & wall $18$\,h\\
-Mistral-7B trio          & $800/560/80/80$    & wall $12$\,h; SFT control \texttt{warmstart=2, epochs=0}; DPO/GRPO \texttt{warmstart=1, epochs=1}; \texttt{VLLM\_MAX\_MODEL\_LEN=4096}\\
-Gemma-2-9B trio          & $800/560/80/80$    & \texttt{request\_format=completion}, \texttt{prompt\_protocol=generic}, \texttt{VLLM\_MAX\_MODEL\_LEN=4096}\\
-Phi-3-mini-4k pair       & $800/560/80/80$    & \texttt{VLLM\_MAX\_MODEL\_LEN=4096}\\
-DeepSeek-Llama-8B rescue & $900/640/96/96$    & wall $14$\,h; \texttt{request\_format=completion}, \texttt{prompt\_protocol=deepseek\_native}; explored pockets $(\beta,\text{group},\tau,\text{warmstart})\!\in\!\{(0.02,8,0.7,2),\,(0.01,12,0.7,3),\,(0.01,16,0.6,3{\,/\,}\text{seed }43)\}$\\
-\bottomrule
-\end{tabular}
-\end{table}
+the matched-base contrast (row counts cite source / train / val / eval;
+wall is the SLURM time limit):
+\label{tab:matched-base-overrides}%
+\begin{itemize}[leftmargin=14pt,itemsep=1pt,topsep=2pt,parsep=0pt]
+  \item \textbf{Llama-3.1-8B} (E1): $900/640/96/96$, wall $14$\,h.
+  \item \textbf{Qwen-2.5-14B} (E1): $1200/800/120/120$, wall $18$\,h.
+  \item \textbf{Mistral-7B} trio: $800/560/80/80$, wall $12$\,h; SFT control \texttt{warmstart=2, epochs=0}; DPO/GRPO \texttt{warmstart=1, epochs=1}; \texttt{VLLM\_MAX\_MODEL\_LEN=4096}.
+  \item \textbf{Gemma-2-9B} trio: $800/560/80/80$; \texttt{request\_format=completion}, \texttt{prompt\_protocol=generic}, \texttt{VLLM\_MAX\_MODEL\_LEN=4096}.
+  \item \textbf{Phi-3-mini-4k} pair: $800/560/80/80$; \texttt{VLLM\_MAX\_MODEL\_LEN=4096}.
+  \item \textbf{DeepSeek-Llama-8B} rescue: $900/640/96/96$, wall $14$\,h; \texttt{request\_format=completion}, \texttt{prompt\_protocol=deepseek\_native}; explored pockets $(\beta,\text{group},\tau,\text{warmstart})\!\in\!\{(0.02,8,0.7,2),\,(0.01,12,0.7,3),\,(0.01,16,0.6,3{\,/\,}\text{seed }43)\}$.
+\end{itemize}
 
 \paragraph{Theorem-3 evaluation defaults.}
 Runner: \texttt{run\_theorem3\_real\_generation.py}.  Backend
@@ -5291,63 +5279,5 @@ rests on Llama-3.1-8B + DeepSeek-70B Llama-lineage scale support.
 \section{NeurIPS Paper Checklist}
 \label{app:letter-N}
 
-\subsection{NeurIPS 2026 reproducibility checklist}
-\label{app:checklist}
+The formal NeurIPS Paper Checklist follows the appendix; see \Cref{app:checklist}.
 
-\paragraph{Claims (1).}
-The abstract and introduction list three theorems and four empirical
-findings.  Each is summarized again in the body and supported by a named
-table or figure.  The theorem-to-result map (\Cref{tab:thm-map}) makes
-each claim's empirical anchor explicit.
-
-\paragraph{Limitations (1).}
-A dedicated limitations section is App.~\ref{app:limitations}.  We
-explicitly document the one cell (Qwen-32B/ConflictBank) where the
-$\widehat\eta_{\mathrm{eff}}/\bar\eta$ prediction fails.  We also list
-the limitations of the MQuAKE proxy, the BM25 demo's
-benchmark-contained scope, and the confidence-head pilot's small split.
-
-\paragraph{Theory (2).}
-Each theorem statement appears in the main body
-(\Cref{sec:thm1,sec:thm2,sec:thm3}); each full proof is in the
-appendix (\Cref{app:thm1,app:thm2,app:thm3}); each load-bearing
-assumption is stated as a numbered assumption
-(\Cref{app:assumption-ci}, \Cref{app:assumption-loglinear}, \Cref{app:assumption-bdd-llr}).
-The assumption audit (App.~\ref{app:assumption-audit}) checks each
-assumption empirically.
-
-\paragraph{Experimental details (3).}
-Per-benchmark and per-model details are in
-App.~\ref{app:experimental-details} (\Cref{tab:scope-detailed});
-hyperparameters are listed in App.~\ref{app:algorithms};
-model names, license, and provenance are in
-App.~\ref{app:reproducibility}.
-
-\paragraph{Code and data (4).}
-The full evaluation harness, calibration scripts, and per-row CSVs are
-released at the project URL; the figures are reproduced by the script
-\texttt{paper/figs/make\_figures.py}; all benchmarks are public.
-
-\paragraph{Random seeds (3).}
-Three seeds $\{42,43,44\}$ on every reported run.  Bootstrap CIs use
-$10{,}000$ resamples~\citep{shafer2021testing,ramdas2023game}.
-
-\paragraph{Compute (4).}
-Listed in App.~\ref{app:reproducibility}: $\sim\!22$k GPU-hours total on
-NVIDIA A100/H100 nodes.
-
-\paragraph{Crowdsourcing / human subjects.}
-None.
-
-\paragraph{Safeguards.}
-Broader-impact statement in App.~\ref{app:broader-impact}; no model
-release; no third-party scraping.
-
-\paragraph{LLM usage during manuscript preparation.}
-LLM assistance was limited to grammar, copy-editing, and stylistic
-polishing of author-written prose.  All theorems, proofs,
-experimental design choices, code, results, and analysis are the
-work of the human authors.  LLMs are themselves the system under
-study (as $p_\theta$, $p_\ctx$, and the chain-of-thought trace);
-the checkpoints used in that role are listed in
-App.~\ref{app:experimental-details}.
