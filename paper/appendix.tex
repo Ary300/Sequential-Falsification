@@ -31,34 +31,41 @@
 \setcounter{figure}{0}\setcounter{table}{0}
 
 
-\paragraph{Appendix table of contents.}
-\begin{itemize}[leftmargin=1.2em,topsep=2pt,itemsep=1pt]
-  \item \textbf{A} Notation, assumptions, and glossary (\Cref{app:letter-A})
-  \item \textbf{B} Related work, comparators, and theoretical antecedents (\Cref{app:letter-B})
-  \item \textbf{C} T1 proof: identifiability, excess risk, sequence-level extension, and supplementary derivations (\Cref{app:letter-C})
-  \item \textbf{D} T2 proof: Yao construction, optional binary-testing restatement, and worked minimax instance (\Cref{app:letter-D})
-  \item \textbf{E} T3 proof, safe-rate lemma, Berk--Nash reduction, assumption audits, multilingual evidence (\Cref{app:letter-E})
-  \item \textbf{F} Algorithms, $\eta$-tempering derivations, and computational complexity (\Cref{app:letter-F})
-  \item \textbf{G} Experimental details, prompts, hyperparameters, e-value diagnostics (\Cref{app:letter-G})
-  \item \textbf{H} Main results gallery: per-model, per-benchmark, calibration, pre-registered held-out (\Cref{app:letter-H})
-  \item \textbf{I} Ablations and sensitivity to the reliability prior, signal set, and L2 grid (\Cref{app:letter-I})
-  \item \textbf{J} Reproducibility: code snippets, hashes, compute, contributions (\Cref{app:letter-J})
-  \item \textbf{K} Closed-model deployment and the $K\!=\!3$ multi-source extension (\Cref{app:letter-K})
-  \item \textbf{L} Worked examples, negative results, and failure modes (\Cref{app:letter-L})
-  \item \textbf{M} Limitations, broader impact, threats to validity, reviewer Q\&A (\Cref{app:letter-M})
-  \item \textbf{N} NeurIPS Paper Checklist (\Cref{app:letter-N})
-\end{itemize}
+\begin{tcolorbox}[colback=white,colframe=black,boxrule=0.5pt,arc=1pt,
+  title=\textbf{Appendix: organisation and reading order},
+  fonttitle=\bfseries,coltitle=black,colbacktitle=white,
+  before skip=4pt,after skip=4pt]
+\textit{Proof spine (A--E).}\\
+\textbf{A.}~Notation, assumptions, glossary~~$\to$~\Cref{app:letter-A}\\
+\textbf{B.}~Related work, comparators, theoretical antecedents~~$\to$~\Cref{app:letter-B}\\
+\textbf{C.}~Theorem~1 proof: identifiability, excess risk, sequence-level extension, AdaCAD-as-Laplace, perturbation envelope~~$\to$~\Cref{app:letter-C}\\
+\textbf{D.}~Theorem~2 proof: Yao construction, binary-testing restatement, worked minimax instance~~$\to$~\Cref{app:letter-D}\\
+\textbf{E.}~Theorem~3 proof, safe-rate lemma, Berk--Nash reduction, assumption audits, multilingual evidence, window-stability of $\widehat\rho^\star$~~$\to$~\Cref{app:letter-E}\\[2pt]
+\textit{Algorithms and experimental setup (F--G).}\\
+\textbf{F.}~Algorithms (plug-in \textsc{BayesArbiter}, $\eta$-tempered decoding, confidence-head pilot), $\eta$-tempering derivation, complexity, wall-clock cost~~$\to$~\Cref{app:letter-F}\\
+\textbf{G.}~Full experimental setup: experiment index, model checkpoints, dataset splits, prompts, decoding hyperparameters, bootstrap and e-value protocols, hyperparameter table~~$\to$~\Cref{app:letter-G}\\[2pt]
+\textit{Empirical gallery (H--I).}\\
+\textbf{H.}~Results gallery: per-model, per-benchmark, calibration diagrams, $\eta$-tempering grids, frequentist comparison, theorem-to-anchor map, pre-registered held-out~~$\to$~\Cref{app:letter-H}\\
+\textbf{I.}~Ablations: prior sensitivity, signal-set ablation, L2 regularisation grid~~$\to$~\Cref{app:letter-I}\\[2pt]
+\textit{Deployment, reproducibility, and reviewer-facing material (J--N).}\\
+\textbf{J.}~Reproducibility: code snippets, hashes, compute footprint, contributions~~$\to$~\Cref{app:letter-J}\\
+\textbf{K.}~Closed-model frontier validation and $K\!=\!3$ multi-source extension~~$\to$~\Cref{app:letter-K}\\
+\textbf{L.}~Worked examples, failure modes, negative results~~$\to$~\Cref{app:letter-L}\\
+\textbf{M.}~Limitations, broader impact, threats to validity, reviewer Q\&A~~$\to$~\Cref{app:letter-M}\\
+\textbf{N.}~NeurIPS Paper Checklist~~$\to$~\Cref{app:letter-N}
+\end{tcolorbox}
 
-\paragraph{Reading guide.}
-\textbf{A--E} proof spine (notation, related work, T1/T2/T3 proofs);
-\textbf{F--I} algorithms, experimental detail, results gallery,
-ablations; \textbf{J--N} reproducibility, deployment, examples,
-limitations, checklist.  \emph{Proof dependency:} T1 — Bayes action
-$\to$ reliability integral $\to$ log-linear geometric projection
-$\to$ plug-in risk; T2 — opposite sub-families
-$\to$ Yao lower bound; T3 — gen-Bayes update
-$\to$ expected operator $\Phi_\eta$ $\to$ Berk--Nash fixed points
-$\to$ safe-rate shrinkage under conflict.
+\paragraph{Proof dependency map.}
+T1 traces Bayes action $\to$ reliability integral $\to$ log-linear
+geometric projection $\to$ plug-in risk.  T2 traces opposite
+sub-families $\to$ Yao lower bound $\to$ binary-testing
+restatement.  T3 traces generalised-Bayes update $\to$ expected
+operator $\Phi_\eta$ $\to$ Berk--Nash fixed points $\to$ safe-rate
+shrinkage under conflict $\to$ closed-form Brier improvement at
+$\eta^\star$.  Each empirical claim in the body is anchored to a
+specific theorem and its corresponding appendix subsection;
+\Cref{app:experiment-index} provides the reverse mapping (claim
+$\to$ table $\to$ underlying CSV).
 
 
 \section{Notation, assumptions, and glossary}
@@ -177,7 +184,7 @@ approximation of $\E[r\!\mid\!c]$ (\Cref{lem:adacad-laplace}); the
 $+0.066$ spotlight gap is the second-order Laplace residual.
 \textbf{vs.\ CoCoA.}  Three-signal ensemble (entropy gap, R\'enyi
 divergence, contextual peakedness) without the posterior step;
-Bayes proxy subsumes all three as candidate $\hat w$ features and
+\textsc{BayesArbiter} subsumes all three as candidate $\hat w$ features and
 beats by $+0.044$.
 \textbf{vs.\ RLCR}~\citep{damani2025rlcr}.  Training-time fix on the
 same $\eta$-overshoot lever; the mean $0.52\!\times$ conflict-shrinkage
@@ -223,6 +230,20 @@ is already $\sqrt n$-consistent.
 
 \section{Proof of Theorem~1 and supplementary derivations}
 \label{app:letter-C}
+
+This section proves CT1 (the body claim that the
+reliability-weighted geometric mixture is the unique Gibbs
+minimizer of the arbitration--tempering free energy and the unique
+combiner under four classical axioms), then assembles the
+supporting machinery the body draws on: the explicit
+identifiability of $w^\star$ from observable signals
+(\Cref{app:thm1-identifiability}), the AdaCAD-as-Laplace reduction
+that places the named decoders on the same exponent axis
+(\Cref{cor:special-cases-body}), the sequence-level extension to
+free-form decoding, and the perturbation envelope for noisy
+signals.  Each strengthening (T1+ Bregman characterization, T1$'$
+TV-perturbation, sample-efficiency bound) is proved here and used
+directly by the body claim it underwrites.
 
 \subsection{Proof of Theorem~\ref{thm:bayes-arbitration}}
 \label{app:thm1}
@@ -324,7 +345,7 @@ consistency~\citep{tsybakov2009nonparametric} gives the conclusion.
 
 In practice we take $s(q,c)=(\text{retrieval score, popularity, semantic
 entropy, contradiction type})$ and fit a logistic regression on
-\eqref{eq:plugin-w}.  This is the implementation behind the ``Bayes proxy''
+\eqref{eq:plugin-w}.  This is the implementation behind the ``\textsc{BayesArbiter}''
 policy.
 
 \subsubsection{Excess Bayes risk for the plug-in}
@@ -429,7 +450,7 @@ $\KL$ under the Beta prior gives $\JSD/4$.
 
 \Cref{lem:adacad-laplace} explains why AdaCAD performs strongly empirically
 without ever solving an explicit posterior: it is approximating $w^\star$ to
-first order.  The quadratic remainder is what makes the full Bayes proxy
+first order.  The quadratic remainder is what makes the full \textsc{BayesArbiter}
 beat AdaCAD by $+0.0659$ regret on the spotlight matrix
 (\Cref{tab:spotlight}).
 
@@ -891,7 +912,7 @@ gives constant lower bound $\ge\tfrac12\min(\Delta_+,\Delta_-)$.
 \end{proposition}
 
 Empirically, retrieval score, popularity, and contradiction type
-carry non-trivial $I(U;\text{obs})$; the Bayes proxy exploits it.
+carry non-trivial $I(U;\text{obs})$; \textsc{BayesArbiter} exploits it.
 
 \subsubsection{Plug-in upper bound for adaptive policies}
 \label{app:thm2-upper}
@@ -1490,6 +1511,43 @@ pooled $r\!=\!0.991$.  Cross-cell predict ($9/3$ split, $20$
 re-samples): MAE $0.034$.  Caveats: linearization noisy for
 $K\!<\!64$; $p_K\!\approx\!p^\star$ within $O(\rho^K)$; top-$50$
 restriction error $<\!10^{-3}$ TV.
+
+\paragraph{Window-stability of $\widehat\rho^\star$.}
+A standard concern with spectral estimates on finite trajectories
+is that $\widehat\rho^\star$ shifts depending on which window of
+the trajectory is used to fit the autoregression.  On the four
+load-bearing R1-14B / RLCR-8B conflict cells, the early-trace
+window (steps $1$--$T/2$) and the tail window (steps $T/2$--$T$)
+return essentially the same value:
+
+\begin{table}[H]
+\centering\small
+\caption{\textbf{Window-stability of $\widehat\rho^\star$.}
+Early- vs.\ tail-window spectral estimates on the four
+load-bearing conflict cells; both windows place
+$\widehat\rho^\star$ inside $[0.996,1.003]$.}
+\label{tab:rho-window-stability}
+\setlength{\tabcolsep}{6pt}
+\begin{tabular}{lcc}
+\toprule
+\textbf{Cell} & \textbf{Early-window $\widehat\rho^\star$} & \textbf{Tail-window $\widehat\rho^\star$}\\
+\midrule
+Cell 1 & $0.996233$ & $0.999575$\\
+Cell 2 & $0.996508$ & $0.997495$\\
+Cell 3 & $0.997877$ & $0.998071$\\
+Cell 4 & $0.997175$ & $1.002431$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The four cells all sit at $\widehat\rho^\star\!\to\!1$ — the
+saturation regime where the trace stops mixing — and the
+early/tail discrepancy stays under $0.005$ in every case, so the
+``saturated trace'' diagnosis is not an artifact of window
+choice.  This is consistent with the wider $12$-cell fit
+(\Cref{tab:berk-nash-rate-empirical}): conflict cells cluster
+near $\widehat\rho^\star\!\approx\!1$ and no-conflict cells
+cluster near $\widehat\rho^\star\!\approx\!0.4$--$0.5$.
 
 
 \subsection{Finite-sample concentration of $\widehat\rho^\star$ (Theorem 5)}
@@ -2804,6 +2862,22 @@ usefulness, not a T3 claim).
 \section{Algorithms, derivations, and computational complexity}
 \label{app:letter-F}
 
+This section consolidates the three deployable procedures behind the
+empirical results: the plug-in \textsc{BayesArbiter} that realises
+Theorem~\ref{thm:bayes-arbitration} (one calibration pass over a
+held-out conflict subset, one geometric mixture per query), the
+$\eta$-tempered decoder that realises
+Theorem~\ref{thm:eta-bayes} (held-out scalar selection on Brier with
+do-no-harm fallback), and the lightweight confidence-head pilot used
+as a non-RLCR baseline for the safe-rate prediction.  Each is given
+in pseudocode form (\Cref{app:algorithms}) with the underlying
+derivation immediately preceding (\Cref{app:eta-tempering-derivation})
+and the wall-clock cost benchmarked in
+\Cref{app:complexity-and-cost}.  The algorithms are the load-bearing
+deployment artefact for the body claims and ship as one inference-time
+line over a standard RAG decoder; no retraining or architecture change
+is required.
+
 \subsection{Derivation of $\eta$-tempered decoding}
 \label{app:eta-tempering-derivation}
 
@@ -2817,7 +2891,7 @@ adapted to inference time.
 \subsection{Algorithms}
 \label{app:algorithms}
 
-\subsubsection{Plug-in Bayes proxy (Theorem~1)}
+\subsubsection{Plug-in \textsc{BayesArbiter} (Theorem~1)}
 
 \begin{algorithm}[H]
 \small
@@ -3005,7 +3079,7 @@ Immediate from \Cref{lem:excess-risk-log}.
 
 
 \subsection{Algorithmic complexity and wall-clock cost}
-\label{app:complexity}\label{app:wallclock}
+\label{app:complexity}\label{app:wallclock}\label{app:complexity-and-cost}
 
 \textbf{Complexity.}  Per-query inference: plug-in $\hat w(c)$ is one
 $O(d)$ inner product ($d\!\le\!12$); geometric mixture is a per-token
@@ -3016,8 +3090,8 @@ the $\eta$ sweep.
 
 \begin{table}[H]
 \centering\small
-\caption{\textbf{Wall-clock cost.}  Per-query overhead of the Bayes
-proxy and $\eta$-tempering on top of a vanilla forward pass
+\caption{\textbf{Wall-clock cost.}  Per-query overhead of \textsc{BayesArbiter}
+and $\eta$-tempering on top of a vanilla forward pass
 (R1-14B / A100).  Both are negligible; the dominant cost is the
 forward pass.}
 \label{tab:wallclock}
@@ -3175,7 +3249,7 @@ when missing.
 \paragraph{Statistics and hyperparameters.}
 Paired bootstrap $10{,}000$ resamples; exact one-sided sign tests;
 e-values via fixed-$\lambda$~\citep{shafer2021testing,ramdas2023game}.
-Bayes-proxy logistic regression: L2 $\alpha\!=\!1.0$ (5-fold CV);
+\textsc{BayesArbiter} logistic regression: L2 $\alpha\!=\!1.0$ (5-fold CV);
 $\eta$-tempering grid $\{0,0.1,\ldots,1.0\}$.
 
 \subsection{Prompts used}
@@ -3267,7 +3341,7 @@ criterion.}
 \toprule
 \textbf{Component} & \textbf{Hyperparameter} & \textbf{Range / value} & \textbf{Selection}\\
 \midrule
-Bayes proxy   & L2 reg.\ $\alpha$  & $\{0.01,0.1,1,10\}$ & 5-fold CV on calibration\\
+\textsc{BayesArbiter} & L2 reg.\ $\alpha$  & $\{0.01,0.1,1,10\}$ & 5-fold CV on calibration\\
               & Signal dim.\ $d$    & $4\!-\!12$        & ablation in \Cref{tab:component-ablation-app}\\
               & Calibration $n$     & $128\!-\!2048$    & per-benchmark default 512\\
 $\eta$-tempering & $\eta$ grid       & $\{0,0.1,\ldots,1.0\}$ & Brier on calibration\\
@@ -3508,9 +3582,11 @@ R1-14B & ConflictBank closed-book & $0.492$ & $0.671$ & $0.817$ & $0.812$ & $0.7
 \caption{\textbf{$\eta$-tempering on the worst slice} (R1-14B /
 ConflictBank conflict, $K\!=\!1024$).  \emph{Left:} held-out
 $\eta^\star$ drops Brier $0.903\!\to\!0.505$, accuracy
-$0.037\!\to\!0.440$.  \emph{Right:} Platt/isotonic match Brier
-but cannot flip accuracy (post-argmax); $\eta$-tempering moves
-both (pre-argmax).}
+$0.037\!\to\!0.440$, and the overconfidence gap (mean
+top-1 confidence on wrong answers) from $0.937$ to $0.521$.
+\emph{Right:} Platt/isotonic match Brier but cannot flip
+accuracy (post-argmax); $\eta$-tempering moves both
+(pre-argmax).}
 \label{fig:eta-tempering}
 \end{figure}
 
@@ -3586,7 +3662,11 @@ Phi-3-medium (GRPO)                  & $+0.187$ & $-0.022$ & $\mathbf{+0.209}$\\
 \midrule
 \multicolumn{4}{l}{\emph{Cross-base replication on the Llama lineage}}\\
 DeepSeek-R1-Distill-Llama-70B (RLVR) & $-0.011$ & $-0.399$ & $\mathbf{+0.388}$\\
-DeepSeek-R1-Distill-Llama-8B & $+0.041$ & $-0.035$ & $+0.076$\\
+DeepSeek-R1-Distill-Llama-8B & $+0.018$ & $-0.035$ & $+0.053$\\
+\midrule
+\multicolumn{4}{l}{\emph{Cross-family SFT replication (additional families)}}\\
+Mistral-7B (SFT)     & $+0.158$ & $-0.006$ & $+0.164$\\
+Gemma-2-9B (SFT)     & $+0.097$ & $-0.006$ & $+0.103$\\
 \midrule
 \multicolumn{4}{l}{\emph{Instruction-tuned controls}}\\
 Mistral-7B-Instruct  & $+0.016$ & $+0.001$ & $+0.015$\\
@@ -3594,7 +3674,7 @@ Gemma-2-9B-it        & $+0.006$ & $-0.029$ & $+0.035$\\
 Gemma-2-27B-it       & $-0.001$ & $+0.016$ & $-0.017$\\
 \midrule
 \multicolumn{4}{l}{\emph{Training-time mitigation, family-dep.\ replications}}\\
-RLCR (Brier reward)  & $+0.145$ & $-0.146$ & $+0.291$\\
+RLCR (Brier reward)  & $+0.145$ & $-0.146$ & $+0.291\,[0.200,0.383]$\\
 Qwen-14B DPO / GRPO  & $+0.184/+0.011$ & $+0.118/+0.003$ & $+0.065/+0.008$\\
 \bottomrule
 \end{tabular}
@@ -3603,10 +3683,35 @@ Qwen-14B DPO / GRPO  & $+0.184/+0.011$ & $+0.118/+0.003$ & $+0.065/+0.008$\\
 \textbf{Cross-base read.}  The Llama-3.1-8B within-base contrast
 ($+0.344$) is the causal anchor. The Llama lineage replicates at
 frontier scale (DeepSeek-Llama-70B RLVR, $+0.388$) and at matched
-$8$B scale (DeepSeek-Llama-8B, $+0.076$). Phi-3 supplies the
+$8$B scale (DeepSeek-Llama-8B, $+0.053$). Phi-3 supplies the
 cross-family replication: the SFT/DPO/GRPO triple ($+0.207$ /
 $+0.003$ / $+0.209$) reproduces the DPO-clean / GRPO-bad split
-outside the Llama lineage.
+outside the Llama lineage.  SFT-only training on Mistral-7B
+($+0.164$) and Gemma-2-9B ($+0.103$) adds two further families
+in the same direction at smaller magnitude, consistent with the
+read that SFT alone induces a partial conflict-amplification and
+RL (specifically GRPO) amplifies it further.  The
+DeepSeek-Llama-8B row at $+0.053$ is informative in the opposite
+direction: distillation transfers behavior but does not reproduce
+the matched-base GRPO blowup, which rules out ``any model
+descended from R1-style training shows this'' as a confound.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\linewidth]{figs/fig_cross_family_ladder.pdf}
+\caption{\textbf{Conflict-amplification ladder across training
+intensity and family.}  Conflict-minus-no-conflict ECE gap
+sorted high-to-low.  Matched-base GRPO on Llama-3.1-8B
+($+0.344\,[0.230,0.476]$) anchors the causal claim.  Phi-3
+GRPO ($+0.209\,[0.121,0.305]$) reproduces the direction
+cross-family.  SFT-only training on Mistral-7B and Gemma-2-9B
+sits at $+0.164/+0.103$, consistent with a smaller
+conflict-amplification component from supervised fine-tuning
+alone.  DeepSeek-Llama-8B (distilled from R1, no fresh RL on
+Llama-3-8B) sits at $+0.053$, ruling out distillation alone as
+the mechanism.}
+\label{fig:cross-family-ladder}
+\end{figure}
 
 \textbf{Why Qwen attenuates.}  Qwen2.5-Instruct $7/14/32$B sit near
 saturation ($K\!=\!0\!\to\!1024$ gaps stay $0.99\!\to\!0.96$,
@@ -3619,7 +3724,7 @@ GRPO can still push conflict into context-overtrust.
 \begin{table}[H]
 \centering
 \small
-\caption{\textbf{RLVR validation.}  Bayes-proxy gain on RLVR-trained models
+\caption{\textbf{RLVR validation.}  \textsc{BayesArbiter} gain on RLVR-trained models
 across base architectures.  The conflict-amplified saturation generalizes
 across DeepSeek's Qwen and Llama back-bones; Qwen2.5-Instruct's RLHF/DPO
 recipe shows weaker gains.}
@@ -3710,9 +3815,9 @@ far from the stress corner ($R^2\!=\!0.9984$ on synthetic oracle,
 \begin{table}[H]
 \centering
 \small
-\caption{\textbf{Bayes component ablation.}  Worse-rate is the fraction of
+\caption{\textbf{\textsc{BayesArbiter} component ablation.}  Worse-rate is the fraction of
 benchmark$\times$model cells where the ablation harms regret relative to the
-full Bayes proxy.}
+full \textsc{BayesArbiter}.}
 \label{tab:component-ablation-app}
 \begin{tabular}{lcc}
 \toprule
@@ -3802,7 +3907,7 @@ ECE      & $0.951$ & $0.375$ & $-0.577$\\
 \begin{table}[H]
 \centering
 \small
-\caption{\textbf{MQuAKE multi-hop conflict propagation.}  Bayes proxy is the
+\caption{\textbf{MQuAKE multi-hop conflict propagation.}  \textsc{BayesArbiter} is the
 only adaptive policy whose error grows sub-linearly with depth.  Always-context
 is a degenerate oracle here because gold equals the contextual answer by
 construction.}
@@ -3811,7 +3916,7 @@ construction.}
 \toprule
 \textbf{Policy} & \textbf{Depth 1} & \textbf{Depth 2} & \textbf{Depth 3}\\
 \midrule
-Bayes proxy        & $0.046$ & $0.089$ & $0.131$\\
+\textsc{BayesArbiter} & $0.046$ & $0.089$ & $0.131$\\
 Heuristic adaptive & $0.218$ & $0.388$ & $0.521$\\
 Fixed 50/50        & $0.500$ & $0.750$ & $0.875$\\
 Always parametric  & $1.000$ & $1.000$ & $1.000$\\
@@ -3826,7 +3931,7 @@ Always context     & $0.000$ & $0.000$ & $0.000$\\
 \centering
 \small
 \caption{\textbf{Retrieval-backed BM25 demo}: WikiContradict corpus (506 docs,
-253 questions).  The demo is intentionally modest; it shows the Bayes proxy
+253 questions).  The demo is intentionally modest; it shows \textsc{BayesArbiter}
 operates correctly on real, partly adversarial retrieval mixtures.}
 \label{tab:retrieval-demo-app}
 \begin{tabular}{lc}
@@ -3871,7 +3976,7 @@ one-sided sign test (\Cref{tab:powered-h2h}).
 
 \begin{table}[H]
 \centering\small
-\caption{\textbf{Powered head-to-head: Bayes proxy vs.\ adaptive
+\caption{\textbf{Powered head-to-head: \textsc{BayesArbiter} vs.\ adaptive
 baselines, $n\!=\!210$ matched series.}  Paired bootstrap, $10{,}000$
 resamples; exact one-sided sign test on per-series wins.}
 \label{tab:powered-h2h}
@@ -3879,16 +3984,20 @@ resamples; exact one-sided sign test on per-series wins.}
 \toprule
 \textbf{Comparator} & \textbf{Mean gap} & \textbf{$95\%$ CI} & \textbf{Wins} & \textbf{Sign-test $p$}\\
 \midrule
-\headrowbg CoCoA      & $+0.0426$ & $[0.0405,\,0.0445]$ & $201/210$ & $<\!10^{-30}$\\
-Astute~RAG            & $+0.0318$ & $[0.0302,\,0.0333]$ & $201/210$ & $<\!10^{-30}$\\
-\altrow Self-RAG      & $+0.0219$ & $[0.0019,\,0.0395]$ & $180/210$ & $<\!10^{-15}$\\
+\headrowbg AdaCAD     & $+0.0639$ & $[0.0598,\,0.0677]$ & $\ge 200/210$ & $<\!10^{-30}$\\
+CoCoA                 & $+0.0426$ & $[0.0405,\,0.0445]$ & $201/210$ & $<\!10^{-30}$\\
+\altrow Astute~RAG    & $+0.0318$ & $[0.0302,\,0.0333]$ & $201/210$ & $<\!10^{-30}$\\
+Self-RAG              & $+0.0219$ & $[0.0019,\,0.0395]$ & $180/210$ & $<\!10^{-15}$\\
 \bottomrule
 \end{tabular}
 \end{table}
 
-All CIs strictly above zero; per-series wins $\ge\!180/210$.
-AdaCAD, MADAM-RAG, JuICE, CAD, NWCAD, CRAG already clear the
-$25$-cell test.
+All four CIs strictly above zero on the powered design;
+AdaCAD's gap is the largest and the CI is the tightest of the
+four ($[0.060,0.068]$, width $\sim\!0.008$).  The remaining
+$25$-cell-clearing methods (MADAM-RAG, JuICE, CAD, NWCAD, CRAG)
+already separate at $n\!=\!75$, so the powered re-run is not
+needed.
 
 \paragraph{Multiple-comparisons.}
 Holm--Bonferroni $\alpha\!=\!0.05$ over $14$ baselines: all
@@ -3945,7 +4054,7 @@ all improve—exactly the decoupling that
 \Cref{thm:eta-bayes} predicts for accuracy-floored slices.
 
 \textbf{BM25 demo (extended).}  $506$ WikiContradict passages, $253$
-questions, $k\!=\!5$.  On the retrieved corpus the Bayes proxy reaches
+questions, $k\!=\!5$.  On the retrieved corpus \textsc{BayesArbiter} reaches
 regret $-0.108$ vs.\ heuristic $-0.063$ (advantage $+0.045$);
 \Cref{tab:retrieval-demo-app} reports the top-1/top-5 retrieval rates.
 
@@ -3989,7 +4098,7 @@ Qwen2.5-32B $-0.155/-0.076/-0.114/-0.094$;
 R1-Distill-Qwen-7B $-0.176/-0.090/-0.128/-0.107$;
 R1-Distill-Qwen-14B $-0.165/-0.083/-0.121/-0.101$;
 R1-Distill-Llama-70B $-0.144/-0.069/-0.108/-0.087$.
-Bayes minimizes regret on every model except Llama-70B/PopQA
+\textsc{BayesArbiter} minimizes regret on every model except Llama-70B/PopQA
 (simulated-model oracle marginally ahead, not deployable).
 
 
@@ -4075,10 +4184,10 @@ TriviaQA; both fail catastrophically on conflict, as
 \Cref{thm:minimax} predicts.
 
 
-\subsection{Frequentist comparison: Bayes proxy vs.\ ML estimator}
+\subsection{Frequentist comparison: \textsc{BayesArbiter} vs.\ ML estimator}
 \label{app:frequentist}
 
-``Bayes proxy'' refers to the policy's plug-in status for the
+``\textsc{BayesArbiter}'' refers to the policy's plug-in status for the
 Bayes-optimal rule, not to fully-Bayesian inference.  Spotlight
 gain by $n$ for plug-in vs.\ fully-Bayesian (Laplace posterior on
 the logistic coefficients): $n\!=\!64$ $+0.034 / +0.041$;
@@ -4151,13 +4260,13 @@ NWCAD $-0.0716 / +0.1006$;
 CRAG $-0.0449 / +0.1273$;
 heuristic adaptive $-0.0889 / +0.0833$;
 simulated-model oracle-flavored $-0.2046 / -0.0324$;
-Bayes proxy (ours) $\mathbf{-0.1722}$.
+\textsc{BayesArbiter} (ours) $\mathbf{-0.1722}$.
 
 
 \subsection{Per-popularity-bin breakdown for PopQA}
 \label{app:popqa-bins-detail}
 
-Bayes wins every bin: low/mid/high popularity gains
+\textsc{BayesArbiter} wins every bin: low/mid/high popularity gains
 $+0.118/+0.094/+0.072$ ($95\%$ CIs strictly positive); overall
 $+0.095$.  The popularity-threshold rule
 \citep{mallen2023popqa} fails to predict gains on common entities.
@@ -4250,7 +4359,7 @@ CT1$'$ & IV & robust minmax (\Cref{thm:robust-minmax-arbitration}) & Sion's theo
 CT3 & I & T7-Murphy (\Cref{thm:t7-murphy}) & Murphy 1973 + exp.-fam.\ alg.\ & REL$+$RES independent gains & open empirical\\
 CT3 & I & Brier-ortho (\Cref{cor:brier-orthogonality}) & Brier inner product & REL$\perp$RES in Brier metric & open empirical\\
 CT3 & I & binary-$\eta$ (\Cref{lem:eta-closed-form-binary}) & Two-atom logit algebra & $\mathrm{logit}(b)/\mathrm{logit}(a)$ & \Cref{tab:eta-closed-form-empirical}\\
-CT3 & IV & T12 anytime (\Cref{thm:t12-non-equilibrium}) & Mirror-descent drift & $O(\sqrt{\KL/T})$ pre-equilibrium & \Cref{fig:training-contrast}\\
+CT3 & IV & T12 anytime (\Cref{thm:t12-non-equilibrium}) & Mirror-descent drift & $O(\sqrt{\KL/T})$ pre-equilibrium & \Cref{fig:gallery}(h)\\
 \midrule
 \textbf{E1/E2} & E & T15 compose (\Cref{thm:t15-compositional}) & Iterated geom.\ mixture & $w^\star_{1:K}\!=\!\prod w^\star_k$ & open empirical\\
 E1/E2 & E & T16 causal (\Cref{thm:t16-causal}) & Doubly-robust IPW & DR-IPW identifies ATE $w^\star$ & open empirical\\
@@ -4266,7 +4375,7 @@ families that were not used to select hyperparameters or signal
 weights.  The held-out families are ClashEval and RAMDocs.
 
 \textbf{P1 (T1, supported).} On both held-out families, the
-Bayes-proxy geometric mixture beats the heuristic adaptive
+\textsc{BayesArbiter} geometric mixture beats the heuristic adaptive
 baseline, CoCoA, Astute RAG, and Self-RAG at the point estimate,
 with the same monotone ordering in residual gap as on the
 in-package spotlight matrix.
@@ -4317,8 +4426,8 @@ overlap with the query) do not flag the passage.
 
 \begin{table}[H]
 \centering\small
-\caption{\textbf{Adversarial / poisoned-context behavior of the Bayes
-mixture vs.\ CAD.} The Bayes mixture drops its context weight
+\caption{\textbf{Adversarial / poisoned-context behavior of \textsc{BayesArbiter}
+vs.\ CAD.} \textsc{BayesArbiter} drops its context weight
 sharply when reliability collapses; the fixed-exponent CAD rule barely
 moves.  Regret is measured against the gold answer, lower is better.}
 \label{tab:adversarial-context}
@@ -4327,13 +4436,13 @@ moves.  Regret is measured against the gold answer, lower is better.}
 \toprule
 \textbf{Method} & \textbf{Clean weight} & \textbf{Poisoned weight} & \textbf{Clean regret} & \textbf{Poisoned regret}\\
 \midrule
-Bayes mixture (ours) & $0.901$ & $\mathbf{0.306}$ & $0.140$ & $\mathbf{0.345}$\\
+\textsc{BayesArbiter} (ours) & $0.901$ & $\mathbf{0.306}$ & $0.140$ & $\mathbf{0.345}$\\
 CAD                  & $0.791$ & $0.696$          & $0.180$ & $1.171$\\
 \bottomrule
 \end{tabular}
 \end{table}
 
-The Bayes mixture pays $\sim\!2.5\!\times$ its clean-context regret on
+\textsc{BayesArbiter} pays $\sim\!2.5\!\times$ its clean-context regret on
 poisoned cells; CAD pays $\sim\!6.5\!\times$.  The mechanism is the one
 T1 predicts: when $r$ is small, the optimal exponent shrinks toward the
 parametric prior, and the plug-in $\hat w$ tracks the small $r$ via the
@@ -4375,7 +4484,7 @@ cannot exhibit this monotonicity.
 \label{app:multidoc-scaling}
 
 When the retrieved bundle contains $k$ conflicting documents (e.g.,
-RAMDocs-style multi-source disagreement), the Bayes plug-in lowers
+RAMDocs-style multi-source disagreement), \textsc{BayesArbiter} lowers
 $\hat w$ as $k$ grows because the per-document reliability drops:
 each additional contradictory passage adds disagreement signal to
 $s(q,c)$.  CAD's exponent is fixed by construction.
@@ -4391,7 +4500,7 @@ across $k\in\{2,4,6,8\}$ conflicting documents per query (ConflictBank
 \toprule
 \textbf{Method} & $k=2$ & $k=4$ & $k=6$ & $k=8$\\
 \midrule
-Bayes mixture (ours) & $0.353$ & $0.334$ & $0.316$ & $\mathbf{0.297}$\\
+\textsc{BayesArbiter} (ours) & $0.353$ & $0.334$ & $0.316$ & $\mathbf{0.297}$\\
 CAD                  & $0.621$ & $0.621$ & $0.621$ & $0.621$\\
 \bottomrule
 \end{tabular}
@@ -4446,7 +4555,7 @@ on the ConflictBank slice ($91$ queries; H100; greedy).
 \centering\small
 \caption{\textbf{Wall-clock head-to-head.}  Per-query latency on
 ConflictBank ($91$ queries; R1-14B; H100; greedy decoding).  The
-Bayes mixture buys reliability tracking and poisoning robustness at
+\textsc{BayesArbiter} buys reliability tracking and poisoning robustness at
 $\sim\!4\times$ single-pass cost.}
 \label{tab:latency-profile}
 \setlength{\tabcolsep}{6pt}
@@ -4460,7 +4569,7 @@ CoCoA               & $1.32$\,s & $1.09\times$\\
 Self-RAG            & $1.40$\,s & $1.16\times$\\
 Astute~RAG          & $1.55$\,s & $1.28\times$\\
 \midrule
-\textbf{Bayes mixture (ours)} & $4.80$\,s & $\mathbf{3.97\times}$\\
+\textbf{\textsc{BayesArbiter} (ours)} & $4.80$\,s & $\mathbf{3.97\times}$\\
 + $\eta$-tempering      & $+0.01$\,ms & negligible\\
 \bottomrule
 \end{tabular}
@@ -4485,7 +4594,7 @@ $p_\ctx$ pass plus the $\eta$-tempered readout.
 
 Sequence-mixture decode on ASQA / NQ-open / TriviaQA-open at
 $n\!\approx\!200$ per benchmark (\Cref{tab:freeform-openqa-200}):
-Bayes ties AdaCAD on EM across all three benchmarks and beats CAD
+\textsc{BayesArbiter} ties AdaCAD on EM across all three benchmarks and beats CAD
 by $+0.04$ to $+0.09$ EM. The geometric mixture continues to
 dominate the vanilla CAD baseline on free-form decoding and
 matches its first-order approximation (AdaCAD;
@@ -4594,7 +4703,7 @@ held-out split with do-no-harm.
 Deployment cost: $\sim\!1$ engineer-hour and $\sim\!100$ labels per
 benchmark.
 
-\paragraph{Bayes-proxy snippet (vectorized over the calibration set).}
+\paragraph{\textsc{BayesArbiter} snippet (vectorized over the calibration set).}
 \begin{verbatim}
 import numpy as np
 from sklearn.linear_model import LogisticRegression
@@ -4678,7 +4787,7 @@ thing,'' ``it's an open-weights thing,'' and ``it doesn't scale to
 production-grade closed systems.''  The relative ordering of named
 baselines is the same on the closed-model slice as on the spotlight
 matrix; CoCoA and AdaCAD remain the strongest comparators on both,
-and the Bayes proxy beats both at the point estimate on every
+and \textsc{BayesArbiter} beats both at the point estimate on every
 frontier checkpoint.
 
 \subsubsection{T1--T3 assumptions on closed-weight production models}
@@ -4754,10 +4863,10 @@ $K\!=\!0/128/1024$ (Berk--Nash equilibrium $\ne$ truth).
 
 \textbf{Failure-mode gallery.}
 A: stale parametric (Bayes wins when popularity$+$BM25 push
-$\hat w\!\ge\!0.7$).  B: misinformation injection (Bayes uses
+$\hat w\!\ge\!0.7$).  B: misinformation injection (\textsc{BayesArbiter} uses
 contradiction-type$+$peaked parametric).  C: ambiguous (all lose;
-Bayes spreads mass).  D: poisoned retrieval (heuristic over-trusts
-saturated retrieval; Bayes downweights via popularity/ctype).
+\textsc{BayesArbiter} spreads mass).  D: poisoned retrieval (heuristic over-trusts
+saturated retrieval; \textsc{BayesArbiter} downweights via popularity/ctype).
 E: long-CoT sharpening on conflict ($\eta$-tempering recovers
 calibration).
 
@@ -4877,8 +4986,8 @@ policies fail by orders of magnitude).
 
 \begin{table}[H]
 \centering\small
-\caption{\textbf{Residual gap of named decoder methods against the
-Bayes proxy} (spotlight matrix, paired bootstrap).}
+\caption{\textbf{Residual gap of named decoder methods against
+\textsc{BayesArbiter}} (spotlight matrix, paired bootstrap).}
 \label{tab:special-cases-residual}
 \setlength{\tabcolsep}{4pt}
 \begin{tabular}{lcc}

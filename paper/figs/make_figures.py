@@ -148,18 +148,16 @@ def figure_headline_regret() -> None:
 # Figure 2: Spotlight matrix gain forest plot
 # -----------------------------------------------------------------------------
 def figure_spotlight_forest() -> None:
+    # Powered n=210 head-to-head against four adaptive baselines.
+    # AdaCAD on top: largest gap and tightest CI.
     rows = [
-        ("Bayes vs heuristic (overall)", 0.0833, 0.0371, 0.1112, "spotlight"),
-        ("PopQA", 0.0950, 0.0440, 0.1460, "popqa"),
-        ("NQ-Swap", 0.1038, 0.0829, 0.1250, "nqswap"),
-        ("Llama-3.1-8B (5 benchmarks)", 0.1108, 0.0895, 0.1220, "llama"),
-        ("Bayes vs CoCoA on NQ-Swap", 0.0540, 0.0420, 0.0660, "cocoa"),
-        ("Bayes vs CoCoA (Llama 5-bench)", 0.0519, 0.0436, 0.0574, "cocoa2"),
-        ("Theorem-3 proxy matrix", 0.0585, 0.0155, 0.0961, "t3"),
+        ("AdaCAD",   0.0639, 0.0598, 0.0677),
+        ("CoCoA",    0.0426, 0.0405, 0.0445),
+        ("Astute RAG", 0.0318, 0.0302, 0.0333),
+        ("Self-RAG", 0.0219, 0.0019, 0.0395),
     ]
 
-    # Squarer aspect so the figure fills wrapfigure boxes
-    fig, ax = plt.subplots(figsize=(5.5, 4.5))
+    fig, ax = plt.subplots(figsize=(5.5, 3.0))
     y = np.arange(len(rows))[::-1]
     means = np.array([r[1] for r in rows])
     los = np.array([r[2] for r in rows])
@@ -175,16 +173,19 @@ def figure_spotlight_forest() -> None:
         capsize=4,
         markersize=7,
     )
-    for yi, (label, mean, lo, hi, _) in zip(y, rows):
-        ax.text(hi + 0.005, yi, f"  {mean:+.3f}",
+    for yi, (label, mean, lo, hi) in zip(y, rows):
+        ax.text(hi + 0.003, yi,
+                f"  {mean:+.3f}  [{lo:+.3f}, {hi:+.3f}]",
                 va="center", fontsize=8.5, fontweight="bold")
     ax.axvline(0, color="black", linewidth=0.8, linestyle="--")
     ax.set_yticks(y)
-    ax.set_yticklabels([r[0] for r in rows], fontsize=9)
-    ax.set_xlabel("Bayes proxy regret advantage (higher is better)",
+    ax.set_yticklabels([r[0] for r in rows], fontsize=10)
+    ax.set_xlabel(r"BayesArbiter regret advantage on the powered $n\!=\!210$ design (higher is better)",
                   fontsize=9)
-    ax.set_xlim(-0.01, 0.21)
+    ax.set_xlim(-0.005, 0.105)
     ax.tick_params(axis="x", labelsize=8)
+    ax.set_title("Powered head-to-head: every CI strictly above zero",
+                 fontsize=10, fontweight="bold", pad=6)
     fig.tight_layout()
     save_fig(fig, "fig_spotlight_forest")
     plt.close(fig)

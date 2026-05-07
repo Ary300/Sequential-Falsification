@@ -1,7 +1,7 @@
 \section{Experiments}
 \label{sec:experiments}
 
-Six published decoders sit on the CT1 exponent axis (\Cref{tab:ct1-axis}); the choice $w^\star\!=\!\E[r\!\mid\!s]$ is the only one that minimizes $\mathcal{F}$, and the resulting Bayes mixture clears zero against $7$ of $10$ named baselines on the $25$-cell spotlight (heuristic-adaptive at $+0.083$ on $23/25$ cells, e-value $2806$). The same minimizer satisfies the perturbation envelope of \Cref{thm:ct1prime-body} on three independent stress channels (\Cref{fig:robustness-three-panel}). On the load-bearing RLCR-trained $8$B worst cell, $\eta$-tempering closes the post-trace overshoot from accuracy $0.063$ to $0.531$ and ECE $0.904$ to $0.431$, the operational reading of \Cref{thm:t3-intervention}.
+Six published decoders sit on the CT1 exponent axis (\Cref{tab:ct1-axis}); the choice $w^\star\!=\!\E[r\!\mid\!s]$ is the only one that minimizes $\mathcal{F}$, and the resulting \textsc{BayesArbiter} mixture clears zero against $7$ of $10$ named baselines on the $25$-cell spotlight (heuristic-adaptive at $+0.083$ on $23/25$ cells, e-value $2806$). The same minimizer satisfies the perturbation envelope of \Cref{thm:ct1prime-body} on three independent stress channels (\Cref{fig:robustness-three-panel}). On the load-bearing RLCR-trained $8$B worst cell, $\eta$-tempering closes the post-trace overshoot from accuracy $0.063$ to $0.531$ and ECE $0.904$ to $0.431$, the operational reading of \Cref{thm:t3-intervention}.
 
 Experiments cover $10$ benchmarks across $13$ models (Llama, Qwen,
 Mistral, Gemma, OLMo, Phi-3, DeepSeek-R1-Distill at 7B--70B plus
@@ -41,7 +41,7 @@ CoCoA~\citep{khandelwal2025cocoa} & averaged proxies & no consistency guarantee 
 \end{tabular}
 \end{table}
 
-``Bayes proxy'' is the calibrated geometric mixture (CT1's Gibbs
+``\textsc{BayesArbiter}'' is the calibrated geometric mixture (CT1's Gibbs
 minimizer at $\eta\!=\!0$, $w\!=\!\hat w(s)$) with a
 logistic-regression plug-in $\hat w(c)$ on three signals (BM25,
 popularity, semantic entropy); a Laplace Bayesian variant is
@@ -58,7 +58,7 @@ sub-experiments (\Cref{fig:robustness-three-panel}).
 \begin{table}[!htbp]
 \centering\small
 \caption{\textbf{CT1 headline.}  Per-policy regret/accuracy/ECE
-on broad and conflict-heavy waves (oracle $0.000$); Bayes proxy
+on broad and conflict-heavy waves (oracle $0.000$); \textsc{BayesArbiter}
 roughly halves regret vs.\ best-tuned fixed-trust; boundary
 policies collapse by $\sim\!2$ orders.}
 \label{tab:headline-regret}
@@ -72,7 +72,7 @@ policies collapse by $\sim\!2$ orders.}
  & Regret$\downarrow$ & Acc.\,$\uparrow$ & ECE$\downarrow$
  & Regret$\downarrow$ & Acc.\,$\uparrow$ & ECE$\downarrow$ \\
 \midrule
-\headrowbg \textbf{Bayes proxy (ours)} &
+\headrowbg \textbf{\textsc{BayesArbiter} (ours)} &
 $\mathbf{-0.046}$ & $\mathbf{0.887}$ & $\mathbf{0.135}$ &
 $\mathbf{-0.126}$ & $\mathbf{0.903}$ & $\mathbf{0.072}$ \\
 Heuristic adaptive    & $-0.023$ & $0.872$ & $0.144$ & $-0.075$ & $0.882$ & $0.082$ \\
@@ -85,7 +85,7 @@ Always parametric     & $\phantom{-}5.936$ & $0.305$ & $0.493$ & $\phantom{-}7.1
 \end{table}
 
 \paragraph{CT1, powered head-to-head against adaptive baselines.}
-On the $25$-cell spotlight (\Cref{fig:spotlight-combined}), Bayes clears zero against $7$ of the $10$ named comparators with CIs strictly above zero, including a $+0.083$ advantage over the heuristic-adaptive primary on $23/25$ cells (e-value $2806$). The three tightest competitors (CoCoA, Astute~RAG, Self-RAG) need the powered $n\!=\!210$ matched design to clear zero, where the Bayes-proxy advantage lands at $+0.043$, $+0.032$, and $+0.022$ respectively, with all three CIs strictly above zero and at least $180/210$ cell-wins per comparator (\Cref{fig:spotlight-forest}, App.~\ref{app:powered-headtohead}). Margins against the boundary policies (always-context, always-parametric) are roughly two orders of magnitude larger. The small advantage over the adaptive baselines is exactly what \Cref{cor:special-cases-body} predicts: CAD, AdaCAD, and CoCoA are first-order approximations of the same Gibbs minimizer, so CT1 says they should track the Bayes optimum closely while remaining strictly suboptimal away from $w^\star\!=\!\E[r\!\mid\!s]$.
+On the $25$-cell spotlight (\Cref{fig:spotlight-combined}), \textsc{BayesArbiter} clears zero against $7$ of the $10$ named comparators, including a $+0.083$ advantage over the heuristic-adaptive primary on $23/25$ cells (e-value $2806$). The four tightest competitors (AdaCAD, CoCoA, Astute~RAG, Self-RAG) resolve at the powered $n\!=\!210$ matched design at $+0.064 / +0.043 / +0.032 / +0.022$ (AdaCAD CI $[0.060,0.068]$ the tightest; all four CIs strictly above zero; \Cref{fig:spotlight-forest}, App.~\ref{app:powered-headtohead}). Margins against the boundary policies are roughly two orders of magnitude larger. The small adaptive-baseline gap is what \Cref{cor:special-cases-body} predicts: CAD/AdaCAD/CoCoA are first-order approximations of the same Gibbs minimizer.
 
 \begin{figure}[!htbp]
 \centering
@@ -114,12 +114,12 @@ Always context       & $\phantom{-}7.994$ & $+8.166$ & $[\phantom{-}7.644,\,8.47
 \bottomrule
 \end{tabular}
 \subcaption{Per-baseline statistics ($25$-cell paired bootstrap, sign
-test, fixed-$\lambda$ e-value).  Bayes proxy mean regret $-0.172$.}
+test, fixed-$\lambda$ e-value).  \textsc{BayesArbiter} mean regret $-0.172$.}
 \label{tab:spotlight}
 \end{subfigure}\hspace{0.015\linewidth}%
 \begin{subfigure}[t]{0.32\linewidth}
 \centering
-\vspace{-57pt}
+\vspace{-54pt}
 \includegraphics[width=\linewidth]{figs/fig_named_comparators.pdf}
 \subcaption{Per-baseline regret (symlog); same ordering visualized.}
 \label{fig:named-comparators}
@@ -127,7 +127,7 @@ test, fixed-$\lambda$ e-value).  Bayes proxy mean regret $-0.172$.}
 \caption{\textbf{Spotlight comparison against named baselines.}
 Load-bearing comparisons against published methods (Self-RAG,
 Astute~RAG, CoCoA, AdaCAD); heuristic-adaptive is a construction
-control.  $25$-cell CIs clear zero against $7$ of $10$ named methods (heuristic-adaptive at $+0.083$, plus AdaCAD/MADAM-RAG/JuICE/CAD/NWCAD/CRAG); the three tightest (Self-RAG, Astute, CoCoA) clear zero on the powered $n\!=\!210$ design (\Cref{sec:thm12-exp}) at $+0.043/+0.032/+0.022$.}
+control.  $25$-cell CIs clear zero against $7$ of $10$ named methods (heuristic-adaptive at $+0.083$, plus AdaCAD/MADAM-RAG/JuICE/CAD/NWCAD/CRAG); the four tightest (AdaCAD, CoCoA, Astute, Self-RAG) clear zero on the powered $n\!=\!210$ design (\Cref{sec:thm12-exp}) at $+0.064/+0.043/+0.032/+0.022$.}
 \label{fig:spotlight-combined}
 \end{figure}
 The residual non-uniformity in per-benchmark wins concentrates entirely in PopQA's low-popularity regime, which we attribute to signal failure on rare entities rather than to a failure of CT1's arbitration rule (App.~\ref{app:per-bench-wins}). The per-checkpoint gain over the heuristic baseline is positive at every scale and family in the matrix (\Cref{fig:per-model}, left), with Llama-3.1-70B alone at $+0.060$; the same advantage replicates at 32B/70B scale and on the closed-weight frontier (GPT-4o-mini, Claude, Gemini accessed via top-$k$ logprobs; App.~\ref{app:frontier-validation}). The right panel of \Cref{fig:per-model} reports the per-benchmark KL gap $\KL(p_\theta\Vert p_\ctx)$, which forecasts where the trajectory dynamics (CT2) and post-trace tempering (CT3) will matter most: conflict slices exceed $1$ nat while controls sit at roughly $0.1$ nat.
@@ -140,8 +140,8 @@ The residual non-uniformity in per-benchmark wins concentrates entirely in PopQA
 \end{minipage}\hspace{0.01\linewidth}%
 \begin{minipage}[c]{0.44\linewidth}
   \centering
-  \vspace{-12pt}
-  \includegraphics[width=\linewidth]{figs/fig_kl_gap.pdf}
+  \vspace{0pt}
+  \includegraphics[width=0.92\linewidth]{figs/fig_kl_gap.pdf}
 \end{minipage}
 \caption{\textbf{Per-model and per-benchmark structure.}
 \emph{Left:} per-checkpoint Bayes-vs-heuristic gain ($95\%$ CI),
@@ -155,7 +155,7 @@ R1-14B; conflict slices $\geq\!1$ nat, controls $\sim\!0.1$ nat.}
 Three controls test that the result tracks the theoretical mechanism rather than a dataset artefact. First, the oracle plug-in converges to $w^\star$ at the $\sqrt n$ rate predicted by \Cref{thm:bayes-arbitration}, achieving $R^2\!=\!0.998$ at $n\!=\!2048$ (\Cref{fig:gallery}(a,c)). Second, ablating the posterior step in the plug-in flips the regret from $-0.198$ to $+0.170$, confirming that the gain comes from the Bayesian conditional-expectation step and not from the geometric-mixture form alone. Third, removing the entity-popularity feature from the signal $s$ reduces but does not eliminate the gain ($+0.061$ with confidence interval still above zero, \Cref{tab:plugin-feature-ablation}), ruling out a Wikipedia-graph artefact.
 
 \paragraph{CT1$'$, perturbation envelope on three channels.}
-Three stress tests probe the perturbation envelope of \Cref{thm:ct1prime-body} (\Cref{fig:robustness-three-panel}). Under \emph{poisoned context}, the Bayes-rule context weight drops from $0.901$ to $0.306$ as adversarial passages enter the retrieval pool, whereas CAD's fixed exponent moves only from $0.791$ to $0.696$; mean regret is $0.345$ for the Bayes rule against $1.171$ for CAD (App.~\ref{app:adversarial-context}). Under the \emph{reliability counterfactual}, sweeping the synthetic noise rate from $0$ to $1$ drives the Bayes weight from $0.942$ down to $0.184$ monotonically (Spearman $-1.0$; App.~\ref{app:reliability-noise-ablation}), exactly the linear response in $\delta$ that the signal-TV term in~\eqref{eq:robustness-envelope} predicts. Under \emph{multi-document scaling} with $k\!\in\!\{2,\dots,8\}$ conflicting passages, the Bayes weight tracks the inter-document disagreement ($0.353$ to $0.297$ as $k$ grows), while CAD stays pinned at $0.621$ regardless of disagreement (App.~\ref{app:multidoc-scaling}). All three trajectories sit inside the predicted envelope; the gap between the Bayes-rule response and the fixed-exponent baselines grows in the direction CT1$'$ predicts as the perturbation magnitude rises.
+Three stress tests probe the perturbation envelope of \Cref{thm:ct1prime-body} (\Cref{fig:robustness-three-panel}). Under \emph{poisoned context}, the \textsc{BayesArbiter} context weight drops from $0.901$ to $0.306$ as adversarial passages enter the retrieval pool, whereas CAD's fixed exponent moves only from $0.791$ to $0.696$; mean regret is $0.345$ for \textsc{BayesArbiter} against $1.171$ for CAD (App.~\ref{app:adversarial-context}). Under the \emph{reliability counterfactual}, sweeping the synthetic noise rate from $0$ to $1$ drives the \textsc{BayesArbiter} weight from $0.942$ down to $0.184$ monotonically (Spearman $-1.0$; App.~\ref{app:reliability-noise-ablation}), exactly the linear response in $\delta$ that the signal-TV term in~\eqref{eq:robustness-envelope} predicts. Under \emph{multi-document scaling} with $k\!\in\!\{2,\dots,8\}$ conflicting passages, the \textsc{BayesArbiter} weight tracks the inter-document disagreement ($0.353$ to $0.297$ as $k$ grows), while CAD stays pinned at $0.621$ regardless of disagreement (App.~\ref{app:multidoc-scaling}). All three trajectories sit inside the predicted envelope; the gap between the \textsc{BayesArbiter} response and the fixed-exponent baselines grows in the direction CT1$'$ predicts as the perturbation magnitude rises.
 
 \begin{figure}[!htbp]
 \centering
@@ -165,7 +165,7 @@ Three stress tests probe the perturbation envelope of \Cref{thm:ct1prime-body} (
 \label{fig:robustness-three-panel}
 \end{figure}
 
-Across the spotlight and the three perturbation channels, the geometric mixture at $\eta\!=\!0$, $w\!=\!\hat w(s)$ outperforms every named baseline, the boundary policies collapse by two orders of magnitude in the direction \Cref{thm:minimax} predicts, and the three channels move the Bayes-rule weight inside the envelope of \Cref{thm:ct1prime-body}.\FloatBarrier
+Across the spotlight and the three perturbation channels, the geometric mixture at $\eta\!=\!0$, $w\!=\!\hat w(s)$ outperforms every named baseline, the boundary policies collapse by two orders of magnitude in the direction \Cref{thm:minimax} predicts, and the three channels move the \textsc{BayesArbiter} weight inside the envelope of \Cref{thm:ct1prime-body}.\FloatBarrier
 
 \subsection{CT2 trajectory diagnostic and CT3 $\eta$-tempering}
 \label{sec:ct2-ct4-exp}
@@ -194,13 +194,11 @@ Mistral-7B      & ClashEval-conflict          & $512$  & $0.901$ & $0.119$ & $0.
 \end{table}
 
 \paragraph{CT3 causal contrast, matched-base RL recipe isolates the failure.}
-On Llama-3.1-8B with the post-training recipe varied at fixed base, the conflict-slice ECE gap moves from $+0.029$ for SFT to $+0.045$ for DPO~\citep{rafailov2023dpo} and to $\mathbf{+0.344}$ $[0.230,0.476]$ for GRPO~\citep{shao2024grpo}. The corresponding token-margin diff-in-diff is $-22.55$ under GRPO and approximately zero under DPO. The recipe-level contrast is the cleanest causal evidence available that the calibration failure CT3 corrects is RL-induced rather than long-CoT-induced. The pattern carries across the Llama lineage at frontier scale (DeepSeek-R1-Distill-Llama-70B RLVR, $+0.388$) and matched 8B (DeepSeek-R1-Distill-Llama-8B, $+0.076$); Phi-3 supplies the cross-family replication at $+0.207/{+}0.003/\mathbf{+0.209}$ across SFT/DPO/GRPO. The matched-base ECE gap survives the three ConflictBank sub-families and reproduces under adaptive-ECE and Brier (App.~\ref{app:matched-base}). RLCR training~\citep{damani2025rlcr} closes the no-conflict gap to $-0.146$ but leaves a residual $+0.145$ on the conflict slice, which $\eta$-tempering then absorbs at decode time.
+On Llama-3.1-8B with the post-training recipe varied at fixed base, the conflict-slice ECE gap moves from $+0.029$ for SFT to $+0.045$ for DPO~\citep{rafailov2023dpo} and to $\mathbf{+0.344}$ $[0.230,0.476]$ for GRPO~\citep{shao2024grpo}. The corresponding token-margin diff-in-diff is $-22.55$ under GRPO and approximately zero under DPO. The recipe-level contrast is the cleanest causal evidence available that the calibration failure CT3 corrects is RL-induced rather than long-CoT-induced. The pattern carries across the Llama lineage at frontier scale (DeepSeek-R1-Distill-Llama-70B RLVR, $+0.388$) and matched 8B (DeepSeek-R1-Distill-Llama-8B, $+0.053$); Phi-3 supplies the cross-family replication at $+0.207/{+}0.003/\mathbf{+0.209}$ across SFT/DPO/GRPO, and SFT-only training on Mistral-7B ($+0.164$) and Gemma-2-9B ($+0.103$) shows the same direction at smaller magnitude (App.~\ref{app:matched-base}). The matched-base ECE gap survives the three ConflictBank sub-families and reproduces under adaptive-ECE and Brier (App.~\ref{app:matched-base}). RLCR training~\citep{damani2025rlcr} closes the no-conflict gap to $-0.146$ but leaves a residual $+0.145$ on the conflict slice, which $\eta$-tempering then absorbs at decode time.
 
-\begin{figure}[!htbp]
-\centering
-\begin{subfigure}[c]{0.64\linewidth}
-\centering\scriptsize
-\setlength{\tabcolsep}{2.5pt}
+\begin{table}[!htbp]
+\centering\small
+\setlength{\tabcolsep}{4pt}
 \renewcommand{\arraystretch}{1.0}
 \begin{tabular}{lccc}
 \toprule
@@ -209,42 +207,29 @@ On Llama-3.1-8B with the post-training recipe varied at fixed base, the conflict
 \multicolumn{4}{l}{\emph{Matched-base causal anchor (Llama-3.1-8B)}}\\
 \headrowbg Llama-3.1-8B (SFT, control)   & $+0.078$ & $+0.049$ & $+0.029$\\
 \headrowbg Llama-3.1-8B (DPO)            & $-0.105$ & $-0.150$ & $+0.045$\\
-\headrowbg Llama-3.1-8B (GRPO)           & $+0.264$ & $-0.080$ & $\mathbf{+0.344}$\\
+\headrowbg Llama-3.1-8B (GRPO)           & $+0.264$ & $-0.080$ & $\mathbf{+0.344\,[0.230,0.476]}$\\
 \midrule
 \multicolumn{4}{l}{\emph{Cross-base replication (Llama lineage)}}\\
 \headrowbg DeepSeek-Llama-70B (RLVR) & $-0.011$ & $-0.399$ & $\mathbf{+0.388}$\\
-\headrowbg DeepSeek-Llama-8B    & $+0.041$ & $-0.035$ & $+0.076$\\
+\headrowbg DeepSeek-Llama-8B (distilled, no fresh RL) & $+0.018$ & $-0.035$ & $+0.053$\\
 \midrule
 \multicolumn{4}{l}{\emph{Cross-family replication}}\\
-\headrowbg Phi-3 (SFT / DPO / GRPO)  & \multicolumn{3}{l}{$+0.207\,/\,+0.003\,/\,\mathbf{+0.209}$}\\
+\headrowbg Phi-3 (SFT / DPO / GRPO)  & \multicolumn{3}{l}{$+0.207\,/\,+0.003\,/\,\mathbf{+0.209\,[0.121,0.305]}$}\\
+Mistral-7B SFT / Gemma-2-9B SFT & \multicolumn{3}{l}{$+0.164\,/\,+0.103$ (SFT-only training; same direction)}\\
 \midrule
 \multicolumn{4}{l}{\emph{Scale and instruction-tuned controls (App.~\ref{app:matched-base})}}\\
-Llama-70B, Qwen-14B, Mistral, Gemma & \multicolumn{3}{l}{gaps $\in[-0.042,\,+0.065]$}\\
+Llama-70B, Qwen-14B, Mistral-it, Gemma-it & \multicolumn{3}{l}{gaps $\in[-0.042,\,+0.065]$}\\
 \midrule
-\altrow RLCR (Brier reward, mitigation)   & $+0.145$ & $-0.146$ & $+0.291$\\
+\altrow RLCR (Brier reward, mitigation)   & $+0.145$ & $-0.146$ & $+0.291\,[0.200,0.383]$\\
 \bottomrule
 \end{tabular}
-\subcaption{Matched-base ECE deltas with cross-family and scale controls.}
+\caption{\textbf{Matched-base RL contrast.} Held-out conflict-slice ECE deltas with cross-family and scale controls. The Llama-3.1-8B DPO-vs-GRPO gap ($+0.344$, CI $[0.230,0.476]$) anchors the causal claim that the calibration failure CT3 corrects is RL-induced. The Llama lineage replicates at frontier scale (DeepSeek-70B, $+0.388$); the distilled DeepSeek-Llama-8B at $+0.053$ rules out distillation as the mechanism. Phi-3 GRPO at $+0.209$ supplies cross-family replication; Mistral-7B and Gemma-2-9B SFT add two further families at $+0.164/+0.103$ (smaller magnitude, same direction).}
 \label{tab:matched-base-body}
-\end{subfigure}\hfill
-\begin{subfigure}[t]{0.32\linewidth}
-\centering
-\vspace{-95pt}
-\includegraphics[width=0.82\linewidth]{figs/fig_training_contrast.pdf}
-\subcaption{Trace-level RLVR vs.\ RLHF gap by $K$.}
-\label{fig:training-contrast}
-\end{subfigure}
-\caption{\textbf{Matched-base RL contrast.} The Llama-3.1-8B
-DPO-vs-GRPO gap ($+0.344$) anchors the causal claim. The Llama
-lineage replicates at frontier scale (DeepSeek-70B, $+0.388$) and
-matched 8B (DeepSeek-8B, $+0.076$); Phi-3 supplies the
-cross-family replication ($+0.209$). The trace-level gap grows
-with $K$ under RLVR and stays flat under RLHF.}
 \label{fig:matched-base-evidence}
-\end{figure}
+\end{table}
 
 \paragraph{CT3 $\eta$-tempering result.}
-The tempering scalar $\eta^\star$ is selected on a held-out Brier objective; the safe-Bayes derivation of \citet{bissiri2016} and \citet{grunwald2017} guarantees $\eta^\star\!<\!1$ in the regime where conflict has shrunk the safe rate, which is exactly the regime CT2 identifies. Pooled across all conflict cells, $\eta$-tempering yields $+0.043$ Brier and $+0.071$ accuracy, in line with the closed-form $(1\!-\!\eta^\star)^{2}V_{\mathrm{post}}$ improvement in \Cref{thm:t3-intervention}. Two worst-cell readouts ground the closed form: standalone $\eta$-tempering on R1-14B / ConflictBank / $K\!=\!1024$ moves Brier from $0.903$ to $0.505$ and accuracy from $0.037$ to $0.440$; on the parallel RLCR-trained $8$B cell, stacking $\eta$-tempering on top reaches accuracy $0.531$ and ECE $0.431$. Both swings match the variance term $V_{\mathrm{post}}$ predicts for the respective cells. Because $\eta^\star$ tracks conflict without seeing conflict labels (App.~\ref{app:eta-tempering-grid},~\ref{app:eta-vs-posthoc}), the intervention deploys label-free at decode time. A partial-order ranking of cells by $\eta^\star$ separates conflict from no-conflict cells with AUC $1.0$ on the spotlight matrix (App.~\ref{app:t3-ordering-check}).
+$\eta^\star$ is selected on held-out Brier; the safe-Bayes derivation~\citep{bissiri2016,grunwald2017} guarantees $\eta^\star\!<\!1$ in the conflict-shrunk-safe-rate regime CT2 identifies. Pooled across conflict cells, $\eta$-tempering yields $+0.043$ Brier and $+0.071$ accuracy, matching $(1\!-\!\eta^\star)^{2}V_{\mathrm{post}}$. Worst-cell readouts: standalone $\eta$-tempering on R1-14B / ConflictBank / $K\!=\!1024$ moves Brier $0.903\!\to\!0.505$ and accuracy $0.037\!\to\!0.440$; on the RLCR-trained $8$B cell, stacking $\eta$-tempering reaches accuracy $0.531$, ECE $0.431$, Brier $0.415$ (from $0.886$). $\eta^\star$ tracks conflict label-free (App.~\ref{app:eta-tempering-grid},~\ref{app:eta-vs-posthoc}); ranking cells by $\eta^\star$ separates conflict from no-conflict at AUC $1.0$ (App.~\ref{app:t3-ordering-check}).
 
 \paragraph{Deployment surface.} On free-form open-QA at $n\!\approx\!200$ per benchmark, the geometric mixture ties AdaCAD on EM and beats CAD by $+0.04$ to $+0.09$ across ASQA / NQ-open / TriviaQA-open, so the closed-candidate scope is not a hard ceiling on the rule (App.~\ref{app:freeform-openqa}). End-to-end latency is $4.38$\,s/query versus $1.21$\,s for CAD on a single H100; caching $p_\theta$ when the closed-book pass is query-stable drops the runtime cost to $1.09\!-\!2.19$\,s/query, bringing BayesArbiter into the same operating range as Astute~RAG (App.~\ref{app:latency-profile}).
 

@@ -6,7 +6,7 @@
 \item {\bf Claims}\\
 \textbf{Question:} Do the main claims made in the abstract and introduction accurately reflect the paper's contributions and scope?\\
 \textbf{Answer:} \answerYes{}\\
-\textbf{Justification:} The abstract and introduction state three theorems on a single free-energy functional (CT1, CT2, CT3) and an empirical headline (powered $n\!=\!210$ at $+0.043/+0.032/+0.022$, CT2 spectral diagnostic at $r\!=\!0.997$, worst-cell $\eta$-tempering at $0.063\!\to\!0.531$ on RLCR-trained 8B and $0.037\!\to\!0.440$ on R1-14B, matched-base $+0.344$ ECE gap). Each claim is grounded in a specific theorem statement (\Cref{thm:ct1-body,thm:ct1prime-body,thm:ct2-body,thm:t3-intervention}) and a specific empirical anchor (\Cref{tab:ct1-axis,tab:headline-regret,tab:spotlight,tab:ct2-body-summary,fig:matched-base-evidence}).
+\textbf{Justification:} The abstract and introduction state three theorems on a single free-energy functional (CT1, CT2, CT3) and an empirical headline (powered $n\!=\!210$ at $+0.064/+0.043/+0.032/+0.022$ (AdaCAD/CoCoA/Astute/Self-RAG), CT2 spectral diagnostic at $r\!=\!0.997$, worst-cell $\eta$-tempering at $0.063\!\to\!0.531$ on RLCR-trained 8B and $0.037\!\to\!0.440$ on R1-14B, matched-base $+0.344$ ECE gap). Each claim is grounded in a specific theorem statement (\Cref{thm:ct1-body,thm:ct1prime-body,thm:ct2-body,thm:t3-intervention}) and a specific empirical anchor (\Cref{tab:ct1-axis,tab:headline-regret,tab:spotlight,tab:ct2-body-summary,fig:matched-base-evidence}).
 
 \item {\bf Limitations}\\
 \textbf{Question:} Does the paper discuss the limitations of the work performed by the authors?\\
@@ -21,7 +21,7 @@
 \item {\bf Experimental result reproducibility}\\
 \textbf{Question:} Does the paper fully disclose all the information needed to reproduce the main experimental results?\\
 \textbf{Answer:} \answerYes{}\\
-\textbf{Justification:} App.~\ref{app:experimental-details} documents the full pipeline: 13 open-weight models, 10 benchmarks, 3 seeds, $5\!\times\!5\!\times\!3\!=\!75$-cell spotlight with paired bootstrap (10{,}000 resamples), exact one-sided sign tests, fixed-$\lambda$ e-values. Prompts verbatim in App.~\ref{app:prompts}. Decoding hyperparameters: \texttt{temperature=0.0}, \texttt{top\_p=1.0}, \texttt{seed=42}; $\eta$-tempering grid $\{0,0.1,\ldots,1.0\}$; Bayes-proxy logistic regression with L2 $\alpha\!=\!1.0$ (5-fold CV). Anonymized supplementary materials include the full evaluation harness.
+\textbf{Justification:} App.~\ref{app:experimental-details} documents the full pipeline: 13 open-weight models, 10 benchmarks, 3 seeds, $5\!\times\!5\!\times\!3\!=\!75$-cell spotlight with paired bootstrap (10{,}000 resamples), exact one-sided sign tests, fixed-$\lambda$ e-values. Prompts verbatim in App.~\ref{app:prompts}. Decoding hyperparameters: \texttt{temperature=0.0}, \texttt{top\_p=1.0}, \texttt{seed=42}; $\eta$-tempering grid $\{0,0.1,\ldots,1.0\}$; \textsc{BayesArbiter} logistic regression with L2 $\alpha\!=\!1.0$ (5-fold CV). Anonymized supplementary materials include the full evaluation harness.
 
 \item {\bf Open access to data and code}\\
 \textbf{Question:} Does the paper provide open access to the data and code, with sufficient instructions to faithfully reproduce the main experimental results?\\
@@ -41,7 +41,7 @@
 \item {\bf Experiments compute resources}\\
 \textbf{Question:} For each experiment, does the paper provide sufficient information on the computer resources needed to reproduce the experiments?\\
 \textbf{Answer:} \answerYes{}\\
-\textbf{Justification:} Latency and compute profile in App.~\ref{app:latency-profile}: per-query latency $4.38$ s on a single H100 (Bayes mixture, 4 model passes), $1.21$ s for CAD baseline; cached $p_\theta$ deployment drops the cost to $1.09\!-\!2.19$ s/query. Matched-base GRPO/DPO training runs use the configurations of~\citet{rafailov2023dpo} and~\citet{shao2024grpo}; full hyperparameters in App.~\ref{app:matched-base}.
+\textbf{Justification:} Latency and compute profile in App.~\ref{app:latency-profile}: per-query latency $4.38$ s on a single H100 (\textsc{BayesArbiter}, 4 model passes), $1.21$ s for CAD baseline; cached $p_\theta$ deployment drops the cost to $1.09\!-\!2.19$ s/query. Matched-base GRPO/DPO training runs use the configurations of~\citet{rafailov2023dpo} and~\citet{shao2024grpo}; full hyperparameters in App.~\ref{app:matched-base}.
 
 \item {\bf Code of ethics}\\
 \textbf{Question:} Does the research conducted in the paper conform, in every respect, with the NeurIPS Code of Ethics?\\

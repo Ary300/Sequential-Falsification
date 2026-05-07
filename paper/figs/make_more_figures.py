@@ -18,6 +18,8 @@ OUT = Path(__file__).resolve().parent
 mpl.rcParams.update({
     "font.family": "serif",
     "font.serif": ["Times New Roman", "DejaVu Serif"],
+    "mathtext.fontset": "stix",
+    "mathtext.rm": "serif",
     "font.size": 9,
     "axes.titlesize": 10,
     "axes.labelsize": 9,
@@ -70,8 +72,8 @@ def save_fig(fig, name: str) -> None:
 # ============================================================================
 def figure_architecture():
     # Wide horizontal layout: single row, 5 stages left-to-right
-    fig, ax = plt.subplots(figsize=(11.0, 2.2))
-    ax.set_xlim(0, 22); ax.set_ylim(0, 4.4); ax.axis("off")
+    fig, ax = plt.subplots(figsize=(11.0, 2.4))
+    ax.set_xlim(0, 22); ax.set_ylim(-0.2, 4.6); ax.axis("off")
 
     def box(x, y, w, h, text, fc, ec="black", text_fc="black", fs=8.0):
         ax.add_patch(mp.FancyBboxPatch(
@@ -80,9 +82,11 @@ def figure_architecture():
         ax.text(x + w / 2, y + h / 2, text, ha="center", va="center",
                 fontsize=fs, color=text_fc)
 
-    def arrow(x1, y1, x2, y2, color="black", style="->", lw=0.9, ls="-"):
-        ax.annotate("", xy=(x2, y2), xytext=(x1, y1),
-                    arrowprops=dict(arrowstyle=style, color=color, lw=lw, linestyle=ls))
+    def arrow(x1, y1, x2, y2, color="black", style="->", lw=0.9, ls="-", rad=0.0):
+        arrowprops = dict(arrowstyle=style, color=color, lw=lw, linestyle=ls)
+        if rad != 0.0:
+            arrowprops["connectionstyle"] = f"arc3,rad={rad}"
+        ax.annotate("", xy=(x2, y2), xytext=(x1, y1), arrowprops=arrowprops)
 
     # Stage 1: Inputs (3 stacked compact)
     box(0.1, 3.2, 2.5, 0.8, "Query $q$", "#e8eef7", fs=8.5)
@@ -90,41 +94,50 @@ def figure_architecture():
     box(0.1, 0.4, 2.5, 0.8, "Trace $z_{1:K}$", "#e8eef7", fs=8.5)
 
     # Stage 2: Forwards
-    box(3.3, 3.2, 3.4, 0.8, r"$p_\theta(y\mid q)$", "#cfd8e3", fs=8.5)
-    box(3.3, 1.8, 3.4, 0.8, r"$p_{\mathrm{ctx}}(y\mid q,c)$", "#cfd8e3", fs=8.5)
-    box(3.3, 0.4, 3.4, 0.8, r"$p(y\mid\mathrm{trace})$", "#cfd8e3", fs=8.5)
+    box(3.3, 3.2, 3.4, 0.8, r"$p_{\theta}(y \mid q)$", "#cfd8e3", fs=10.0)
+    box(3.3, 1.8, 3.4, 0.8, r"$p_{\mathrm{ctx}}(y \mid q,\, c)$", "#cfd8e3", fs=10.0)
+    box(3.3, 0.4, 3.4, 0.8, r"$p(y \mid \mathrm{trace})$", "#cfd8e3", fs=10.0)
 
     # Stage 3: Signals + plug-in (compact stack)
     box(7.3, 2.6, 3.4, 1.0,
-        "Signals $s(q,c)$\n(BM25, pop., entropy)", "#fff0c4", fs=7.8)
+        "Signals $s(q,\, c)$\n(BM25, pop., entropy)", "#fff0c4", fs=8.5)
     box(7.3, 0.9, 3.4, 1.0,
-        r"$\hat w(c)=\widehat{\mathbb{E}}[r\mid s]$", "#fce8b3", fs=8.5)
+        r"$\hat w(c) \,=\, \widehat{\mathbb{E}}\,[\,r \mid s\,]$", "#fce8b3", fs=10.0)
 
     # Stage 4: Mixture + eta-tempering
     box(11.3, 2.6, 4.3, 1.0,
-        r"$p^{\!\star}\!\propto p_\theta^{1-\hat w}p_{\mathrm{ctx}}^{\hat w}$ (T1)",
-        "#dcecd5", fs=8.5)
+        r"$p^{\,\star} \,\propto\, p_{\theta}^{\,1-\hat w}\, p_{\mathrm{ctx}}^{\,\hat w}\ \ (\mathrm{T1})$",
+        "#dcecd5", fs=10.0)
     box(11.3, 0.9, 4.3, 1.0,
-        r"$p_\eta\propto p^{\eta}$ ($\eta$-temp., T3)",
-        "#dcecd5", fs=8.5)
+        r"$p_{\eta} \,\propto\, p^{\,\eta}\ \ (\eta\text{-temp.,}\ \mathrm{T3})$",
+        "#dcecd5", fs=10.0)
 
     # Stage 5: Decision
     box(16.2, 1.7, 3.5, 1.0,
-        r"$\hat y=\arg\max p$",
-        "#c5dbb8", fs=9.0)
+        r"$\hat y \,=\, \arg\max_{y}\, p(y)$",
+        "#c5dbb8", fs=10.5)
 
-    # Arrows: stage transitions
+    # Arrows: clean non-overlapping routing
+    # Inputs -> Forwards (3 horizontal)
     for y in [3.6, 2.2, 0.8]:
         arrow(2.6, y, 3.3, y)
-    arrow(6.7, 3.6, 7.3, 3.1)   # p_theta -> signals/plugin
-    arrow(6.7, 2.2, 7.3, 3.1)   # p_ctx -> signals/plugin
-    arrow(6.7, 2.2, 11.3, 3.1)  # p_ctx -> mixture
-    arrow(6.7, 3.6, 11.3, 3.1)  # p_theta -> mixture
-    arrow(6.7, 0.8, 11.3, 1.4)  # post-trace -> eta-tempering
-    arrow(10.7, 1.4, 11.3, 1.4) # plug-in -> mixture
-    arrow(10.7, 3.1, 11.3, 3.1) # signals -> mixture (info)
-    arrow(15.6, 3.1, 16.2, 2.4) # mixture -> decision
-    arrow(15.6, 1.4, 16.2, 1.9) # eta-tempering -> decision
+
+    # p_theta and p_ctx -> Signals box (top + bottom of signals box)
+    arrow(6.7, 3.6, 7.3, 3.3)        # p_theta -> signals (top)
+    arrow(6.7, 2.2, 7.3, 2.9)        # p_ctx   -> signals (bottom)
+
+    # Signals -> plug-in (vertical, inside the column)
+    arrow(9.0, 2.6, 9.0, 1.9)
+
+    # Plug-in w -> Mixture T1 (diagonal up-right, in the gap between columns)
+    arrow(10.7, 1.4, 11.3, 2.9)
+
+    # Trace forward -> eta-tempering (curved BELOW plug-in box, no overlap)
+    arrow(6.7, 0.8, 11.3, 1.1, rad=0.35)
+
+    # Both T1 and T3 -> Decision
+    arrow(15.6, 3.1, 16.2, 2.4)
+    arrow(15.6, 1.4, 16.2, 1.9)
 
     # Stage headers (top labels)
     ax.text(1.35, 4.2, "Inputs", fontsize=9, fontweight="bold", color="#1f4e79", ha="center")
@@ -656,6 +669,63 @@ def figure_robustness_three_panel():
     plt.close(fig)
 
 
+# ============================================================================
+# Figure: cross-family conflict-amplification ladder
+# Shows the matched-base / cross-family ECE-gap monotonically across
+# Llama-8B GRPO, Phi-3 GRPO, Mistral-7B SFT, Gemma-2-9B SFT, DeepSeek-Llama-8B.
+# ============================================================================
+def figure_cross_family_ladder():
+    rows = [
+        ("Llama-3.1-8B GRPO\n(matched-base anchor)", 0.3436, 0.2297, 0.4757, "anchor"),
+        ("Phi-3-medium GRPO\n(cross-family RL)",      0.2088, 0.1208, 0.3051, "rl"),
+        ("Mistral-7B SFT\n(cross-family SFT)",        0.1638, None,   None,   "sft"),
+        ("Gemma-2-9B SFT\n(cross-family SFT)",        0.1035, None,   None,   "sft"),
+        ("DeepSeek-Llama-8B\n(distilled, no fresh RL)", 0.0532, None, None,   "ctrl"),
+    ]
+    palette = {
+        "anchor": "#C0392B",
+        "rl":     "#E67E22",
+        "sft":    "#2874A6",
+        "ctrl":   "#85929E",
+    }
+
+    fig, ax = plt.subplots(figsize=(6.4, 3.2))
+    y = np.arange(len(rows))[::-1]
+    means = np.array([r[1] for r in rows])
+    has_ci = np.array([r[2] is not None for r in rows])
+    los = np.array([r[2] if r[2] is not None else r[1] for r in rows])
+    his = np.array([r[3] if r[3] is not None else r[1] for r in rows])
+    colors = [palette[r[4]] for r in rows]
+
+    ax.barh(y, means, color=colors, edgecolor="black", linewidth=0.5, alpha=0.9, height=0.62)
+
+    # error bars only where CIs available
+    for yi, m, lo, hi, hc in zip(y, means, los, his, has_ci):
+        if hc:
+            ax.errorbar(m, yi, xerr=[[m - lo], [hi - m]], fmt="none",
+                        ecolor="black", elinewidth=1.0, capsize=4)
+
+    for yi, (label, mean, lo, hi, _) in zip(y, rows):
+        suffix = f"  {mean:+.3f}" + (f"  [{lo:+.3f}, {hi:+.3f}]" if lo is not None else "")
+        text_x = (hi + 0.012) if (hi is not None) else (mean + 0.020)
+        ax.text(text_x, yi, suffix, va="center", fontsize=8.5, fontweight="bold")
+
+    ax.axvline(0, color="black", linewidth=0.8)
+    ax.set_yticks(y)
+    ax.set_yticklabels([r[0] for r in rows], fontsize=8.5)
+    ax.set_xlim(0, 0.62)
+    ax.set_xlabel(r"Conflict-minus-no-conflict ECE gap (higher $\Rightarrow$ more conflict-amplification)",
+                  fontsize=9)
+    ax.set_title("Conflict-amplification across training intensity and family",
+                 fontsize=10, fontweight="bold", pad=6)
+    ax.tick_params(axis="x", labelsize=8)
+    ax.spines["right"].set_visible(False)
+    ax.spines["top"].set_visible(False)
+    fig.tight_layout()
+    save_fig(fig, "fig_cross_family_ladder")
+    plt.close(fig)
+
+
 def main():
     figure_architecture()
     figure_experiment_arch()
@@ -672,6 +742,7 @@ def main():
     figure_gap_scatter()
     figure_cumulative_gain()
     figure_robustness_three_panel()
+    figure_cross_family_ladder()
     print("All extra figures written to", OUT)
 
 

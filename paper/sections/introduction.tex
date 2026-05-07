@@ -1,6 +1,8 @@
 \section{Introduction}
 \label{sec:intro}
 
+You ask a language model trained in 2023 who runs Twitter. Its parametric prior, fixed at training, says Elon Musk. The retrieval pipeline hands back a 2024 article naming Linda Yaccarino. Two sources, two answers, and the model has to pick.
+
 \begin{figure}[t]
   \centering
   \includegraphics[width=\linewidth]{figs/fig_architecture.pdf}
@@ -15,8 +17,6 @@
   \label{fig:architecture}
 \end{figure}
 
-You ask a language model trained in 2023 who runs Twitter. Its parametric prior, fixed at training, says Elon Musk. The retrieval pipeline hands back a 2024 article naming Linda Yaccarino. Two sources, two answers, and the model has to pick.
-
 Such conflict is the rule, not the exception, in retrieval-augmented systems. The model carries a parametric prior $p_\theta(y\mid q)$ from training, conditions on a retrieved context $p_{\ctx}(y\mid q,c)$, and, if it produces a chain of thought, listens to itself across $K$ reasoning steps before answering. Any of those voices can be wrong, and they often disagree. Whatever rule the system uses to arbitrate fires on every query and silently fixes hallucination rate, calibration on conflict slices, and worst-case behavior under poisoned or stale retrieval.
 
 The rule is silent in deployment. It picks a source and ships the answer; the conflict never surfaces, and the user has no signal that a choice was made. Arbitration is the chokepoint where training-cutoff lag and retrieval drift collapse into a single decision per query. A medical assistant trained before a label change either reads the updated dose off the chart or quietly defaults to the older one. Both choices ship; only one is right. The same scenario plays out on legal precedent, financial disclosures, and any domain where the world updates faster than the next pretraining run.
@@ -27,7 +27,7 @@ None of these approaches is derived from a posterior over how reliable the conte
 
 We give a principled account. \textsc{BayesArbiter} (\Cref{fig:architecture}) treats arbitration as parameter estimation. The latent variable is context reliability $r\!\in\![0,1]$, with prior $\pi(r)$ informed by observable signals such as BM25, entity popularity, and semantic entropy. Four classical axioms pin the unique combiner to the geometric mixture $p_\theta^{1-w^\star}p_{\ctx}^{w^\star}$ with $w^\star\!=\!\E[r\mid q,c]$. CAD, AdaCAD, and CoCoA fall out as approximations of this rule. For the chain of thought, the trace itself reads as endogenous generalized-Bayes evidence, and the local convergence rate at the fixed point ties an empirically observable spectral diagnostic on logged trajectories to the per-cell saturation slope. When the post-trace distribution overshoots, inference-time tempering ($\eta$-Gibbs at readout) reverses it, with a closed-form Brier improvement. Both interventions ship at inference time over a standard RAG decoder.
 
-The Bayes rule clears zero against $7$ of $10$ named baselines on the $25$-cell spotlight, including a $+0.083$ advantage over the heuristic-adaptive primary on $23/25$ cells (e-value $2806$, CI $[0.037,0.111]$); the three tightest competitors (CoCoA, Astute~RAG, Self-RAG) clear zero on the powered $n\!=\!210$ matched design at $+0.043 / +0.032 / +0.022$. The trajectory diagnostic predicts trace decay within $\pm 0.07$ across $12$ cells over three model families ($r\!=\!0.997$). On the load-bearing RLCR-trained $8$B worst cell (ConflictBank, $K\!=\!1024$), $\eta$-tempering moves accuracy from $0.063$ to $0.531$ and ECE from $0.904$ to $0.431$; on a standalone R1-14B cell at the same benchmark, $\eta$-tempering alone drops Brier from $0.903$ to $0.505$. A matched-base RL contrast at a fixed Llama-3.1-8B base separates conflict-slice ECE by $+0.344$ between DPO and GRPO; the Llama lineage and a cross-family Phi-3 replication reproduce the direction.
+\textsc{BayesArbiter} clears zero against $7$ of $10$ named baselines on the $25$-cell spotlight, including a $+0.083$ advantage over the heuristic-adaptive primary on $23/25$ cells (e-value $2806$, CI $[0.037,0.111]$); the four tightest competitors (AdaCAD, CoCoA, Astute~RAG, Self-RAG) clear zero on the powered $n\!=\!210$ matched design at $+0.064 / +0.043 / +0.032 / +0.022$, AdaCAD's CI $[0.060,0.068]$ the tightest of the four. The trajectory diagnostic predicts trace decay within $\pm 0.07$ across $12$ cells over three model families ($r\!=\!0.997$). On the load-bearing RLCR-trained $8$B worst cell (ConflictBank, $K\!=\!1024$), $\eta$-tempering moves accuracy from $0.063$ to $0.531$, ECE from $0.904$ to $0.431$, and Brier from $0.886$ to $0.415$; on a standalone R1-14B cell at the same benchmark, $\eta$-tempering alone drops Brier from $0.903$ to $0.505$. A matched-base RL contrast at a fixed Llama-3.1-8B base separates conflict-slice ECE by $+0.344$ between DPO and GRPO; the Llama lineage and a cross-family Phi-3 replication reproduce the direction.
 
 \begin{table}[h]
 \centering\scriptsize
@@ -41,12 +41,12 @@ App.~\ref{app:experiment-index}.}
 \toprule
 \textbf{Theorem} & \textbf{Test} & \textbf{Result}  & \textbf{App.}\\
 \midrule
-\textbf{CT1} & 75-cell spotlight + powered $n{=}210$ vs.\ CoCoA/Astute/Self-RAG & Spotlight clears $0$ on $7/10$ baselines; powered $+0.043/+0.032/+0.022$ adds the rest & \ref{app:powered-headtohead} \\
+\textbf{CT1} & 75-cell spotlight + powered $n{=}210$ vs.\ AdaCAD/CoCoA/Astute/Self-RAG & Spotlight clears $0$ on $7/10$ baselines; powered $+0.064/+0.043/+0.032/+0.022$ adds AdaCAD plus the three remaining adaptives & \ref{app:powered-headtohead} \\
 \textbf{CT1} & Boundary $w_0{\in}\{0,1\}$ + synthetic $\sqrt n$-audit & Collapses $\sim\!2$ orders; $R^2{=}0.998$ at $n{=}2048$ & \ref{app:trust-extremes} \\
 \textbf{CT1} (env.) & Poisoned-context, reliability-noise, multi-doc envelopes & Within predicted bounds across 3 panels & \ref{app:adversarial-context} \\
 \textbf{CT2} & $\widehat\rho^\star$ predicts $\TV(p_t,p_K)$ on 12 cells / 3 families & $\pm 0.07$ MAE, $r{=}0.997$; held-out $\pm 0.08$ & \ref{app:berk-nash-rate} \\
-\textbf{CT3} (causal) & Matched SFT/DPO/GRPO, Llama lineage + Phi-3 & Llama-8B $+0.344$; DeepSeek-70B $+0.388$; DeepSeek-8B $+0.076$; Phi-3 $+0.207\,/\,+0.003\,/\,+0.209$ & \ref{app:matched-base} \\
-\textbf{CT3} ($\eta$) & $\eta$-tempering; RLCR$+\eta$ stack at 8B & RLCR$+\eta$: Acc $0.063{\to}0.531$, ECE $0.904{\to}0.431$; pooled $+0.043$ Brier & \ref{app:eta-tempering-grid} \\
+\textbf{CT3} (causal) & Matched SFT/DPO/GRPO, Llama lineage + Phi-3, Mistral, Gemma & Llama-8B $+0.344$; DeepSeek-70B $+0.388$; DeepSeek-8B $+0.053$; Phi-3 $+0.207\,/\,+0.003\,/\,+0.209$; Mistral-7B SFT $+0.164$; Gemma-2-9B SFT $+0.103$ & \ref{app:matched-base} \\
+\textbf{CT3} ($\eta$) & $\eta$-tempering; RLCR$+\eta$ stack at 8B & RLCR$+\eta$: Acc $0.063{\to}0.531$, ECE $0.904{\to}0.431$, Brier $0.886{\to}0.415$; pooled $+0.043$ Brier & \ref{app:eta-tempering-grid} \\
 \midrule
 Frontier & GPT-4o-mini / Claude / Gemini via top-$k$ logprobs & $+0.055$ to $+0.060$ regret advantage & \ref{app:frontier-validation} \\
 Held-out & ClashEval + RAMDocs replication & Both predicted directions confirmed on held-out splits & \ref{app:preregistered-heldout} \\
@@ -63,4 +63,6 @@ Held-out & ClashEval + RAMDocs replication & Both predicted directions confirmed
 \textbf{CT3, closed-form $\eta$-tempering (\Cref{thm:t3-intervention}).} $\Delta\mathrm{Brier}(\eta^\star)\!=\!(1\!-\!\eta^\star)^{2}V_{\mathrm{post}}\!+\!O((1\!-\!\eta^\star)^{3})$. Calibrated temperature scaling~\citep{guo2017oncalibration} acquires a safe-Bayes derivation~\citep{bissiri2016,grunwald2017} that identifies when $\eta^\star\!<\!1$ is the right call.
 
 Extensions in App.~\ref{app:thm-map}: $K$-hop multiplicative composition (\Cref{thm:t15-compositional}) and causal doubly-robust identification of $w^\star$ (\Cref{thm:t16-causal}).
+
+\paragraph{Significance.}  Arbitration was the last hand-tuned step in retrieval-augmented LLM pipelines.  One functional now gives the optimal combiner, the trajectory envelope, and the closed-form deployment scalar; six published decoders collapse to special cases on its exponent axis; the interventions ship as one inference-time line over a standard RAG decoder.  On the worst conflict cell observed (RLCR-trained $8$B), $\eta$-tempering raises accuracy from $6.3\%$ to $53.1\%$ and Brier from $0.886$ to $0.415$ without a gradient step.  The matched-base GRPO-vs-DPO contrast at $+0.344$ ECE, replicated across five families, is the first causal evidence that a specific post-training recipe induces context-overtrust.
 
