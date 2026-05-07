@@ -616,28 +616,25 @@ def figure_training_contrast() -> None:
     rlhf_7b = [0.9856, 0.9849, 0.9693]
 
     fig, axes = plt.subplots(2, 1, figsize=(3.0, 3.5), sharex=True)
-    axes[0].plot(cot, rlvr_7b, "-", marker="o", color=PALETTE["deepseek"],
-                 label="R1-Distill-7B (RLVR)")
-    axes[0].plot(cot, rlhf_7b, "--", marker="s", color=PALETTE["qwen"],
-                 label="Qwen2.5-7B-Instr (RLHF)")
-    axes[0].set_title("7B class", fontsize=9)
+    line_rlvr_7, = axes[0].plot(cot, rlvr_7b, "-", marker="o", color=PALETTE["deepseek"],
+                                label="RLVR (R1-Distill)")
+    line_rlhf_7, = axes[0].plot(cot, rlhf_7b, "--", marker="s", color=PALETTE["qwen"],
+                                label="RLHF (Qwen2.5-Instr)")
+    axes[0].set_title("7B class", fontsize=9, pad=2)
     axes[0].set_ylabel("Conf$-$acc gap", fontsize=8)
-    axes[0].legend(fontsize=6.5, loc="lower right")
     axes[0].tick_params(labelsize=7)
 
-    axes[1].plot(cot, rlvr_14b, "-", marker="o", color=PALETTE["deepseek"],
-                 label="R1-Distill-14B (RLVR)")
-    axes[1].plot(cot, rlhf_14b, "--", marker="s", color=PALETTE["qwen"],
-                 label="Qwen2.5-14B-Instr (RLHF)")
-    axes[1].set_title("14B class", fontsize=9)
+    axes[1].plot(cot, rlvr_14b, "-", marker="o", color=PALETTE["deepseek"])
+    axes[1].plot(cot, rlhf_14b, "--", marker="s", color=PALETTE["qwen"])
+    axes[1].set_title("14B class", fontsize=9, pad=2)
     axes[1].set_xlabel("CoT budget $K$", fontsize=8)
     axes[1].set_ylabel("Conf$-$acc gap", fontsize=8)
-    axes[1].legend(fontsize=6.5, loc="lower right")
     axes[1].set_xticks(cot)
     axes[1].tick_params(labelsize=7)
 
-    fig.suptitle("ConflictBank gap by training type", fontsize=9, y=0.97)
-    fig.tight_layout(rect=(0, 0, 1, 0.97))
+    fig.legend(handles=[line_rlvr_7, line_rlhf_7], loc="upper center",
+               ncol=2, fontsize=7, frameon=False, bbox_to_anchor=(0.5, 1.0))
+    fig.tight_layout(rect=(0, 0, 1, 0.93))
     save_fig(fig, "fig_training_contrast")
     plt.close(fig)
 
