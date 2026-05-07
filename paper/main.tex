@@ -3,8 +3,10 @@
 % --- pass options to natbib BEFORE neurips style loads it ---
 \PassOptionsToPackage{numbers,sort&compress}{natbib}
 
-\IfFileExists{neurips_2026.sty}{\usepackage[final]{neurips_2026}}{\usepackage[margin=1in]{geometry}}
+\IfFileExists{neurips_2026.sty}{\usepackage{neurips_2026}}{\usepackage[margin=1in]{geometry}}
 
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
 \usepackage{microtype}
 \usepackage{graphicx}
 \usepackage{amsmath}

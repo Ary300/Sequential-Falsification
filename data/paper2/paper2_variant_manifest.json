@@ -1,0 +1,73 @@
+{
+  "files": {
+    "multidoc_conflict_scaling": "/Users/aryavdas/Downloads/Sequential Falsification with Calibrated Confidence/data/paper2/paper2_multidoc_conflict_scaling.jsonl",
+    "poisoned_context": "/Users/aryavdas/Downloads/Sequential Falsification with Calibrated Confidence/data/paper2/paper2_poisoned_context.jsonl",
+    "reliability_ablation": "/Users/aryavdas/Downloads/Sequential Falsification with Calibrated Confidence/data/paper2/paper2_reliability_ablation.jsonl"
+  },
+  "output_dir": "/Users/aryavdas/Downloads/Sequential Falsification with Calibrated Confidence/data/paper2",
+  "summaries": {
+    "multidoc_conflict_scaling": {
+      "k_values": [
+        {
+          "num_conflicting_docs": 2,
+          "rows": 72
+        },
+        {
+          "num_conflicting_docs": 4,
+          "rows": 72
+        },
+        {
+          "num_conflicting_docs": 8,
+          "rows": 72
+        }
+      ],
+      "variant": "multi_document_conflict_scaling"
+    },
+    "poisoned_context": {
+      "benchmarks": [
+        {
+          "benchmark": "conflictbank",
+          "rows": 72
+        },
+        {
+          "benchmark": "nq_swap",
+          "rows": 24
+        },
+        {
+          "benchmark": "ramdocs",
+          "rows": 24
+        },
+        {
+          "benchmark": "clasheval",
+          "rows": 24
+        }
+      ],
+      "variant": "poisoned_context"
+    },
+    "reliability_ablation": {
+      "noise_levels": [
+        {
+          "noise_rate": 0.0,
+          "rows": 24
+        },
+        {
+          "noise_rate": 0.25,
+          "rows": 24
+        },
+        {
+          "noise_rate": 0.5,
+          "rows": 24
+        },
+        {
+          "noise_rate": 0.75,
+          "rows": 24
+        },
+        {
+          "noise_rate": 1.0,
+          "rows": 24
+        }
+      ],
+      "variant": "reliability_ablation"
+    }
+  }
+}

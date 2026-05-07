@@ -1,0 +1,32 @@
+{
+  "title": "Theorem 3 Same-Family Scaling: ConflictBank Conflict",
+  "x_label": "Model size (B params)",
+  "y_label": "Long-CoT confidence gap",
+  "x_scale": "log2",
+  "series": [
+    {
+      "label": "DeepSeek-R1-Distill-Qwen",
+      "x": [
+        7,
+        14
+      ],
+      "y": [
+        0.5308,
+        0.9513
+      ]
+    },
+    {
+      "label": "Qwen2.5",
+      "x": [
+        7,
+        14,
+        32
+      ],
+      "y": [
+        0.9693,
+        0.9584,
+        0.8871
+      ]
+    }
+  ]
+}

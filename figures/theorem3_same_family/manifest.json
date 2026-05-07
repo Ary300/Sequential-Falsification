@@ -1,0 +1,15 @@
+{
+  "figures": {
+    "conflictbank_conflict": {
+      "payload": "/Users/aryavdas/Downloads/Sequential Falsification with Calibrated Confidence/figures/theorem3_same_family/conflictbank_conflict_payload.json",
+      "render_format": "json",
+      "rendered": "/Users/aryavdas/Downloads/Sequential Falsification with Calibrated Confidence/figures/theorem3_same_family/conflictbank_conflict.pdf"
+    },
+    "wikicontradict_conflict": {
+      "payload": "/Users/aryavdas/Downloads/Sequential Falsification with Calibrated Confidence/figures/theorem3_same_family/wikicontradict_conflict_payload.json",
+      "render_format": "json",
+      "rendered": "/Users/aryavdas/Downloads/Sequential Falsification with Calibrated Confidence/figures/theorem3_same_family/wikicontradict_conflict.pdf"
+    }
+  },
+  "output_dir": "/Users/aryavdas/Downloads/Sequential Falsification with Calibrated Confidence/figures/theorem3_same_family"
+}

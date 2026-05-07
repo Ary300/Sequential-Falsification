@@ -297,9 +297,8 @@ described in \Cref{sec:experiments}.}
 CAD               & \citet{shi2024cad}              & ours (re-impl.) & $-0.079$ \\
 AdaCAD            & \citet{wang2025adacad}          & ours (re-impl.) & $-0.106$ \\
 CoCoA             & \citet{khandelwal2025cocoa}     & ours (re-impl.) & $-0.128$ \\
-NWCAD             & \citet{khandelwal2024nwcad}     & ours (re-impl.) & $-0.072$ \\
-JuICE             & \citet{cohen2024juice}          & ours (re-impl.) & $-0.080$ \\
-MADAM-RAG         & \citet{wang2024madamrag}        & ours (re-impl.) & $-0.103$ \\
+JuICE             & \citet{li2025taming}            & ours (re-impl.) & $-0.080$ \\
+MADAM-RAG         & \citet{wang2025ramdocs}        & ours (re-impl.) & $-0.103$ \\
 Self-RAG          & \citet{asai2024selfrag}         & released code   & $-0.146$ \\
 Astute~RAG        & \citet{wang2024astuterag}       & released code   & $-0.140$ \\
 CRAG              & \citet{yan2024crag}             & released code   & $-0.045$ \\
@@ -340,7 +339,7 @@ where $\bar\eta$ shrinks; \Cref{thm:eta-bayes} supplies the mechanism.
 \label{app:bagged-inference}
 
 CAD ($w\!=\!2$), AdaCAD (Laplace approx.\ to $\E[r\!\mid\!c]$),
-CoCoA, NWCAD, JuICE, MADAM-RAG, Astute~RAG and gated/active variants
+CoCoA, JuICE, MADAM-RAG, Astute~RAG and gated/active variants
 (Self-RAG, FLARE, CRAG) are listed against \Cref{thm:bayes-arbitration}
 in \Cref{cor:special-cases}.  PoE ($w\!=\!1/2$) and MoE (arithmetic
 mean) are dominated and structurally distinct respectively.  RLCR
@@ -723,7 +722,7 @@ $\log p\!=\!(1\!-\!w)\log p_\theta\!+\!w\log p_\ctx\!-\!\text{const}$,
 i.e., $p\!\propto\!p_\theta^{1-w}p_\ctx^w$; strict convexity
 yields uniqueness.
 \textbf{$e$-geodesic.}  In exponential-family $e$-coordinates,
-$p_w^*$ is exactly the $e$-geodesic between $p_\theta$ and $p_\ctx$
+$p_w^\star$ is exactly the $e$-geodesic between $p_\theta$ and $p_\ctx$
 at parameter $w$.
 \textbf{Brier equivalence.}  Brier
 $\E_{y^\star\sim p^\star}S_B(\hat p,y^\star)\!=\!\|\hat p\!-\!p^\star\|_2^2\!+\!\text{const}$
@@ -3339,7 +3338,7 @@ WikiContradict~\citep{hou2024wikicontradict};
 PopQA~\citep{mallen2023popqa}; NQ-Swap~\citep{xie2024conflictqa};
 DynamicQA~\citep{marjanovic2024dynamicqa}; auxiliary HotpotQA,
 TriviaQA, GPQA, TabMWP, CLIMATEX;
-MQuAKE-Remastered~\citep{zhong2024mquake} multi-hop.  Per-benchmark
+MQuAKE-Remastered~\citep{zhong2023mquake} multi-hop.  Per-benchmark
 sizes in \Cref{tab:scope-detailed}.
 
 \begin{table}[H]
@@ -3377,9 +3376,8 @@ CLIMATEX       & 128  & 250  & $0.00$ & domain QA\\
 Re-implemented: CAD~\citep{shi2024cad},
 AdaCAD~\citep{wang2025adacad},
 CoCoA~\citep{khandelwal2025cocoa},
-NWCAD~\citep{khandelwal2024nwcad},
-JuICE~\citep{cohen2024juice},
-MADAM-RAG~\citep{wang2024madamrag}.  Authors' code:
+JuICE~\citep{li2025taming},
+MADAM-RAG~\citep{wang2025ramdocs}.  Authors' code:
 Self-RAG~\citep{asai2024selfrag},
 Astute~RAG~\citep{wang2024astuterag},
 CRAG~\citep{yan2024crag}.  Original hyperparameters; tune on calib
@@ -3535,7 +3533,10 @@ Closed-book: ``Question: \{question\}''.  Aligned/conflict: appends
 ``Context: \{context\_text\}\textbackslash n Use the context if
 it is reliable, but answer the question.''
 
-\medskip\noindent\textbf{$\eta$-tempered decoding.}\par\smallskip
+\medskip\noindent\textbf{$\eta$-tempered decoding.}\ \,
+The post-trace and prior distributions are obtained from the same
+checkpoint with two chat-template configurations and combined as a
+geometric mixture in log-probability space exponentiated by $\eta$.\par
 \noindent\fbox{\begin{minipage}{0.88\linewidth}\ttfamily\scriptsize\raggedright
 post-trace: chat\_template with\\
 \hspace*{1em}\{aligned, conflict\} role and long\_cot=True;\\
@@ -3544,17 +3545,17 @@ post-trace: chat\_template with\\
 prior: chat\_template with\\
 \hspace*{1em}closed\_book role and long\_cot=False;\\
 \hspace*{1em}emit <answer>
-\end{minipage}}
-Geometric mixture in log-prob space, exponentiated by $\eta$.
+\end{minipage}}\par
 
-\medskip\noindent\textbf{Trace-separation diagnostic} appends a
-tentative-answer suffix (\texttt{run\_theorem3\_trace\_separation\_check.py})
-and scores each candidate continuation.
+\medskip\noindent\textbf{Trace-separation diagnostic.}\ \,
+A tentative-answer suffix is appended and each candidate continuation is
+scored; canonical script
+\texttt{run\_theorem3\_trace\_\allowbreak separation\_\allowbreak check.py}.
 
 \paragraph{Decoding hyperparameters.}
-\texttt{temperature=0.0}, \texttt{top\_p=1.0}, \texttt{seed=42};
-\texttt{max\_tokens=min(max(K+256,512),8192)} for $K\!>\!0$, $192$
-otherwise; OpenAI chat format with model's bundled
+\texttt{temperature=0.0}, \texttt{top\_p=1.0}, \texttt{seed=42}; max
+tokens \texttt{min(max(K{+}256,\,512),\,8192)} for $K\!>\!0$ and
+$192$ otherwise; OpenAI chat format with the model's bundled
 \texttt{apply\_chat\_template}.
 
 
@@ -3854,6 +3855,7 @@ is the load-bearing prediction of Theorem~\ref{thm:eta-bayes}.}
 \label{tab:eta-per-slice}
 \setlength{\tabcolsep}{2.5pt}
 \small
+\resizebox{\linewidth}{!}{%
 \begin{tabular}{llccccc}
 \toprule
 \textbf{Model} & \textbf{Slice} & $\eta^\star$ & \textbf{Brier before} & \textbf{Brier after} & \textbf{Acc.\ before} & \textbf{Acc.\ after}\\
@@ -3876,7 +3878,7 @@ R1-32B & WikiContradict no-conflict & $0.6$ & $0.581$ & $0.388$ & $0.392$ & $0.4
 \multicolumn{2}{l}{\textbf{R1-32B}: mean conflict / no-conflict $\eta^\star$} & \multicolumn{5}{l}{$0.100 / 0.650$ \;\;(ratio $\mathbf{0.15\times}$)}\\
 \multicolumn{2}{l}{\textbf{Pooled across R1-7B/14B/32B}: conflict / no-conflict} & \multicolumn{5}{l}{$0.117 / 0.617$ \;\;(ratio $\mathbf{0.19\times}$, monotone in scale)}\\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \end{table}
 
 Conflict-vs-no-conflict $\eta^\star$ ratio $<\!1$ on every
@@ -3962,7 +3964,7 @@ cross-family.  SFT-only training on Mistral-7B and Gemma-2-9B
 sits at $+0.164/+0.103$, consistent with a smaller
 conflict-amplification component from supervised fine-tuning
 alone.  DeepSeek-Llama-8B (distilled from R1, no fresh RL on
-Llama-3-8B) sits at $+0.053$, ruling out distillation alone as
+Llama-3.1-8B) sits at $+0.053$, ruling out distillation alone as
 the mechanism.}
 \label{fig:cross-family-ladder}
 \end{figure}
@@ -4249,7 +4251,7 @@ Self-RAG              & $+0.0219$ & $[0.0019,\,0.0395]$ & $180/210$ & $<\!10^{-1
 All four CIs strictly above zero on the powered design;
 AdaCAD's gap is the largest and the CI is the tightest of the
 four ($[0.060,0.068]$, width $\sim\!0.008$).  The remaining
-$25$-cell-clearing methods (MADAM-RAG, JuICE, CAD, NWCAD, CRAG)
+$25$-cell-clearing methods (MADAM-RAG, JuICE, CAD, CRAG)
 already separate at $n\!=\!75$, so the powered re-run is not
 needed.
 
@@ -4510,7 +4512,6 @@ AdaCAD $-0.1063 / +0.0659$;
 MADAM-RAG $-0.1033 / +0.0689$;
 JuICE $-0.0800 / +0.0922$;
 CAD $-0.0790 / +0.0932$;
-NWCAD $-0.0716 / +0.1006$;
 CRAG $-0.0449 / +0.1273$;
 heuristic adaptive $-0.0889 / +0.0833$;
 simulated-model oracle-flavored $-0.2046 / -0.0324$;
@@ -4630,7 +4631,7 @@ weights.  The held-out families are ClashEval and RAMDocs.
 
 \textbf{P1 (T1, supported).} On both held-out families, the
 \textsc{BayesArbiter} geometric mixture beats the heuristic adaptive
-baseline, CoCoA, Astute RAG, and Self-RAG at the point estimate,
+baseline, CoCoA, Astute~RAG, and Self-RAG at the point estimate,
 with the same monotone ordering in residual gap as on the
 in-package spotlight matrix.
 
@@ -5250,7 +5251,7 @@ policies fail by orders of magnitude).
 \midrule
 AdaCAD / CoCoA / Astute / Self-RAG (adaptive)
 & $+0.022$--$0.066$ & range across methods\\
-CAD / NWCAD / CRAG (fixed-$w$)
+CAD / CRAG (fixed-$w$)
 & $+0.093$--$0.127$ & range across methods\\
 Always-context / Always-parametric (boundary)
 & $+8.166$ / $+5.414$ & per-policy point\\

@@ -63,7 +63,7 @@ Always parametric     & $\phantom{-}5.936$ & $0.305$ & $0.493$ & $\phantom{-}7.1
 \end{tabular}
 \end{table}
 
-On the $25$-cell spotlight (\Cref{fig:spotlight-combined}), \textsc{BayesArbiter} clears zero against $7$ of the $10$ named comparators, including a $+0.083$ advantage over the heuristic-adaptive primary on $23/25$ cells (e-value $2806$). The four tightest competitors (AdaCAD, CoCoA, Astute~RAG, Self-RAG) resolve at the powered $n\!=\!210$ matched design at $+0.064 / +0.043 / +0.032 / +0.022$ (AdaCAD CI $[0.060,0.068]$ the tightest; all four CIs strictly above zero; \Cref{fig:spotlight-forest}, App.~\ref{app:powered-headtohead}). Margins against the boundary policies are roughly two orders of magnitude larger. The small adaptive-baseline gap is what \Cref{cor:special-cases-body} predicts: CAD/AdaCAD/CoCoA are first-order approximations of the same Gibbs minimizer.
+On the $25$-cell spotlight (\Cref{fig:spotlight-combined}), \textsc{BayesArbiter} clears zero against $7$ of the $9$ named comparators, including a $+0.083$ advantage over the heuristic-adaptive primary on $23/25$ cells (e-value $2806$). The four tightest competitors (AdaCAD, CoCoA, Astute~RAG, Self-RAG) resolve at the powered $n\!=\!210$ matched design at $+0.064 / +0.043 / +0.032 / +0.022$ (AdaCAD CI $[0.060,0.068]$ the tightest; all four CIs strictly above zero; \Cref{fig:spotlight-forest}, App.~\ref{app:powered-headtohead}). Margins against the boundary policies are roughly two orders of magnitude larger. The small adaptive-baseline gap is what \Cref{cor:special-cases-body} predicts: CAD/AdaCAD/CoCoA are first-order approximations of the same Gibbs minimizer.
 
 \begin{figure}[!htbp]
 \centering
@@ -77,13 +77,12 @@ On the $25$-cell spotlight (\Cref{fig:spotlight-combined}), \textsc{BayesArbiter
 \midrule
 \headrowbg Heuristic adaptive   & $-0.089$ & $+0.083$ & $[\phantom{-}0.037,\,0.111]$ & $23$ ($e{=}2806$) \\
 Self-RAG     & $-0.146$ & $+0.027$ & $[-0.038,\,0.069]$ & $15$\\
-\altrow Astute RAG           & $-0.140$ & $+0.033$ & $[-0.031,\,0.073]$ & $16$\\
+\altrow Astute~RAG           & $-0.140$ & $+0.033$ & $[-0.031,\,0.073]$ & $16$\\
 CoCoA        & $-0.128$ & $+0.044$ & $[-0.019,\,0.085]$ & $17$\\
 \altrow AdaCAD               & $-0.106$ & $+0.066$ & $[\phantom{-}0.009,\,0.108]$ & $18$\\
 MADAM-RAG    & $-0.103$ & $+0.069$ & $[\phantom{-}0.013,\,0.111]$ & $19$\\
 \altrow JuICE                & $-0.080$ & $+0.092$ & $[\phantom{-}0.040,\,0.134]$ & $21$\\
 CAD          & $-0.079$ & $+0.093$ & $[\phantom{-}0.041,\,0.135]$ & $21$\\
-\altrow NWCAD                & $-0.072$ & $+0.101$ & $[\phantom{-}0.048,\,0.141]$ & $22$\\
 CRAG         & $-0.045$ & $+0.127$ & $[\phantom{-}0.072,\,0.166]$ & $23$\\
 \midrule
 Fixed 50/50          & $\phantom{-}0.404$ & $+0.576$ & $[\phantom{-}0.531,\,0.609]$ & $25$\\
@@ -102,7 +101,7 @@ Always context       & $\phantom{-}7.994$ & $+8.166$ & $[\phantom{-}7.644,\,8.47
 \caption{\textbf{Spotlight comparison against named baselines.}
 \emph{Left:} per-baseline statistics ($25$-cell paired bootstrap, sign test, fixed-$\lambda$ e-value); \textsc{BayesArbiter} mean regret $-0.172$.
 \emph{Right:} same ordering on a symlog regret axis.
-$25$-cell CIs clear zero against $7$ of $10$ named methods (heuristic-adaptive $+0.083$, plus AdaCAD/MADAM-RAG/JuICE/CAD/NWCAD/CRAG); the four tightest (AdaCAD, CoCoA, Astute, Self-RAG) clear zero on the powered $n\!=\!210$ design at $+0.064/+0.043/+0.032/+0.022$ (\Cref{sec:thm12-exp}).}
+$25$-cell CIs clear zero against $7$ of $9$ named methods (heuristic-adaptive $+0.083$, plus AdaCAD/MADAM-RAG/JuICE/CAD/CRAG); the four tightest (AdaCAD, CoCoA, Astute~RAG, Self-RAG) clear zero on the powered $n\!=\!210$ design at $+0.064/+0.043/+0.032/+0.022$ (\Cref{sec:thm12-exp}).}
 \label{fig:spotlight-combined}
 \end{figure}
 Residual non-uniformity in per-benchmark wins concentrates in PopQA's low-popularity bin, which we attribute to signal failure on rare entities rather than to CT1 itself (App.~\ref{app:per-bench-wins}). The per-checkpoint gain is positive at every scale and family (\Cref{fig:per-model}, left; Llama-3.1-70B at $+0.060$); the advantage replicates at 32B/70B and on the closed-weight frontier via top-$k$ logprobs (App.~\ref{app:frontier-validation}). The right panel reports the KL gap $\KL(p_\theta\Vert p_\ctx)$: conflict slices exceed $1$ nat, controls $\sim\!0.1$ nat — forecasting where CT2 dynamics and CT3 tempering matter most.
@@ -180,8 +179,9 @@ For CT3, the matched-base RL contrast isolates the failure mode at the recipe le
 \label{tab:matched-base-body}
 \label{fig:matched-base-evidence}
 \centering
-\setlength{\tabcolsep}{6pt}
-\renewcommand{\arraystretch}{1.20}
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.10}
+\resizebox{\linewidth}{!}{%
 \begin{tabular}{@{}l c c c@{}}
 \toprule
 \textbf{Model / training} & \textbf{Conf.\ $\Delta$ECE} & \textbf{No-conf.\ $\Delta$ECE} & \textbf{Gap}\\
@@ -210,7 +210,7 @@ Llama-70B / Qwen-14B / Mistral-it / Gemma-it & \multicolumn{2}{c}{negligible} & 
 \addlinespace[2pt]
 \altrow RLCR (Brier-reward mitigation)   & $+0.145$ & $-0.146$ & $+0.291\ [0.200,0.383]$\\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \end{table}
 
 The $\eta$-tempering scalar $\eta^\star$ is selected on held-out Brier; the safe-Bayes derivation~\citep{bissiri2016,grunwald2017} guarantees $\eta^\star\!<\!1$ in the conflict-shrunk-safe-rate regime CT2 identifies. Pooled across conflict cells, $\eta$-tempering yields $+0.043$ Brier and $+0.071$ accuracy, matching $(1\!-\!\eta^\star)^{2}V_{\mathrm{post}}$. Worst-cell readouts: standalone $\eta$-tempering on R1-14B / ConflictBank / $K\!=\!1024$ moves Brier $0.903\!\to\!0.505$ and accuracy $0.037\!\to\!0.440$; on the RLCR-trained $8$B cell, stacking $\eta$-tempering reaches accuracy $0.531$, ECE $0.431$, Brier $0.415$ (from $0.886$). $\eta^\star$ tracks conflict label-free (App.~\ref{app:eta-tempering-grid},~\ref{app:eta-vs-posthoc}); ranking cells by $\eta^\star$ separates conflict from no-conflict at AUC $1.0$ (App.~\ref{app:t3-ordering-check}).
