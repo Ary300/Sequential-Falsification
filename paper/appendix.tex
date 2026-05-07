@@ -3580,13 +3580,13 @@ Llama-3.1-8B DPO     & $-0.105$ & $-0.150$ & $+0.045$ \emph{(safe)}\\
 Llama-3.1-8B GRPO    & $+0.264\,[0.197,0.331]$ & $-0.080$ & $\mathbf{+0.344\,[0.230,0.476]}$\\
 \midrule
 \multicolumn{4}{l}{\emph{Cross-family replication}}\\
-Phi-3-medium (SFT)                   & ---      & ---      & $+0.207$\\
-Phi-3-medium (DPO)                   & ---      & ---      & $+0.003$\\
-Phi-3-medium (GRPO)                  & ---      & ---      & $\mathbf{+0.209}$\\
+Phi-3-medium (SFT)                   & $+0.181$ & $-0.026$ & $+0.207$\\
+Phi-3-medium (DPO)                   & $-0.012$ & $-0.015$ & $+0.003$\\
+Phi-3-medium (GRPO)                  & $+0.187$ & $-0.022$ & $\mathbf{+0.209}$\\
 \midrule
 \multicolumn{4}{l}{\emph{Cross-base replication on the Llama lineage}}\\
 DeepSeek-R1-Distill-Llama-70B (RLVR) & $-0.011$ & $-0.399$ & $\mathbf{+0.388}$\\
-DeepSeek-R1-Distill-Llama-8B & ---      & ---      & $+0.076$\\
+DeepSeek-R1-Distill-Llama-8B & $+0.041$ & $-0.035$ & $+0.076$\\
 \midrule
 \multicolumn{4}{l}{\emph{Instruction-tuned controls}}\\
 Mistral-7B-Instruct  & $+0.016$ & $+0.001$ & $+0.015$\\
@@ -3912,7 +3912,7 @@ $-$ popularity                        & $+0.061$ & $[0.025,\,0.091]$\\
 $-$ entropy                           & $+0.074$ & $[0.031,\,0.103]$\\
 $-$ BM25                              & $+0.079$ & $[0.034,\,0.108]$\\
 \midrule
-entropy only / BM25 only / pop.\ only & $+0.057/+0.029/+0.045$ & ---\\
+entropy only / BM25 only / pop.\ only & $+0.057/+0.029/+0.045$ & single-signal\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -4209,9 +4209,9 @@ responses of $\mathcal{F}$.}
 \toprule
 \textbf{Core} & \textbf{Cls} & \textbf{Item} & \textbf{Independent machinery} & \textbf{Prediction} & \textbf{Tested by}\\
 \midrule
-\textbf{CT1} & --- & master $\mathcal{F}$ (\Cref{thm:ct1-body,thm:free-energy-master}) & Helmholtz free energy / mirror desc.\ & Gibbs min.\ $=$ BayesArbiter & all of C1--C4\\
-CT1 & --- & gen-Bayes mirror (\Cref{lem:gen-bayes-mirror}) & Beck--Teboulle 2003 & gen-Bayes $=$ MD on $\mathcal{F}$ & const.\ check\\
-CT1 & --- & taxonomy (\Cref{cor:taxonomy}) & I/II/III/IV partition & framings $=$ $\mathcal{F}$-aspects & structural\\
+\textbf{CT1} & M & master $\mathcal{F}$ (\Cref{thm:ct1-body,thm:free-energy-master}) & Helmholtz free energy / mirror desc.\ & Gibbs min.\ $=$ BayesArbiter & all of C1--C4\\
+CT1 & M & gen-Bayes mirror (\Cref{lem:gen-bayes-mirror}) & Beck--Teboulle 2003 & gen-Bayes $=$ MD on $\mathcal{F}$ & const.\ check\\
+CT1 & M & taxonomy (\Cref{cor:taxonomy}) & I/II/III/IV partition & framings $=$ $\mathcal{F}$-aspects & structural\\
 CT1 & I & T1 cor.\ (\Cref{thm:bayes-arbitration}) & Bayes-risk minimization & Plug-in $\hat w$ at $\sqrt n$ & \Cref{fig:oracle}, \Cref{tab:oracle-convergence}\\
 CT1 & I & T1-Bregman (\Cref{thm:t1-bregman}) & Exp.-fam.\ Bregman duality & Moment-matching projection & \Cref{tab:signal-floor-empirical}\\
 CT1 & I & Bregman-cons (\Cref{cor:bregman-conserved}) & Bregman 3-point identity & Misspec.\ test from $\dot\rho_{\mathrm{Breg}}$ & open empirical\\
@@ -4227,7 +4227,7 @@ CT1 & III & T2-info (\Cref{thm:t2-info}) & Pinsker variational LB & Floor scales
 CT1 & III & T2-info-tight (\Cref{thm:t2-info-tight}) & Le~Cam two-point & $\tfrac{1}{8(|\Y|-1)^{2}}$ tight & const.\ check\\
 CT1 & III & multi-pt LB (\Cref{thm:multi-point-lecam}) & $k$-point Le Cam reduction & Approaches Pinsker as $k\!\to\!\infty$ & const.\ check\\
 \midrule
-\textbf{CT2} & --- & matched envelope (\Cref{thm:ct2-body}) & Hessian spectral envelope & $\rho^\star$ in $[1\!-\!\Theta_{\mathrm{LB}}, 1\!-\!\Theta_{\mathrm{UB}}]$ & \Cref{tab:berk-nash-rate-empirical}\\
+\textbf{CT2} & M & matched envelope (\Cref{thm:ct2-body}) & Hessian spectral envelope & $\rho^\star$ in $[1\!-\!\Theta_{\mathrm{LB}}, 1\!-\!\Theta_{\mathrm{UB}}]$ & \Cref{tab:berk-nash-rate-empirical}\\
 CT2 & I & T6 BN-rate (\Cref{thm:berk-nash-rate}) & Berk--Nash linearization & $\TV(p_t,p^\star)\!\le\!C\rho^{\,t}$ & \Cref{tab:berk-nash-rate-empirical}\\
 CT2 & I & T5 conc.\ (\Cref{thm:rho-concentration}) & Simchowitz / Bauer--Fike & Finite-sample band on $\widehat\rho^\star$ & \Cref{tab:berk-nash-rate-empirical}\\
 CT2 & I & T5-Lepski (\Cref{thm:t5-lepski}) & Lepski adaptation & Oracle bias-var.\ trade-off & \Cref{tab:berk-nash-rate-empirical}\\
@@ -4235,10 +4235,10 @@ CT2 & I & $\mathcal{F}$-descent (\Cref{cor:F-monotone-descent}) & Mirror-descent
 CT2 & III & T5-min LB (\Cref{thm:t5-minimax-lower}) & Le Cam two-pt on operators & Lepski rate is min-max optimal & const.\ check\\
 CT2 & III & T10 (\Cref{thm:spectral-conflict-barrier}) & Operator spectral theory & $\rho^\star\!\ge\!1\!-\!C\eta/D^{\star\,2}|\Y|$ & \Cref{tab:berk-nash-rate-empirical}\\
 CT2 & III & envelope (\Cref{cor:matching-rate-envelope}) & T6$+$T10 sandwich & Conflict ratio matches $D^\star$ ratio & \Cref{tab:berk-nash-rate-empirical}\\
-CT2 & --- & T6-phase (\Cref{thm:phase-transition}) & Centre-manifold expansion & $\eta_c\!=\!1/D^\star$, $t^{-1/2}$ at crit. & open empirical\\
+CT2 & II & T6-phase (\Cref{thm:phase-transition}) & Centre-manifold expansion & $\eta_c\!=\!1/D^\star$, $t^{-1/2}$ at crit. & open empirical\\
 CT2 & IV & P3 (\Cref{thm:eta-bayes}) & Berk--Nash safe-rate (cond.) & Conflict $\Rightarrow$ smaller $\eta^\star$ & \Cref{tab:eta-per-slice}\\
 \midrule
-\textbf{CT1$'$} & --- & perturbation env.\ (\Cref{thm:ct1prime-body}) & TV continuity / Sion / VC & $R\!\le\!\sigma_r^{2}V/2 + 4\varepsilon\log k + 2L_w\delta V$ & cross-cell\\
+\textbf{CT1$'$} & M & perturbation env.\ (\Cref{thm:ct1prime-body}) & TV continuity / Sion / VC & $R\!\le\!\sigma_r^{2}V/2 + 4\varepsilon\log k + 2L_w\delta V$ & cross-cell\\
 CT1$'$ & IV & T11 robust (\Cref{thm:t11-robust-loglin}) & TV-perturbation triangle & $4\varepsilon\log|\Y|$ misspec.\ cost & \Cref{app:t1-variance-correction}\\
 CT1$'$ & IV & T11 top-$k$ (\Cref{cor:t11-topk}) & Top-$k$ effective support & Refined to $\log k$ & \Cref{tab:freeform-openqa}\\
 CT1$'$ & IV & T13 PAC (\Cref{thm:t13-pac-plugin}) & VC / ERM sample-complexity & $n\!\ge\!d/\varepsilon^{2}$ & \Cref{tab:oracle-convergence}\\
@@ -4246,14 +4246,14 @@ CT1$'$ & IV & T14 adversarial (\Cref{thm:t14-adversarial}) & Lipschitz-vs-TV con
 CT1$'$ & IV & T16 causal (\Cref{thm:t16-causal}) & Doubly-robust IPW & DR estimate $\sqrt n$-consistent & open empirical\\
 CT1$'$ & IV & robust minmax (\Cref{thm:robust-minmax-arbitration}) & Sion's theorem on $\mathcal{F}$ & $w^\sharp\!=\!\E[r]\!\pm\!\varepsilon$ & Tier-S empirical\\
 \midrule
-\textbf{CT3} & --- & T7 (\Cref{thm:t3-intervention}) & Quadratic Taylor on Brier & $(1\!-\!\eta^\star)^{2}V_{\mathrm{post}}$ unconditional & \Cref{tab:eta-per-slice}, \Cref{fig:eta-tempering}\\
+\textbf{CT3} & M & T7 (\Cref{thm:t3-intervention}) & Quadratic Taylor on Brier & $(1\!-\!\eta^\star)^{2}V_{\mathrm{post}}$ unconditional & \Cref{tab:eta-per-slice}, \Cref{fig:eta-tempering}\\
 CT3 & I & T7-Murphy (\Cref{thm:t7-murphy}) & Murphy 1973 + exp.-fam.\ alg.\ & REL$+$RES independent gains & open empirical\\
 CT3 & I & Brier-ortho (\Cref{cor:brier-orthogonality}) & Brier inner product & REL$\perp$RES in Brier metric & open empirical\\
 CT3 & I & binary-$\eta$ (\Cref{lem:eta-closed-form-binary}) & Two-atom logit algebra & $\mathrm{logit}(b)/\mathrm{logit}(a)$ & \Cref{tab:eta-closed-form-empirical}\\
-CT3 & --- & T12 anytime (\Cref{thm:t12-non-equilibrium}) & Mirror-descent drift & $O(\sqrt{\KL/T})$ pre-equilibrium & \Cref{fig:training-contrast}\\
+CT3 & IV & T12 anytime (\Cref{thm:t12-non-equilibrium}) & Mirror-descent drift & $O(\sqrt{\KL/T})$ pre-equilibrium & \Cref{fig:training-contrast}\\
 \midrule
-\textbf{E1/E2} & --- & T15 compose (\Cref{thm:t15-compositional}) & Iterated geom.\ mixture & $w^\star_{1:K}\!=\!\prod w^\star_k$ & open empirical\\
-E1/E2 & --- & T16 causal (\Cref{thm:t16-causal}) & Doubly-robust IPW & DR-IPW identifies ATE $w^\star$ & open empirical\\
+\textbf{E1/E2} & E & T15 compose (\Cref{thm:t15-compositional}) & Iterated geom.\ mixture & $w^\star_{1:K}\!=\!\prod w^\star_k$ & open empirical\\
+E1/E2 & E & T16 causal (\Cref{thm:t16-causal}) & Doubly-robust IPW & DR-IPW identifies ATE $w^\star$ & open empirical\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -4886,11 +4886,11 @@ Bayes proxy} (spotlight matrix, paired bootstrap).}
 \textbf{Method} & \textbf{Residual gap} & \textbf{95\% CI}\\
 \midrule
 AdaCAD / CoCoA / Astute / Self-RAG (adaptive)
-& $+0.022$--$0.066$ & ---\\
+& $+0.022$--$0.066$ & range across methods\\
 CAD / NWCAD / CRAG (fixed-$w$)
-& $+0.093$--$0.127$ & ---\\
+& $+0.093$--$0.127$ & range across methods\\
 Always-context / Always-parametric (boundary)
-& $+8.166$ / $+5.414$ & ---\\
+& $+8.166$ / $+5.414$ & per-policy point\\
 \bottomrule
 \end{tabular}
 \end{table}
