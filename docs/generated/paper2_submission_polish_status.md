@@ -67,8 +67,8 @@ Read:
   - completed checkpoint through seeds `42–46` is now on disk:
     - mean conflict-minus-no-conflict ECE delta `+0.0149`
     - bootstrap `95% CI [-0.0363, +0.0661]`
-  - running: seeds `47–55`
-  - pending: seeds `56–71`
+  - running: seeds `47–61`
+  - pending: seeds `62–71`
   - this is now the main unresolved empirical item
 
 ## Closed compute items since the previous draft

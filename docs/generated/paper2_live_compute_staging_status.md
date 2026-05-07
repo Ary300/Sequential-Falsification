@@ -291,13 +291,15 @@ Current live read:
       this confirms that the best surviving DeepSeek-8B story is now mildly
       positive under several native GRPO settings, but still far short of the
       `Llama-8B` anchor scale
-- pending:
+- historical / completed:
   - `2251744`
     - direct HDD Berk–Nash tail analysis rerun after the dense generator
       timeout
+    - final state: `COMPLETED`
   - `2251745`
     - direct HDD Berk–Nash early-window analysis rerun after the dense
       generator timeout
+    - final state: `COMPLETED`
   - `2248714`–`2248743`
     - re-armed `Llama-8B GRPO` seed block covering seeds `42–71`
     - read:
@@ -310,7 +312,7 @@ Current live read:
       Delta and uses the same node-local staging path as the DeepSeek rescue
       jobs
     - current state:
-      seeds `42`, `43`, `44`, `45`, and `46` are now running
+      seeds `42`, `43`, `44`, `45`, and `46` are now completed
     - queue note:
       unrelated `q72e0`–`q72e4` prompt-compression jobs in `pst_delta_repo`
       were cancelled to free billing minutes, but the remaining seeds are
@@ -327,8 +329,8 @@ Current live read:
       shrink the billing-minute footprint of the pending half of the Llama
       wave so those seeds have a better chance of starting sooner
     - current queue state:
-      all `25` shorter-wall requeued seeds are pending at
-      `QOSGrpBillingMinutes`
+      seeds `47`–`61` are now running
+      seeds `62`–`71` remain pending at `QOSGrpBillingMinutes`
   - helper status:
     - the dependent `l8g_ci` CI job was tested as `2254501` and then replaced
       once the pending seed IDs changed

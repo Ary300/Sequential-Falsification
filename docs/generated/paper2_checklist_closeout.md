@@ -418,17 +418,18 @@ Read:
 
 ## 8. Polynomial-rate empirical check (Lemma E.21)
 
-Status: `in progress`, with partial read already recovered
+Status: `done`, with a nuanced/weak empirical fit rather than a clean positive confirmation
 
 This is coupled to item `2`.
 
 What is already done:
 
-- the Qwen dense tail is now rerunning quota-safely on HDD:
+- the Qwen dense tail reran quota-safely on HDD:
   - `2245553` `r1_14b_hdd`
-- direct follow-on analysis jobs are now submitted after the generator timeout:
+- direct follow-on analysis jobs after the generator timeout:
   - `2251744` `bn14htail`
   - `2251745` `bn14hearly`
+  - both completed successfully
 - the partial early/tail notes recovered from the materialized HDD dump are
   now a stronger preview than before because they cover `4` analyzable cells:
   - tail:
@@ -448,13 +449,14 @@ What is already done:
 
 Read:
 
-- The partial dense dump already shows that the polynomial fit is much weaker
-  than the `rho*` cross-check on the currently available `WikiContradict`
-  cells, so this is shaping up as a nuanced empirical story rather than an
-  automatic win.
-- The final answer still needs the HDD-backed dense rerun, but this item is
-  now in “interpret the completed artifact” territory rather than “build the
-  tooling first.”
+- This item is now closed empirically.
+- The polynomial fit is materially weaker than the `rho*` cross-check on the
+  recovered dense dump, especially on the `WikiContradict` cells.
+- So the honest answer here is not “cleanly verified polynomial law”; it is
+  “useful but mixed.”
+- The strong surviving result is that the early/tail `rho*` diagnostic remains
+  near-unit and informative, while the polynomial surrogate is not a robust
+  universal fit on the completed dump.
 
 ## Strongest Finished Paper 2 Results
 
