@@ -1,0 +1,94 @@
+{
+  "label": "Llama-8B GRPO theorem-3 completed seeds 42,43,44,45,46,48",
+  "num_complete_seed_runs": 6,
+  "seeds": [
+    42,
+    43,
+    44,
+    45,
+    46,
+    48
+  ],
+  "rows": [
+    {
+      "path": "/u/adas17/tts_results_staging/results/e1_llama8b_grpo_s42/theorem3_eval/theorem3_report/theorem3_summary.json",
+      "seed": 42,
+      "coverage_rows": 1344,
+      "conflict_minus_no_conflict_ece_delta": -0.0207,
+      "mean_conflict_ece_delta": 0.0037,
+      "mean_no_conflict_ece_delta": 0.0244
+    },
+    {
+      "path": "/u/adas17/tts_results_staging/results/e1_llama8b_grpo_s43/theorem3_eval/theorem3_report/theorem3_summary.json",
+      "seed": 43,
+      "coverage_rows": 1344,
+      "conflict_minus_no_conflict_ece_delta": -0.0294,
+      "mean_conflict_ece_delta": 0.0084,
+      "mean_no_conflict_ece_delta": 0.0378
+    },
+    {
+      "path": "/u/adas17/tts_results_staging/results/e1_llama8b_grpo_s44/theorem3_eval/theorem3_report/theorem3_summary.json",
+      "seed": 44,
+      "coverage_rows": 1344,
+      "conflict_minus_no_conflict_ece_delta": -0.0509,
+      "mean_conflict_ece_delta": -0.1042,
+      "mean_no_conflict_ece_delta": -0.0533
+    },
+    {
+      "path": "/u/adas17/tts_results_staging/results/e1_llama8b_grpo_s45/theorem3_eval/theorem3_report/theorem3_summary.json",
+      "seed": 45,
+      "coverage_rows": 1344,
+      "conflict_minus_no_conflict_ece_delta": 0.0923,
+      "mean_conflict_ece_delta": -0.0541,
+      "mean_no_conflict_ece_delta": -0.1464
+    },
+    {
+      "path": "/u/adas17/tts_results_staging/results/e1_llama8b_grpo_s46/theorem3_eval/theorem3_report/theorem3_summary.json",
+      "seed": 46,
+      "coverage_rows": 1344,
+      "conflict_minus_no_conflict_ece_delta": 0.0830,
+      "mean_conflict_ece_delta": 0.0210,
+      "mean_no_conflict_ece_delta": -0.0621
+    },
+    {
+      "path": "/u/adas17/tts_results_staging/results/e1_llama8b_grpo_s48/theorem3_eval/theorem3_report/theorem3_summary.json",
+      "seed": 48,
+      "coverage_rows": 1344,
+      "conflict_minus_no_conflict_ece_delta": 0.0479,
+      "mean_conflict_ece_delta": -0.0614,
+      "mean_no_conflict_ece_delta": -0.1094
+    }
+  ],
+  "metrics": {
+    "conflict_minus_no_conflict_ece_delta": {
+      "mean": 0.0204,
+      "median": 0.0136,
+      "min": -0.0509,
+      "max": 0.0923,
+      "bootstrap": {
+        "ci95_low": -0.0222,
+        "ci95_high": 0.0653
+      }
+    },
+    "mean_conflict_ece_delta": {
+      "mean": -0.0311,
+      "median": -0.0252,
+      "min": -0.1042,
+      "max": 0.0210,
+      "bootstrap": {
+        "ci95_low": -0.0679,
+        "ci95_high": 0.0023
+      }
+    },
+    "mean_no_conflict_ece_delta": {
+      "mean": -0.0515,
+      "median": -0.0577,
+      "min": -0.1464,
+      "max": 0.0378,
+      "bootstrap": {
+        "ci95_low": -0.1045,
+        "ci95_high": 0.0015
+      }
+    }
+  }
+}

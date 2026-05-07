@@ -74,16 +74,17 @@ the bottleneck is explicit: launcher readiness versus cluster access.
   - mean conflict-minus-no-conflict ECE delta `-0.0022`
   - bootstrap `95% CI [-0.0433, +0.0619]`
 - newest completed multiseed aggregate now in repo:
-  [llama8_grpo_5seed_theorem3_ci.md](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/llama8_grpo_5seed_theorem3_ci.md)
-  - completed seeds `42`, `43`, `44`, `45`, `46`
-  - mean conflict-minus-no-conflict ECE delta `+0.0149`
-  - bootstrap `95% CI [-0.0363, +0.0661]`
+  [llama8_grpo_6seed_theorem3_ci.md](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/llama8_grpo_6seed_theorem3_ci.md)
+  - completed seeds `42`, `43`, `44`, `45`, `46`, `48`
+  - mean conflict-minus-no-conflict ECE delta `+0.0204`
+  - bootstrap `95% CI [-0.0222, +0.0653]`
 - current live state on Delta:
-  - completed: seeds `42`, `43`, `44`, `45`, `46`
-  - still running: the requeued block `47–55`
-  - still pending on `QOSGrpBillingMinutes`: seeds `56–71`
+  - completed: seeds `42`, `43`, `44`, `45`, `46`, `48`
+  - still running: seeds `47`, `49–61`
+  - still pending on `QOSGrpBillingMinutes`: seeds `62–71`
 - current mid-run partials:
-  - no fresh mid-run row snapshot has been harvested yet for seeds `47–55`
+  - no fresh mid-run row snapshot has been harvested yet for the currently
+    running seeds `47`, `49–61`
 - queue cleanup:
   - user explicitly asked that unrelated jobs stop being cancelled, so no
     further unrelated queue cleanup will be done from this point onward
