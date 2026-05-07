@@ -7,15 +7,15 @@ This is the compact one-file summary of the current empirical package for the kn
 The repo has moved materially since the original version of this sheet.
 
 Current Paper 2 live-compute headline:
-- completed `Llama-8B GRPO` multiseed checkpoint through seeds `42–46,48`:
-  - mean conflict-minus-no-conflict ECE delta: `+0.0204`
-  - bootstrap `95% CI`: `[-0.0222, +0.0653]`
+- completed `Llama-8B GRPO` multiseed checkpoint through seeds `42–48,51–53`:
+  - mean conflict-minus-no-conflict ECE delta: `+0.0142`
+  - bootstrap `95% CI`: `[-0.0235, +0.0490]`
   - source:
-    [llama8_grpo_6seed_theorem3_ci.md](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/llama8_grpo_6seed_theorem3_ci.md)
+    [llama8_grpo_10seed_theorem3_ci.md](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/llama8_grpo_10seed_theorem3_ci.md)
 - still running on Delta:
-  - seeds `47`, `49–61`
+  - seeds `49`, `50`, `54–63`
 - still pending on Delta:
-  - seeds `62–71`
+  - seeds `64–71`
 - current live partial wave over `12` running seeds:
   - unweighted mean conflict-minus-no-conflict ECE delta: `+0.0275`
   - row-weighted mean conflict-minus-no-conflict ECE delta: `+0.0319`
@@ -35,7 +35,7 @@ Current strongest closed family-level reads relevant to Paper 2:
 Read:
 - the remaining real empirical uncertainty is now concentrated in the live
   `Llama-8B` multiseed block rather than launcher bugs or missing diagnostics
-- the current `6`-seed checkpoint is mildly positive but still not a decisive
+- the current `10`-seed checkpoint is mildly positive but still not a decisive
   headline result
 - anything below that still describing the `Llama-8B` result as a single-seed
   estimate should be read as historical context rather than the newest state
@@ -78,7 +78,7 @@ Read:
 - This is the strongest clean causal theorem-3 result in the package.
 - On the same base family, `DPO` improves or stabilizes calibration, while `GRPO` sharply worsens conflict long-CoT calibration.
 - The active multiseed rerun tempers the certainty of the single-seed picture:
-  the newest completed `6`-seed checkpoint is only `+0.0204` with CI crossing
+  the newest completed `10`-seed checkpoint is only `+0.0142` with CI crossing
   zero, so the right current framing is “strong anchor seed, multiseed rerun
   still unresolved.”
 

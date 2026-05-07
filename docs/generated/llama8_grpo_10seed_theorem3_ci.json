@@ -1,0 +1,130 @@
+{
+  "label": "Llama-8B GRPO theorem-3 completed seeds 42,43,44,45,46,47,48,51,52,53",
+  "num_complete_seed_runs": 10,
+  "seeds": [
+    42,
+    43,
+    44,
+    45,
+    46,
+    47,
+    48,
+    51,
+    52,
+    53
+  ],
+  "rows": [
+    {
+      "path": "/u/adas17/tts_results_staging/results/e1_llama8b_grpo_s42/theorem3_eval/theorem3_report/theorem3_summary.json",
+      "seed": 42,
+      "coverage_rows": 1344,
+      "conflict_minus_no_conflict_ece_delta": -0.0207,
+      "mean_conflict_ece_delta": 0.0037,
+      "mean_no_conflict_ece_delta": 0.0244
+    },
+    {
+      "path": "/u/adas17/tts_results_staging/results/e1_llama8b_grpo_s43/theorem3_eval/theorem3_report/theorem3_summary.json",
+      "seed": 43,
+      "coverage_rows": 1344,
+      "conflict_minus_no_conflict_ece_delta": -0.0294,
+      "mean_conflict_ece_delta": 0.0084,
+      "mean_no_conflict_ece_delta": 0.0378
+    },
+    {
+      "path": "/u/adas17/tts_results_staging/results/e1_llama8b_grpo_s44/theorem3_eval/theorem3_report/theorem3_summary.json",
+      "seed": 44,
+      "coverage_rows": 1344,
+      "conflict_minus_no_conflict_ece_delta": -0.0509,
+      "mean_conflict_ece_delta": -0.1042,
+      "mean_no_conflict_ece_delta": -0.0533
+    },
+    {
+      "path": "/u/adas17/tts_results_staging/results/e1_llama8b_grpo_s45/theorem3_eval/theorem3_report/theorem3_summary.json",
+      "seed": 45,
+      "coverage_rows": 1344,
+      "conflict_minus_no_conflict_ece_delta": 0.0923,
+      "mean_conflict_ece_delta": -0.0541,
+      "mean_no_conflict_ece_delta": -0.1464
+    },
+    {
+      "path": "/u/adas17/tts_results_staging/results/e1_llama8b_grpo_s46/theorem3_eval/theorem3_report/theorem3_summary.json",
+      "seed": 46,
+      "coverage_rows": 1344,
+      "conflict_minus_no_conflict_ece_delta": 0.0830,
+      "mean_conflict_ece_delta": 0.0210,
+      "mean_no_conflict_ece_delta": -0.0621
+    },
+    {
+      "path": "/u/adas17/tts_results_staging/results/e1_llama8b_grpo_s47/theorem3_eval/theorem3_report/theorem3_summary.json",
+      "seed": 47,
+      "coverage_rows": 1344,
+      "conflict_minus_no_conflict_ece_delta": 0.0349,
+      "mean_conflict_ece_delta": -0.0549,
+      "mean_no_conflict_ece_delta": -0.0898
+    },
+    {
+      "path": "/u/adas17/tts_results_staging/results/e1_llama8b_grpo_s48/theorem3_eval/theorem3_report/theorem3_summary.json",
+      "seed": 48,
+      "coverage_rows": 1344,
+      "conflict_minus_no_conflict_ece_delta": 0.0479,
+      "mean_conflict_ece_delta": -0.0614,
+      "mean_no_conflict_ece_delta": -0.1094
+    },
+    {
+      "path": "/u/adas17/tts_results_staging/results/e1_llama8b_grpo_s51/theorem3_eval/theorem3_report/theorem3_summary.json",
+      "seed": 51,
+      "coverage_rows": 1344,
+      "conflict_minus_no_conflict_ece_delta": -0.1016,
+      "mean_conflict_ece_delta": 0.1197,
+      "mean_no_conflict_ece_delta": 0.2213
+    },
+    {
+      "path": "/u/adas17/tts_results_staging/results/e1_llama8b_grpo_s52/theorem3_eval/theorem3_report/theorem3_summary.json",
+      "seed": 52,
+      "coverage_rows": 1344,
+      "conflict_minus_no_conflict_ece_delta": 0.0602,
+      "mean_conflict_ece_delta": -0.1623,
+      "mean_no_conflict_ece_delta": -0.2225
+    },
+    {
+      "path": "/u/adas17/tts_results_staging/results/e1_llama8b_grpo_s53/theorem3_eval/theorem3_report/theorem3_summary.json",
+      "seed": 53,
+      "coverage_rows": 1344,
+      "conflict_minus_no_conflict_ece_delta": 0.0260,
+      "mean_conflict_ece_delta": 0.0540,
+      "mean_no_conflict_ece_delta": 0.0280
+    }
+  ],
+  "metrics": {
+    "conflict_minus_no_conflict_ece_delta": {
+      "mean": 0.0142,
+      "median": 0.0304,
+      "min": -0.1016,
+      "max": 0.0923,
+      "bootstrap": {
+        "ci95_low": -0.0235,
+        "ci95_high": 0.0490
+      }
+    },
+    "mean_conflict_ece_delta": {
+      "mean": -0.0230,
+      "median": -0.0252,
+      "min": -0.1623,
+      "max": 0.1197,
+      "bootstrap": {
+        "ci95_low": -0.0699,
+        "ci95_high": 0.0248
+      }
+    },
+    "mean_no_conflict_ece_delta": {
+      "mean": -0.0372,
+      "median": -0.0577,
+      "min": -0.2225,
+      "max": 0.2213,
+      "bootstrap": {
+        "ci95_low": -0.1042,
+        "ci95_high": 0.0383
+      }
+    }
+  }
+}

@@ -74,14 +74,16 @@ the bottleneck is explicit: launcher readiness versus cluster access.
   - mean conflict-minus-no-conflict ECE delta `-0.0022`
   - bootstrap `95% CI [-0.0433, +0.0619]`
 - newest completed multiseed aggregate now in repo:
-  [llama8_grpo_6seed_theorem3_ci.md](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/llama8_grpo_6seed_theorem3_ci.md)
-  - completed seeds `42`, `43`, `44`, `45`, `46`, `48`
-  - mean conflict-minus-no-conflict ECE delta `+0.0204`
-  - bootstrap `95% CI [-0.0222, +0.0653]`
+  [llama8_grpo_10seed_theorem3_ci.md](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/llama8_grpo_10seed_theorem3_ci.md)
+  - completed seeds `42`, `43`, `44`, `45`, `46`, `47`, `48`, `51`, `52`,
+    `53`
+  - mean conflict-minus-no-conflict ECE delta `+0.0142`
+  - bootstrap `95% CI [-0.0235, +0.0490]`
 - current live state on Delta:
-  - completed: seeds `42`, `43`, `44`, `45`, `46`, `48`
-  - still running: seeds `47`, `49–61`
-  - still pending on `QOSGrpBillingMinutes`: seeds `62–71`
+  - completed: seeds `42`, `43`, `44`, `45`, `46`, `47`, `48`, `51`, `52`,
+    `53`
+  - still running: seeds `49`, `50`, `54–63`
+  - still pending on `QOSGrpBillingMinutes`: seeds `64–71`
 - current mid-run partials:
   - live partial theorem-3 snapshot is now materialized:
     [llama8_grpo_running_partial_wave_2026-05-06.md](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/llama8_grpo_running_partial_wave_2026-05-06.md)

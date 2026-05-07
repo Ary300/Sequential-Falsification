@@ -504,13 +504,14 @@ Actively resolving now on Delta:
 - multiseed expansion:
   - the corrected `Llama-8B GRPO` rerun is now the only major open compute
     blocker
-  - completed aggregate for seeds `42`, `43`, `44`, `45`, `46`, `48`:
-    - mean conflict-minus-no-conflict ECE delta `+0.0204`
-    - bootstrap `95% CI [-0.0222, +0.0653]`
+  - completed aggregate for seeds `42`, `43`, `44`, `45`, `46`, `47`, `48`,
+    `51`, `52`, `53`:
+    - mean conflict-minus-no-conflict ECE delta `+0.0142`
+    - bootstrap `95% CI [-0.0235, +0.0490]`
   - live seeds now:
-    - completed `42`, `43`, `44`, `45`, `46`, `48`
-    - running `47`, `49–61`
-    - pending `62–71` on `QOSGrpBillingMinutes`
+    - completed `42`, `43`, `44`, `45`, `46`, `47`, `48`, `51`, `52`, `53`
+    - running `49`, `50`, `54–63`
+    - pending `64–71` on `QOSGrpBillingMinutes`
   - live partial wave now materialized:
     [llama8_grpo_running_partial_wave_2026-05-06.md](/Users/aryavdas/Downloads/Sequential%20Falsification%20with%20Calibrated%20Confidence/docs/generated/llama8_grpo_running_partial_wave_2026-05-06.md)
     - valid partial seeds with synced rows: `12`
