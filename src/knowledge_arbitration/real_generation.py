@@ -91,6 +91,8 @@ class GenerationConfig:
     temperature: float = 0.0
     top_p: float = 1.0
     seed: int = 42
+    request_format: str = "chat"
+    prompt_protocol: str = "generic"
 
 
 def _normalize_answer_text(text: Any) -> str:
@@ -351,6 +353,36 @@ def _openai_chat(messages: list[dict[str, str]], *, style: PromptStyle, config: 
     return text, usage_payload
 
 
+def _openai_completion(prompt: str, *, style: PromptStyle, config: GenerationConfig) -> tuple[str, dict[str, Any]]:
+    from openai import OpenAI  # type: ignore
+
+    client = OpenAI(
+        base_url=config.api_base,
+        api_key=config.api_key,
+        timeout=config.request_timeout,
+        max_retries=1,
+    )
+    response = client.completions.create(
+        model=config.model,
+        prompt=prompt,
+        max_tokens=style.max_tokens,
+        temperature=config.temperature,
+        top_p=config.top_p,
+        seed=config.seed,
+    )
+    choice = response.choices[0]
+    text = str(getattr(choice, "text", "") or "")
+    usage = getattr(response, "usage", None)
+    usage_payload = {}
+    if usage is not None:
+        usage_payload = {
+            "prompt_tokens": getattr(usage, "prompt_tokens", None),
+            "completion_tokens": getattr(usage, "completion_tokens", None),
+            "total_tokens": getattr(usage, "total_tokens", None),
+        }
+    return text, usage_payload
+
+
 def _mock_chat(example: dict[str, Any], *, style: PromptStyle, condition: str, seed: int) -> tuple[str, dict[str, Any]]:
     rng = random.Random(f"{example.get('id')}::{condition}::{style.label}::{seed}")
     metadata = example.get("metadata", {})
@@ -390,15 +422,35 @@ def _mock_chat(example: dict[str, Any], *, style: PromptStyle, condition: str, s
 
 
 def _generate_response(example: dict[str, Any], *, style: PromptStyle, condition: str, config: GenerationConfig) -> tuple[str, dict[str, Any]]:
+    user_prompt = _question_block(example, condition)
     messages = [
         {"role": "system", "content": style.system_prompt},
-        {"role": "user", "content": _question_block(example, condition)},
+        {"role": "user", "content": user_prompt},
     ]
     if config.backend == "mock":
         return _mock_chat(example, style=style, condition=condition, seed=config.seed)
     if config.backend != "openai":
         raise ValueError(f"Unsupported theorem-3 real-generation backend: {config.backend}")
-    return _openai_chat(messages, style=style, config=config)
+    if config.request_format == "chat":
+        if config.prompt_protocol == "deepseek_native":
+            native_messages = [
+                {
+                    "role": "user",
+                    "content": (
+                        f"{style.system_prompt}\n\n"
+                        f"{user_prompt}\n\n"
+                        "Follow the requested answer format exactly."
+                    ),
+                }
+            ]
+            return _openai_chat(native_messages, style=style, config=config)
+        return _openai_chat(messages, style=style, config=config)
+    prompt = (
+        f"{style.system_prompt}\n\n"
+        f"{user_prompt}\n\n"
+        "Answer in the requested format.\n"
+    )
+    return _openai_completion(prompt, style=style, config=config)
 
 
 def _screen_key(example: dict[str, Any]) -> tuple[str, ...]:

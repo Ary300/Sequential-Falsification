@@ -12,9 +12,12 @@
 set -euo pipefail
 
 module load python/anaconda3/2.10.0
-DELTA_VENV=${DELTA_VENV:-/u/adas17/venvs/tts-delta}
+DELTA_USER=${DELTA_USER:-${USER}}
+DELTA_VENV=${DELTA_VENV:-/u/${DELTA_USER}/venvs/tts-delta}
 source "${DELTA_VENV}/bin/activate"
-export HF_HOME=${HF_HOME:-/work/nvme/bgvi/adas17/hf_cache}
+export HF_HOME=${HF_HOME:-/work/nvme/bgvi/${DELTA_USER}/hf_cache}
+export XDG_CACHE_HOME=${XDG_CACHE_HOME:-/work/nvme/bgvi/${DELTA_USER}/.cache}
+export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-/work/nvme/bgvi/${DELTA_USER}/.config}
 
 MODEL=${MODEL:-deepseek-ai/DeepSeek-R1-Distill-Qwen-7B}
 BACKEND=${BACKEND:-openai}
@@ -25,11 +28,13 @@ TEMPERATURE=${TEMPERATURE:-0.0}
 TOP_P=${TOP_P:-1.0}
 SEED=${SEED:-42}
 API_PORT=${API_PORT:-$((20000 + (${SLURM_JOB_ID:-0} % 20000)))}
+REQUEST_FORMAT=${REQUEST_FORMAT:-chat}
+PROMPT_PROTOCOL=${PROMPT_PROTOCOL:-generic}
 MAX_MODEL_LEN=${MAX_MODEL_LEN:-16384}
 GPU_MEMORY_UTILIZATION=${GPU_MEMORY_UTILIZATION:-0.90}
 TP_SIZE=${TP_SIZE:-1}
 OUTPUT_DIR=${OUTPUT_DIR:-results/theorem3_real_generation_r1_7b}
-DELTA_RESULTS_ROOT=${DELTA_RESULTS_ROOT:-/work/nvme/bgvi/adas17/tts_results}
+DELTA_RESULTS_ROOT=${DELTA_RESULTS_ROOT:-/work/nvme/bgvi/${DELTA_USER}/tts_results}
 WIKICONTRADICT_MAX=${WIKICONTRADICT_MAX:-200}
 CONFLICTBANK_MAX=${CONFLICTBANK_MAX:-500}
 TRIVIAQA_MAX=${TRIVIAQA_MAX:-200}
@@ -38,7 +43,8 @@ BENCHMARK_MAXIMA=${BENCHMARK_MAXIMA:-}
 CONFLICTBANK_SCREENING_POOL=${CONFLICTBANK_SCREENING_POOL:-1200}
 AMBIGUITY_LOW=${AMBIGUITY_LOW:-0.2}
 AMBIGUITY_HIGH=${AMBIGUITY_HIGH:-0.8}
-DELTA_PROJECT_ROOT=${DELTA_PROJECT_ROOT:-/u/adas17/tts-falsification}
+DELTA_PROJECT_ROOT=${DELTA_PROJECT_ROOT:-/u/${DELTA_USER}/tts-falsification-git}
+export API_PORT
 
 cd "${DELTA_PROJECT_ROOT}"
 nvidia-smi -L || true
@@ -49,6 +55,7 @@ else
   RUN_OUTPUT_DIR="${DELTA_RESULTS_ROOT%/}/${OUTPUT_DIR}"
 fi
 mkdir -p "${RUN_OUTPUT_DIR}"
+mkdir -p logs "${HF_HOME}" "${XDG_CACHE_HOME}" "${XDG_CONFIG_HOME}"
 
 ARGS=(
   --output-dir "${RUN_OUTPUT_DIR}" \
@@ -60,6 +67,8 @@ ARGS=(
   --temperature "${TEMPERATURE}" \
   --top-p "${TOP_P}" \
   --seed "${SEED}" \
+  --request-format "${REQUEST_FORMAT}" \
+  --prompt-protocol "${PROMPT_PROTOCOL}" \
   --wikicontradict-max "${WIKICONTRADICT_MAX}" \
   --conflictbank-max "${CONFLICTBANK_MAX}" \
   --triviaqa-max "${TRIVIAQA_MAX}" \
@@ -82,15 +91,24 @@ if [[ "${BACKEND}" == "openai" ]]; then
   VLLM_PID=$!
   trap 'kill ${VLLM_PID} >/dev/null 2>&1 || true' EXIT
 
+  READY=0
   for _ in $(seq 1 60); do
-    python - <<'PY' >/dev/null 2>&1 && break
+    if python - <<'PY' >/dev/null 2>&1
 from openai import OpenAI
 import os
 client = OpenAI(base_url=f"http://127.0.0.1:{os.environ['API_PORT']}/v1", api_key="none")
 client.models.list()
 PY
+    then
+      READY=1
+      break
+    fi
     sleep 5
   done
+  if [[ "${READY}" != "1" ]]; then
+    echo "vLLM readiness probe failed for API_PORT=${API_PORT}" >&2
+    exit 1
+  fi
   ARGS+=(--api-base "http://127.0.0.1:${API_PORT}/v1")
 fi
 
